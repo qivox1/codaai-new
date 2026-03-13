@@ -1,0 +1,84 @@
+---
+import { t, getTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+const translations = getTranslations(lang);
+const experts = translations.features.experts;
+
+const icons = ['📋', '📝', '🎨', '🔍', '🎬', '📢'];
+---
+
+<section id="features" class="py-24 lg:py-32 bg-muted/30">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="text-center max-w-5xl mx-auto mb-16">
+      <p class="text-sm font-medium text-primary uppercase tracking-wider mb-4">
+        {t(lang, "features.badge")}
+      </p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight">
+        {t(lang, "features.title")}
+      </h2>
+      <p class="mt-6 text-lg text-muted-foreground">
+        {t(lang, "features.subtitle")}
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {experts.map((expert: any, index: number) => (
+        <div class="group relative w-full h-[380px] rounded-2xl border border-border p-6 flex flex-col bg-card hover:border-cta/50 transition-all duration-300 cursor-pointer">
+          <div class="size-14 rounded-xl bg-muted flex items-center justify-center mb-4 text-2xl">
+            {icons[index]}
+          </div>
+          <h3 class="text-xl font-semibold text-foreground mb-2">
+            {expert.title}
+          </h3>
+          <p class="text-sm font-medium text-muted-foreground mb-3">
+            {expert.role}
+          </p>
+          <p class="text-sm text-muted-foreground leading-relaxed flex-1">
+            {expert.description}
+          </p>
+          <div class="mt-4 flex items-center gap-2 text-sm text-muted-foreground group-hover:text-cta transition-colors">
+            <span>{t(lang, "features.hoverForDetails")}</span>
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+
+          <div class="hidden group-hover:grid group-hover:absolute group-hover:inset-0 group-hover:bg-card group-hover:rounded-2xl group-hover:p-6 group-hover:flex-col place-items-start">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="text-3xl">{icons[index]}</div>
+              <h3 class="text-lg font-semibold text-foreground">
+                {expert.title}
+              </h3>
+            </div>
+
+            <p class="text-sm font-medium mb-4 text-cta">
+              {t(lang, "features.yourBenefits")}
+            </p>
+
+            <div class="space-y-3 flex-1">
+              {expert.features.map((feature: string) => (
+                <div key={feature} class="flex items-start gap-2">
+                  <svg class="size-4 mt-0.5 flex-shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                  <span class="text-sm text-foreground/90">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-border w-full">
+              <button class="w-full bg-muted/50 hover:bg-muted text-foreground rounded-xl py-2.5 text-sm font-medium transition-colors">
+                {t(lang, "features.getFreePremiumArticle")}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

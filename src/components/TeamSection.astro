@@ -1,0 +1,54 @@
+---
+import { t, getTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+const translations = getTranslations(lang);
+const members = translations.teamSection.members;
+
+const icons = ['👨‍💼', '📚', '🎨', '🔬', '🎬', '📊'];
+---
+
+<section id="team" class="py-24 lg:py-32 bg-muted/20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="text-center max-w-5xl mx-auto mb-16">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight">
+        {t(lang, "teamSection.title")}
+      </h2>
+      <p class="mt-6 text-lg text-muted-foreground">
+        {t(lang, "teamSection.subtitle")}
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+      {members.map((member: any, index: number) => (
+        <div key={member.name} class="group relative rounded-2xl border border-border p-6 bg-card hover:border-cta/50 transition-all duration-300 h-full flex flex-col">
+          <div class="text-4xl mb-4">{icons[index]}</div>
+          <h3 class="text-xl font-semibold text-foreground mb-1">
+            {member.name}
+          </h3>
+          <p class="text-sm font-medium text-cta mb-3">
+            {member.role}
+          </p>
+          <p class="text-sm text-muted-foreground leading-relaxed flex-1">
+            {member.description}
+          </p>
+
+          <div class="mt-4 space-y-2">
+            {member.features.map((feature: string) => (
+              <div key={feature} class="flex items-start gap-2">
+                <svg class="size-4 mt-0.5 flex-shrink-0 text-cta" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                </svg>
+                <span class="text-xs text-foreground/80">{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

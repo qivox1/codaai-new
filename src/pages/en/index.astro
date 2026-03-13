@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Features from '../../components/Features.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import TeamSection from '../../components/TeamSection.astro';
+import Pricing from '../../components/Pricing.astro';
+import FAQ from '../../components/FAQ.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+
+const language = 'en' as const;
+---
+
+<Layout
+  lang={language}
+  title="CodaAI – AI Content Platform for SEO, Design & Video"
+  description="Save over €100,000 per year. CodaAI handles your entire content production – SEO articles, graphics and videos. Everything from one AI platform."
+>
+  <Navbar lang={language} />
+  <main>
+    <Hero lang={language} />
+    <Features lang={language} />
+    <ProcessSteps lang={language} />
+    <TeamSection lang={language} />
+    <Pricing lang={language} />
+    <FAQ lang={language} />
+  </main>
+  <Footer lang={language} />
+</Layout>

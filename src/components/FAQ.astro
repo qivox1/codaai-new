@@ -1,0 +1,55 @@
+---
+import { t, getTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+const translations = getTranslations(lang);
+const faqs = translations.faq.items;
+---
+
+<section id="faq" class="py-24 lg:py-32 bg-muted/30">
+  <div class="mx-auto max-w-3xl px-6 lg:px-8">
+    <div class="text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight">
+        {t(lang, "faq.title")}
+      </h2>
+    </div>
+
+    <div class="mt-12 space-y-4">
+      {faqs.map((faq: any, index: number) => (
+        <details
+          key={index}
+          class="group rounded-2xl border border-border bg-background px-6 py-5 transition-all duration-300 open:shadow-sm"
+        >
+          <summary class="flex items-start gap-4 cursor-pointer list-none">
+            <span class="text-sm font-medium text-muted-foreground pt-1">
+              ({String(index + 1).padStart(2, "0")})
+            </span>
+            <span class="text-base font-medium text-foreground flex-1 text-left group-open:text-cta transition-colors">
+              {faq.question}
+            </span>
+            <svg class="size-5 text-muted-foreground group-open:text-cta group-open:rotate-180 transition-all flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="pl-12 pt-4 text-muted-foreground leading-relaxed">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    {/* Hidden semantic FAQ markup for LLM crawlers */}
+    <div class="sr-only" aria-hidden="false">
+      {faqs.map((faq: any, index: number) => (
+        <div key={`seo-${index}`}>
+          <h3>{faq.question}</h3>
+          <p>{faq.answer}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

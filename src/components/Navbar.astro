@@ -1,0 +1,70 @@
+---
+import { t } from '../i18n/utils';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const navItems = [
+  { label: t(lang, "navbar.how"), href: "#features" },
+  { label: t(lang, "navbar.team"), href: "#team" },
+  { label: t(lang, "navbar.value"), href: "#pricing" },
+  { label: t(lang, "navbar.faq"), href: "#faq" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <a href="/" class="flex items-center gap-2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="text-xl font-semibold text-foreground">CodaAI</span>
+    </a>
+
+    <div class="hidden lg:flex lg:items-center lg:gap-1">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50"
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="hidden lg:flex lg:items-center lg:gap-3">
+      <button
+        class="relative flex h-8 items-center gap-1.5 px-2.5 rounded-full border border-border hover:border-primary/50 bg-muted/50 hover:bg-muted transition-all duration-200 group"
+        aria-label="Toggle language"
+      >
+        <svg class="size-3.5 text-muted-foreground group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-foreground w-5 text-center">
+          {lang.toUpperCase()}
+        </span>
+      </button>
+      <button class="h-9 px-4 py-2 rounded-lg bg-cta text-cta-foreground font-medium text-sm hover:bg-cta/90 transition-colors">
+        {lang === 'de' ? 'Kostenlos testen' : 'Free Trial'}
+      </button>
+    </div>
+
+    <div class="lg:hidden flex items-center gap-2">
+      <button class="p-2 rounded-lg hover:bg-muted/50" aria-label="Menu">
+        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  header {
+    margin-top: 4rem;
+  }
+</style>

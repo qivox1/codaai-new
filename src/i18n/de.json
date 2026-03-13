@@ -1,0 +1,222 @@
+{
+  "navbar": {
+    "how": "Wie es funktioniert",
+    "team": "Team",
+    "value": "Mehrwert",
+    "plans": "Preise",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "headline": "Exzellenter Content.",
+    "flipWords": ["Ohne den ganzen Aufwand.", "vollautomatisiert.", "alles aus einer Hand.", "Mehr Wert."],
+    "description": "Sparen Sie über 100.000 € pro Jahr und gewinnen Sie 200+ Stunden monatlich zurück. CodaAI übernimmt Ihre gesamte Content-Produktion – von der Strategie über SEO-Texte und Grafiken bis zum fertigen Video. Alles aus einer Plattform, ohne Koordinationsaufwand.",
+    "poweredBy": "Powered by AI",
+    "users": "200+ Nutzer",
+    "loginPlaceholder": "login@ihreemail.com"
+  },
+  "features": {
+    "badge": "Sechs Experten. Eine Plattform. Null Aufwand.",
+    "title": "Ihre komplette Content-Agentur – auf Knopfdruck",
+    "subtitle": "Blogartikel, Grafiken, Videos und mehr – CodaAI produziert alles, was Ihr Marketing braucht. Automatisch und in Agenturqualität.",
+    "hoverForDetails": "Hover für Details",
+    "yourBenefits": "Ihre Vorteile:",
+    "getFreePremiumArticle": "Jetzt kostenlosen Artikel sichern",
+    "experts": [
+      {
+        "title": "Redaktionsplanung",
+        "role": "Ersetzt: Chefredakteur + Content-Stratege",
+        "description": "Sie sagen uns Ihr Ziel – wir liefern den Plan. Unsere KI analysiert Branche, Zielgruppe und Wettbewerb und erstellt Ihren Redaktionsplan.",
+        "features": ["90 % weniger Planungsaufwand", "Datengesteuerte Themenauswahl", "Automatische Redaktionspläne", "SEO-optimierte Content-Strategie"]
+      },
+      {
+        "title": "SEO-optimierte Blogartikel",
+        "role": "Ersetzt: Content Writer + SEO-Spezialist",
+        "description": "Artikel bis 4.000 Wörter, die bei Google ranken und Ihre Zielgruppe überzeugen. Zugeschnitten auf jede Phase der Kaufentscheidung.",
+        "features": ["Bis zu 4.000 Wörter Langform-Tiefe", "Auf Ihre Zielgruppe und deren Kaufphase zugeschnitten", "Google-konform & für die richtigen Suchbegriffe optimiert", "Top-10-Rankings in 8 Wochen"]
+      },
+      {
+        "title": "Bilder & Infografiken",
+        "role": "Ersetzt: Grafikdesigner + Art Director",
+        "description": "Einzigartige Grafiken statt Stockfotos. Passend zu Ihrer Marke, fertig für jeden Kanal.",
+        "features": ["1.500+ €/Monat Agenturkosten gespart", "Markenkonsistente Designs", "Unbegrenzte Iterationen", "Alle Formate & Größen"]
+      },
+      {
+        "title": "GEO-Optimierung",
+        "role": "Ersetzt: KI-Spezialist",
+        "description": "Sichtbar in ChatGPT, Perplexity und Google AI – nicht nur in klassischen Suchergebnissen. Ihre Inhalte, dort wo morgen gesucht wird.",
+        "features": ["Zukunftssicher für KI-Suche", "Automatische strukturierte Daten", "Optimiert für Position 1 bei Google", "Mehr Klicks durch auffällige Suchergebnisse"]
+      },
+      {
+        "title": "Social-Media-Videos",
+        "role": "Ersetzt: Videoproduzent + Social-Media-Manager",
+        "description": "Aus jedem Artikel werden automatisch Kurzvideos für TikTok, Reels und Shorts. Mehr Reichweite, null Mehraufwand.",
+        "features": ["10x mehr Social Engagement", "Automatisches Repurposing", "Plattform-optimierte Formate", "Trending Audio & Effekte"]
+      },
+      {
+        "title": "Content Distribution",
+        "role": "Ersetzt: Projektmanager",
+        "description": "Ihr Content wird automatisch zur besten Zeit auf allen Kanälen veröffentlicht. Sie müssen nichts mehr koordinieren.",
+        "features": ["3x mehr Touchpoints", "Optimale Veröffentlichungszeiten", "Automatische Veröffentlichung auf allen Kanälen", "Performance-Analysen"]
+      }
+    ]
+  },
+  "process": {
+    "badge": "So funktioniert's",
+    "title": "In vier Schritten zu Content, der verkauft",
+    "subtitle": "Vier Schritte. Wenige Minuten Ihrer Zeit. Den Rest erledigt CodaAI.",
+    "steps": [
+      {
+        "title": "Strategie definieren",
+        "duration": "1 Stunde",
+        "description": "Teilen Sie uns Ihre Ziele mit. CodaAI analysiert Ihre Branche und Wettbewerber und erstellt die Strategie."
+      },
+      {
+        "title": "Content-Plan freigeben",
+        "duration": "15 Minuten",
+        "description": "Sie erhalten einen fertigen Redaktionsplan. Ein Klick – und die Produktion startet."
+      },
+      {
+        "title": "Empfangen & Verteilen",
+        "duration": "Automatisiert",
+        "description": "CodaAI liefert fertige Artikel, Videos und Grafiken – publikationsfertig und qualitätsgesichert für maximale Wirkung."
+      },
+      {
+        "title": "Strategie optimieren",
+        "duration": "Fortlaufend",
+        "description": "Nutzen Sie die gewonnene Zeit und die Daten, um Ihre Strategie laufend zu verbessern."
+      }
+    ]
+  },
+  "teamSection": {
+    "title": "Sechs Experten. Eine Plattform. Null Aufwand.",
+    "subtitle": "Lernen Sie die sechs KI-Spezialisten kennen, die Ihre gesamte Content-Agentur ersetzen. Jeder ein Meister seines Fachs – zusammen unschlagbar.",
+    "members": [
+      {
+        "name": "Pascal Planner",
+        "role": "Chief Content Strategist",
+        "description": "Analysiert Ihren Markt und Wettbewerb und entwickelt die Content-Strategie, die zu Ihren Zielen passt.",
+        "features": ["Komplette Content-Strategie", "Markt- & Wettbewerbsanalyse", "Themenplanung", "Redaktionskalenderplanung"]
+      },
+      {
+        "name": "Timo Text",
+        "role": "SEO- & Sprachvirtuose",
+        "description": "Schreibt SEO-optimierte Premium-Blogartikel, die bei Google ranken und Ihre Zielgruppen überzeugen.",
+        "features": ["SEO-optimierte Artikel", "Strategische Keyword-Platzierung", "Fesselndes Storytelling", "Für Menschen geschrieben, für Algorithmen optimiert"]
+      },
+      {
+        "name": "Viola Visio",
+        "role": "Art Director & Visual Futurist",
+        "description": "Erstellt einzigartige Grafiken und Infografiken, die Ihre Marke stärken.",
+        "features": ["Beeindruckende Infografiken", "Markengerechte Visuals", "Emotionale Designsprache", "Grafiken für alle Kanäle"]
+      },
+      {
+        "name": "Florian Finder",
+        "role": "KI- & GEO-Spezialist",
+        "description": "Optimiert Ihre Inhalte für ChatGPT, Perplexity und die KI-Suche von morgen.",
+        "features": ["Generative Engine Optimization", "KI-Suchbereitschaft", "Zukunftssicheres SEO", "Sichtbarkeit in KI-Suchmaschinen"]
+      },
+      {
+        "name": "Sina Spark",
+        "role": "Virale Videoproduzentin",
+        "description": "Verwandelt Ihre Artikel in kurze, virale Videos für Social Media.",
+        "features": ["TikTok & Instagram Reels", "Facebook Stories", "YouTube Shorts", "LinkedIn Videoinhalte"]
+      },
+      {
+        "name": "Sophie Sync",
+        "role": "Distributions-Koordinatorin",
+        "description": "Koordiniert die Veröffentlichung Ihres Contents auf Webseite, Social Media und weiteren Kanälen – für maximale Reichweite zur optimalen Zeit.",
+        "features": ["Koordination über alle Kanäle", "Perfekte Timing-Strategie", "Plattformübergreifende Synchronisation", "Reichweitenoptimierung"]
+      }
+    ]
+  },
+  "faq": {
+    "title": "Fragen & Antworten",
+    "items": [
+      {
+        "question": "Wie ersetzt CodaAI eine Content-Agentur?",
+        "answer": "Sie geben Ihre Website-URL ein. CodaAI übernimmt den Rest: Strategie, Texte, Grafiken, Videos und Veröffentlichung – alles aus einer Plattform."
+      },
+      {
+        "question": "Was bedeutet 'Orchestrierung durch sechs KI-Experten'?",
+        "answer": "Sechs spezialisierte KI-Module arbeiten zusammen: Strategie, Text, Design, SEO, Video und Distribution. CodaAI koordiniert sie automatisch – wie ein Dirigent sein Orchester."
+      },
+      {
+        "question": "Wie viel kann ich tatsächlich sparen?",
+        "answer": "Bis zu 87 % gegenüber Agenturpreisen. Ein komplettes Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 549 €."
+      },
+      {
+        "question": "Wie funktioniert es? Was brauche ich zum Starten?",
+        "answer": "Geben Sie einfach Ihre Website-URL an. CodaAI analysiert Ihre Marke, Branche und Zielgruppe und erstellt dann einen kompletten Redaktionsplan, SEO-optimierte Artikel, professionelle Grafiken, Videos und eine Publikationsstrategie. Keine langen Briefings, keine Koordinationsmeetings."
+      },
+      {
+        "question": "Was unterscheidet CodaAI von anderen KI-Schreibtools?",
+        "answer": "Andere KI-Tools schreiben Texte oder generieren Bilder. CodaAI ersetzt Ihre gesamte Content-Agentur: Planung, Produktion, Optimierung und Veröffentlichung – alles in einem."
+      },
+      {
+        "question": "Ist CodaAI für meine Branche geeignet?",
+        "answer": "Ja. CodaAI passt sich an jede Branche an – von Tech-Startups bis zu traditionellen Unternehmen. Die KI lernt Ihre Fachsprache und Ihren Ton."
+      },
+      {
+        "question": "Welche Vertragslaufzeiten gibt es?",
+        "answer": "Maximale Flexibilität: CodaAI wird monatlich abgerechnet. Es gibt keine Mindestvertragslaufzeit und keine Kündigungsfrist – Sie können jederzeit zum Ende des laufenden Monats kündigen."
+      },
+      {
+        "question": "Kann ich meinen Plan oder mein Artikelvolumen ändern?",
+        "answer": "Absolut! Sie können Ihr Artikelvolumen jederzeit nach oben oder unten anpassen. Änderungen werden im nächsten Abrechnungszeitraum wirksam. Ob Sie 4 oder 12 Artikel pro Monat benötigen – skalieren Sie Ihre Content-Produktion nach Ihren Geschäftsanforderungen."
+      },
+      {
+        "question": "Was passiert nach der Kündigung?",
+        "answer": "Wenn Sie kündigen, endet Ihr Abonnement am Ende des aktuellen Abrechnungszeitraums. Sie behalten die vollen Rechte an allen während Ihres Abonnements erstellten Inhalten. Es gibt keine versteckten Gebühren, keine Kündigungsgebühren und keine langfristigen Verpflichtungen."
+      }
+    ]
+  },
+  "pricing": {
+    "badge": "So viel zahlen Sie heute für Content",
+    "title": "Was traditionelle Agenturen berechnen",
+    "totalLabel": "Gesamte Agenturkosten pro Artikel",
+    "totalCost": "~4.200 €",
+    "totalHours": "/ 36,5 Stunden",
+    "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
+    "withCodaAI": "Mit CodaAI",
+    "codaAIPrice": "ab 549 €",
+    "codaAIPer": "statt ~4.200 €. >85 % günstiger.",
+    "freeTrial": "Kostenlos testen",
+    "costBreakdown": [
+      {
+        "area": "SEO-Blogartikel",
+        "hours": "20 Std.",
+        "cost": "2.000 €",
+        "description": "Bis zu 4.000 Wörter Langform-Content – auf Ihre Zielgruppe und deren Kaufphase zugeschnitten, mit Keyword-Recherche & Verlinkungsstrategie."
+      },
+      {
+        "area": "Bilder & Infografiken",
+        "hours": "4,5 Std.",
+        "cost": "450 €",
+        "description": "3 individuelle Grafiken pro Artikel: Featured Image, In-Content-Visual und Social-Media-Variante. Markenkonformes Design."
+      },
+      {
+        "area": "Content Promotion",
+        "hours": "12 Std.",
+        "cost": "1.200 €",
+        "description": "2 Kurzvideos (TikTok/Reels-Format), Social-Media-Texte für 5 Plattformen und Distributionsplanung."
+      },
+      {
+        "area": "Planung & Koordination",
+        "hours": "+15 %",
+        "cost": "~548 €",
+        "description": "Redaktionskalender-Management, Briefings, Feedbackrunden und Projektmanagement."
+      }
+    ]
+  },
+  "footer": {
+    "tagline1": "Premium Content.",
+    "tagline2": "Mehr Wert.",
+    "compliance": "Entwickelt für EU-Konformität.",
+    "legal": "Rechtliches",
+    "legalNotice": "Impressum",
+    "privacyPolicy": "Datenschutz",
+    "termsConditions": "AGB",
+    "allRightsReserved": "Alle Rechte vorbehalten.",
+    "madeIn": "Made with {heart} in Germany"
+  }
+}

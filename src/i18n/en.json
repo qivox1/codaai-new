@@ -1,0 +1,222 @@
+{
+  "navbar": {
+    "how": "How it works",
+    "team": "Team",
+    "value": "Benefits",
+    "plans": "Pricing",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "headline": "Premium content.",
+    "flipWords": ["simplified.", "orchestrated.", "all-in-one.", "better value."],
+    "description": "Save over €100,000 per year and reclaim 200+ hours monthly. CodaAI handles your entire content production – from strategy and SEO articles to graphics and finished videos. Everything from one platform, without coordination overhead.",
+    "poweredBy": "Powered by AI",
+    "users": "200+ User",
+    "loginPlaceholder": "login@youremail.com"
+  },
+  "features": {
+    "badge": "Six Experts. One Platform. Zero Overhead.",
+    "title": "Your complete content agency – in one AI",
+    "subtitle": "CodaAI elevates your entire content production to a new level: from editorial planning to SEO articles, from professional graphics to viral videos.",
+    "hoverForDetails": "Hover for details",
+    "yourBenefits": "Your Benefits:",
+    "getFreePremiumArticle": "Get your free Premium Blog Article",
+    "experts": [
+      {
+        "title": "Editorial Planning",
+        "role": "Replaces: Chief Editor + Content Strategist",
+        "description": "Strategic content planning based on your business goals. Our AI editor analyzes your industry, target audience, and competitors.",
+        "features": ["90% less planning effort", "Data-driven topic selection", "Automatic editorial calendars", "SEO-optimized content strategy"]
+      },
+      {
+        "title": "SEO Optimized Blog Articles",
+        "role": "Replaces: Content Writer + SEO Specialist",
+        "description": "Long-form articles up to 4,000 words – crafted around your buyer personas and tailored to every stage of the customer journey. Rank higher, resonate deeper.",
+        "features": ["Up to 4,000 words of long-form depth", "Persona-driven & journey-mapped", "E-E-A-T & keyword optimized", "Top-10 rankings in 8 weeks"]
+      },
+      {
+        "title": "Images & Infographics",
+        "role": "Replaces: Graphic Designer + Art Director",
+        "description": "Professional visuals that strengthen your brand. No more stock photos – unique graphics for every channel.",
+        "features": ["€1,500+/month agency costs saved", "Brand-consistent designs", "Unlimited iterations", "All formats & sizes"]
+      },
+      {
+        "title": "GEO Optimization",
+        "role": "Replaces: AI Specialist",
+        "description": "Optimized for tomorrow's AI search. Your content appears in ChatGPT, Perplexity, and Google SGE – not just in classic search results.",
+        "features": ["Future-proof for AI Search", "Automatic structured data", "Featured snippet optimization", "Higher CTR through rich results"]
+      },
+      {
+        "title": "Social Media Videos",
+        "role": "Replaces: Video Producer + Social Media Manager",
+        "description": "Viral short videos from your articles – automatically. Maximize your reach without additional effort.",
+        "features": ["10x more social engagement", "Automatic repurposing", "Platform-optimized formats", "Trending audio & effects"]
+      },
+      {
+        "title": "Content Distribution",
+        "role": "Replaces: Project Manager",
+        "description": "The right content, at the right time, on the right channel. Automated multi-channel publishing with perfect timing.",
+        "features": ["3x more touchpoints", "Optimal posting times", "Cross-platform scheduling", "Performance analytics"]
+      }
+    ]
+  },
+  "process": {
+    "badge": "How It Works",
+    "title": "Your Path to Scaled Content Excellence",
+    "subtitle": "From strategy to distribution in just four simple steps. Spend minutes, not months – and let AI handle the heavy lifting.",
+    "steps": [
+      {
+        "title": "Define Strategy",
+        "duration": "1 Hour",
+        "description": "We analyze your goals, target audiences, and competitors in your target markets. You define the strategic direction, our AI handles the detailed planning."
+      },
+      {
+        "title": "Approve Content Plan",
+        "duration": "15 Minutes",
+        "description": "You receive a data-driven editorial plan for all channels and markets. With one click, you release production for the upcoming months."
+      },
+      {
+        "title": "Receive & Distribute",
+        "duration": "Automated",
+        "description": "CodaAI delivers finished blog articles, videos, and graphics – publication-ready and quality-assured for maximum impact."
+      },
+      {
+        "title": "Optimize Strategy",
+        "duration": "Ongoing",
+        "description": "Use the data gained and your team's freed-up time to continuously improve your international marketing strategy."
+      }
+    ]
+  },
+  "teamSection": {
+    "title": "Six Experts. One Platform. Zero Overhead.",
+    "subtitle": "Get to know the six AI specialists that replace your entire content agency. Each a master of their craft – together unbeatable.",
+    "members": [
+      {
+        "name": "Pascal Planner",
+        "role": "Chief Content Strategist",
+        "description": "A visionary thinker who sees the big picture. Analyzes your market and competition to develop strategies that set trends.",
+        "features": ["Complete content strategy", "Market & competitor analysis", "Topic universe mapping", "Editorial calendar planning"]
+      },
+      {
+        "name": "Timo Text",
+        "role": "SEO & Language Virtuoso",
+        "description": "Writes SEO-optimized premium blog articles that rank on Google and convince your target audiences.",
+        "features": ["SEO-optimized articles", "Strategic keyword placement", "Engaging storytelling", "Human-first, algorithm-ready"]
+      },
+      {
+        "name": "Viola Visio",
+        "role": "Art Director & Visual Futurist",
+        "description": "An artist who transforms data and ideas into visual masterpieces. Designs that make your content unforgettable.",
+        "features": ["Stunning infographics", "Brand-aligned visuals", "Emotional design language", "Cross-platform graphics"]
+      },
+      {
+        "name": "Florian Finder",
+        "role": "AI & GEO Specialist",
+        "description": "An innovator shaping the future of search. Optimizes content for the next generation of AI-driven search engines.",
+        "features": ["Generative Engine Optimization", "AI search readiness", "Future-proof SEO", "Answer engine visibility"]
+      },
+      {
+        "name": "Sina Spark",
+        "role": "Viral Video Producer",
+        "description": "A trendsetter who knows what the world wants to see. Transforms articles into short, captivating viral videos.",
+        "features": ["TikTok & Instagram Reels", "Facebook Stories", "YouTube Shorts", "LinkedIn video content"]
+      },
+      {
+        "name": "Sophie Sync",
+        "role": "Distribution Coordinator",
+        "description": "Coordinates the publication of your content across website, social media, and other channels – for maximum reach at the optimal time.",
+        "features": ["Cross-channel coordination", "Perfect timing strategy", "Cross-platform sync", "Audience reach optimization"]
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions & Answers",
+    "items": [
+      {
+        "question": "How does CodaAI replace a content agency?",
+        "answer": "CodaAI combines six AI experts in one platform: editorial planning, content writing, graphic design, SEO optimization, video production, and social media management. You provide your URL, and we deliver a complete content strategy with articles, visuals, and distribution plan."
+      },
+      {
+        "question": "What does 'orchestration by six AI experts' mean?",
+        "answer": "Like a conductor leading an orchestra, CodaAI coordinates six specialized AI modules that work together seamlessly: Strategy & Planning, Content Writing, Visual Design, SEO & GEO, Video Production, and Distribution. Each 'expert' handles their specialty while CodaAI ensures perfect harmony."
+      },
+      {
+        "question": "How much can I actually save?",
+        "answer": "Traditional content agencies charge €2,000+ per blog article, plus costs for images, videos, and coordination. With CodaAI, you can save up to 90% compared to agency costs. Check our pricing section to see how much you can save based on your content volume."
+      },
+      {
+        "question": "How does it work? What do I need to get started?",
+        "answer": "Simply provide your website URL. CodaAI analyzes your brand, industry, and target audience, then generates a complete editorial plan, SEO-optimized articles, professional graphics, videos, and a publication strategy. No lengthy briefings, no coordination meetings."
+      },
+      {
+        "question": "What makes CodaAI different from other AI writing tools?",
+        "answer": "Most AI tools focus on single tasks like writing or image generation. CodaAI is a complete content marketing platform – we don't just create content, we plan, produce, optimize, and distribute. We're the agency you don't need anymore."
+      },
+      {
+        "question": "Is CodaAI suitable for my industry?",
+        "answer": "CodaAI works for any B2B or B2C business that needs content marketing. Our AI adapts to your industry's terminology, tone, and audience expectations. From tech startups to traditional enterprises – we speak your language."
+      },
+      {
+        "question": "What contract terms are available?",
+        "answer": "Maximum flexibility: CodaAI is billed monthly. There is no minimum contract period and no notice period – you can cancel at the end of any month."
+      },
+      {
+        "question": "Can I change my plan or article volume?",
+        "answer": "Absolutely! You can adjust your article volume up or down at any time. Changes take effect in the next billing period. Whether you need 4 articles or 12 per month – scale your content production to match your business needs."
+      },
+      {
+        "question": "What happens after I cancel?",
+        "answer": "If you cancel, your subscription ends at the close of your current billing period. You retain full rights to all content created during your subscription. There are no hidden fees, no cancellation charges, and no long-term commitments."
+      }
+    ]
+  },
+  "pricing": {
+    "badge": "The Real Cost of Content",
+    "title": "What traditional agencies charge",
+    "totalLabel": "Total Agency Cost Per Article",
+    "totalCost": "~€4,200",
+    "totalHours": "/ 36.5 hours",
+    "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
+    "withCodaAI": "With CodaAI",
+    "codaAIPrice": "from €549",
+    "codaAIPer": "instead of ~€4,200. >85% cheaper.",
+    "freeTrial": "Free Trial",
+    "costBreakdown": [
+      {
+        "area": "SEO Blog Article",
+        "hours": "20h",
+        "cost": "€2,000",
+        "description": "Up to 4,000 words of long-form content – persona-driven, journey-mapped, with keyword research & linking strategy."
+      },
+      {
+        "area": "Images & Infographics",
+        "hours": "4.5h",
+        "cost": "€450",
+        "description": "3 custom graphics per article: featured image, in-content visual, and social media variant. Brand-aligned design."
+      },
+      {
+        "area": "Content Promotion",
+        "hours": "12h",
+        "cost": "€1,200",
+        "description": "2 short-form videos (TikTok/Reels format), social media copy for 5 platforms, and distribution scheduling."
+      },
+      {
+        "area": "Planning & Coordination",
+        "hours": "+15%",
+        "cost": "~€548",
+        "description": "Editorial calendar management, briefings, feedback rounds, and project management overhead."
+      }
+    ]
+  },
+  "footer": {
+    "tagline1": "Premium Content.",
+    "tagline2": "Better Value.",
+    "compliance": "Built for EU compliance.",
+    "legal": "Legal",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions",
+    "allRightsReserved": "All rights reserved.",
+    "madeIn": "Made with {heart} in Germany"
+  }
+}
