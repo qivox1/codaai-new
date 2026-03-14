@@ -881,7 +881,7 @@ export default function ContentRequestForm({
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="btn-cta px-6 py-2.5 text-sm"
+        className="btn-cta h-8 px-4 py-0 text-sm"
       >
         {triggerLabel || de.freeTrial}
       </button>
