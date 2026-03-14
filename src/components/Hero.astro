@@ -1,5 +1,6 @@
 ---
 import { t } from '../i18n/utils';
+import ContentRequestForm from './react/ContentRequestForm';
 
 interface Props {
   lang: 'de' | 'en';
@@ -55,20 +56,7 @@ const avatars = [
 
       <div class="lg:max-w-md lg:ml-auto lg:mt-[140px] animate-fade-in">
         <div class="relative w-full">
-          <input
-            type="email"
-            placeholder={t(lang, "hero.loginPlaceholder")}
-            class="h-11 w-full rounded-lg pr-12 px-4 border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-cta"
-          />
-          <button
-            type="submit"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-cta hover:text-cta/80 transition-colors"
-            aria-label="Login"
-          >
-            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </button>
+          <ContentRequestForm lang={lang} triggerType="email-input" client:load />
         </div>
 
         <div class="mt-6 flex flex-wrap items-center gap-6">

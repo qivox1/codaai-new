@@ -1,5 +1,6 @@
 ---
 import { t } from '../i18n/utils';
+import ContentRequestForm from './react/ContentRequestForm';
 
 interface Props {
   lang: 'de' | 'en';
@@ -48,9 +49,7 @@ const navItems = [
           {lang.toUpperCase()}
         </span>
       </button>
-      <button class="h-9 px-4 py-2 rounded-lg bg-cta text-cta-foreground font-medium text-sm hover:bg-cta/90 transition-colors">
-        {lang === 'de' ? 'Kostenlos testen' : 'Free Trial'}
-      </button>
+      <ContentRequestForm lang={lang} client:load />
     </div>
 
     <div class="lg:hidden flex items-center gap-2">
