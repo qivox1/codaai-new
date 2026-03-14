@@ -22,6 +22,41 @@ const canonicalUrl = `${SITE_ORIGIN}${Astro.url.pathname}`;
 const pathNoBase = Astro.url.pathname.replace('/codaai-new', '').replace(/^\/en\//, '/').replace(/\/$/, '') || '/';
 const deUrl = pathNoBase === '/' ? `${BASE}/` : `${BASE}${pathNoBase}/`;
 const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
+
+/*
+ * Content Security Policy
+ *
+ * Delivered via <meta http-equiv> — the only option on GitHub Pages (no server config).
+ * Note: `frame-ancestors` and HSTS are HTTP-header-only directives and cannot be set via meta.
+ * Clickjacking is handled via JS frame-busting below as a defence-in-depth measure.
+ *
+ * Supabase endpoint: https://svqpkltbqpsldvfwmsbd.supabase.co
+ * Fonts: fully self-hosted via @fontsource-variable/inter — no external font requests.
+ */
+const csp = [
+  "default-src 'self'",
+  // Astro generates inline <script> blocks (theme init, mobile menu) → unsafe-inline required
+  // strict-dynamic is not viable with static generation (no per-request nonces)
+  "script-src 'self' 'unsafe-inline'",
+  // Tailwind/Radix inline styles + React inline style props
+  "style-src 'self' 'unsafe-inline'",
+  // Fonts are self-hosted — no external font CDN needed
+  "font-src 'self'",
+  // Local images + data: URIs (inline SVG placeholders)
+  "img-src 'self' data: blob:",
+  // Supabase Edge Function for contact form
+  "connect-src 'self' https://svqpkltbqpsldvfwmsbd.supabase.co",
+  // No iframes, objects or plugins
+  "frame-src 'none'",
+  "object-src 'none'",
+  "media-src 'none'",
+  // Prevent base-tag hijacking
+  "base-uri 'self'",
+  // Only allow form submissions to own origin and Supabase
+  "form-action 'self' https://svqpkltbqpsldvfwmsbd.supabase.co",
+  // Upgrade any accidental http:// sub-resource requests
+  "upgrade-insecure-requests",
+].join('; ');
 ---
 
 <!doctype html>
@@ -29,6 +64,23 @@ const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/*
+      ── Security Headers (via meta) ─────────────────────────────────────────────
+      HSTS cannot be set via meta tag — GitHub Pages enforces HTTPS by default,
+      but to get the Strict-Transport-Security header you'd need a CDN/proxy like
+      Cloudflare in front of the origin (set: Strict-Transport-Security:
+      max-age=31536000; includeSubDomains; preload).
+
+      X-Frame-Options is also header-only, but CSP frame-ancestors (below) is
+      the modern equivalent. Since frame-ancestors is ignored in <meta> CSP,
+      we use JS frame-busting as defence-in-depth (see <body>).
+    */}
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -43,29 +95,24 @@ const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
     <link rel="alternate" hreflang="de" href={deUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={deUrl} />
-    {/* Non-blocking Google Fonts — avoids render-blocking penalty */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      as="style"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    </noscript>
-    {/* Critical font fallback — ensures text is visible immediately */}
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    </style>
+    {/* Fonts are now self-hosted — no Google Fonts DNS lookup or external request */}
   </head>
   <body>
+    {/*
+      ── Clickjacking Defence (JS frame-busting) ─────────────────────────────────
+      X-Frame-Options and CSP frame-ancestors require HTTP headers which GitHub
+      Pages does not allow. This script runs synchronously before the DOM renders,
+      immediately redirecting the top-level window if the page is framed.
+    */}
+    <script is:inline>
+      (function () {
+        if (window.self !== window.top) {
+          // Break out of any frame/iframe
+          window.top.location.replace(window.self.location.href);
+        }
+      })();
+    </script>
+
     <a href="#main-content" class="skip-to-content">
       {lang === 'en' ? 'Skip to main content' : 'Zum Hauptinhalt springen'}
     </a>
