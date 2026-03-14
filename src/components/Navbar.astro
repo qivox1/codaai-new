@@ -8,17 +8,19 @@ interface Props {
 
 const { lang } = Astro.props;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const navItems = [
   { label: t(lang, "navbar.how"), href: "#features" },
   { label: t(lang, "navbar.team"), href: "#team" },
-  { label: t(lang, "navbar.value"), href: "#pricing" },
+  { label: lang === 'de' ? 'Preise' : 'Pricing', href: `${base}/preise` },
   { label: t(lang, "navbar.faq"), href: "#faq" },
 ];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-    <a href="/" class="flex items-center gap-2">
+    <a href={`${base}/`} class="flex items-center gap-2">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -62,8 +64,3 @@ const navItems = [
   </nav>
 </header>
 
-<style>
-  header {
-    margin-top: 4rem;
-  }
-</style>
