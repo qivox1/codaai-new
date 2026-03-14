@@ -7,83 +7,68 @@ import Footer from '../../components/Footer.astro';
 <Layout
   lang="en"
   title="Legal Notice – CodaAI"
-  description="Rechtliche Angaben und Kontaktinformationen der CodaAI GmbH."
+  description="Legal information and contact details for CodaAI, a brand of AMP Beratung."
 >
   <Navbar lang="en" />
-  <main class="pt-24 lg:pt-28">
+  <main class="pt-24 lg:pt-28" id="main-content">
     <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-      {/* Page Title */}
-      <h1 class="text-4xl font-bold text-foreground mb-2">Impressum</h1>
+      <h1 class="text-4xl font-bold text-foreground mb-2">Legal Notice</h1>
       <p class="text-muted-foreground mb-12">
-        Angaben gemäß § 5 DDG
+        Information pursuant to § 5 DDG (German Digital Services Act)
       </p>
 
-      {/* Content Sections */}
       <div class="space-y-10">
-        {/* Provider */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Anbieter
+            Service Provider
           </h2>
           <div class="text-muted-foreground space-y-1">
-            <p class="font-medium text-foreground">
-              CodaAI - eine Marke der AMP Beratung
-            </p>
-            <p>Inhaberin: Anja Miebach</p>
+            <p class="font-medium text-foreground">CodaAI – a brand of AMP Beratung</p>
+            <p>Owner: Anja Miebach</p>
             <p>Langer Weg 7b</p>
             <p>33332 Gütersloh</p>
-            <p>Deutschland</p>
+            <p>Germany</p>
           </div>
         </section>
 
-        {/* Contact */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Kontakt
+            Contact
           </h2>
           <div class="text-muted-foreground space-y-1">
-            <p>Telefon: +49 (0) 151 53 40 69 69</p>
+            <p>Phone: +49 (0) 151 53 40 69 69</p>
             <p>
-              E-Mail:{' '}
-              <a
-                href="mailto:hi@codaai.ai"
-                class="text-cta hover:underline"
-              >
-                hi@codaai.ai
-              </a>
+              E-mail: <a href="mailto:hi@codaai.ai" class="text-cta hover:underline">hi@codaai.ai</a>
             </p>
           </div>
         </section>
 
-        {/* VAT ID */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Umsatzsteuer-ID
+            VAT Identification Number
           </h2>
           <p class="text-muted-foreground">
-            Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE275655431
+            VAT identification number pursuant to § 27a of the German Value Added Tax Act (UStG): DE275655431
           </p>
         </section>
 
-        {/* Responsible for content */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Redaktionell verantwortlich
+            Editorially Responsible
           </h2>
           <div class="text-muted-foreground space-y-1">
             <p>Anja Miebach</p>
             <p>Langer Weg 7b</p>
-            <p>33332 Gütersloh</p>
+            <p>33332 Gütersloh, Germany</p>
           </div>
         </section>
 
-        {/* EU Dispute Resolution */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            EU-Streitschlichtung
+            EU Dispute Resolution
           </h2>
           <p class="text-muted-foreground">
-            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
+            The European Commission provides a platform for online dispute resolution (ODR):&nbsp;
             <a
               href="https://ec.europa.eu/consumers/odr/"
               target="_blank"
@@ -91,40 +76,33 @@ import Footer from '../../components/Footer.astro';
               class="text-cta hover:underline"
             >
               https://ec.europa.eu/consumers/odr/
-            </a>
-            . Unsere E-Mail-Adresse finden Sie oben im Impressum.
+            </a>. Our e-mail address can be found above.
           </p>
         </section>
 
-        {/* Consumer Dispute Resolution */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Verbraucherstreitbeilegung / Universalschlichtungsstelle
+            Consumer Dispute Resolution
           </h2>
           <p class="text-muted-foreground">
-            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+            We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.
           </p>
         </section>
 
-        {/* Professional Liability Insurance */}
         <section>
           <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">
-            Angaben zur Berufshaftpflichtversicherung
+            Professional Liability Insurance
           </h2>
           <div class="text-muted-foreground space-y-4">
             <div>
-              <p class="font-medium text-foreground mb-1">
-                Name und Sitz des Versicherers:
-              </p>
+              <p class="font-medium text-foreground mb-1">Name and registered office of the insurer:</p>
               <p>Allianz Versicherungs-AG</p>
               <p>Königinstraße 28</p>
-              <p>80802 München</p>
+              <p>80802 Munich, Germany</p>
             </div>
             <div>
-              <p class="font-medium text-foreground mb-1">
-                Geltungsraum der Versicherung:
-              </p>
-              <p>Deutschland</p>
+              <p class="font-medium text-foreground mb-1">Territorial scope of insurance:</p>
+              <p>Germany</p>
             </div>
           </div>
         </section>

@@ -8,14 +8,76 @@ import Pricing from '../../components/Pricing.astro';
 import FAQ from '../../components/FAQ.astro';
 import Footer from '../../components/Footer.astro';
 import Navbar from '../../components/Navbar.astro';
+import { getTranslations } from '../../i18n/utils';
 
 const language = 'en' as const;
+const tr = getTranslations(language);
+
+const SITE_URL = 'https://qivox1.github.io/codaai-new';
+
+const softwareSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'CodaAI',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'Content Marketing Platform',
+  operatingSystem: 'Web',
+  url: `${SITE_URL}/en/`,
+  description: 'AI-powered content platform that handles your entire content production – SEO articles, graphics and videos. Up to 87% cheaper than a traditional content agency.',
+  inLanguage: ['en', 'de'],
+  offers: {
+    '@type': 'Offer',
+    price: '549',
+    priceCurrency: 'EUR',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '549',
+      priceCurrency: 'EUR',
+      unitText: 'MONTH',
+    },
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    ratingCount: '200',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  featureList: [
+    'AI-powered editorial planning',
+    'SEO-optimised blog articles up to 4,000 words',
+    'AI-generated graphics and infographics',
+    'GEO optimisation for AI search engines',
+    'Automatic social media videos',
+    'Multi-channel content distribution',
+  ],
+  screenshot: `${SITE_URL}/images/og-image.png`,
+  provider: {
+    '@type': 'Organization',
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+  },
+});
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: tr.faq.items.map((item: { question: string; answer: string }) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
 ---
 
 <Layout
   lang={language}
   title="CodaAI – AI Content Platform for SEO, Design & Video"
   description="Save over €100,000 per year. CodaAI handles your entire content production – SEO articles, graphics and videos. Everything from one AI platform."
+  jsonLd={[softwareSchema, faqSchema]}
 >
   <Navbar lang={language} />
   <main id="main-content">

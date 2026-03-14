@@ -5,13 +5,72 @@ interface Props {
   title?: string;
   description?: string;
   lang?: 'de' | 'en';
+  /** Optional additional JSON-LD scripts (pass as serialised JSON string) */
+  jsonLd?: string[];
 }
 
 const {
   title = 'CodaAI',
   description = 'AI Content Platform',
   lang = 'de',
+  jsonLd = [],
 } = Astro.props;
+
+// ── Base structured data (present on every page) ──────────────────────────────
+const SITE_URL = 'https://qivox1.github.io/codaai-new';
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'CodaAI',
+  alternateName: 'CodaAI – KI Content-Plattform',
+  url: `${SITE_URL}/`,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE_URL}/favicon.svg`,
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'hi@codaai.ai',
+    telephone: '+49-151-53406969',
+    contactType: 'customer service',
+    availableLanguage: ['German', 'English'],
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Anja Miebach',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Langer Weg 7b',
+    addressLocality: 'Gütersloh',
+    postalCode: '33332',
+    addressCountry: 'DE',
+  },
+  sameAs: [],
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'CodaAI',
+  url: `${SITE_URL}/`,
+  inLanguage: [lang === 'en' ? 'en' : 'de', lang === 'en' ? 'de' : 'en'],
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const baseSchemas = [
+  JSON.stringify(organizationSchema),
+  JSON.stringify(webSiteSchema),
+  ...jsonLd,
+];
 
 const SITE_ORIGIN = 'https://qivox1.github.io';
 const BASE = `${SITE_ORIGIN}/codaai-new`;
@@ -96,6 +155,11 @@ const csp = [
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={deUrl} />
     {/* Fonts are now self-hosted — no Google Fonts DNS lookup or external request */}
+
+    {/* ── JSON-LD Structured Data ───────────────────────────────────────────── */}
+    {baseSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={schema} />
+    ))}
   </head>
   <body>
     {/*

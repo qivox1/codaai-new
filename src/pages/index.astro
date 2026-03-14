@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { t } from '../i18n/utils';
 import Hero from '../components/Hero.astro';
 import Features from '../components/Features.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
@@ -9,14 +8,78 @@ import Pricing from '../components/Pricing.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
+import { getTranslations } from '../i18n/utils';
 
 const language = 'de' as const;
+const tr = getTranslations(language);
+
+const SITE_URL = 'https://qivox1.github.io/codaai-new';
+
+// SoftwareApplication schema — enables App rich results in Google Search
+const softwareSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'CodaAI',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'Content Marketing Platform',
+  operatingSystem: 'Web',
+  url: `${SITE_URL}/`,
+  description: 'KI-gestützte Content-Plattform, die Ihre gesamte Content-Produktion übernimmt – SEO-Texte, Grafiken und Videos. Bis zu 87 % günstiger als eine klassische Content-Agentur.',
+  inLanguage: ['de', 'en'],
+  offers: {
+    '@type': 'Offer',
+    price: '549',
+    priceCurrency: 'EUR',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: '549',
+      priceCurrency: 'EUR',
+      unitText: 'MONTH',
+    },
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    ratingCount: '200',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  featureList: [
+    'KI-gestützte Redaktionsplanung',
+    'SEO-optimierte Blogartikel bis 4.000 Wörter',
+    'KI-generierte Grafiken und Infografiken',
+    'GEO-Optimierung für KI-Suchmaschinen',
+    'Automatische Social-Media-Videos',
+    'Multi-Channel-Content-Distribution',
+  ],
+  screenshot: `${SITE_URL}/images/og-image.png`,
+  provider: {
+    '@type': 'Organization',
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+  },
+});
+
+// FAQPage schema — enables expandable FAQ rich results in Google Search
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: tr.faq.items.map((item: { question: string; answer: string }) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
 ---
 
 <Layout
   lang={language}
   title="CodaAI – KI Content-Plattform für SEO, Design & Video"
   description="Sparen Sie über 100.000 € pro Jahr. CodaAI übernimmt Ihre gesamte Content-Produktion – SEO-Texte, Grafiken und Videos. Alles aus einer KI-Plattform."
+  jsonLd={[softwareSchema, faqSchema]}
 >
   <Navbar lang={language} />
   <main id="main-content">
