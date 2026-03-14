@@ -9,10 +9,20 @@ const { lang } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+// Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
 const complianceBadges = [
-  { label: "GDPR / DSGVO", icon: "🛡️" },
-  { label: lang === 'de' ? "In Deutschland gehostet" : "Hosted in Germany", icon: "🖥️" },
-  { label: "EU AI Act", icon: "⚖️" },
+  {
+    label: "GDPR / DSGVO",
+    svg: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.46 20.846a12 12 0 0 1 -7.46 -10.846v-4l8 -3l8 3v4a12 12 0 0 1 -7.46 10.846"/><path d="M9 12l2 2l4 -4"/>`,
+  },
+  {
+    label: lang === 'de' ? "In Deutschland gehostet" : "Hosted in Germany",
+    svg: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="4" width="18" height="8" rx="3"/><rect x="3" y="12" width="18" height="8" rx="3"/><line x1="7" y1="8" x2="7.01" y2="8"/><line x1="7" y1="16" x2="7.01" y2="16"/>`,
+  },
+  {
+    label: "EU AI Act",
+    svg: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 5l0 15"/><path d="M9 11l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 11l-3 -6l-3 6a3 3 0 0 0 6 0"/>`,
+  },
 ];
 
 // EN version uses /en/ sub-paths for all legal pages
@@ -49,7 +59,18 @@ const currentYear = new Date().getFullYear();
         <div class="flex items-end gap-8 md:gap-10">
           {complianceBadges.map((badge) => (
             <div key={badge.label} class="flex flex-col items-center gap-1.5">
-              <span class="text-2xl">{badge.icon}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#DF41FB"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={badge.svg}
+              />
               <span class="text-xs text-muted-foreground/70 text-center whitespace-nowrap">{badge.label}</span>
             </div>
           ))}
