@@ -432,9 +432,34 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                     </span>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    {lang === 'de'
-                      ? `${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel · ${isAnnual ? 'Jahreslizenz' : 'Quartalsweise'}`
-                      : `${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article · ${isAnnual ? 'Annual licence' : 'Quarterly'}`}
+                    {(() => {
+                      const pricePerArticle = formatCurrency(Math.round(monthlyTotal / contentPieces));
+                      const cycle = isAnnual
+                        ? (lang === 'de' ? 'Jahreslizenz' : 'Annual licence')
+                        : (lang === 'de' ? 'Quartalsweise' : 'Quarterly');
+
+                      const parts: string[] = [];
+                      if (lang === 'de') {
+                        parts.push(`${pricePerArticle} pro Artikel`);
+                        if (includeTranslations) {
+                          parts.push(`inkl. ${translationLanguages} ${translationLanguages === 1 ? 'Übersetzung' : 'Übersetzungen'}`);
+                        }
+                        if (includeSocialVideos) {
+                          parts.push('inkl. 2 Kurzvideos');
+                        }
+                        parts.push(cycle);
+                      } else {
+                        parts.push(`${pricePerArticle} per article`);
+                        if (includeTranslations) {
+                          parts.push(`incl. ${translationLanguages} ${translationLanguages === 1 ? 'translation' : 'translations'}`);
+                        }
+                        if (includeSocialVideos) {
+                          parts.push('incl. 2 short videos');
+                        }
+                        parts.push(cycle);
+                      }
+                      return parts.join(' · ');
+                    })()}
                   </p>
                   {!isAnnual && (
                     <button
