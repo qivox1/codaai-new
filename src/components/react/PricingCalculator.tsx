@@ -288,7 +288,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                   step="1"
                   value={contentPieces}
                   onChange={(e) => setContentPieces(Number(e.target.value))}
-                  className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-cta"
+                  className="w-full appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between mt-2 text-xs text-muted-foreground">
                   <span>2</span>
