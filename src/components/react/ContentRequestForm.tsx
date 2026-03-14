@@ -881,7 +881,7 @@ export default function ContentRequestForm({
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="px-6 py-2.5 rounded-full bg-cta text-white font-medium hover:bg-cta/90 transition-colors text-sm"
+        className="btn-cta px-6 py-2.5 text-sm"
       >
         {triggerLabel || de.freeTrial}
       </button>

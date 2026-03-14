@@ -14,7 +14,7 @@ const lang = 'de' as const;
 >
   <Navbar lang={lang} />
   <main class="pt-0">
-    <PricingCalculator client:load />
+    <PricingCalculator lang={lang} client:load />
   </main>
   <Footer lang={lang} />
 </Layout>

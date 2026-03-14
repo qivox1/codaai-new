@@ -15,10 +15,12 @@ const complianceBadges = [
   { label: "EU AI Act", icon: "⚖️" },
 ];
 
+// EN version uses /en/ sub-paths for all legal pages
+const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
 const footerLinks = [
-  { label: t(lang, "footer.legalNotice"), href: `${base}/impressum` },
-  { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz` },
-  { label: t(lang, "footer.termsConditions"), href: `${base}/agb` },
+  { label: t(lang, "footer.legalNotice"), href: `${langPrefix}/impressum` },
+  { label: t(lang, "footer.privacyPolicy"), href: `${langPrefix}/datenschutz` },
+  { label: t(lang, "footer.termsConditions"), href: `${langPrefix}/agb` },
 ];
 
 const currentYear = new Date().getFullYear();

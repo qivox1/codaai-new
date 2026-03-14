@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import PricingCalculator from '../../components/react/PricingCalculator';
+
+const lang = 'en' as const;
+---
+
+<Layout
+  lang={lang}
+  title="Pricing – CodaAI Content Packages"
+  description="Flexible content packages from €449/month. SEO articles, graphics and videos. Compare CodaAI with agency costs and save over 90%."
+>
+  <Navbar lang={lang} />
+  <main class="pt-0">
+    <PricingCalculator lang={lang} client:load />
+  </main>
+  <Footer lang={lang} />
+</Layout>

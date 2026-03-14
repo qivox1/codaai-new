@@ -57,7 +57,11 @@ const FEATURES = [
   "Hosting auf deutschen Servern (DSGVO-konform)"
 ];
 
-export default function PricingCalculator() {
+interface PricingCalculatorProps {
+  lang?: 'de' | 'en';
+}
+
+export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProps) {
   const [contentPieces, setContentPieces] = useState(2);
   const [includeSocialVideos, setIncludeSocialVideos] = useState(false);
   const [includeTranslations, setIncludeTranslations] = useState(false);
@@ -130,11 +134,18 @@ export default function PricingCalculator() {
         <div className="mx-auto max-w-4xl px-6 py-16 lg:py-24">
           {/* Page Title */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-foreground mb-4">
-              Transparente Preise
+            <p className="text-sm font-medium text-cta uppercase tracking-wider mb-4">
+              {lang === 'de' ? 'Preise' : 'Pricing'}
+            </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-4 tracking-tight">
+              {lang === 'de'
+                ? 'Content Produktion zum Festpreis ohne Überraschungen'
+                : 'Fixed-price content production — no surprises'}
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Wählen Sie Ihr Volumen. Jederzeit anpassbar, monatlich kündbar.
+              {lang === 'de'
+                ? 'Wählen Sie Ihr Volumen. Jederzeit anpassbar, monatlich kündbar.'
+                : 'Choose your volume. Adjustable anytime, cancel monthly.'}
             </p>
           </div>
 
@@ -145,7 +156,7 @@ export default function PricingCalculator() {
               <div className="mb-10">
                 <div className="flex items-center justify-between mb-4">
                   <label className="text-foreground font-semibold text-lg">
-                    Wie viele Artikel pro Monat?
+                    {lang === 'de' ? 'Wie viele Premium-Blog-Artikel pro Monat?' : 'How many premium blog articles per month?'}
                   </label>
                   <span className="text-3xl font-bold text-cta">
                     {contentPieces}
@@ -379,7 +390,8 @@ export default function PricingCalculator() {
                         <button
                           onClick={handleMagicLink}
                           disabled={isLoading}
-                          className="h-12 px-8 text-base font-medium rounded-lg bg-cta text-white hover:bg-cta/90 disabled:opacity-50 whitespace-nowrap transition-colors"
+                          className="btn-cta h-12 px-8 text-base disabled:opacity-50 whitespace-nowrap"
+                          style={{ borderRadius: '0.5rem' }}
                         >
                           {isLoading ? (
                             <>

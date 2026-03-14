@@ -102,4 +102,104 @@
   .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
   }
+
+  /* ─── Apple-style shimmer animation ───────────────────── */
+  @keyframes shimmer {
+    0%   { transform: translateX(-110%) skewX(-12deg); }
+    100% { transform: translateX(230%)  skewX(-12deg); }
+  }
+
+  @keyframes btn-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--cta) / 0.4); }
+    50%       { box-shadow: 0 0 0 8px hsl(var(--cta) / 0); }
+  }
+}
+
+@layer components {
+  /* Primary CTA button — Apple-style */
+  .btn-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: hsl(var(--cta));
+    color: white;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition:
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 0.2s ease;
+    will-change: transform, box-shadow;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .btn-cta::before {
+    content: "";
+    position: absolute;
+    inset-y: 0;
+    left: 0;
+    width: 35%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.28) 50%,
+      transparent 100%
+    );
+    transform: translateX(-110%) skewX(-12deg);
+    transition: none;
+  }
+
+  .btn-cta:hover {
+    background-color: hsl(var(--cta) / 0.92);
+    box-shadow:
+      0 4px 16px hsl(var(--cta) / 0.45),
+      0 1px 4px hsl(var(--cta) / 0.25);
+    transform: scale(1.025) translateY(-1px);
+  }
+
+  .btn-cta:hover::before {
+    animation: shimmer 0.65s ease forwards;
+  }
+
+  .btn-cta:active {
+    transform: scale(0.975) translateY(0px);
+    box-shadow: 0 2px 8px hsl(var(--cta) / 0.35);
+    transition-duration: 0.1s;
+  }
+
+  /* Secondary / ghost button */
+  .btn-secondary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid hsl(var(--border));
+    background-color: transparent;
+    color: hsl(var(--foreground));
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition:
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.25s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: hsl(var(--cta) / 0.4);
+    background-color: hsl(var(--cta) / 0.05);
+    box-shadow: 0 2px 12px hsl(var(--cta) / 0.15);
+    transform: scale(1.02) translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s;
+  }
 }
