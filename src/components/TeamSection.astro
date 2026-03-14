@@ -20,6 +20,16 @@ const accentColors = [
   'hsl(175, 70%, 50%)',  // Sophie Sync      – teal-green
 ];
 
+// Same icon mapping as Feature cards (same order)
+const iconNames = [
+  'calendar-days',  // Pascal Planner  – Redaktionsplanung
+  'file-text',      // Timo Text        – SEO-Blogartikel
+  'image',          // Viola Visio      – Bilder & Infografiken
+  'search',         // Florian Finder   – GEO-Optimierung
+  'video',          // Sina Spark       – Social-Media-Videos
+  'share',          // Sophie Sync      – Content Distribution
+];
+
 const images = [
   '/codaai-new/images/team/pascal-planner.webp',
   '/codaai-new/images/team/timo-text.webp',
@@ -50,6 +60,7 @@ const images = [
           description={member.description}
           features={member.features}
           accentColor={accentColors[index]}
+          iconName={iconNames[index]}
           image={images[index]}
           lang={lang}
         />
