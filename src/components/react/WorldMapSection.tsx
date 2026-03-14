@@ -33,8 +33,8 @@ const dots = [
 
 export default function WorldMapSection({ lang = "de" }: Props) {
   const title = lang === "de"
-    ? "Erreichen Sie 155 Märkte weltweit"
-    : "Reach 155 markets worldwide";
+    ? "Erreichen Sie 155 Märkte weltweit mit 30+ Sprachen"
+    : "Reach 155 Markets Worldwide in 30+ Languages";
   const subtitle = lang === "de"
     ? "Ihre Inhalte automatisch in 30 Sprachen — für jeden Markt optimiert und kulturell angepasst."
     : "Your content automatically in 30 languages — optimised and culturally adapted for every market.";

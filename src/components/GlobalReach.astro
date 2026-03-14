@@ -7,7 +7,7 @@ interface Props {
 const { lang } = Astro.props;
 
 const badge    = lang === 'de' ? 'GLOBALE REICHWEITE'             : 'GLOBAL REACH';
-const title    = lang === 'de' ? 'Erreichen Sie 155 Märkte weltweit' : 'Reach 155 Markets Worldwide';
+const title    = lang === 'de' ? 'Erreichen Sie 155 Märkte weltweit mit 30+ Sprachen' : 'Reach 155 Markets Worldwide in 30+ Languages';
 const subtitle = lang === 'de'
   ? 'Mehrsprachiger Content auf Knopfdruck – in 30 Sprachen, kulturell angepasst für jeden Markt.'
   : 'Multilingual content at the push of a button – in 30 languages, culturally adapted for every market.';
@@ -18,7 +18,7 @@ const subtitle = lang === 'de'
 
     <div class="text-center mb-12">
       <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-4">{badge}</p>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight mb-5 max-w-3xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight mb-5">
         {title}
       </h2>
       <p class="text-muted-foreground text-lg max-w-2xl mx-auto">{subtitle}</p>
