@@ -6,6 +6,7 @@ interface Props {
   lang: 'de' | 'en';
 }
 const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const badge   = lang === 'de' ? 'IHR TEAM, NEU GEDACHT'        : 'YOUR TEAM, REIMAGINED';
 const title   = lang === 'de'
@@ -29,7 +30,7 @@ const subtitle = lang === 'de'
     </div>
 
     {/* Slider */}
-    <BenefitSlider lang={lang} client:visible />
+    <BenefitSlider lang={lang} base={base} client:visible />
 
     {/* World Map card */}
     <WorldMapSection lang={lang} client:visible />
