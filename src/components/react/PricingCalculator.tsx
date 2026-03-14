@@ -2,48 +2,48 @@ import { useState } from 'react';
 import { Loader2, Mail, Check } from 'lucide-react';
 
 // ─── Pricing tiers ──────────────────────────────────────────────────────────
-// Quarterly rates (base prices — what was previously the monthly rate)
-const getQuarterlyPricePerPiece = (pieces: number): number => {
+// Annual rates — the base prices (what CodaAI charges on an annual contract)
+const getAnnualPricePerPiece = (pieces: number): number => {
   if (pieces >= 10) return 349;
   if (pieces >= 7)  return 390;
   if (pieces >= 4)  return 420;
   return 490;
 };
 
-// Annual rates = quarterly × 0.80 (20 % discount), rounded to clean numbers
-const getAnnualPricePerPiece = (pieces: number): number => {
-  if (pieces >= 10) return 279;
-  if (pieces >= 7)  return 309;
-  if (pieces >= 4)  return 335;
-  return 389;
+// Quarterly rates = annual ÷ 0.80 (25 % more, i.e. annual is 20 % cheaper)
+const getQuarterlyPricePerPiece = (pieces: number): number => {
+  if (pieces >= 10) return 435;
+  if (pieces >= 7)  return 490;
+  if (pieces >= 4)  return 525;
+  return 615;
 };
 
-const getQuarterlyVideoPricePerVideo = (pieces: number): number => {
+const getAnnualVideoPricePerVideo = (pieces: number): number => {
   if (pieces >= 10) return 100;
   if (pieces >= 7)  return 110;
   if (pieces >= 4)  return 120;
   return 140;
 };
 
-const getAnnualVideoPricePerVideo = (pieces: number): number => {
-  if (pieces >= 10) return 79;
-  if (pieces >= 7)  return 87;
-  if (pieces >= 4)  return 95;
-  return 112;
+const getQuarterlyVideoPricePerVideo = (pieces: number): number => {
+  if (pieces >= 10) return 125;
+  if (pieces >= 7)  return 140;
+  if (pieces >= 4)  return 150;
+  return 175;
 };
 
-const getQuarterlyTranslationBasePrice = (pieces: number): number => {
+const getAnnualTranslationBasePrice = (pieces: number): number => {
   if (pieces >= 10) return 89;
   if (pieces >= 7)  return 99;
   if (pieces >= 4)  return 105;
   return 125;
 };
 
-const getAnnualTranslationBasePrice = (pieces: number): number => {
-  if (pieces >= 10) return 71;
-  if (pieces >= 7)  return 79;
-  if (pieces >= 4)  return 84;
-  return 99;
+const getQuarterlyTranslationBasePrice = (pieces: number): number => {
+  if (pieces >= 10) return 112;
+  if (pieces >= 7)  return 124;
+  if (pieces >= 4)  return 131;
+  return 156;
 };
 
 const getTranslationTotalPerArticle = (
@@ -135,9 +135,6 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
   const monthlyTotal =
     contentPieces * pricePerPiece + videosCostPerMonth + translationsCostPerMonth;
 
-  // For annual billing we show monthly equivalent; actual charge = monthlyTotal × 12
-  const annualTotal = monthlyTotal * 12;
-
   const langLabel = translationLanguages === 1
     ? (lang === 'de' ? 'Sprache' : 'language')
     : (lang === 'de' ? 'Sprachen' : 'languages');
@@ -182,16 +179,16 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
   // Tier data for Staffelpreise display
   const tiers = isAnnual
     ? [
-        { range: '1–3', price: '€389', value: 3,  active: contentPieces <= 3 },
-        { range: '4–6', price: '€335', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
-        { range: '7–9', price: '€309', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
-        { range: '10–12', price: '€279', value: 10, active: contentPieces >= 10 },
-      ]
-    : [
-        { range: '1–3', price: '€490', value: 3,  active: contentPieces <= 3 },
+        { range: '2–3', price: '€490', value: 2,  active: contentPieces <= 3 },
         { range: '4–6', price: '€420', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
         { range: '7–9', price: '€390', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
         { range: '10–12', price: '€349', value: 10, active: contentPieces >= 10 },
+      ]
+    : [
+        { range: '2–3', price: '€615', value: 2,  active: contentPieces <= 3 },
+        { range: '4–6', price: '€525', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
+        { range: '7–9', price: '€490', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
+        { range: '10–12', price: '€435', value: 10, active: contentPieces >= 10 },
       ];
 
   return (
@@ -211,8 +208,8 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               {lang === 'de'
-                ? 'Wählen Sie Ihr Volumen und Ihre Laufzeit. Mit Jahreslizenz 20 % sparen.'
-                : 'Choose your volume and billing cycle. Save 20% with an annual plan.'}
+                ? 'Wählen Sie Ihr Volumen und Ihre Laufzeit. Mit Jahreslizenz 20 % günstiger als quartalsweise.'
+                : 'Choose your volume and billing cycle. Save 20% compared to quarterly with an annual plan.'}
             </p>
           </div>
 
@@ -254,20 +251,20 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
             </div>
           </div>
 
-          {/* Billing info strip */}
+          {/* Billing info strip — always monthly billing, no "einmalig" */}
           <div className="text-center mb-8">
             {isAnnual ? (
               <p className="text-sm text-muted-foreground">
                 {lang === 'de'
-                  ? <>Jährliche Abrechnung — <span className="text-cta font-medium">{formatCurrency(annualTotal)} einmalig</span> — 20&nbsp;% günstiger als quartalsweise</>
-                  : <>Annual billing — <span className="text-cta font-medium">{formatCurrency(annualTotal)} once</span> — 20% cheaper than quarterly</>
+                  ? <>Jährliche Vertragslaufzeit &middot; monatliche Abrechnung &middot; <span className="text-cta font-medium">20&nbsp;% günstiger als quartalsweise</span></>
+                  : <>Annual contract &middot; billed monthly &middot; <span className="text-cta font-medium">20% cheaper than quarterly</span></>
                 }
               </p>
             ) : (
               <p className="text-sm text-muted-foreground">
                 {lang === 'de'
-                  ? 'Quartalsweise Abrechnung — Mindestlaufzeit 3 Monate'
-                  : 'Quarterly billing — minimum term 3 months'}
+                  ? 'Quartalsweise Vertragslaufzeit · monatliche Abrechnung · Mindestlaufzeit 3 Monate'
+                  : 'Quarterly contract · billed monthly · minimum term 3 months'}
               </p>
             )}
           </div>
@@ -286,7 +283,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                 </div>
                 <input
                   type="range"
-                  min="1"
+                  min="2"
                   max="12"
                   step="1"
                   value={contentPieces}
@@ -294,7 +291,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                   className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-cta"
                 />
                 <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                  <span>1</span>
+                  <span>2</span>
                   <span>12</span>
                 </div>
                 <p className="text-cta text-sm font-medium mt-3">
@@ -338,7 +335,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 71 : 89}/Artikel` : `from €${isAnnual ? 71 : 89}/article`}
+                        {lang === 'de' ? `ab €${isAnnual ? 89 : 112}/Artikel` : `from €${isAnnual ? 89 : 112}/article`}
                       </p>
                     )}
                   </div>
@@ -404,7 +401,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 79 : 100}/Video` : `from €${isAnnual ? 79 : 100}/video`}
+                        {lang === 'de' ? `ab €${isAnnual ? 100 : 125}/Video` : `from €${isAnnual ? 100 : 125}/video`}
                       </p>
                     )}
                   </div>
@@ -414,16 +411,15 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
               {/* ── Price Display ─────────────────────────────────────────── */}
               <div className="text-center mb-10">
                 <div className={`rounded-2xl p-6 transition-all duration-300 ${
-                  isAnnual ? 'bg-cta/8 border border-cta/20' : 'bg-muted/40 border border-border'
+                  isAnnual ? 'bg-cta/10 border border-cta/20' : 'bg-muted/40 border border-border'
                 }`}>
                   {isAnnual && (
                     <div className="flex items-center justify-center gap-2 mb-3">
                       <span className="inline-flex items-center gap-1 text-xs font-semibold text-cta bg-cta/10 px-3 py-1 rounded-full">
-                        {/* Savings star */}
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
-                        {lang === 'de' ? '20 % Jahreslizenz-Rabatt' : '20% annual discount'}
+                        {lang === 'de' ? '20 % günstiger als quartalsweise' : '20% cheaper than quarterly'}
                       </span>
                     </div>
                   )}
@@ -435,19 +431,11 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       /{lang === 'de' ? 'Monat' : 'month'}
                     </span>
                   </div>
-                  {isAnnual ? (
-                    <p className="text-muted-foreground text-sm">
-                      {lang === 'de'
-                        ? `${formatCurrency(annualTotal)} / Jahr — ${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel`
-                        : `${formatCurrency(annualTotal)} / year — ${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article`}
-                    </p>
-                  ) : (
-                    <p className="text-muted-foreground text-sm">
-                      {lang === 'de'
-                        ? `${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel · ${lang === 'de' ? 'Quartalsabrechnung' : 'Quarterly billing'}`
-                        : `${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article · Quarterly billing`}
-                    </p>
-                  )}
+                  <p className="text-muted-foreground text-sm">
+                    {lang === 'de'
+                      ? `${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel · ${isAnnual ? 'Jahreslizenz' : 'Quartalsweise'}`
+                      : `${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article · ${isAnnual ? 'Annual licence' : 'Quarterly'}`}
+                  </p>
                   {!isAnnual && (
                     <button
                       type="button"
@@ -561,8 +549,8 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
                   {isAnnual
-                    ? (lang === 'de' ? 'Jahreslizenz · 20 % Rabatt · Kündigung zum Jahresende' : 'Annual licence · 20% discount · Cancel at year end')
-                    : (lang === 'de' ? 'Mindestlaufzeit 1 Quartal · Kündigung zum Quartalsende' : 'Minimum term 1 quarter · Cancel at end of quarter')}
+                    ? (lang === 'de' ? 'Jahreslizenz · monatliche Abrechnung · Kündigung zum Jahresende' : 'Annual licence · billed monthly · cancel at year end')
+                    : (lang === 'de' ? 'Mindestlaufzeit 1 Quartal · monatliche Abrechnung · Kündigung zum Quartalsende' : 'Minimum 1 quarter · billed monthly · cancel at end of quarter')}
                 </p>
               </div>
 
