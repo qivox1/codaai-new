@@ -10,15 +10,22 @@ const { lang } = Astro.props;
 const translations = getTranslations(lang);
 const members = translations.teamSection.members;
 
-const icons = ['👨‍💼', '📚', '🎨', '🔬', '🎬', '📊'];
-
 const accentColors = [
-  '#DF41FB', // purple
-  '#3B82F6', // blue
-  '#F59E0B', // amber
-  '#10B981', // emerald
-  '#EF4444', // red
-  '#8B5CF6', // violet
+  '#DF41FB', // Pascal Planner – purple
+  '#3B82F6', // Timo Text – blue
+  '#F59E0B', // Viola Visio – amber
+  '#10B981', // Florian Finder – emerald
+  '#EF4444', // Sina Spark – red
+  '#8B5CF6', // Sophie Sync – violet
+];
+
+const images = [
+  '/codaai-new/images/team/pascal-planner.webp',
+  '/codaai-new/images/team/timo-text.webp',
+  '/codaai-new/images/team/viola-visio.webp',
+  '/codaai-new/images/team/florian-finder.webp',
+  '/codaai-new/images/team/sina-spark.webp',
+  '/codaai-new/images/team/sophie-sync.webp',
 ];
 ---
 
@@ -41,8 +48,8 @@ const accentColors = [
           role={member.role}
           description={member.description}
           features={member.features}
-          icon={icons[index]}
           accentColor={accentColors[index]}
+          image={images[index]}
         />
       ))}
     </div>
