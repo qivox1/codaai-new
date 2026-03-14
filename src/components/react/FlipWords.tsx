@@ -58,8 +58,8 @@ export default function FlipWords({
   };
 
   return (
-    <span style={{ display: 'inline-block', perspective: '600px' }}>
-      <span style={style}>{current.text}</span>
+    <span style={{ display: 'inline-block', perspective: '600px', whiteSpace: 'nowrap' }}>
+      <span style={{ ...style, whiteSpace: 'nowrap' }}>{current.text}</span>
     </span>
   );
 }

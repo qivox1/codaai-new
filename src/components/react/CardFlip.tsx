@@ -58,15 +58,17 @@ export default function CardFlip({
             alt={name}
             className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
           />
-          {/* Gradient overlay */}
+          {/* Gradient overlay — strong dark fade for legibility */}
           <div
             className="absolute inset-0"
             style={{
               background: `linear-gradient(
                 to bottom,
-                transparent 20%,
-                ${accentColor}22 55%,
-                rgba(0,0,0,0.88) 100%
+                transparent 0%,
+                transparent 35%,
+                rgba(0,0,0,0.30) 55%,
+                rgba(0,0,0,0.78) 75%,
+                rgba(0,0,0,0.96) 100%
               )`,
             }}
           />
@@ -75,15 +77,15 @@ export default function CardFlip({
             className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
             style={{ background: accentColor }}
           />
-          {/* Bottom content */}
+          {/* Bottom content — Name first, Funktion darunter */}
           <div className="absolute bottom-0 left-0 right-0 p-6">
+            <h3 className="text-2xl font-bold text-white leading-tight">{name}</h3>
             <p
-              className="text-xs font-bold uppercase tracking-widest mb-1"
+              className="text-xs font-bold uppercase tracking-widest mt-1"
               style={{ color: accentColor }}
             >
               {role}
             </p>
-            <h3 className="text-2xl font-bold text-white leading-tight">{name}</h3>
             {/* Animated flip hint */}
             <div className="mt-3 flex items-center gap-2">
               <svg
