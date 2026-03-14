@@ -8,7 +8,12 @@
   },
   "hero": {
     "headline": "Premium content.",
-    "flipWords": ["simplified.", "orchestrated.", "all-in-one.", "better value."],
+    "flipWords": [
+      "simplified.",
+      "orchestrated.",
+      "all-in-one.",
+      "better value."
+    ],
     "description": "Save over €100,000 per year and reclaim 200+ hours monthly. CodaAI handles your entire content production – from strategy and SEO articles to graphics and finished videos. Everything from one platform, without coordination overhead.",
     "poweredBy": "Powered by AI",
     "users": "200+ User",
@@ -26,37 +31,67 @@
         "title": "Editorial Planning",
         "role": "Replaces: Chief Editor + Content Strategist",
         "description": "Strategic content planning based on your business goals. Our AI editor analyzes your industry, target audience, and competitors.",
-        "features": ["90% less planning effort", "Data-driven topic selection", "Automatic editorial calendars", "SEO-optimized content strategy"]
+        "features": [
+          "90% less planning effort",
+          "Data-driven topic selection",
+          "Automatic editorial calendars",
+          "SEO-optimized content strategy"
+        ]
       },
       {
         "title": "SEO Optimized Blog Articles",
         "role": "Replaces: Content Writer + SEO Specialist",
         "description": "Long-form articles up to 4,000 words – crafted around your buyer personas and tailored to every stage of the customer journey. Rank higher, resonate deeper.",
-        "features": ["Up to 4,000 words of long-form depth", "Persona-driven & journey-mapped", "E-E-A-T & keyword optimized", "Top-10 rankings in 8 weeks"]
+        "features": [
+          "Up to 4,000 words of long-form depth",
+          "Persona-driven & journey-mapped",
+          "E-E-A-T & keyword optimized",
+          "Top-10 rankings in 8 weeks"
+        ]
       },
       {
         "title": "Images & Infographics",
         "role": "Replaces: Graphic Designer + Art Director",
         "description": "Professional visuals that strengthen your brand. No more stock photos – unique graphics for every channel.",
-        "features": ["€1,500+/month agency costs saved", "Brand-consistent designs", "Unlimited iterations", "All formats & sizes"]
+        "features": [
+          "€1,500+/month agency costs saved",
+          "Brand-consistent designs",
+          "Unlimited iterations",
+          "All formats & sizes"
+        ]
       },
       {
         "title": "GEO Optimization",
         "role": "Replaces: AI Specialist",
         "description": "Optimized for tomorrow's AI search. Your content appears in ChatGPT, Perplexity, and Google SGE – not just in classic search results.",
-        "features": ["Future-proof for AI Search", "Automatic structured data", "Featured snippet optimization", "Higher CTR through rich results"]
+        "features": [
+          "Future-proof for AI Search",
+          "Automatic structured data",
+          "Featured snippet optimization",
+          "Higher CTR through rich results"
+        ]
       },
       {
         "title": "Social Media Videos",
         "role": "Replaces: Video Producer + Social Media Manager",
         "description": "Viral short videos from your articles – automatically. Maximize your reach without additional effort.",
-        "features": ["10x more social engagement", "Automatic repurposing", "Platform-optimized formats", "Trending audio & effects"]
+        "features": [
+          "10x more social engagement",
+          "Automatic repurposing",
+          "Platform-optimized formats",
+          "Trending audio & effects"
+        ]
       },
       {
         "title": "Content Distribution",
         "role": "Replaces: Project Manager",
         "description": "The right content, at the right time, on the right channel. Automated multi-channel publishing with perfect timing.",
-        "features": ["3x more touchpoints", "Optimal posting times", "Cross-platform scheduling", "Performance analytics"]
+        "features": [
+          "3x more touchpoints",
+          "Optimal posting times",
+          "Cross-platform scheduling",
+          "Performance analytics"
+        ]
       }
     ]
   },
@@ -95,37 +130,67 @@
         "name": "Pascal Planner",
         "role": "Chief Content Strategist",
         "description": "A visionary thinker who sees the big picture. Analyzes your market and competition to develop strategies that set trends.",
-        "features": ["Complete content strategy", "Market & competitor analysis", "Topic universe mapping", "Editorial calendar planning"]
+        "features": [
+          "Complete content strategy",
+          "Market & competitor analysis",
+          "Topic universe mapping",
+          "Editorial calendar planning"
+        ]
       },
       {
         "name": "Timo Text",
         "role": "SEO & Language Virtuoso",
         "description": "Writes SEO-optimized premium blog articles that rank on Google and convince your target audiences.",
-        "features": ["SEO-optimized articles", "Strategic keyword placement", "Engaging storytelling", "Human-first, algorithm-ready"]
+        "features": [
+          "SEO-optimized articles",
+          "Strategic keyword placement",
+          "Engaging storytelling",
+          "Human-first, algorithm-ready"
+        ]
       },
       {
         "name": "Viola Visio",
         "role": "Art Director & Visual Futurist",
         "description": "An artist who transforms data and ideas into visual masterpieces. Designs that make your content unforgettable.",
-        "features": ["Stunning infographics", "Brand-aligned visuals", "Emotional design language", "Cross-platform graphics"]
+        "features": [
+          "Stunning infographics",
+          "Brand-aligned visuals",
+          "Emotional design language",
+          "Cross-platform graphics"
+        ]
       },
       {
         "name": "Florian Finder",
         "role": "AI & GEO Specialist",
         "description": "An innovator shaping the future of search. Optimizes content for the next generation of AI-driven search engines.",
-        "features": ["Generative Engine Optimization", "AI search readiness", "Future-proof SEO", "Answer engine visibility"]
+        "features": [
+          "Generative Engine Optimization",
+          "AI search readiness",
+          "Future-proof SEO",
+          "Answer engine visibility"
+        ]
       },
       {
         "name": "Sina Spark",
         "role": "Viral Video Producer",
         "description": "A trendsetter who knows what the world wants to see. Transforms articles into short, captivating viral videos.",
-        "features": ["TikTok & Instagram Reels", "Facebook Stories", "YouTube Shorts", "LinkedIn video content"]
+        "features": [
+          "TikTok & Instagram Reels",
+          "Facebook Stories",
+          "YouTube Shorts",
+          "LinkedIn video content"
+        ]
       },
       {
         "name": "Sophie Sync",
         "role": "Distribution Coordinator",
         "description": "Coordinates the publication of your content across website, social media, and other channels – for maximum reach at the optimal time.",
-        "features": ["Cross-channel coordination", "Perfect timing strategy", "Cross-platform sync", "Audience reach optimization"]
+        "features": [
+          "Cross-channel coordination",
+          "Perfect timing strategy",
+          "Cross-platform sync",
+          "Audience reach optimization"
+        ]
       }
     ]
   },
@@ -206,7 +271,9 @@
         "cost": "~€548",
         "description": "Editorial calendar management, briefings, feedback rounds, and project management overhead."
       }
-    ]
+    ],
+    "codaAIStatt": "instead of ~€4,200",
+    "codaAISavings": ">85% cheaper"
   },
   "footer": {
     "tagline1": "Premium Content.",

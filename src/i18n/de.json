@@ -8,7 +8,12 @@
   },
   "hero": {
     "headline": "Exzellenter Content.",
-    "flipWords": ["ohne den ganzen Aufwand.", "vollautomatisiert.", "alles aus einer Hand.", "mehr Wert."],
+    "flipWords": [
+      "ohne den ganzen Aufwand.",
+      "vollautomatisiert.",
+      "alles aus einer Hand.",
+      "mehr Wert."
+    ],
     "description": "Sparen Sie über 100.000 € pro Jahr und gewinnen Sie 200+ Stunden monatlich zurück. CodaAI übernimmt Ihre gesamte Content-Produktion – von der Strategie über SEO-Texte und Grafiken bis zum fertigen Video. Alles aus einer Plattform, ohne Koordinationsaufwand.",
     "poweredBy": "Powered by AI",
     "users": "200+ Nutzer",
@@ -26,37 +31,67 @@
         "title": "Redaktionsplanung",
         "role": "Ersetzt: Chefredakteur + Content-Stratege",
         "description": "Sie sagen uns Ihr Ziel – wir liefern den Plan. Unsere KI analysiert Branche, Zielgruppe und Wettbewerb und erstellt Ihren Redaktionsplan.",
-        "features": ["90 % weniger Planungsaufwand", "Datengesteuerte Themenauswahl", "Automatische Redaktionspläne", "SEO-optimierte Content-Strategie"]
+        "features": [
+          "90 % weniger Planungsaufwand",
+          "Datengesteuerte Themenauswahl",
+          "Automatische Redaktionspläne",
+          "SEO-optimierte Content-Strategie"
+        ]
       },
       {
         "title": "SEO-optimierte Blogartikel",
         "role": "Ersetzt: Content Writer + SEO-Spezialist",
         "description": "Artikel bis 4.000 Wörter, die bei Google ranken und Ihre Zielgruppe überzeugen. Zugeschnitten auf jede Phase der Kaufentscheidung.",
-        "features": ["Bis zu 4.000 Wörter Langform-Tiefe", "Auf Ihre Zielgruppe und deren Kaufphase zugeschnitten", "Google-konform & für die richtigen Suchbegriffe optimiert", "Top-10-Rankings in 8 Wochen"]
+        "features": [
+          "Bis zu 4.000 Wörter Langform-Tiefe",
+          "Auf Ihre Zielgruppe und deren Kaufphase zugeschnitten",
+          "Google-konform & für die richtigen Suchbegriffe optimiert",
+          "Top-10-Rankings in 8 Wochen"
+        ]
       },
       {
         "title": "Bilder & Infografiken",
         "role": "Ersetzt: Grafikdesigner + Art Director",
         "description": "Einzigartige Grafiken statt Stockfotos. Passend zu Ihrer Marke, fertig für jeden Kanal.",
-        "features": ["1.500+ €/Monat Agenturkosten gespart", "Markenkonsistente Designs", "Unbegrenzte Iterationen", "Alle Formate & Größen"]
+        "features": [
+          "1.500+ €/Monat Agenturkosten gespart",
+          "Markenkonsistente Designs",
+          "Unbegrenzte Iterationen",
+          "Alle Formate & Größen"
+        ]
       },
       {
         "title": "GEO-Optimierung",
         "role": "Ersetzt: KI-Spezialist",
         "description": "Sichtbar in ChatGPT, Perplexity und Google AI – nicht nur in klassischen Suchergebnissen. Ihre Inhalte, dort wo morgen gesucht wird.",
-        "features": ["Zukunftssicher für KI-Suche", "Automatische strukturierte Daten", "Optimiert für Position 1 bei Google", "Mehr Klicks durch auffällige Suchergebnisse"]
+        "features": [
+          "Zukunftssicher für KI-Suche",
+          "Automatische strukturierte Daten",
+          "Optimiert für Position 1 bei Google",
+          "Mehr Klicks durch auffällige Suchergebnisse"
+        ]
       },
       {
         "title": "Social-Media-Videos",
         "role": "Ersetzt: Videoproduzent + Social-Media-Manager",
         "description": "Aus jedem Artikel werden automatisch Kurzvideos für TikTok, Reels und Shorts. Mehr Reichweite, null Mehraufwand.",
-        "features": ["10x mehr Social Engagement", "Automatisches Repurposing", "Plattform-optimierte Formate", "Trending Audio & Effekte"]
+        "features": [
+          "10x mehr Social Engagement",
+          "Automatisches Repurposing",
+          "Plattform-optimierte Formate",
+          "Trending Audio & Effekte"
+        ]
       },
       {
         "title": "Content Distribution",
         "role": "Ersetzt: Projektmanager",
         "description": "Ihr Content wird automatisch zur besten Zeit auf allen Kanälen veröffentlicht. Sie müssen nichts mehr koordinieren.",
-        "features": ["3x mehr Touchpoints", "Optimale Veröffentlichungszeiten", "Automatische Veröffentlichung auf allen Kanälen", "Performance-Analysen"]
+        "features": [
+          "3x mehr Touchpoints",
+          "Optimale Veröffentlichungszeiten",
+          "Automatische Veröffentlichung auf allen Kanälen",
+          "Performance-Analysen"
+        ]
       }
     ]
   },
@@ -95,37 +130,67 @@
         "name": "Pascal Planner",
         "role": "Chief Content Strategist",
         "description": "Analysiert Ihren Markt und Wettbewerb und entwickelt die Content-Strategie, die zu Ihren Zielen passt.",
-        "features": ["Komplette Content-Strategie", "Markt- & Wettbewerbsanalyse", "Themenplanung", "Redaktionskalenderplanung"]
+        "features": [
+          "Komplette Content-Strategie",
+          "Markt- & Wettbewerbsanalyse",
+          "Themenplanung",
+          "Redaktionskalenderplanung"
+        ]
       },
       {
         "name": "Timo Text",
         "role": "SEO- & Sprachvirtuose",
         "description": "Schreibt SEO-optimierte Premium-Blogartikel, die bei Google ranken und Ihre Zielgruppen überzeugen.",
-        "features": ["SEO-optimierte Artikel", "Strategische Keyword-Platzierung", "Fesselndes Storytelling", "Für Menschen geschrieben, für Algorithmen optimiert"]
+        "features": [
+          "SEO-optimierte Artikel",
+          "Strategische Keyword-Platzierung",
+          "Fesselndes Storytelling",
+          "Für Menschen geschrieben, für Algorithmen optimiert"
+        ]
       },
       {
         "name": "Viola Visio",
         "role": "Art Director & Visual Futurist",
         "description": "Erstellt einzigartige Grafiken und Infografiken, die Ihre Marke stärken.",
-        "features": ["Beeindruckende Infografiken", "Markengerechte Visuals", "Emotionale Designsprache", "Grafiken für alle Kanäle"]
+        "features": [
+          "Beeindruckende Infografiken",
+          "Markengerechte Visuals",
+          "Emotionale Designsprache",
+          "Grafiken für alle Kanäle"
+        ]
       },
       {
         "name": "Florian Finder",
         "role": "KI- & GEO-Spezialist",
         "description": "Optimiert Ihre Inhalte für ChatGPT, Perplexity und die KI-Suche von morgen.",
-        "features": ["Generative Engine Optimization", "KI-Suchbereitschaft", "Zukunftssicheres SEO", "Sichtbarkeit in KI-Suchmaschinen"]
+        "features": [
+          "Generative Engine Optimization",
+          "KI-Suchbereitschaft",
+          "Zukunftssicheres SEO",
+          "Sichtbarkeit in KI-Suchmaschinen"
+        ]
       },
       {
         "name": "Sina Spark",
         "role": "Virale Videoproduzentin",
         "description": "Verwandelt Ihre Artikel in kurze, virale Videos für Social Media.",
-        "features": ["TikTok & Instagram Reels", "Facebook Stories", "YouTube Shorts", "LinkedIn Videoinhalte"]
+        "features": [
+          "TikTok & Instagram Reels",
+          "Facebook Stories",
+          "YouTube Shorts",
+          "LinkedIn Videoinhalte"
+        ]
       },
       {
         "name": "Sophie Sync",
         "role": "Distributions-Koordinatorin",
         "description": "Koordiniert die Veröffentlichung Ihres Contents auf Webseite, Social Media und weiteren Kanälen – für maximale Reichweite zur optimalen Zeit.",
-        "features": ["Koordination über alle Kanäle", "Perfekte Timing-Strategie", "Plattformübergreifende Synchronisation", "Reichweitenoptimierung"]
+        "features": [
+          "Koordination über alle Kanäle",
+          "Perfekte Timing-Strategie",
+          "Plattformübergreifende Synchronisation",
+          "Reichweitenoptimierung"
+        ]
       }
     ]
   },
@@ -206,7 +271,9 @@
         "cost": "~548 €",
         "description": "Redaktionskalender-Management, Briefings, Feedbackrunden und Projektmanagement."
       }
-    ]
+    ],
+    "codaAIStatt": "statt ~4.200 €",
+    "codaAISavings": ">85 % günstiger"
   },
   "footer": {
     "tagline1": "Exzellenter Content.",

@@ -9,7 +9,29 @@ const { lang } = Astro.props;
 const translations = getTranslations(lang);
 const costBreakdown = translations.pricing.costBreakdown;
 
-const icons = ['📄', '🖼️', '🎥', '📅'];
+// SVG paths — same Tabler/Lucide line-icon style as FeatureCard
+const iconData = [
+  {
+    // SEO-Blogartikel / Blog article
+    paths: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 9l1 0"/><path d="M9 13l6 0"/><path d="M9 17l6 0"/>`,
+    color: 'hsl(150, 70%, 40%)',
+  },
+  {
+    // Bilder & Infografiken / Images
+    paths: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8h.01"/><path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"/><path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"/><path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"/>`,
+    color: 'hsl(280, 70%, 55%)',
+  },
+  {
+    // Content Promotion / Distribution
+    paths: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/>`,
+    color: 'hsl(175, 70%, 50%)',
+  },
+  {
+    // Planung & Koordination / Planning
+    paths: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/><path d="M7 14h.013"/><path d="M10.01 14h.005"/><path d="M13.01 14h.005"/><path d="M16.015 14h.005"/><path d="M13.015 17h.005"/><path d="M7.01 17h.005"/><path d="M10.01 17h.005"/>`,
+    color: 'hsl(200, 85%, 50%)',
+  },
+];
 ---
 
 <section id="pricing" class="py-24 lg:py-32">
@@ -27,16 +49,30 @@ const icons = ['📄', '🖼️', '🎥', '📅'];
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {costBreakdown.map((item: any, index: number) => (
           <div key={item.area} class="group relative rounded-2xl border border-border bg-card p-6 hover:border-primary/50 transition-all duration-300">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="size-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors text-xl">
-                {icons[index]}
+            <div class="flex items-center gap-3 mb-5">
+              <div
+                class="size-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={`background-color: ${iconData[index].color}1a`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={iconData[index].color}
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  set:html={iconData[index].paths}
+                />
               </div>
               <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {item.hours}
               </span>
             </div>
             <h4 class="font-semibold text-foreground mb-2">{item.area}</h4>
-            <p class="text-2xl font-bold text-accent mb-3">{item.cost}</p>
+            <p class="text-2xl font-bold mb-3" style={`color: ${iconData[index].color}`}>{item.cost}</p>
             <p class="text-xs text-muted-foreground leading-relaxed">
               {item.description}
             </p>
@@ -44,32 +80,42 @@ const icons = ['📄', '🖼️', '🎥', '📅'];
         ))}
       </div>
 
+      {/* Comparison banner */}
       <div class="relative overflow-hidden rounded-2xl border border-cta/20 p-8 bg-[hsl(291_96%_97%)]">
         <div class="relative flex flex-col items-center gap-8">
           <div class="flex flex-col lg:flex-row items-center justify-center gap-6 w-full">
+
+            {/* Left: Agency total */}
             <div class="text-center lg:text-left">
               <p class="text-sm font-medium text-cta mb-1">
                 {t(lang, "pricing.totalLabel")}
               </p>
               <div class="flex items-baseline gap-2 justify-center lg:justify-start">
-                <span class="text-4xl lg:text-5xl font-bold text-foreground">{t(lang, "pricing.totalCost")}</span>
-                <span class="text-lg text-muted-foreground">{t(lang, "pricing.totalHours")}</span>
+                <span class="text-3xl lg:text-4xl font-bold text-foreground">{t(lang, "pricing.totalCost")}</span>
+                <span class="text-base text-muted-foreground">{t(lang, "pricing.totalHours")}</span>
               </div>
               <p class="mt-2 text-sm text-muted-foreground max-w-md">
                 {t(lang, "pricing.totalDescription")}
               </p>
             </div>
 
-            <svg class="size-8 text-primary rotate-90 lg:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            {/* Arrow */}
+            <svg class="size-8 text-primary rotate-90 lg:rotate-0 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
 
-            <div class="text-center p-6 rounded-xl bg-cta/10 border border-cta/30">
-              <p class="text-sm font-medium text-cta mb-1">{t(lang, "pricing.withCodaAI")}</p>
-              <div class="flex items-baseline gap-1 justify-center">
-                <span class="text-3xl lg:text-4xl font-bold text-cta">{t(lang, "pricing.codaAIPrice")}</span>
-                <span class="text-sm text-muted-foreground">{t(lang, "pricing.codaAIPer")}</span>
-              </div>
+            {/* Right: CodaAI price */}
+            <div class="text-center p-6 rounded-xl bg-cta/10 border border-cta/30 min-w-[200px]">
+              <p class="text-sm font-medium text-cta mb-2">{t(lang, "pricing.withCodaAI")}</p>
+              <p class="text-3xl lg:text-4xl font-bold text-cta leading-none">
+                {t(lang, "pricing.codaAIPrice")}
+              </p>
+              <p class="text-base text-muted-foreground mt-1.5">
+                {t(lang, "pricing.codaAIStatt")}
+              </p>
+              <span class="inline-block mt-3 text-sm font-semibold text-cta bg-cta/10 border border-cta/20 px-3 py-1 rounded-full">
+                {t(lang, "pricing.codaAISavings")}
+              </span>
             </div>
           </div>
 
