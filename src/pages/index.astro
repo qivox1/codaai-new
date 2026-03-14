@@ -9,6 +9,7 @@ import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import { getTranslations } from '../i18n/utils';
+import RoutineWork from '../components/RoutineWork.astro';
 
 const language = 'de' as const;
 const tr = getTranslations(language);
@@ -85,6 +86,7 @@ const faqSchema = JSON.stringify({
   <main id="main-content">
     <Hero lang={language} />
     <Features lang={language} />
+    <RoutineWork lang={language} />
     <ProcessSteps lang={language} />
     <TeamSection lang={language} />
     <Pricing lang={language} />

@@ -1,0 +1,38 @@
+---
+import BenefitSlider from './react/BenefitSlider';
+import WorldMapSection from './react/WorldMapSection';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+const { lang } = Astro.props;
+
+const badge   = lang === 'de' ? 'IHR TEAM, NEU GEDACHT'        : 'YOUR TEAM, REIMAGINED';
+const title   = lang === 'de'
+  ? 'Weniger Routinearbeit. Mehr strategischer Einfluss.'
+  : 'Less Routine Work. More Strategic Influence.';
+const subtitle = lang === 'de'
+  ? 'CodaAI ersetzt nicht Ihr Team – es gibt ihm Superkräfte. Weniger operative Arbeit, mehr Zeit für Strategie.'
+  : 'CodaAI doesn\'t replace your team – it gives it superpowers. Less operational work, more time for strategy.';
+---
+
+<section class="py-20 lg:py-28 bg-background" id="routine-work">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+    {/* Header */}
+    <div class="text-center mb-14">
+      <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-4">{badge}</p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight mb-5 max-w-3xl mx-auto">
+        {title}
+      </h2>
+      <p class="text-muted-foreground text-lg max-w-2xl mx-auto">{subtitle}</p>
+    </div>
+
+    {/* Slider */}
+    <BenefitSlider lang={lang} client:visible />
+
+    {/* World Map card */}
+    <WorldMapSection lang={lang} client:visible />
+
+  </div>
+</section>
