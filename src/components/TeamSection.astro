@@ -10,13 +10,14 @@ const { lang } = Astro.props;
 const translations = getTranslations(lang);
 const members = translations.teamSection.members;
 
+// Exact colors from original Lovable source
 const accentColors = [
-  '#DF41FB', // Pascal Planner – purple
-  '#3B82F6', // Timo Text – blue
-  '#F59E0B', // Viola Visio – amber
-  '#10B981', // Florian Finder – emerald
-  '#EF4444', // Sina Spark – red
-  '#8B5CF6', // Sophie Sync – violet
+  'hsl(200, 85%, 50%)',  // Pascal Planner  – cyan-blue
+  'hsl(150, 70%, 40%)',  // Timo Text        – green
+  'hsl(280, 70%, 55%)',  // Viola Visio      – dark purple
+  'hsl(25,  95%, 55%)',  // Florian Finder   – orange
+  'hsl(300, 80%, 55%)',  // Sina Spark       – bright magenta-purple
+  'hsl(175, 70%, 50%)',  // Sophie Sync      – teal-green
 ];
 
 const images = [

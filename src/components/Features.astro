@@ -10,15 +10,24 @@ const { lang } = Astro.props;
 const translations = getTranslations(lang);
 const experts = translations.features.experts;
 
-const icons = ['📋', '📝', '🎨', '🔍', '🎬', '📢'];
+// Icon names — rendered as Lucide SVG inside FeatureCard
+const iconNames = [
+  'calendar-days',   // Redaktionsplanung
+  'file-text',       // SEO-Blogartikel
+  'image',           // Bilder & Infografiken
+  'search',          // GEO-Optimierung
+  'video',           // Social-Media-Videos
+  'share-2',         // Content Distribution
+];
 
+// Exact colors from original Lovable source
 const accentColors = [
-  '#3B82F6', // blue
-  '#10B981', // emerald
-  '#8B5CF6', // violet
-  '#F59E0B', // amber
-  '#EC4899', // pink
-  '#06B6D4', // cyan
+  'hsl(200, 85%, 50%)',  // cyan-blue  – Redaktionsplanung
+  'hsl(150, 70%, 40%)',  // green      – SEO-Blogartikel
+  'hsl(280, 70%, 55%)',  // purple     – Bilder & Infografiken
+  'hsl(25, 95%, 55%)',   // orange     – GEO-Optimierung
+  'hsl(300, 80%, 55%)',  // magenta    – Social-Media-Videos
+  'hsl(175, 70%, 50%)',  // teal       – Content Distribution
 ];
 ---
 
@@ -28,7 +37,7 @@ const accentColors = [
       <p class="text-sm font-medium text-primary uppercase tracking-wider mb-4">
         {t(lang, "features.badge")}
       </p>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
         {t(lang, "features.title")}
       </h2>
       <p class="mt-6 text-lg text-muted-foreground">
@@ -40,7 +49,7 @@ const accentColors = [
       {experts.map((expert: any, index: number) => (
         <FeatureCard
           client:visible
-          icon={icons[index]}
+          iconName={iconNames[index]}
           title={expert.title}
           role={expert.role}
           description={expert.description}
