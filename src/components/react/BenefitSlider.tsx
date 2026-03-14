@@ -19,32 +19,32 @@ export default function BenefitSlider({ lang = "de", base = "" }: BenefitSliderP
     {
       image: `${base}/images/slider/01.webp`,
       headline: "9x mehr Content",
-      description: "Deutlich mehr hochwertiger Content für das gleiche Budget",
+      description: "Deutlich mehr hochwertiger Content für das gleiche Budget.",
     },
     {
       image: `${base}/images/slider/02.webp`,
       headline: "Sofort bereit",
-      description: "Von der Idee zum fertigen Content in Stunden statt Wochen",
+      description: "Von der Idee zum fertigen Content in Stunden statt Wochen.",
     },
     {
       image: `${base}/images/slider/03.webp`,
       headline: "Immer markentreu",
-      description: "KI-Modelle lernen Ihre Markenrichtlinien und folgen ihnen konsistent",
+      description: "KI-Modelle lernen Ihre Markenrichtlinien und folgen ihnen konsistent.",
     },
     {
       image: `${base}/images/slider/04.webp`,
-      headline: "Alles aus einer Hand",
-      description: "Strategie, Text, Design, Video und Distribution – vollständig orchestriert",
+      headline: "Ein Tool für alles",
+      description: "SEO/GEO, Design, Video – nahtlos aus einer Plattform.",
     },
     {
       image: `${base}/images/slider/05.webp`,
-      headline: "Global skalierbar",
-      description: "Ihre Inhalte automatisch in 30 Sprachen für 155 internationale Märkte",
+      headline: "Global ohne Grenzen",
+      description: "Mehrsprachiger Content auf Knopfdruck.",
     },
     {
       image: `${base}/images/slider/06.webp`,
-      headline: "Messbare Ergebnisse",
-      description: "Datengestützte Insights für kontinuierliche Optimierung Ihrer Content-Strategie",
+      headline: "Volle Transparenz",
+      description: "Echtzeit-Analyse und ROI auf einen Blick.",
     },
   ];
 
@@ -52,32 +52,32 @@ export default function BenefitSlider({ lang = "de", base = "" }: BenefitSliderP
     {
       image: `${base}/images/slider/01.webp`,
       headline: "9x more content",
-      description: "Significantly more high-quality content for the same budget",
+      description: "Significantly more high-quality content for the same budget.",
     },
     {
       image: `${base}/images/slider/02.webp`,
       headline: "Ready in hours",
-      description: "From idea to finished content in hours instead of weeks",
+      description: "From idea to finished content in hours instead of weeks.",
     },
     {
       image: `${base}/images/slider/03.webp`,
       headline: "Always on brand",
-      description: "AI models learn your brand guidelines and follow them consistently",
+      description: "AI models learn your brand guidelines and follow them consistently.",
     },
     {
       image: `${base}/images/slider/04.webp`,
-      headline: "All in one place",
-      description: "Strategy, copy, design, video and distribution – fully orchestrated",
+      headline: "One tool for everything",
+      description: "SEO/GEO, design, video – seamlessly from one platform.",
     },
     {
       image: `${base}/images/slider/05.webp`,
-      headline: "Globally scalable",
-      description: "Your content automatically in 30 languages for 155 international markets",
+      headline: "Global without limits",
+      description: "Multilingual content at the push of a button.",
     },
     {
       image: `${base}/images/slider/06.webp`,
-      headline: "Measurable results",
-      description: "Data-driven insights for continuous optimisation of your content strategy",
+      headline: "Full transparency",
+      description: "Real-time analytics and ROI at a glance.",
     },
   ];
 
