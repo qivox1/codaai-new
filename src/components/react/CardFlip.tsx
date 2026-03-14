@@ -9,6 +9,7 @@ interface CardFlipProps {
   features: string[];
   accentColor: string;
   image: string;
+  lang?: 'de' | 'en';
 }
 
 export default function CardFlip({
@@ -18,7 +19,9 @@ export default function CardFlip({
   features,
   accentColor,
   image,
+  lang = 'de',
 }: CardFlipProps) {
+  const viewDetailsLabel = lang === 'de' ? 'Details ansehen' : 'View details';
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -91,7 +94,7 @@ export default function CardFlip({
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
               <span className="text-xs text-white/50 group-hover:text-white/80 transition-colors duration-300">
-                Details ansehen
+                {viewDetailsLabel}
               </span>
             </div>
           </div>
