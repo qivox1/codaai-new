@@ -10,6 +10,7 @@ import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import { getTranslations } from '../i18n/utils';
 import RoutineWork from '../components/RoutineWork.astro';
+import GlobalReach from '../components/GlobalReach.astro';
 
 const language = 'de' as const;
 const tr = getTranslations(language);
@@ -85,11 +86,12 @@ const faqSchema = JSON.stringify({
   <Navbar lang={language} />
   <main id="main-content">
     <Hero lang={language} />
-    <RoutineWork lang={language} />
     <Features lang={language} />
     <ProcessSteps lang={language} />
     <TeamSection lang={language} />
     <Pricing lang={language} />
+    <RoutineWork lang={language} />
+    <GlobalReach lang={language} />
     <FAQ lang={language} />
   </main>
   <Footer lang={language} />

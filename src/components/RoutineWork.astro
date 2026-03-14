@@ -1,6 +1,5 @@
 ---
 import BenefitSlider from './react/BenefitSlider';
-import WorldMapSection from './react/WorldMapSection';
 
 interface Props {
   lang: 'de' | 'en';
@@ -29,11 +28,7 @@ const subtitle = lang === 'de'
       <p class="text-muted-foreground text-lg max-w-2xl mx-auto">{subtitle}</p>
     </div>
 
-    {/* Slider */}
     <BenefitSlider lang={lang} base={base} client:visible />
-
-    {/* World Map card */}
-    <WorldMapSection lang={lang} client:visible />
 
   </div>
 </section>
