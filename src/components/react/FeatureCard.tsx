@@ -85,11 +85,17 @@ export default function FeatureCard({
 
   return (
     <div
-      className="relative w-full h-[380px] rounded-2xl"
+      className="group relative w-full h-[380px] rounded-2xl"
       style={{ perspective: '1000px' }}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
+      {/* Glow halo — same effect as team cards */}
+      <div
+        className="absolute inset-2 rounded-2xl opacity-0 group-hover:opacity-35 blur-2xl transition-opacity duration-500 -z-10"
+        style={{ background: accentColor }}
+      />
+
       <div
         className="relative w-full h-full transition-transform duration-700"
         style={{
