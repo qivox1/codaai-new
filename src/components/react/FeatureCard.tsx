@@ -170,6 +170,7 @@ export default function FeatureCard({
 
           <div className="pt-4 mt-4 border-t border-border">
             <button
+              type="button"
               className="w-full rounded-xl py-2.5 text-sm font-medium transition-colors"
               style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
             >

@@ -202,4 +202,36 @@
     transform: scale(0.98);
     transition-duration: 0.1s;
   }
+
+  /* Accessible focus styles — visible on keyboard navigation */
+  :focus-visible {
+    outline: 2px solid hsl(var(--cta));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .btn-cta:focus-visible,
+  .btn-secondary:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px hsl(var(--cta) / 0.5);
+  }
+
+  /* Skip to content link for screen readers */
+  .skip-to-content {
+    position: absolute;
+    left: -9999px;
+    top: 1rem;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border: 2px solid hsl(var(--cta));
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .skip-to-content:focus {
+    left: 1rem;
+  }
 }

@@ -85,6 +85,10 @@ export default function CardFlip({
           <img
             src={image}
             alt={name}
+            width={400}
+            height={420}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
           />
           {/* Strong dark gradient for legibility */}

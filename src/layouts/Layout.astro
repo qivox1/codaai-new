@@ -10,15 +10,25 @@ interface Props {
 const {
   title = 'CodaAI',
   description = 'AI Content Platform',
-  lang = 'de'
+  lang = 'de',
 } = Astro.props;
+
+const SITE_ORIGIN = 'https://qivox1.github.io';
+const BASE = `${SITE_ORIGIN}/codaai-new`;
+// Canonical: Astro.url.pathname already has the full path e.g. /codaai-new/
+const canonicalUrl = `${SITE_ORIGIN}${Astro.url.pathname}`;
+
+// hreflang: strip /codaai-new prefix, normalize /en/ to get bare slug
+const pathNoBase = Astro.url.pathname.replace('/codaai-new', '').replace(/^\/en\//, '/').replace(/\/$/, '') || '/';
+const deUrl = pathNoBase === '/' ? `${BASE}/` : `${BASE}${pathNoBase}/`;
+const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -26,11 +36,39 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://qivox1.github.io/codaai-new/images/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="de" href={deUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={deUrl} />
+    {/* Non-blocking Google Fonts — avoids render-blocking penalty */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+    {/* Critical font fallback — ensures text is visible immediately */}
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    </style>
   </head>
   <body>
+    <a href="#main-content" class="skip-to-content">
+      {lang === 'en' ? 'Skip to main content' : 'Zum Hauptinhalt springen'}
+    </a>
     <slot />
     <script>
       // Theme initialization
