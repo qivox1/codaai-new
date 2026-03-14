@@ -142,7 +142,7 @@
       },
       {
         "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Bis zu 87 % gegenüber Agenturpreisen. Ein komplettes Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 549 €."
+        "answer": "Bis zu 90 % gegenüber Agenturpreisen. Ein komplettes Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 389 € pro Monat (mit Jahreslizenz)."
       },
       {
         "question": "Wie funktioniert es? Was brauche ich zum Starten?",
@@ -158,7 +158,7 @@
       },
       {
         "question": "Welche Vertragslaufzeiten gibt es?",
-        "answer": "Maximale Flexibilität: CodaAI wird monatlich abgerechnet. Es gibt keine Mindestvertragslaufzeit und keine Kündigungsfrist – Sie können jederzeit zum Ende des laufenden Monats kündigen."
+        "answer": "Die Mindestvertragslaufzeit beträgt ein Quartal (3 Monate). Mit einer Jahreslizenz erhalten Sie 20 % Rabatt gegenüber der quartalsweisen Abrechnung – ideal für Content Marketing und SEO-Maßnahmen, die langfristig wirken. Die Kündigung erfolgt jeweils zum Ende des gewählten Abrechnungszeitraums (Quartal oder Jahr)."
       },
       {
         "question": "Kann ich meinen Plan oder mein Artikelvolumen ändern?",
@@ -166,7 +166,7 @@
       },
       {
         "question": "Was passiert nach der Kündigung?",
-        "answer": "Wenn Sie kündigen, endet Ihr Abonnement am Ende des aktuellen Abrechnungszeitraums. Sie behalten die vollen Rechte an allen während Ihres Abonnements erstellten Inhalten. Es gibt keine versteckten Gebühren, keine Kündigungsgebühren und keine langfristigen Verpflichtungen."
+        "answer": "Wenn Sie kündigen, endet Ihr Abonnement am Ende des aktuellen Abrechnungszeitraums (Quartal oder Jahr). Sie behalten die vollen Rechte an allen während Ihres Abonnements erstellten Inhalten. Es gibt keine versteckten Gebühren und keine Kündigungsgebühren."
       }
     ]
   },
@@ -178,8 +178,8 @@
     "totalHours": "/ 36,5 Stunden",
     "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
     "withCodaAI": "Mit CodaAI",
-    "codaAIPrice": "ab 549 €",
-    "codaAIPer": "statt ~4.200 €. >85 % günstiger.",
+    "codaAIPrice": "ab 389 €",
+    "codaAIPer": "statt ~4.200 €. >90 % günstiger.",
     "freeTrial": "Kostenlos testen",
     "costBreakdown": [
       {

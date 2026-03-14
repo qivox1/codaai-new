@@ -1,60 +1,97 @@
 import { useState } from 'react';
 import { Loader2, Mail, Check } from 'lucide-react';
 
-// CodaAI pricing with volume discounts
-const getCodaAIPricePerPiece = (pieces: number): number => {
+// ─── Pricing tiers ──────────────────────────────────────────────────────────
+// Quarterly rates (base prices — what was previously the monthly rate)
+const getQuarterlyPricePerPiece = (pieces: number): number => {
   if (pieces >= 10) return 349;
-  if (pieces >= 7) return 390;
-  if (pieces >= 4) return 420;
+  if (pieces >= 7)  return 390;
+  if (pieces >= 4)  return 420;
   return 490;
 };
 
-// Social Video pricing: 2 videos per article, price per video
-const getVideoPricePerVideo = (pieces: number): number => {
+// Annual rates = quarterly × 0.80 (20 % discount), rounded to clean numbers
+const getAnnualPricePerPiece = (pieces: number): number => {
+  if (pieces >= 10) return 279;
+  if (pieces >= 7)  return 309;
+  if (pieces >= 4)  return 335;
+  return 389;
+};
+
+const getQuarterlyVideoPricePerVideo = (pieces: number): number => {
   if (pieces >= 10) return 100;
-  if (pieces >= 7) return 110;
-  if (pieces >= 4) return 120;
+  if (pieces >= 7)  return 110;
+  if (pieces >= 4)  return 120;
   return 140;
 };
 
-// Translation base price per article (first language)
-const getTranslationBasePrice = (pieces: number): number => {
+const getAnnualVideoPricePerVideo = (pieces: number): number => {
+  if (pieces >= 10) return 79;
+  if (pieces >= 7)  return 87;
+  if (pieces >= 4)  return 95;
+  return 112;
+};
+
+const getQuarterlyTranslationBasePrice = (pieces: number): number => {
   if (pieces >= 10) return 89;
-  if (pieces >= 7) return 99;
-  if (pieces >= 4) return 105;
+  if (pieces >= 7)  return 99;
+  if (pieces >= 4)  return 105;
   return 125;
 };
 
-// Total translation cost per article for N languages (€10 less per additional language)
-const getTranslationTotalPerArticle = (pieces: number, languages: number): number => {
-  const basePrice = getTranslationBasePrice(pieces);
+const getAnnualTranslationBasePrice = (pieces: number): number => {
+  if (pieces >= 10) return 71;
+  if (pieces >= 7)  return 79;
+  if (pieces >= 4)  return 84;
+  return 99;
+};
+
+const getTranslationTotalPerArticle = (
+  pieces: number,
+  languages: number,
+  isAnnual: boolean
+): number => {
+  const basePrice = isAnnual
+    ? getAnnualTranslationBasePrice(pieces)
+    : getQuarterlyTranslationBasePrice(pieces);
   let total = 0;
   for (let i = 0; i < languages; i++) {
-    total += Math.max(basePrice - i * 10, 10); // minimum €10 per language
+    total += Math.max(basePrice - i * 10, 10);
   }
   return total;
 };
 
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat('de-DE', {
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
-};
 
-const FEATURES = [
-  "SEO-optimierte Blogartikel bis 4.000 Wörter",
-  "Keyword-Recherche & Wettbewerbsanalyse inklusive",
-  "3 Grafiken & Infografiken pro Artikel",
-  "2 Social-Media-Videos pro Artikel (optional)",
-  "Professionelle Übersetzungen (optional)",
-  "Redaktionskalender & Content-Strategie",
-  "Monatliche Performance-Auswertung",
-  "Persönlicher Ansprechpartner",
-  "Keine Vertragslaufzeit – monatlich kündbar",
-  "Hosting auf deutschen Servern (DSGVO-konform)"
+// ─── Features list ─────────────────────────────────────────────────────────
+const FEATURES_DE = [
+  'SEO-optimierte Blogartikel bis 4.000 Wörter',
+  'Keyword-Recherche & Wettbewerbsanalyse inklusive',
+  '3 Grafiken & Infografiken pro Artikel',
+  '2 Social-Media-Videos pro Artikel (optional)',
+  'Professionelle Übersetzungen (optional)',
+  'Redaktionskalender & Content-Strategie',
+  'Monatliche Performance-Auswertung',
+  'Persönlicher Ansprechpartner',
+  'Hosting auf deutschen Servern (DSGVO-konform)',
+];
+
+const FEATURES_EN = [
+  'SEO-optimised blog articles up to 4,000 words',
+  'Keyword research & competitive analysis included',
+  '3 graphics & infographics per article',
+  '2 social media videos per article (optional)',
+  'Professional translations (optional)',
+  'Editorial calendar & content strategy',
+  'Monthly performance report',
+  'Dedicated account manager',
+  'Hosted on German servers (GDPR-compliant)',
 ];
 
 interface PricingCalculatorProps {
@@ -62,6 +99,7 @@ interface PricingCalculatorProps {
 }
 
 export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProps) {
+  const [billingCycle, setBillingCycle] = useState<'annual' | 'quarterly'>('annual');
   const [contentPieces, setContentPieces] = useState(2);
   const [includeSocialVideos, setIncludeSocialVideos] = useState(false);
   const [includeTranslations, setIncludeTranslations] = useState(false);
@@ -71,67 +109,96 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
   const [emailSent, setEmailSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Calculate pricing
-  const pricePerPiece = getCodaAIPricePerPiece(contentPieces);
-  const videoPricePerVideo = getVideoPricePerVideo(contentPieces);
-  const translationTotalPerArticle = getTranslationTotalPerArticle(contentPieces, translationLanguages);
-  const videosCostPerMonth = includeSocialVideos ? contentPieces * 2 * videoPricePerVideo : 0;
-  const translationsCostPerMonth = includeTranslations ? contentPieces * translationTotalPerArticle : 0;
-  const monthlyTotal = contentPieces * pricePerPiece + videosCostPerMonth + translationsCostPerMonth;
+  const isAnnual = billingCycle === 'annual';
 
-  const langLabel = translationLanguages === 1 ? 'Sprache' : 'Sprachen';
+  // ── Dynamic pricing based on cycle ──
+  const pricePerPiece = isAnnual
+    ? getAnnualPricePerPiece(contentPieces)
+    : getQuarterlyPricePerPiece(contentPieces);
+
+  const videoPricePerVideo = isAnnual
+    ? getAnnualVideoPricePerVideo(contentPieces)
+    : getQuarterlyVideoPricePerVideo(contentPieces);
+
+  const translationTotalPerArticle = getTranslationTotalPerArticle(
+    contentPieces,
+    translationLanguages,
+    isAnnual
+  );
+
+  const videosCostPerMonth = includeSocialVideos
+    ? contentPieces * 2 * videoPricePerVideo
+    : 0;
+  const translationsCostPerMonth = includeTranslations
+    ? contentPieces * translationTotalPerArticle
+    : 0;
+  const monthlyTotal =
+    contentPieces * pricePerPiece + videosCostPerMonth + translationsCostPerMonth;
+
+  // For annual billing we show monthly equivalent; actual charge = monthlyTotal × 12
+  const annualTotal = monthlyTotal * 12;
+
+  const langLabel = translationLanguages === 1
+    ? (lang === 'de' ? 'Sprache' : 'language')
+    : (lang === 'de' ? 'Sprachen' : 'languages');
+
+  const FEATURES = lang === 'de' ? FEATURES_DE : FEATURES_EN;
 
   const handleMagicLink = async () => {
     setEmailError('');
-
     if (!email || !email.trim()) {
-      setEmailError('Bitte geben Sie Ihre E-Mail-Adresse ein');
+      setEmailError(lang === 'de' ? 'Bitte geben Sie Ihre E-Mail-Adresse ein' : 'Please enter your email address');
       return;
     }
-
     if (!email.includes('@') || !email.includes('.')) {
-      setEmailError('Bitte geben Sie eine gültige E-Mail-Adresse ein');
+      setEmailError(lang === 'de' ? 'Bitte geben Sie eine gültige E-Mail-Adresse ein' : 'Please enter a valid email address');
       return;
     }
-
     setIsLoading(true);
     try {
-      const redirectUrl = `${window.location.origin}/pricing?checkout=true&quantity=${contentPieces}&socialVideos=${includeSocialVideos}&translations=${includeTranslations}&translationLangs=${translationLanguages}`;
-
+      const redirectUrl = `${window.location.origin}/pricing?checkout=true&quantity=${contentPieces}&billing=${billingCycle}&socialVideos=${includeSocialVideos}&translations=${includeTranslations}&translationLangs=${translationLanguages}`;
       const response = await fetch(
-        `${import.meta.env.PUBLIC_SUPABASE_URL}/functions/v1/send-magic-link`,
+        `${(import.meta as any).env?.PUBLIC_SUPABASE_URL}/functions/v1/send-magic-link`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY}`,
+            Authorization: `Bearer ${(import.meta as any).env?.PUBLIC_SUPABASE_PUBLISHABLE_KEY}`,
           },
-          body: JSON.stringify({
-            email: email.trim(),
-            redirectUrl,
-          }),
+          body: JSON.stringify({ email: email.trim(), redirectUrl }),
         }
       );
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Magic Link versand fehlgeschlagen');
-      }
-
+      if (!response.ok) throw new Error(data.error || 'Magic Link versand fehlgeschlagen');
       setEmailSent(true);
     } catch (error: any) {
       console.error('Magic link error:', error);
-      setEmailError(error.message || 'Fehler beim Senden der Magic Link');
+      setEmailError(error.message || (lang === 'de' ? 'Fehler beim Senden des Magic Links' : 'Error sending Magic Link'));
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Tier data for Staffelpreise display
+  const tiers = isAnnual
+    ? [
+        { range: '1–3', price: '€389', value: 3,  active: contentPieces <= 3 },
+        { range: '4–6', price: '€335', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
+        { range: '7–9', price: '€309', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
+        { range: '10–12', price: '€279', value: 10, active: contentPieces >= 10 },
+      ]
+    : [
+        { range: '1–3', price: '€490', value: 3,  active: contentPieces <= 3 },
+        { range: '4–6', price: '€420', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
+        { range: '7–9', price: '€390', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
+        { range: '10–12', price: '€349', value: 10, active: contentPieces >= 10 },
+      ];
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <main className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:py-24">
+
           {/* Page Title */}
           <div className="text-center mb-12">
             <p className="text-sm font-medium text-cta uppercase tracking-wider mb-4">
@@ -144,23 +211,78 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               {lang === 'de'
-                ? 'Wählen Sie Ihr Volumen. Jederzeit anpassbar, monatlich kündbar.'
-                : 'Choose your volume. Adjustable anytime, cancel monthly.'}
+                ? 'Wählen Sie Ihr Volumen und Ihre Laufzeit. Mit Jahreslizenz 20 % sparen.'
+                : 'Choose your volume and billing cycle. Save 20% with an annual plan.'}
             </p>
+          </div>
+
+          {/* ── Billing Cycle Toggle ─────────────────────────────────────── */}
+          <div className="flex justify-center mb-10">
+            <div className="relative inline-flex items-center bg-muted/50 border border-border rounded-full p-1 gap-1">
+              {/* Annual pill */}
+              <button
+                type="button"
+                onClick={() => setBillingCycle('annual')}
+                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  isAnnual
+                    ? 'bg-cta text-white shadow-md shadow-cta/25'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {lang === 'de' ? 'Jährlich' : 'Annual'}
+                {/* Savings badge */}
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition-all duration-300 ${
+                  isAnnual
+                    ? 'bg-white/20 text-white'
+                    : 'bg-cta/15 text-cta'
+                }`}>
+                  –20%
+                </span>
+              </button>
+              {/* Quarterly pill */}
+              <button
+                type="button"
+                onClick={() => setBillingCycle('quarterly')}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  !isAnnual
+                    ? 'bg-foreground text-background shadow-md'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {lang === 'de' ? 'Quartalsweise' : 'Quarterly'}
+              </button>
+            </div>
+          </div>
+
+          {/* Billing info strip */}
+          <div className="text-center mb-8">
+            {isAnnual ? (
+              <p className="text-sm text-muted-foreground">
+                {lang === 'de'
+                  ? <>Jährliche Abrechnung — <span className="text-cta font-medium">{formatCurrency(annualTotal)} einmalig</span> — 20&nbsp;% günstiger als quartalsweise</>
+                  : <>Annual billing — <span className="text-cta font-medium">{formatCurrency(annualTotal)} once</span> — 20% cheaper than quarterly</>
+                }
+              </p>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                {lang === 'de'
+                  ? 'Quartalsweise Abrechnung — Mindestlaufzeit 3 Monate'
+                  : 'Quarterly billing — minimum term 3 months'}
+              </p>
+            )}
           </div>
 
           {/* Pricing Card */}
           <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden mb-12">
             <div className="px-8 py-10">
-              {/* Slider Section */}
+
+              {/* Slider */}
               <div className="mb-10">
                 <div className="flex items-center justify-between mb-4">
                   <label className="text-foreground font-semibold text-lg">
                     {lang === 'de' ? 'Wie viele Premium-Blog-Artikel pro Monat?' : 'How many premium blog articles per month?'}
                   </label>
-                  <span className="text-3xl font-bold text-cta">
-                    {contentPieces}
-                  </span>
+                  <span className="text-3xl font-bold text-cta">{contentPieces}</span>
                 </div>
                 <input
                   type="range"
@@ -176,15 +298,15 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                   <span>12</span>
                 </div>
                 <p className="text-cta text-sm font-medium mt-3">
-                  inkl. 3 individuelle Grafiken (HighRes) pro Monat
+                  {lang === 'de'
+                    ? 'inkl. 3 individuelle Grafiken (HighRes) pro Artikel'
+                    : 'incl. 3 individual high-res graphics per article'}
                 </p>
               </div>
 
               {/* Translations Toggle */}
-              <div className={`mb-10 rounded-xl border p-5 transition-all duration-300 ${
-                includeTranslations
-                  ? 'bg-cta/10 border-cta/30'
-                  : 'bg-border/30 border-border'
+              <div className={`mb-6 rounded-xl border p-5 transition-all duration-300 ${
+                includeTranslations ? 'bg-cta/10 border-cta/30' : 'bg-border/30 border-border'
               }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -193,43 +315,44 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       checked={includeTranslations}
                       onChange={(e) => setIncludeTranslations(e.target.checked)}
                       className="w-5 h-5 accent-cta cursor-pointer"
+                      id="toggle-translations"
                     />
-                    <div>
+                    <label htmlFor="toggle-translations" className="cursor-pointer">
                       <p className="text-sm font-semibold text-foreground">
-                        + Übersetzungen
+                        + {lang === 'de' ? 'Übersetzungen' : 'Translations'}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Professionelle Übersetzung in 30+ Sprachen
+                        {lang === 'de' ? 'Professionelle Übersetzung in 30+ Sprachen' : 'Professional translation into 30+ languages'}
                       </p>
-                    </div>
+                    </label>
                   </div>
-
                   <div className="text-right">
                     {includeTranslations ? (
                       <>
                         <p className="text-sm font-bold text-cta">
-                          +{formatCurrency(translationsCostPerMonth)}/Monat
+                          +{formatCurrency(translationsCostPerMonth)}/{lang === 'de' ? 'Monat' : 'month'}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {formatCurrency(translationTotalPerArticle)}/Artikel ({translationLanguages} {langLabel})
+                          {formatCurrency(translationTotalPerArticle)}/{lang === 'de' ? 'Artikel' : 'article'} ({translationLanguages} {langLabel})
                         </p>
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        ab €89/Artikel
+                        {lang === 'de' ? `ab €${isAnnual ? 71 : 89}/Artikel` : `from €${isAnnual ? 71 : 89}/article`}
                       </p>
                     )}
                   </div>
                 </div>
-
-                {/* Language count selector */}
                 {includeTranslations && (
                   <div className="mt-4 pt-4 border-t border-border">
-                    <p className="text-xs text-muted-foreground mb-3">Zusätzliche Sprachen pro Premium-Blogartikel</p>
+                    <p className="text-xs text-muted-foreground mb-3">
+                      {lang === 'de' ? 'Zusätzliche Sprachen pro Artikel' : 'Additional languages per article'}
+                    </p>
                     <div className="flex gap-2 flex-wrap">
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                         <button
                           key={num}
+                          type="button"
                           onClick={() => setTranslationLanguages(num)}
                           className={`w-9 h-9 rounded-lg text-sm font-medium transition-all duration-200 ${
                             translationLanguages === num
@@ -247,9 +370,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
 
               {/* Social Videos Toggle */}
               <div className={`mb-10 rounded-xl border p-5 transition-all duration-300 ${
-                includeSocialVideos
-                  ? 'bg-cta/10 border-cta/30'
-                  : 'bg-border/30 border-border'
+                includeSocialVideos ? 'bg-cta/10 border-cta/30' : 'bg-border/30 border-border'
               }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -258,64 +379,101 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       checked={includeSocialVideos}
                       onChange={(e) => setIncludeSocialVideos(e.target.checked)}
                       className="w-5 h-5 accent-cta cursor-pointer"
+                      id="toggle-videos"
                     />
-                    <div>
+                    <label htmlFor="toggle-videos" className="cursor-pointer">
                       <p className="text-sm font-semibold text-foreground">
                         + Social Videos
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        2 Kurzvideos pro Artikel für Reels, Shorts, TikTok & LinkedIn
+                        {lang === 'de'
+                          ? '2 Kurzvideos pro Artikel für Reels, Shorts, TikTok & LinkedIn'
+                          : '2 short videos per article for Reels, Shorts, TikTok & LinkedIn'}
                       </p>
-                    </div>
+                    </label>
                   </div>
                   <div className="text-right">
                     {includeSocialVideos ? (
                       <>
                         <p className="text-sm font-bold text-cta">
-                          +{formatCurrency(videosCostPerMonth)}/Monat
+                          +{formatCurrency(videosCostPerMonth)}/{lang === 'de' ? 'Monat' : 'month'}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {formatCurrency(videoPricePerVideo)}/Video
+                          {formatCurrency(videoPricePerVideo)}/{lang === 'de' ? 'Video' : 'video'}
                         </p>
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        ab €100/Video
+                        {lang === 'de' ? `ab €${isAnnual ? 79 : 100}/Video` : `from €${isAnnual ? 79 : 100}/video`}
                       </p>
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Price Display */}
-              <div className="text-center mb-10 bg-cta/5 rounded-xl p-6">
-                <div className="flex items-baseline justify-center gap-2 mb-2">
-                  <span className="text-5xl font-bold text-foreground">
-                    {formatCurrency(monthlyTotal)}
-                  </span>
-                  <span className="text-muted-foreground text-lg">/Monat</span>
+              {/* ── Price Display ─────────────────────────────────────────── */}
+              <div className="text-center mb-10">
+                <div className={`rounded-2xl p-6 transition-all duration-300 ${
+                  isAnnual ? 'bg-cta/8 border border-cta/20' : 'bg-muted/40 border border-border'
+                }`}>
+                  {isAnnual && (
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-cta bg-cta/10 px-3 py-1 rounded-full">
+                        {/* Savings star */}
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        {lang === 'de' ? '20 % Jahreslizenz-Rabatt' : '20% annual discount'}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-baseline justify-center gap-2 mb-1">
+                    <span className="text-5xl font-bold text-foreground">
+                      {formatCurrency(monthlyTotal)}
+                    </span>
+                    <span className="text-muted-foreground text-lg">
+                      /{lang === 'de' ? 'Monat' : 'month'}
+                    </span>
+                  </div>
+                  {isAnnual ? (
+                    <p className="text-muted-foreground text-sm">
+                      {lang === 'de'
+                        ? `${formatCurrency(annualTotal)} / Jahr — ${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel`
+                        : `${formatCurrency(annualTotal)} / year — ${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article`}
+                    </p>
+                  ) : (
+                    <p className="text-muted-foreground text-sm">
+                      {lang === 'de'
+                        ? `${formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Artikel · ${lang === 'de' ? 'Quartalsabrechnung' : 'Quarterly billing'}`
+                        : `${formatCurrency(Math.round(monthlyTotal / contentPieces))} per article · Quarterly billing`}
+                    </p>
+                  )}
+                  {!isAnnual && (
+                    <button
+                      type="button"
+                      onClick={() => setBillingCycle('annual')}
+                      className="mt-3 text-xs text-cta hover:underline font-medium"
+                    >
+                      {lang === 'de'
+                        ? `→ Mit Jahreslizenz nur ${formatCurrency(contentPieces * getAnnualPricePerPiece(contentPieces) + (includeSocialVideos ? contentPieces * 2 * getAnnualVideoPricePerVideo(contentPieces) : 0) + (includeTranslations ? contentPieces * getTranslationTotalPerArticle(contentPieces, translationLanguages, true) : 0))}/Monat`
+                        : `→ With annual plan only ${formatCurrency(contentPieces * getAnnualPricePerPiece(contentPieces) + (includeSocialVideos ? contentPieces * 2 * getAnnualVideoPricePerVideo(contentPieces) : 0) + (includeTranslations ? contentPieces * getTranslationTotalPerArticle(contentPieces, translationLanguages, true) : 0))}/month`}
+                    </button>
+                  )}
                 </div>
-                <p className="text-muted-foreground text-sm">
-                  {formatCurrency(Math.round(monthlyTotal / contentPieces))} pro Blogartikel
-                </p>
               </div>
 
-              {/* Volume Discount Indicator */}
+              {/* ── Staffelpreise ──────────────────────────────────────────── */}
               <div className="mb-8">
                 <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mb-4">
                   <span className="h-px flex-1 bg-border" />
-                  <span>Staffelpreise</span>
+                  <span>{lang === 'de' ? 'Staffelpreise pro Artikel' : 'Volume prices per article'}</span>
                   <span className="h-px flex-1 bg-border" />
                 </div>
                 <div className="grid grid-cols-4 gap-2 text-center">
-                  {[
-                    { range: '1-3', price: '€490', value: 3, active: contentPieces <= 3 },
-                    { range: '4-6', price: '€420', value: 4, active: contentPieces >= 4 && contentPieces <= 6 },
-                    { range: '7-9', price: '€390', value: 7, active: contentPieces >= 7 && contentPieces <= 9 },
-                    { range: '10-12', price: '€349', value: 10, active: contentPieces >= 10 },
-                  ].map((tier) => (
+                  {tiers.map((tier) => (
                     <button
                       key={tier.range}
+                      type="button"
                       onClick={() => setContentPieces(tier.value)}
                       className={`py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
                         tier.active
@@ -323,17 +481,17 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                           : 'bg-border/50 border border-border text-muted-foreground hover:bg-border'
                       }`}
                     >
-                      <div className="text-xs">{tier.range} Stk.</div>
+                      <div className="text-xs">{tier.range} {lang === 'de' ? 'Stk.' : 'pcs.'}</div>
                       <div className={`text-sm font-semibold ${tier.active ? 'text-cta' : ''}`}>{tier.price}</div>
                     </button>
                   ))}
                 </div>
               </div>
 
-              {/* Features List */}
+              {/* Features */}
               <div className="bg-card border border-border rounded-xl p-6 mb-8">
                 <h3 className="text-xs uppercase tracking-wider text-cta mb-4 font-semibold">
-                  Alles inklusive
+                  {lang === 'de' ? 'Alles inklusive' : 'Everything included'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {FEATURES.map((feature) => (
@@ -353,78 +511,68 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                   <div className="space-y-4">
                     <div className="flex items-center justify-center gap-3 text-cta">
                       <Mail className="w-6 h-6" />
-                      <span className="text-lg font-medium">Prüfen Sie Ihren Posteingang!</span>
+                      <span className="text-lg font-medium">
+                        {lang === 'de' ? 'Prüfen Sie Ihren Posteingang!' : 'Check your inbox!'}
+                      </span>
                     </div>
                     <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                      Wir haben einen Magic Link an <span className="text-foreground font-medium">{email}</span> gesendet. Klicken Sie auf den Link, um zu bestätigen und Ihr Abonnement zu starten.
+                      {lang === 'de'
+                        ? <>Wir haben einen Magic Link an <span className="text-foreground font-medium">{email}</span> gesendet. Klicken Sie auf den Link, um zu bestätigen und Ihr Abonnement zu starten.</>
+                        : <>We sent a Magic Link to <span className="text-foreground font-medium">{email}</span>. Click the link to confirm and start your subscription.</>}
                     </p>
-                    <button
-                      onClick={() => setEmailSent(false)}
-                      className="text-cta hover:underline text-sm"
-                    >
-                      Andere E-Mail verwenden
+                    <button type="button" onClick={() => setEmailSent(false)} className="text-cta hover:underline text-sm">
+                      {lang === 'de' ? 'Andere E-Mail verwenden' : 'Use a different email'}
                     </button>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     <p className="text-muted-foreground text-sm mb-4">
-                      Geben Sie Ihre E-Mail ein, um zu starten
+                      {lang === 'de' ? 'Geben Sie Ihre E-Mail ein, um zu starten' : 'Enter your email to get started'}
                     </p>
                     <div className="flex flex-col gap-2 max-w-md mx-auto">
                       <div className="flex flex-col sm:flex-row gap-3">
                         <div className="flex-1">
                           <input
                             type="email"
-                            placeholder="ihre@email.de"
+                            placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
                             value={email}
-                            onChange={(e) => {
-                              setEmail(e.target.value);
-                              if (emailError) setEmailError('');
-                            }}
-                            className={`w-full h-12 px-4 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${
-                              emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                            }`}
+                            onChange={(e) => { setEmail(e.target.value); if (emailError) setEmailError(''); }}
+                            className={`w-full h-12 px-4 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                             onKeyDown={(e) => e.key === 'Enter' && handleMagicLink()}
                           />
                         </div>
                         <button
+                          type="button"
                           onClick={handleMagicLink}
                           disabled={isLoading}
                           className="btn-cta h-12 px-8 text-base disabled:opacity-50 whitespace-nowrap"
                           style={{ borderRadius: '0.5rem' }}
                         >
                           {isLoading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin inline" />
-                              Wird gesendet...
-                            </>
+                            <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird gesendet...' : 'Sending...'}</>
                           ) : (
                             'Magic Link erhalten'
                           )}
                         </button>
                       </div>
-                      {emailError && (
-                        <p className="text-red-500 text-sm text-left">
-                          {emailError}
-                        </p>
-                      )}
+                      {emailError && <p className="text-red-500 text-sm text-left">{emailError}</p>}
                     </div>
                   </div>
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
-                  Keine Mindestlaufzeit, monatlich kündbar
+                  {isAnnual
+                    ? (lang === 'de' ? 'Jahreslizenz · 20 % Rabatt · Kündigung zum Jahresende' : 'Annual licence · 20% discount · Cancel at year end')
+                    : (lang === 'de' ? 'Mindestlaufzeit 1 Quartal · Kündigung zum Quartalsende' : 'Minimum term 1 quarter · Cancel at end of quarter')}
                 </p>
               </div>
+
             </div>
           </div>
 
-          {/* FAQ Link */}
+          {/* FAQ link */}
           <div className="text-center">
             <p className="text-muted-foreground">
-              Noch Fragen? Antworten im{' '}
-              <a href="/#faq" className="text-cta hover:underline">
-                FAQ
-              </a>
+              {lang === 'de' ? <>Noch Fragen? Antworten im{' '}<a href="/#faq" className="text-cta hover:underline">FAQ</a></> : <>Still have questions? See the{' '}<a href="/en/#faq" className="text-cta hover:underline">FAQ</a></>}
             </p>
           </div>
         </div>

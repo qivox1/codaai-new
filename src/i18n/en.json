@@ -142,7 +142,7 @@
       },
       {
         "question": "How much can I actually save?",
-        "answer": "Traditional content agencies charge €2,000+ per blog article, plus costs for images, videos, and coordination. With CodaAI, you can save up to 90% compared to agency costs. Check our pricing section to see how much you can save based on your content volume."
+        "answer": "Traditional content agencies charge €2,000+ per blog article, plus costs for images, videos, and coordination. With CodaAI, you can save up to 90% compared to agency costs – from as little as €389/month with an annual licence. Check our pricing section to see how much you can save based on your content volume."
       },
       {
         "question": "How does it work? What do I need to get started?",
@@ -158,7 +158,7 @@
       },
       {
         "question": "What contract terms are available?",
-        "answer": "Maximum flexibility: CodaAI is billed monthly. There is no minimum contract period and no notice period – you can cancel at the end of any month."
+        "answer": "The minimum contract term is one quarter (3 months). With an annual licence, you save 20% compared to quarterly billing – ideal for content marketing and SEO initiatives that deliver results over time. Cancellation is possible at the end of the chosen billing period (quarterly or annually)."
       },
       {
         "question": "Can I change my plan or article volume?",
@@ -166,7 +166,7 @@
       },
       {
         "question": "What happens after I cancel?",
-        "answer": "If you cancel, your subscription ends at the close of your current billing period. You retain full rights to all content created during your subscription. There are no hidden fees, no cancellation charges, and no long-term commitments."
+        "answer": "If you cancel, your subscription ends at the close of your current billing period (quarterly or annual). You retain full rights to all content created during your subscription. There are no hidden fees and no cancellation charges."
       }
     ]
   },
@@ -178,8 +178,8 @@
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from €549",
-    "codaAIPer": "instead of ~€4,200. >85% cheaper.",
+    "codaAIPrice": "from €389",
+    "codaAIPer": "instead of ~€4,200. >90% cheaper.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
       {
