@@ -1,6 +1,6 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import Stripe from 'https://esm.sh/stripe@14?target=deno';
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { createClient } from 'npm:@supabase/supabase-js@2';
+import Stripe from 'npm:stripe@14';
+
 
 const SUPABASE_URL          = Deno.env.get('SUPABASE_URL')!;
 const SERVICE_KEY           = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -19,7 +19,7 @@ async function sendSMS(to: string, text: string) {
   });
 }
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   const body      = await req.text();
   const signature = req.headers.get('stripe-signature') ?? '';
 
