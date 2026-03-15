@@ -118,7 +118,7 @@ Deno.serve(async (req) => {
       success_url: `${SITE_URL}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:  `${SITE_URL}/preise?cancelled=1`,
       payment_method_types: ['card', 'sepa_debit'],
-      customer_update: { address: 'auto' },
+      customer_update: { address: 'auto', name: 'auto' },
       tax_id_collection: { enabled: true }, // allow VAT ID entry
       automatic_tax:     { enabled: false },
     });
