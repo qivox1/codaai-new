@@ -682,12 +682,12 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
                       <div className="text-center mt-1">
                         <p className="text-base font-semibold text-foreground mb-1">
-                          {lang === 'de' ? 'Jetzt E-Mail bestätigen' : 'Now confirm your email'}
+                          {lang === 'de' ? 'Fast geschafft — ein Klick genügt!' : 'Almost there — one click to go!'}
                         </p>
                         <p className="text-sm text-muted-foreground">
                           {lang === 'de'
-                            ? <>Klicken Sie den Button, um Ihre E-Mail <strong className="text-foreground">{email}</strong> zu bestätigen und zur Zahlung zu gelangen.</>
-                            : <>Click the button to confirm your email <strong className="text-foreground">{email}</strong> and proceed to payment.</>}
+                            ? <>Mit dem Button bestätigen Sie direkt, dass <strong className="text-foreground">{email}</strong> Ihre E-Mail-Adresse ist. <strong className="text-foreground">Kein Postfach öffnen nötig.</strong></>
+                            : <>Clicking the button instantly confirms that <strong className="text-foreground">{email}</strong> is your email address. <strong className="text-foreground">No inbox required.</strong></>}
                         </p>
                       </div>
                     </div>
@@ -698,14 +698,18 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       style={{ borderRadius: '0.5rem' }}
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                      {lang === 'de' ? 'E-Mail bestätigen & zur Zahlung' : 'Confirm email & proceed to payment'}
+                      {lang === 'de' ? 'Bestätigen & zur Zahlung →' : 'Confirm & proceed to payment →'}
                     </a>
 
                     <p className="text-xs text-muted-foreground/70 text-center">
                       {lang === 'de'
-                        ? 'Sie werden nach der Bestätigung automatisch zu Stripe weitergeleitet.'
-                        : 'You will be redirected to Stripe automatically after confirmation.'}
+                        ? 'Sie werden anschließend automatisch zu Stripe weitergeleitet.'
+                        : 'You will be redirected to Stripe automatically afterwards.'}
                     </p>
+
+                    <button type="button" onClick={() => setStep('form')} className="text-muted-foreground hover:text-foreground text-xs w-full text-center">
+                      ← {lang === 'de' ? 'Andere E-Mail-Adresse eingeben' : 'Use a different email address'}
+                    </button>
                   </div>
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
