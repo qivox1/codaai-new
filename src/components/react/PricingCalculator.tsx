@@ -327,18 +327,20 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
               {/* Slider */}
               <div className="mb-10">
                 <div className="flex items-center justify-between mb-4">
-                  <label className="text-foreground font-semibold text-lg">
+                  <label htmlFor="content-pieces-slider" className="text-foreground font-semibold text-lg">
                     {lang === 'de' ? 'Wie viele Premium-Blog-Artikel pro Monat?' : 'How many premium blog articles per month?'}
                   </label>
-                  <span className="text-3xl font-bold text-cta">{contentPieces}</span>
+                  <span className="text-3xl font-bold text-cta" aria-live="polite" aria-atomic="true">{contentPieces}</span>
                 </div>
                 <input
+                  id="content-pieces-slider"
                   type="range"
                   min="2"
                   max="12"
                   step="1"
                   value={contentPieces}
                   onChange={(e) => setContentPieces(Number(e.target.value))}
+                  aria-label={lang === 'de' ? `Anzahl Artikel: ${contentPieces}` : `Number of articles: ${contentPieces}`}
                   className="w-full appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between mt-2 text-xs text-muted-foreground">
@@ -402,6 +404,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                           key={num}
                           type="button"
                           onClick={() => setTranslationLanguages(num)}
+                          aria-label={lang === 'de' ? `${num} ${num === 1 ? 'Sprache' : 'Sprachen'}` : `${num} ${num === 1 ? 'language' : 'languages'}`}
+                          aria-pressed={translationLanguages === num}
                           className={`w-9 h-9 rounded-lg text-sm font-medium transition-all duration-200 ${
                             translationLanguages === num
                               ? 'bg-cta text-white'
@@ -540,6 +544,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       key={tier.range}
                       type="button"
                       onClick={() => setContentPieces(tier.value)}
+                      aria-label={lang === 'de' ? `${tier.range} Artikel, ${formatCurrency(tier.price)} pro Artikel` : `${tier.range} articles, ${formatCurrency(tier.price)} per article`}
+                      aria-pressed={tier.active}
                       className={`py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
                         tier.active
                           ? 'bg-cta/20 border border-cta text-foreground'
@@ -580,26 +586,38 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     </p>
                     <div className="flex flex-col gap-3">
                       <div>
+                        <label htmlFor="checkout-email" className="sr-only">
+                          {lang === 'de' ? 'E-Mail-Adresse' : 'Email address'}
+                        </label>
                         <input
+                          id="checkout-email"
                           type="email"
                           placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
                           value={email}
                           onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
                           className={`w-full h-12 px-4 bg-input border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
+                          aria-describedby={emailError ? 'checkout-email-error' : undefined}
+                          aria-invalid={emailError ? true : undefined}
                         />
-                        {emailError && <p className="text-red-500 text-xs mt-1 text-left">{emailError}</p>}
+                        {emailError && <p id="checkout-email-error" className="text-red-500 text-xs mt-1 text-left" role="alert">{emailError}</p>}
                       </div>
                       <div>
+                        <label htmlFor="checkout-phone" className="sr-only">
+                          {lang === 'de' ? 'Mobilnummer' : 'Mobile number'}
+                        </label>
                         <input
+                          id="checkout-phone"
                           type="tel"
                           placeholder="+49 170 123 456"
                           value={phone}
                           onChange={(e) => { setPhone(e.target.value); setPhoneError(''); }}
                           className={`w-full h-12 px-4 bg-input border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
+                          aria-describedby={phoneError ? 'checkout-phone-error' : undefined}
+                          aria-invalid={phoneError ? true : undefined}
                         />
-                        {phoneError && <p className="text-red-500 text-xs mt-1 text-left">{phoneError}</p>}
+                        {phoneError && <p id="checkout-phone-error" className="text-red-500 text-xs mt-1 text-left" role="alert">{phoneError}</p>}
                       </div>
                       <button
                         type="button"
@@ -637,7 +655,11 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       </div>
                     </div>
                     <div>
+                      <label htmlFor="checkout-otp" className="sr-only">
+                        {lang === 'de' ? 'SMS-Code (6 Stellen)' : 'SMS code (6 digits)'}
+                      </label>
                       <input
+                        id="checkout-otp"
                         type="text"
                         inputMode="numeric"
                         pattern="[0-9]*"
@@ -647,8 +669,11 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                         onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
                         className={`w-full h-12 px-4 bg-input border rounded-full text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
                         onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
+                        aria-describedby={otpError ? 'checkout-otp-error' : undefined}
+                        aria-invalid={otpError ? true : undefined}
+                        autoComplete="one-time-code"
                       />
-                      {otpError && <p className="text-red-500 text-xs mt-1 text-center">{otpError}</p>}
+                      {otpError && <p id="checkout-otp-error" className="text-red-500 text-xs mt-1 text-center" role="alert">{otpError}</p>}
                     </div>
                     <button
                       type="button"
