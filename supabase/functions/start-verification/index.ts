@@ -31,6 +31,19 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+/** Generate a cryptographically random 6-digit OTP */
+function generateOTP(): string {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return String(arr[0] % 1_000_000).padStart(6, '0');
+}
+
+/** SHA-256 hash of a string, returned as hex */
+async function hashString(value: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
 
@@ -64,16 +77,20 @@ Deno.serve(async (req) => {
         { status: 429, headers: CORS }
       );
 
-    // ── Store pending registration ────────────────────────────
+    // ── Generate 6-digit SMS OTP ──────────────────────────────
+    const otp     = generateOTP();
+    const otpHash = await hashString(otp);
+
+    // ── Store pending registration (phone NOT yet verified) ───
     const { data: reg, error: dbErr } = await supabase
       .from('pending_registrations')
       .insert({
         email,
         phone,
-        sms_otp_hash:   'sms-link-flow', // placeholder — OTP not used in this flow
+        sms_otp_hash:   otpHash,
         sms_expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString(), // 1 hour
         package_config: packageConfig,
-        phone_verified: true, // SMS delivery = phone confirmed
+        phone_verified: false,
       })
       .select('id')
       .single();
@@ -81,7 +98,7 @@ Deno.serve(async (req) => {
     if (dbErr) throw dbErr;
     const regId = reg.id;
 
-    // ── Generate Magic Link (Supabase Auth) ───────────────────
+    // ── Generate Magic Link for email verification ────────────
     const redirectTo = `${SITE_URL}/auth/callback?regId=${regId}`;
     const { data: linkData, error: magicErr } = await supabase.auth.admin.generateLink({
       type:    'magiclink',
@@ -93,12 +110,12 @@ Deno.serve(async (req) => {
     const magicUrl = linkData?.properties?.action_link;
     if (!magicUrl) throw new Error('Magic Link konnte nicht erstellt werden.');
 
-    // ── Send Magic Link via SMS ───────────────────────────────
-    const smsText = `Ihr CodaAI Zugang – bitte diesen Link anklicken, um Ihr Abonnement abzuschliessen:\n${magicUrl}`;
+    // ── Send OTP code via SMS (NOT the magic link) ────────────
+    const smsText = `Ihr CodaAI Code: ${otp}\n\nDieser Code bestätigt Ihre Mobilnummer. Bitte auf der Website eingeben.`;
     await sendSMS(phone, smsText);
 
     return Response.json(
-      { registrationId: regId, message: 'Link per SMS gesendet.' },
+      { registrationId: regId, magicUrl, message: 'Code per SMS gesendet.' },
       { headers: CORS }
     );
 

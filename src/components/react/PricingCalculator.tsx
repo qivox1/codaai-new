@@ -123,11 +123,11 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const [phoneError, setPhoneError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [registrationId, setRegistrationId] = useState('');
+  const [magicUrl, setMagicUrl] = useState('');
   const [otpCode, setOtpCode] = useState('');
   const [otpError, setOtpError] = useState('');
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false); // kept for compat
 
   const isAnnual = billingCycle === 'annual';
 
@@ -190,6 +190,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'Fehler');
       setRegistrationId(data.registrationId);
+      if (data.magicUrl) setMagicUrl(data.magicUrl);
       setStep('sms');
     } catch (err: any) {
       setEmailError(err.message);
@@ -607,10 +608,10 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   </div>
                 )}
 
-                {/* ── Step 2: Waiting for SMS link click ────────── */}
-                {(step === 'sms' || step === 'waiting') && (
+                {/* ── Step 2: SMS OTP input ──────────────────────── */}
+                {step === 'sms' && (
                   <div className="space-y-4 max-w-md mx-auto">
-                    <div className="flex flex-col items-center gap-4 py-4">
+                    <div className="flex flex-col items-center gap-3 py-2">
                       <div className="flex items-center justify-center w-14 h-14 rounded-full bg-cta/10 ring-1 ring-cta/30">
                         <svg className="w-7 h-7 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
@@ -618,23 +619,93 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       </div>
                       <div className="text-center">
                         <p className="text-base font-semibold text-foreground mb-1">
-                          {lang === 'de' ? 'Link per SMS gesendet!' : 'Link sent via SMS!'}
+                          {lang === 'de' ? 'SMS-Code eingeben' : 'Enter SMS code'}
                         </p>
                         <p className="text-sm text-muted-foreground">
                           {lang === 'de'
-                            ? <>Bitte öffnen Sie die SMS auf <strong className="text-foreground">{phone}</strong> und tippen Sie auf den Link.</>
-                            : <>Please open the SMS on <strong className="text-foreground">{phone}</strong> and tap the link.</>}
+                            ? <>Wir haben einen 6-stelligen Code an <strong className="text-foreground">{phone}</strong> gesendet.</>
+                            : <>We sent a 6-digit code to <strong className="text-foreground">{phone}</strong>.</>}
                         </p>
                       </div>
-                      <p className="text-xs text-muted-foreground/70 text-center">
-                        {lang === 'de'
-                          ? 'Der Stripe-Checkout öffnet sich automatisch nach dem Anklicken des Links.'
-                          : 'Stripe checkout opens automatically after tapping the link.'}
-                      </p>
                     </div>
+                    <div>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={6}
+                        placeholder="123456"
+                        value={otpCode}
+                        onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
+                        className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
+                        onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
+                      />
+                      {otpError && <p className="text-red-500 text-xs mt-1 text-center">{otpError}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleVerifySMS}
+                      disabled={otpLoading}
+                      className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
+                      style={{ borderRadius: '0.5rem' }}
+                    >
+                      {otpLoading
+                        ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird geprüft…' : 'Verifying…'}</>
+                        : (lang === 'de' ? 'Mobilnummer bestätigen' : 'Confirm mobile number')}
+                    </button>
                     <button type="button" onClick={() => setStep('form')} className="text-muted-foreground hover:text-foreground text-xs w-full text-center">
                       ← {lang === 'de' ? 'Zurück / Daten korrigieren' : 'Back / Correct details'}
                     </button>
+                  </div>
+                )}
+
+                {/* ── Step 3: Phone verified — now click magic link ── */}
+                {step === 'waiting' && (
+                  <div className="space-y-4 max-w-md mx-auto">
+                    <div className="flex flex-col items-center gap-3 py-2">
+                      {/* Progress indicators */}
+                      <div className="flex items-center gap-3 text-sm w-full justify-center">
+                        <div className="flex items-center gap-1.5 text-green-400">
+                          <div className="w-5 h-5 rounded-full bg-green-400/20 flex items-center justify-center">
+                            <Check className="w-3 h-3" />
+                          </div>
+                          <span>{lang === 'de' ? 'Mobilnummer bestätigt' : 'Mobile confirmed'}</span>
+                        </div>
+                        <span className="text-muted-foreground/50">·</span>
+                        <div className="flex items-center gap-1.5 text-muted-foreground">
+                          <div className="w-5 h-5 rounded-full bg-cta/20 ring-1 ring-cta/50 flex items-center justify-center">
+                            <svg className="w-3 h-3 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                          </div>
+                          <span>{lang === 'de' ? 'E-Mail bestätigen' : 'Confirm email'}</span>
+                        </div>
+                      </div>
+
+                      <div className="text-center mt-1">
+                        <p className="text-base font-semibold text-foreground mb-1">
+                          {lang === 'de' ? 'Jetzt E-Mail bestätigen' : 'Now confirm your email'}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {lang === 'de'
+                            ? <>Klicken Sie den Button, um Ihre E-Mail <strong className="text-foreground">{email}</strong> zu bestätigen und zur Zahlung zu gelangen.</>
+                            : <>Click the button to confirm your email <strong className="text-foreground">{email}</strong> and proceed to payment.</>}
+                        </p>
+                      </div>
+                    </div>
+
+                    <a
+                      href={magicUrl}
+                      className="btn-cta h-12 px-8 text-base w-full flex items-center justify-center gap-2 no-underline"
+                      style={{ borderRadius: '0.5rem' }}
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      {lang === 'de' ? 'E-Mail bestätigen & zur Zahlung' : 'Confirm email & proceed to payment'}
+                    </a>
+
+                    <p className="text-xs text-muted-foreground/70 text-center">
+                      {lang === 'de'
+                        ? 'Sie werden nach der Bestätigung automatisch zu Stripe weitergeleitet.'
+                        : 'You will be redirected to Stripe automatically after confirmation.'}
+                    </p>
                   </div>
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
