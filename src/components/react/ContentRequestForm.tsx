@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useId, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { X, Paperclip, Loader2, CheckCircle, Upload } from 'lucide-react';
 
@@ -465,7 +466,7 @@ export default function ContentRequestForm({
   };
 
   // ── Shared overlay markup ──────────────────────────────────────────────────
-  const overlay = isOpen ? (
+  const overlayContent = isOpen ? (
     <div
       className="fixed inset-0 z-[100] bg-cta overflow-y-auto"
       role="dialog"
@@ -840,6 +841,12 @@ export default function ContentRequestForm({
     </div>
   ) : null;
 
+  // Portal renders directly to document.body so fixed inset-0 is never
+  // constrained by ancestor elements that have transform/perspective/filter.
+  const portal = typeof document !== 'undefined' && overlayContent
+    ? createPortal(overlayContent, document.body)
+    : null;
+
   // ── Email-input trigger ────────────────────────────────────────────────────
   if (triggerType === 'email-input') {
     return (
@@ -860,7 +867,7 @@ export default function ContentRequestForm({
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </button>
-        {overlay}
+        {portal}
       </div>
     );
   }
@@ -874,7 +881,7 @@ export default function ContentRequestForm({
       >
         {triggerLabel || de.freeTrial}
       </button>
-      {overlay}
+      {portal}
     </>
   );
 }
