@@ -70,26 +70,30 @@ const formatCurrency = (value: number) =>
   }).format(value);
 
 // ─── Features list ─────────────────────────────────────────────────────────
+// Interleaved left/right so the md:grid-cols-2 renders two logical columns:
+// odd indices → left column, even indices → right column
 const FEATURES_DE = [
-  'SEO-optimierte Blogartikel bis 4.000 Wörter',
-  'Keyword-Recherche & Wettbewerbsanalyse inklusive',
-  '3 passende Bilder bzw. 1 Grafik / Infografik pro Blogartikel',
-  '2 Social-Media-Videos pro Artikel (optional)',
-  'Professionelle Übersetzungen (optional)',
-  'Redaktionskalender & Content-Strategie',
-  'Monatliche Performance-Auswertung',
-  'Persönlicher Ansprechpartner',
+  'Langform-Blogartikel bis max. 4.000 Wörter',       // left
+  'Professionelle Übersetzungen (opt.)',                // right
+  'Redaktionsplanung & Content-Strategie',              // left
+  '2 Social-Media-Videos pro Artikel (opt.)',           // right
+  'Keyword-Recherche & Wettbewerbsanalyse',             // left
+  'Performance-Auswertung',                             // right
+  'SEO & GEO Optimierung',                              // left
+  'Persönlicher Ansprechpartner',                       // right
+  '3 Bilder bzw. 1 Infografik pro Blogartikel',        // left
 ];
 
 const FEATURES_EN = [
-  'SEO-optimised blog articles up to 4,000 words',
-  'Keyword research & competitive analysis included',
-  '3 matching images or 1 graphic / infographic per blog article',
-  '2 social media videos per article (optional)',
-  'Professional translations (optional)',
-  'Editorial calendar & content strategy',
-  'Monthly performance report',
-  'Dedicated account manager',
+  'Long-form blog articles up to 4,000 words',         // left
+  'Professional translations (opt.)',                   // right
+  'Editorial planning & content strategy',              // left
+  '2 social media videos per article (opt.)',           // right
+  'Keyword research & competitive analysis',            // left
+  'Performance reporting',                              // right
+  'SEO & GEO optimisation',                            // left
+  'Dedicated account manager',                          // right
+  '3 images or 1 infographic per blog article',        // left
 ];
 
 interface PricingCalculatorProps {
