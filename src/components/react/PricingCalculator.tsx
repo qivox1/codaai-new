@@ -585,7 +585,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                           placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
                           value={email}
                           onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
-                          className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta rounded-2xl ${emailError ? 'border-red-500' : 'border-border'}`}
+                          className={`w-full h-12 px-4 bg-input border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
                         />
                         {emailError && <p className="text-red-500 text-xs mt-1 text-left">{emailError}</p>}
@@ -596,7 +596,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                           placeholder="+49 170 123 456"
                           value={phone}
                           onChange={(e) => { setPhone(e.target.value); setPhoneError(''); }}
-                          className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
+                          className={`w-full h-12 px-4 bg-input border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
                         />
                         {phoneError && <p className="text-red-500 text-xs mt-1 text-left">{phoneError}</p>}
@@ -606,7 +606,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                         onClick={handleStartVerification}
                         disabled={isLoading}
                         className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
-                        style={{ borderRadius: '1rem' }}
+                        style={{ borderRadius: '9999px' }}
                       >
                         {isLoading
                           ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird gesendet…' : 'Sending…'}</>
@@ -645,7 +645,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                         placeholder="123456"
                         value={otpCode}
                         onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
-                        className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
+                        className={`w-full h-12 px-4 bg-input border rounded-full text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
                         onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
                       />
                       {otpError && <p className="text-red-500 text-xs mt-1 text-center">{otpError}</p>}
@@ -655,7 +655,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       onClick={handleVerifySMS}
                       disabled={otpLoading}
                       className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
-                      style={{ borderRadius: '1rem' }}
+                      style={{ borderRadius: '9999px' }}
                     >
                       {otpLoading
                         ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird geprüft…' : 'Verifying…'}</>
@@ -703,7 +703,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     <a
                       href={magicUrl}
                       className="btn-cta h-12 px-8 text-base w-full flex items-center justify-center gap-2 no-underline"
-                      style={{ borderRadius: '1rem' }}
+                      style={{ borderRadius: '9999px' }}
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                       {lang === 'de' ? 'Bestätigen & zur Zahlung →' : 'Confirm & proceed to payment →'}
