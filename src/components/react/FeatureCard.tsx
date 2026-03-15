@@ -14,6 +14,16 @@ const ICON_PATHS: Record<string, string> = {
   'share': `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.7 10.7l6.6 -3.4"/><path d="M8.7 13.3l6.6 3.4"/>`,
 };
 
+/** Darkens an HSL color string for use as accessible text on white backgrounds.
+ *  Accepts "hsl(H, S%, L%)" or CSS custom properties. Clamps lightness to ≤42%. */
+function darkenForText(color: string): string {
+  const match = color.match(/hsl\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%\s*\)/);
+  if (!match) return color;
+  const [, h, s, l] = match.map(Number);
+  const newL = Math.min(l, 42); // ≤42% lightness → ≥4.5:1 contrast on white
+  return `hsl(${h}, ${s}%, ${newL}%)`;
+}
+
 function LucideIcon({ name, size = 24, color }: { name: string; size?: number; color: string }) {
   const paths = ICON_PATHS[name] ?? ICON_PATHS['file-text'];
   return (
@@ -138,7 +148,7 @@ export default function FeatureCard({
             <h3 className="text-lg font-semibold text-foreground">{title}</h3>
           </div>
 
-          <p className="text-sm font-medium mb-4" style={{ color: accentColor }}>
+          <p className="text-sm font-medium mb-4" style={{ color: darkenForText(accentColor) }}>
             {t.yourBenefits}
           </p>
 
@@ -173,7 +183,7 @@ export default function FeatureCard({
             <button
               type="button"
               className="w-full rounded-xl py-2.5 text-sm font-medium transition-colors"
-              style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
+              style={{ backgroundColor: `${accentColor}15`, color: darkenForText(accentColor) }}
             >
               {ctaLabel || t.getFreePremiumArticle}
             </button>

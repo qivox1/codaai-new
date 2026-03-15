@@ -519,6 +519,7 @@ export default function ContentRequestForm({
         />
         <button
           onClick={() => setIsOpen(true)}
+          aria-label="Kostenlosen Artikel anfragen"
           className="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-muted/50 rounded-full transition-colors text-muted-foreground hover:text-foreground"
         >
           <svg

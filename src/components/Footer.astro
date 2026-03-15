@@ -54,12 +54,12 @@ const currentYear = new Date().getFullYear();
         </a>
         <div class="mt-3 text-sm text-muted-foreground">
           <p>{t(lang, "footer.tagline1")}</p>
-          <p class="text-[#DF41FB]">{t(lang, "footer.tagline2")}</p>
+          <p class="text-cta-accessible">{t(lang, "footer.tagline2")}</p>
         </div>
       </div>
 
       <div class="flex flex-col items-start">
-        <p class="text-sm text-muted-foreground/70 mb-3">
+        <p class="text-sm text-muted-foreground mb-3">
           {t(lang, "footer.compliance")}
         </p>
         <div class="flex items-end gap-8 md:gap-10">
@@ -77,7 +77,7 @@ const currentYear = new Date().getFullYear();
                 stroke-linejoin="round"
                 set:html={badge.svg}
               />
-              <span class="text-xs text-muted-foreground/70 text-center whitespace-nowrap">{badge.label}</span>
+              <span class="text-xs text-muted-foreground text-center whitespace-nowrap">{badge.label}</span>
             </div>
           ))}
         </div>
@@ -98,7 +98,7 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <div class="mt-8 border-t border-border pt-6">
-      <p class="text-xs text-muted-foreground/70 mb-5">
+      <p class="text-xs text-muted-foreground mb-5">
         {t(lang, "footer.vatNote")}
       </p>
       <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -106,7 +106,7 @@ const currentYear = new Date().getFullYear();
           © {currentYear} CodaAI. {t(lang, "footer.allRightsReserved")}
         </p>
         <p class="text-sm text-muted-foreground">
-          Made with <span class="text-[#DF41FB] text-base">♡</span> in Germany
+          Made with <span class="text-cta" aria-hidden="true">♡</span> in Germany
         </p>
       </div>
     </div>

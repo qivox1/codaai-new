@@ -27,6 +27,7 @@ export default {
         cta: {
           DEFAULT: "hsl(var(--cta))",
           foreground: "hsl(var(--cta-foreground))",
+          accessible: "hsl(var(--cta-accessible))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

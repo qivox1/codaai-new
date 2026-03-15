@@ -11,6 +11,7 @@
   --warm-bg: 0 0% 6%;
   --cta: 291 96% 62%; /* exact #df41fb */
   --cta-foreground: 0 0% 100%;
+  --cta-accessible: 291 96% 36%; /* darker CTA for text on light backgrounds — meets WCAG AA 4.5:1 */
 
   --background: 0 0% 100%;
   --foreground: 0 0% 8%;
@@ -46,6 +47,7 @@
 }
 
 [data-theme="dark"] {
+  --cta-accessible: 291 96% 75%; /* lighter CTA for text on dark backgrounds */
   --background: 0 0% 8%;
   --foreground: 0 0% 100%;
   --border: 0 0% 20%;

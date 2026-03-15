@@ -249,7 +249,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
           {/* Page Title */}
           <div className="text-center mb-12">
-            <p className="text-sm font-medium text-cta uppercase tracking-wider mb-4">
+            <p className="text-sm font-medium text-cta-accessible uppercase tracking-wider mb-4">
               {lang === 'de' ? 'Preise' : 'Pricing'}
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-4 tracking-tight">
@@ -307,8 +307,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
             {isAnnual ? (
               <p className="text-sm text-muted-foreground">
                 {lang === 'de'
-                  ? <>Jährliche Vertragslaufzeit &middot; monatliche Abrechnung &middot; <span className="text-cta font-medium">20&nbsp;% günstiger als quartalsweise</span></>
-                  : <>Annual contract &middot; billed monthly &middot; <span className="text-cta font-medium">20% cheaper than quarterly</span></>
+                  ? <>Jährliche Vertragslaufzeit &middot; monatliche Abrechnung &middot; <span className="text-cta-accessible font-medium">20&nbsp;% günstiger als quartalsweise</span></>
+                  : <>Annual contract &middot; billed monthly &middot; <span className="text-cta-accessible font-medium">20% cheaper than quarterly</span></>
                 }
               </p>
             ) : (
@@ -347,7 +347,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   <span>2</span>
                   <span>12</span>
                 </div>
-                <p className="text-cta text-sm font-medium mt-3">
+                <p className="text-cta-accessible text-sm font-medium mt-3">
                   {lang === 'de'
                     ? 'inkl. 3 individuelle Grafiken (HighRes) pro Artikel'
                     : 'incl. 3 individual high-res graphics per article'}
@@ -379,7 +379,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   <div className="text-right">
                     {includeTranslations ? (
                       <>
-                        <p className="text-sm font-bold text-cta">
+                        <p className="text-sm font-bold text-cta-accessible">
                           +{formatCurrency(translationsCostPerMonth)}/{lang === 'de' ? 'Monat' : 'month'}
                         </p>
                         <p className="text-xs text-muted-foreground">
@@ -447,7 +447,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   <div className="text-right">
                     {includeSocialVideos ? (
                       <>
-                        <p className="text-sm font-bold text-cta">
+                        <p className="text-sm font-bold text-cta-accessible">
                           +{formatCurrency(videosCostPerMonth)}/{lang === 'de' ? 'Monat' : 'month'}
                         </p>
                         <p className="text-xs text-muted-foreground">
@@ -470,7 +470,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                 }`}>
                   {isAnnual && (
                     <div className="flex items-center justify-center gap-2 mb-3">
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-cta bg-cta/10 px-3 py-1 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-cta-accessible bg-cta/10 px-3 py-1 rounded-full">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
@@ -520,7 +520,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     <button
                       type="button"
                       onClick={() => setBillingCycle('annual')}
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cta bg-cta/10 hover:bg-cta/20 px-4 py-2 rounded-full transition-colors"
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cta-accessible bg-cta/10 hover:bg-cta/20 px-4 py-2 rounded-full transition-colors"
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" stroke="none"/></svg>
                       {lang === 'de'
@@ -553,7 +553,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       }`}
                     >
                       <div className="text-xs">{tier.range} {lang === 'de' ? 'Stk.' : 'pcs.'}</div>
-                      <div className={`text-sm font-semibold ${tier.active ? 'text-cta' : ''}`}>{formatCurrency(tier.price)}*</div>
+                      <div className={`text-sm font-semibold ${tier.active ? 'text-cta-accessible' : ''}`}>{formatCurrency(tier.price)}*</div>
                     </button>
                   ))}
                 </div>
@@ -561,7 +561,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
               {/* Features */}
               <div className="bg-card border border-border rounded-xl p-6 mb-8">
-                <h3 className="text-xs uppercase tracking-wider text-cta mb-4 font-semibold">
+                <h3 className="text-xs uppercase tracking-wider text-cta-accessible mb-4 font-semibold">
                   {lang === 'de' ? 'Alles inklusive' : 'Everything included'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -758,7 +758,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
           {/* FAQ link */}
           <div className="text-center">
             <p className="text-muted-foreground">
-              {lang === 'de' ? <>Noch Fragen? Antworten im{' '}<a href={`${base}/#faq`} className="text-cta hover:underline">FAQ</a></> : <>Still have questions? See the{' '}<a href={`${base}/en/#faq`} className="text-cta hover:underline">FAQ</a></>}
+              {lang === 'de' ? <>Noch Fragen? Antworten im{' '}<a href={`${base}/#faq`} className="text-cta-accessible hover:underline">FAQ</a></> : <>Still have questions? See the{' '}<a href={`${base}/en/#faq`} className="text-cta-accessible hover:underline">FAQ</a></>}
             </p>
           </div>
         </div>
