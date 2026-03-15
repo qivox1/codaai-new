@@ -137,8 +137,15 @@ Deno.serve(async (req) => {
     const {
       name, email, websiteUrl, topic,
       articleLanguage, articleGoal, wordCount,
-      additionalInfo, pdfBase64, pdfFileName, partnerCode,
+      additionalInfo, pdfBase64, pdfFileName,
+      pdfAttachments, // array of { base64, filename }
+      partnerCode,
     } = body;
+
+    // Resolve filenames: prefer full pdfAttachments array, fall back to single-file fields
+    const allPdfFilenames: string[] = pdfAttachments?.length
+      ? pdfAttachments.map((p: { filename: string }) => p.filename)
+      : pdfFileName ? [pdfFileName] : [];
 
     if (!name || !email || !websiteUrl || !topic) {
       return Response.json(
@@ -168,8 +175,8 @@ Deno.serve(async (req) => {
         word_count:       wordCount     ?? 1000,
         additional_info:  additionalInfo ?? null,
         partner_code:     partnerCode   ?? null,
-        has_pdf:          !!pdfBase64,
-        pdf_filename:     pdfFileName   ?? null,
+        has_pdf:          allPdfFilenames.length > 0,
+        pdf_filename:     allPdfFilenames.join(', ') || null,
       })
       .select('id')
       .single();
@@ -187,7 +194,9 @@ Deno.serve(async (req) => {
       sendNotificationEmail({
         name, email, websiteUrl, topic,
         articleLanguage: articleLanguage ?? 'de',
-        articleGoal, wordCount, additionalInfo, pdfFileName, partnerCode,
+        articleGoal, wordCount, additionalInfo,
+        pdfFilenames: allPdfFilenames,
+        partnerCode,
         requestId: inserted.id,
       }).catch((err) => console.error('Email send failed:', err));
     }
@@ -207,7 +216,7 @@ Deno.serve(async (req) => {
 async function sendNotificationEmail(d: {
   name: string; email: string; websiteUrl: string; topic: string;
   articleLanguage: string; articleGoal?: string; wordCount?: number;
-  additionalInfo?: string; pdfFileName?: string; partnerCode?: string;
+  additionalInfo?: string; pdfFilenames?: string[]; partnerCode?: string;
   requestId: string;
 }) {
   const goalMap: Record<string, string> = {
@@ -235,7 +244,7 @@ async function sendNotificationEmail(d: {
         ${row('Ziel',        goalMap[d.articleGoal ?? ''] ?? d.articleGoal)}
         ${row('Wörter',      d.wordCount ? String(d.wordCount) : undefined)}
         ${row('Partnercode', d.partnerCode)}
-        ${row('PDF',         d.pdfFileName)}
+        ${d.pdfFilenames?.length ? row('PDFs', d.pdfFilenames.map((n, i) => `${i + 1}. ${n}`).join('<br>')) : ''}
         ${row('Kontext',     d.additionalInfo)}
         ${row('Request-ID',  d.requestId)}
       </table>

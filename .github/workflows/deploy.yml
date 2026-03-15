@@ -47,7 +47,7 @@ jobs:
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 1.171.0
 
       - name: Deploy Edge Functions
         env:
@@ -55,7 +55,8 @@ jobs:
         run: |
           supabase functions deploy send-content-request \
             --project-ref svqpkltbqpsldvfwmsbd \
-            --no-verify-jwt
+            --no-verify-jwt \
+            --legacy-bundle
 
   deploy:
     needs: build

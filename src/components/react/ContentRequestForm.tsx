@@ -20,7 +20,7 @@ interface FormData {
   articleGoal: string;
   wordCount: number;
   additionalInfo: string;
-  pdfFile: File | null;
+  pdfFiles: File[];
   marketingConsent: boolean;
   partnerCode: string;
 }
@@ -60,9 +60,10 @@ const translations = {
     additionalContext: 'ZUSÄTZLICHER KONTEXT (OPTIONAL)',
     additionalPlaceholder: 'Fügen Sie Links zu Produktseiten, Wettbewerber-Artikeln, Landingpages oder anderen Quellen ein, die uns helfen, Ihren Inhalt und Stil zu verstehen. Je mehr Material Sie bereitstellen, desto gezielter und wirkungsvoller wird Ihr Artikel.',
     additionalHint: '💡 Tipp: Referenz-URLs, Wettbewerber-Artikel, Keywords und konkrete Punkte, die behandelt werden sollen – das alles erhöht die Qualität erheblich.',
-    attachPdf: 'PDF-Dokument anhängen',
-    attachPdfSub: 'Markenrichtlinien, Briefings oder Referenzmaterial (max. 10 MB)',
-    attachPdfDrop: 'PDF hier ablegen',
+    attachPdf: 'PDF-Dokument(e) anhängen',
+    attachPdfSub: 'Markenrichtlinien, Briefings oder Referenzmaterial (max. 10 MB, bis zu 5 Dateien)',
+    attachPdfDrop: 'PDF(s) hier ablegen',
+    attachPdfMore: '+ Weiteres PDF hinzufügen',
     partnerCode: 'PARTNERCODE (OPTIONAL)',
     partnerPlaceholder: 'Partnercode eingeben',
     consentText: 'Ich stimme zu, meinen kostenlosen Artikel und gelegentliche Produktupdates, Tipps und Angebote von CodaAI zu erhalten. Sie können sich jederzeit abmelden. Mit dem Absenden akzeptieren Sie unsere',
@@ -129,9 +130,10 @@ const translations = {
     additionalContext: 'ADDITIONAL CONTEXT (OPTIONAL)',
     additionalPlaceholder: 'Add links to product pages, competitor articles, landing pages or other sources that help us understand your content and style. The more material you provide, the more targeted and impactful your article will be.',
     additionalHint: '💡 Tip: Reference URLs, competitor articles, keywords and specific points to cover – all of this significantly increases quality.',
-    attachPdf: 'Attach PDF document',
-    attachPdfSub: 'Brand guidelines, briefs or reference material (max. 10 MB)',
-    attachPdfDrop: 'Drop PDF here',
+    attachPdf: 'Attach PDF document(s)',
+    attachPdfSub: 'Brand guidelines, briefs or reference material (max. 10 MB, up to 5 files)',
+    attachPdfDrop: 'Drop PDF(s) here',
+    attachPdfMore: '+ Add another PDF',
     partnerCode: 'PARTNER CODE (OPTIONAL)',
     partnerPlaceholder: 'Enter partner code',
     consentText: 'I agree to receive my free article and occasional product updates, tips and offers from CodaAI. You can unsubscribe at any time. By submitting you accept our',
@@ -260,7 +262,7 @@ export default function ContentRequestForm({
     articleGoal: '',
     wordCount: 1000,
     additionalInfo: '',
-    pdfFile: null,
+    pdfFiles: [],
     marketingConsent: false,
     partnerCode: '',
   });
@@ -344,33 +346,51 @@ export default function ContentRequestForm({
     setIsCheckingPartnerCode(false);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const MAX_PDFS = 5;
+
+  const addPdfFiles = (incoming: FileList | File[]) => {
     setPdfError(null);
-    if (file) {
+    const files = Array.from(incoming);
+    const valid: File[] = [];
+    for (const file of files) {
       const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-      if (!isPdf) { setPdfError(t.pdfOnly); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
-      if (file.size > 10 * 1024 * 1024) { setPdfError(t.pdfTooLarge); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
-      setFormData(prev => ({ ...prev, pdfFile: file }));
+      if (!isPdf) { setPdfError(t.pdfOnly); continue; }
+      if (file.size > 10 * 1024 * 1024) { setPdfError(t.pdfTooLarge); continue; }
+      valid.push(file);
     }
+    if (valid.length === 0) return;
+    setFormData(prev => {
+      const combined = [...prev.pdfFiles, ...valid];
+      // Deduplicate by name+size, cap at MAX_PDFS
+      const seen = new Set(prev.pdfFiles.map(f => `${f.name}__${f.size}`));
+      const deduped = combined.filter(f => {
+        const key = `${f.name}__${f.size}`;
+        if (seen.has(key)) return prev.pdfFiles.some(pf => `${pf.name}__${pf.size}` === key);
+        seen.add(key);
+        return true;
+      });
+      return { ...prev, pdfFiles: deduped.slice(0, MAX_PDFS) };
+    });
   };
 
-  const removePdf = () => {
-    setFormData(prev => ({ ...prev, pdfFile: null }));
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      addPdfFiles(e.target.files);
+    }
     if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const removePdf = (index: number) => {
+    setFormData(prev => ({ ...prev, pdfFiles: prev.pdfFiles.filter((_, i) => i !== index) }));
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    const file = e.dataTransfer.files?.[0];
-    if (!file) return;
-    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-    if (!isPdf) { setPdfError(t.pdfOnly); return; }
-    if (file.size > 10 * 1024 * 1024) { setPdfError(t.pdfTooLarge); return; }
-    setPdfError(null);
-    setFormData(prev => ({ ...prev, pdfFile: file }));
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      addPdfFiles(e.dataTransfer.files);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setDragActive(true); };
@@ -494,22 +514,23 @@ export default function ContentRequestForm({
 
     setIsSubmitting(true);
     try {
-      let pdfBase64: string | null = null;
-      let pdfFileName: string | null = null;
+      const pdfAttachments: { base64: string; filename: string }[] = [];
 
-      if (formData.pdfFile) {
+      for (const file of formData.pdfFiles) {
         try {
-          pdfFileName = formData.pdfFile.name;
-          const arrayBuffer = await formData.pdfFile.arrayBuffer();
+          const arrayBuffer = await file.arrayBuffer();
           const bytes = new Uint8Array(arrayBuffer);
           let binary = '';
           const chunkSize = 8192;
           for (let i = 0; i < bytes.length; i += chunkSize) {
             binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
           }
-          pdfBase64 = btoa(binary);
-        } catch (pdfErr) { /* continue without PDF */ }
+          pdfAttachments.push({ base64: btoa(binary), filename: file.name });
+        } catch { /* skip file if encoding fails */ }
       }
+      // Keep backward-compat single-file fields for the edge function
+      const pdfBase64 = pdfAttachments[0]?.base64 ?? null;
+      const pdfFileName = pdfAttachments[0]?.filename ?? null;
 
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 15000);
@@ -530,6 +551,7 @@ export default function ContentRequestForm({
             additionalInfo: formData.additionalInfo,
             pdfBase64,
             pdfFileName,
+            pdfAttachments,
             partnerCode: formData.partnerCode || null,
           }),
         });
@@ -566,7 +588,7 @@ export default function ContentRequestForm({
     setFormData({
       name: '', email: '', websiteUrl: '', topic: '',
       articleLanguage: 'de', articleGoal: '', wordCount: 1000,
-      additionalInfo: '', pdfFile: null, marketingConsent: false, partnerCode: '',
+      additionalInfo: '', pdfFiles: [], marketingConsent: false, partnerCode: '',
     });
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -809,17 +831,47 @@ export default function ContentRequestForm({
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{t.additionalHint}</p>
                     </div>
 
-                    {/* PDF upload — prominent card */}
+                    {/* PDF upload — supports multiple files */}
                     <div>
                       <input
                         type="file"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         accept=".pdf"
+                        multiple
                         className="hidden"
                         aria-label="PDF-Dokument hochladen"
                       />
-                      {!formData.pdfFile ? (
+
+                      {/* Uploaded files list */}
+                      {formData.pdfFiles.length > 0 && (
+                        <div className="space-y-2 mb-2">
+                          {formData.pdfFiles.map((file, idx) => (
+                            <div key={`${file.name}__${file.size}`} className="flex items-center justify-between bg-muted px-4 py-3 rounded-xl border border-border">
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="size-8 rounded-lg bg-background border border-border flex items-center justify-center flex-shrink-0">
+                                  <Paperclip className="w-4 h-4 text-cta" aria-hidden="true" />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className="text-sm text-foreground font-medium truncate">{file.name}</p>
+                                  <p className="text-xs text-muted-foreground">{(file.size / 1024 / 1024).toFixed(1)} MB</p>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removePdf(idx)}
+                                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors flex-shrink-0"
+                                aria-label="PDF entfernen"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Drop zone — shown when no files yet, or as "add more" when below max */}
+                      {formData.pdfFiles.length < MAX_PDFS && (
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
@@ -833,39 +885,26 @@ export default function ContentRequestForm({
                               : 'border-border hover:border-cta bg-muted hover:bg-muted/70'
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-2">
-                            <div className={`size-10 rounded-full border flex items-center justify-center transition-colors ${dragActive ? 'bg-cta/10 border-cta' : 'bg-background border-border group-hover:border-cta'}`}>
-                              <Upload className={`w-5 h-5 transition-colors ${dragActive ? 'text-cta' : 'text-muted-foreground group-hover:text-cta'}`} aria-hidden="true" />
+                          {formData.pdfFiles.length === 0 ? (
+                            <div className="flex flex-col items-center gap-2">
+                              <div className={`size-10 rounded-full border flex items-center justify-center transition-colors ${dragActive ? 'bg-cta/10 border-cta' : 'bg-background border-border group-hover:border-cta'}`}>
+                                <Upload className={`w-5 h-5 transition-colors ${dragActive ? 'text-cta' : 'text-muted-foreground group-hover:text-cta'}`} aria-hidden="true" />
+                              </div>
+                              <div className="text-center">
+                                <p className="text-sm font-semibold text-foreground">
+                                  {dragActive ? t.attachPdfDrop : t.attachPdf}
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-0.5">{t.attachPdfSub}</p>
+                              </div>
                             </div>
-                            <div className="text-center">
-                              <p className="text-sm font-semibold text-foreground">
-                                {dragActive ? t.attachPdfDrop : t.attachPdf}
-                              </p>
-                              <p className="text-xs text-muted-foreground mt-0.5">{t.attachPdfSub}</p>
-                            </div>
-                          </div>
+                          ) : (
+                            <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors text-center">
+                              {t.attachPdfMore}
+                            </p>
+                          )}
                         </button>
-                      ) : (
-                        <div className="flex items-center justify-between bg-muted px-4 py-3 rounded-xl border border-border">
-                          <div className="flex items-center gap-3 min-w-0">
-                            <div className="size-8 rounded-lg bg-background border border-border flex items-center justify-center flex-shrink-0">
-                              <Paperclip className="w-4 h-4 text-cta" aria-hidden="true" />
-                            </div>
-                            <div className="min-w-0">
-                              <p className="text-sm text-foreground font-medium truncate">{formData.pdfFile.name}</p>
-                              <p className="text-xs text-muted-foreground">{(formData.pdfFile.size / 1024 / 1024).toFixed(1)} MB</p>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={removePdf}
-                            className="ml-3 p-1.5 text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors flex-shrink-0"
-                            aria-label="PDF entfernen"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
                       )}
+
                       {pdfError && (
                         <p role="alert" className="text-red-500 text-xs mt-2">{pdfError}</p>
                       )}
