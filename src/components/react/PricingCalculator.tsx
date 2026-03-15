@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Loader2, Mail, Check } from 'lucide-react';
+import { Loader2, Check } from 'lucide-react';
 
 // ─── Pricing tiers ──────────────────────────────────────────────────────────
 // Annual rates — the base prices (what CodaAI charges on an annual contract)
@@ -607,70 +607,34 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   </div>
                 )}
 
-                {/* ── Step 2: SMS OTP verification ──────────────── */}
-                {step === 'sms' && (
+                {/* ── Step 2: Waiting for SMS link click ────────── */}
+                {(step === 'sms' || step === 'waiting') && (
                   <div className="space-y-4 max-w-md mx-auto">
-                    <div className="flex items-start gap-3 p-4 bg-muted/40 rounded-xl text-left">
-                      <Mail className="w-5 h-5 text-cta flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-muted-foreground">
-                        {lang === 'de'
-                          ? <>Magic Link gesendet an <strong className="text-foreground">{email}</strong>. Bitte E-Mail öffnen und Link anklicken.</>
-                          : <>Magic link sent to <strong className="text-foreground">{email}</strong>. Please open your email and click the link.</>}
-                      </p>
-                    </div>
-                    <div className="p-4 border border-border rounded-xl">
-                      <p className="text-sm font-medium text-foreground mb-3 text-left">
-                        📱 {lang === 'de' ? `SMS-Code an ${phone} eingeben:` : `Enter SMS code sent to ${phone}:`}
-                      </p>
-                      <div className="flex gap-3">
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          maxLength={6}
-                          placeholder="______"
-                          value={otpCode}
-                          onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
-                          className={`flex-1 h-12 px-4 bg-input border rounded-lg text-foreground text-center text-xl tracking-widest font-mono focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
-                          onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
-                        />
-                        <button
-                          type="button"
-                          onClick={handleVerifySMS}
-                          disabled={otpLoading || otpCode.length !== 6}
-                          className="btn-cta h-12 px-6 text-sm disabled:opacity-50 whitespace-nowrap"
-                          style={{ borderRadius: '0.5rem' }}
-                        >
-                          {otpLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : (lang === 'de' ? 'Bestätigen' : 'Verify')}
-                        </button>
+                    <div className="flex flex-col items-center gap-4 py-4">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-cta/10 ring-1 ring-cta/30">
+                        <svg className="w-7 h-7 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
+                        </svg>
                       </div>
-                      {otpError && <p className="text-red-500 text-xs mt-2 text-left">{otpError}</p>}
-                    </div>
-                    <button type="button" onClick={() => setStep('form')} className="text-muted-foreground hover:text-foreground text-xs">
-                      ← {lang === 'de' ? 'Zurück' : 'Back'}
-                    </button>
-                  </div>
-                )}
-
-                {/* ── Step 3: Waiting for email click ───────────── */}
-                {step === 'waiting' && (
-                  <div className="space-y-4 max-w-md mx-auto">
-                    <div className="flex flex-col items-center gap-3 py-4">
-                      <div className="flex items-center gap-2 text-cta">
-                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
-                        <span className="font-medium text-sm">{lang === 'de' ? 'Mobilnummer bestätigt ✓' : 'Mobile number verified ✓'}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span className="text-sm">
+                      <div className="text-center">
+                        <p className="text-base font-semibold text-foreground mb-1">
+                          {lang === 'de' ? 'Link per SMS gesendet!' : 'Link sent via SMS!'}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
                           {lang === 'de'
-                            ? <>Warte auf E-Mail-Bestätigung… Bitte Magic Link in <strong className="text-foreground">{email}</strong> anklicken.</>
-                            : <>Waiting for email confirmation… Please click the Magic Link in <strong className="text-foreground">{email}</strong>.</>}
-                        </span>
+                            ? <>Bitte öffnen Sie die SMS auf <strong className="text-foreground">{phone}</strong> und tippen Sie auf den Link.</>
+                            : <>Please open the SMS on <strong className="text-foreground">{phone}</strong> and tap the link.</>}
+                        </p>
                       </div>
-                      <p className="text-xs text-muted-foreground/70">
-                        {lang === 'de' ? 'Stripe-Checkout öffnet sich automatisch nach der Bestätigung.' : 'Stripe checkout opens automatically after confirmation.'}
+                      <p className="text-xs text-muted-foreground/70 text-center">
+                        {lang === 'de'
+                          ? 'Der Stripe-Checkout öffnet sich automatisch nach dem Anklicken des Links.'
+                          : 'Stripe checkout opens automatically after tapping the link.'}
                       </p>
                     </div>
+                    <button type="button" onClick={() => setStep('form')} className="text-muted-foreground hover:text-foreground text-xs w-full text-center">
+                      ← {lang === 'de' ? 'Zurück / Daten korrigieren' : 'Back / Correct details'}
+                    </button>
                   </div>
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
