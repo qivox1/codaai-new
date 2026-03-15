@@ -160,7 +160,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
           if (!accessToken) {
             // Could mean the link was already used, or user navigated directly
-            showError('Kein Authentifizierungs-Token gefunden. Bitte auf den Magic Link in Ihrer E-Mail klicken.');
+            showError('Kein Authentifizierungs-Token gefunden. Bitte auf den Link in Ihrer SMS tippen.');
             return;
           }
 
