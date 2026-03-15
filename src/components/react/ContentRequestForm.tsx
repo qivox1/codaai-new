@@ -25,72 +25,143 @@ interface FormData {
   partnerCode: string;
 }
 
-const de = {
-  freeTrial: 'Kostenlos testen',
-  step1Title: 'Holen Sie sich Ihren kostenlosen Premium-Blogartikel',
-  step1Subtitle: 'SEO- & KI-optimierter Content – komplett kostenlos.',
-  step2Title: 'Ihre Website',
-  step2Subtitle: 'Wir passen uns Ihrer Markenstimme an.',
-  step3Title: 'Ihr Thema',
-  step3Subtitle: 'Worüber sollen wir schreiben?',
-  yourName: 'IHR NAME *',
-  namePlaceholder: 'Max Mustermann',
-  emailAddress: 'E-MAIL-ADRESSE *',
-  emailPlaceholder: 'max@firma.de',
-  websiteUrl: 'IHRE WEBSITE-URL *',
-  websitePlaceholder: 'https://ihre-website.de',
-  websiteHint: 'Für Markenstimme & Keyword-Analyse.',
-  blogTopic: 'BLOGARTIKEL-THEMA *',
-  topicPlaceholder: 'z.B. 10 Vorteile von Remote Work für kleine Unternehmen',
-  articleLanguage: 'ARTIKELSPRACHE *',
-  langDe: 'Deutsch',
-  langEn: 'English',
-  articleGoal: 'WAS MÖCHTEN SIE MIT IHREM BLOGARTIKEL ERREICHEN? *',
-  selectGoal: 'Ziel: Phase der Customer Journey nach Schuster-Modell®',
-  goalInform: '01 - Informieren',
-  goalEnable: '02 - Befähigen',
-  goalEvaluate: '03 - Evaluieren',
-  goalAssess: '04 - Bewerten',
-  goalBuy: '05 - Kaufen',
-  goalUse: '06 - Nutzen',
-  goalThoughtLeader: 'Unternehmen als Thought Leader positionieren',
-  articleLength: 'ARTIKELLÄNGE',
-  words: 'Wörter',
-  additionalContext: 'ZUSÄTZLICHER KONTEXT (OPTIONAL)',
-  additionalPlaceholder: 'Fügen Sie Links zu Produktseiten, Wettbewerber-Artikeln, Landingpages oder anderen Quellen ein, die uns helfen, Ihren Inhalt und Stil zu verstehen. Je mehr Material Sie bereitstellen, desto gezielter und wirkungsvoller wird Ihr Artikel.',
-  additionalHint: '💡 Tipp: Referenz-URLs, Wettbewerber-Artikel, Keywords und konkrete Punkte, die behandelt werden sollen – das alles erhöht die Qualität erheblich.',
-  attachPdf: 'PDF-Dokument anhängen',
-  attachPdfSub: 'Markenrichtlinien, Briefings oder Referenzmaterial (max. 10 MB)',
-  partnerCode: 'PARTNERCODE (OPTIONAL)',
-  partnerPlaceholder: 'Partnercode eingeben',
-  consentText: 'Ich stimme zu, meinen kostenlosen Artikel und gelegentliche Produktupdates, Tipps und Angebote von CodaAI zu erhalten. Sie können sich jederzeit abmelden. Mit dem Absenden akzeptieren Sie unsere',
-  privacyPolicy: 'Datenschutzerklärung',
-  and: 'und',
-  termsConditions: 'AGB',
-  back: '← Zurück',
-  continue: 'Weiter →',
-  checking: 'Wird geprüft...',
-  validatingTopic: 'Thema wird validiert...',
-  sending: 'Wird gesendet...',
-  getMyFreeArticle: 'Meinen kostenlosen Artikel erhalten →',
-  trustIndicator: '🔒 Ihre Daten sind sicher. Kein Spam, niemals.',
-  successTitle: 'Wir sind dran!',
-  successMessage: 'Ihr Artikel wird erstellt. Prüfen Sie {email} innerhalb von 24 Std.',
-  gotIt: 'Verstanden!',
-  blockedEmail: 'Bitte verwenden Sie Ihre Firmen-E-Mail-Adresse. Persönliche E-Mail-Adressen (Gmail, GMX etc.) werden nicht akzeptiert.',
-  emailDuplicate: 'Diese E-Mail-Adresse wurde bereits für ein kostenloses Testangebot verwendet. Jede E-Mail kann nur ein kostenloses Content-Paket anfordern.',
-  domainDuplicate: 'Jemand hat bereits ein kostenloses Testangebot für diese Domain angefordert. Das kostenlose Testangebot ist auf eine pro Domain begrenzt.',
-  urlNotReachable: 'Die Website {url} ist nicht erreichbar. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
-  urlCheckFailed: 'Die Website konnte nicht überprüft werden. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
-  pdfOnly: 'Bitte laden Sie ein PDF-Dokument hoch.',
-  pdfTooLarge: 'Datei zu groß. Maximale Größe ist 10 MB.',
-  topicRequired: 'Bitte geben Sie das Thema für Ihren Blogartikel ein.',
-  topicMinWords: 'Bitte beschreiben Sie Ihr Thema in mindestens 5 Wörtern, damit wir es besser verstehen können.',
-  goalRequired: 'Artikelziel erforderlich',
-  goalRequiredDesc: 'Bitte wählen Sie, was Sie mit Ihrem Blogartikel erreichen möchten.',
-  consentRequired: 'Zustimmung erforderlich',
-  consentRequiredDesc: 'Bitte stimmen Sie zu, Ihren kostenlosen Artikel und gelegentliche Updates zu erhalten.',
-  partnerCodeUnlocked: '✨ Partnercode aktiviert: bis zu 4.000 Wörter verfügbar',
+const translations = {
+  de: {
+    freeTrial: 'Kostenlos testen',
+    step1Title: 'Holen Sie sich Ihren kostenlosen Premium-Blogartikel',
+    step1Subtitle: 'SEO- & KI-optimierter Content – komplett kostenlos.',
+    step2Title: 'Ihre Website',
+    step2Subtitle: 'Wir passen uns Ihrer Markenstimme an.',
+    step3Title: 'Ihr Thema',
+    step3Subtitle: 'Worüber sollen wir schreiben?',
+    yourName: 'IHR NAME *',
+    namePlaceholder: 'Max Mustermann',
+    emailAddress: 'E-MAIL-ADRESSE *',
+    emailPlaceholder: 'max@firma.de',
+    websiteUrl: 'IHRE WEBSITE-URL *',
+    websitePlaceholder: 'https://ihre-website.de',
+    websiteHint: 'Für Markenstimme & Keyword-Analyse.',
+    blogTopic: 'BLOGARTIKEL-THEMA *',
+    topicPlaceholder: 'z.B. 10 Vorteile von Remote Work für kleine Unternehmen',
+    articleLanguage: 'ARTIKELSPRACHE *',
+    langDe: 'Deutsch',
+    langEn: 'English',
+    articleGoal: 'WAS MÖCHTEN SIE MIT IHREM BLOGARTIKEL ERREICHEN? *',
+    selectGoal: 'Ziel: Phase der Customer Journey nach Schuster-Modell®',
+    goalInform: '01 - Informieren',
+    goalEnable: '02 - Befähigen',
+    goalEvaluate: '03 - Evaluieren',
+    goalAssess: '04 - Bewerten',
+    goalBuy: '05 - Kaufen',
+    goalUse: '06 - Nutzen',
+    goalThoughtLeader: 'Unternehmen als Thought Leader positionieren',
+    articleLength: 'ARTIKELLÄNGE',
+    words: 'Wörter',
+    additionalContext: 'ZUSÄTZLICHER KONTEXT (OPTIONAL)',
+    additionalPlaceholder: 'Fügen Sie Links zu Produktseiten, Wettbewerber-Artikeln, Landingpages oder anderen Quellen ein, die uns helfen, Ihren Inhalt und Stil zu verstehen. Je mehr Material Sie bereitstellen, desto gezielter und wirkungsvoller wird Ihr Artikel.',
+    additionalHint: '💡 Tipp: Referenz-URLs, Wettbewerber-Artikel, Keywords und konkrete Punkte, die behandelt werden sollen – das alles erhöht die Qualität erheblich.',
+    attachPdf: 'PDF-Dokument anhängen',
+    attachPdfSub: 'Markenrichtlinien, Briefings oder Referenzmaterial (max. 10 MB)',
+    attachPdfDrop: 'PDF hier ablegen',
+    partnerCode: 'PARTNERCODE (OPTIONAL)',
+    partnerPlaceholder: 'Partnercode eingeben',
+    consentText: 'Ich stimme zu, meinen kostenlosen Artikel und gelegentliche Produktupdates, Tipps und Angebote von CodaAI zu erhalten. Sie können sich jederzeit abmelden. Mit dem Absenden akzeptieren Sie unsere',
+    privacyPolicy: 'Datenschutzerklärung',
+    and: 'und',
+    termsConditions: 'AGB',
+    back: '← Zurück',
+    continue: 'Weiter →',
+    checking: 'Wird geprüft...',
+    validatingTopic: 'Thema wird validiert...',
+    sending: 'Wird gesendet...',
+    getMyFreeArticle: 'Meinen kostenlosen Artikel erhalten →',
+    trustIndicator: '🔒 Ihre Daten sind sicher. Kein Spam, niemals.',
+    successTitle: 'Wir sind dran!',
+    successMessage: 'Ihr Artikel wird erstellt. Prüfen Sie {email} innerhalb von 24 Std.',
+    gotIt: 'Verstanden!',
+    blockedEmail: 'Bitte verwenden Sie Ihre Firmen-E-Mail-Adresse. Persönliche E-Mail-Adressen (Gmail, GMX etc.) werden nicht akzeptiert.',
+    emailDuplicate: 'Diese E-Mail-Adresse wurde bereits für ein kostenloses Testangebot verwendet. Jede E-Mail kann nur ein kostenloses Content-Paket anfordern.',
+    domainDuplicate: 'Jemand hat bereits ein kostenloses Testangebot für diese Domain angefordert. Das kostenlose Testangebot ist auf eine pro Domain begrenzt.',
+    urlNotReachable: 'Die Website {url} ist nicht erreichbar. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
+    urlCheckFailed: 'Die Website konnte nicht überprüft werden. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
+    pdfOnly: 'Bitte laden Sie ein PDF-Dokument hoch.',
+    pdfTooLarge: 'Datei zu groß. Maximale Größe ist 10 MB.',
+    topicRequired: 'Bitte geben Sie das Thema für Ihren Blogartikel ein.',
+    topicMinWords: 'Bitte beschreiben Sie Ihr Thema in mindestens 5 Wörtern, damit wir es besser verstehen können.',
+    goalRequired: 'Artikelziel erforderlich',
+    goalRequiredDesc: 'Bitte wählen Sie, was Sie mit Ihrem Blogartikel erreichen möchten.',
+    consentRequired: 'Zustimmung erforderlich',
+    consentRequiredDesc: 'Bitte stimmen Sie zu, Ihren kostenlosen Artikel und gelegentliche Updates zu erhalten.',
+    partnerCodeUnlocked: '✨ Partnercode aktiviert: bis zu 4.000 Wörter verfügbar',
+  },
+  en: {
+    freeTrial: 'Try for free',
+    step1Title: 'Get your free premium blog article',
+    step1Subtitle: 'SEO- & AI-optimised content – completely free.',
+    step2Title: 'Your website',
+    step2Subtitle: 'We adapt to your brand voice.',
+    step3Title: 'Your topic',
+    step3Subtitle: 'What should we write about?',
+    yourName: 'YOUR NAME *',
+    namePlaceholder: 'Jane Smith',
+    emailAddress: 'EMAIL ADDRESS *',
+    emailPlaceholder: 'jane@company.com',
+    websiteUrl: 'YOUR WEBSITE URL *',
+    websitePlaceholder: 'https://your-website.com',
+    websiteHint: 'For brand voice & keyword analysis.',
+    blogTopic: 'BLOG ARTICLE TOPIC *',
+    topicPlaceholder: 'e.g. 10 benefits of remote work for small businesses',
+    articleLanguage: 'ARTICLE LANGUAGE *',
+    langDe: 'German',
+    langEn: 'English',
+    articleGoal: 'WHAT DO YOU WANT TO ACHIEVE WITH YOUR BLOG ARTICLE? *',
+    selectGoal: 'Goal: Customer journey phase (Schuster model®)',
+    goalInform: '01 - Inform',
+    goalEnable: '02 - Enable',
+    goalEvaluate: '03 - Evaluate',
+    goalAssess: '04 - Assess',
+    goalBuy: '05 - Buy',
+    goalUse: '06 - Use',
+    goalThoughtLeader: 'Position company as thought leader',
+    articleLength: 'ARTICLE LENGTH',
+    words: 'words',
+    additionalContext: 'ADDITIONAL CONTEXT (OPTIONAL)',
+    additionalPlaceholder: 'Add links to product pages, competitor articles, landing pages or other sources that help us understand your content and style. The more material you provide, the more targeted and impactful your article will be.',
+    additionalHint: '💡 Tip: Reference URLs, competitor articles, keywords and specific points to cover – all of this significantly increases quality.',
+    attachPdf: 'Attach PDF document',
+    attachPdfSub: 'Brand guidelines, briefs or reference material (max. 10 MB)',
+    attachPdfDrop: 'Drop PDF here',
+    partnerCode: 'PARTNER CODE (OPTIONAL)',
+    partnerPlaceholder: 'Enter partner code',
+    consentText: 'I agree to receive my free article and occasional product updates, tips and offers from CodaAI. You can unsubscribe at any time. By submitting you accept our',
+    privacyPolicy: 'Privacy Policy',
+    and: 'and',
+    termsConditions: 'Terms & Conditions',
+    back: '← Back',
+    continue: 'Continue →',
+    checking: 'Checking...',
+    validatingTopic: 'Validating topic...',
+    sending: 'Sending...',
+    getMyFreeArticle: 'Get my free article →',
+    trustIndicator: '🔒 Your data is safe. No spam, ever.',
+    successTitle: 'We\'re on it!',
+    successMessage: 'Your article is being created. Check {email} within 24 hrs.',
+    gotIt: 'Got it!',
+    blockedEmail: 'Please use your business email address. Personal email addresses (Gmail, Yahoo etc.) are not accepted.',
+    emailDuplicate: 'This email address has already been used for a free trial. Each email can only request one free content package.',
+    domainDuplicate: 'Someone has already requested a free trial for this domain. The free trial is limited to one per domain.',
+    urlNotReachable: 'The website {url} is not reachable. Please check the URL and try again.',
+    urlCheckFailed: 'The website could not be verified. Please check the URL and try again.',
+    pdfOnly: 'Please upload a PDF document.',
+    pdfTooLarge: 'File too large. Maximum size is 10 MB.',
+    topicRequired: 'Please enter the topic for your blog article.',
+    topicMinWords: 'Please describe your topic in at least 5 words so we can understand it better.',
+    goalRequired: 'Article goal required',
+    goalRequiredDesc: 'Please select what you want to achieve with your blog article.',
+    consentRequired: 'Consent required',
+    consentRequiredDesc: 'Please agree to receive your free article and occasional updates.',
+    partnerCodeUnlocked: '✨ Partner code activated: up to 4,000 words available',
+  },
 };
 
 const blockedEmailDomains = [
@@ -120,11 +191,7 @@ const blockedEmailDomains = [
   'mailbox.org',
 ];
 
-const steps = [
-  { title: de.step1Title, subtitle: de.step1Subtitle },
-  { title: de.step2Title, subtitle: de.step2Subtitle },
-  { title: de.step3Title, subtitle: de.step3Subtitle },
-];
+// steps are built inside the component using the active translation
 
 const SUPABASE_FN = 'https://svqpkltbqpsldvfwmsbd.supabase.co/functions/v1/send-content-request';
 
@@ -158,6 +225,13 @@ export default function ContentRequestForm({
   triggerType = 'button',
   triggerLabel,
 }: ContentRequestFormProps) {
+  const t = translations[lang] ?? translations.de;
+  const steps = [
+    { title: t.step1Title, subtitle: t.step1Subtitle },
+    { title: t.step2Title, subtitle: t.step2Subtitle },
+    { title: t.step3Title, subtitle: t.step3Subtitle },
+  ];
+
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -273,8 +347,8 @@ export default function ContentRequestForm({
     setPdfError(null);
     if (file) {
       const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-      if (!isPdf) { setPdfError(de.pdfOnly); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
-      if (file.size > 10 * 1024 * 1024) { setPdfError(de.pdfTooLarge); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
+      if (!isPdf) { setPdfError(t.pdfOnly); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
+      if (file.size > 10 * 1024 * 1024) { setPdfError(t.pdfTooLarge); if (fileInputRef.current) fileInputRef.current.value = ''; return; }
       setFormData(prev => ({ ...prev, pdfFile: file }));
     }
   };
@@ -291,8 +365,8 @@ export default function ContentRequestForm({
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
     const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-    if (!isPdf) { setPdfError(de.pdfOnly); return; }
-    if (file.size > 10 * 1024 * 1024) { setPdfError(de.pdfTooLarge); return; }
+    if (!isPdf) { setPdfError(t.pdfOnly); return; }
+    if (file.size > 10 * 1024 * 1024) { setPdfError(t.pdfTooLarge); return; }
     setPdfError(null);
     setFormData(prev => ({ ...prev, pdfFile: file }));
   };
@@ -319,12 +393,12 @@ export default function ContentRequestForm({
   const nextStep = async () => {
     if (currentStep === 0) {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        setEmailError('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+        setEmailError(lang === 'en' ? 'Please enter a valid email address.' : 'Bitte geben Sie eine gültige E-Mail-Adresse ein.');
         return;
       }
       const emailDomain = formData.email.toLowerCase().split('@')[1];
       if (blockedEmailDomains.includes(emailDomain)) {
-        setEmailError(de.blockedEmail);
+        setEmailError(t.blockedEmail);
         return;
       }
       setIsCheckingEmail(true);
@@ -337,7 +411,7 @@ export default function ContentRequestForm({
         });
         const data = await response.json();
         if (data?.exists) {
-          setEmailError(de.emailDuplicate);
+          setEmailError(t.emailDuplicate);
           setIsCheckingEmail(false);
           return;
         }
@@ -363,7 +437,7 @@ export default function ContentRequestForm({
         if (reachabilityResponse.ok) {
           const reachabilityData = await reachabilityResponse.json();
           if (reachabilityData?.isReachable === false) {
-            setDomainError(de.urlNotReachable.replace('{url}', url));
+            setDomainError(t.urlNotReachable.replace('{url}', url));
             setIsCheckingDomain(false);
             return;
           }
@@ -379,7 +453,7 @@ export default function ContentRequestForm({
         });
         const data = await response.json();
         if (data?.domainExists) {
-          setDomainError(de.domainDuplicate);
+          setDomainError(t.domainDuplicate);
           setIsCheckingDomain(false);
           return;
         }
@@ -397,7 +471,7 @@ export default function ContentRequestForm({
     if (currentStep !== 2) return;
 
     const wordCount = formData.topic.trim().split(/\s+/).filter(w => w.length > 0).length;
-    if (wordCount < 5) { setTopicError(de.topicMinWords); return; }
+    if (wordCount < 5) { setTopicError(t.topicMinWords); return; }
 
     setIsValidatingTopic(true);
     setTopicError(null);
@@ -521,22 +595,22 @@ export default function ContentRequestForm({
                   <CheckCircle className="size-12 text-cta" />
                 </div>
               </div>
-              <h2 className="text-3xl font-semibold text-foreground">{de.successTitle}</h2>
+              <h2 className="text-3xl font-semibold text-foreground">{t.successTitle}</h2>
               <p className="text-base text-muted-foreground">
-                {de.successMessage.replace('{email}', formData.email)}
+                {t.successMessage.replace('{email}', formData.email)}
               </p>
               <button
                 onClick={handleClose}
                 className="btn-cta h-12 px-8 text-base"
               >
-                {de.gotIt}
+                {t.gotIt}
               </button>
             </div>
           ) : (
             /* ── Form screens ──────────────────────────────────────── */
             <div>
               {/* Progress dots */}
-              <div className="flex justify-center gap-2 mb-8" aria-label={`Schritt ${currentStep + 1} von ${steps.length}`}>
+              <div className="flex justify-center gap-2 mb-8" aria-label={lang === 'en' ? `Step ${currentStep + 1} of ${steps.length}` : `Schritt ${currentStep + 1} von ${steps.length}`}>
                 {steps.map((_, index) => (
                   <div
                     key={index}
@@ -565,25 +639,25 @@ export default function ContentRequestForm({
                 {currentStep === 0 && (
                   <>
                     <div>
-                      <label htmlFor={nameId} className={labelCls}>{de.yourName}</label>
+                      <label htmlFor={nameId} className={labelCls}>{t.yourName}</label>
                       <input
                         type="text"
                         id={nameId}
                         value={formData.name}
                         onChange={(e) => updateField('name', e.target.value)}
-                        placeholder={de.namePlaceholder}
+                        placeholder={t.namePlaceholder}
                         autoComplete="name"
                         className={inputCls()}
                       />
                     </div>
                     <div>
-                      <label htmlFor={emailId} className={labelCls}>{de.emailAddress}</label>
+                      <label htmlFor={emailId} className={labelCls}>{t.emailAddress}</label>
                       <input
                         type="email"
                         id={emailId}
                         value={formData.email}
                         onChange={(e) => { updateField('email', e.target.value); setEmailError(null); }}
-                        placeholder={de.emailPlaceholder}
+                        placeholder={t.emailPlaceholder}
                         autoComplete="email"
                         className={inputCls(!!emailError)}
                         aria-describedby={emailError ? 'email-err' : undefined}
@@ -601,13 +675,13 @@ export default function ContentRequestForm({
                 {/* ── Step 1: Website URL ───────────────────────────── */}
                 {currentStep === 1 && (
                   <div>
-                    <label htmlFor={websiteId} className={labelCls}>{de.websiteUrl}</label>
+                    <label htmlFor={websiteId} className={labelCls}>{t.websiteUrl}</label>
                     <input
                       type="url"
                       id={websiteId}
                       value={formData.websiteUrl}
                       onChange={(e) => { updateField('websiteUrl', e.target.value); setDomainError(null); }}
-                      placeholder={de.websitePlaceholder}
+                      placeholder={t.websitePlaceholder}
                       autoComplete="url"
                       className={inputCls(!!domainError)}
                       aria-describedby={domainError ? 'domain-err' : undefined}
@@ -618,7 +692,7 @@ export default function ContentRequestForm({
                         {domainError}
                       </p>
                     )}
-                    <p className="text-xs text-muted-foreground mt-2">{de.websiteHint}</p>
+                    <p className="text-xs text-muted-foreground mt-2">{t.websiteHint}</p>
                   </div>
                 )}
 
@@ -627,12 +701,12 @@ export default function ContentRequestForm({
                   <>
                     {/* Blog topic */}
                     <div>
-                      <label htmlFor={topicId} className={labelCls}>{de.blogTopic}</label>
+                      <label htmlFor={topicId} className={labelCls}>{t.blogTopic}</label>
                       <textarea
                         id={topicId}
                         value={formData.topic}
                         onChange={(e) => { updateField('topic', e.target.value); setTopicError(null); }}
-                        placeholder={de.topicPlaceholder}
+                        placeholder={t.topicPlaceholder}
                         className={`${inputClsBox(!!topicError)} resize-none h-24`}
                         aria-describedby={topicError ? 'topic-err' : undefined}
                         aria-invalid={topicError ? true : undefined}
@@ -646,7 +720,7 @@ export default function ContentRequestForm({
 
                     {/* Article language */}
                     <div>
-                      <label htmlFor={langId} className={labelCls}>{de.articleLanguage}</label>
+                      <label htmlFor={langId} className={labelCls}>{t.articleLanguage}</label>
                       <div className="relative">
                         <select
                           id={langId}
@@ -654,8 +728,8 @@ export default function ContentRequestForm({
                           onChange={(e) => updateField('articleLanguage', e.target.value)}
                           className={`${inputClsBox()} appearance-none pr-10 cursor-pointer`}
                         >
-                          <option value="de">{de.langDe}</option>
-                          <option value="en">{de.langEn}</option>
+                          <option value="de">{t.langDe}</option>
+                          <option value="en">{t.langEn}</option>
                         </select>
                         <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                       </div>
@@ -663,7 +737,7 @@ export default function ContentRequestForm({
 
                     {/* Article goal */}
                     <div>
-                      <label htmlFor={goalId} className={labelCls}>{de.articleGoal}</label>
+                      <label htmlFor={goalId} className={labelCls}>{t.articleGoal}</label>
                       <div className="relative">
                         <select
                           id={goalId}
@@ -671,14 +745,14 @@ export default function ContentRequestForm({
                           onChange={(e) => updateField('articleGoal', e.target.value)}
                           className={`${inputClsBox()} appearance-none pr-10 cursor-pointer`}
                         >
-                          <option value="">{de.selectGoal}</option>
-                          <option value="inform">{de.goalInform}</option>
-                          <option value="enable">{de.goalEnable}</option>
-                          <option value="evaluate">{de.goalEvaluate}</option>
-                          <option value="assess">{de.goalAssess}</option>
-                          <option value="buy">{de.goalBuy}</option>
-                          <option value="use">{de.goalUse}</option>
-                          <option value="thought-leader">{de.goalThoughtLeader}</option>
+                          <option value="">{t.selectGoal}</option>
+                          <option value="inform">{t.goalInform}</option>
+                          <option value="enable">{t.goalEnable}</option>
+                          <option value="evaluate">{t.goalEvaluate}</option>
+                          <option value="assess">{t.goalAssess}</option>
+                          <option value="buy">{t.goalBuy}</option>
+                          <option value="use">{t.goalUse}</option>
+                          <option value="thought-leader">{t.goalThoughtLeader}</option>
                         </select>
                         <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                       </div>
@@ -687,9 +761,9 @@ export default function ContentRequestForm({
                     {/* Article length slider */}
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
-                        <label htmlFor={wordCountId} className={labelCls + ' mb-0'}>{de.articleLength}</label>
+                        <label htmlFor={wordCountId} className={labelCls + ' mb-0'}>{t.articleLength}</label>
                         <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${partnerCodeValid ? 'bg-green-100 text-green-700' : 'bg-muted text-foreground'} transition-colors`}>
-                          {formData.wordCount.toLocaleString('de')} {de.words}
+                          {formData.wordCount.toLocaleString(lang === 'en' ? 'en' : 'de')} {t.words}
                         </span>
                       </div>
                       <input
@@ -700,29 +774,29 @@ export default function ContentRequestForm({
                         step="500"
                         value={formData.wordCount}
                         onChange={(e) => updateField('wordCount', parseInt(e.target.value))}
-                        aria-label={`Artikellänge: ${formData.wordCount} Wörter`}
+                        aria-label={lang === 'en' ? `Article length: ${formData.wordCount} words` : `Artikellänge: ${formData.wordCount} Wörter`}
                         className="w-full accent-cta"
                       />
                       <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
-                        <span>1.000</span>
-                        <span>{sliderMax.toLocaleString('de')}</span>
+                        <span>{(1000).toLocaleString(lang === 'en' ? 'en' : 'de')}</span>
+                        <span>{sliderMax.toLocaleString(lang === 'en' ? 'en' : 'de')}</span>
                       </div>
                       {partnerCodeValid && (
-                        <p className="text-xs text-green-600 mt-1 font-medium">{de.partnerCodeUnlocked}</p>
+                        <p className="text-xs text-green-600 mt-1 font-medium">{t.partnerCodeUnlocked}</p>
                       )}
                     </div>
 
                     {/* Additional context */}
                     <div>
-                      <label htmlFor={additionalId} className={labelCls}>{de.additionalContext}</label>
+                      <label htmlFor={additionalId} className={labelCls}>{t.additionalContext}</label>
                       <textarea
                         id={additionalId}
                         value={formData.additionalInfo}
                         onChange={(e) => updateField('additionalInfo', e.target.value)}
-                        placeholder={de.additionalPlaceholder}
+                        placeholder={t.additionalPlaceholder}
                         className={`${inputClsBox()} resize-none h-28`}
                       />
-                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{de.additionalHint}</p>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{t.additionalHint}</p>
                     </div>
 
                     {/* PDF upload — prominent card */}
@@ -755,9 +829,9 @@ export default function ContentRequestForm({
                             </div>
                             <div className="text-center">
                               <p className="text-sm font-semibold text-foreground">
-                                {dragActive ? 'PDF hier ablegen' : de.attachPdf}
+                                {dragActive ? t.attachPdfDrop : t.attachPdf}
                               </p>
-                              <p className="text-xs text-muted-foreground mt-0.5">{de.attachPdfSub}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">{t.attachPdfSub}</p>
                             </div>
                           </div>
                         </button>
@@ -789,7 +863,7 @@ export default function ContentRequestForm({
 
                     {/* Partner code */}
                     <div>
-                      <label htmlFor="partnerCode" className={labelCls}>{de.partnerCode}</label>
+                      <label htmlFor="partnerCode" className={labelCls}>{t.partnerCode}</label>
                       <div className="relative">
                         <input
                           type="text"
@@ -801,7 +875,7 @@ export default function ContentRequestForm({
                             if (partnerCodeTimeoutRef.current) clearTimeout(partnerCodeTimeoutRef.current);
                             partnerCodeTimeoutRef.current = setTimeout(() => validatePartnerCode(code), 500);
                           }}
-                          placeholder={de.partnerPlaceholder}
+                          placeholder={t.partnerPlaceholder}
                           className={`${inputCls()} ${partnerCodeValid ? 'border-green-500' : ''} pr-10`}
                         />
                         {isCheckingPartnerCode && (
@@ -823,10 +897,10 @@ export default function ContentRequestForm({
                         className="mt-0.5 w-4 h-4 accent-cta flex-shrink-0"
                       />
                       <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                        {de.consentText}{' '}
-                        <a href="/datenschutz" className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{de.privacyPolicy}</a>
-                        {' '}{de.and}{' '}
-                        <a href="/agb" className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{de.termsConditions}</a>.
+                        {t.consentText}{' '}
+                        <a href={lang === 'en' ? '/en/privacy-policy' : '/datenschutz'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.privacyPolicy}</a>
+                        {' '}{t.and}{' '}
+                        <a href={lang === 'en' ? '/en/terms' : '/agb'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.termsConditions}</a>.
                       </label>
                     </div>
                   </>
@@ -840,7 +914,7 @@ export default function ContentRequestForm({
                       onClick={prevStep}
                       className="h-12 px-5 rounded-full bg-muted hover:bg-muted/70 text-foreground transition-colors text-sm font-medium whitespace-nowrap border border-border"
                     >
-                      {de.back}
+                      {t.back}
                     </button>
                   )}
                   <button
@@ -850,15 +924,15 @@ export default function ContentRequestForm({
                     className={`btn-cta flex-1 h-12 px-6 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {isCheckingEmail || isCheckingDomain ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {de.checking}</>
+                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {t.checking}</>
                     ) : isValidatingTopic ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {de.validatingTopic}</>
+                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {t.validatingTopic}</>
                     ) : isSubmitting ? (
-                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {de.sending}</>
+                      <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {t.sending}</>
                     ) : currentStep === 2 ? (
-                      de.getMyFreeArticle
+                      t.getMyFreeArticle
                     ) : (
-                      de.continue
+                      t.continue
                     )}
                   </button>
                 </div>
@@ -868,7 +942,7 @@ export default function ContentRequestForm({
                 )}
 
                 {currentStep !== 0 && (
-                  <p className="text-center text-xs text-muted-foreground py-1">{de.trustIndicator}</p>
+                  <p className="text-center text-xs text-muted-foreground py-1">{t.trustIndicator}</p>
                 )}
               </form>
             </div>
@@ -916,7 +990,7 @@ export default function ContentRequestForm({
         onClick={() => setIsOpen(true)}
         className="btn-cta h-8 px-4 py-0 text-sm"
       >
-        {triggerLabel || de.freeTrial}
+        {triggerLabel || t.freeTrial}
       </button>
       {portal}
     </>
