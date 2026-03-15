@@ -155,6 +155,13 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const monthlyTotal =
     contentPieces * pricePerPiece + videosCostPerMonth + translationsCostPerMonth;
 
+  // Annual equivalent for savings display (when quarterly is selected)
+  const annualEquivalent =
+    contentPieces * getAnnualPricePerPiece(contentPieces)
+    + (includeSocialVideos ? contentPieces * 2 * getAnnualVideoPricePerVideo(contentPieces) : 0)
+    + (includeTranslations ? contentPieces * getTranslationTotalPerArticle(contentPieces, translationLanguages, true) : 0);
+  const monthlySavings = monthlyTotal - annualEquivalent;
+
   const langLabel = translationLanguages === 1
     ? (lang === 'de' ? 'Sprache' : 'language')
     : (lang === 'de' ? 'Sprachen' : 'languages');
@@ -509,11 +516,12 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     <button
                       type="button"
                       onClick={() => setBillingCycle('annual')}
-                      className="mt-3 text-xs text-cta hover:underline font-medium"
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cta bg-cta/10 hover:bg-cta/20 px-4 py-2 rounded-full transition-colors"
                     >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" stroke="none"/></svg>
                       {lang === 'de'
-                        ? `→ Mit Jahreslizenz nur ${formatCurrency(contentPieces * getAnnualPricePerPiece(contentPieces) + (includeSocialVideos ? contentPieces * 2 * getAnnualVideoPricePerVideo(contentPieces) : 0) + (includeTranslations ? contentPieces * getTranslationTotalPerArticle(contentPieces, translationLanguages, true) : 0))}/Monat`
-                        : `→ With annual plan only ${formatCurrency(contentPieces * getAnnualPricePerPiece(contentPieces) + (includeSocialVideos ? contentPieces * 2 * getAnnualVideoPricePerVideo(contentPieces) : 0) + (includeTranslations ? contentPieces * getTranslationTotalPerArticle(contentPieces, translationLanguages, true) : 0))}/month`}
+                        ? `Mit Jahreslizenz ${formatCurrency(monthlySavings)}/Monat sparen`
+                        : `Save ${formatCurrency(monthlySavings)}/month with annual plan`}
                     </button>
                   )}
                 </div>
@@ -577,7 +585,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                           placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
                           value={email}
                           onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
-                          className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500' : 'border-border'}`}
+                          className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta rounded-2xl ${emailError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
                         />
                         {emailError && <p className="text-red-500 text-xs mt-1 text-left">{emailError}</p>}
@@ -588,7 +596,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                           placeholder="+49 170 123 456"
                           value={phone}
                           onChange={(e) => { setPhone(e.target.value); setPhoneError(''); }}
-                          className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
+                          className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
                           onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
                         />
                         {phoneError && <p className="text-red-500 text-xs mt-1 text-left">{phoneError}</p>}
@@ -598,7 +606,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                         onClick={handleStartVerification}
                         disabled={isLoading}
                         className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
-                        style={{ borderRadius: '0.5rem' }}
+                        style={{ borderRadius: '1rem' }}
                       >
                         {isLoading
                           ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird gesendet…' : 'Sending…'}</>
@@ -637,7 +645,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                         placeholder="123456"
                         value={otpCode}
                         onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
-                        className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
+                        className={`w-full h-12 px-4 bg-input border rounded-2xl text-foreground text-center text-xl tracking-widest placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
                         onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
                       />
                       {otpError && <p className="text-red-500 text-xs mt-1 text-center">{otpError}</p>}
@@ -647,7 +655,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       onClick={handleVerifySMS}
                       disabled={otpLoading}
                       className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
-                      style={{ borderRadius: '0.5rem' }}
+                      style={{ borderRadius: '1rem' }}
                     >
                       {otpLoading
                         ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird geprüft…' : 'Verifying…'}</>
@@ -695,7 +703,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     <a
                       href={magicUrl}
                       className="btn-cta h-12 px-8 text-base w-full flex items-center justify-center gap-2 no-underline"
-                      style={{ borderRadius: '0.5rem' }}
+                      style={{ borderRadius: '1rem' }}
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                       {lang === 'de' ? 'Bestätigen & zur Zahlung →' : 'Confirm & proceed to payment →'}
@@ -714,8 +722,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                 )}
                 <p className="text-foreground font-medium text-sm mt-4">
                   {isAnnual
-                    ? (lang === 'de' ? 'Jahreslizenz · monatliche Abrechnung · Kündigung zum Jahresende' : 'Annual licence · billed monthly · cancel at year end')
-                    : (lang === 'de' ? 'Mindestlaufzeit 3 Monate · monatliche Abrechnung · Kündigung zum Quartalsende' : 'Minimum 3 months · billed monthly · cancel at end of quarter')}
+                    ? (lang === 'de' ? 'Jahreslizenz · monatliche Abrechnung · Kündigung zum Laufzeitende' : 'Annual licence · billed monthly · cancel at end of term')
+                    : (lang === 'de' ? 'Mindestlaufzeit 3 Monate · monatliche Abrechnung · Kündigung zum Laufzeitende' : 'Minimum 3 months · billed monthly · cancel at end of term')}
                 </p>
               </div>
 
