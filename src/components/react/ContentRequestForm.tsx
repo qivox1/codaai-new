@@ -337,17 +337,16 @@ export default function ContentRequestForm({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ websiteUrl: url, checkUrlReachable: true }),
         });
-        const reachabilityData = await reachabilityResponse.json();
-        if (!reachabilityData?.isReachable) {
-          setDomainError(de.urlNotReachable.replace('{url}', url));
-          setIsCheckingDomain(false);
-          return;
+        if (reachabilityResponse.ok) {
+          const reachabilityData = await reachabilityResponse.json();
+          if (reachabilityData?.isReachable === false) {
+            setDomainError(de.urlNotReachable.replace('{url}', url));
+            setIsCheckingDomain(false);
+            return;
+          }
         }
-      } catch (err) {
-        setDomainError(de.urlCheckFailed);
-        setIsCheckingDomain(false);
-        return;
-      }
+        // If check fails or returns non-OK, silently continue
+      } catch (err) { /* silently continue */ }
 
       try {
         const response = await fetch(SUPABASE_FN, {
