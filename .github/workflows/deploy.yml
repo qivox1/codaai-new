@@ -53,9 +53,9 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
-          supabase link --project-ref svqpkltbqpsldvfwmsbd
           supabase functions deploy send-content-request \
-            --project-ref svqpkltbqpsldvfwmsbd
+            --project-ref svqpkltbqpsldvfwmsbd \
+            --no-verify-jwt
 
   deploy:
     needs: build

@@ -74,7 +74,7 @@ const translations = {
     checking: 'Wird geprüft...',
     validatingTopic: 'Thema wird validiert...',
     sending: 'Wird gesendet...',
-    getMyFreeArticle: 'Meinen kostenlosen Artikel erhalten →',
+    getMyFreeArticle: 'Kostenlose Artikel erhalten',
     trustIndicator: '🔒 Ihre Daten sind sicher. Kein Spam, niemals.',
     successTitle: 'Wir sind dran!',
     successMessage: 'Ihr Artikel wird erstellt. Prüfen Sie {email} innerhalb von 24 Std.',
@@ -93,6 +93,7 @@ const translations = {
     consentRequired: 'Zustimmung erforderlich',
     consentRequiredDesc: 'Bitte stimmen Sie zu, Ihren kostenlosen Artikel und gelegentliche Updates zu erhalten.',
     partnerCodeUnlocked: '✨ Partnercode aktiviert: bis zu 4.000 Wörter verfügbar',
+    submitFailed: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.',
   },
   en: {
     freeTrial: 'Try for free',
@@ -142,7 +143,7 @@ const translations = {
     checking: 'Checking...',
     validatingTopic: 'Validating topic...',
     sending: 'Sending...',
-    getMyFreeArticle: 'Get my free article →',
+    getMyFreeArticle: 'Get free article',
     trustIndicator: '🔒 Your data is safe. No spam, ever.',
     successTitle: 'We\'re on it!',
     successMessage: 'Your article is being created. Check {email} within 24 hrs.',
@@ -161,6 +162,7 @@ const translations = {
     consentRequired: 'Consent required',
     consentRequiredDesc: 'Please agree to receive your free article and occasional updates.',
     partnerCodeUnlocked: '✨ Partner code activated: up to 4,000 words available',
+    submitFailed: 'Something went wrong. Please try again later.',
   },
 };
 
@@ -509,36 +511,44 @@ export default function ContentRequestForm({
         } catch (pdfErr) { /* continue without PDF */ }
       }
 
-      const submitResponse = await fetch(SUPABASE_FN, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          websiteUrl: formData.websiteUrl,
-          topic: formData.topic,
-          articleLanguage: formData.articleLanguage,
-          articleGoal: formData.articleGoal,
-          wordCount: formData.wordCount,
-          additionalInfo: formData.additionalInfo,
-          pdfBase64,
-          pdfFileName,
-          partnerCode: formData.partnerCode || null,
-        }),
-      });
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      let submitResponse: Response;
+      try {
+        submitResponse = await fetch(SUPABASE_FN, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            websiteUrl: formData.websiteUrl,
+            topic: formData.topic,
+            articleLanguage: formData.articleLanguage,
+            articleGoal: formData.articleGoal,
+            wordCount: formData.wordCount,
+            additionalInfo: formData.additionalInfo,
+            pdfBase64,
+            pdfFileName,
+            partnerCode: formData.partnerCode || null,
+          }),
+        });
+      } catch (fetchErr: any) {
+        clearTimeout(timeout);
+        setSubmitError(t.submitFailed);
+        setIsSubmitting(false);
+        return;
+      }
+      clearTimeout(timeout);
 
       if (!submitResponse.ok) {
         const errorData = await submitResponse.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Request failed');
+        throw new Error(errorData.error || t.submitFailed);
       }
       setSubmitError(null);
       setIsSuccess(true);
     } catch (error: any) {
-      setSubmitError(
-        error?.message && error.message !== 'Request failed'
-          ? error.message
-          : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.'
-      );
+      setSubmitError(error?.message || t.submitFailed);
     } finally {
       setIsSubmitting(false);
     }
