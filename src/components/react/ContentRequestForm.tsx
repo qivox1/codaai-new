@@ -172,6 +172,8 @@ export default function ContentRequestForm({
   const [partnerCodeValid, setPartnerCodeValid] = useState(false);
   const [isCheckingPartnerCode, setIsCheckingPartnerCode] = useState(false);
   const [sliderUnlocked, setSliderUnlocked] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -281,6 +283,22 @@ export default function ContentRequestForm({
     setFormData(prev => ({ ...prev, pdfFile: null }));
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    if (!isPdf) { setPdfError(de.pdfOnly); return; }
+    if (file.size > 10 * 1024 * 1024) { setPdfError(de.pdfTooLarge); return; }
+    setPdfError(null);
+    setFormData(prev => ({ ...prev, pdfFile: file }));
+  };
+
+  const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setDragActive(true); };
+  const handleDragLeave = (e: React.DragEvent) => { e.preventDefault(); setDragActive(false); };
 
   const updateField = (field: keyof FormData, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -439,9 +457,14 @@ export default function ContentRequestForm({
         const errorData = await submitResponse.json().catch(() => ({}));
         throw new Error(errorData.error || 'Request failed');
       }
+      setSubmitError(null);
       setIsSuccess(true);
-    } catch (error) {
-      alert('Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.');
+    } catch (error: any) {
+      setSubmitError(
+        error?.message && error.message !== 'Request failed'
+          ? error.message
+          : 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -716,14 +739,24 @@ export default function ContentRequestForm({
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
-                          className="w-full py-4 px-5 rounded-xl border-2 border-dashed border-border hover:border-cta bg-muted hover:bg-muted/70 transition-all duration-200 group"
+                          onDrop={handleDrop}
+                          onDragOver={handleDragOver}
+                          onDragEnter={handleDragOver}
+                          onDragLeave={handleDragLeave}
+                          className={`w-full py-4 px-5 rounded-xl border-2 border-dashed transition-all duration-200 group ${
+                            dragActive
+                              ? 'border-cta bg-cta/5 scale-[1.01]'
+                              : 'border-border hover:border-cta bg-muted hover:bg-muted/70'
+                          }`}
                         >
                           <div className="flex flex-col items-center gap-2">
-                            <div className="size-10 rounded-full bg-background border border-border flex items-center justify-center group-hover:border-cta transition-colors">
-                              <Upload className="w-5 h-5 text-muted-foreground group-hover:text-cta" aria-hidden="true" />
+                            <div className={`size-10 rounded-full border flex items-center justify-center transition-colors ${dragActive ? 'bg-cta/10 border-cta' : 'bg-background border-border group-hover:border-cta'}`}>
+                              <Upload className={`w-5 h-5 transition-colors ${dragActive ? 'text-cta' : 'text-muted-foreground group-hover:text-cta'}`} aria-hidden="true" />
                             </div>
                             <div className="text-center">
-                              <p className="text-sm font-semibold text-foreground">{de.attachPdf}</p>
+                              <p className="text-sm font-semibold text-foreground">
+                                {dragActive ? 'PDF hier ablegen' : de.attachPdf}
+                              </p>
                               <p className="text-xs text-muted-foreground mt-0.5">{de.attachPdfSub}</p>
                             </div>
                           </div>
@@ -829,6 +862,10 @@ export default function ContentRequestForm({
                     )}
                   </button>
                 </div>
+
+                {submitError && currentStep === 2 && (
+                  <p role="alert" className="text-red-500 text-xs text-center">{submitError}</p>
+                )}
 
                 {currentStep !== 0 && (
                   <p className="text-center text-xs text-muted-foreground py-1">{de.trustIndicator}</p>
