@@ -73,25 +73,23 @@ const formatCurrency = (value: number) =>
 const FEATURES_DE = [
   'SEO-optimierte Blogartikel bis 4.000 Wörter',
   'Keyword-Recherche & Wettbewerbsanalyse inklusive',
-  '3 Grafiken & Infografiken pro Artikel',
+  '3 passende Bilder bzw. 1 Grafik / Infografik pro Blogartikel',
   '2 Social-Media-Videos pro Artikel (optional)',
   'Professionelle Übersetzungen (optional)',
   'Redaktionskalender & Content-Strategie',
   'Monatliche Performance-Auswertung',
   'Persönlicher Ansprechpartner',
-  'Hosting auf deutschen Servern (DSGVO-konform)',
 ];
 
 const FEATURES_EN = [
   'SEO-optimised blog articles up to 4,000 words',
   'Keyword research & competitive analysis included',
-  '3 graphics & infographics per article',
+  '3 matching images or 1 graphic / infographic per blog article',
   '2 social media videos per article (optional)',
   'Professional translations (optional)',
   'Editorial calendar & content strategy',
   'Monthly performance report',
   'Dedicated account manager',
-  'Hosted on German servers (GDPR-compliant)',
 ];
 
 interface PricingCalculatorProps {
