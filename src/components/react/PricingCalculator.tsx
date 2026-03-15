@@ -98,9 +98,10 @@ const FEATURES_EN = [
 
 interface PricingCalculatorProps {
   lang?: 'de' | 'en';
+  base?: string;
 }
 
-export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProps) {
+export default function PricingCalculator({ lang = 'de', base = '' }: PricingCalculatorProps) {
   const [billingCycle, setBillingCycle] = useState<'annual' | 'quarterly'>('annual');
   const [contentPieces, setContentPieces] = useState(2);
   const [includeSocialVideos, setIncludeSocialVideos] = useState(false);
@@ -181,16 +182,16 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
   // Tier data for Staffelpreise display
   const tiers = isAnnual
     ? [
-        { range: '2–3', price: '€490', value: 2,  active: contentPieces <= 3 },
-        { range: '4–6', price: '€420', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
-        { range: '7–9', price: '€390', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
-        { range: '10–12', price: '€349', value: 10, active: contentPieces >= 10 },
+        { range: '2–3',   price: 490, value: 2,  active: contentPieces <= 3 },
+        { range: '4–6',   price: 420, value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
+        { range: '7–9',   price: 390, value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
+        { range: '10–12', price: 349, value: 10, active: contentPieces >= 10 },
       ]
     : [
-        { range: '2–3', price: '€615', value: 2,  active: contentPieces <= 3 },
-        { range: '4–6', price: '€525', value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
-        { range: '7–9', price: '€490', value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
-        { range: '10–12', price: '€435', value: 10, active: contentPieces >= 10 },
+        { range: '2–3',   price: 615, value: 2,  active: contentPieces <= 3 },
+        { range: '4–6',   price: 525, value: 4,  active: contentPieces >= 4 && contentPieces <= 6 },
+        { range: '7–9',   price: 490, value: 7,  active: contentPieces >= 7 && contentPieces <= 9 },
+        { range: '10–12', price: 435, value: 10, active: contentPieces >= 10 },
       ];
 
   return (
@@ -337,7 +338,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 89 : 112}*/Artikel` : `from €${isAnnual ? 89 : 112}*/article`}
+                        {lang === 'de' ? `ab ${isAnnual ? 89 : 112} €*/Artikel` : `from ${isAnnual ? 89 : 112} €*/article`}
                       </p>
                     )}
                   </div>
@@ -403,7 +404,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 100 : 125}*/Video` : `from €${isAnnual ? 100 : 125}*/video`}
+                        {lang === 'de' ? `ab ${isAnnual ? 100 : 125} €*/Video` : `from ${isAnnual ? 100 : 125} €*/video`}
                       </p>
                     )}
                   </div>
@@ -497,7 +498,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       }`}
                     >
                       <div className="text-xs">{tier.range} {lang === 'de' ? 'Stk.' : 'pcs.'}</div>
-                      <div className={`text-sm font-semibold ${tier.active ? 'text-cta' : ''}`}>{tier.price}</div>
+                      <div className={`text-sm font-semibold ${tier.active ? 'text-cta' : ''}`}>{formatCurrency(tier.price)}*</div>
                     </button>
                   ))}
                 </div>
@@ -587,7 +588,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
           {/* FAQ link */}
           <div className="text-center">
             <p className="text-muted-foreground">
-              {lang === 'de' ? <>Noch Fragen? Antworten im{' '}<a href="/#faq" className="text-cta hover:underline">FAQ</a></> : <>Still have questions? See the{' '}<a href="/en/#faq" className="text-cta hover:underline">FAQ</a></>}
+              {lang === 'de' ? <>Noch Fragen? Antworten im{' '}<a href={`${base}/#faq`} className="text-cta hover:underline">FAQ</a></> : <>Still have questions? See the{' '}<a href={`${base}/en/#faq`} className="text-cta hover:underline">FAQ</a></>}
             </p>
           </div>
         </div>

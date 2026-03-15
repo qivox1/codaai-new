@@ -243,40 +243,40 @@
     "badge": "The Real Cost of Content",
     "title": "What traditional agencies charge",
     "totalLabel": "Total Agency Cost Per Article",
-    "totalCost": "~€4,200",
+    "totalCost": "~4.200 €",
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from €490*",
-    "codaAIPer": "instead of ~€4,200. >85% cheaper.",
+    "codaAIPrice": "from 490 €*",
+    "codaAIPer": "instead of ~4.200 €. >85% cheaper.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
       {
         "area": "SEO Blog Article",
         "hours": "20h",
-        "cost": "€2,000",
+        "cost": "2.000 €",
         "description": "Up to 4,000 words of long-form content – persona-driven, journey-mapped, with keyword research & linking strategy."
       },
       {
         "area": "Images & Infographics",
         "hours": "4.5h",
-        "cost": "€450",
+        "cost": "450 €",
         "description": "3 custom graphics per article: featured image, in-content visual, and social media variant. Brand-aligned design."
       },
       {
         "area": "Content Promotion",
         "hours": "12h",
-        "cost": "€1,200",
+        "cost": "1.200 €",
         "description": "2 short-form videos (TikTok/Reels format), social media copy for 5 platforms, and distribution scheduling."
       },
       {
         "area": "Planning & Coordination",
         "hours": "+15%",
-        "cost": "~€548",
+        "cost": "~548 €",
         "description": "Editorial calendar management, briefings, feedback rounds, and project management overhead."
       }
     ],
-    "codaAIStatt": "instead of ~€4,200",
+    "codaAIStatt": "instead of ~4.200 €",
     "codaAISavings": ">85% cheaper"
   },
   "footer": {
