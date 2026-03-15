@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="de" data-astro-cid-qbporkgn> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>CodaAI – Weiterleitung …</title><style>[data-astro-cid-qbporkgn],[data-astro-cid-qbporkgn]:before,[data-astro-cid-qbporkgn]:after{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;display:flex;align-items:center;justify-content:center}.card[data-astro-cid-qbporkgn]{text-align:center;padding:3rem 2rem;max-width:440px;width:100%}.logo[data-astro-cid-qbporkgn]{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;text-decoration:none}.logo[data-astro-cid-qbporkgn] span[data-astro-cid-qbporkgn]{font-size:1.25rem;font-weight:600;color:#fff}.spinner[data-astro-cid-qbporkgn]{width:40px;height:40px;border:3px solid rgba(223,65,251,.2);border-top-color:#df41fb;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1.5rem}@keyframes spin{to{transform:rotate(360deg)}}h1[data-astro-cid-qbporkgn]{font-size:1.125rem;font-weight:600;color:#fff;margin-bottom:.5rem}p[data-astro-cid-qbporkgn]{font-size:.875rem;color:#a1a1aa;line-height:1.6}.error-box[data-astro-cid-qbporkgn]{background:#ef44441a;border:1px solid rgba(239,68,68,.3);border-radius:.75rem;padding:1rem;margin-top:1.5rem;text-align:left}.error-box[data-astro-cid-qbporkgn] p[data-astro-cid-qbporkgn]{color:#fca5a5;font-size:.8125rem}.back-link[data-astro-cid-qbporkgn]{display:inline-block;margin-top:1.5rem;font-size:.8125rem;color:#df41fb;text-decoration:none}.back-link[data-astro-cid-qbporkgn]:hover{text-decoration:underline}.success-icon[data-astro-cid-qbporkgn]{width:40px;height:40px;background:#22c55e26;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:#4ade80}
+</style></head> <body data-astro-cid-qbporkgn> <div class="card" id="card" data-astro-cid-qbporkgn> <a class="logo" href="/codaai-new/" data-astro-cid-qbporkgn> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" data-astro-cid-qbporkgn> <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-qbporkgn></path> </svg> <span data-astro-cid-qbporkgn>CodaAI</span> </a> <!-- Loading state (default) --> <div id="state-loading" data-astro-cid-qbporkgn> <div class="spinner" data-astro-cid-qbporkgn></div> <h1 data-astro-cid-qbporkgn>E-Mail bestätigt ✓</h1> <p data-astro-cid-qbporkgn>Weiterleitung zu Stripe …</p> </div> <!-- Error state (hidden by default) --> <div id="state-error" style="display:none" data-astro-cid-qbporkgn> <h1 data-astro-cid-qbporkgn>Etwas ist schiefgelaufen</h1> <div class="error-box" data-astro-cid-qbporkgn> <p id="error-message" data-astro-cid-qbporkgn></p> </div> <a class="back-link" id="back-link" href="/codaai-new/preise" data-astro-cid-qbporkgn>← Zurück zur Preisseite</a> </div> </div> <script>
+      (async function () {
+        const SUPABASE_URL      = 'https://fcauvtwqkluvsbicaojo.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjYXV2dHdxa2x1dnNiaWNhb2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4ODA2NjcsImV4cCI6MjA2NTQ1NjY2N30.7Y3VDYZH3RhXpt_Dswn21sLrfDrkFQU7ZXVt38sa45c';
+        const FN                = (name) => `${SUPABASE_URL}/functions/v1/${name}`;
+
+        function showError(msg) {
+          document.getElementById('state-loading').style.display = 'none';
+          document.getElementById('state-error').style.display   = 'block';
+          document.getElementById('error-message').textContent   = msg;
+        }
+
+        try {
+          // ── 1. Parse URL ──────────────────────────────────────────
+          const searchParams = new URLSearchParams(window.location.search);
+          const regId        = searchParams.get('regId');
+
+          // Supabase appends tokens in the URL fragment after redirection
+          const hashParams   = new URLSearchParams(
+            window.location.hash.replace(/^#/, '')
+          );
+          const accessToken  = hashParams.get('access_token');
+          const tokenType    = hashParams.get('type'); // 'magiclink' or 'recovery' etc.
+
+          if (!regId) {
+            showError('Fehlende Registrierungs-ID. Bitte starten Sie den Vorgang erneut.');
+            return;
+          }
+
+          if (!accessToken) {
+            // Could mean the link was already used, or user navigated directly
+            showError('Kein Authentifizierungs-Token gefunden. Bitte auf den Link in Ihrer SMS tippen.');
+            return;
+          }
+
+          // ── 2. Call create-checkout with accessToken ───────────────
+          const res = await fetch(FN('website-checkout'), {
+            method:  'POST',
+            headers: {
+              'Content-Type':  'application/json',
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({ registrationId: regId, accessToken }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            showError(data.error ?? 'Interner Fehler. Bitte versuchen Sie es erneut.');
+            return;
+          }
+
+          if (!data.checkoutUrl) {
+            showError('Keine Checkout-URL erhalten. Bitte kontaktieren Sie office@codaai.ai.');
+            return;
+          }
+
+          // ── 3. Redirect to Stripe Checkout ─────────────────────────
+          window.location.href = data.checkoutUrl;
+
+        } catch (err) {
+          console.error('auth/callback error:', err);
+          showError('Verbindungsfehler. Bitte prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.');
+        }
+      })();
+    </script> </body> </html>
