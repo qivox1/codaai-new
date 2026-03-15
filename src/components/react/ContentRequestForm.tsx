@@ -134,18 +134,23 @@ function Logo() {
     <div className="flex items-center gap-2 justify-center mb-8">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-          stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          stroke="hsl(var(--cta))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
-      <span className="text-xl font-semibold text-white">CodaAI</span>
+      <span className="text-xl font-semibold text-foreground">CodaAI</span>
     </div>
   );
 }
 
 // ─── Input / Label helpers ────────────────────────────────────────────────────
+// Matches PricingCalculator exactly: rounded-full, bg-input, border-border
 const inputCls = (hasError?: boolean) =>
-  `w-full px-4 py-3 rounded-xl bg-white/15 border ${hasError ? 'border-red-400' : 'border-white/20'} text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all text-sm`;
+  `w-full h-12 px-4 bg-input border ${hasError ? 'border-red-500' : 'border-border'} rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta transition-all text-sm`;
 
-const labelCls = 'block text-[11px] font-mono text-white/70 mb-1.5 uppercase tracking-widest';
+// For multi-line fields (textarea, select) use rounded-xl instead of rounded-full
+const inputClsBox = (hasError?: boolean) =>
+  `w-full px-4 py-3 bg-input border ${hasError ? 'border-red-500' : 'border-border'} rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta transition-all text-sm`;
+
+const labelCls = 'block text-[11px] font-mono text-muted-foreground mb-1.5 uppercase tracking-widest';
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ContentRequestForm({
@@ -467,7 +472,7 @@ export default function ContentRequestForm({
   // ── Shared overlay markup ──────────────────────────────────────────────────
   const overlayContent = isOpen ? (
     <div
-      className="fixed inset-0 z-[100] bg-cta overflow-y-auto"
+      className="fixed inset-0 z-[100] bg-background overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label="Kostenlosen Artikel anfordern"
@@ -475,10 +480,10 @@ export default function ContentRequestForm({
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="fixed top-5 right-5 z-10 p-2 hover:bg-white/20 rounded-full transition-colors"
+        className="fixed top-5 right-5 z-10 p-2 hover:bg-muted rounded-full transition-colors"
         aria-label="Schließen"
       >
-        <X className="w-6 h-6 text-white" />
+        <X className="w-6 h-6 text-foreground" />
       </button>
 
       <div className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
@@ -489,17 +494,17 @@ export default function ContentRequestForm({
             /* ── Success screen ────────────────────────────────────── */
             <div className="text-center space-y-6">
               <div className="flex justify-center">
-                <div className="size-20 rounded-full bg-white/20 flex items-center justify-center">
-                  <CheckCircle className="size-12 text-white" />
+                <div className="size-20 rounded-full bg-cta/10 flex items-center justify-center">
+                  <CheckCircle className="size-12 text-cta" />
                 </div>
               </div>
-              <h2 className="text-3xl font-semibold text-white">{de.successTitle}</h2>
-              <p className="text-base text-white/80">
+              <h2 className="text-3xl font-semibold text-foreground">{de.successTitle}</h2>
+              <p className="text-base text-muted-foreground">
                 {de.successMessage.replace('{email}', formData.email)}
               </p>
               <button
                 onClick={handleClose}
-                className="px-8 py-3 rounded-full bg-white text-cta font-semibold hover:bg-white/90 transition-colors"
+                className="btn-cta h-12 px-8 text-base"
               >
                 {de.gotIt}
               </button>
@@ -513,8 +518,8 @@ export default function ContentRequestForm({
                   <div
                     key={index}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentStep ? 'w-8 bg-white' :
-                      index < currentStep ? 'w-4 bg-white/60' : 'w-4 bg-white/30'
+                      index === currentStep ? 'w-8 bg-cta' :
+                      index < currentStep ? 'w-4 bg-cta/50' : 'w-4 bg-border'
                     }`}
                   />
                 ))}
@@ -522,10 +527,10 @@ export default function ContentRequestForm({
 
               {/* Step header */}
               <div className="text-center mb-8">
-                <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight mb-2">
+                <h2 className="text-2xl sm:text-3xl font-semibold text-foreground leading-tight mb-2">
                   {steps[currentStep].title}
                 </h2>
-                <p className="text-base text-white/75">
+                <p className="text-base text-muted-foreground">
                   {steps[currentStep].subtitle}
                 </p>
               </div>
@@ -562,7 +567,7 @@ export default function ContentRequestForm({
                         aria-invalid={emailError ? true : undefined}
                       />
                       {emailError && (
-                        <p id="email-err" role="alert" className="text-white text-xs mt-2 bg-black/30 px-3 py-2 rounded-lg">
+                        <p id="email-err" role="alert" className="text-red-500 text-xs mt-2">
                           {emailError}
                         </p>
                       )}
@@ -586,11 +591,11 @@ export default function ContentRequestForm({
                       aria-invalid={domainError ? true : undefined}
                     />
                     {domainError && (
-                      <p id="domain-err" role="alert" className="text-white text-xs mt-2 bg-black/30 px-3 py-2 rounded-lg">
+                      <p id="domain-err" role="alert" className="text-red-500 text-xs mt-2">
                         {domainError}
                       </p>
                     )}
-                    <p className="text-xs text-white/55 mt-2">{de.websiteHint}</p>
+                    <p className="text-xs text-muted-foreground mt-2">{de.websiteHint}</p>
                   </div>
                 )}
 
@@ -605,12 +610,12 @@ export default function ContentRequestForm({
                         value={formData.topic}
                         onChange={(e) => { updateField('topic', e.target.value); setTopicError(null); }}
                         placeholder={de.topicPlaceholder}
-                        className={`${inputCls(!!topicError)} resize-none h-24`}
+                        className={`${inputClsBox(!!topicError)} resize-none h-24`}
                         aria-describedby={topicError ? 'topic-err' : undefined}
                         aria-invalid={topicError ? true : undefined}
                       />
                       {topicError && (
-                        <p id="topic-err" role="alert" className="text-white text-xs mt-2 bg-black/30 px-3 py-2 rounded-lg">
+                        <p id="topic-err" role="alert" className="text-red-500 text-xs mt-2">
                           {topicError}
                         </p>
                       )}
@@ -624,12 +629,12 @@ export default function ContentRequestForm({
                           id={langId}
                           value={formData.articleLanguage}
                           onChange={(e) => updateField('articleLanguage', e.target.value)}
-                          className={`${inputCls()} appearance-none pr-10 cursor-pointer`}
+                          className={`${inputClsBox()} appearance-none pr-10 cursor-pointer`}
                         >
                           <option value="de">{de.langDe}</option>
                           <option value="en">{de.langEn}</option>
                         </select>
-                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                       </div>
                     </div>
 
@@ -641,7 +646,7 @@ export default function ContentRequestForm({
                           id={goalId}
                           value={formData.articleGoal}
                           onChange={(e) => updateField('articleGoal', e.target.value)}
-                          className={`${inputCls()} appearance-none pr-10 cursor-pointer`}
+                          className={`${inputClsBox()} appearance-none pr-10 cursor-pointer`}
                         >
                           <option value="">{de.selectGoal}</option>
                           <option value="inform">{de.goalInform}</option>
@@ -652,7 +657,7 @@ export default function ContentRequestForm({
                           <option value="use">{de.goalUse}</option>
                           <option value="thought-leader">{de.goalThoughtLeader}</option>
                         </select>
-                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                       </div>
                     </div>
 
@@ -660,7 +665,7 @@ export default function ContentRequestForm({
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
                         <label htmlFor={wordCountId} className={labelCls + ' mb-0'}>{de.articleLength}</label>
-                        <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${partnerCodeValid ? 'bg-green-400/20 text-green-200' : 'bg-white/20 text-white'} transition-colors`}>
+                        <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${partnerCodeValid ? 'bg-green-100 text-green-700' : 'bg-muted text-foreground'} transition-colors`}>
                           {formData.wordCount.toLocaleString('de')} {de.words}
                         </span>
                       </div>
@@ -673,14 +678,14 @@ export default function ContentRequestForm({
                         value={formData.wordCount}
                         onChange={(e) => updateField('wordCount', parseInt(e.target.value))}
                         aria-label={`Artikellänge: ${formData.wordCount} Wörter`}
-                        className="w-full accent-white"
+                        className="w-full accent-cta"
                       />
-                      <div className="flex justify-between text-[10px] text-white/40 mt-1">
+                      <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
                         <span>1.000</span>
                         <span>{sliderMax.toLocaleString('de')}</span>
                       </div>
                       {partnerCodeValid && (
-                        <p className="text-xs text-green-300 mt-1 font-medium">{de.partnerCodeUnlocked}</p>
+                        <p className="text-xs text-green-600 mt-1 font-medium">{de.partnerCodeUnlocked}</p>
                       )}
                     </div>
 
@@ -692,9 +697,9 @@ export default function ContentRequestForm({
                         value={formData.additionalInfo}
                         onChange={(e) => updateField('additionalInfo', e.target.value)}
                         placeholder={de.additionalPlaceholder}
-                        className={`${inputCls()} resize-none h-28`}
+                        className={`${inputClsBox()} resize-none h-28`}
                       />
-                      <p className="text-xs text-white/55 mt-2 leading-relaxed">{de.additionalHint}</p>
+                      <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{de.additionalHint}</p>
                     </div>
 
                     {/* PDF upload — prominent card */}
@@ -711,33 +716,33 @@ export default function ContentRequestForm({
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
-                          className="w-full py-4 px-5 rounded-xl border-2 border-dashed border-white/40 hover:border-white/70 bg-white/10 hover:bg-white/15 text-white transition-all duration-200 group"
+                          className="w-full py-4 px-5 rounded-xl border-2 border-dashed border-border hover:border-cta bg-muted hover:bg-muted/70 transition-all duration-200 group"
                         >
                           <div className="flex flex-col items-center gap-2">
-                            <div className="size-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                              <Upload className="w-5 h-5 text-white" aria-hidden="true" />
+                            <div className="size-10 rounded-full bg-background border border-border flex items-center justify-center group-hover:border-cta transition-colors">
+                              <Upload className="w-5 h-5 text-muted-foreground group-hover:text-cta" aria-hidden="true" />
                             </div>
                             <div className="text-center">
-                              <p className="text-sm font-semibold text-white">{de.attachPdf}</p>
-                              <p className="text-xs text-white/60 mt-0.5">{de.attachPdfSub}</p>
+                              <p className="text-sm font-semibold text-foreground">{de.attachPdf}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">{de.attachPdfSub}</p>
                             </div>
                           </div>
                         </button>
                       ) : (
-                        <div className="flex items-center justify-between bg-white/15 px-4 py-3 rounded-xl border border-white/30">
+                        <div className="flex items-center justify-between bg-muted px-4 py-3 rounded-xl border border-border">
                           <div className="flex items-center gap-3 min-w-0">
-                            <div className="size-8 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
-                              <Paperclip className="w-4 h-4 text-white" aria-hidden="true" />
+                            <div className="size-8 rounded-lg bg-background border border-border flex items-center justify-center flex-shrink-0">
+                              <Paperclip className="w-4 h-4 text-cta" aria-hidden="true" />
                             </div>
                             <div className="min-w-0">
-                              <p className="text-sm text-white font-medium truncate">{formData.pdfFile.name}</p>
-                              <p className="text-xs text-white/60">{(formData.pdfFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                              <p className="text-sm text-foreground font-medium truncate">{formData.pdfFile.name}</p>
+                              <p className="text-xs text-muted-foreground">{(formData.pdfFile.size / 1024 / 1024).toFixed(1)} MB</p>
                             </div>
                           </div>
                           <button
                             type="button"
                             onClick={removePdf}
-                            className="ml-3 p-1.5 text-white/60 hover:text-white hover:bg-white/20 rounded-lg transition-colors flex-shrink-0"
+                            className="ml-3 p-1.5 text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors flex-shrink-0"
                             aria-label="PDF entfernen"
                           >
                             <X className="w-4 h-4" />
@@ -745,7 +750,7 @@ export default function ContentRequestForm({
                         </div>
                       )}
                       {pdfError && (
-                        <p role="alert" className="text-white text-xs mt-2 bg-black/30 px-3 py-2 rounded-lg">{pdfError}</p>
+                        <p role="alert" className="text-red-500 text-xs mt-2">{pdfError}</p>
                       )}
                     </div>
 
@@ -764,13 +769,13 @@ export default function ContentRequestForm({
                             partnerCodeTimeoutRef.current = setTimeout(() => validatePartnerCode(code), 500);
                           }}
                           placeholder={de.partnerPlaceholder}
-                          className={`${inputCls()} ${partnerCodeValid ? 'border-green-400/60' : ''} pr-10`}
+                          className={`${inputCls()} ${partnerCodeValid ? 'border-green-500' : ''} pr-10`}
                         />
                         {isCheckingPartnerCode && (
-                          <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 animate-spin" aria-hidden="true" />
+                          <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" aria-hidden="true" />
                         )}
                         {partnerCodeValid && !isCheckingPartnerCode && (
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-300 text-lg" aria-hidden="true">✓</span>
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-lg" aria-hidden="true">✓</span>
                         )}
                       </div>
                     </div>
@@ -782,13 +787,13 @@ export default function ContentRequestForm({
                         id="consent"
                         checked={formData.marketingConsent}
                         onChange={(e) => updateField('marketingConsent', e.target.checked)}
-                        className="mt-0.5 w-4 h-4 accent-white flex-shrink-0"
+                        className="mt-0.5 w-4 h-4 accent-cta flex-shrink-0"
                       />
-                      <label htmlFor="consent" className="text-xs text-white/75 leading-relaxed cursor-pointer">
+                      <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
                         {de.consentText}{' '}
-                        <a href="/datenschutz" className="underline hover:text-white" target="_blank" rel="noopener">{de.privacyPolicy}</a>
+                        <a href="/datenschutz" className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{de.privacyPolicy}</a>
                         {' '}{de.and}{' '}
-                        <a href="/agb" className="underline hover:text-white" target="_blank" rel="noopener">{de.termsConditions}</a>.
+                        <a href="/agb" className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{de.termsConditions}</a>.
                       </label>
                     </div>
                   </>
@@ -800,7 +805,7 @@ export default function ContentRequestForm({
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white transition-colors text-sm font-medium whitespace-nowrap"
+                      className="h-12 px-5 rounded-full bg-muted hover:bg-muted/70 text-foreground transition-colors text-sm font-medium whitespace-nowrap border border-border"
                     >
                       {de.back}
                     </button>
@@ -809,11 +814,7 @@ export default function ContentRequestForm({
                     type={currentStep === 2 ? 'submit' : 'button'}
                     onClick={currentStep < 2 ? nextStep : undefined}
                     disabled={isNextDisabled}
-                    className={`flex-1 py-3 px-6 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
-                      isNextDisabled
-                        ? 'bg-white/20 text-white/40 cursor-not-allowed'
-                        : 'bg-white text-cta hover:bg-white/90 shadow-lg shadow-black/20'
-                    }`}
+                    className={`btn-cta flex-1 h-12 px-6 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {isCheckingEmail || isCheckingDomain ? (
                       <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> {de.checking}</>
@@ -830,7 +831,7 @@ export default function ContentRequestForm({
                 </div>
 
                 {currentStep !== 0 && (
-                  <p className="text-center text-xs text-white/50 py-1">{de.trustIndicator}</p>
+                  <p className="text-center text-xs text-muted-foreground py-1">{de.trustIndicator}</p>
                 )}
               </form>
             </div>
