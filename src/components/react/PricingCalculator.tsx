@@ -575,7 +575,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                 <p className="text-foreground font-medium text-sm mt-4">
                   {isAnnual
                     ? (lang === 'de' ? 'Jahreslizenz · monatliche Abrechnung · Kündigung zum Jahresende' : 'Annual licence · billed monthly · cancel at year end')
-                    : (lang === 'de' ? 'Mindestlaufzeit 1 Quartal · monatliche Abrechnung · Kündigung zum Quartalsende' : 'Minimum 1 quarter · billed monthly · cancel at end of quarter')}
+                    : (lang === 'de' ? 'Mindestlaufzeit 3 Monate · monatliche Abrechnung · Kündigung zum Quartalsende' : 'Minimum 3 months · billed monthly · cancel at end of quarter')}
                 </p>
               </div>
 
