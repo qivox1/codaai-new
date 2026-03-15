@@ -103,8 +103,8 @@ const csp = [
   "font-src 'self'",
   // Local images + data: URIs (inline SVG placeholders)
   "img-src 'self' data: blob:",
-  // Supabase Edge Function for contact form
-  "connect-src 'self' https://svqpkltbqpsldvfwmsbd.supabase.co",
+  // Supabase Edge Functions + Auth
+  "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co",
   // No iframes, objects or plugins
   "frame-src 'none'",
   "object-src 'none'",
@@ -112,7 +112,7 @@ const csp = [
   // Prevent base-tag hijacking
   "base-uri 'self'",
   // Only allow form submissions to own origin and Supabase
-  "form-action 'self' https://svqpkltbqpsldvfwmsbd.supabase.co",
+  "form-action 'self' https://fcauvtwqkluvsbicaojo.supabase.co",
   // Upgrade any accidental http:// sub-resource requests
   "upgrade-insecure-requests",
 ].join('; ');

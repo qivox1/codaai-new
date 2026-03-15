@@ -96,6 +96,13 @@ const FEATURES_EN = [
   '3 images or 1 infographic per blog article',        // left
 ];
 
+const SUPABASE_URL      = 'https://fcauvtwqkluvsbicaojo.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjYXV2dHdxa2x1dnNiaWNhb2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4ODA2NjcsImV4cCI6MjA2NTQ1NjY2N30.7Y3VDYZH3RhXpt_Dswn21sLrfDrkFQU7ZXVt38sa45c';
+const FN = (name: string) => `${SUPABASE_URL}/functions/v1/${name}`;
+const HEADERS = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` };
+
+type CheckoutStep = 'form' | 'sms' | 'waiting' | 'done';
+
 interface PricingCalculatorProps {
   lang?: 'de' | 'en';
   base?: string;
@@ -107,10 +114,20 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const [includeSocialVideos, setIncludeSocialVideos] = useState(false);
   const [includeTranslations, setIncludeTranslations] = useState(false);
   const [translationLanguages, setTranslationLanguages] = useState(1);
+
+  // ── Checkout flow state ───────────────────────────────────
+  const [step, setStep] = useState<CheckoutStep>('form');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [emailSent, setEmailSent] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [registrationId, setRegistrationId] = useState('');
+  const [otpCode, setOtpCode] = useState('');
+  const [otpError, setOtpError] = useState('');
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false); // kept for compat
 
   const isAnnual = billingCycle === 'annual';
 
@@ -144,38 +161,61 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
   const FEATURES = lang === 'de' ? FEATURES_DE : FEATURES_EN;
 
-  const handleMagicLink = async () => {
+  // ── Step 1: Trigger email Magic Link + SMS OTP ────────────
+  const handleStartVerification = async () => {
     setEmailError('');
-    if (!email || !email.trim()) {
-      setEmailError(lang === 'de' ? 'Bitte geben Sie Ihre E-Mail-Adresse ein' : 'Please enter your email address');
-      return;
+    setPhoneError('');
+    let valid = true;
+    if (!email.trim() || !email.includes('@')) {
+      setEmailError(lang === 'de' ? 'Bitte gültige E-Mail eingeben.' : 'Please enter a valid email.');
+      valid = false;
     }
-    if (!email.includes('@') || !email.includes('.')) {
-      setEmailError(lang === 'de' ? 'Bitte geben Sie eine gültige E-Mail-Adresse ein' : 'Please enter a valid email address');
-      return;
+    if (!phone.trim() || !/^\+[1-9]\d{6,14}$/.test(phone.trim())) {
+      setPhoneError(lang === 'de' ? 'Bitte Mobilnummer im Format +49170… eingeben.' : 'Enter phone as +49170…');
+      valid = false;
     }
+    if (!valid) return;
+
     setIsLoading(true);
     try {
-      const redirectUrl = `${window.location.origin}/pricing?checkout=true&quantity=${contentPieces}&billing=${billingCycle}&socialVideos=${includeSocialVideos}&translations=${includeTranslations}&translationLangs=${translationLanguages}`;
-      const response = await fetch(
-        `${(import.meta as any).env?.PUBLIC_SUPABASE_URL}/functions/v1/send-magic-link`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${(import.meta as any).env?.PUBLIC_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({ email: email.trim(), redirectUrl }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Magic Link versand fehlgeschlagen');
-      setEmailSent(true);
-    } catch (error: any) {
-      console.error('Magic link error:', error);
-      setEmailError(error.message || (lang === 'de' ? 'Fehler beim Senden des Magic Links' : 'Error sending Magic Link'));
+      const packageConfig = {
+        contentPieces,
+        billingCycle,
+        includeSocialVideos,
+        includeTranslations,
+        translationLanguages,
+        monthlyTotal,
+      };
+      const res  = await fetch(FN('start-verification'), { method: 'POST', headers: HEADERS, body: JSON.stringify({ email: email.trim(), phone: phone.trim(), packageConfig }) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Fehler');
+      setRegistrationId(data.registrationId);
+      setStep('sms');
+    } catch (err: any) {
+      setEmailError(err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // ── Step 2: Verify SMS OTP ────────────────────────────────
+  const handleVerifySMS = async () => {
+    setOtpError('');
+    if (otpCode.trim().length !== 6) {
+      setOtpError(lang === 'de' ? 'Bitte 6-stelligen Code eingeben.' : 'Please enter the 6-digit code.');
+      return;
+    }
+    setOtpLoading(true);
+    try {
+      const res  = await fetch(FN('verify-sms'), { method: 'POST', headers: HEADERS, body: JSON.stringify({ registrationId, otpCode: otpCode.trim() }) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Fehler');
+      setOtpVerified(true);
+      setStep('waiting');
+    } catch (err: any) {
+      setOtpError(err.message);
+    } finally {
+      setOtpLoading(false);
     }
   };
 
@@ -523,55 +563,113 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
               {/* CTA */}
               <div className="text-center">
-                {emailSent ? (
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-center gap-3 text-cta">
-                      <Mail className="w-6 h-6" />
-                      <span className="text-lg font-medium">
-                        {lang === 'de' ? 'Prüfen Sie Ihren Posteingang!' : 'Check your inbox!'}
-                      </span>
+                {/* ── Step 1: Email + Phone form ─────────────────── */}
+                {step === 'form' && (
+                  <div className="space-y-4 max-w-md mx-auto">
+                    <p className="text-muted-foreground text-sm">
+                      {lang === 'de' ? 'E-Mail und Mobilnummer eingeben, um zu starten' : 'Enter your email and mobile number to get started'}
+                    </p>
+                    <div className="flex flex-col gap-3">
+                      <div>
+                        <input
+                          type="email"
+                          placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
+                          value={email}
+                          onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
+                          className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500' : 'border-border'}`}
+                          onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
+                        />
+                        {emailError && <p className="text-red-500 text-xs mt-1 text-left">{emailError}</p>}
+                      </div>
+                      <div>
+                        <input
+                          type="tel"
+                          placeholder="+49 170 123 456"
+                          value={phone}
+                          onChange={(e) => { setPhone(e.target.value); setPhoneError(''); }}
+                          className={`w-full h-12 px-4 bg-input border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${phoneError ? 'border-red-500' : 'border-border'}`}
+                          onKeyDown={(e) => e.key === 'Enter' && handleStartVerification()}
+                        />
+                        {phoneError && <p className="text-red-500 text-xs mt-1 text-left">{phoneError}</p>}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleStartVerification}
+                        disabled={isLoading}
+                        className="btn-cta h-12 px-8 text-base disabled:opacity-50 w-full"
+                        style={{ borderRadius: '0.5rem' }}
+                      >
+                        {isLoading
+                          ? <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird gesendet…' : 'Sending…'}</>
+                          : (lang === 'de' ? 'Jetzt starten' : 'Get started')}
+                      </button>
                     </div>
-                    <p className="text-muted-foreground text-sm max-w-md mx-auto">
-                      {lang === 'de'
-                        ? <>Wir haben einen Magic Link an <span className="text-foreground font-medium">{email}</span> gesendet. Klicken Sie auf den Link, um zu bestätigen und Ihr Abonnement zu starten.</>
-                        : <>We sent a Magic Link to <span className="text-foreground font-medium">{email}</span>. Click the link to confirm and start your subscription.</>}
-                    </p>
-                    <button type="button" onClick={() => setEmailSent(false)} className="text-cta hover:underline text-sm">
-                      {lang === 'de' ? 'Andere E-Mail verwenden' : 'Use a different email'}
-                    </button>
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {lang === 'de' ? 'Geben Sie Ihre E-Mail ein, um zu starten' : 'Enter your email to get started'}
-                    </p>
-                    <div className="flex flex-col gap-2 max-w-md mx-auto">
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <div className="flex-1">
-                          <input
-                            type="email"
-                            placeholder={lang === 'de' ? 'ihre@email.de' : 'your@email.com'}
-                            value={email}
-                            onChange={(e) => { setEmail(e.target.value); if (emailError) setEmailError(''); }}
-                            className={`w-full h-12 px-4 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
-                            onKeyDown={(e) => e.key === 'Enter' && handleMagicLink()}
-                          />
-                        </div>
+                )}
+
+                {/* ── Step 2: SMS OTP verification ──────────────── */}
+                {step === 'sms' && (
+                  <div className="space-y-4 max-w-md mx-auto">
+                    <div className="flex items-start gap-3 p-4 bg-muted/40 rounded-xl text-left">
+                      <Mail className="w-5 h-5 text-cta flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-muted-foreground">
+                        {lang === 'de'
+                          ? <>Magic Link gesendet an <strong className="text-foreground">{email}</strong>. Bitte E-Mail öffnen und Link anklicken.</>
+                          : <>Magic link sent to <strong className="text-foreground">{email}</strong>. Please open your email and click the link.</>}
+                      </p>
+                    </div>
+                    <div className="p-4 border border-border rounded-xl">
+                      <p className="text-sm font-medium text-foreground mb-3 text-left">
+                        📱 {lang === 'de' ? `SMS-Code an ${phone} eingeben:` : `Enter SMS code sent to ${phone}:`}
+                      </p>
+                      <div className="flex gap-3">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          maxLength={6}
+                          placeholder="______"
+                          value={otpCode}
+                          onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpError(''); }}
+                          className={`flex-1 h-12 px-4 bg-input border rounded-lg text-foreground text-center text-xl tracking-widest font-mono focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta ${otpError ? 'border-red-500' : 'border-border'}`}
+                          onKeyDown={(e) => e.key === 'Enter' && handleVerifySMS()}
+                        />
                         <button
                           type="button"
-                          onClick={handleMagicLink}
-                          disabled={isLoading}
-                          className="btn-cta h-12 px-8 text-base disabled:opacity-50 whitespace-nowrap"
+                          onClick={handleVerifySMS}
+                          disabled={otpLoading || otpCode.length !== 6}
+                          className="btn-cta h-12 px-6 text-sm disabled:opacity-50 whitespace-nowrap"
                           style={{ borderRadius: '0.5rem' }}
                         >
-                          {isLoading ? (
-                            <><Loader2 className="w-4 h-4 mr-2 animate-spin inline" />{lang === 'de' ? 'Wird gesendet...' : 'Sending...'}</>
-                          ) : (
-                            'Magic Link erhalten'
-                          )}
+                          {otpLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : (lang === 'de' ? 'Bestätigen' : 'Verify')}
                         </button>
                       </div>
-                      {emailError && <p className="text-red-500 text-sm text-left">{emailError}</p>}
+                      {otpError && <p className="text-red-500 text-xs mt-2 text-left">{otpError}</p>}
+                    </div>
+                    <button type="button" onClick={() => setStep('form')} className="text-muted-foreground hover:text-foreground text-xs">
+                      ← {lang === 'de' ? 'Zurück' : 'Back'}
+                    </button>
+                  </div>
+                )}
+
+                {/* ── Step 3: Waiting for email click ───────────── */}
+                {step === 'waiting' && (
+                  <div className="space-y-4 max-w-md mx-auto">
+                    <div className="flex flex-col items-center gap-3 py-4">
+                      <div className="flex items-center gap-2 text-cta">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5"/></svg>
+                        <span className="font-medium text-sm">{lang === 'de' ? 'Mobilnummer bestätigt ✓' : 'Mobile number verified ✓'}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-muted-foreground">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span className="text-sm">
+                          {lang === 'de'
+                            ? <>Warte auf E-Mail-Bestätigung… Bitte Magic Link in <strong className="text-foreground">{email}</strong> anklicken.</>
+                            : <>Waiting for email confirmation… Please click the Magic Link in <strong className="text-foreground">{email}</strong>.</>}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground/70">
+                        {lang === 'de' ? 'Stripe-Checkout öffnet sich automatisch nach der Bestätigung.' : 'Stripe checkout opens automatically after confirmation.'}
+                      </p>
                     </div>
                   </div>
                 )}
