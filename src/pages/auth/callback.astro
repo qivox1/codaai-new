@@ -165,7 +165,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           }
 
           // ── 2. Call create-checkout with accessToken ───────────────
-          const res = await fetch(FN('create-checkout'), {
+          const res = await fetch(FN('website-checkout'), {
             method:  'POST',
             headers: {
               'Content-Type':  'application/json',

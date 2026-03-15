@@ -186,7 +186,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
         translationLanguages,
         monthlyTotal,
       };
-      const res  = await fetch(FN('start-verification'), { method: 'POST', headers: HEADERS, body: JSON.stringify({ email: email.trim(), phone: phone.trim(), packageConfig }) });
+      const res  = await fetch(FN('start-verification'), { method: 'POST', headers: HEADERS, body: JSON.stringify({ email: email.trim(), phone: phone.trim(), packageConfig, lang }) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'Fehler');
       setRegistrationId(data.registrationId);
