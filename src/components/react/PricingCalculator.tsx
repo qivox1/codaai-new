@@ -333,7 +333,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 89 : 112}/Artikel` : `from €${isAnnual ? 89 : 112}/article`}
+                        {lang === 'de' ? `ab €${isAnnual ? 89 : 112}*/Artikel` : `from €${isAnnual ? 89 : 112}*/article`}
                       </p>
                     )}
                   </div>
@@ -399,7 +399,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                       </>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        {lang === 'de' ? `ab €${isAnnual ? 100 : 125}/Video` : `from €${isAnnual ? 100 : 125}/video`}
+                        {lang === 'de' ? `ab €${isAnnual ? 100 : 125}*/Video` : `from €${isAnnual ? 100 : 125}*/video`}
                       </p>
                     )}
                   </div>
@@ -423,7 +423,7 @@ export default function PricingCalculator({ lang = 'de' }: PricingCalculatorProp
                   )}
                   <div className="flex items-baseline justify-center gap-2 mb-1">
                     <span className="text-5xl font-bold text-foreground">
-                      {formatCurrency(monthlyTotal)}
+                      {formatCurrency(monthlyTotal)}<sup className="text-2xl align-super">*</sup>
                     </span>
                     <span className="text-muted-foreground text-lg">
                       /{lang === 'de' ? 'Monat' : 'month'}

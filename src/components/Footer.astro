@@ -97,13 +97,18 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 md:flex-row">
-      <p class="text-sm text-muted-foreground">
-        © {currentYear} CodaAI. {t(lang, "footer.allRightsReserved")}
+    <div class="mt-8 border-t border-border pt-6">
+      <p class="text-xs text-muted-foreground/70 mb-5">
+        {t(lang, "footer.vatNote")}
       </p>
-      <p class="text-sm text-muted-foreground">
-        Made with <span class="text-[#DF41FB] text-base">♡</span> in Germany
-      </p>
+      <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <p class="text-sm text-muted-foreground">
+          © {currentYear} CodaAI. {t(lang, "footer.allRightsReserved")}
+        </p>
+        <p class="text-sm text-muted-foreground">
+          Made with <span class="text-[#DF41FB] text-base">♡</span> in Germany
+        </p>
+      </div>
     </div>
   </div>
 </footer>

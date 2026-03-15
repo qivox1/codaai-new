@@ -207,7 +207,7 @@
       },
       {
         "question": "How much can I actually save?",
-        "answer": "Traditional content agencies charge €2,000+ per blog article, plus costs for images, videos, and coordination. With CodaAI, you can save up to 88% compared to agency costs – from as little as €490/month with an annual licence. Check our pricing section to see how much you can save based on your content volume."
+        "answer": "Traditional content agencies charge €2,000+ per blog article, plus costs for images, videos, and coordination. With CodaAI, you can save up to 88% compared to agency costs – from as little as €490*/month with an annual licence. Check our pricing section to see how much you can save based on your content volume."
       },
       {
         "question": "How does it work? What do I need to get started?",
@@ -247,7 +247,7 @@
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from €490",
+    "codaAIPrice": "from €490*",
     "codaAIPer": "instead of ~€4,200. >85% cheaper.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
@@ -288,6 +288,7 @@
     "privacyPolicy": "Privacy Policy",
     "termsConditions": "Terms & Conditions",
     "allRightsReserved": "All rights reserved.",
-    "madeIn": "Made with {heart} in Germany"
+    "madeIn": "Made with {heart} in Germany",
+    "vatNote": "* All prices are net prices plus 19 % VAT. Our services are exclusively for business customers."
   }
 }

@@ -207,7 +207,7 @@
       },
       {
         "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Bis zu 88 % gegenüber Agenturpreisen. Ein komplettes Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 490 € pro Monat (mit Jahreslizenz)."
+        "answer": "Bis zu 88 % gegenüber Agenturpreisen. Ein komplettes Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 490 €* pro Monat (mit Jahreslizenz)."
       },
       {
         "question": "Wie funktioniert es? Was brauche ich zum Starten?",
@@ -247,7 +247,7 @@
     "totalHours": "/ 36,5 Stunden",
     "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
     "withCodaAI": "Mit CodaAI",
-    "codaAIPrice": "ab 490 €",
+    "codaAIPrice": "ab 490 €*",
     "codaAIPer": "statt ~4.200 €. >85 % günstiger.",
     "freeTrial": "Kostenlos testen",
     "costBreakdown": [
@@ -288,6 +288,7 @@
     "privacyPolicy": "Datenschutz",
     "termsConditions": "AGB",
     "allRightsReserved": "Alle Rechte vorbehalten.",
-    "madeIn": "Made with {heart} in Germany"
+    "madeIn": "Made with {heart} in Germany",
+    "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschließlich an Unternehmenskunden."
   }
 }
