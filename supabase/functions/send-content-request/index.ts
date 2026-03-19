@@ -220,13 +220,18 @@ async function sendNotificationEmail(d: {
   requestId: string;
 }) {
   const goalMap: Record<string, string> = {
-    'inform':       '01 – Informieren',
-    'enable':       '02 – Befähigen',
-    'evaluate':     '03 – Evaluieren',
-    'assess':       '04 – Bewerten',
-    'buy':          '05 – Kaufen',
-    'use':          '06 – Nutzen',
-    'thought-leader': 'Thought Leader positionieren',
+    // Standard options
+    'awareness':      'Awareness – Aufmerksamkeit erzeugen',
+    'consideration':  'Consideration – Interesse wecken',
+    'decision':       'Decision – Kaufentscheidung fördern',
+    // Partner-code options (Schuster model)
+    'inform':         '01 – Informieren',
+    'enable':         '02 – Befähigen',
+    'evaluate':       '03 – Evaluieren',
+    'assess':         '04 – Bewerten',
+    'buy':            '05 – Kaufen',
+    'use':            '06 – Nutzen',
+    'thought-leader': 'Thought Leadership',
   };
 
   const row = (label: string, value: string | undefined) =>

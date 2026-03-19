@@ -47,14 +47,18 @@ const translations = {
     langDe: 'Deutsch',
     langEn: 'English',
     articleGoal: 'WAS MÖCHTEN SIE MIT IHREM BLOGARTIKEL ERREICHEN? *',
-    selectGoal: 'Ziel: Phase der Customer Journey nach Schuster-Modell®',
+    selectGoal: 'Ziel auswählen',
+    selectGoalPartner: 'Ziel: Customer Journey (Schuster-Modell®)',
+    goalAwareness: 'Awareness – Aufmerksamkeit erzeugen',
+    goalConsideration: 'Consideration – Interesse wecken',
+    goalDecision: 'Decision – Kaufentscheidung fördern',
     goalInform: '01 - Informieren',
     goalEnable: '02 - Befähigen',
     goalEvaluate: '03 - Evaluieren',
     goalAssess: '04 - Bewerten',
     goalBuy: '05 - Kaufen',
     goalUse: '06 - Nutzen',
-    goalThoughtLeader: 'Unternehmen als Thought Leader positionieren',
+    goalThoughtLeader: 'Thought Leadership',
     articleLength: 'ARTIKELLÄNGE',
     words: 'Wörter',
     additionalContext: 'ZUSÄTZLICHER KONTEXT (OPTIONAL)',
@@ -117,14 +121,18 @@ const translations = {
     langDe: 'German',
     langEn: 'English',
     articleGoal: 'WHAT DO YOU WANT TO ACHIEVE WITH YOUR BLOG ARTICLE? *',
-    selectGoal: 'Goal: Customer journey phase (Schuster model®)',
+    selectGoal: 'Select goal',
+    selectGoalPartner: 'Goal: Customer journey phase (Schuster model®)',
+    goalAwareness: 'Awareness – Generate attention',
+    goalConsideration: 'Consideration – Spark interest',
+    goalDecision: 'Decision – Drive purchase decision',
     goalInform: '01 - Inform',
     goalEnable: '02 - Enable',
     goalEvaluate: '03 - Evaluate',
     goalAssess: '04 - Assess',
     goalBuy: '05 - Buy',
     goalUse: '06 - Use',
-    goalThoughtLeader: 'Position company as thought leader',
+    goalThoughtLeader: 'Thought Leadership',
     articleLength: 'ARTICLE LENGTH',
     words: 'words',
     additionalContext: 'ADDITIONAL CONTEXT (OPTIONAL)',
@@ -320,7 +328,9 @@ export default function ContentRequestForm({
     } else if (!partnerCodeValid) {
       setSliderUnlocked(false);
     }
-  }, [partnerCodeValid, sliderUnlocked, playUnlockSound]);
+    // Reset goal selection whenever partner code status changes (option sets differ)
+    setFormData(prev => ({ ...prev, articleGoal: '' }));
+  }, [partnerCodeValid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validatePartnerCode = async (code: string) => {
     if (!code.trim()) {
@@ -777,14 +787,27 @@ export default function ContentRequestForm({
                           onChange={(e) => updateField('articleGoal', e.target.value)}
                           className={`${inputClsBox()} appearance-none pr-10 cursor-pointer`}
                         >
-                          <option value="">{t.selectGoal}</option>
-                          <option value="inform">{t.goalInform}</option>
-                          <option value="enable">{t.goalEnable}</option>
-                          <option value="evaluate">{t.goalEvaluate}</option>
-                          <option value="assess">{t.goalAssess}</option>
-                          <option value="buy">{t.goalBuy}</option>
-                          <option value="use">{t.goalUse}</option>
-                          <option value="thought-leader">{t.goalThoughtLeader}</option>
+                          <option value="">
+                            {partnerCodeValid ? t.selectGoalPartner : t.selectGoal}
+                          </option>
+                          {partnerCodeValid ? (
+                            <>
+                              <option value="inform">{t.goalInform}</option>
+                              <option value="enable">{t.goalEnable}</option>
+                              <option value="evaluate">{t.goalEvaluate}</option>
+                              <option value="assess">{t.goalAssess}</option>
+                              <option value="buy">{t.goalBuy}</option>
+                              <option value="use">{t.goalUse}</option>
+                              <option value="thought-leader">{t.goalThoughtLeader}</option>
+                            </>
+                          ) : (
+                            <>
+                              <option value="awareness">{t.goalAwareness}</option>
+                              <option value="consideration">{t.goalConsideration}</option>
+                              <option value="decision">{t.goalDecision}</option>
+                              <option value="thought-leader">{t.goalThoughtLeader}</option>
+                            </>
+                          )}
                         </select>
                         <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                       </div>
