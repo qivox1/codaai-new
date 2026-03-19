@@ -3,8 +3,8 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 const SUPABASE_URL  = Deno.env.get('SUPABASE_URL')!;
 const SERVICE_KEY   = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const RESEND_KEY    = Deno.env.get('RESEND_API_KEY') ?? '';
-const NOTIFY_EMAIL  = Deno.env.get('NOTIFICATION_EMAIL') ?? 'office@brunsdigital.de';
-const FROM_EMAIL    = Deno.env.get('FROM_EMAIL') ?? 'CodaAI <noreply@codaai.de>';
+const NOTIFY_EMAIL  = Deno.env.get('NOTIFICATION_EMAIL') ?? '';
+const FROM_EMAIL    = Deno.env.get('FROM_EMAIL') ?? '';
 
 const CORS = {
   'Access-Control-Allow-Origin':  '*',
