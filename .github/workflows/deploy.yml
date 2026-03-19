@@ -44,11 +44,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Deno 1.x
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v1.44.4
-
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
@@ -60,8 +55,7 @@ jobs:
         run: |
           supabase functions deploy send-content-request \
             --project-ref svqpkltbqpsldvfwmsbd \
-            --no-verify-jwt \
-            --legacy-bundle
+            --no-verify-jwt
 
   deploy:
     needs: build
