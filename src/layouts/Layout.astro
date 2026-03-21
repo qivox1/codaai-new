@@ -35,12 +35,19 @@ const SITE_URL = 'https://qivox1.github.io/codaai-new';
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
   name: 'CodaAI',
   alternateName: 'CodaAI – KI Content-Plattform',
   url: `${SITE_URL}/`,
   logo: {
     '@type': 'ImageObject',
     url: `${SITE_URL}/favicon.svg`,
+  },
+  image: {
+    '@type': 'ImageObject',
+    url: `${SITE_URL}/images/og-image.png`,
+    width: 1200,
+    height: 630,
   },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -51,7 +58,15 @@ const organizationSchema = {
   },
   founder: {
     '@type': 'Person',
+    '@id': `${SITE_URL}/mission/#anja-miebach`,
     name: 'Anja Miebach',
+    jobTitle: 'Gründerin & Inhaberin',
+    url: `${SITE_URL}/mission/`,
+    image: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/images/team/anja-miebach.webp`,
+    },
+    knowsAbout: ['KI Content Marketing', 'B2B Strategie', 'GEO', 'SEO', 'Marketing Automation'],
   },
   address: {
     '@type': 'PostalAddress',
@@ -66,6 +81,7 @@ const organizationSchema = {
 const webSiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
   name: 'CodaAI',
   url: `${SITE_URL}/`,
   inLanguage: [lang === 'en' ? 'en' : 'de', lang === 'en' ? 'de' : 'en'],

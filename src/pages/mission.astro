@@ -1,0 +1,402 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://qivox1.github.io/codaai-new';
+
+// ── E-E-A-T: Person schema (Anja Miebach) ─────────────────────────────────
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE_URL}/mission/#anja-miebach`,
+  name: 'Anja Miebach',
+  givenName: 'Anja',
+  familyName: 'Miebach',
+  jobTitle: 'Gründerin & Inhaberin',
+  description: 'Anja Miebach ist Gründerin und Inhaberin von CodaAI. Mit über 20 Jahren professioneller Marketingerfahrung verbindet sie strategisches unternehmerisches Denken mit modernster KI-Technologie, um B2B-Unternehmen nachhaltig sichtbar zu machen.',
+  image: {
+    '@type': 'ImageObject',
+    url: `${SITE_URL}/images/team/anja-miebach.webp`,
+    width: 800,
+    height: 800,
+  },
+  worksFor: {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: 'CodaAI',
+  },
+  knowsAbout: [
+    'KI-gestütztes Content Marketing',
+    'B2B Content Strategie',
+    'Generative Engine Optimization (GEO)',
+    'Suchmaschinenoptimierung (SEO)',
+    'Marketing Automation',
+    'Digitale Transformation',
+    'B2B Marketing',
+  ],
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'KI-Marketing-Strategin',
+    occupationLocation: {
+      '@type': 'City',
+      name: 'Gütersloh',
+    },
+    skills: 'KI Content Marketing, SEO, GEO, B2B Strategie, Marketing Automation',
+    estimatedSalary: null,
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Gütersloh',
+    postalCode: '33332',
+    addressCountry: 'DE',
+  },
+  url: `${SITE_URL}/mission/`,
+  sameAs: [],
+};
+
+// ── AboutPage schema ───────────────────────────────────────────────────────
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${SITE_URL}/mission/#webpage`,
+  name: 'Mission & CoCreate-Prinzip – CodaAI',
+  description: 'CodaAI verbindet über 20 Jahre Marketingexpertise mit KI-Effizienz. Erfahren Sie mehr über das CoCreate-Prinzip und Gründerin Anja Miebach.',
+  url: `${SITE_URL}/mission/`,
+  inLanguage: 'de',
+  isPartOf: {
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+  },
+  about: [
+    { '@id': `${SITE_URL}/mission/#anja-miebach` },
+    { '@type': 'Organization', '@id': `${SITE_URL}/#organization` },
+  ],
+  author: { '@id': `${SITE_URL}/mission/#anja-miebach` },
+  datePublished: '2024-01-01',
+  dateModified: '2026-03-01',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Start', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Mission', item: `${SITE_URL}/mission/` },
+    ],
+  },
+};
+---
+
+<Layout
+  lang="de"
+  title="Mission & CoCreate-Prinzip – CodaAI"
+  description="Über 20 Jahre Marketing-Expertise trifft auf KI-Effizienz. Erfahren Sie mehr über das CodaAI CoCreate-Prinzip und Gründerin Anja Miebach."
+  jsonLd={[JSON.stringify(personSchema), JSON.stringify(aboutPageSchema)]}
+>
+  <Navbar lang="de" />
+
+  <main class="overflow-hidden">
+
+    {/* ── HERO ─────────────────────────────────────────────────────────── */}
+    <section class="relative pt-28 pb-20 lg:pt-36 lg:pb-28">
+      {/* Background gradient */}
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-gradient-to-br from-background via-background to-background"></div>
+        <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] translate-y-1/4"></div>
+      </div>
+
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav class="mb-8 flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
+          <a href={`${base}/`} class="hover:text-foreground transition-colors">Start</a>
+          <span aria-hidden="true">›</span>
+          <span class="text-foreground">Mission</span>
+        </nav>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left: text */}
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-medium mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              CodaAI CoCreate
+            </div>
+
+            <h1 class="text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
+              Wenn menschliche<br/>
+              <span class="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                Expertise und KI
+              </span><br/>
+              verschmelzen
+            </h1>
+
+            <p class="text-lg text-muted-foreground leading-relaxed mb-8">
+              Menschliches Gespür, über 20 Jahre Marketing-Expertise und unermüdliche KI-Power:
+              Das ist CodaAI.
+            </p>
+
+            {/* Expertise stats */}
+            <div class="grid grid-cols-3 gap-4">
+              {[
+                { value: '20+', label: 'Jahre\nMarketing-Erfahrung' },
+                { value: '94%', label: 'günstiger als\ntraditionelle Agenturen' },
+                { value: '200+', label: 'Unternehmens-\nkunden' },
+              ].map(stat => (
+                <div class="p-4 rounded-xl bg-card border border-border text-center">
+                  <div class="text-2xl font-bold text-violet-400 mb-1">{stat.value}</div>
+                  <div class="text-xs text-muted-foreground leading-tight whitespace-pre-line">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: portrait */}
+          <div class="flex justify-center lg:justify-end">
+            <div class="relative">
+              {/* Glow ring */}
+              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/30 to-indigo-500/30 blur-2xl scale-105"></div>
+              <div class="relative rounded-2xl overflow-hidden border border-violet-500/20 shadow-2xl shadow-violet-900/30 w-full max-w-sm">
+                <img
+                  src={`${base}/images/team/anja-miebach.webp`}
+                  alt="Anja Miebach – Gründerin und Inhaberin von CodaAI"
+                  width="480"
+                  height="480"
+                  loading="eager"
+                  class="w-full h-auto object-cover"
+                />
+                {/* Name overlay */}
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 py-5">
+                  <p class="text-white font-semibold text-lg leading-tight">Anja Miebach</p>
+                  <p class="text-violet-300 text-sm">Gründerin & Inhaberin, CodaAI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── COCREATE PRINCIPLE ──────────────────────────────────────────────── */}
+    <section class="py-20 lg:py-28 bg-card/30">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            Marketing neu gedacht:<br/>
+            <span class="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+              Die Ära der CoCreation
+            </span>
+          </h2>
+          <p class="text-muted-foreground text-lg">
+            KI allein reicht nicht. Die wahre Stärke entfaltet sich erst dort, wo Rechenleistung auf menschliche
+            Intuition, strategische Weitsicht und tiefes unternehmerisches Verständnis trifft.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {[
+            {
+              icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>`,
+              title: 'Menschliche Expertise',
+              description: 'Über 20 Jahre professionelle Marketingerfahrung steuern Strategie, prüfen Qualität und verleihen jedem Content die menschliche Note, die ihn authentisch und wirkungsvoll macht.',
+              items: ['Strategische Ausrichtung', 'Qualitätssicherung', 'Branchenverständnis', 'Unternehmerische Klarheit'],
+              accent: 'violet',
+            },
+            {
+              icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
+              title: 'KI-Effizienz',
+              description: 'Unsere KI übernimmt datengetriebene Analyse, beschleunigt Prozesse und generiert effizient hochwertige Inhalte – so dass Ihr Potenzial exponentiell erweitert wird.',
+              items: ['Skalierbare Produktion', 'Datengetriebene Analyse', 'Automatisierte Prozesse', 'Konstant hohe Qualität'],
+              accent: 'indigo',
+            },
+          ].map(card => (
+            <div class={`relative p-8 rounded-2xl bg-card border border-border overflow-hidden group hover:border-violet-500/40 transition-colors duration-300`}>
+              <div class={`absolute top-0 right-0 w-48 h-48 bg-${card.accent}-500/5 rounded-full blur-2xl group-hover:bg-${card.accent}-500/10 transition-colors duration-500`}></div>
+              <div class="relative">
+                <div class={`w-12 h-12 rounded-xl bg-${card.accent}-500/10 border border-${card.accent}-500/20 flex items-center justify-center mb-5`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke={card.accent === 'violet' ? '#a78bfa' : '#818cf8'}
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    set:html={card.icon} aria-hidden="true"
+                  />
+                </div>
+                <h3 class="text-xl font-semibold text-foreground mb-3">{card.title}</h3>
+                <p class="text-muted-foreground text-sm leading-relaxed mb-5">{card.description}</p>
+                <ul class="space-y-2">
+                  {card.items.map(item => (
+                    <li class="flex items-center gap-2 text-sm text-muted-foreground">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke={card.accent === 'violet' ? '#a78bfa' : '#818cf8'}
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12l5 5l10 -10"/>
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── FOUNDER BIO (E-E-A-T) ───────────────────────────────────────────── */}
+    <section class="py-20 lg:py-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid lg:grid-cols-5 gap-12 items-start">
+          {/* Text: 3 cols */}
+          <div class="lg:col-span-3 space-y-6">
+            <div>
+              <p class="text-violet-400 text-sm font-medium uppercase tracking-widest mb-3">Über die Gründerin</p>
+              <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-5">
+                Anja Miebach –<br/>
+                <span class="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                  Unternehmerin mit Fokus
+                </span>
+              </h2>
+            </div>
+
+            <p class="text-muted-foreground leading-relaxed text-base">
+              Anja ist Gründerin und Inhaberin von CodaAI. Als Unternehmerin mit klarem Fokus hat sie sich
+              auf drei Dinge spezialisiert: Prozesse optimieren, echte Werte schaffen und messbare
+              Ergebnisse liefern.
+            </p>
+
+            <p class="text-muted-foreground leading-relaxed text-base">
+              Ihre Expertise liegt in der unternehmerischen Klarheit und dem strategischen Verständnis für
+              die Anforderungen moderner B2B-Unternehmen. Aus dieser Perspektive erkannte sie eine große
+              Chance: Unternehmen, Agenturen und Marketing-Teams verfügen über enormes Wissen und
+              Erfahrung – was ihnen fehlt, ist ein intelligentes System, das diese Stärken konsequent
+              verstärkt und skaliert.
+            </p>
+
+            <p class="text-muted-foreground leading-relaxed text-base">
+              Die Antwort darauf ist CodaAI – angetrieben vom CoCreate-Gedanken. Wir verbinden das Beste
+              aus zwei Welten: KI übernimmt die datengetriebene Analyse, beschleunigt Prozesse und
+              generiert effizient hochwertige Inhalte. Das Herzstück bleibt unser Team: Mit über 20 Jahren
+              professioneller Marketingerfahrung steuern wir Strategie, prüfen Qualität und verleihen
+              jedem Content die menschliche Note, die ihn authentisch und wirkungsvoll macht.
+            </p>
+
+            <p class="text-muted-foreground leading-relaxed text-base">
+              Durch diese intelligente Zusammenarbeit von Mensch und Maschine bieten wir professionelles
+              Content Marketing, das bis zu <strong class="text-foreground font-semibold">94 % günstiger</strong> ist
+              als traditionelle Modelle – mit voller Kostenkontrolle, maximaler Reichweite und der
+              Gewissheit, dass Ihr Unternehmen von der stärksten Kombination profitiert, die der Markt
+              zu bieten hat: <em class="text-violet-400 not-italic font-medium">Erfahrung, die lenkt, und KI, die leistet.</em>
+            </p>
+
+            {/* Expertise tags */}
+            <div class="flex flex-wrap gap-2 pt-2">
+              {['KI Content Marketing', 'B2B Strategie', 'GEO Optimierung', 'SEO', 'Marketing Automation', 'Digitale Transformation'].map(tag => (
+                <span class="px-3 py-1 text-xs font-medium rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Credentials sidebar: 2 cols */}
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest">Expertise & Erfahrung</h3>
+
+            {[
+              {
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0"/><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"/><path d="M5 21l0 -10.15"/><path d="M19 21l0 -10.15"/><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"/>`,
+                title: '20+ Jahre Marketingerfahrung',
+                desc: 'Fundiertes Know-how aus B2B- und B2C-Projekten für mittelständische Unternehmen im DACH-Raum',
+              },
+              {
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
+                title: 'KI & Generative Engine Optimization',
+                desc: 'Spezialisiert auf Content-Strategien für Google, ChatGPT, Perplexity und Google AI Overviews',
+              },
+              {
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l3 3l8 -8"/><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"/>`,
+                title: 'Messbare Ergebnisse',
+                desc: 'Strategien, die auf KPIs ausgerichtet sind – organische Reichweite, Sichtbarkeit und qualifizierte Leads',
+              },
+              {
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 5l0 15"/><path d="M9 11l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 11l-3 -6l-3 6a3 3 0 0 0 6 0"/>`,
+                title: 'EU AI Act & DSGVO-konform',
+                desc: 'Alle Prozesse und Inhalte sind auf EU-Datenschutz, AI Act und rechtliche Anforderungen ausgerichtet',
+              },
+            ].map(item => (
+              <div class="flex gap-4 p-5 rounded-xl bg-card border border-border hover:border-violet-500/30 transition-colors duration-200 group">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center group-hover:bg-violet-500/15 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    set:html={item.icon} aria-hidden="true"
+                  />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-foreground leading-snug mb-1">{item.title}</p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── MISSION STATEMENT ───────────────────────────────────────────────── */}
+    <section class="py-20 lg:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 -z-10">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-950/20 via-background to-indigo-950/20"></div>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-violet-600/8 rounded-full blur-[100px]"></div>
+      </div>
+      <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+        <p class="text-violet-400 text-sm font-medium uppercase tracking-widest mb-6">Unser Versprechen</p>
+        <blockquote class="text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-8">
+          „Der einzig sinnvolle Weg in die Zukunft des Marketings ist die Symbiose aus
+          menschlicher Stärke und KI-Effizienz:
+          <span class="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+            CodaAI CoCreate.
+          </span>"
+        </blockquote>
+        <div class="flex items-center justify-center gap-3">
+          <img
+            src={`${base}/images/team/anja-miebach.webp`}
+            alt="Anja Miebach"
+            width="44"
+            height="44"
+            class="rounded-full w-11 h-11 object-cover border-2 border-violet-500/40"
+          />
+          <div class="text-left">
+            <p class="text-sm font-semibold text-foreground">Anja Miebach</p>
+            <p class="text-xs text-muted-foreground">Gründerin & Inhaberin, CodaAI</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── CTA ─────────────────────────────────────────────────────────────── */}
+    <section class="py-16 lg:py-20 border-t border-border">
+      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center">
+        <h2 class="text-2xl font-bold text-foreground mb-4">
+          Bereit, Ihr Marketing zu transformieren?
+        </h2>
+        <p class="text-muted-foreground mb-8">
+          Entdecken Sie, wie das CoCreate-Prinzip Ihr Unternehmen voranbringt –
+          transparente Preise, messbare Ergebnisse, keine Überraschungen.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`${base}/preise/`} class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold text-sm hover:from-violet-500 hover:to-indigo-500 transition-all duration-200 shadow-lg shadow-violet-900/30">
+            Preise ansehen
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg>
+          </a>
+          <a href={`${base}/#start`} class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:border-violet-500/50 hover:text-violet-300 transition-all duration-200">
+            Artikel bestellen
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer lang="de" />
+</Layout>
