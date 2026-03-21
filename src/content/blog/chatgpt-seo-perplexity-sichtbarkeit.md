@@ -26,6 +26,29 @@ Wenn jemand ChatGPT fragt „Welche Content-Marketing-Tools gibt es für Mittels
 
 Das ist die neue SEO-Lücke. Und sie wächst schnell.
 
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">38%</span>
+    <span class="stat-label">der Nutzer verwenden ChatGPT für Suchanfragen – Anstieg von 8% in 18 Monaten</span>
+    <span class="stat-source">SparkToro AI Search Behavior Study 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">14%</span>
+    <span class="stat-label">aller Google-Suchanfragen zeigen bereits AI Overviews – Tendenz steigend</span>
+    <span class="stat-source">Semrush AI Overviews Research 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">40%</span>
+    <span class="stat-label">häufiger als Quelle zitiert dank Antwort-First-Struktur in Artikeln</span>
+    <span class="stat-source">Columbia University GEO Study 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">2–5</span>
+    <span class="stat-label">Quellen wählt eine KI pro Antwort aus – wer nicht dabei ist, ist unsichtbar</span>
+    <span class="stat-source">Perplexity / ChatGPT Analyse</span>
+  </div>
+</div>
+
 ## Wie groß ist die KI-Such-Welle wirklich?
 
 Die Zahlen sprechen für sich: Laut einer [SparkToro-Studie zu AI-Suchverhalten (2024)](https://sparktoro.com/blog/how-much-search-traffic-does-chatgpt-send/) hat sich der Anteil der Nutzer, die ChatGPT für Suchanfragen nutzen, innerhalb von 18 Monaten von 8 % auf 38 % erhöht. Perplexity AI verarbeitet laut eigenen Angaben mittlerweile mehrere Millionen Suchanfragen täglich.

@@ -26,6 +26,29 @@ Sie kennen Ihre Branche wie kein anderer. Ihre Mitarbeiter lösen täglich Probl
 
 Das ist die Content-Lücke im Mittelstand. Und sie ist teurer, als die meisten Unternehmen ahnen.
 
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">23%</span>
+    <span class="stat-label">der Mittelständler (50–500 MA) investieren aktiv in Content Marketing</span>
+    <span class="stat-source">Bitkom, Digitalisierung im Mittelstand 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">126%</span>
+    <span class="stat-label">mehr Lead-Wachstum für Unternehmen mit aktivem Blog</span>
+    <span class="stat-source">HubSpot Marketing Statistics 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">62%</span>
+    <span class="stat-label">geringere Kosten als Outbound-Marketing – bei 3× mehr Leads</span>
+    <span class="stat-source">Demand Metric, Content Marketing Infographic</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">81%</span>
+    <span class="stat-label">der B2B-Käufer werden durch Thought-Leadership-Content beeinflusst</span>
+    <span class="stat-source">Edelman Trust Barometer B2B 2024</span>
+  </div>
+</div>
+
 ## Die Zahlen: Wo der Mittelstand beim Content steht
 
 Der [Content Marketing Institute B2B Report 2025](https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025) zeigt ein ernüchterndes Bild: Zwar haben **87 % der B2B-Unternehmen** eine Content-Marketing-Strategie – aber nur **29 %** stufen diese als „sehr effektiv" ein. Der häufigste Grund für die Lücke zwischen Plan und Umsetzung: mangelnde Ressourcen, nicht fehlendes Budget oder Wissen.

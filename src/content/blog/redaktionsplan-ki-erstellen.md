@@ -26,6 +26,29 @@ faq:
 
 KI ändert das. Was früher 2–4 Stunden Planungsarbeit bedeutete, dauert heute 10–15 Minuten. Und das Ergebnis ist strategisch fundierter, weil KI Keyword-Daten und Wettbewerbsanalyse automatisch einbindet – statt nach dem Bauchgefühl des Teams zu gehen.
 
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">87%</span>
+    <span class="stat-label">der B2B-Unternehmen haben eine Content-Marketing-Strategie</span>
+    <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">29%</span>
+    <span class="stat-label">davon stufen ihre Strategie als „sehr effektiv" ein</span>
+    <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">90,6%</span>
+    <span class="stat-label">aller Webseiten erhalten keinen organischen Traffic</span>
+    <span class="stat-source">Ahrefs Content Research 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">60%</span>
+    <span class="stat-label">mehr organisches Traffic-Wachstum mit dokumentierter Content-Strategie</span>
+    <span class="stat-source">Semrush Content Research 2024</span>
+  </div>
+</div>
+
 ## Warum die meisten Redaktionspläne scheitern
 
 Bevor wir zum Prozess kommen, lohnt ein Blick auf den häufigsten Fehler: Redaktionspläne, die nie umgesetzt werden. Laut dem [Content Marketing Institute B2B Report 2025](https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025) haben zwar **87 % der B2B-Unternehmen** eine Content-Marketing-Strategie – aber nur **29 %** stufen sie als „sehr effektiv" ein. Die Lücke zwischen Plan und Umsetzung ist das eigentliche Problem.

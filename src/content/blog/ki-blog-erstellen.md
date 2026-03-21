@@ -26,6 +26,29 @@ Die Idee ist klar, die Notwendigkeit auch: Ihr Unternehmen braucht regelmäßig 
 
 KI verändert diesen Prozess grundlegend. Nicht weil sie magisch ist, sondern weil sie die zeitintensivsten Teile des Workflows – Recherche, Strukturierung, erstes Drafting – in Minuten erledigt. Was das konkret bedeutet und wie der Prozess aussieht, zeigt dieser Artikel.
 
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">61%</span>
+    <span class="stat-label">der B2B-Marketer nennen mangelnde Ressourcen als größtes Hindernis</span>
+    <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">58%</span>
+    <span class="stat-label">der Unternehmen nutzen KI bereits für Content-Recherche</span>
+    <span class="stat-source">Semrush Content Research 2024</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">75 Min.</span>
+    <span class="stat-label">Aufwand pro Artikel mit KI-Workflow – statt 10–16 Stunden manuell</span>
+    <span class="stat-source">CodaAI Praxismessung</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">4,5×</span>
+    <span class="stat-label">mehr Leads bei 16+ Artikeln pro Monat vs. wenige Veröffentlichungen</span>
+    <span class="stat-source">HubSpot State of Marketing 2025</span>
+  </div>
+</div>
+
 ## Das wahre Problem: Warum Unternehmen zu wenig Content produzieren
 
 Bevor wir in den Workflow einsteigen, lohnt ein Blick auf die eigentliche Ursache der Content-Lücke. Laut dem [Content Marketing Institute B2B Report 2025](https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025) nennen **61 % der B2B-Marketer „mangelnde Ressourcen"** als ihr größtes Hindernis – nicht fehlendes Budget, nicht fehlendes Know-how.

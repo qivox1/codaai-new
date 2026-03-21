@@ -28,6 +28,29 @@ Ein Blogartikel, der bei Google auf Seite 1 erscheint, bringt über Monate und J
 
 Das macht Content zur besten langfristigen Investition im Online-Marketing. Aber was kostet ein guter Artikel wirklich – und wann lohnt sich welche Option?
 
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">126%</span>
+    <span class="stat-label">mehr Lead-Wachstum mit aktivem Unternehmensblog</span>
+    <span class="stat-source">HubSpot State of Marketing 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">4,5×</span>
+    <span class="stat-label">mehr Leads bei 16+ Blogartikeln pro Monat vs. weniger</span>
+    <span class="stat-source">HubSpot State of Marketing 2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">62%</span>
+    <span class="stat-label">günstigere Kosten als Outbound – bei 3× mehr Leads</span>
+    <span class="stat-source">Demand Metric, Content Marketing Infographic</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">29%</span>
+    <span class="stat-label">der B2B-Marketer halten ihre Content-Strategie für „sehr effektiv"</span>
+    <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
+  </div>
+</div>
+
 ## Der Markt: Warum die Preise so stark schwanken
 
 Wer nach „Blogartikel schreiben lassen" sucht, findet Angebote zwischen 5 € und 5.000 € pro Text. Diese Bandbreite ist kein Zufall – sie spiegelt fundamentale Unterschiede in Qualität, Prozess und Ergebnis wider.
