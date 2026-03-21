@@ -4,8 +4,8 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://qivox1.github.io',
-  base: '/codaai-new',
+  site: 'https://www.codaai.ai',
+  base: '/',
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
