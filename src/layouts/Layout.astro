@@ -152,12 +152,20 @@ const csp = [
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N3CZH2WT');</script>
+    <!-- Preconnect: warm up Google CDN before deferred GTM load -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <!-- Google Tag Manager – deferred after window.load (preserves Core Web Vitals) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N3CZH2WT';
+        document.head.appendChild(s);
+      }, {once: true});
+    </script>
     <!-- End Google Tag Manager -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
