@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const lang = 'de' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allPosts = await getCollection('blog', ({ data }) => data.lang === 'de' && !data.noindex);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = posts.find((p) => p.data.featured);
+const rest = posts.filter((p) => !p.data.featured);
+
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+
+// CollectionPage schema for Google + AI models
+const collectionSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'CodaAI Blog – KI Content Marketing & SEO',
+  description: 'Expertenwissen zu KI-Content, SEO, GEO und Content Marketing. Praktische Strategien für mehr Sichtbarkeit in Google und KI-Suchmaschinen.',
+  url: `${SITE_URL}/blog/`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
+  },
+  hasPart: posts.slice(0, 10).map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    description: p.data.description,
+    url: `${SITE_URL}/blog/${p.slug}/`,
+    datePublished: p.data.pubDate.toISOString(),
+    author: { '@type': 'Person', name: p.data.author },
+  })),
+});
+---
+
+<Layout
+  lang={lang}
+  title="Blog – KI Content Marketing, SEO & GEO | CodaAI"
+  description="Expertenwissen zu KI-Content, SEO und Generative Engine Optimization. Praktische Strategien für mehr Sichtbarkeit in Google und KI-Suchmaschinen wie ChatGPT und Perplexity."
+  jsonLd={[collectionSchema]}
+>
+  <Navbar lang={lang} />
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-background">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-4">Blog</p>
+          <h1 class="text-4xl sm:text-5xl font-semibold text-foreground tracking-tight mb-5">
+            KI Content Marketing,<br />SEO & GEO
+          </h1>
+          <p class="text-lg text-muted-foreground">
+            Expertenwissen, das Ihre Sichtbarkeit in Google <em>und</em> KI-Suchmaschinen steigert.
+            Von Strategie bis Praxis – direkt anwendbar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles -->
+    <section class="pb-24 bg-background">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+        {posts.length === 0 && (
+          <p class="text-muted-foreground text-center py-20">
+            Bald erscheinen hier die ersten Artikel. Schauen Sie bald wieder vorbei!
+          </p>
+        )}
+
+        {posts.length > 0 && (
+          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {featured && (
+              <BlogCard
+                title={featured.data.title}
+                description={featured.data.description}
+                pubDate={featured.data.pubDate}
+                category={featured.data.category}
+                tags={featured.data.tags}
+                heroImage={featured.data.heroImage}
+                heroImageAlt={featured.data.heroImageAlt}
+                slug={featured.slug}
+                lang={lang}
+                author={featured.data.author}
+                featured={true}
+              />
+            )}
+            {rest.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                category={post.data.category}
+                tags={post.data.tags}
+                heroImage={post.data.heroImage}
+                heroImageAlt={post.data.heroImageAlt}
+                slug={post.slug}
+                lang={lang}
+                author={post.data.author}
+              />
+            ))}
+          </div>
+        )}
+
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

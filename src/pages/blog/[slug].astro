@@ -1,0 +1,343 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.lang === 'de');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const { title, description, pubDate, updatedDate, author, authorTitle, authorBio,
+        authorImage, category, tags, heroImage, heroImageAlt, summary, faq,
+        canonicalUrl, noindex } = post.data;
+
+const lang = 'de' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+const articleUrl = `${SITE_URL}/blog/${post.slug}/`;
+const ogImage = heroImage ?? `${SITE_URL}/images/og-image.png`;
+
+// Reading time estimate (~200 words/min)
+const wordCount = post.body.split(/\s+/).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+const readingTime = `${readingMinutes} Min. Lesezeit`;
+
+const formattedPubDate = pubDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+const formattedUpdatedDate = updatedDate?.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// ── JSON-LD Schemas ────────────────────────────────────────────────────────────
+
+// 1. Article — core SEO + E-E-A-T signals
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  url: articleUrl,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  image: { '@type': 'ImageObject', url: ogImage },
+  author: {
+    '@type': 'Person',
+    name: author,
+    ...(authorTitle && { jobTitle: authorTitle }),
+    worksFor: { '@type': 'Organization', name: 'CodaAI', url: `${SITE_URL}/` },
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+  inLanguage: 'de',
+  keywords: tags.join(', '),
+  articleSection: category,
+  wordCount,
+  // speakable: marks the summary as AI-extractable for voice/LLM search
+  ...(summary && {
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['[data-speakable]'],
+    },
+  }),
+});
+
+// 2. BreadcrumbList — navigation context for Google + AI
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
+  ],
+});
+
+// 3. FAQPage — inline FAQ rich results + ideal for AI answer extraction
+const faqSchema = faq && faq.length > 0
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    })
+  : null;
+
+const schemas = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+
+// Table of Contents — only H2 and H3
+const tocHeadings = headings.filter((h) => h.depth <= 3);
+---
+
+<Layout
+  lang={lang}
+  title={`${title} | CodaAI Blog`}
+  description={description}
+  jsonLd={schemas}
+  article={{
+    publishedTime: pubDate.toISOString(),
+    modifiedTime: updatedDate?.toISOString(),
+    author,
+    tags,
+    ogImage,
+    canonicalUrl: canonicalUrl ?? articleUrl,
+    noindex,
+  }}
+>
+  <Navbar lang={lang} />
+
+  <main id="main-content">
+
+    <!-- ── Hero ───────────────────────────────────────────────────────────── -->
+    <header class="relative pt-24 pb-0 overflow-hidden bg-background">
+      {heroImage ? (
+        <div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
+          <img
+            src={heroImage}
+            alt={heroImageAlt ?? title}
+            class="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div class="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-8 pb-10">
+            <div class="max-w-3xl">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-3">{category}</p>
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight tracking-tight">
+                {title}
+              </h1>
+              {summary && (
+                <p class="mt-4 text-lg text-white/80 leading-relaxed" data-speakable>
+                  {summary}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 pb-10">
+          <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs text-muted-foreground mb-6">
+            <a href={`${base}/`} class="hover:text-foreground transition-colors">Home</a>
+            <span aria-hidden="true">/</span>
+            <a href={`${base}/blog/`} class="hover:text-foreground transition-colors">Blog</a>
+            <span aria-hidden="true">/</span>
+            <span class="text-foreground truncate max-w-xs" aria-current="page">{title}</span>
+          </nav>
+          <div class="max-w-3xl">
+            <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight tracking-tight">
+              {title}
+            </h1>
+            {summary && (
+              <p class="mt-4 text-lg text-muted-foreground leading-relaxed" data-speakable>
+                {summary}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      <!-- Breadcrumb (when hero image present) -->
+      {heroImage && (
+        <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-6 lg:px-8 py-4 flex items-center gap-2 text-xs text-muted-foreground">
+          <a href={`${base}/`} class="hover:text-foreground transition-colors">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href={`${base}/blog/`} class="hover:text-foreground transition-colors">Blog</a>
+          <span aria-hidden="true">/</span>
+          <span class="text-foreground truncate max-w-xs" aria-current="page">{title}</span>
+        </nav>
+      )}
+    </header>
+
+    <!-- ── Author bar + Meta ──────────────────────────────────────────────── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-6 border-b border-border">
+      <div class="flex flex-wrap items-start gap-6 justify-between">
+        <div class="flex items-start gap-4">
+          {authorImage ? (
+            <img src={authorImage} alt={author} class="size-12 rounded-full object-cover flex-shrink-0" loading="lazy" />
+          ) : (
+            <div class="size-12 rounded-full bg-cta/15 flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-semibold text-cta">{author.charAt(0)}</span>
+            </div>
+          )}
+          <div>
+            <p class="font-semibold text-foreground text-sm">{author}</p>
+            {authorTitle && <p class="text-xs text-muted-foreground">{authorTitle}</p>}
+            {authorBio && <p class="text-xs text-muted-foreground mt-1 max-w-sm">{authorBio}</p>}
+          </div>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
+          <time datetime={pubDate.toISOString()} class="flex items-center gap-1">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            {formattedPubDate}
+          </time>
+          {formattedUpdatedDate && (
+            <span class="flex items-center gap-1 text-cta-accessible">
+              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6m-6 0l2.7 2.7A9 9 0 0 0 21 12"/>
+              </svg>
+              Aktualisiert: {formattedUpdatedDate}
+            </span>
+          )}
+          <span class="flex items-center gap-1">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {readingTime}
+          </span>
+          <span class="px-2 py-0.5 rounded-full bg-cta/10 text-cta-accessible font-medium">{category}</span>
+        </div>
+      </div>
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mt-4">
+        {tags.map((tag) => (
+          <span class="text-xs px-3 py-1 rounded-full border border-border text-muted-foreground hover:border-cta/40 transition-colors">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── Main content + Sidebar ─────────────────────────────────────────── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+      <div class="lg:grid lg:grid-cols-[1fr_300px] lg:gap-16 items-start">
+
+        <!-- Article Body -->
+        <div>
+          <!-- Table of Contents -->
+          {tocHeadings.length > 2 && (
+            <nav aria-label="Inhaltsverzeichnis" class="mb-10 p-5 rounded-xl border border-border bg-muted/30">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Inhaltsverzeichnis</p>
+              <ol class="space-y-1.5">
+                {tocHeadings.map((h) => (
+                  <li class:list={["text-sm", h.depth === 3 && "pl-4"]}>
+                    <a href={`#${h.slug}`} class="text-muted-foreground hover:text-foreground transition-colors">
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
+          <!-- Prose content -->
+          <article
+            class="prose prose-slate dark:prose-invert max-w-none
+              prose-headings:font-semibold prose-headings:tracking-tight
+              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+              prose-p:text-foreground prose-p:leading-relaxed
+              prose-a:text-cta prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-foreground
+              prose-blockquote:border-l-cta prose-blockquote:bg-muted/30 prose-blockquote:rounded-r-lg prose-blockquote:py-1
+              prose-code:text-cta prose-code:bg-muted/50 prose-code:rounded prose-code:px-1
+              prose-pre:bg-muted prose-pre:border prose-pre:border-border
+              prose-ul:my-4 prose-li:my-1
+              prose-img:rounded-xl prose-img:shadow-md"
+          >
+            <Content />
+          </article>
+
+          <!-- Inline FAQ section (if defined in frontmatter) -->
+          {faq && faq.length > 0 && (
+            <aside class="mt-12 rounded-2xl border border-border bg-muted/20 p-6" aria-label="Häufige Fragen">
+              <h2 class="text-xl font-semibold text-foreground mb-6">Häufige Fragen</h2>
+              <dl class="space-y-6">
+                {faq.map(({ q, a }) => (
+                  <div>
+                    <dt class="font-semibold text-foreground mb-2">{q}</dt>
+                    <dd class="text-muted-foreground text-sm leading-relaxed">{a}</dd>
+                  </div>
+                ))}
+              </dl>
+            </aside>
+          )}
+        </div>
+
+        <!-- Sticky Sidebar -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-28 space-y-6">
+
+            <!-- CTA Card -->
+            <div class="rounded-2xl bg-gradient-to-br from-cta/10 to-cta/5 border border-cta/20 p-6 text-center">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">Kostenlos testen</p>
+              <p class="text-sm font-semibold text-foreground mb-4 leading-snug">
+                Lassen Sie CodaAI Ihren ersten Premium-Artikel erstellen – kostenlos.
+              </p>
+              <a
+                href={`${base}/`}
+                class="inline-flex items-center justify-center w-full h-11 rounded-xl bg-cta text-white font-semibold text-sm hover:bg-cta/90 transition-colors"
+              >
+                Kostenlosen Artikel anfordern
+              </a>
+            </div>
+
+            <!-- Author Card -->
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Autor</p>
+              <div class="flex items-start gap-3">
+                {authorImage ? (
+                  <img src={authorImage} alt={author} class="size-10 rounded-full object-cover flex-shrink-0" loading="lazy" />
+                ) : (
+                  <div class="size-10 rounded-full bg-cta/15 flex items-center justify-center flex-shrink-0">
+                    <span class="text-sm font-semibold text-cta">{author.charAt(0)}</span>
+                  </div>
+                )}
+                <div>
+                  <p class="text-sm font-semibold text-foreground">{author}</p>
+                  {authorTitle && <p class="text-xs text-muted-foreground mt-0.5">{authorTitle}</p>}
+                  {authorBio && <p class="text-xs text-muted-foreground mt-2 leading-relaxed">{authorBio}</p>}
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Tags</p>
+              <div class="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground">{tag}</span>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </div>
+
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

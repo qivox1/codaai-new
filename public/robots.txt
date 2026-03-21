@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block auth and utility pages
+Disallow: /auth/
+Disallow: /checkout-success
+Disallow: /en/checkout-success
+
+Sitemap: https://qivox1.github.io/codaai-new/sitemap-index.xml
