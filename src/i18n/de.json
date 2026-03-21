@@ -198,8 +198,8 @@
     "title": "Fragen & Antworten",
     "items": [
       {
-        "question": "Wie ersetzt CodaAI eine Content-Agentur?",
-        "answer": "Sie geben Ihre Website-URL ein. CodaAI übernimmt den Rest: Strategie, Texte, Grafiken, Videos und Veröffentlichung – alles aus einer Plattform."
+        "question": "Wie arbeitet CodaAI mit Agenturen und Marketing-Teams zusammen?",
+        "answer": "CodaAI ist darauf ausgelegt, menschliche Expertise zu verstärken – nicht zu ersetzen. Agenturen und Marketing-Teams setzen CodaAI als leistungsstarkes Produktionswerkzeug ein: Sie behalten die strategische Führung und das Kundenwissen, CodaAI skaliert den Output. Das Ergebnis ist Content in Agenturqualität – mit deutlich höherer Geschwindigkeit und Effizienz. Ganz im Sinne unseres CoCreate-Gedankens: Erfahrung, die lenkt. KI, die leistet."
       },
       {
         "question": "Was bedeutet 'Orchestrierung durch sechs KI-Experten'?",
@@ -285,7 +285,7 @@
     "termsConditions": "AGB",
     "allRightsReserved": "Alle Rechte vorbehalten.",
     "madeIn": "Made with {heart} in Germany",
-    "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschließlich an Unternehmenskunden.",
+    "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschnießlich an Unternehmenskunden.",
     "mission": "Mission & CoCreate"
   }
 }
