@@ -205,7 +205,7 @@ const blockedEmailDomains = [
 
 // steps are built inside the component using the active translation
 
-const SUPABASE_FN = 'https://svqpkltbqpsldvfwmsbd.supabase.co/functions/v1/send-content-request';
+const SUPABASE_FN = 'https://fcauvtwqkluvsbicaojo.supabase.co/functions/v1/send-content-request';
 
 // ─── Logo SVG ────────────────────────────────────────────────────────────────
 function Logo() {
