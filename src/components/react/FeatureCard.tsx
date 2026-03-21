@@ -56,12 +56,12 @@ interface FeatureCardProps {
 
 const translations = {
   de: {
-    hoverForDetails: 'Hover für Details →',
+    hoverForDetails: 'Details ansehen →',
     yourBenefits: 'Ihre Vorteile',
     getFreePremiumArticle: 'Kostenlosen Artikel erhalten',
   },
   en: {
-    hoverForDetails: 'Hover for details →',
+    hoverForDetails: 'See details →',
     yourBenefits: 'Your benefits',
     getFreePremiumArticle: 'Get free premium article',
   },
@@ -95,10 +95,11 @@ export default function FeatureCard({
 
   return (
     <div
-      className="group relative w-full h-[380px] rounded-2xl"
+      className="group relative w-full h-[380px] rounded-2xl cursor-pointer"
       style={{ perspective: '1000px' }}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => setIsFlipped((f) => !f)}
     >
       {/* Glow halo — same effect as team cards */}
       <div

@@ -15,7 +15,7 @@ import GlobalReach from '../components/GlobalReach.astro';
 const language = 'de' as const;
 const tr = getTranslations(language);
 
-const SITE_URL = 'https://qivox1.github.io/codaai-new';
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // SoftwareApplication schema — enables App rich results in Google Search
 const softwareSchema = JSON.stringify({
@@ -38,13 +38,6 @@ const softwareSchema = JSON.stringify({
       priceCurrency: 'EUR',
       unitText: 'MONTH',
     },
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    ratingCount: '200',
-    bestRating: '5',
-    worstRating: '1',
   },
   featureList: [
     'KI-gestützte Redaktionsplanung',
