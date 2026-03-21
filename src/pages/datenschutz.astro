@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
@@ -12,6 +15,7 @@ import Footer from '../components/Footer.astro';
   <Navbar lang="de" />
   <main class="pt-24 lg:pt-28">
     <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+      <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Datenschutz' }]} class="mb-8" />
       {/* Page Title */}
       <h1 class="text-4xl font-bold text-foreground mb-12">
         Datenschutzerklärung

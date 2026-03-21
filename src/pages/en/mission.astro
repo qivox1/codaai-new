@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = 'https://qivox1.github.io/codaai-new';
@@ -106,11 +107,7 @@ const aboutPageSchema = {
       </div>
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <nav class="mb-8 flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
-          <a href={`${base}/en/`} class="hover:text-foreground transition-colors">Home</a>
-          <span aria-hidden="true">›</span>
-          <span class="text-foreground">Mission</span>
-        </nav>
+        <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Mission' }]} class="mb-8" />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>

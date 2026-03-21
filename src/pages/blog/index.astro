@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -53,6 +54,7 @@ const collectionSchema = JSON.stringify({
     <section class="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-background">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="max-w-2xl">
+          <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Blog' }]} class="mb-6" />
           <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-4">Blog</p>
           <h1 class="text-4xl sm:text-5xl font-semibold text-foreground tracking-tight mb-5">
             KI Content Marketing,<br />SEO & GEO

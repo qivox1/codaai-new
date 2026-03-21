@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import PricingCalculator from '../components/react/PricingCalculator';
+import Breadcrumb from '../components/Breadcrumb.astro';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -15,6 +16,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 >
   <Navbar lang={lang} />
   <main class="pt-0">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
+      <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Preise' }]} class="mb-0" />
+    </div>
     <PricingCalculator lang={lang} base={base} client:load />
   </main>
   <Footer lang={lang} />
