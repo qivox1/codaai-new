@@ -1,7 +1,7 @@
 ---
 title: "Marketingkosten halbieren ohne Qualitätsverlust: Die KI-Content-Strategie für B2B-Mittelständler"
 description: "Wie B2B-Mittelständler ihre Marketingkosten mit KI-gestütztem Content um 40–60 % senken – bei gleichzeitig mehr Reichweite und qualifizierteren Leads."
-pubDate: 2025-07-05
+pubDate: 2026-05-16
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"

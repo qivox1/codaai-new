@@ -1,7 +1,7 @@
 ---
 title: "ChatGPT SEO: Wie Ihre Website in ChatGPT, Perplexity und Google AI gefunden wird"
 description: "Wie Sie Ihre Website für KI-Suchmaschinen wie ChatGPT und Perplexity optimieren – konkrete Maßnahmen für mehr Sichtbarkeit in AI-Antworten."
-pubDate: 2025-05-10
+pubDate: 2026-03-21
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"

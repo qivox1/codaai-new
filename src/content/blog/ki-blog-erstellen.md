@@ -1,7 +1,7 @@
 ---
 title: "KI Blog erstellen: So produzieren Sie SEO-Artikel in 30 Minuten statt 3 Wochen"
 description: "Mit KI einen SEO-Artikel erstellen: vom Keyword bis zur Veröffentlichung in 30 Minuten. Konkreter Schritt-für-Schritt-Workflow mit echten Zeitdaten."
-pubDate: 2025-04-12
+pubDate: 2026-02-21
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"
