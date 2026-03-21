@@ -584,6 +584,11 @@ export default function ContentRequestForm({
       }
       setSubmitError(null);
       setIsSuccess(true);
+      // GA4 Conversion: free article request completed → Lead
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: 'generate_lead' });
+      } catch (_) {}
     } catch (error: any) {
       setSubmitError(error?.message || t.submitFailed);
     } finally {
