@@ -1,7 +1,7 @@
 ---
 title: "Warum klassische Marketingagenturen den Mittelstand enttäuschen – und was 2026 wirklich funktioniert"
 description: "Klassische Agenturen verlieren Marktanteile. Was B2B-Mittelständler 2026 stattdessen tun sollten – mit echten Zahlen und konkreten KI-Alternativen."
-pubDate: 2026-05-30
+pubDate: 2026-03-17
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"

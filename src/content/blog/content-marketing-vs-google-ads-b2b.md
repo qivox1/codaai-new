@@ -1,7 +1,7 @@
 ---
 title: "Content Marketing vs. Google Ads: Was B2B-Mittelständler wirklich weiterbringt"
 description: "Content Marketing oder Google Ads: Was lohnt sich für B2B-Mittelständler? Ehrlicher Vergleich mit Zahlen, ROI-Rechnung und klaren Empfehlungen."
-pubDate: 2026-04-18
+pubDate: 2026-02-26
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"

@@ -1,7 +1,7 @@
 ---
 title: "Der unterschätzte B2B-Vertriebskanal: Wie Ihr Unternehmensblog qualifizierte Leads generiert"
 description: "B2B-Blogs generieren mehr Leads als die meisten Mittelständler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist – mit echten Zahlen und konkretem ROI."
-pubDate: 2026-05-02
+pubDate: 2026-03-05
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"

@@ -1,7 +1,7 @@
 ---
 title: "B2B-Videomarketing: Wie Mittelständler mit Erklärvideos und LinkedIn-Clips Leads generieren"
 description: "Erklärvideos und LinkedIn-Clips für B2B-Mittelständler: Wie Video-Content qualifizierte Leads generiert – günstiger als je zuvor dank KI-Produktion."
-pubDate: 2026-06-13
+pubDate: 2026-03-20
 updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"
