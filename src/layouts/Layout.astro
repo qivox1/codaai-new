@@ -125,17 +125,18 @@ const csp = [
   "default-src 'self'",
   // Astro generates inline <script> blocks (theme init, mobile menu) â unsafe-inline required
   // strict-dynamic is not viable with static generation (no per-request nonces)
-  "script-src 'self' 'unsafe-inline'",
+  // GTM loader needs googletagmanager.com for gtm.js
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
   // Tailwind/Radix inline styles + React inline style props
   "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
   "font-src 'self'",
-  // Local images + data: URIs (inline SVG placeholders)
-  "img-src 'self' data: blob:",
-  // Supabase Edge Functions + Auth
-  "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co",
-  // No iframes, objects or plugins
-  "frame-src 'none'",
+  // Local images + data: URIs + GA4 measurement pixel
+  "img-src 'self' data: blob: https://www.google-analytics.com",
+  // Supabase + GA4 data collection endpoints + GTM
+  "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com",
+  // GTM noscript fallback iframe; no other frames allowed
+  "frame-src https://www.googletagmanager.com",
   "object-src 'none'",
   "media-src 'none'",
   // Prevent base-tag hijacking
@@ -150,6 +151,7 @@ const csp = [
 <!doctype html>
 <html lang={lang}>
   <head>
+    <meta charset="UTF-8" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -157,7 +159,6 @@ const csp = [
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-N3CZH2WT');</script>
     <!-- End Google Tag Manager -->
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {/*
