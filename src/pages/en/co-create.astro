@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import ContentRequestForm from '../../components/react/ContentRequestForm';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = 'https://qivox1.github.io/codaai-new';
@@ -375,9 +376,7 @@ const aboutPageSchema = {
             View pricing
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg>
           </a>
-          <a href={`${base}/en/#start`} class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:border-cta/35 hover:text-cta transition-all duration-200">
-            Order articles
-          </a>
+          <ContentRequestForm lang="en" client:idle />
         </div>
       </div>
     </section>
