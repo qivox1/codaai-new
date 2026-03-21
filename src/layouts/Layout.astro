@@ -29,7 +29,7 @@ const {
   article,
 } = Astro.props;
 
-// ── Base structured data (present on every page) ──────────────────────────────
+// ââ Base structured data (present on every page) ââââââââââââââââââââââââââââââ
 const SITE_URL = 'https://www.codaai.ai';
 
 const organizationSchema = {
@@ -37,7 +37,7 @@ const organizationSchema = {
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: 'CodaAI',
-  alternateName: 'CodaAI – KI Content-Plattform',
+  alternateName: 'CodaAI â KI Content-Plattform',
   url: `${SITE_URL}/`,
   logo: {
     '@type': 'ImageObject',
@@ -60,7 +60,7 @@ const organizationSchema = {
     '@type': 'Person',
     '@id': `${SITE_URL}/mission/#anja-miebach`,
     name: 'Anja Miebach',
-    jobTitle: 'Gründerin & Inhaberin',
+    jobTitle: 'GrÃ¼nderin & Inhaberin',
     url: `${SITE_URL}/mission/`,
     image: {
       '@type': 'ImageObject',
@@ -71,7 +71,7 @@ const organizationSchema = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Langer Weg 7b',
-    addressLocality: 'Gütersloh',
+    addressLocality: 'GÃ¼tersloh',
     postalCode: '33332',
     addressCountry: 'DE',
   },
@@ -102,33 +102,33 @@ const baseSchemas = [
 ];
 
 const SITE_ORIGIN = 'https://www.codaai.ai';
-const BASE = `${SITE_ORIGIN};
+const BASE = SITE_ORIGIN;
 // Canonical: Astro.url.pathname already has the full path e.g. /codaai-new/
 const canonicalUrl = `${SITE_ORIGIN}${Astro.url.pathname}`;
 
 // hreflang: strip /codaai-new prefix, normalize /en/ to get bare slug
-const pathNoBase = Astro.url.pathname.replace('/codaai-new', '').replace(/^\/en\//, '/').replace(/\/$/, '') || '/';
+const pathNoBase = Astro.url.pathname.replace(/^\/en\//, '/').replace(/\/$/, '') || '/';
 const deUrl = pathNoBase === '/' ? `${BASE}/` : `${BASE}${pathNoBase}/`;
 const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
 
 /*
  * Content Security Policy
  *
- * Delivered via <meta http-equiv> — the only option on GitHub Pages (no server config).
+ * Delivered via <meta http-equiv> â the only option on GitHub Pages (no server config).
  * Note: `frame-ancestors` and HSTS are HTTP-header-only directives and cannot be set via meta.
  * Clickjacking is handled via JS frame-busting below as a defence-in-depth measure.
  *
  * Supabase endpoint: https://fcauvtwqkluvsbicaojo.supabase.co
- * Fonts: fully self-hosted via @fontsource-variable/inter — no external font requests.
+ * Fonts: fully self-hosted via @fontsource-variable/inter â no external font requests.
  */
 const csp = [
   "default-src 'self'",
-  // Astro generates inline <script> blocks (theme init, mobile menu) → unsafe-inline required
+  // Astro generates inline <script> blocks (theme init, mobile menu) â unsafe-inline required
   // strict-dynamic is not viable with static generation (no per-request nonces)
   "script-src 'self' 'unsafe-inline'",
   // Tailwind/Radix inline styles + React inline style props
   "style-src 'self' 'unsafe-inline'",
-  // Fonts are self-hosted — no external font CDN needed
+  // Fonts are self-hosted â no external font CDN needed
   "font-src 'self'",
   // Local images + data: URIs (inline SVG placeholders)
   "img-src 'self' data: blob:",
@@ -154,8 +154,8 @@ const csp = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {/*
-      ── Security Headers (via meta) ─────────────────────────────────────────────
-      HSTS cannot be set via meta tag — GitHub Pages enforces HTTPS by default,
+      ââ Security Headers (via meta) âââââââââââââââââââââââââââââââââââââââââââââ
+      HSTS cannot be set via meta tag â GitHub Pages enforces HTTPS by default,
       but to get the Strict-Transport-Security header you'd need a CDN/proxy like
       Cloudflare in front of the origin (set: Strict-Transport-Security:
       max-age=31536000; includeSubDomains; preload).
@@ -170,13 +170,13 @@ const csp = [
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    {/* Preconnect to Supabase edge functions — reduces DNS+TLS cold-start when form is submitted */}
+    {/* Preconnect to Supabase edge functions â reduces DNS+TLS cold-start when form is submitted */}
     <link rel="preconnect" href="https://fcauvtwqkluvsbicaojo.supabase.co" crossorigin />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    {/* Canonical — use article-specific canonical if provided, else current URL */}
+    {/* Canonical â use article-specific canonical if provided, else current URL */}
     <link rel="canonical" href={article?.canonicalUrl ?? canonicalUrl} />
 
     {/* Robots */}
@@ -185,11 +185,11 @@ const csp = [
       : <meta name="robots" content="index, follow" />
     }
 
-    {/* Open Graph — article pages get richer og:type + article meta */}
+    {/* Open Graph â article pages get richer og:type + article meta */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={article ? 'article' : 'website'} />
-    <meta property="og:image" content={article?.ogImage ?? 'https://qivox1.github.io/codaai-new/images/og-image.png'} />
+    <meta property="og:image" content={article?.ogImage ?? 'https://www.codaai.ai/images/og-image.png'} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'en_GB'} />
@@ -202,20 +202,20 @@ const csp = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={article?.ogImage ?? 'https://qivox1.github.io/codaai-new/images/og-image.png'} />
+    <meta name="twitter:image" content={article?.ogImage ?? 'https://www.codaai.ai/images/og-image.png'} />
     <link rel="alternate" hreflang="de" href={deUrl} />
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="x-default" href={deUrl} />
-    {/* Fonts are now self-hosted — no Google Fonts DNS lookup or external request */}
+    {/* Fonts are now self-hosted â no Google Fonts DNS lookup or external request */}
 
-    {/* ── JSON-LD Structured Data ───────────────────────────────────────────── */}
+    {/* ââ JSON-LD Structured Data âââââââââââââââââââââââââââââââââââââââââââââ */}
     {baseSchemas.map((schema) => (
       <script type="application/ld+json" set:html={schema} />
     ))}
   </head>
   <body>
     {/*
-      ── Clickjacking Defence (JS frame-busting) ─────────────────────────────────
+      ââ Clickjacking Defence (JS frame-busting) âââââââââââââââââââââââââââââââââ
       X-Frame-Options and CSP frame-ancestors require HTTP headers which GitHub
       Pages does not allow. This script runs synchronously before the DOM renders,
       immediately redirecting the top-level window if the page is framed.
