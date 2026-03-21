@@ -30,11 +30,11 @@ const translations = {
   de: {
     freeTrial: 'Kostenlos testen',
     step1Title: 'Holen Sie sich Ihren kostenlosen Premium-Blogartikel',
-    step1Subtitle: 'SEO- & KI-optimierter Content â komplett kostenlos.',
+    step1Subtitle: 'SEO- & KI-optimierter Content – komplett kostenlos.',
     step2Title: 'Ihre Website',
     step2Subtitle: 'Wir passen uns Ihrer Markenstimme an.',
     step3Title: 'Ihr Thema',
-    step3Subtitle: 'WorÃ¼ber sollen wir schreiben?',
+    step3Subtitle: 'Worüber sollen wir schreiben?',
     yourName: 'IHR NAME *',
     namePlaceholder: 'Max Mustermann',
     emailAddress: 'E-MAIL-ADRESSE *',
@@ -42,70 +42,70 @@ const translations = {
     inlineEmailPlaceholder: 'Ihre E-Mail...',
     websiteUrl: 'IHRE WEBSITE-URL *',
     websitePlaceholder: 'https://ihre-website.de',
-    websiteHint: 'FÃ¼r Markenstimme & Keyword-Analyse.',
+    websiteHint: 'Für Markenstimme & Keyword-Analyse.',
     blogTopic: 'BLOGARTIKEL-THEMA *',
-    topicPlaceholder: 'z.B. 10 Vorteile von Remote Work fÃ¼r kleine Unternehmen',
+    topicPlaceholder: 'z.B. 10 Vorteile von Remote Work für kleine Unternehmen',
     articleLanguage: 'ARTIKELSPRACHE *',
     langDe: 'Deutsch',
     langEn: 'English',
-    articleGoal: 'WAS MÃCHTEN SIE MIT IHREM BLOGARTIKEL ERREICHEN? *',
-    selectGoal: 'Ziel auswÃ¤hlen',
-    selectGoalPartner: 'Ziel: Customer Journey (Schuster-ModellÂ®)',
-    goalAwareness: 'Awareness â Aufmerksamkeit erzeugen',
-    goalConsideration: 'Consideration â Interesse wecken',
-    goalDecision: 'Decision â Kaufentscheidung fÃ¶rdern',
+    articleGoal: 'WAS MÖCHTEN SIE MIT IHREM BLOGARTIKEL ERREICHEN? *',
+    selectGoal: 'Ziel auswählen',
+    selectGoalPartner: 'Ziel: Customer Journey (Schuster-Modell®)',
+    goalAwareness: 'Awareness – Aufmerksamkeit erzeugen',
+    goalConsideration: 'Consideration – Interesse wecken',
+    goalDecision: 'Decision – Kaufentscheidung fördern',
     goalInform: '01 - Informieren',
-    goalEnable: '02 - BefÃ¤higen',
+    goalEnable: '02 - Befähigen',
     goalEvaluate: '03 - Evaluieren',
     goalAssess: '04 - Bewerten',
     goalBuy: '05 - Kaufen',
     goalUse: '06 - Nutzen',
     goalThoughtLeader: 'Thought Leadership',
-    articleLength: 'ARTIKELLÃNGE',
-    words: 'WÃ¶rter',
-    additionalContext: 'ZUSÃTZLICHER KONTEXT (OPTIONAL)',
-    additionalPlaceholder: 'FÃ¼gen Sie Links zu Produktseiten, Wettbewerber-Artikeln, Landingpages oder anderen Quellen ein, die uns helfen, Ihren Inhalt und Stil zu verstehen. Je mehr Material Sie bereitstellen, desto gezielter und wirkungsvoller wird Ihr Artikel.',
-    additionalHint: 'ð¡ Tipp: Referenz-URLs, Wettbewerber-Artikel, Keywords und konkrete Punkte, die behandelt werden sollen â das alles erhÃ¶ht die QualitÃ¤t erheblich.',
-    attachPdf: 'PDF-Dokument(e) anhÃ¤ngen',
+    articleLength: 'ARTIKELLÄNGE',
+    words: 'Wörter',
+    additionalContext: 'ZUSÄTZLICHER KONTEXT (OPTIONAL)',
+    additionalPlaceholder: 'Fügen Sie Links zu Produktseiten, Wettbewerber-Artikeln, Landingpages oder anderen Quellen ein, die uns helfen, Ihren Inhalt und Stil zu verstehen. Je mehr Material Sie bereitstellen, desto gezielter und wirkungsvoller wird Ihr Artikel.',
+    additionalHint: '💡 Tipp: Referenz-URLs, Wettbewerber-Artikel, Keywords und konkrete Punkte, die behandelt werden sollen – das alles erhöht die Qualität erheblich.',
+    attachPdf: 'PDF-Dokument(e) anhängen',
     attachPdfSub: 'Markenrichtlinien, Briefings oder Referenzmaterial (max. 10 MB, bis zu 5 Dateien)',
     attachPdfDrop: 'PDF(s) hier ablegen',
-    attachPdfMore: '+ Weiteres PDF hinzufÃ¼gen',
+    attachPdfMore: '+ Weiteres PDF hinzufügen',
     partnerCode: 'PARTNERCODE (OPTIONAL)',
     partnerPlaceholder: 'Partnercode eingeben',
-    consentText: 'Ich stimme zu, meinen kostenlosen Artikel und gelegentliche Produktupdates, Tipps und Angebote von CodaAI zu erhalten. Sie kÃ¶nnen sich jederzeit abmelden. Mit dem Absenden akzeptieren Sie unsere',
-    privacyPolicy: 'DatenschutzerklÃ¤rung',
+    consentText: 'Ich stimme zu, meinen kostenlosen Artikel und gelegentliche Produktupdates, Tipps und Angebote von CodaAI zu erhalten. Sie können sich jederzeit abmelden. Mit dem Absenden akzeptieren Sie unsere',
+    privacyPolicy: 'Datenschutzerklärung',
     and: 'und',
     termsConditions: 'AGB',
-    back: 'â ZurÃ¼ck',
-    continue: 'Weiter â',
-    checking: 'Wird geprÃ¼ft...',
+    back: '← Zurück',
+    continue: 'Weiter →',
+    checking: 'Wird geprüft...',
     validatingTopic: 'Thema wird validiert...',
     sending: 'Wird gesendet...',
     getMyFreeArticle: 'Kostenlose Artikel erhalten',
-    trustIndicator: 'ð Ihre Daten sind sicher. Kein Spam, niemals.',
+    trustIndicator: '🔒 Ihre Daten sind sicher. Kein Spam, niemals.',
     successTitle: 'Wir sind dran!',
-    successMessage: 'Ihr Premium Blog-Artikel mit {wordCount} WÃ¶rtern wird erstellt. Unser Team arbeitet dran. Innerhalb der nÃ¤chsten 48 Stunden erhalten Sie das Ergebnis an {email}.',
+    successMessage: 'Ihr Premium Blog-Artikel mit {wordCount} Wörtern wird erstellt. Unser Team arbeitet dran. Innerhalb der nächsten 48 Stunden erhalten Sie das Ergebnis an {email}.',
     gotIt: 'Verstanden!',
-    blockedEmail: 'Bitte verwenden Sie Ihre Firmen-E-Mail-Adresse. PersÃ¶nliche E-Mail-Adressen (Gmail, GMX etc.) werden nicht akzeptiert.',
-    emailDuplicate: 'Diese E-Mail-Adresse wurde bereits fÃ¼r ein kostenloses Testangebot verwendet. Jede E-Mail kann nur ein kostenloses Content-Paket anfordern.',
-    domainDuplicate: 'Jemand hat bereits ein kostenloses Testangebot fÃ¼r diese Domain angefordert. Das kostenlose Testangebot ist auf eine pro Domain begrenzt.',
-    urlNotReachable: 'Die Website {url} ist nicht erreichbar. Bitte Ã¼berprÃ¼fen Sie die URL und versuchen Sie es erneut.',
-    urlCheckFailed: 'Die Website konnte nicht Ã¼berprÃ¼ft werden. Bitte Ã¼berprÃ¼fen Sie die URL und versuchen Sie es erneut.',
+    blockedEmail: 'Bitte verwenden Sie Ihre Firmen-E-Mail-Adresse. Persönliche E-Mail-Adressen (Gmail, GMX etc.) werden nicht akzeptiert.',
+    emailDuplicate: 'Diese E-Mail-Adresse wurde bereits für ein kostenloses Testangebot verwendet. Jede E-Mail kann nur ein kostenloses Content-Paket anfordern.',
+    domainDuplicate: 'Jemand hat bereits ein kostenloses Testangebot für diese Domain angefordert. Das kostenlose Testangebot ist auf eine pro Domain begrenzt.',
+    urlNotReachable: 'Die Website {url} ist nicht erreichbar. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
+    urlCheckFailed: 'Die Website konnte nicht überprüft werden. Bitte überprüfen Sie die URL und versuchen Sie es erneut.',
     pdfOnly: 'Bitte laden Sie ein PDF-Dokument hoch.',
-    pdfTooLarge: 'Datei zu groÃ. Maximale GrÃ¶Ãe ist 10 MB.',
-    topicRequired: 'Bitte geben Sie das Thema fÃ¼r Ihren Blogartikel ein.',
-    topicMinWords: 'Bitte beschreiben Sie Ihr Thema in mindestens 5 WÃ¶rtern, damit wir es besser verstehen kÃ¶nnen.',
+    pdfTooLarge: 'Datei zu groß. Maximale Größe ist 10 MB.',
+    topicRequired: 'Bitte geben Sie das Thema für Ihren Blogartikel ein.',
+    topicMinWords: 'Bitte beschreiben Sie Ihr Thema in mindestens 5 Wörtern, damit wir es besser verstehen können.',
     goalRequired: 'Artikelziel erforderlich',
-    goalRequiredDesc: 'Bitte wÃ¤hlen Sie, was Sie mit Ihrem Blogartikel erreichen mÃ¶chten.',
+    goalRequiredDesc: 'Bitte wählen Sie, was Sie mit Ihrem Blogartikel erreichen möchten.',
     consentRequired: 'Zustimmung erforderlich',
     consentRequiredDesc: 'Bitte stimmen Sie zu, Ihren kostenlosen Artikel und gelegentliche Updates zu erhalten.',
-    partnerCodeUnlocked: 'â¨ Partnercode aktiviert: bis zu 4.000 WÃ¶rter verfÃ¼gbar',
-    submitFailed: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es spÃ¤ter erneut.',
+    partnerCodeUnlocked: '✨ Partnercode aktiviert: bis zu 4.000 Wörter verfügbar',
+    submitFailed: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.',
   },
   en: {
     freeTrial: 'Try for free',
     step1Title: 'Get your free premium blog article',
-    step1Subtitle: 'SEO- & AI-optimised content â completely free.',
+    step1Subtitle: 'SEO- & AI-optimised content – completely free.',
     step2Title: 'Your website',
     step2Subtitle: 'We adapt to your brand voice.',
     step3Title: 'Your topic',
@@ -125,10 +125,10 @@ const translations = {
     langEn: 'English',
     articleGoal: 'WHAT DO YOU WANT TO ACHIEVE WITH YOUR BLOG ARTICLE? *',
     selectGoal: 'Select goal',
-    selectGoalPartner: 'Goal: Customer journey phase (Schuster modelÂ®)',
-    goalAwareness: 'Awareness â Generate attention',
-    goalConsideration: 'Consideration â Spark interest',
-    goalDecision: 'Decision â Drive purchase decision',
+    selectGoalPartner: 'Goal: Customer journey phase (Schuster model®)',
+    goalAwareness: 'Awareness – Generate attention',
+    goalConsideration: 'Consideration – Spark interest',
+    goalDecision: 'Decision – Drive purchase decision',
     goalInform: '01 - Inform',
     goalEnable: '02 - Enable',
     goalEvaluate: '03 - Evaluate',
@@ -140,7 +140,7 @@ const translations = {
     words: 'words',
     additionalContext: 'ADDITIONAL CONTEXT (OPTIONAL)',
     additionalPlaceholder: 'Add links to product pages, competitor articles, landing pages or other sources that help us understand your content and style. The more material you provide, the more targeted and impactful your article will be.',
-    additionalHint: 'ð¡ Tip: Reference URLs, competitor articles, keywords and specific points to cover â all of this significantly increases quality.',
+    additionalHint: '💡 Tip: Reference URLs, competitor articles, keywords and specific points to cover – all of this significantly increases quality.',
     attachPdf: 'Attach PDF document(s)',
     attachPdfSub: 'Brand guidelines, briefs or reference material (max. 10 MB, up to 5 files)',
     attachPdfDrop: 'Drop PDF(s) here',
@@ -151,13 +151,13 @@ const translations = {
     privacyPolicy: 'Privacy Policy',
     and: 'and',
     termsConditions: 'Terms & Conditions',
-    back: 'â Back',
-    continue: 'Continue â',
+    back: '← Back',
+    continue: 'Continue →',
     checking: 'Checking...',
     validatingTopic: 'Validating topic...',
     sending: 'Sending...',
     getMyFreeArticle: 'Get free article',
-    trustIndicator: 'ð Your data is safe. No spam, ever.',
+    trustIndicator: '🔒 Your data is safe. No spam, ever.',
     successTitle: 'We\'re on it!',
     successMessage: 'Your premium blog article with {wordCount} words is being created. Our team is on it. You will receive the result at {email} within the next 48 hours.',
     gotIt: 'Got it!',
@@ -174,7 +174,7 @@ const translations = {
     goalRequiredDesc: 'Please select what you want to achieve with your blog article.',
     consentRequired: 'Consent required',
     consentRequiredDesc: 'Please agree to receive your free article and occasional updates.',
-    partnerCodeUnlocked: 'â¨ Partner code activated: up to 4,000 words available',
+    partnerCodeUnlocked: '✨ Partner code activated: up to 4,000 words available',
     submitFailed: 'Something went wrong. Please try again later.',
   },
 };
@@ -210,7 +210,7 @@ const blockedEmailDomains = [
 
 const SUPABASE_FN = 'https://fcauvtwqkluvsbicaojo.supabase.co/functions/v1/send-content-request';
 
-// âââ Logo SVG ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── Logo SVG ────────────────────────────────────────────────────────────────
 function Logo() {
   return (
     <div className="flex items-center gap-2 justify-center mb-8">
@@ -223,7 +223,7 @@ function Logo() {
   );
 }
 
-// âââ Input / Label helpers ââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── Input / Label helpers ────────────────────────────────────────────────────
 // Matches PricingCalculator exactly: rounded-full, bg-input, border-border
 const inputCls = (hasError?: boolean) =>
   `w-full h-12 px-4 bg-input border ${hasError ? 'border-red-500' : 'border-border'} rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta focus:ring-1 focus:ring-cta transition-all text-sm`;
@@ -234,7 +234,7 @@ const inputClsBox = (hasError?: boolean) =>
 
 const labelCls = 'block text-[11px] font-mono text-muted-foreground mb-1.5 uppercase tracking-widest';
 
-// âââ Main Component âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ─── Main Component ───────────────────────────────────────────────────────────
 export default function ContentRequestForm({
   lang,
   triggerClassName,
@@ -415,7 +415,7 @@ export default function ContentRequestForm({
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // ââ Step button disabled logic âââââââââââââââââââââââââââââââââââââââââââ
+  // ── Step button disabled logic ───────────────────────────────────────────
   const isStep0Incomplete = !formData.name.trim() || !formData.email.trim();
   const isStep1Incomplete = !formData.websiteUrl.trim();
   const isStep2Incomplete = !formData.topic.trim() || !formData.articleGoal || !formData.marketingConsent;
@@ -430,7 +430,7 @@ export default function ContentRequestForm({
   const nextStep = async () => {
     if (currentStep === 0) {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        setEmailError(lang === 'en' ? 'Please enter a valid email address.' : 'Bitte geben Sie eine gÃ¼ltige E-Mail-Adresse ein.');
+        setEmailError(lang === 'en' ? 'Please enter a valid email address.' : 'Bitte geben Sie eine gültige E-Mail-Adresse ein.');
         return;
       }
       const emailDomain = formData.email.toLowerCase().split('@')[1];
@@ -520,7 +520,7 @@ export default function ContentRequestForm({
       });
       const data = await response.json();
       if (!data?.isValid) {
-        setTopicError(data?.reason || 'Bitte geben Sie ein gÃ¼ltiges, sinnvolles Blog-Thema ein.');
+        setTopicError(data?.reason || 'Bitte geben Sie ein gültiges, sinnvolles Blog-Thema ein.');
         setIsValidatingTopic(false);
         return;
       }
@@ -617,7 +617,7 @@ export default function ContentRequestForm({
     }, 350);
   };
 
-  // ââ Shared overlay markup ââââââââââââââââââââââââââââââââââââââââââââââââââ
+  // ── Shared overlay markup ──────────────────────────────────────────────────
   const overlayContent = (isOpen || isClosing) ? (
     <div
       className={`fixed inset-0 z-[100] bg-background overflow-y-auto ${isClosing ? 'modal-anim-backdrop-out' : 'modal-anim-backdrop-in'}`}
@@ -642,7 +642,7 @@ export default function ContentRequestForm({
       <button
         onClick={handleClose}
         className="fixed top-5 right-5 z-10 p-2 hover:bg-muted rounded-full transition-colors"
-        aria-label="SchlieÃen"
+        aria-label="Schließen"
       >
         <X className="w-6 h-6 text-foreground" />
       </button>
@@ -652,7 +652,7 @@ export default function ContentRequestForm({
           <Logo />
 
           {isSuccess ? (
-            /* ââ Success screen ââââââââââââââââââââââââââââââââââââââ */
+            /* ── Success screen ────────────────────────────────────── */
             <div className="text-center space-y-6">
               <div className="flex justify-center">
                 <div className="size-20 rounded-full bg-cta/10 flex items-center justify-center">
@@ -671,7 +671,7 @@ export default function ContentRequestForm({
               </button>
             </div>
           ) : (
-            /* ââ Form screens ââââââââââââââââââââââââââââââââââââââââ */
+            /* ── Form screens ──────────────────────────────────────── */
             <div>
               {/* Progress dots */}
               <div className="flex justify-center gap-2 mb-8" aria-label={lang === 'en' ? `Step ${currentStep + 1} of ${steps.length}` : `Schritt ${currentStep + 1} von ${steps.length}`}>
@@ -699,7 +699,7 @@ export default function ContentRequestForm({
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
 
-                {/* ââ Step 0: Name + Email ââââââââââââââââââââââââââââ */}
+                {/* ── Step 0: Name + Email ──────────────────────────── */}
                 {currentStep === 0 && (
                   <>
                     <div>
@@ -736,7 +736,7 @@ export default function ContentRequestForm({
                   </>
                 )}
 
-                {/* ââ Step 1: Website URL âââââââââââââââââââââââââââââ */}
+                {/* ── Step 1: Website URL ───────────────────────────── */}
                 {currentStep === 1 && (
                   <div>
                     <label htmlFor={websiteId} className={labelCls}>{t.websiteUrl}</label>
@@ -760,7 +760,7 @@ export default function ContentRequestForm({
                   </div>
                 )}
 
-                {/* ââ Step 2: Topic form ââââââââââââââââââââââââââââââ */}
+                {/* ── Step 2: Topic form ────────────────────────────── */}
                 {currentStep === 2 && (
                   <>
                     {/* Blog topic */}
@@ -851,7 +851,7 @@ export default function ContentRequestForm({
                         step="500"
                         value={formData.wordCount}
                         onChange={(e) => updateField('wordCount', parseInt(e.target.value))}
-                        aria-label={lang === 'en' ? `Article length: ${formData.wordCount} words` : `ArtikellÃ¤nge: ${formData.wordCount} WÃ¶rter`}
+                        aria-label={lang === 'en' ? `Article length: ${formData.wordCount} words` : `Artikellänge: ${formData.wordCount} Wörter`}
                         className="w-full accent-cta"
                       />
                       <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
@@ -876,7 +876,7 @@ export default function ContentRequestForm({
                       <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{t.additionalHint}</p>
                     </div>
 
-                    {/* PDF upload â supports multiple files */}
+                    {/* PDF upload — supports multiple files */}
                     <div>
                       <input
                         type="file"
@@ -915,7 +915,7 @@ export default function ContentRequestForm({
                         </div>
                       )}
 
-                      {/* Drop zone â shown when no files yet, or as "add more" when below max */}
+                      {/* Drop zone — shown when no files yet, or as "add more" when below max */}
                       {formData.pdfFiles.length < MAX_PDFS && (
                         <button
                           type="button"
@@ -976,7 +976,7 @@ export default function ContentRequestForm({
                           <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" aria-hidden="true" />
                         )}
                         {partnerCodeValid && !isCheckingPartnerCode && (
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-lg" aria-hidden="true">â</span>
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 text-lg" aria-hidden="true">✓</span>
                         )}
                       </div>
                     </div>
@@ -1052,7 +1052,7 @@ export default function ContentRequestForm({
     ? createPortal(overlayContent, document.body)
     : null;
 
-  // ââ Email-input trigger ââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  // ── Email-input trigger ────────────────────────────────────────────────────
   if (triggerType === 'email-input') {
     return (
       <div className="relative">
@@ -1077,7 +1077,7 @@ export default function ContentRequestForm({
     );
   }
 
-  // ââ Default button trigger âââââââââââââââââââââââââââââââââââââââââââââââââ
+  // ── Default button trigger ─────────────────────────────────────────────────
   return (
     <>
       <button
