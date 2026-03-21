@@ -11,7 +11,7 @@ const SITE_URL = 'https://qivox1.github.io/codaai-new';
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${SITE_URL}/mission/#anja-miebach`,
+  '@id': `${SITE_URL}/co-create/#anja-miebach`,
   name: 'Anja Miebach',
   givenName: 'Anja',
   familyName: 'Miebach',
@@ -52,7 +52,7 @@ const personSchema = {
     postalCode: '33332',
     addressCountry: 'DE',
   },
-  url: `${SITE_URL}/en/mission/`,
+  url: `${SITE_URL}/en/co-create/`,
   sameAs: [],
 };
 
@@ -60,10 +60,10 @@ const personSchema = {
 const aboutPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  '@id': `${SITE_URL}/en/mission/#webpage`,
+  '@id': `${SITE_URL}/en/co-create/#webpage`,
   name: 'Mission & CoCreate Principle – CodaAI',
   description: 'CodaAI combines 20+ years of marketing expertise with AI efficiency. Learn about the CoCreate principle and founder Anja Miebach.',
-  url: `${SITE_URL}/en/mission/`,
+  url: `${SITE_URL}/en/co-create/`,
   inLanguage: 'en',
   isPartOf: {
     '@type': 'WebSite',
@@ -72,17 +72,17 @@ const aboutPageSchema = {
     url: `${SITE_URL}/`,
   },
   about: [
-    { '@id': `${SITE_URL}/mission/#anja-miebach` },
+    { '@id': `${SITE_URL}/co-create/#anja-miebach` },
     { '@type': 'Organization', '@id': `${SITE_URL}/#organization` },
   ],
-  author: { '@id': `${SITE_URL}/mission/#anja-miebach` },
+  author: { '@id': `${SITE_URL}/co-create/#anja-miebach` },
   datePublished: '2024-01-01',
   dateModified: '2026-03-01',
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
-      { '@type': 'ListItem', position: 2, name: 'Mission', item: `${SITE_URL}/en/mission/` },
+      { '@type': 'ListItem', position: 2, name: 'Co-Create', item: `${SITE_URL}/en/co-create/` },
     ],
   },
 };
@@ -107,7 +107,7 @@ const aboutPageSchema = {
       </div>
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Mission' }]} class="mb-8" />
+        <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Co-Create' }]} class="mb-8" />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>
