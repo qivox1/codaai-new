@@ -7,6 +7,7 @@ import { X, Paperclip, Loader2, CheckCircle, Upload } from 'lucide-react';
 
 interface ContentRequestFormProps {
   lang: 'de' | 'en';
+  triggerClassName?: string;
   triggerType?: 'button' | 'email-input';
   triggerLabel?: ReactNode;
 }
@@ -236,6 +237,7 @@ const labelCls = 'block text-[11px] font-mono text-muted-foreground mb-1.5 upper
 // âââ Main Component âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 export default function ContentRequestForm({
   lang,
+  triggerClassName,
   triggerType = 'button',
   triggerLabel,
 }: ContentRequestFormProps) {
@@ -1080,7 +1082,7 @@ export default function ContentRequestForm({
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="btn-cta h-8 px-4 py-0 text-sm"
+        className={triggerClassName ?? "btn-cta h-8 px-4 py-0 text-sm"}
       >
         {triggerLabel || t.freeTrial}
       </button>
