@@ -189,16 +189,20 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Send notification email (non-blocking — don't fail the request if email fails)
+    // Send emails (non-blocking — don't fail the request if email fails)
     if (RESEND_KEY) {
+      const lang = articleLanguage ?? 'de';
       sendNotificationEmail({
         name, email, websiteUrl, topic,
-        articleLanguage: articleLanguage ?? 'de',
+        articleLanguage: lang,
         articleGoal, wordCount, additionalInfo,
         pdfFilenames: allPdfFilenames,
         partnerCode,
         requestId: inserted.id,
-      }).catch((err) => console.error('Email send failed:', err));
+      }).catch((err) => console.error('Notification email failed:', err));
+
+      sendConfirmationEmail({ name, email, topic, articleLanguage: lang })
+        .catch((err) => console.error('Confirmation email failed:', err));
     }
 
     return Response.json({ success: true, requestId: inserted.id }, { headers: CORS });
@@ -272,5 +276,73 @@ async function sendNotificationEmail(d: {
   if (!res.ok) {
     const txt = await res.text();
     throw new Error(`Resend error ${res.status}: ${txt}`);
+  }
+}
+
+// ─── Confirmation email to submitter ─────────────────────────────────────────
+async function sendConfirmationEmail(d: {
+  name: string; email: string; topic: string; articleLanguage: string;
+}) {
+  const isEn = d.articleLanguage === 'en';
+
+  const subject = isEn
+    ? `Your free article is being created – CodaAI`
+    : `Ihr kostenloser Artikel wird erstellt – CodaAI`;
+
+  const html = isEn ? `
+    <div style="font-family:sans-serif;max-width:600px;color:#1a1a1a">
+      <div style="margin-bottom:24px">
+        <span style="font-size:22px;font-weight:700;color:#df41fb">CodaAI</span>
+      </div>
+      <h2 style="font-size:20px;margin-bottom:8px">Hi ${d.name}, we're on it! 🎉</h2>
+      <p style="color:#444;line-height:1.6">
+        Thank you for your request. We're creating your free SEO-optimised blog article on the topic:
+      </p>
+      <blockquote style="border-left:3px solid #df41fb;margin:16px 0;padding:8px 16px;color:#333;font-style:italic">
+        ${d.topic}
+      </blockquote>
+      <p style="color:#444;line-height:1.6">
+        You'll receive your article within <strong>24 hours</strong> at this address.
+      </p>
+      <p style="color:#888;font-size:13px;margin-top:32px">
+        CodaAI · AI-powered content, automated.
+      </p>
+    </div>` : `
+    <div style="font-family:sans-serif;max-width:600px;color:#1a1a1a">
+      <div style="margin-bottom:24px">
+        <span style="font-size:22px;font-weight:700;color:#df41fb">CodaAI</span>
+      </div>
+      <h2 style="font-size:20px;margin-bottom:8px">Hallo ${d.name}, wir sind dran! 🎉</h2>
+      <p style="color:#444;line-height:1.6">
+        Vielen Dank für Ihre Anfrage. Wir erstellen Ihren kostenlosen SEO-optimierten Blogartikel zum Thema:
+      </p>
+      <blockquote style="border-left:3px solid #df41fb;margin:16px 0;padding:8px 16px;color:#333;font-style:italic">
+        ${d.topic}
+      </blockquote>
+      <p style="color:#444;line-height:1.6">
+        Sie erhalten Ihren Artikel innerhalb von <strong>24 Stunden</strong> an diese E-Mail-Adresse.
+      </p>
+      <p style="color:#888;font-size:13px;margin-top:32px">
+        CodaAI · KI-gestützter Content, vollautomatisiert.
+      </p>
+    </div>`;
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_KEY}`,
+      'Content-Type':  'application/json',
+    },
+    body: JSON.stringify({
+      from:    FROM_EMAIL,
+      to:      [d.email],
+      subject,
+      html,
+    }),
+  });
+
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(`Resend confirmation error ${res.status}: ${txt}`);
   }
 }
