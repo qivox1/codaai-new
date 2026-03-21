@@ -82,7 +82,7 @@ const translations = {
     getMyFreeArticle: 'Kostenlose Artikel erhalten',
     trustIndicator: '🔒 Ihre Daten sind sicher. Kein Spam, niemals.',
     successTitle: 'Wir sind dran!',
-    successMessage: 'Ihr Artikel wird erstellt. Prüfen Sie {email} innerhalb von 24 Std.',
+    successMessage: 'Ihr Premium Blog-Artikel mit {wordCount} Wörtern wird erstellt. Unser Team arbeitet dran. Innerhalb der nächsten 48 Stunden erhalten Sie das Ergebnis an {email}.',
     gotIt: 'Verstanden!',
     blockedEmail: 'Bitte verwenden Sie Ihre Firmen-E-Mail-Adresse. Persönliche E-Mail-Adressen (Gmail, GMX etc.) werden nicht akzeptiert.',
     emailDuplicate: 'Diese E-Mail-Adresse wurde bereits für ein kostenloses Testangebot verwendet. Jede E-Mail kann nur ein kostenloses Content-Paket anfordern.',
@@ -156,7 +156,7 @@ const translations = {
     getMyFreeArticle: 'Get free article',
     trustIndicator: '🔒 Your data is safe. No spam, ever.',
     successTitle: 'We\'re on it!',
-    successMessage: 'Your article is being created. Check {email} within 24 hrs.',
+    successMessage: 'Your premium blog article with {wordCount} words is being created. Our team is on it. You will receive the result at {email} within the next 48 hours.',
     gotIt: 'Got it!',
     blockedEmail: 'Please use your business email address. Personal email addresses (Gmail, Yahoo etc.) are not accepted.',
     emailDuplicate: 'This email address has already been used for a free trial. Each email can only request one free content package.',
@@ -639,7 +639,7 @@ export default function ContentRequestForm({
               </div>
               <h2 className="text-3xl font-semibold text-foreground">{t.successTitle}</h2>
               <p className="text-base text-muted-foreground">
-                {t.successMessage.replace('{email}', formData.email)}
+                {t.successMessage.replace('{wordCount}', String(formData.wordCount ?? 1000)).replace('{email}', formData.email)}
               </p>
               <button
                 onClick={handleClose}

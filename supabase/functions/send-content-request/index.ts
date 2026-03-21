@@ -302,7 +302,7 @@ async function sendConfirmationEmail(d: {
         ${d.topic}
       </blockquote>
       <p style="color:#444;line-height:1.6">
-        You'll receive your article within <strong>24 hours</strong> at this address.
+        You'll receive your article within <strong>48 hours</strong> at this address.
       </p>
       <p style="color:#888;font-size:13px;margin-top:32px">
         CodaAI · AI-powered content, automated.
@@ -320,7 +320,7 @@ async function sendConfirmationEmail(d: {
         ${d.topic}
       </blockquote>
       <p style="color:#444;line-height:1.6">
-        Sie erhalten Ihren Artikel innerhalb von <strong>24 Stunden</strong> an diese E-Mail-Adresse.
+        Sie erhalten Ihren Artikel innerhalb von <strong>48 Stunden</strong> an diese E-Mail-Adresse.
       </p>
       <p style="color:#888;font-size:13px;margin-top:32px">
         CodaAI · KI-gestützter Content, vollautomatisiert.
