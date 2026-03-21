@@ -247,6 +247,7 @@ export default function ContentRequestForm({
   ];
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
@@ -606,18 +607,35 @@ export default function ContentRequestForm({
   };
 
   const handleClose = () => {
-    setIsOpen(false);
-    setTimeout(resetForm, 300);
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      setIsOpen(false);
+      setTimeout(resetForm, 300);
+    }, 350);
   };
 
   // ââ Shared overlay markup ââââââââââââââââââââââââââââââââââââââââââââââââââ
-  const overlayContent = isOpen ? (
+  const overlayContent = (isOpen || isClosing) ? (
     <div
-      className="fixed inset-0 z-[100] bg-background overflow-y-auto"
+      className={`fixed inset-0 z-[100] bg-background overflow-y-auto ${isClosing ? 'modal-anim-backdrop-out' : 'modal-anim-backdrop-in'}`}
       role="dialog"
       aria-modal="true"
       aria-label="Kostenlosen Artikel anfordern"
     >
+      <style>{`
+        @keyframes modal-backdrop-in  { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modal-backdrop-out { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes modal-panel-in  { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes modal-panel-out { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
+        .modal-anim-backdrop-in  { animation: modal-backdrop-in  0.3s ease forwards; }
+        .modal-anim-backdrop-out { animation: modal-backdrop-out 0.35s ease forwards; }
+        .modal-anim-panel-in  { animation: modal-panel-in  0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+        .modal-anim-panel-out { animation: modal-panel-out 0.35s cubic-bezier(0.7,0,0.84,0) forwards; }
+      `}</style>
+      {/* Glowing orbs */}
+      <div style={{position:'absolute',top:'15%',left:'10%',width:'400px',height:'400px',borderRadius:'50%',background:'radial-gradient(circle, rgba(223,65,251,0.15) 0%, transparent 70%)',filter:'blur(40px)',pointerEvents:'none',zIndex:0}} />
+      <div style={{position:'absolute',bottom:'10%',right:'5%',width:'350px',height:'350px',borderRadius:'50%',background:'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)',filter:'blur(50px)',pointerEvents:'none',zIndex:0}} />
       {/* Close button */}
       <button
         onClick={handleClose}
@@ -627,7 +645,7 @@ export default function ContentRequestForm({
         <X className="w-6 h-6 text-foreground" />
       </button>
 
-      <div className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
+      <div className={`min-h-screen flex flex-col items-center justify-center py-16 px-6 ${isClosing ? 'modal-anim-panel-out' : 'modal-anim-panel-in'}`}>
         <div className="w-full max-w-[420px]">
           <Logo />
 
