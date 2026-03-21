@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "pubDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lang": {
+      "type": "string",
+      "enum": [
+        "de",
+        "en"
+      ]
+    },
+    "author": {
+      "type": "string"
+    },
+    "authorTitle": {
+      "type": "string"
+    },
+    "authorBio": {
+      "type": "string"
+    },
+    "authorImage": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "heroImage": {
+      "type": "string"
+    },
+    "heroImageAlt": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "faq": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string"
+          },
+          "a": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "q",
+          "a"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "canonicalUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "noindex": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "pubDate",
+    "lang",
+    "author",
+    "category",
+    "tags",
+    "featured",
+    "noindex"
+  ],
+  "additionalProperties": false
+}
