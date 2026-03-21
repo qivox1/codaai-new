@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import ContentRequestForm from '../../components/react/ContentRequestForm';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
 export async function getStaticPaths() {
@@ -286,12 +287,12 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
               <p class="text-sm font-semibold text-foreground mb-4 leading-snug">
                 Lassen Sie CodaAI Ihren ersten Premium-Artikel erstellen – kostenlos.
               </p>
-              <a
-                href={`${base}/`}
-                class="inline-flex items-center justify-center w-full h-11 rounded-xl bg-cta text-white font-semibold text-sm hover:bg-cta/90 transition-colors"
-              >
-                Kostenlosen Artikel anfordern
-              </a>
+              <ContentRequestForm
+                lang="de"
+                triggerClassName="btn-cta h-14 px-8 text-base w-full justify-center"
+                triggerLabel="Kostenlosen Artikel anfordern"
+                client:idle
+              />
             </div>
 
             <!-- Author Card -->
