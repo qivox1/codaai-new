@@ -30,7 +30,7 @@ const {
 } = Astro.props;
 
 // ── Base structured data (present on every page) ──────────────────────────────
-const SITE_URL = 'https://qivox1.github.io/codaai-new';
+const SITE_URL = 'https://www.codaai.ai';
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -101,8 +101,8 @@ const baseSchemas = [
   ...jsonLd,
 ];
 
-const SITE_ORIGIN = 'https://qivox1.github.io';
-const BASE = `${SITE_ORIGIN}/codaai-new`;
+const SITE_ORIGIN = 'https://www.codaai.ai';
+const BASE = `${SITE_ORIGIN};
 // Canonical: Astro.url.pathname already has the full path e.g. /codaai-new/
 const canonicalUrl = `${SITE_ORIGIN}${Astro.url.pathname}`;
 
