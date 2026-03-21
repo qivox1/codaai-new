@@ -141,6 +141,8 @@ const csp = [
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* Preconnect to Supabase edge functions — reduces DNS+TLS cold-start when form is submitted */}
+    <link rel="preconnect" href="https://fcauvtwqkluvsbicaojo.supabase.co" crossorigin />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
