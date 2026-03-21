@@ -1,5 +1,5 @@
 ---
-title: "KI Content Marketing 2025: Die vollständige Strategie für mehr Sichtbarkeit"
+title: "KI Content Marketing: Die vollständige Strategie für mehr Sichtbarkeit"
 description: "Wie Sie mit KI-gestütztem Content Marketing in Google und KI-Suchmaschinen wie ChatGPT und Perplexity top ranken. Strategie, Tools und konkrete Schritte."
 pubDate: 2025-03-15
 updatedDate: 2026-03-01
@@ -8,11 +8,9 @@ author: "CodaAI Redaktion"
 authorTitle: "KI Content-Strategie Team"
 authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategien für B2B-Unternehmen in Deutschland, Österreich und der Schweiz."
 category: "KI & Content Marketing"
-tags: ["KI Content Marketing", "GEO", "SEO 2025", "ChatGPT SEO", "Perplexity SEO", "Content Strategie"]
+tags: ["KI Content Marketing", "GEO", "SEO", "ChatGPT SEO", "Perplexity SEO", "Content Strategie"]
 featured: true
-heroImage: "/codaai-new/images/blog/ki-content-marketing-strategie.webp"
-heroImageAlt: "KI Content Marketing Strategie 2025 – Kennzahlen und Strategie-Visualisierung"
-summary: "KI-Suchmaschinen wie ChatGPT und Perplexity verändern, wie Unternehmen gefunden werden. Wer 2025 sichtbar bleiben will, braucht eine Strategie, die klassisches SEO und Generative Engine Optimization (GEO) kombiniert – dieser Artikel zeigt wie."
+summary: "KI-Suchmaschinen wie ChatGPT und Perplexity verändern, wie Unternehmen gefunden werden. Wer heute sichtbar bleiben will, braucht eine Strategie, die klassisches SEO und Generative Engine Optimization (GEO) kombiniert – dieser Artikel zeigt wie."
 faq:
   - q: "Was ist Generative Engine Optimization (GEO)?"
     a: "GEO bezeichnet die Optimierung von Inhalten für KI-Suchmaschinen wie ChatGPT, Perplexity und Google AI Overviews. Im Gegensatz zu klassischem SEO geht es nicht nur um Keywords und Backlinks, sondern darum, dass KI-Modelle Ihre Inhalte als verlässliche Quelle zitieren. Entscheidend sind klare Struktur, direkte Antworten und nachweisbare Expertise (E-E-A-T)."
@@ -24,7 +22,7 @@ faq:
     a: "KI-generierter Content ist heute in vielen Bereichen kaum von menschlichem zu unterscheiden – besonders bei faktenbasiertem, informativem Content. Der Schlüssel liegt in der richtigen Orchestrierung: KI übernimmt Recherche, Struktur und erstes Drafting; menschliche Expertise fügt Nuancen, eigene Erfahrungen und Branchenwissen hinzu. Das Ergebnis ist oft besser als rein menschlich produzierter Content, weil die KI-gestützte Recherche vollständiger ist."
 ---
 
-KI-Suchmaschinen veränderten das Content Marketing schneller als jede Entwicklung zuvor. Wer 2025 sichtbar sein will, muss nicht nur Google bedienen – sondern auch ChatGPT, Perplexity und Google AI Overviews.
+KI-Suchmaschinen veränderten das Content Marketing schneller als jede Entwicklung zuvor. Wer heute sichtbar sein will, muss nicht nur Google bedienen – sondern auch ChatGPT, Perplexity und Google AI Overviews.
 
 Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grundlage über Inhaltsformate bis zur Messung des Erfolgs.
 
