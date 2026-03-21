@@ -6,4 +6,4 @@ Disallow: /auth/
 Disallow: /checkout-success
 Disallow: /en/checkout-success
 
-Sitemap: https://qivox1.github.io/codaai-new/sitemap-index.xml
+Sitemap: https://codaai.ai/sitemap-index.xml
