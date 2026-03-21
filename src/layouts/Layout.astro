@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import interLatinFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 interface ArticleMeta {
   publishedTime?: string;
@@ -188,6 +189,8 @@ const csp = [
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {/* Preconnect to Supabase edge functions â reduces DNS+TLS cold-start when form is submitted */}
     <link rel="preconnect" href="https://fcauvtwqkluvsbicaojo.supabase.co" crossorigin />
+    {/* Preload Latin variable font — LCP text renders without FOIT/layout shift */}
+    <link rel="preload" as="font" type="font/woff2" href={interLatinFont} crossorigin />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />

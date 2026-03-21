@@ -6,6 +6,11 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://www.codaai.ai',
   base: '/',
+  build: {
+    // Inline all CSS into <style> tags — eliminates render-blocking external
+    // stylesheet requests (e.g. /_astro/Footer.css) and improves FCP/LCP.
+    inlineStylesheets: 'always',
+  },
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
