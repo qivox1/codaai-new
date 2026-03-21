@@ -33,9 +33,9 @@ KI verändert diesen Prozess grundlegend. Nicht weil sie magisch ist, sondern we
     <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">58%</span>
-    <span class="stat-label">der Unternehmen nutzen KI bereits für Content-Recherche</span>
-    <span class="stat-source">Semrush Content Research 2024</span>
+    <span class="stat-value">51%</span>
+    <span class="stat-label">der deutschen Unternehmen sagen, generative KI übernimmt bereits erhebliche Teile kreativer Marketingarbeit</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">75 Min.</span>
@@ -64,10 +64,10 @@ Das Ressourcenproblem ist fast immer ein Zeitproblem. Ein professioneller 2.000-
 
 Bei einem internen Stundensatz von 80–90 € entspricht das 720–1.260 € realer Kosten – selbst wenn kein externer Dienstleister beauftragt wird. Das ist der eigentliche Grund, warum die meisten Unternehmen zu wenig Content produzieren: Es ist nicht zu teuer – es ist zu zeitaufwendig.
 
-> „51 % der B2B-Marketer, die KI für Content nutzen, berichten von weniger zeitaufwendigen Aufgaben. 45 % sehen effizientere Workflows."
-> — Content Marketing Institute, B2B Research 2025
+> „51 % der deutschen Unternehmen sagen, generative KI übernimmt bereits erhebliche Teile kreativer Marketingarbeit. 67 % sind überzeugt: Marketing ohne KI wird künftig nicht mehr erfolgreich sein."
+> — Bitkom, Marketing im digitalen Wandel 2026
 
-KI löst genau dieses Problem – nicht vollständig, aber signifikant. [Laut Semrush Content Research 2024](https://www.semrush.com/blog/content-marketing-statistics/) nutzen bereits **58 % der Unternehmen KI für Content-Recherche und Themenentwicklung**. Wer das noch nicht tut, verliert Zeit gegenüber Wettbewerbern, die schon länger effizienter arbeiten.
+KI löst genau dieses Problem – nicht vollständig, aber signifikant. [Laut Bitkom-Studie „KI in Deutschland 2026"](https://www.bitkom.org/Presse/Presseinformation/Durchbruch-Kuenstliche-Intelligenz) nutzen bereits **41 % der deutschen Unternehmen** KI im Betrieb – vor einem Jahr waren es erst 17 %. Wer das noch nicht tut, verliert Zeit gegenüber Wettbewerbern, die schon länger effizienter arbeiten.
 
 ## Der KI-Workflow: Schritt für Schritt
 
@@ -141,7 +141,7 @@ Bevor Sie veröffentlichen, checken Sie:
 - [ ] URL-Slug kurz und keyword-basiert
 - [ ] Schema.org-Markup: `BlogPosting` und `FAQPage` für FAQ-Sektionen
 
-Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://coda-ai.de/blog/chatgpt-seo-perplexity-sichtbarkeit).
+Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % aller deutschen Suchanfragen bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://coda-ai.de/blog/chatgpt-seo-perplexity-sichtbarkeit).
 
 ### Schritt 6: Veröffentlichen und distribuieren (5 Minuten)
 

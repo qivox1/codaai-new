@@ -24,7 +24,7 @@ faq:
 
 „Video ist nichts für uns – zu aufwändig, zu teuer, zu weit weg von unserem Kerngeschäft." Dieses Argument hören wir regelmäßig von mittelständischen B2B-Unternehmen. Und es war 2018 berechtigt. 2026 ist es ein strategischer Fehler.
 
-Die Produktionskosten für professionelle Videos sind durch KI-Technologie in kurzer Zeit um 70–80 % gefallen. Gleichzeitig ist Video zur dominierenden Content-Form geworden – nicht nur bei Konsumenten, sondern explizit im B2B-Einkaufsprozess. Wer das ignoriert, überlässt einen der wirksamsten Touchpoints im B2B-Kaufzyklus den Wettbewerbern.
+Die Produktionskosten für professionelle Videos sind durch KI-Technologie in kurzer Zeit um 70–80 % gefallen. Gleichzeitig ist Video zur dominierenden Content-Form geworden – nicht nur bei Konsumenten, sondern explizit im B2B-Einkaufsprozess. Laut [research42.de B2B Content Marketing Report 2025](https://www.research42.de/42-fakten-der-wichtigsten-content-marketing-studien/) setzen **63 % der B2B-Unternehmen im DACH-Raum** bereits Video-Formate für ihr Content Marketing ein – und **61 % planen, ihre Video-Investitionen 2026 weiter zu steigern**. Und die [Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) zeigt: **52 % der deutschen Marketer** nennen KI-gestützte Videoproduktion als eine der meistadoptierten neuen Marketingtechnologien. Wer das ignoriert, überlässt einen der wirksamsten Touchpoints im B2B-Kaufzyklus den Wettbewerbern.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
@@ -133,6 +133,8 @@ Ein Erklärvideo, das auf der Website liegt und nicht aktiv distribuiert wird, e
 - [ ] Vertriebseinsatz: Vertriebsmitarbeitern als Ressource für Kundengespräche bereitstellen
 
 CodaAI Co-Create erstellt für jedes Video automatisch begleitende Text-Inhalte: LinkedIn-Post, Blogartikel zur Video-Einbettung, E-Mail-Snippet und Newsletter-Abschnitt. Ein Video wird so zum Content-Paket für alle Kanäle.
+
+**Ein unterschätzter GEO-Vorteil:** Eingebettete Videos mit begleitendem, strukturiertem Textartikel erhöhen die Wahrscheinlichkeit, dass KI-Suchmaschinen wie ChatGPT und Perplexity Ihren Content als Quelle zitieren – weil Sie sowohl das visuelle Format bedienen als auch die textuelle Erklärungstiefe bieten, die für GEO (Generative Engine Optimization) entscheidend ist. Laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen **20 % aller deutschen Suchanfragen** bereits KI-Antworten – Content-Formate mit Textbegleitung werden dabei bevorzugt zitiert.
 
 ## Wie Mittelständler mit Video-Content starten – ohne riesiges Budget
 

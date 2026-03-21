@@ -28,14 +28,14 @@ Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grun
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
-    <span class="stat-value">39%</span>
-    <span class="stat-label">der 18–44-Jährigen nutzen KI-Chatbots als erste Informationsquelle – noch vor Google</span>
-    <span class="stat-source">SparkToro AI Search Behavior Study 2024</span>
+    <span class="stat-value">84%</span>
+    <span class="stat-label">der deutschen Unternehmen sehen KI als wichtigsten Marketingtrend bis 2027</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">58%</span>
-    <span class="stat-label">der Unternehmen setzen KI bereits für Content-Recherche und Themenfindung ein</span>
-    <span class="stat-source">Semrush Content Research 2024</span>
+    <span class="stat-value">20%</span>
+    <span class="stat-label">aller Suchanfragen in Deutschland zeigen bereits KI-generierte Antworten (AI Overviews)</span>
+    <span class="stat-source">SISTRIX AI Overviews Analyse Deutschland, Februar 2026</span>
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">126%</span>
@@ -43,9 +43,9 @@ Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grun
     <span class="stat-source">HubSpot State of Marketing 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">3×</span>
-    <span class="stat-label">mehr Leads bei 62 % geringeren Kosten gegenüber klassischem Outbound-Marketing</span>
-    <span class="stat-source">Demand Metric, Content Marketing Infographic</span>
+    <span class="stat-value">51%</span>
+    <span class="stat-label">der deutschen Unternehmen sagen, generative KI übernimmt bereits erhebliche Teile kreativer Marketingarbeit</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
 </div>
 
@@ -53,7 +53,7 @@ Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grun
 
 Noch 2022 bedeutete "online gefunden werden" fast ausschließlich: auf Google auf Seite 1 erscheinen. Das hat sich fundamental geändert.
 
-Laut einer Studie von SparkToro nutzen heute **39 % der 18–44-Jährigen** KI-Chatbots als erste Informationsquelle bei komplexen Fragen – noch vor Google. Für B2B-Unternehmen ist das besonders relevant: Einkäufer und Entscheider recherchieren Lösungen zunehmend bei Perplexity oder ChatGPT, bevor sie überhaupt klassische Suchergebnisse aufrufen.
+Laut der [Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) sehen **84 % der deutschen Unternehmen** KI als wichtigsten Marketingtrend – und **67 %** sind überzeugt, dass Marketing ohne KI-Einsatz künftig nicht mehr erfolgreich sein wird. Gleichzeitig zeigt die [SISTRIX-Analyse von Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/): 20 % aller deutschen Suchanfragen liefern bereits KI-generierte AI Overviews, die die Klickrate auf Position 1 von 27 % auf 11 % gesenkt haben. Für B2B-Unternehmen bedeutet das: Einkäufer und Entscheider recherchieren Lösungen zunehmend über KI-Antworten, bevor sie klassische Suchergebnisse aufrufen.
 
 Das bedeutet: Eine reine SEO-Strategie reicht nicht mehr. Sie brauchen eine Doppelstrategie aus **klassischem SEO + GEO (Generative Engine Optimization)**.
 

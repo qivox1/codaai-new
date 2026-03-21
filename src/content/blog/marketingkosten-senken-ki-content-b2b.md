@@ -38,14 +38,14 @@ Die meisten Unternehmen reagieren mit zwei Strategien: entweder mehr Budget ford
     <span class="stat-source">Demand Metric, Content Marketing Infographic</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">86%</span>
-    <span class="stat-label">der Unternehmen setzen KI-Tools zur Content-Erstellung ein oder planen es</span>
-    <span class="stat-source">Content Marketing Institute, B2B Report 2025</span>
+    <span class="stat-value">84%</span>
+    <span class="stat-label">der deutschen Unternehmen sehen KI als wichtigsten Marketingtrend – und wollen ihn nutzen</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">60%</span>
-    <span class="stat-label">mehr organisches Traffic-Wachstum für Unternehmen mit dokumentierter Content-Strategie</span>
-    <span class="stat-source">Semrush Content Research 2024</span>
+    <span class="stat-value">41%</span>
+    <span class="stat-label">der deutschen Unternehmen ab 20 MA nutzen KI bereits – vor einem Jahr waren es nur 17 %</span>
+    <span class="stat-source">Bitkom, KI in Deutschland 2026</span>
   </div>
 </div>
 
@@ -74,8 +74,8 @@ Das Problem: Zwei Artikel pro Monat sind zu wenig für messbare SEO-Ergebnisse. 
 
 In Wirklichkeit fehlt die kritische Masse. Die Lösung ist nicht mehr Budget – es ist geringere Stückkosten, die höhere Frequenz ermöglichen.
 
-> „86 % der B2B-Unternehmen setzen KI-Tools für Content-Erstellung ein oder planen es. Wer das noch nicht tut, produziert mit 3–5-fach höheren Kosten als Wettbewerber, die KI bereits integriert haben."
-> — Content Marketing Institute, B2B Report 2025
+> „41 % der deutschen Unternehmen ab 20 Beschäftigten nutzen KI bereits – vor einem Jahr waren es erst 17 %. Wer KI noch nicht in die Content-Produktion integriert hat, produziert mit deutlich höheren Kosten als die Konkurrenz."
+> — Bitkom, KI in Deutschland 2026
 
 ## Wie KI-gestützte Content-Produktion die Kostenstruktur transformiert
 

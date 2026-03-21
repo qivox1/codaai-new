@@ -43,9 +43,9 @@ KI ändert das. Was früher 2–4 Stunden Planungsarbeit bedeutete, dauert heute
     <span class="stat-source">Ahrefs Content Research 2024</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">60%</span>
-    <span class="stat-label">mehr organisches Traffic-Wachstum mit dokumentierter Content-Strategie</span>
-    <span class="stat-source">Semrush Content Research 2024</span>
+    <span class="stat-value">76%</span>
+    <span class="stat-label">der deutschen Unternehmen sagen, Marketing Automation wird künftig wichtiger oder sehr wichtig</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
 </div>
 
@@ -69,8 +69,8 @@ Wer für welchen Artikel zuständig ist, bleibt unklar. Artikel bleiben im „Ge
 
 KI löst das erste und zweite Problem direkt. Das dritte ist Prozess-Disziplin – aber ein guter Plan macht sie einfacher.
 
-> „Unternehmen, die 16 oder mehr Blogartikel pro Monat veröffentlichen, generieren 4,5-mal mehr Leads als solche, die deutlich weniger publizieren."
-> — HubSpot State of Marketing 2025
+> „76 % der deutschen Unternehmen sagen, Marketing Automation wird künftig wichtiger. Wer Content-Produktion nicht automatisiert, verliert den Anschluss – nicht nur im SEO, sondern auch in KI-Suchmaschinen wie ChatGPT und Perplexity."
+> — Bitkom, Marketing im digitalen Wandel 2026
 
 ## Der KI-Redaktionsplan: Schritt für Schritt
 

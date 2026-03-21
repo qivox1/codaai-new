@@ -45,9 +45,9 @@ Das Gefühl ist begründet. Der Marketingagentur-Markt erlebt 2025/26 den größ
     <span class="stat-source">HubSpot State of Marketing 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">58%</span>
-    <span class="stat-label">der Unternehmen nutzen KI bereits für Content-Recherche und Produktion</span>
-    <span class="stat-source">Semrush Content Research 2024</span>
+    <span class="stat-value">51%</span>
+    <span class="stat-label">der deutschen Unternehmen sagen, generative KI übernimmt bereits erhebliche Teile kreativer Marketingarbeit</span>
+    <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
 </div>
 
@@ -57,7 +57,7 @@ Klassische Marketingagenturen wurden für eine andere Welt gebaut. In dieser Wel
 
 Diese Welt existiert nicht mehr in derselben Form. KI hat die Produktionskosten für Text, Grafik und erste Entwürfe in kurzer Zeit drastisch gesenkt. Was eine Agentur noch 2021 mit 3 Personen in einer Woche produziert hat, produziert heute eine KI in einer Stunde.
 
-Agenturen, die diesen Wandel nicht vollzogen haben, stehen vor einem strukturellen Problem: ihre Kostenstruktur ist auf manuelle Produktion ausgelegt, aber der Markt erwartet zunehmend den Output einer KI-gestützten Plattform – zum Preis einer KI-gestützten Plattform.
+Agenturen, die diesen Wandel nicht vollzogen haben, stehen vor einem strukturellen Problem: ihre Kostenstruktur ist auf manuelle Produktion ausgelegt, aber der Markt erwartet zunehmend den Output einer KI-gestützten Plattform – zum Preis einer KI-gestützten Plattform. Bemerkenswert ist dabei die Erkenntnis der [McKinsey-Studie „State of Marketing 2026"](https://www.mckinsey.de/news/presse/2025-11-21-state-of-marketing-2026): Nur **6 % der europäischen Unternehmen** erzielen aktuell tatsächliche Wettbewerbsvorteile durch KI-Marketing. Das bedeutet: Wer jetzt in KI-gestützte Content-Produktion investiert, trifft auf ein Fenster, das sich in den nächsten 12–18 Monaten schließt.
 
 ### Was B2B-Mittelständler an klassischen Agenturen zunehmend kritisieren
 
@@ -136,7 +136,7 @@ Mit reduzierten Stückkosten ist höhere Frequenz möglich. Von 2 auf 6–8 Arti
 
 ## Was B2B-Führungskräfte jetzt wissen müssen
 
-Der Wandel im Marketingagentur-Markt ist kein temporärer Trend. Er ist strukturell und wird sich beschleunigen, nicht verlangsamen. [Laut Semrush Content Research 2024](https://www.semrush.com/blog/content-marketing-statistics/) nutzen bereits **58 % der Unternehmen** KI für Content-Produktion – wer das noch nicht tut, produziert mit deutlich höheren Kosten.
+Der Wandel im Marketingagentur-Markt ist kein temporärer Trend. Er ist strukturell und wird sich beschleunigen, nicht verlangsamen. [Laut Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) nutzen bereits **51 % der deutschen Unternehmen** generative KI für erhebliche Teile ihrer kreativen Marketingarbeit – wer das noch nicht tut, produziert mit deutlich höheren Kosten und verliert schrittweise den Anschluss.
 
 Die drei strategischen Fragen, die Geschäftsführer und Marketingleiter jetzt beantworten sollten:
 

@@ -43,9 +43,9 @@ Die ehrliche Antwort ist keine strategische Bankrotterklärung – sie ist eine 
     <span class="stat-source">HubSpot State of Marketing 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">81%</span>
-    <span class="stat-label">der B2B-Käufer werden durch Thought-Leadership-Content in ihrer Kaufentscheidung beeinflusst</span>
-    <span class="stat-source">Edelman Trust Barometer B2B 2024</span>
+    <span class="stat-value">265 Mio.</span>
+    <span class="stat-label">organische Klicks verlieren deutsche Websites monatlich durch KI-Antworten – Content-Marketing-Quellen werden in diesen Antworten bevorzugt zitiert</span>
+    <span class="stat-source">SISTRIX AI Overviews Analyse Deutschland, Februar 2026</span>
   </div>
 </div>
 
@@ -97,6 +97,16 @@ Das Vertrauen in organische Suchergebnisse ist im B2B-Umfeld aus einem einfachen
 Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought-Leadership-Content ihre Kaufentscheidung beeinflusst. Und 55 % sagen, er hat ihnen geholfen, Anbieter zu evaluieren, mit denen sie nie sonst Kontakt aufgenommen hätten.
 
 Content ist kein Marketingkanal. Es ist ein Vertrauenskanal. Und im B2B, wo Vertrauen die Grundlage jeder Geschäftsbeziehung ist, ist das der entscheidende Unterschied.
+
+## Der neue Faktor: KI-Suche macht Google Ads teurer – und Content wertvoller
+
+Bevor wir zu den versteckten Kosten kommen, eine Entwicklung, die 2026 die Kostenrechnung grundlegend verändert: KI-generierte Antworten in der Suche. [SISTRIX hat im Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) über 100 Millionen Suchanfragen in Deutschland ausgewertet – mit dramatischen Ergebnissen.
+
+**20 % aller deutschen Suchanfragen** zeigen jetzt KI-generierte AI Overviews. Die Klickrate auf Position 1 ist von 27 % auf 11 % gesunken. Monatlich gehen deutschen Websites **265 Millionen organische Klicks** verloren.
+
+Das verschiebt die Gleichung: Google Ads konkurriert jetzt nicht nur mit organischen Ergebnissen, sondern auch mit KI-Antworten, die den Nutzer direkt befriedigen – ohne Klick. Für bezahlte Suchanzeigen unterhalb von AI Overviews bedeutet das: weniger sichtbare Impressionen, höhere CPCs durch mehr Wettbewerb um weniger Klickfläche.
+
+Content Marketing dagegen profitiert: Gut strukturierter, fachlich tiefer B2B-Content wird von KI-Systemen als Quelle zitiert – und damit doppelt sichtbar: in klassischen Rankings **und** in KI-Antworten. Diese doppelte Sichtbarkeit ist für B2B-Keywords mit komplexer Suchintention ein fundamentaler Vorteil.
 
 ## Die versteckten Kosten von Google Ads im B2B
 

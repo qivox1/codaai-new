@@ -38,9 +38,9 @@ Die Antwort: Ihre Kaufentscheider lesen sehr wohl – wenn der Inhalt ihre konkr
     <span class="stat-source">HubSpot State of Marketing 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">17%</span>
-    <span class="stat-label">ihrer Kaufrecherche verbringen B2B-Käufer im Gespräch mit Anbietern – den Rest online</span>
-    <span class="stat-source">Gartner B2B Buying Journey Research</span>
+    <span class="stat-value">20%</span>
+    <span class="stat-label">aller deutschen Suchanfragen zeigen KI-Antworten – GEO-optimierte Blogartikel werden dabei bevorzugt als Quelle zitiert</span>
+    <span class="stat-source">SISTRIX AI Overviews Analyse Deutschland, Februar 2026</span>
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">81%</span>
@@ -95,7 +95,7 @@ Jeder B2B-Artikel sollte folgendem Muster folgen:
 5. **FAQ-Sektion:** 4–6 Fragen, die Leser bei Google und ChatGPT stellen
 6. **CTA:** Nächster logischer Schritt für den Leser
 
-Diese Struktur funktioniert für klassisches SEO und für GEO (Generative Engine Optimization) – also dafür, dass KI-Suchmaschinen Ihren Artikel als Quelle zitieren.
+Diese Struktur funktioniert für klassisches SEO und für **GEO (Generative Engine Optimization)** – also dafür, dass KI-Suchmaschinen wie ChatGPT, Perplexity und Google AI Overviews Ihren Artikel als Quelle zitieren. GEO ist 2026 kein optionales Zukunftsthema mehr: [SISTRIX hat im Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) dokumentiert, dass **20 % aller deutschen Suchanfragen** bereits KI-generierte Antworten zeigen, die organische Klickraten auf Position 1 von 27 % auf 11 % gesenkt haben. Wer in diesen KI-Antworten zitiert wird, rettet und erweitert seinen Traffic. Wer nicht zitiert wird, verliert ihn – ohne dass sich das klassische Ranking verändert hat.
 
 ## Der Blog als Content-Motor für alle anderen Kanäle
 
