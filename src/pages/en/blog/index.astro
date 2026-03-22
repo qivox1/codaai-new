@@ -33,7 +33,7 @@ const collectionSchema = JSON.stringify({
     '@type': 'BlogPosting',
     headline: p.data.title,
     description: p.data.description,
-    url: `${SITE_URL}/en/blog/${p.id}/`,
+    url: `${SITE_URL}/en/blog/${p.id.replace(/^en\//, '')}/`,
     datePublished: p.data.pubDate.toISOString(),
     author: { '@type': 'Person', name: p.data.author },
   })),
@@ -85,7 +85,7 @@ const collectionSchema = JSON.stringify({
                 tags={featured.data.tags}
                 heroImage={featured.data.heroImage}
                 heroImageAlt={featured.data.heroImageAlt}
-                slug={featured.id}
+                slug={featured.id.replace(/^en\//, '')}
                 lang={lang}
                 author={featured.data.author}
                 featured={true}
@@ -100,7 +100,7 @@ const collectionSchema = JSON.stringify({
                 tags={post.data.tags}
                 heroImage={post.data.heroImage}
                 heroImageAlt={post.data.heroImageAlt}
-                slug={post.id}
+                slug={post.id.replace(/^en\//, '')}
                 lang={lang}
                 author={post.data.author}
               />
