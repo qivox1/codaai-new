@@ -1,6 +1,6 @@
 ---
 title: "B2B Video Marketing: How Explaining Videos Generate Leads Faster Than Text"
-description: "Explaining videos increase B2B conversion rates by 42% and cost 60% less to produce with AI. Why mid-market companies are finally competing with corporate budgets."
+description: "Explainer videos increase B2B conversions by 42% and cost 60% less with AI. How mid-market companies now compete with enterprise budgets."
 pubDate: 2026-02-14
 lang: en
 author: "CodaAI Editorial Team"
