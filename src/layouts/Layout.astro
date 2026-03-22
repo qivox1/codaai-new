@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import interLatinFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface ArticleMeta {
   publishedTime?: string;
@@ -156,15 +157,47 @@ const csp = [
     <!-- Preconnect: warm up Google CDN before deferred GTM load -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-    <!-- Google Tag Manager – deferred after window.load (preserves Core Web Vitals) -->
+    <!--
+      Google Consent Mode v2 + GTM (DSGVO-konform)
+      ================================================
+      1. Consent-Defaults werden VOR GTM gesetzt (alle denied)
+      2. Wiederkehrende Besucher mit erteilter Zustimmung: sofort granted
+      3. GTM wird nur nach Zustimmung geladen (nach window.load)
+      4. Erstbesucher ohne Zustimmung: GTM wird nie geladen (CookieBanner.astro übernimmt)
+    -->
     <script>
+      // Consent Mode v2: Defaults setzen BEVOR GTM irgendwas sendet
       window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 2000,
+      });
+
+      // Wiederkehrender Besucher mit bestehender Zustimmung: sofort granted
+      if (localStorage.getItem('codaai-cookie-consent') === 'accepted') {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+        });
+      }
+
+      // GTM dataLayer Marker (immer, damit GTM korrekt initialisiert)
       window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+
+      // GTM nach window.load laden — NUR wenn Zustimmung vorhanden
       window.addEventListener('load', function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N3CZH2WT';
-        document.head.appendChild(s);
+        if (localStorage.getItem('codaai-cookie-consent') === 'accepted') {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N3CZH2WT';
+          document.head.appendChild(s);
+        }
       }, {once: true});
     </script>
     <!-- End Google Tag Manager -->
@@ -233,10 +266,8 @@ const csp = [
     ))}
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3CZH2WT"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <!-- GTM noscript entfernt: DSGVO erfordert Einwilligung vor Tracking.
+         Für JavaScript-freie Browser ist kein Consent-Gate möglich. -->
     {/*
       ââ Clickjacking Defence (JS frame-busting) âââââââââââââââââââââââââââââââââ
       X-Frame-Options and CSP frame-ancestors require HTTP headers which GitHub
@@ -265,5 +296,6 @@ const csp = [
         document.documentElement.removeAttribute('data-theme');
       }
     </script>
+    <CookieBanner lang={lang} />
   </body>
 </html>

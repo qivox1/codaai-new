@@ -1,0 +1,181 @@
+---
+/**
+ * CookieBanner.astro
+ *
+ * DSGVO-konformer Cookie-Banner mit Google Consent Mode v2 Integration.
+ *
+ * Verhalten:
+ * - Erstbesucher: Banner erscheint am unteren Bildschirmrand
+ * - "Akzeptieren": Consent in localStorage gespeichert, GTM wird sofort geladen
+ * - "Ablehnen": Consent gespeichert, GTM wird NICHT geladen (auch nicht beim Reload)
+ * - Wiederkehrende Besucher: Banner bleibt versteckt, GTM-Entscheidung aus letztem Besuch
+ *
+ * GTM wird immer erst NACH Zustimmung geladen (Consent Mode v2).
+ * Das verbessert auch den PageSpeed-Score für Erstbesucher (kein externes GA4-Script).
+ */
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const texts = {
+  de: {
+    title: 'Ihre Privatsphäre',
+    text: 'Wir nutzen Google Analytics (GA4), um zu verstehen, wie unsere Website genutzt wird. Ihre Daten werden anonymisiert verarbeitet. Sie können Ihre Einwilligung jederzeit widerrufen.',
+    accept: 'Akzeptieren',
+    decline: 'Ablehnen',
+    privacy: 'Datenschutzerklärung',
+    imprint: 'Impressum',
+    privacyUrl: '/datenschutz/',
+    imprintUrl: '/impressum/',
+    changeConsent: 'Cookie-Einstellungen ändern',
+  },
+  en: {
+    title: 'Your Privacy',
+    text: 'We use Google Analytics (GA4) to understand how our website is used. Your data is processed anonymously. You can withdraw your consent at any time.',
+    accept: 'Accept',
+    decline: 'Decline',
+    privacy: 'Privacy Policy',
+    imprint: 'Legal Notice',
+    privacyUrl: '/en/privacy-policy/',
+    imprintUrl: '/en/legal-notice/',
+    changeConsent: 'Change cookie settings',
+  },
+};
+
+const t = texts[lang];
+---
+
+{/* ── Cookie Banner ──────────────────────────────────────────────────────── */}
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-label={lang === 'de' ? 'Cookie-Einwilligung' : 'Cookie consent'}
+  style="display: none;"
+  class="fixed bottom-0 left-0 right-0 z-50 animate-fade-in"
+>
+  <div class="bg-background/95 backdrop-blur-md border-t border-border shadow-2xl">
+    <div class="mx-auto max-w-7xl px-6 py-5 lg:px-8">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+
+        {/* Text */}
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-foreground mb-1">{t.title}</p>
+          <p class="text-sm leading-relaxed text-muted-foreground">
+            {t.text}
+            {' '}
+            <a
+              href={t.privacyUrl}
+              class="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              {t.privacy}
+            </a>
+            {' · '}
+            <a
+              href={t.imprintUrl}
+              class="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              {t.imprint}
+            </a>
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <button
+            id="cookie-decline"
+            type="button"
+            class="px-4 py-2 text-sm font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t.decline}
+          </button>
+          <button
+            id="cookie-accept"
+            type="button"
+            class="px-4 py-2 text-sm font-medium bg-cta text-cta-foreground rounded-lg hover:bg-cta/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t.accept}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* ── Consent-Reset Link (für Datenschutz-Seite nutzbar via data-attr) ──── */}
+{/*
+  Einbindung auf Datenschutz-Seite:
+    <button data-cookie-reset>Cookie-Einstellungen ändern</button>
+  Das Script unten greift diesen Button automatisch auf.
+*/}
+
+<script>
+  const GTM_ID = 'GTM-N3CZH2WT';
+  const CONSENT_KEY = 'codaai-cookie-consent';
+
+  const banner = document.getElementById('cookie-banner');
+
+  /* ── GTM laden ──────────────────────────────────────────────────────── */
+  function loadGTM(): void {
+    // Nicht doppelt laden
+    if ((window as any).google_tag_manager?.[GTM_ID]) return;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+    document.head.appendChild(s);
+  }
+
+  /* ── Consent Mode v2: Zustimmung signalisieren ──────────────────────── */
+  function grantConsent(): void {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+      });
+    }
+    loadGTM();
+  }
+
+  /* ── Banner anzeigen / verstecken ───────────────────────────────────── */
+  function showBanner(): void {
+    if (banner) banner.style.display = 'block';
+  }
+  function hideBanner(): void {
+    if (banner) banner.style.display = 'none';
+  }
+
+  /* ── Initialisierung: Banner nur zeigen wenn noch keine Entscheidung ── */
+  const existingConsent = localStorage.getItem(CONSENT_KEY);
+
+  if (!existingConsent) {
+    // Kurze Verzögerung damit der initiale Paint nicht blockiert wird
+    requestAnimationFrame(() => showBanner());
+  }
+
+  /* ── Event-Listener: Akzeptieren ───────────────────────────────────── */
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    grantConsent();
+    hideBanner();
+  });
+
+  /* ── Event-Listener: Ablehnen ──────────────────────────────────────── */
+  document.getElementById('cookie-decline')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'declined');
+    hideBanner();
+  });
+
+  /* ── Consent-Reset: data-cookie-reset Buttons (z.B. auf Datenschutz-Seite) */
+  document.querySelectorAll('[data-cookie-reset]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      localStorage.removeItem(CONSENT_KEY);
+      showBanner();
+    });
+  });
+</script>
