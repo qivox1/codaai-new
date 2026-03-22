@@ -1,4 +1,4 @@
----
+ ---
 import '../styles/global.css';
 import interLatinFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -87,21 +87,18 @@ const webSiteSchema = {
   name: 'CodaAI',
   url: `${SITE_URL}/`,
   inLanguage: [lang === 'en' ? 'en' : 'de', lang === 'en' ? 'de' : 'en'],
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${SITE_URL}/?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
 };
 
-const baseSchemas = [
-  JSON.stringify(organizationSchema),
-  JSON.stringify(webSiteSchema),
-  ...jsonLd,
-];
+type SchemaObj = Record<string, unknown>;
+const stripCtx = ({ '@context': _, ...rest }: SchemaObj): SchemaObj => rest;
+const graphSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    stripCtx(organizationSchema),
+    stripCtx(webSiteSchema),
+    ...jsonLd.map((j) => stripCtx(JSON.parse(j) as SchemaObj)),
+  ],
+});
 
 const SITE_ORIGIN = 'https://www.codaai.ai';
 const BASE = SITE_ORIGIN;
@@ -261,9 +258,7 @@ const csp = [
     {/* Fonts are now self-hosted â no Google Fonts DNS lookup or external request */}
 
     {/* ââ JSON-LD Structured Data âââââââââââââââââââââââââââââââââââââââââââââ */}
-    {baseSchemas.map((schema) => (
-      <script type="application/ld+json" set:html={schema} />
-    ))}
+    <script type="application/ld+json" set:html={graphSchema} />
   </head>
   <body>
     <!-- GTM noscript entfernt: DSGVO erfordert Einwilligung vor Tracking.
