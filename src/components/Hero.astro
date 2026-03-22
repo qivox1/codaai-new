@@ -37,7 +37,7 @@ const avatars = [
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
       <div class="max-w-xl animate-fade-in">
         <h1 class="text-4xl sm:text-5xl font-semibold text-foreground leading-[1.15] tracking-tight lg:text-6xl">
-          {t(lang, "hero.headline")}<br />
+          <span class="whitespace-nowrap">{t(lang, "hero.headline")}</span><br />
           <FlipWords words={flipWordsData} client:idle />
         </h1>
 
