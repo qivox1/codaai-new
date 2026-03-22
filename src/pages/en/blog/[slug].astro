@@ -7,7 +7,7 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'en');
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  return posts.map((post) => ({ params: { slug: post.id.replace(/^en\//, '') }, props: { post } }));
 }
 
 const { post } = Astro.props;
@@ -19,7 +19,8 @@ const { title, description, pubDate, updatedDate, author, authorTitle, authorBio
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
-const articleUrl = `${SITE_URL}/en/blog/${post.id}/`;
+const enSlug = post.id.replace(/^en\//, '');
+  const articleUrl = `${SITE_URL}/en/blog/${enSlug}/`;
 const ogImage = heroImage ?? `${SITE_URL}/images/og-image.png`;
 
 const wordCount = (post.body ?? '').split(/\s+/).filter(Boolean).length;
