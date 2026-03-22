@@ -132,6 +132,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <p class="text-muted-foreground leading-relaxed">
             Our website uses cookies. These are small text files stored by your browser on your device. We use technically necessary cookies (Art. 6(1)(f) GDPR) and, with your consent (Art. 6(1)(a) GDPR), cookies for analytics and marketing purposes. You can manage your consent via our cookie consent banner.
           </p>
+          <p class="text-muted-foreground leading-relaxed mt-4">
+            You can withdraw your consent at any time with future effect:
+          </p>
+          <button
+            data-cookie-reset
+            type="button"
+            class="mt-3 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Reset cookie settings
+          </button>
         </section>
       </div>
     </div>
