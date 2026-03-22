@@ -1,0 +1,38 @@
+# CodaAI
+
+> KI Content-Plattform für SEO, Design & Video – ausgerichtet auf B2B-Mittelstand (DE/AT/CH).
+
+CodaAI produziert KI-gestützten B2B-Content (Blogartikel, SEO-Texte, Videos, Designs) für den deutschen Mittelstand. Kunden erhalten fertig produzierten, GEO- und SEO-optimierten Content ohne eigenes Marketing-Team. Alle Inhalte werden menschlich geprüft und in 24–48 Stunden geliefert.
+
+## Hauptseiten (Deutsch)
+
+- [Startseite](https://www.codaai.ai/): Übersicht – KI Content für B2B-Unternehmen im Mittelstand
+- [Co-Create – Content bestellen](https://www.codaai.ai/co-create/): Service-Seite zum direkten Anfragen von KI-Content
+- [Preise](https://www.codaai.ai/preise/): Pakete und Preisübersicht (Starter, Professional, Enterprise)
+- [Blog](https://www.codaai.ai/blog/): KI & Content Marketing Insights für den Mittelstand
+
+## Hauptseiten (Englisch)
+
+- [Homepage](https://www.codaai.ai/en/): Overview – AI Content for B2B companies
+- [Co-Create – Order Content](https://www.codaai.ai/en/co-create/): Service page for ordering AI-generated content
+- [Pricing](https://www.codaai.ai/en/pricing/): Packages and pricing overview
+- [Blog (EN)](https://www.codaai.ai/en/blog/): AI & Content Marketing insights
+
+## Blog-Artikel (Deutsch)
+
+- [KI Content Marketing Strategie](https://www.codaai.ai/blog/ki-content-marketing-strategie/): Vollständige GEO+SEO-Strategie für Sichtbarkeit in Google und KI-Suchmaschinen wie ChatGPT und Perplexity
+- [ChatGPT SEO & Perplexity Sichtbarkeit](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/): Wie B2B-Unternehmen in KI-Suchantworten sichtbar werden
+- [Content Marketing vs. Google Ads B2B](https://www.codaai.ai/blog/content-marketing-vs-google-ads-b2b/): Strategievergleich für B2B-Unternehmen
+- [Content Marketing Mittelstand KI](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/): KI-gestütztes Content Marketing für den deutschen Mittelstand
+- [KI Blog erstellen](https://www.codaai.ai/blog/ki-blog-erstellen/): Schritt-für-Schritt-Anleitung für einen KI-gestützten Unternehmensblog
+- [Redaktionsplan KI erstellen](https://www.codaai.ai/blog/redaktionsplan-ki-erstellen/): Wie KI den Redaktionsplan automatisiert und optimiert
+- [Marketingkosten senken mit KI](https://www.codaai.ai/blog/marketingkosten-senken-ki-content-b2b/): Kosteneffizienz durch KI-Content im B2B-Marketing
+- [Marketingagentur Alternative KI Mittelstand](https://www.codaai.ai/blog/marketingagentur-alternative-ki-mittelstand/): CodaAI als kosteneffiziente Alternative zur Marketingagentur
+- [B2B Blog als Vertriebskanal](https://www.codaai.ai/blog/b2b-blog-als-vertriebskanal/): Blog-Content für B2B-Leadgenerierung und Neukundengewinnung
+- [Blogartikel schreiben lassen Kosten](https://www.codaai.ai/blog/blogartikel-schreiben-lassen-kosten/): Kostenvergleich: Agentur vs. Freelancer vs. KI
+- [B2B Videomarketing Erklärvideos Mittelstand](https://www.codaai.ai/blog/b2b-videomarketing-erklaervideos-mittelstand/): Video-Content-Strategie für B2B-Unternehmen
+- [AI Content Marketing Strategy](https://www.codaai.ai/blog/ai-content-marketing-strategy/): English-language guide to AI-powered content marketing
+
+## Vollständige Inhalte
+
+- [llms-full.txt](https://www.codaai.ai/llms-full.txt): Alle Blog-Artikel als Volltext für LLM-Ingestion
