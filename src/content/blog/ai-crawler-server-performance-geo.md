@@ -1,6 +1,6 @@
 ---
-title: "AI Crawler & Server-Performance: Warum KI-Suchmaschinen deine Website ignorieren"
-description: "Warum AI Crawler wie GPTBot und ClaudeBot deine Website ignorieren – und wie TTFB, robots.txt und llms.txt über deine KI-Sichtbarkeit entscheiden."
+title: "GEO-Sichtbarkeit aufbauen: Wie Technik + CodaAI-Content KI-Suchmaschinen überzeugen"
+description: "Mit der richtigen Server-Performance und GEO-optimiertem Content von CodaAI werden AI Crawler wie GPTBot und ClaudeBot deine Website zuverlässig zitieren."
 pubDate: 2026-03-22
 lang: de
 author: "CodaAI Redaktion"
