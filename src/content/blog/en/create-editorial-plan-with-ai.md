@@ -1,6 +1,6 @@
 ---
 title: "Create an Editorial Plan with AI: Monthly Content Roadmap Template for B2B"
-description: "How to create a systematic monthly editorial plan using AI â with templates and concrete examples for B2B content."
+description: "How to create a systematic monthly editorial plan using AI – with templates and concrete examples for B2B content."
 pubDate: 2026-03-10
 updatedDate: 2026-03-01
 lang: en
@@ -11,7 +11,7 @@ category: "Content Strategy"
 tags: ["Editorial Plan", "Content Calendar", "Content Planning", "AI Content", "Blog Strategy"]
 featured: false
 heroImage: /images/blog/AI-editorial-plan..webp
-heroImageAlt: "Create an Editorial Plan with AI: Monthly Content Roadmap Template for B2B"
+heroImageAlt: "Create an Editorial Plan with AI"
 summary: "An editorial plan prevents chaos in content production. With AI, it becomes an advantage: plan once, generate systematically, adapt based on results. Here's the template every B2B company should use."
 faq:
   - q: "What should an editorial plan include?"
@@ -45,13 +45,13 @@ With AI, creating a systematic plan takes hours instead of days. The result: con
 
 **Step 1 (Week 1):** Interview sales (top 10 questions customers ask)
 
-**Step 2 (Week 1):** Keyword research (30-minute sprint identifying 12â15 topics)
+**Step 2 (Week 1):** Keyword research (30-minute sprint identifying 12–15 topics)
 
 **Step 3 (Week 2):** Competitor analysis (what top 3 competitors rank for)
 
 **Step 4 (Week 2):** Create editorial plan spreadsheet (topics, keywords, formats)
 
-**Step 5 (Week 3â4):** Generate content in batches using AI
+**Step 5 (Week 3–4):** Generate content in batches using AI
 
 **Step 6 (Ongoing):** Publish on schedule, monitor, iterate
 
@@ -91,6 +91,6 @@ With AI, creating a systematic plan takes hours instead of days. The result: con
 
 An editorial plan transforms content from random publishing to strategic positioning.
 
-With AI, planning becomes a competitive advantage â not a burden.
+With AI, planning becomes a competitive advantage – not a burden.
 
 **Use CodaAI's built-in planning tools** to create your first editorial plan in under 2 hours.
