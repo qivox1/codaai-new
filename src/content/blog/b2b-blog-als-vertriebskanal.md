@@ -1,6 +1,6 @@
 ---
 title: "Der unterschÃ¤tzte B2B-Vertriebskanal: Wie Ihr Unternehmensblog qualifizierte Leads generiert"
-description: "B2B-Blogs generieren mehr Leads als die meisten MittelstÃ¤ndler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist â mit echten Zahlen und konkretem ROI."
+description: "B2B-Blogs generieren mehr Leads als die meisten MittelstÃ¤ndler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist â mit echten Zahlen und ROI."
 pubDate: 2026-03-05
 updatedDate: 2026-03-01
 lang: de
