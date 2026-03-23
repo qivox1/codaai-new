@@ -10,8 +10,8 @@ authorBio: "The CodaAI team develops and tests AI-powered content strategies for
 category: "AI & Content Marketing"
 tags: ["Content Strategy", "AI Strategy", "Content Planning", "B2B Content", "Inbound Marketing Strategy"]
 featured: false
-heroImage: /images/blog/ki-content-marketing-strategie.webp
-heroImageAlt: "AI Content Marketing Strategy Guide"
+heroImage: /images/blog/ai-content-framework.webp
+heroImageAlt: "AI Content Marketing Strategy Framework"
 summary: "An AI content marketing strategy differs from traditional content: it starts with thematic clusters instead of individual articles, automates the research-to-publish process, and measures GEO (Generative Engine Optimization) alongside classic SEO. This framework helps you build it systematically."
 faq:
   - q: "What's the difference between traditional and AI-powered content strategy?"
