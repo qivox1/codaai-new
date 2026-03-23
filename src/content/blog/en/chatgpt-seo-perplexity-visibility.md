@@ -9,25 +9,27 @@ authorBio: "The CodaAI team develops and tests AI-powered content strategies for
 category: "SEO Strategy"
 tags: ["SEO", "AI Search", "ChatGPT", "Perplexity", "Google AI Overviews", "GEO", "Search Visibility"]
 featured: false
+heroImage: /images/blog/seo-vs-ai-search.webp
+heroImageAlt: "ChatGPT, Perplexity and AI Search: SEO Visibility for B2B in 2026"
 summary: "The search market split in 2026: 50% Google classic search, 20% AI-powered overviews (Google, Bing), 20% generative AI chats (ChatGPT, Claude, Perplexity), 10% others. B2B companies need a dual strategy: rank on Google AND appear as sources in AI systems. The good news: overlapping optimizations help both."
 faq:
   - q: "Do I still need Google rankings in 2026?"
-    a: "Absolutely. Google represents ~50% of search traffic. But: growth is stalling. AI chat usage is accelerating – ChatGPT has 200 million weekly users, Perplexity 15 million monthly. For B2B, you need visibility in both systems."
+    a: "Absolutely. Google represents ~50% of search traffic. But: growth is stalling. AI chat usage is accelerating â ChatGPT has 200 million weekly users, Perplexity 15 million monthly. For B2B, you need visibility in both systems."
   - q: "How is SEO different for AI search vs Google?"
     a: "Google ranks pages. AI systems cite sources. Both prefer: fast load times, clear structure, authoritative content. Difference: AI also values conciseness and factual density. A short, well-researched article beats a long rambling one."
   - q: "Can one article rank on Google AND be cited by ChatGPT?"
     a: "Yes. Same article, optimized for both. The overlapping factors (E-E-A-T, technical performance, clarity, structure) help both systems. Content optimized for AI tends to rank better on Google too."
   - q: "What's the cost of being visible in AI search?"
-    a: "No direct cost. You don't pay for AI citations like Google Ads. But: requires consistent content production (4–8 articles/month), technical optimization (CDN, fast TTFB, proper robots.txt) and B2B-specific content strategy. Investment level: similar to Google SEO, but execution is different."
+    a: "No direct cost. You don't pay for AI citations like Google Ads. But: requires consistent content production (4â8 articles/month), technical optimization (CDN, fast TTFB, proper robots.txt) and B2B-specific content strategy. Investment level: similar to Google SEO, but execution is different."
 ---
 
 The question every B2B marketing director is asking: "Where do we invest in search visibility in 2026?"
 
 The answer: Everywhere. But with a split strategy.
 
-Google hasn't disappeared. But it's no longer the only game. Decision-makers are asking ChatGPT and Perplexity increasingly often – and that traffic counts for visibility.
+Google hasn't disappeared. But it's no longer the only game. Decision-makers are asking ChatGPT and Perplexity increasingly often â and that traffic counts for visibility.
 
-This article shows why B2B companies need visibility in multiple search systems – and how one content strategy can serve both Google and AI chats.
+This article shows why B2B companies need visibility in multiple search systems â and how one content strategy can serve both Google and AI chats.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
@@ -54,7 +56,7 @@ This article shows why B2B companies need visibility in multiple search systems 
 
 ## The Search Landscape in 2026: No Clear Winner, But Clear Trends
 
-The death of Google has been announced many times – usually wrong. But Google's dominance has fragmented.
+The death of Google has been announced many times â usually wrong. But Google's dominance has fragmented.
 
 **Traffic distribution for B2B websites in 2026:**
 
@@ -63,7 +65,7 @@ The death of Google has been announced many times – usually wrong. But Google'
 - **AI Chat Systems** (ChatGPT, Claude, Perplexity): 20%
 - **Direct/Other**: 10%
 
-This is a moving target – in 2023, Google was 95% of search traffic. The shift is dramatic and accelerating.
+This is a moving target â in 2023, Google was 95% of search traffic. The shift is dramatic and accelerating.
 
 ### Why B2B Companies Can't Ignore AI Search
 
@@ -74,19 +76,19 @@ When a B2B decision-maker asks "What's the best ERP for mechanical engineering?"
 3. **Context**: It understands industry jargon and specificity
 4. **Convenience**: They're already in the chat interface
 
-For B2B companies, this creates a paradox: classic SEO success (ranking on Google) doesn't guarantee visibility in AI search – and vice versa.
+For B2B companies, this creates a paradox: classic SEO success (ranking on Google) doesn't guarantee visibility in AI search â and vice versa.
 
 ### The Three Systems You Need to Understand
 
 **System 1: Google Classic** (50% of traffic)
 How it works: Pages rank for keywords. Users click on links.
 Optimization: Keywords, backlinks, domain authority, Core Web Vitals.
-Timeline: 8–16 weeks to first rankings.
+Timeline: 8â16 weeks to first rankings.
 
 **System 2: Google AI Overviews** (20% of traffic)
 How it works: Google generates answer boxes powered by Gemini, citing sources.
 Optimization: Appear in Google's AI training data (which is similar to classic ranking, but with emphasis on conciseness and authority).
-Timeline: 4–12 weeks.
+Timeline: 4â12 weeks.
 
 **System 3: Generative AI Systems** (ChatGPT, Perplexity, Claude) (20% of traffic)
 How it works: Users ask questions; systems retrieve and cite current web sources in real-time.
@@ -95,7 +97,7 @@ Timeline: Days to weeks (immediate crawling, fast citation).
 
 ## What Works for All Three Systems: The Overlapping Optimization
 
-Good news: The optimizations for classic Google also help AI systems. The fundamentals haven't changed – they've just expanded.
+Good news: The optimizations for classic Google also help AI systems. The fundamentals haven't changed â they've just expanded.
 
 **Universal ranking factors (work for Google, Google AI, and generative AI):**
 
@@ -125,23 +127,23 @@ Despite overlap, three things are unique to AI systems:
 
 ### 1. Speed Matters More for AI Than Google
 
-When ChatGPT queries your website in real-time (ChatGPT-User bot), it has a 5–10 second timeout to retrieve your entire page. If your server takes 2 seconds to respond, ChatGPT has already moved on.
+When ChatGPT queries your website in real-time (ChatGPT-User bot), it has a 5â10 second timeout to retrieve your entire page. If your server takes 2 seconds to respond, ChatGPT has already moved on.
 
-For Google: Average time to first rank is 8–16 weeks. Speed matters, but it's not immediate.
+For Google: Average time to first rank is 8â16 weeks. Speed matters, but it's not immediate.
 
-For AI: Speed matters immediately. A fast website gets cited; a slow one doesn't – even if content is better.
+For AI: Speed matters immediately. A fast website gets cited; a slow one doesn't â even if content is better.
 
 **Action:** TTFB under 200ms is the hard minimum for AI visibility. Implement CDN (Cloudflare, AWS). Use caching.
 
 ### 2. AI Prefers Short, Structured Answers to Long Articles
 
-Google will rank a 3,000-word essay against a 500-word answer – whoever has better authority wins.
+Google will rank a 3,000-word essay against a 500-word answer â whoever has better authority wins.
 
-AI systems cite the shortest, clearest answer. A 500-word article with 5 concrete facts outperforms a 3,000-word rambling article on the same topic – even if both rank on Google.
+AI systems cite the shortest, clearest answer. A 500-word article with 5 concrete facts outperforms a 3,000-word rambling article on the same topic â even if both rank on Google.
 
 **Action:** Structure every article with:
 - Hook (first 100 words): clear answer to the question
-- Stat box: 3–4 key numbers
+- Stat box: 3â4 key numbers
 - Subheadings every 200 words
 - FAQ section with direct Q&A
 
@@ -160,7 +162,7 @@ EU AI Act (August 2025): AI companies must legally respect robots.txt opt-outs.
 Here's how one article serves all three systems:
 
 ### Step 1: Content Production
-Write 2,500–3,500 word article answering a specific B2B question. Include:
+Write 2,500â3,500 word article answering a specific B2B question. Include:
 - Direct answer in opening (for AI systems)
 - 4 key stats (for Google AI Overviews)
 - FAQ section (for all systems)
@@ -184,7 +186,7 @@ Write 2,500–3,500 word article answering a specific B2B question. Include:
 
 ## Case Study: B2B Software Company Increases Visibility in Both Systems
 
-A CRM software provider (€10M revenue) was strong on Google (page 1 for 60 keywords). But barely appeared in ChatGPT or Perplexity.
+A CRM software provider (â¬10M revenue) was strong on Google (page 1 for 60 keywords). But barely appeared in ChatGPT or Perplexity.
 
 **Analysis:** Their content ranked on Google but was:
 - Slow (TTFB 650ms, blocked by robots.txt)
@@ -199,21 +201,21 @@ A CRM software provider (€10M revenue) was strong on Google (page 1 for 60 key
 
 **Results after 8 weeks:**
 - Classic Google rankings: unchanged (still 60 keywords on page 1)
-- AI citations: tracked via AmICited – articles now cited 1–3 times per week
+- AI citations: tracked via AmICited â articles now cited 1â3 times per week
 - Traffic: +15% overall (mostly from AI chats)
 
 The key: they didn't have to choose between Google and AI. One optimization served both.
 
 ## The Practical Priority for Your Business
 
-Don't panic – you don't have to optimize for three systems equally. Here's the hierarchy:
+Don't panic â you don't have to optimize for three systems equally. Here's the hierarchy:
 
 **If you have <20 articles:**
 1. Focus on Google classic first (slower but larger traffic)
 2. Add technical optimization (CDN) for AI
 3. Monitor AI mentions (nice-to-have)
 
-**If you have 20–50 articles:**
+**If you have 20â50 articles:**
 1. Google + AI together (overlapping optimizations)
 2. Add FAQ sections and restructure for AI parsing
 3. Set up AmICited monitoring for AI citations
@@ -223,14 +225,14 @@ Don't panic – you don't have to optimize for three systems equally. Here's the
 2. Dedicated person for AI optimization
 3. Real-time monitoring of both systems
 
-## Conclusion: SEO is Not Dead – It's Diversified
+## Conclusion: SEO is Not Dead â It's Diversified
 
 Google isn't disappearing. But decision-makers are asking ChatGPT. Traffic is splitting. The B2B search landscape is now three markets in one.
 
-The advantage: optimizations that help one system usually help all three. You're not building three separate strategies – you're diversifying one strategy.
+The advantage: optimizations that help one system usually help all three. You're not building three separate strategies â you're diversifying one strategy.
 
 **The question isn't "Should we focus on Google or AI?" It's "How do we get visible in both?"**
 
 And the answer is: same foundation, with slight adjustments for each system.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) automatically optimizes for both Google and AI systems – one article, structured for all three. Try it free.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) automatically optimizes for both Google and AI systems â one article, structured for all three. Try it free.

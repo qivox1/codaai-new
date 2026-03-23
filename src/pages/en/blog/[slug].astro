@@ -120,7 +120,8 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             decoding="async"
             fetchpriority="high"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(223,65,251,0.35) 0%, rgba(140,20,180,0.20) 50%, rgba(0,0,0,0) 100%)" />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.35) 45%, transparent 100%)" />
           <div class="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-8 pb-10">
             <div class="max-w-3xl">
               <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-3">{category}</p>
@@ -261,7 +262,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             <div class="rounded-2xl bg-gradient-to-br from-cta/10 to-cta/5 border border-cta/20 p-6 text-center">
               <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">Free Trial</p>
               <p class="text-sm font-semibold text-foreground mb-4 leading-snug">
-                Let CodaAI write your first premium article – completely free.
+                Let CodaAI write your first premium article â completely free.
               </p>
               <a
                 href={`${base}/en/`}

@@ -31,9 +31,9 @@ const readingTime = `${readingMinutes} Min. Lesezeit`;
 const formattedPubDate = pubDate.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
 const formattedUpdatedDate = updatedDate?.toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
 
-// ── JSON-LD Schemas ────────────────────────────────────────────────────────────
+// ââ JSON-LD Schemas ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
-// 1. Article — core SEO + E-E-A-T signals
+// 1. Article â core SEO + E-E-A-T signals
 const articleSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -69,7 +69,7 @@ const articleSchema = JSON.stringify({
   }),
 });
 
-// 2. BreadcrumbList — navigation context for Google + AI
+// 2. BreadcrumbList â navigation context for Google + AI
 const breadcrumbSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -80,7 +80,7 @@ const breadcrumbSchema = JSON.stringify({
   ],
 });
 
-// 3. FAQPage — inline FAQ rich results + ideal for AI answer extraction
+// 3. FAQPage â inline FAQ rich results + ideal for AI answer extraction
 const faqSchema = faq && faq.length > 0
   ? JSON.stringify({
       '@context': 'https://schema.org',
@@ -95,7 +95,7 @@ const faqSchema = faq && faq.length > 0
 
 const schemas = [articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
 
-// Table of Contents — only H2 and H3
+// Table of Contents â only H2 and H3
 const tocHeadings = headings.filter((h) => h.depth <= 3);
 ---
 
@@ -118,7 +118,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
   <main id="main-content">
 
-    <!-- ── Hero ───────────────────────────────────────────────────────────── -->
+    <!-- ââ Hero âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <header class={`relative pb-0 overflow-hidden bg-background ${heroImage ? 'pt-24' : 'pt-32 lg:pt-40'}`}>
       {heroImage ? (
         <div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
@@ -130,7 +130,8 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             decoding="async"
             fetchpriority="high"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(223,65,251,0.35) 0%, rgba(140,20,180,0.20) 50%, rgba(0,0,0,0) 100%)" />
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.35) 45%, transparent 100%)" />
           <div class="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-8 pb-10">
             <div class="max-w-3xl">
               <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-3">{category}</p>
@@ -170,7 +171,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
       )}
     </header>
 
-    <!-- ── Author bar + Meta ──────────────────────────────────────────────── -->
+    <!-- ââ Author bar + Meta ââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-6 border-b border-border">
       <div class="flex flex-wrap items-start gap-6 justify-between">
         <div class="flex items-start gap-4">
@@ -221,7 +222,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
       </div>
     </div>
 
-    <!-- ── Main content + Sidebar ─────────────────────────────────────────── -->
+    <!-- ââ Main content + Sidebar âââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12">
       <div class="lg:grid lg:grid-cols-[1fr_300px] lg:gap-16 items-start">
 
@@ -263,8 +264,8 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
           <!-- Inline FAQ section (if defined in frontmatter) -->
           {faq && faq.length > 0 && (
-            <aside class="mt-12 rounded-2xl border border-border bg-muted/20 p-6" aria-label="Häufige Fragen">
-              <h2 class="text-xl font-semibold text-foreground mb-6">Häufige Fragen</h2>
+            <aside class="mt-12 rounded-2xl border border-border bg-muted/20 p-6" aria-label="HÃ¤ufige Fragen">
+              <h2 class="text-xl font-semibold text-foreground mb-6">HÃ¤ufige Fragen</h2>
               <dl class="space-y-6">
                 {faq.map(({ q, a }) => (
                   <div>
@@ -285,7 +286,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             <div class="rounded-2xl bg-gradient-to-br from-cta/10 to-cta/5 border border-cta/20 p-6 text-center">
               <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">Kostenlos testen</p>
               <p class="text-sm font-semibold text-foreground mb-4 leading-snug">
-                Lassen Sie CodaAI Ihren ersten Premium-Artikel erstellen – kostenlos.
+                Lassen Sie CodaAI Ihren ersten Premium-Artikel erstellen â kostenlos.
               </p>
               <ContentRequestForm
                 lang="de"
