@@ -10,7 +10,7 @@ authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategi
 category: "KI & Content Marketing"
 tags: ["KI Content Marketing", "GEO", "SEO", "ChatGPT SEO", "Perplexity SEO", "Content Strategie"]
 featured: true
-heroImage: /images/blog/ki-content-marketing-strategie.webp
+heroImage: /images/blog/scaling-content.webp
 heroImageAlt: "KI Content Marketing Strategie"
 summary: "KI-Suchmaschinen wie ChatGPT und Perplexity verändern, wie Unternehmen gefunden werden. Wer heute sichtbar bleiben will, braucht eine Strategie, die klassisches SEO und Generative Engine Optimization (GEO) kombiniert – dieser Artikel zeigt wie."
 faq:
