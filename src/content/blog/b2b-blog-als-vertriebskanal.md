@@ -10,6 +10,8 @@ authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategi
 category: "Content-Strategie"
 tags: ["B2B Blog", "Unternehmensblog", "B2B Lead Generierung", "Corporate Blog", "Content Marketing B2B"]
 featured: false
+heroImage: /images/blog/blog-as-sales-channel.webp
+heroImageAlt: "B2B Blog als Vertriebskanal"
 summary: "Unternehmen mit aktivem Blog generieren 55 % mehr Website-Besucher und 126 % mehr Leads. Im B2B-Mittelstand bleibt dieses Potenzial fast vollständig ungenutzt – weil der falsche Eindruck besteht, Blogs seien aufwändig und kaum messbar. Dieser Artikel zeigt das Gegenteil, mit realen Daten und einem konkreten Einstiegsplan."
 faq:
   - q: "Lohnt sich ein B2B-Blog für Mittelständler wirklich?"
