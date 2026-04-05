@@ -29,7 +29,7 @@
     "experts": [
       {
         "title": "Redaktionsplanung",
-        "role": "Ersetzt: Chefredakteur + Content-Stratege",
+        "role": "Unterstützt: Chefredakteur + Content-Stratege",
         "description": "Sie sagen uns Ihr Ziel – wir liefern den Plan. Unsere KI analysiert Branche, Zielgruppe und Wettbewerb und erstellt Ihren Redaktionsplan.",
         "features": [
           "90 % weniger Planungsaufwand",
@@ -40,7 +40,7 @@
       },
       {
         "title": "SEO-optimierte Blogartikel",
-        "role": "Ersetzt: Content Writer + SEO-Spezialist",
+        "role": "Unterstützt: Content Writer + SEO-Spezialist",
         "description": "Artikel bis 4.000 Wörter, die bei Google ranken und Ihre Zielgruppe überzeugen. Zugeschnitten auf jede Phase der Kaufentscheidung.",
         "features": [
           "Bis zu 4.000 Wörter Langform-Tiefe",
@@ -51,7 +51,7 @@
       },
       {
         "title": "Bilder & Infografiken",
-        "role": "Ersetzt: Grafikdesigner + Art Director",
+        "role": "Unterstützt: Grafikdesigner + Art Director",
         "description": "Einzigartige Grafiken statt Stockfotos. Passend zu Ihrer Marke, fertig für jeden Kanal.",
         "features": [
           "1.500+ €/Monat Agenturkosten gespart",
@@ -62,7 +62,7 @@
       },
       {
         "title": "GEO-Optimierung",
-        "role": "Ersetzt: KI-Spezialist",
+        "role": "Unterstützt: KI-Spezialist",
         "description": "Sichtbar in ChatGPT, Perplexity und Google AI – nicht nur in klassischen Suchergebnissen. Ihre Inhalte, dort wo morgen gesucht wird.",
         "features": [
           "Zukunftssicher für KI-Suche",
@@ -73,7 +73,7 @@
       },
       {
         "title": "Social-Media-Videos",
-        "role": "Ersetzt: Videoproduzent + Social-Media-Manager",
+        "role": "Unterstützt: Videoproduzent + Social-Media-Manager",
         "description": "Aus jedem Artikel werden automatisch Kurzvideos für TikTok, Reels und Shorts. Mehr Reichweite, null Mehraufwand.",
         "features": [
           "10x mehr Social Engagement",
@@ -84,7 +84,7 @@
       },
       {
         "title": "Content Distribution",
-        "role": "Ersetzt: Projektmanager",
+        "role": "Unterstützt: Projektmanager",
         "description": "Ihr Content wird automatisch zur besten Zeit auf allen Kanälen veröffentlicht. Sie müssen nichts mehr koordinieren.",
         "features": [
           "3x mehr Touchpoints",
@@ -124,7 +124,7 @@
   },
   "teamSection": {
     "title": "Sechs Experten. Eine Plattform. Null Aufwand.",
-    "subtitle": "Lernen Sie die sechs KI-Spezialisten kennen, die Ihre gesamte Content-Agentur ersetzen. Jeder ein Meister seines Fachs – zusammen unschlagbar.",
+    "subtitle": "Lernen Sie die sechs KI-Spezialisten kennen, die Ihr Marketing-Team mit KI unterstützen. Jeder ein Meister seines Fachs – zusammen unschlagbar.",
     "members": [
       {
         "name": "Pascal Planner",
@@ -207,7 +207,7 @@
       },
       {
         "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Bis zu 88 % gegenüber klassischen Agenturpreisen. Ein vollständiges Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 490 €* pro Monat (mit Jahreslizenz). Möglich wird das durch das Co-Creation-Modell: Menschliche Expertise dort, wo sie wirklich zählt – Strategie, Qualitätssicherung und Markenkommunikation. KI-Automatisierung dort, wo Skalierung den Unterschied macht."
+        "answer": "Bis zu 88 % gegenüber klassischen Agenturpreisen. Ein vollständiges Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 349 €* pro Monat (mit Jahreslizenz). Möglich wird das durch das Co-Creation-Modell: Menschliche Expertise dort, wo sie wirklich zählt – Strategie, Qualitätssicherung und Markenkommunikation. KI-Automatisierung dort, wo Skalierung den Unterschied macht."
       },
       {
         "question": "Wie funktioniert es? Was brauche ich zum Starten?",
@@ -243,7 +243,7 @@
     "totalHours": "/ 36,5 Stunden",
     "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
     "withCodaAI": "Mit CodaAI",
-    "codaAIPrice": "ab 490 €*",
+    "codaAIPrice": "ab 349 €*",
     "codaAIPer": "statt ~4.200 €. >85 % günstiger.",
     "freeTrial": "Kostenlos testen",
     "costBreakdown": [

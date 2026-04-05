@@ -29,7 +29,7 @@
     "experts": [
       {
         "title": "Editorial Planning",
-        "role": "Replaces: Chief Editor + Content Strategist",
+        "role": "Supports: Chief Editor + Content Strategist",
         "description": "Strategic content planning based on your business goals. Our AI editor analyzes your industry, target audience, and competitors.",
         "features": [
           "90% less planning effort",
@@ -40,7 +40,7 @@
       },
       {
         "title": "SEO Optimized Blog Articles",
-        "role": "Replaces: Content Writer + SEO Specialist",
+        "role": "Supports: Content Writer + SEO Specialist",
         "description": "Long-form articles up to 4,000 words – crafted around your buyer personas and tailored to every stage of the customer journey. Rank higher, resonate deeper.",
         "features": [
           "Up to 4,000 words of long-form depth",
@@ -51,7 +51,7 @@
       },
       {
         "title": "Images & Infographics",
-        "role": "Replaces: Graphic Designer + Art Director",
+        "role": "Supports: Graphic Designer + Art Director",
         "description": "Professional visuals that strengthen your brand. No more stock photos – unique graphics for every channel.",
         "features": [
           "€1,500+/month agency costs saved",
@@ -62,7 +62,7 @@
       },
       {
         "title": "GEO Optimization",
-        "role": "Replaces: AI Specialist",
+        "role": "Supports: AI Specialist",
         "description": "Optimized for tomorrow's AI search. Your content appears in ChatGPT, Perplexity, and Google SGE – not just in classic search results.",
         "features": [
           "Future-proof for AI Search",
@@ -73,7 +73,7 @@
       },
       {
         "title": "Social Media Videos",
-        "role": "Replaces: Video Producer + Social Media Manager",
+        "role": "Supports: Video Producer + Social Media Manager",
         "description": "Viral short videos from your articles – automatically. Maximize your reach without additional effort.",
         "features": [
           "10x more social engagement",
@@ -84,7 +84,7 @@
       },
       {
         "title": "Content Distribution",
-        "role": "Replaces: Project Manager",
+        "role": "Supports: Project Manager",
         "description": "The right content, at the right time, on the right channel. Automated multi-channel publishing with perfect timing.",
         "features": [
           "3x more touchpoints",
@@ -124,7 +124,7 @@
   },
   "teamSection": {
     "title": "Six Experts. One Platform. Zero Overhead.",
-    "subtitle": "Get to know the six AI specialists that replace your entire content agency. Each a master of their craft – together unbeatable.",
+    "subtitle": "Get to know the six AI specialists that support your marketing team with AI. Each a master of their craft – together unbeatable.",
     "members": [
       {
         "name": "Pascal Planner",
@@ -207,7 +207,7 @@
       },
       {
         "question": "How much can I actually save?",
-        "answer": "Up to 88% less than traditional agency fees. A complete content package costs €2,000+ per article at an agency – CodaAI starts from €490*/month with an annual licence. This is possible through the Co-Creation model: human expertise where it truly matters – strategy, quality control, and brand direction. AI automation where scale makes the difference."
+        "answer": "Up to 88% less than traditional agency fees. A complete content package costs €2,000+ per article at an agency – CodaAI starts from €349*/month with an annual licence. This is possible through the Co-Creation model: human expertise where it truly matters – strategy, quality control, and brand direction. AI automation where scale makes the difference."
       },
       {
         "question": "How does it work? What do I need to get started?",
@@ -243,7 +243,7 @@
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from 490 €*",
+    "codaAIPrice": "from 349 €*",
     "codaAIPer": "instead of ~4.200 €. >85% cheaper.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
