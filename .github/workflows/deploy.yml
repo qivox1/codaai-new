@@ -56,6 +56,9 @@ jobs:
           supabase functions deploy send-content-request \
             --project-ref fcauvtwqkluvsbicaojo \
             --no-verify-jwt
+          supabase functions deploy create-checkout \
+            --project-ref fcauvtwqkluvsbicaojo \
+            --no-verify-jwt
 
   deploy:
     needs: build
