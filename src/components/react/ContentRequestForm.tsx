@@ -210,6 +210,16 @@ const blockedEmailDomains = [
 
 const SUPABASE_FN = 'https://fcauvtwqkluvsbicaojo.supabase.co/functions/v1/send-content-request';
 
+// ─── GA4 / GTM funnel tracking helper ─────────────────────────────────────
+// Pushes a custom event onto window.dataLayer for GTM to pick up.
+// Silent no-op if dataLayer is unavailable (e.g. consent denied).
+const pushDL = (event: string, params: Record<string, unknown> = {}) => {
+  try {
+    const dl = (window as any).dataLayer = (window as any).dataLayer || [];
+    dl.push({ event, ...params });
+  } catch (_) { /* swallow */ }
+};
+
 // ─── Logo SVG ────────────────────────────────────────────────────────────────
 function Logo() {
   return (
@@ -294,15 +304,16 @@ export default function ContentRequestForm({
 
   const sliderMax = partnerCodeValid ? 4000 : 2000;
 
-  // Lock body scroll when open
+  // Lock body scroll when open + GA4 funnel: lead_form_open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      pushDL('lead_form_open', { lang });
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [isOpen]);
+  }, [isOpen, lang]);
 
   const playUnlockSound = useCallback(() => {
     try {
@@ -498,7 +509,13 @@ export default function ContentRequestForm({
       setIsCheckingDomain(false);
     }
 
-    setCurrentStep(prev => Math.min(prev + 1, steps.length - 1));
+    // GA4 funnel: fire lead_form_step_2 / lead_form_step_3 on successful advance.
+    const nextIndex = Math.min(currentStep + 1, steps.length - 1);
+    if (nextIndex !== currentStep) {
+      if (nextIndex === 1)      pushDL('lead_form_step_2', { lang });
+      else if (nextIndex === 2) pushDL('lead_form_step_3', { lang });
+    }
+    setCurrentStep(nextIndex);
   };
 
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 0));

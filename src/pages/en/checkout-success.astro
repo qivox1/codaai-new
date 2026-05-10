@@ -87,11 +87,33 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <Footer lang={lang} />
 
   {/* GA4 Conversion: Stripe checkout completed → Customer */}
+  {/* Reads ?session_id, ?amount, ?currency from Stripe success_url; */}
+  {/* dedupes via sessionStorage so reloads don't double-count. */}
   <script is:inline>
     (function () {
       try {
+        var params    = new URLSearchParams(window.location.search);
+        var sessionId = params.get('session_id') || '';
+        var amount    = params.get('amount') || '';
+        var currency  = (params.get('currency') || 'EUR').toUpperCase();
+
+        // Idempotency: never fire twice for the same Stripe session_id
+        var firedKey = 'ga4_new_customer_fired_' + sessionId;
+        if (sessionId && sessionStorage.getItem(firedKey)) return;
+
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'new_customer' });
+        var payload = { event: 'new_customer' };
+        if (sessionId) payload.transaction_id = sessionId;
+        if (amount) {
+          var amountNum = parseFloat(amount);
+          if (!isNaN(amountNum)) {
+            payload.value = amountNum;
+            payload.currency = currency;
+          }
+        }
+        window.dataLayer.push(payload);
+
+        if (sessionId) sessionStorage.setItem(firedKey, '1');
       } catch (_) {}
     })();
   </script>

@@ -115,7 +115,10 @@ serve(async (req) => {
           includeTranslations: String(pkg.includeTranslations),
         },
       },
-      success_url: `${SITE_URL}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      // Pass the order value to /checkout-success so GA4's `new_customer` event
+      // can include `value` and `currency` for revenue reporting. session_id is
+      // also used client-side as the GA4 transaction_id (idempotency).
+      success_url: `${SITE_URL}/checkout-success?session_id={CHECKOUT_SESSION_ID}&amount=${monthlyTotal}&currency=EUR`,
       cancel_url:  `${SITE_URL}/preise?cancelled=1`,
       payment_method_types: ['card', 'sepa_debit'],
       customer_update: { address: 'auto' },

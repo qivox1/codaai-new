@@ -1,5 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader2, Check } from 'lucide-react';
+
+// ─── GA4 / GTM funnel tracking helper ─────────────────────────────────────
+// Pushes a custom event onto window.dataLayer for GTM to pick up.
+// Silent no-op if dataLayer is unavailable (e.g. consent denied).
+const pushDL = (event: string, params: Record<string, unknown> = {}) => {
+  try {
+    const dl = (window as any).dataLayer = (window as any).dataLayer || [];
+    dl.push({ event, ...params });
+  } catch (_) { /* swallow */ }
+};
 
 // ─── Pricing tiers ──────────────────────────────────────────────────────────
 // Annual rates — the base prices (what CodaAI charges on an annual contract)
@@ -129,6 +139,14 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
 
+  // GA4 funnel: fire pricing_view exactly once when the calculator mounts.
+  // We don't include the (mutating) package config here — pricing_view should
+  // mark the entry into the funnel, not every config change.
+  useEffect(() => {
+    pushDL('pricing_view', { lang });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const isAnnual = billingCycle === 'annual';
 
   // ── Dynamic pricing based on cycle ──
@@ -183,6 +201,18 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
     }
     if (!valid) return;
 
+    // GA4 funnel: user clicked "Jetzt starten" / "Get started" with valid input.
+    pushDL('checkout_started', {
+      content_pieces: contentPieces,
+      billing_cycle: billingCycle,
+      include_social_videos: includeSocialVideos,
+      include_translations: includeTranslations,
+      translation_languages: translationLanguages,
+      value: monthlyTotal,
+      currency: 'EUR',
+      lang,
+    });
+
     setIsLoading(true);
     try {
       const packageConfig = {
@@ -219,6 +249,14 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? 'Fehler');
       setOtpVerified(true);
+
+      // GA4 funnel: phone OTP verified, user about to confirm email magic link.
+      pushDL('otp_verified', {
+        value: monthlyTotal,
+        currency: 'EUR',
+        lang,
+      });
+
       setStep('waiting');
     } catch (err: any) {
       setOtpError(err.message);
@@ -727,6 +765,11 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
                     <a
                       href={magicUrl}
+                      onClick={() => pushDL('magic_link_clicked', {
+                        value: monthlyTotal,
+                        currency: 'EUR',
+                        lang,
+                      })}
                       className="btn-cta h-12 px-8 text-base w-full flex items-center justify-center gap-2 no-underline"
                       style={{ borderRadius: '9999px' }}
                     >
