@@ -41,9 +41,10 @@ const collectionSchema = JSON.stringify({
 ---
 
 <Layout
+  heroImage="/images/blog/AI-crawler-server-performance.webp"
   lang={lang}
   title="Blog – AI Content Marketing, SEO & GEO | CodaAI"
-  description="Expert knowledge on AI content, SEO and Generative Engine Optimization. Practical strategies for better visibility in Google and AI search engines like ChatGPT and Perplexity."
+  description="Expert knowledge on AI content, SEO and GEO. Practical strategies for better visibility in Google and AI search engines like ChatGPT and Perplexity."
   jsonLd={[collectionSchema]}
 >
   <Navbar lang={lang} />
@@ -104,7 +105,7 @@ const collectionSchema = JSON.stringify({
                 slug={post.id.replace(/^en\//, '')}
                 lang={lang}
                 author={post.data.author}
-              loading={idx === 0 ? "eager" : "lazy"}
+              loading={idx < 2 ? "eager" : "lazy"}
               />
             ))}
           </div>

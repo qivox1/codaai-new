@@ -175,4 +175,4 @@ But the numbers speak clearly: whoever publishes regularly wins more visibility,
 
 ## Sources
 
-Research from [Semrush State of Content Marketing](https://www.semrush.com/state-of-content-marketing/) confirms that content quality — not volume — is the primary ranking factor for organic search success. [Content Marketing Institute's Annual Report](https://contentmarketinginstitute.com/b2b-content-marketing/) shows that outsourcing content creation is a common strategy among top-performing B2B marketers.
+Research from [Semrush State of Content Marketing](https://www.semrush.com/blog/content-marketing-statistics/) confirms that content quality — not volume — is the primary ranking factor for organic search success. [Content Marketing Institute's Annual Report](https://contentmarketinginstitute.com/b2b-content-marketing/) shows that outsourcing content creation is a common strategy among top-performing B2B marketers.

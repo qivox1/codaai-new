@@ -90,6 +90,7 @@ const aboutPageSchema = {
 ---
 
 <Layout
+  heroImage={`${SITE_URL}/images/team/anja-miebach.webp`}
   lang="en"
   title="Mission & CoCreate Principle – CodaAI"
   description="20+ years of marketing expertise meets AI efficiency. Learn about the CodaAI CoCreate principle and founder Anja Miebach."
@@ -152,7 +153,9 @@ const aboutPageSchema = {
               <div class="relative rounded-2xl overflow-hidden border border-cta/20 shadow-2xl shadow-cta/20 w-full max-w-sm">
                 <img
                   src={`${base}/images/team/anja-miebach.webp`}
-                  alt="Anja Miebach – Founder and Owner of CodaAI"
+                  srcset={`${base}/images/team/anja-miebach.webp 480w, ${base}/images/team/anja-miebach.webp 240w`}
+                  sizes="(max-width: 640px) 240px, 480px"
+                  alt="Anja Miebach – Gründerin & Inhaberin von CodaAI"
                   width="480"
                   height="480"
                   loading="eager"

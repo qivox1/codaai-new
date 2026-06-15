@@ -135,4 +135,4 @@ The good news: GEO and SEO complement each other. Every well-structured, factual
 
 ## Sources
 
-The [Demand Gen Report](https://www.demandgenreport.com/) found that 47% of B2B buyers consume 3–5 pieces of content before speaking with a salesperson. According to [Gartner](https://www.gartner.com/en/marketing/insights/articles/content-marketing), buyers spend 27% of their time doing independent online research.
+The [Demand Gen Report](https://www.demandgenreport.com/) found that 47% of B2B buyers consume 3–5 pieces of content before speaking with a salesperson. According to [Gartner](https://www.gartner.com/en/marketing/topics/ai-in-marketing), buyers spend 27% of their time doing independent online research.

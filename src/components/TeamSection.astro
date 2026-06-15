@@ -62,6 +62,7 @@ const images = [
           accentColor={accentColors[index]}
           iconName={iconNames[index]}
           image={images[index]}
+          loading={index < 3 ? "eager" : "lazy"}
           lang={lang}
         />
       ))}

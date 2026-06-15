@@ -37,6 +37,7 @@ interface CardFlipProps {
   features: string[];
   accentColor: string;
   image: string;
+  loading?: "lazy" | "eager";
   iconName?: string;
   lang?: 'de' | 'en';
 }
@@ -48,6 +49,7 @@ export default function CardFlip({
   features,
   accentColor,
   image,
+  loading = "eager",
   iconName = 'calendar-days',
   lang = 'de',
 }: CardFlipProps) {
@@ -87,7 +89,8 @@ export default function CardFlip({
             alt={`${name} – ${role}`}
             width={400}
             height={420}
-                        decoding="async"
+                        loading={loading}
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
           />
           {/* Strong dark gradient for legibility */}

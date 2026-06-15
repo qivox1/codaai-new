@@ -91,7 +91,7 @@ Der entscheidende Punkt: Für LinkedIn-Clips müssen Sie kein Produktionsstudio 
 
 Das stärkste Vertrauenssignal im B2B-Kaufprozess. Wenn ein echter Kunde erklärt, welches Problem er hatte, wie er Ihre Lösung gefunden hat und was sich konkret verbessert hat – das schlägt jeden Werbetext.
 
-Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2024/trust-barometer) vertrauen **65 % der B2B-Käufer Peer-Empfehlungen** mehr als jeder anderen Informationsquelle. Ein Fallstudien-Video ist digitalisierte Peer-Empfehlung.
+Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2025/edelman-trust-barometer) vertrauen **65 % der B2B-Käufer Peer-Empfehlungen** mehr als jeder anderen Informationsquelle. Ein Fallstudien-Video ist digitalisierte Peer-Empfehlung.
 
 Die Struktur ist simpel: Interview mit dem Kunden (15–20 Minuten filmen, auf 3–5 Minuten schneiden), ergänzt durch Zahlen und Ergebnisse als Einblendungen. Kein Skript, kein Teleprompter – echte Antworten auf echte Fragen.
 

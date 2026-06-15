@@ -96,7 +96,7 @@ Der Content-Traffic im Monat 24 kostet Sie nichts mehr zusätzlich. Der Google-A
 
 Das Vertrauen in organische Suchergebnisse ist im B2B-Umfeld aus einem einfachen Grund höher als in Werbeanzeigen: Entscheider wissen, dass eine Anzeige bezahlt ist. Ein Artikel, der auf Platz 1 bei Google steht, ist – in ihrer Wahrnehmung – dort, weil er relevant und glaubwürdig ist.
 
-Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2024/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought-Leadership-Content ihre Kaufentscheidung beeinflusst. Und 55 % sagen, er hat ihnen geholfen, Anbieter zu evaluieren, mit denen sie nie sonst Kontakt aufgenommen hätten.
+Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2025/edelman-trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought-Leadership-Content ihre Kaufentscheidung beeinflusst. Und 55 % sagen, er hat ihnen geholfen, Anbieter zu evaluieren, mit denen sie nie sonst Kontakt aufgenommen hätten.
 
 Content ist kein Marketingkanal. Es ist ein Vertrauenskanal. Und im B2B, wo Vertrauen die Grundlage jeder Geschäftsbeziehung ist, ist das der entscheidende Unterschied.
 
