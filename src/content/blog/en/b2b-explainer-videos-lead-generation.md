@@ -230,3 +230,8 @@ These aren't trend reports.
 ## Sources
 
 [Wyzowl Video Marketing Statistics](https://www.wyzowl.com/video-marketing-statistics/) show that 87% of video marketers report a positive ROI and 96% of people watch explainer videos to learn more about a product. [Forrester Research](https://www.forrester.com/research/b2b-video-marketing/) estimates that video content achieves significantly higher engagement rates than text-only content in B2B contexts.
+
+## Further Reading
+
+- [B2B Blog as Sales Channel](https://www.codaai.ai/en/blog/b2b-blog-as-sales-channel/)
+- [Content Marketing vs Google Ads for B2B](https://www.codaai.ai/en/blog/content-marketing-vs-google-ads-b2b/)

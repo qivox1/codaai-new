@@ -1,6 +1,6 @@
 ---
 title: "Content Marketing vs Google Ads: B2B"
-description: "Content marketing vs Google Ads for B2B: cost comparison, time to first lead, and when each strategy makes sense."
+description: "Content marketing vs Google Ads for B2B companies: full cost comparison, time-to-first-lead analysis, and when each strategy makes sense for growth."
 pubDate: 2026-02-18
 updatedDate: 2026-03-01
 lang: en
@@ -79,4 +79,4 @@ For most B2B companies: start with Google Ads for pipeline while building conten
 
 ## Sources
 
-Research by [Demand Metric](https://www.demandmetric.com/content/content-marketing-infographic) shows content marketing costs 62% less than traditional outbound marketing and generates approximately 3× as many leads. The [Search Engine Journal Industry Report](https://www.searchenginejournal.com/seo-industry-report/) confirms organic search consistently drives the highest share of website traffic across B2B industries.
+Research by [Demand Metric](https://www.demandmetric.com/content/content-marketing-infographic) shows content marketing costs 62% less than traditional outbound marketing and generates approximately 3× as many leads. The [Search Engine Journal Industry Report](https://www.searchenginejournal.com/seo-trends/) confirms organic search consistently drives the highest share of website traffic across B2B industries.

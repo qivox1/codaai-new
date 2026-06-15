@@ -583,7 +583,6 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       key={tier.range}
                       type="button"
                       onClick={() => setContentPieces(tier.value)}
-                      aria-label={lang === 'de' ? `${tier.range} Stk., ${formatCurrency(tier.price)} pro Artikel` : `${tier.range} pcs., ${formatCurrency(tier.price)} per article`}
                       aria-pressed={tier.active}
                       className={`py-2 px-3 rounded-lg transition-all duration-200 cursor-pointer ${
                         tier.active

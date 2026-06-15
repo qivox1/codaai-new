@@ -234,3 +234,8 @@ Mit KI ist der erste Schritt einfacher als je zuvor. In 10–15 Minuten haben Si
 > — Content Marketing Institute, B2B Research 2025
 
 **Möchten Sie Ihren Redaktionsplan automatisch generieren lassen?** CodaAI analysiert Ihre Website und erstellt in wenigen Minuten einen vollständigen, keyword-basierten Redaktionsplan – inklusive erster Artikel-Briefings. Kostenlos testen, kein Setup nötig.
+
+## Weiterführende Artikel
+
+- [Blogartikel schreiben lassen: Kosten](https://www.codaai.ai/blog/blogartikel-schreiben-lassen-kosten/)
+- [Content Marketing Strategie für B2B](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/)

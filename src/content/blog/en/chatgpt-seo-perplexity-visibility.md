@@ -240,4 +240,4 @@ And the answer is: same foundation, with slight adjustments for each system.
 
 ## Sources
 
-[SparkToro research on zero-click searches](https://sparktoro.com/blog/) shows AI-powered answer engines are reshaping how information surfaces online. According to [BrightEdge Organic Research](https://www.brightedge.com/research/reports), nearly 60% of searches now end without a click — reinforcing the importance of being cited in AI-generated answers.
+[SparkToro research on zero-click searches](https://sparktoro.com/blog/) shows AI-powered answer engines are reshaping how information surfaces online. According to [BrightEdge Organic Research](https://resources.brightedge.com/research-report/2024-future-of-digital/), nearly 60% of searches now end without a click — reinforcing the importance of being cited in AI-generated answers.
