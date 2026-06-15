@@ -32,6 +32,26 @@ const BLOG_LASTMOD = {
   'en/blog/ai-content-marketing-for-smb':          '2026-03-01',
 };
 
+
+/** Rehype plugin: add aria-label to GFM task-list checkboxes */
+function rehypeTaskListAriaLabel() {
+  return (tree) => {
+    const visit = (node) => {
+      if (
+        node.type === 'element' &&
+        node.tagName === 'input' &&
+        node.properties?.type === 'checkbox'
+      ) {
+        if (!node.properties['aria-label']) {
+          node.properties['aria-label'] = node.properties.checked ? 'Erledigt' : 'Aufgabe';
+        }
+      }
+      if (node.children) node.children.forEach(visit);
+    };
+    visit(tree);
+  };
+}
+
 const SITE_BASE = 'https://www.codaai.ai/';
 
 export default defineConfig({
@@ -59,4 +79,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   output: 'static',
+  markdown: {
+    rehypePlugins: [rehypeTaskListAriaLabel],
+  },
 });

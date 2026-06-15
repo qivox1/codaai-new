@@ -78,3 +78,8 @@ Agencies still matter for strategy. For execution, AI is game-changing.
 The future: smaller agencies focused on thinking, AI platforms handling doing.
 
 **Try CodaAI** – replace your content agency in 30 days.
+
+
+## Sources
+
+According to [McKinsey's State of Marketing](https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-state-of-marketing), companies that adopt AI in marketing report 10–20% efficiency gains in content production. [Forrester's Marketing AI Predictions](https://www.forrester.com/) project that AI will fundamentally reshape marketing service delivery over the next three years.

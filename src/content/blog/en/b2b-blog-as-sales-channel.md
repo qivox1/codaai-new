@@ -59,7 +59,7 @@ A B2B blog that systematically answers these questions becomes a silent salesper
 
 ### The Critical Difference: Building Trust Before Contact
 
-According to the [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/trust-barometer), **81% of B2B buyers** say that thought leadership content influences their purchasing decisions – 55% said it helped them evaluate suppliers they would never have otherwise contacted.
+According to the [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2024/trust-barometer), **81% of B2B buyers** say that thought leadership content influences their purchasing decisions – 55% said it helped them evaluate suppliers they would never have otherwise contacted.
 
 This is the core value of the blog: it builds trust before any sales conversation takes place. A procurement manager who has read 4 of your articles enters the first conversation with a completely different mindset than someone who knows your company only from an advertisement.
 

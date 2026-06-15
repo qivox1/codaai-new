@@ -61,7 +61,7 @@ Ein B2B-Blog, der diese Fragen systematisch beantwortet, wird zu einem stillen V
 
 ### Der entscheidende Unterschied: Vertrauen vor Kontakt
 
-Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought-Leadership-Content ihre Kaufentscheidung beeinflusst – 55 % sagten, er habe ihnen geholfen, Anbieter zu evaluieren, mit denen sie sonst nie Kontakt aufgenommen hätten.
+Laut [Edelman Trust Barometer B2B 2024](https://www.edelman.com/trust/2024/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought-Leadership-Content ihre Kaufentscheidung beeinflusst – 55 % sagten, er habe ihnen geholfen, Anbieter zu evaluieren, mit denen sie sonst nie Kontakt aufgenommen hätten.
 
 Das ist der Kernwert des Blogs: Er baut Vertrauen auf, bevor ein Vertriebsgespräch stattfindet. Ein Einkaufsleiter, der 4 Ihrer Artikel gelesen hat, tritt in das erste Gespräch mit einer völlig anderen Ausgangshaltung als jemand, der Ihre Firma durch eine Anzeige kennt.
 

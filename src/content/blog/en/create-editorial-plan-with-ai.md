@@ -94,3 +94,8 @@ An editorial plan transforms content from random publishing to strategic positio
 With AI, planning becomes a competitive advantage – not a burden.
 
 **Use CodaAI's built-in planning tools** to create your first editorial plan in under 2 hours.
+
+
+## Sources
+
+[Content Marketing Institute](https://contentmarketinginstitute.com/b2b-content-marketing/) data shows 65% of top-performing content marketers have a documented editorial strategy. [CoSchedule Marketing Statistics](https://coschedule.com/marketing-statistics) found that marketers who plan content proactively are 331% more likely to report success.

@@ -17,9 +17,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
-      <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Preise' }]} class="mb-0" />
+      <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Preise' }]} class="mb-0" />
     </div>
     <PricingCalculator lang={lang} base={base} client:load />
+
+  <!-- FAQ Preise -->
+  <section aria-label="Häufige Fragen zu den Preisen" class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Häufige Fragen zu den Preisen</h2>
+    <dl class="space-y-6">
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Wie funktioniert die Abrechnung?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Sie zahlen monatlich oder jährlich im Voraus. Bei Jahreszahlung sparen Sie 20 % gegenüber der quartalsweisen Abrechnung. Es gibt keine versteckten Kosten – der Preis pro Artikel ist fest und vorab bekannt.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Kann ich das Paket monatlich ändern?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Ja, die Artikelanzahl lässt sich zu jedem Verlängerungszeitpunkt anpassen. Upgrades sind sofort möglich, Downgrades gelten ab dem nächsten Abrechnungszeitraum.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Was ist im Preis enthalten?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Jeder Artikel beinhaltet Recherche, SEO-Optimierung, bis zu 4.000 Wörter, 3 passende Bilder bzw. 1 Infografik sowie Veröffentlichung auf Ihrer Website. Optional sind Übersetzungen und Social-Media-Videos zubuchbar.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Gibt es eine Mindestlaufzeit?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Bei der quartalsweisen Abrechnung beträgt die Mindestlaufzeit 3 Monate. Bei Jahreszahlung 12 Monate. Es gibt kein automatisches Rollover – Sie entscheiden aktiv über die Verlängerung.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Wie schnell werden die Artikel geliefert?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">In der Regel erhalten Sie Ihren ersten Artikel innerhalb von 48 Stunden nach Auftragsbestätigung. Laufende Artikel werden nach einem vorab abgestimmten Redaktionskalender geliefert.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Gibt es eine kostenlose Testphase?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Ja – fordern Sie einen kostenlosen Premium-Artikel an, ohne Kreditkarte oder Verpflichtung. So können Sie Qualität und Stil unserer Texte risikofrei testen, bevor Sie ein Paket buchen.</dd>
+      </div>
+    </dl>
+  </section>
   </main>
   <Footer lang={lang} />
 </Layout>

@@ -100,13 +100,17 @@ Für jedes Themenfeld brauchen Sie einen Keyword-Cluster – eine Gruppe verwand
 
 Das Ergebnis gibt Ihnen die Grundlage für 3–6 Monate Content-Planung pro Themenfeld. Ein Cluster zu „Content Marketing" könnte so aussehen:
 
-| Keyword | Typ | Suchintention | Chancen neue Domain |
-|---|---|---|---|
-| Content Marketing | Head | Informieren | Gering |
-| Content Marketing Strategie | Mid-Tail | Lernen/Planen | Mittel |
-| Content Marketing Mittelstand | Long-Tail | Spezifische Lösung | Hoch |
-| Content Marketing KI | Long-Tail | Tool-Recherche | Hoch |
-| Content Agentur Kosten | Mid-Tail | Vergleichen | Mittel |
+<table>
+<caption>Beispiel-Keyword-Cluster: Übersicht nach Typ, Suchintention und Ranking-Chancen für neue Domains</caption>
+<thead><tr><th>Keyword</th><th>Typ</th><th>Suchintention</th><th>Chancen neue Domain</th></tr></thead>
+<tbody>
+<tr><td>Content Marketing</td><td>Head</td><td>Informieren</td><td>Gering</td></tr>
+<tr><td>Content Marketing Strategie</td><td>Mid-Tail</td><td>Lernen/Planen</td><td>Mittel</td></tr>
+<tr><td>Content Marketing Mittelstand</td><td>Long-Tail</td><td>Spezifische Lösung</td><td>Hoch</td></tr>
+<tr><td>Content Marketing KI</td><td>Long-Tail</td><td>Tool-Recherche</td><td>Hoch</td></tr>
+<tr><td>Content Agentur Kosten</td><td>Mid-Tail</td><td>Vergleichen</td><td>Mittel</td></tr>
+</tbody>
+</table>
 
 **Wichtig:** Neue Domains sollten mit Long-Tail-Keywords starten. Sie haben weniger Suchvolumen, aber deutlich weniger Wettbewerb – und erste Rankings kommen schneller, was Autorität für breitere Keywords aufbaut.
 
@@ -114,13 +118,17 @@ Das Ergebnis gibt Ihnen die Grundlage für 3–6 Monate Content-Planung pro Them
 
 Mit dem Keyword-Cluster weisen Sie nun jedem Artikel ein Primär-Keyword und ein Format zu. Das Format richtet sich nach der Suchintention:
 
-| Keyword | Format | Suchintention | Kaufphase |
-|---|---|---|---|
-| Content Marketing Strategie | Pillar Article | Informieren | Awareness |
-| Content Agentur Kosten | Vergleichsartikel | Vergleichen | Consideration |
-| CodaAI Erfahrungen | Case Study | Entscheiden | Decision |
-| Redaktionsplan Vorlage | Tutorial + Download | Werkzeug | Awareness |
-| SEO Text erstellen KI | How-To-Guide | Informieren | Consideration |
+<table>
+<caption>Keyword-Format-Zuordnung nach Suchintention und Kaufphase</caption>
+<thead><tr><th>Keyword</th><th>Format</th><th>Suchintention</th><th>Kaufphase</th></tr></thead>
+<tbody>
+<tr><td>Content Marketing Strategie</td><td>Pillar Article</td><td>Informieren</td><td>Awareness</td></tr>
+<tr><td>Content Agentur Kosten</td><td>Vergleichsartikel</td><td>Vergleichen</td><td>Consideration</td></tr>
+<tr><td>CodaAI Erfahrungen</td><td>Case Study</td><td>Entscheiden</td><td>Decision</td></tr>
+<tr><td>Redaktionsplan Vorlage</td><td>Tutorial + Download</td><td>Werkzeug</td><td>Awareness</td></tr>
+<tr><td>SEO Text erstellen KI</td><td>How-To-Guide</td><td>Informieren</td><td>Consideration</td></tr>
+</tbody>
+</table>
 
 **Faustregel für die Balance (basierend auf HubSpot-Empfehlungen):**
 - 50 % Awareness-Content (breite Keywords, edukativ, kein direkter Produktbezug)
@@ -141,14 +149,18 @@ Verteilen Sie die Artikel auf 12 Wochen. Dabei gelten folgende Grundregeln:
 
 **Beispiel-Kalender für 3 Monate (2 Artikel/Monat):**
 
-| Woche | Thema | Keyword | Format | Status |
-|---|---|---|---|---|
-| 1 | Content Marketing Basics | Content Marketing Strategie | Pillar | Geplant |
-| 3 | KI-Tools Vergleich | KI Tools Content | Vergleich | Geplant |
-| 5 | Blogartikel Kosten | Blogartikel schreiben lassen | Ratgeber | Geplant |
-| 7 | Redaktionsplan Template | Redaktionsplan Vorlage | Tutorial | Geplant |
-| 9 | SEO für Einsteiger | SEO Grundlagen | How-To | Geplant |
-| 11 | KI-Content Qualität | KI Content Qualität | Analyse | Geplant |
+<table>
+<caption>Beispiel-Redaktionskalender für 3 Monate (2 Artikel pro Monat)</caption>
+<thead><tr><th>Woche</th><th>Thema</th><th>Keyword</th><th>Format</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Content Marketing Basics</td><td>Content Marketing Strategie</td><td>Pillar</td><td>Geplant</td></tr>
+<tr><td>3</td><td>KI-Tools Vergleich</td><td>KI Tools Content</td><td>Vergleich</td><td>Geplant</td></tr>
+<tr><td>5</td><td>Blogartikel Kosten</td><td>Blogartikel schreiben lassen</td><td>Ratgeber</td><td>Geplant</td></tr>
+<tr><td>7</td><td>Redaktionsplan Template</td><td>Redaktionsplan Vorlage</td><td>Tutorial</td><td>Geplant</td></tr>
+<tr><td>9</td><td>SEO für Einsteiger</td><td>SEO Grundlagen</td><td>How-To</td><td>Geplant</td></tr>
+<tr><td>11</td><td>KI-Content Qualität</td><td>KI Content Qualität</td><td>Analyse</td><td>Geplant</td></tr>
+</tbody>
+</table>
 
 ### Schritt 5: Plan in ein lebendiges Dokument überführen
 
@@ -166,13 +178,17 @@ KI-Plattformen wie CodaAI automatisieren diesen Review-Prozess: Das System analy
 
 Sie brauchen kein komplexes Tool. Diese fünf Spalten reichen für den Start:
 
-| Spalte | Inhalt | Beispiel |
-|---|---|---|
-| Titel | Arbeitstitel des Artikels | „KI Content Tools Vergleich 2025" |
-| Keyword | Primäres Ziel-Keyword | „KI Content Tools" |
-| Datum | Geplantes Veröffentlichungsdatum | 15.05.2025 |
-| Status | Geplant / In Arbeit / Review / Live | In Arbeit |
-| Verantwortlich | Name oder Team | Marketing |
+<table>
+<caption>Mindest-Setup Redaktionsplan: Pflichtfelder und Beispielwerte</caption>
+<thead><tr><th>Spalte</th><th>Inhalt</th><th>Beispiel</th></tr></thead>
+<tbody>
+<tr><td>Titel</td><td>Arbeitstitel des Artikels</td><td>„KI Content Tools Vergleich 2025"</td></tr>
+<tr><td>Keyword</td><td>Primäres Ziel-Keyword</td><td>„KI Content Tools"</td></tr>
+<tr><td>Datum</td><td>Geplantes Veröffentlichungsdatum</td><td>15.05.2025</td></tr>
+<tr><td>Status</td><td>Geplant / In Arbeit / Review / Live</td><td>In Arbeit</td></tr>
+<tr><td>Verantwortlich</td><td>Name oder Team</td><td>Marketing</td></tr>
+</tbody>
+</table>
 
 Optional ergänzen Sie: Zielgruppe, Kaufphase, Content-Format, geplante Wortanzahl, Distribution-Kanäle (LinkedIn, Newsletter, Social).
 

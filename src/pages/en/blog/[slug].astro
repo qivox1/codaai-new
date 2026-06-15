@@ -5,6 +5,7 @@ import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 
+import RelatedArticles from '../../../components/RelatedArticles.astro';
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'en');
   return posts.map((post) => ({ params: { slug: post.id.replace(/^en\//, '') }, props: { post } }));
@@ -95,6 +96,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
   title={`${title} | CodaAI Blog`}
   description={description}
   jsonLd={schemas}
+  heroImage={ogImage}
   article={{
     publishedTime: pubDate.toISOString(),
     modifiedTime: updatedDate?.toISOString(),
@@ -138,7 +140,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
         </div>
       ) : (
         <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-10">
-          <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
+          <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
           <div class="max-w-3xl">
             <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight tracking-tight">
@@ -155,7 +157,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
       {heroImage && (
         <div class="mx-auto max-w-7xl px-6 lg:px-8 py-4">
-          <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} />
+          <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} />
         </div>
       )}
     </header>
@@ -303,6 +305,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
       </div>
     </div>
+  <RelatedArticles lang={lang} currentSlug={post.id} category={category} tags={tags} />
   </main>
 
   <Footer lang={lang} />

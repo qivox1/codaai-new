@@ -110,7 +110,7 @@ const aboutPageSchema = {
       </div>
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Co-Create' }]} class="mb-8" />
+        <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Co-Create' }]} class="mb-8" />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: text */}
@@ -358,7 +358,8 @@ const aboutPageSchema = {
         <div class="flex items-center justify-center gap-3">
           <img
             src={`${base}/images/team/anja-miebach.webp`}
-            alt="Anja Miebach"
+            srcset={`${base}/images/team/anja-miebach.webp 1x, ${base}/images/team/anja-miebach.webp 2x`}
+            alt="Anja Miebach – Gründerin & Inhaberin, CodaAI"
             width="44"
             height="44"
             class="rounded-full w-11 h-11 object-cover border-2 border-cta/30"

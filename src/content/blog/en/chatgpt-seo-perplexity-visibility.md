@@ -236,3 +236,8 @@ The advantage: optimizations that help one system usually help all three. You're
 And the answer is: same foundation, with slight adjustments for each system.
 
 [CodaAI Co-Create](https://www.codaai.ai/co-create/) automatically optimizes for both Google and AI systems – one article, structured for all three. Try it free.
+
+
+## Sources
+
+[SparkToro research on zero-click searches](https://sparktoro.com/blog/) shows AI-powered answer engines are reshaping how information surfaces online. According to [BrightEdge Organic Research](https://www.brightedge.com/research/reports), nearly 60% of searches now end without a click — reinforcing the importance of being cited in AI-generated answers.

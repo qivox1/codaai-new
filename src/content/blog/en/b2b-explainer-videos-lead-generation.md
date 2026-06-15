@@ -225,3 +225,8 @@ Here's what matters: not YouTube subscriber counts or view metrics. What matters
 **Sales conversations:** Pre-recorded product explanation videos cut sales conversation time by 30–60%. Sales time is your most expensive resource.
 
 These aren't trend reports.
+
+
+## Sources
+
+[Wyzowl Video Marketing Statistics](https://www.wyzowl.com/video-marketing-statistics/) show that 87% of video marketers report a positive ROI and 96% of people watch explainer videos to learn more about a product. [Forrester Research](https://www.forrester.com/blogs/explainer-video-roi/) estimates that video content achieves significantly higher engagement rates than text-only content in B2B contexts.

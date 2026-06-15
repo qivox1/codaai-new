@@ -15,10 +15,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <Navbar lang="en" />
   <main class="pt-24 lg:pt-28" id="main-content">
     <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-      <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Legal Notice' }]} class="mb-8" />
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Legal Notice' }]} class="mb-8" />
       <h1 class="text-4xl font-bold text-foreground mb-2">Legal Notice</h1>
-      <p class="text-muted-foreground mb-12">
+      <p class="text-muted-foreground mb-6">
         Information pursuant to § 5 DDG (German Digital Services Act)
+      </p>
+      <p class="text-sm text-muted-foreground leading-relaxed mb-12">
+        CodaAI is an AI content company headquartered in Gütersloh, Germany. We develop and operate an AI-powered content platform that helps mid-market businesses create and publish high-quality, SEO-optimised content. Our services are directed at B2B companies in the German-speaking region and internationally. For enquiries regarding these legal details, our services, or contractual matters, please contact us by email or phone.
       </p>
 
       <div class="space-y-10">

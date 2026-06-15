@@ -2,6 +2,7 @@
 interface BreadcrumbItem {
   label: string;
   href?: string;
+  ariaLabel?: string;
 }
 
 interface Props {
@@ -20,7 +21,7 @@ const { items, class: className = '' } = Astro.props;
     <>
       {index > 0 && <span aria-hidden="true">›</span>}
       {item.href
-        ? <a href={item.href} class="hover:text-foreground transition-colors">{item.label}</a>
+        ? <a href={item.href} class="hover:text-foreground transition-colors" aria-label={item.ariaLabel ?? item.label}>{item.label}</a>
         : <span class="text-foreground">{item.label}</span>
       }
     </>

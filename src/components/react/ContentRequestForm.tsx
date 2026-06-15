@@ -1014,9 +1014,9 @@ export default function ContentRequestForm({
                       />
                       <label htmlFor="consent" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
                         {t.consentText}{' '}
-                        <a href={lang === 'en' ? '/en/privacy-policy' : '/datenschutz'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.privacyPolicy}</a>
+                        <a href={lang === 'en' ? '/en/privacy-policy/' : '/datenschutz/'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.privacyPolicy}</a>
                         {' '}{t.and}{' '}
-                        <a href={lang === 'en' ? '/en/terms' : '/agb'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.termsConditions}</a>.
+                        <a href={lang === 'en' ? '/en/terms/' : '/agb/'} className="underline hover:text-foreground text-foreground" target="_blank" rel="noopener">{t.termsConditions}</a>.
                       </label>
                     </div>
                   </>
@@ -1076,13 +1076,19 @@ export default function ContentRequestForm({
 
   // ── Email-input trigger ────────────────────────────────────────────────────
   if (triggerType === 'email-input') {
+    const inlineId = `inline-email-${Math.random().toString(36).slice(2,7)}`;
     return (
       <div className="relative">
+        <label htmlFor={inlineId} className="sr-only">
+          {lang === 'de' ? 'Ihre geschäftliche E-Mail-Adresse' : 'Your business email address'}
+        </label>
         <input
+          id={inlineId}
           type="email"
           placeholder={t.inlineEmailPlaceholder}
           value={formData.email}
           onChange={(e) => updateField('email', e.target.value)}
+          aria-label={lang === 'de' ? 'Ihre geschäftliche E-Mail-Adresse' : 'Your business email address'}
           className="flex-1 bg-background/40 border border-border rounded-full px-6 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-cta/50 transition-all"
         />
         <button

@@ -21,6 +21,8 @@ interface Props {
   jsonLd?: string[];
   /** Pass for blog article pages to get article-specific Open Graph + meta */
   article?: ArticleMeta;
+  /** Hero image URL for LCP preload hint */
+  heroImage?: string;
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   lang = 'de',
   jsonLd = [],
   article,
+  heroImage,
 } = Astro.props;
 
 // ââ Base structured data (present on every page) ââââââââââââââââââââââââââââââ
@@ -210,6 +213,7 @@ const csp = [
     <link rel="preconnect" href="https://fcauvtwqkluvsbicaojo.supabase.co" crossorigin />
     {/* Preload Latin variable font — LCP text renders without FOIT/layout shift */}
     <link rel="preload" as="font" type="font/woff2" href={interLatinFont} crossorigin />
+    {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />

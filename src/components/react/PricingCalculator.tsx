@@ -282,7 +282,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <main className="flex-1">
+      <div className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:py-24">
 
           {/* Page Title */}
@@ -359,6 +359,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
           </div>
 
           {/* Pricing Card */}
+          <h2 className="sr-only">{lang === 'de' ? 'Preisrechner' : 'Pricing Calculator'}</h2>
           <div className="bg-card border border-border rounded-2xl shadow-lg overflow-hidden mb-12">
             <div className="px-8 py-10">
 
@@ -805,7 +806,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

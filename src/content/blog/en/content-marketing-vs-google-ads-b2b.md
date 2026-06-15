@@ -75,3 +75,8 @@ Content marketing pays for itself in lead value after 6–12 months and continue
 For most B2B companies: start with Google Ads for pipeline while building content marketing for long-term dominance.
 
 **Try CodaAI** – build your content foundation while running ads.
+
+
+## Sources
+
+Research by [Demand Metric](https://www.demandmetric.com/content/content-marketing-infographic) shows content marketing costs 62% less than traditional outbound marketing and generates approximately 3× as many leads. The [Search Engine Journal Industry Report](https://www.searchenginejournal.com/seo-industry-report/) confirms organic search consistently drives the highest share of website traffic across B2B industries.

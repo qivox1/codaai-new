@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  lang="en"
+  title="Contact – CodaAI | Get in Touch"
+  description="Get in touch with CodaAI. We are happy to help with questions about our AI content platform, pricing, and how to start a free trial."
+>
+  <Navbar lang="en" />
+  <main class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Contact' }]} class="mb-8" />
+
+      <h1 class="text-4xl font-bold text-foreground mb-4">Contact</h1>
+      <p class="text-muted-foreground mb-12 text-lg leading-relaxed">
+        Questions about CodaAI, our content packages, or want to start a free trial? We look forward to hearing from you.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-6 mb-12">
+        <div class="rounded-2xl border border-border bg-card p-6">
+          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Email</h2>
+          <a href="mailto:hi@codaai.ai" class="text-foreground hover:text-cta transition-colors font-medium">hi@codaai.ai</a>
+          <p class="text-sm text-muted-foreground mt-2">We typically respond within 24 hours.</p>
+        </div>
+
+        <div class="rounded-2xl border border-border bg-card p-6">
+          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Phone</h2>
+          <a href="tel:+4915153406969" class="text-foreground hover:text-cta transition-colors font-medium">+49 151 53406969</a>
+          <p class="text-sm text-muted-foreground mt-2">Monday – Friday, 9 am – 5 pm CET</p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-border bg-card p-6 mb-8">
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Address</h2>
+        <address class="not-italic text-foreground text-sm leading-relaxed">
+          CodaAI GmbH (in formation)<br />
+          Langer Weg 7b<br />
+          33332 Gütersloh<br />
+          Germany
+        </address>
+      </div>
+
+      <div class="rounded-2xl border border-cta/20 bg-cta/5 p-6">
+        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Request a Free Article</h2>
+        <p class="text-sm text-muted-foreground mb-4">
+          Experience the quality of our AI-generated content — no credit card, no commitment required.
+        </p>
+        <a href={`${base}/en/`} class="btn-cta inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold">
+          Try for free
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer lang="en" />
+</Layout>

@@ -80,3 +80,8 @@ Content marketing isn't expensive anymore – fragmented production is.
 With AI platforms, mid-market companies can finally compete on content volume and quality with agencies that cost 10x more.
 
 **Try CodaAI free** – unlimited articles, AI-optimized for Google and AI search engines, ready to publish.
+
+
+## Sources
+
+According to the [Content Marketing Institute B2B Report](https://contentmarketinginstitute.com/b2b-content-marketing/), 71% of B2B buyers consume blog content during their purchase journey. Research from [HubSpot Marketing Statistics](https://www.hubspot.com/marketing-statistics) confirms that companies publishing 11+ articles per month generate 3× more traffic than those publishing fewer than 4.

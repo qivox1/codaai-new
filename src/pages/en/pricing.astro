@@ -17,9 +17,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
-      <Breadcrumb items={[{ label: 'Home', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
     </div>
     <PricingCalculator lang={lang} base={base} client:load />
+
+  <!-- FAQ Pricing -->
+  <section aria-label="Frequently Asked Questions about Pricing" class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
+    <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Frequently Asked Questions about Pricing</h2>
+    <dl class="space-y-6">
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">How does billing work?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">You pay monthly or annually in advance. With annual payment you save 20% compared to quarterly billing. There are no hidden costs – the price per article is fixed and known upfront.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Can I change my package each month?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Yes, the number of articles can be adjusted at each renewal date. Upgrades are immediate; downgrades take effect at the next billing period.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">What is included in the price?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Every article includes research, SEO optimisation, up to 4,000 words, 3 matching images or 1 infographic, and publication on your website. Translations and social media videos are available as optional add-ons.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Is there a minimum contract period?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">With quarterly billing the minimum term is 3 months. With annual payment it is 12 months. There is no automatic rollover – you actively decide on renewal.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">How quickly are articles delivered?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">As a rule you receive your first article within 48 hours of order confirmation. Ongoing articles are delivered according to a pre-agreed editorial calendar.</dd>
+      </div>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Is there a free trial?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Yes – request a free premium article with no credit card or commitment required. That way you can test the quality and style of our content risk-free before subscribing to a package.</dd>
+      </div>
+    </dl>
+  </section>
   </main>
   <Footer lang={lang} />
 </Layout>

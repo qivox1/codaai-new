@@ -69,3 +69,8 @@ Cost reduction shouldn't mean fewer leads. AI makes both possible simultaneously
 **Start with one lever** – replace content agency – and reinvest savings into organic growth.
 
 **Try CodaAI free** for 30 days and see the immediate cost impact.
+
+
+## Sources
+
+[McKinsey's Generative AI Report](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai) estimates generative AI could reduce content production costs by 20–40% for marketing functions. The [Gartner CMO Survey](https://www.gartner.com/en/marketing/topics/cmo-insights) shows 68% of CMOs face pressure to cut budgets while maintaining or increasing content output.

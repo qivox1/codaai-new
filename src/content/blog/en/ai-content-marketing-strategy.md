@@ -131,3 +131,8 @@ Most companies are still optimising exclusively for classic SEO. That's an oppor
 The good news: GEO and SEO complement each other. Every well-structured, factual article you publish today simultaneously improves your visibility in Google **and** in AI search engines.
 
 **Want to know how CodaAI helps you produce this content systematically and cost-efficiently?** Request your free article now.
+
+
+## Sources
+
+The [Demand Gen Report](https://www.demandgenreport.com/) found that 47% of B2B buyers consume 3–5 pieces of content before speaking with a salesperson. According to [Gartner](https://www.gartner.com/en/marketing/insights/articles/content-marketing), buyers spend 27% of their time doing independent online research.

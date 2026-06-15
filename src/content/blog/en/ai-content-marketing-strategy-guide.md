@@ -80,3 +80,8 @@ AI content strategy is less about individual article quality and more about syst
 With the right framework, one person can execute what previously required a team.
 
 **Build your AI content strategy** with CodaAI's strategic planning tools.
+
+
+## Sources
+
+Data from the [Semrush State of Content Marketing Report](https://www.semrush.com/state-of-content-marketing/) shows that 73% of companies investing in content marketing see above-average ROI. The [Content Marketing Institute](https://contentmarketinginstitute.com/b2b-content-marketing/) reports content marketing generates 3× more leads than outbound at 62% lower cost.

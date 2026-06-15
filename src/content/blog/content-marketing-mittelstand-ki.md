@@ -102,7 +102,7 @@ Dazu kommt 2026 ein neuer Faktor: GEO (Generative Engine Optimization). Laut [SI
 
 Wer zu seinem Fachgebiet regelmäßig publiziert, wird als Experte wahrgenommen – von potenziellen Kunden, Journalisten und Partnerunternehmen. Das ist besonders im B2B-Bereich entscheidend, wo Kaufentscheidungen mehrere Monate dauern und auf Vertrauen basieren.
 
-Laut [Edelman Trust Barometer](https://www.edelman.com/trust/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought Leadership Content ihre Kaufentscheidung beeinflusst. Gut produzierter, informativer Content ist der günstigste Weg, diese Glaubwürdigkeit aufzubauen.
+Laut [Edelman Trust Barometer](https://www.edelman.com/trust/2024/trust-barometer) geben **81 % der B2B-Käufer** an, dass Thought Leadership Content ihre Kaufentscheidung beeinflusst. Gut produzierter, informativer Content ist der günstigste Weg, diese Glaubwürdigkeit aufzubauen.
 
 ### Unterstützung des Vertriebs
 

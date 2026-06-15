@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+  lang: 'de' | 'en';
+  currentSlug: string;
+  category: string;
+  tags: string[];
+}
+
+const { lang, currentSlug, category, tags } = Astro.props;
+
+const all = await getCollection('blog', ({ data }) => data.lang === lang);
+
+// Score by relevance: same category = 2pts, each matching tag = 1pt
+const scored = all
+  .filter((p) => p.id !== currentSlug && !(p.data as any).noindex)
+  .map((p) => {
+    let score = 0;
+    if ((p.data as any).category === category) score += 2;
+    for (const tag of tags) {
+      if (((p.data as any).tags ?? []).includes(tag)) score += 1;
+    }
+    return { p, score };
+  })
+  .sort((a, b) => b.score - a.score || (b.p.data as any).pubDate - (a.p.data as any).pubDate)
+  .slice(0, 3)
+  .map((x) => x.p);
+
+const heading = lang === 'de' ? 'Verwandte Artikel' : 'Related Articles';
+const slug = (p: any) =>
+  lang === 'de' ? p.id : p.id.replace(/^en\//, '');
+---
+
+{scored.length > 0 && (
+  <section aria-label={heading} class="mx-auto max-w-7xl px-6 lg:px-8 py-16 border-t border-border">
+    <h2 class="text-2xl font-semibold text-foreground mb-8">{heading}</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {scored.map((post) => (
+        <BlogCard
+          title={(post.data as any).title}
+          description={(post.data as any).description}
+          pubDate={(post.data as any).pubDate}
+          category={(post.data as any).category}
+          tags={(post.data as any).tags}
+          heroImage={(post.data as any).heroImage}
+          heroImageAlt={(post.data as any).heroImageAlt}
+          slug={slug(post)}
+          lang={lang}
+          author={(post.data as any).author}
+        />
+      ))}
+    </div>
+  </section>
+)}

@@ -10,12 +10,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <Layout
   lang="de"
   title="Datenschutzerklärung – CodaAI | DSGVO-Informationen"
-  description="Datenschutzerklärung der CodaAI GmbH: Informationen zur Verarbeitung personenbezogener Daten, Ihre Rechte als betroffene Person und Kontaktdaten des Verantwortlichen."
+  description="Datenschutzerklärung der CodaAI GmbH: Verarbeitung personenbezogener Daten, Ihre Rechte und Kontaktdaten des Verantwortlichen."
 >
   <Navbar lang="de" />
   <main class="pt-24 lg:pt-28">
     <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-      <Breadcrumb items={[{ label: 'Start', href: `${base}/` }, { label: 'Datenschutz' }]} class="mb-8" />
+      <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Datenschutz' }]} class="mb-8" />
       {/* Page Title */}
       <h1 class="text-4xl font-bold text-foreground mb-12">
         Datenschutzerklärung
@@ -147,6 +147,46 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
             Cookie-Einstellungen zurücksetzen
           </button>
+        </section>
+
+        <section class="mb-10">
+          <h2 class="text-2xl font-semibold text-foreground mb-4">8. Auftragsverarbeiter</h2>
+          <p class="text-muted-foreground leading-relaxed mb-4">
+            Wir setzen folgende Dienstleister als Auftragsverarbeiter gemäß Art. 28 DSGVO ein. Mit jedem wurde ein Vertrag zur Auftragsverarbeitung (AVV) abgeschlossen.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse" aria-label="Liste der Auftragsverarbeiter">
+              <thead>
+                <tr class="border-b border-border">
+                  <th class="text-left py-2 pr-4 font-semibold text-foreground">Dienstleister</th>
+                  <th class="text-left py-2 pr-4 font-semibold text-foreground">Zweck</th>
+                  <th class="text-left py-2 font-semibold text-foreground">Sitz</th>
+                </tr>
+              </thead>
+              <tbody class="text-muted-foreground">
+                <tr class="border-b border-border/50">
+                  <td class="py-3 pr-4"><a href="https://supabase.com/privacy" class="underline hover:text-foreground" target="_blank" rel="noopener">Supabase Inc.</a></td>
+                  <td class="py-3 pr-4">Datenbank, Authentifizierung, Edge Functions</td>
+                  <td class="py-3">USA</td>
+                </tr>
+                <tr class="border-b border-border/50">
+                  <td class="py-3 pr-4"><a href="https://stripe.com/de/privacy" class="underline hover:text-foreground" target="_blank" rel="noopener">Stripe Inc.</a></td>
+                  <td class="py-3 pr-4">Zahlungsabwicklung</td>
+                  <td class="py-3">USA / Irland</td>
+                </tr>
+                <tr class="border-b border-border/50">
+                  <td class="py-3 pr-4"><a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" class="underline hover:text-foreground" target="_blank" rel="noopener">GitHub Inc.</a></td>
+                  <td class="py-3 pr-4">Website-Hosting (GitHub Pages)</td>
+                  <td class="py-3">USA</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4"><a href="https://policies.google.com/privacy" class="underline hover:text-foreground" target="_blank" rel="noopener">Google LLC</a></td>
+                  <td class="py-3 pr-4">Web-Analyse (nur mit Einwilligung)</td>
+                  <td class="py-3">USA / Irland</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </div>

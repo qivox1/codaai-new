@@ -145,6 +145,8 @@ export default function BenefitSlider({ lang = "de", base = "" }: BenefitSliderP
                 <img
                   src={slide.image}
                   alt={slide.headline}
+                  width={450}
+                  height={806}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
