@@ -1,5 +1,5 @@
 ---
-title: "Content Marketing vs Google Ads: Which B2B Strategy Returns More Leads?"
+title: "Content Marketing vs Google Ads: B2B"
 description: "Content marketing vs Google Ads for B2B: cost comparison, time to first lead, and when each strategy makes sense."
 pubDate: 2026-02-18
 updatedDate: 2026-03-01

@@ -1,5 +1,5 @@
 ---
-title: "Content Marketing im Mittelstand: Warum 78 % der Unternehmen zu wenig produzieren – und wie KI das löst"
+title: "KI Content Marketing im Mittelstand"
 description: "Mittelständische Unternehmen produzieren zu wenig Content – obwohl sie die Expertise haben. KI schließt die Content-Lücke."
 pubDate: 2026-02-19
 updatedDate: 2026-03-01

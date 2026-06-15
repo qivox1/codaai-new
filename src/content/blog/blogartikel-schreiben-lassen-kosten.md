@@ -1,5 +1,5 @@
 ---
-title: "Blogartikel schreiben lassen: Was kostet Content wirklich — Agentur, Freelancer oder KI?"
+title: "Blogartikel schreiben lassen: Kosten"
 description: "Blogartikel schreiben lassen kostet 80–5.000 € pro Text. Dieser Vergleich zeigt, was Agentur, Freelancer und KI wirklich liefern."
 pubDate: 2026-01-22
 updatedDate: 2026-03-01

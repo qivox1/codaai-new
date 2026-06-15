@@ -1,5 +1,5 @@
 ---
-title: "KI Blog erstellen: So produzieren Sie SEO-Artikel in 30 Minuten statt 3 Wochen"
+title: "KI Blog erstellen: SEO-Artikel in 30 Min."
 description: "Mit KI einen SEO-Artikel erstellen: vom Keyword bis zur Veröffentlichung in 30 Minuten. Konkreter Schritt-für-Schritt-Workflow mit echten Zeitdaten."
 pubDate: 2026-01-29
 updatedDate: 2026-03-01
@@ -143,7 +143,7 @@ Bevor Sie veröffentlichen, checken Sie:
 - [ ] URL-Slug kurz und keyword-basiert
 - [ ] Schema.org-Markup: `BlogPosting` und `FAQPage` für FAQ-Sektionen
 
-Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % aller deutschen Suchanfragen bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://coda-ai.de/blog/chatgpt-seo-perplexity-sichtbarkeit).
+Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % aller deutschen Suchanfragen bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/).
 
 ### Schritt 6: Veröffentlichen und distribuieren (5 Minuten)
 

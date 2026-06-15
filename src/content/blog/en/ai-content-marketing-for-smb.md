@@ -1,5 +1,5 @@
 ---
-title: "Content Marketing for Mid-Market: AI-Powered Strategy Without Agency Costs"
+title: "AI Content Marketing for Mid-Market"
 description: "Content marketing for mid-market companies: how to compete with larger competitors using AI while cutting costs by 70%."
 pubDate: 2026-01-15
 updatedDate: 2026-03-01

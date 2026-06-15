@@ -1,5 +1,5 @@
 ---
-title: "B2B Video Marketing: How Explaining Videos Generate Leads Faster Than Text"
+title: "B2B Explainer Videos for Lead Generation"
 description: "Explainer videos increase B2B conversions by 42% and cost 60% less with AI. How mid-market companies now compete with enterprise budgets."
 pubDate: 2026-02-14
 lang: en

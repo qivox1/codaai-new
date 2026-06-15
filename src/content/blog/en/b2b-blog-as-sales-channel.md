@@ -1,5 +1,5 @@
 ---
-title: "The Underestimated B2B Sales Channel: How Your Corporate Blog Generates Qualified Leads"
+title: "B2B Blog as Sales Channel: Lead Guide"
 description: "B2B blogs generate more leads than most mid-market companies realize. Why your blog is the most efficient sales channel – with real numbers and concrete ROI."
 pubDate: 2026-03-05
 updatedDate: 2026-03-01
@@ -157,7 +157,7 @@ For B2B blogs, this means concretely:
 
 The argument mid-market companies most often make against a blog: "We don't have capacity." That was still understandable in 2020. Today, it's a question of the right workflow.
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) is an AI platform that automates the entire content production process – from keyword research through competitor analysis to the finished, SEO-optimized article.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) is an AI platform that automates the entire content production process – from keyword research through competitor analysis to the finished, SEO-optimized article.
 
 The remaining human task: provide the topic (5 minutes) and fact-check the article (15–20 minutes).
 

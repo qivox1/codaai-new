@@ -1,5 +1,5 @@
 ---
-title: "Marketingkosten halbieren ohne Qualitätsverlust: Die KI-Content-Strategie für B2B-Mittelständler"
+title: "Marketingkosten halbieren mit KI-Content"
 description: "Wie B2B-Mittelständler ihre Marketingkosten mit KI-gestütztem Content um 40–60 % senken – bei gleichzeitig mehr Reichweite und qualifizierteren Leads."
 pubDate: 2026-03-12
 updatedDate: 2026-03-01
@@ -149,7 +149,7 @@ Das Modell ist klar: KI übernimmt die Struktur, die Recherche und den Erstdraft
 
 ## CodaAI Co-Create: Das KI-System für B2B-Content-Marketing
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) wurde speziell für B2B-Mittelständler entwickelt, die professionellen Content in Agenturqualität benötigen – ohne Agenturbudget und ohne dedizierte Content-Stelle.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) wurde speziell für B2B-Mittelständler entwickelt, die professionellen Content in Agenturqualität benötigen – ohne Agenturbudget und ohne dedizierte Content-Stelle.
 
 Die Plattform deckt den vollständigen Workflow ab:
 

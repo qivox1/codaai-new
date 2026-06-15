@@ -1,5 +1,5 @@
 ---
-title: "KI Content Marketing: Die vollständige Strategie für mehr Sichtbarkeit"
+title: "KI Content Marketing: Mehr Sichtbarkeit"
 description: "Wie Sie mit KI-gestütztem Content Marketing in Google und KI-Suchmaschinen wie ChatGPT und Perplexity top ranken. Strategie, Tools und konkrete Schritte."
 pubDate: 2026-01-08
 updatedDate: 2026-03-01

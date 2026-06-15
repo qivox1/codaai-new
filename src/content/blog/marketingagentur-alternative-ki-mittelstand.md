@@ -1,5 +1,5 @@
 ---
-title: "Warum klassische Marketingagenturen den Mittelstand enttäuschen – und was 2026 wirklich funktioniert"
+title: "KI statt Agentur: Was 2026 wirklich bringt"
 description: "Klassische Agenturen verlieren Marktanteile. Was B2B-Mittelständler 2026 stattdessen tun sollten – mit echten Zahlen und konkreten KI-Alternativen."
 pubDate: 2026-03-17
 updatedDate: 2026-03-01
@@ -152,7 +152,7 @@ Wer diese Fragen ehrlich beantwortet, kommt fast immer zur selben Konsequenz: Da
 
 ## CodaAI Co-Create: Gebaut für B2B-Mittelständler
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) wurde entwickelt, um genau diese Lücke zu schließen: professioneller, SEO-optimierter B2B-Content in Agenturqualität – zu einem Bruchteil der Agenturkosten, mit einem Bruchteil des internen Aufwands.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) wurde entwickelt, um genau diese Lücke zu schließen: professioneller, SEO-optimierter B2B-Content in Agenturqualität – zu einem Bruchteil der Agenturkosten, mit einem Bruchteil des internen Aufwands.
 
 Was CodaAI Co-Create von generischen KI-Tools unterscheidet:
 

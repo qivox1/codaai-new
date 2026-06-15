@@ -1,5 +1,5 @@
 ---
-title: "Reduce Marketing Costs: How AI Content Cuts B2B Marketing Spend by 60%"
+title: "Reduce Marketing Costs with AI Content"
 description: "Concrete measures to reduce marketing costs using AI while increasing lead volume – practical case studies for B2B companies."
 pubDate: 2026-02-25
 updatedDate: 2026-03-01

@@ -1,5 +1,5 @@
 ---
-title: "Create an Editorial Plan with AI: Monthly Content Roadmap Template for B2B"
+title: "Editorial Plan with AI: B2B Template"
 description: "How to create a systematic monthly editorial plan using AI – with templates and concrete examples for B2B content."
 pubDate: 2026-03-10
 updatedDate: 2026-03-01

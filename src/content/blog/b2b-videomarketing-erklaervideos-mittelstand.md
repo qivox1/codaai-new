@@ -1,5 +1,5 @@
 ---
-title: "B2B-Videomarketing: Wie Mittelständler mit Erklärvideos und LinkedIn-Clips Leads generieren"
+title: "B2B-Videomarketing mit Erklärvideos"
 description: "Erklärvideos und LinkedIn-Clips für B2B-Mittelständler: Wie Video-Content qualifizierte Leads generiert – günstiger als je zuvor dank KI-Produktion."
 pubDate: 2026-03-20
 updatedDate: 2026-03-01
@@ -59,7 +59,7 @@ Es geht darum, dass ein Maschinenbau-Einkäufer, der eine komplexe Investitionse
 
 Laut [Gartner B2B Buying Journey](https://www.gartner.com/en/sales/insights/b2b-buying-journey) verbringen B2B-Käufer **27 % ihrer Recherche-Zeit mit der Konsumation von Inhalten** – Artikel, Videos, Whitepapers. Video hat dabei eine spezifische Funktion: Es erklärt komplexe Zusammenhänge schnell, schafft persönliche Nähe und erhöht die Verweildauer auf der Website erheblich – was sich direkt positiv auf Google-Rankings auswirkt.
 
-[Laut Synthesia Video Marketing Report 2025](https://www.synthesia.io/blog/video-marketing-statistics) behalten Menschen **95 % einer Botschaft, wenn sie sie in einem Video sehen** – gegenüber nur 10 % beim Lesen. Für komplexe B2B-Produkte und -Dienstleistungen ist das kein Vorteil – es ist ein fundamentaler Unterschied in der Kommunikationswirkung.
+[Laut Synthesia Video Marketing Report 2025](https://www.wyzowl.com/video-marketing-statistics/) behalten Menschen **95 % einer Botschaft, wenn sie sie in einem Video sehen** – gegenüber nur 10 % beim Lesen. Für komplexe B2B-Produkte und -Dienstleistungen ist das kein Vorteil – es ist ein fundamentaler Unterschied in der Kommunikationswirkung.
 
 ## Die drei B2B-Video-Formate, die wirklich funktionieren
 
@@ -115,7 +115,7 @@ Der Kostenvorteil erlaubt eine vollständig andere Strategie: Statt eines Videos
 
 ### Wirkung auf Rankings und Leads
 
-Eingebettete Videos auf Ihrer Website erhöhen die durchschnittliche Verweildauer um 2–3 Minuten – ein wichtiges Google-Ranking-Signal. Seiten mit Videos erhalten laut [Moovly](https://www.moovly.com/blog/google-ranks-video-50-times-higher) 53-mal mehr Chancen auf erste Google-Seite-Rankings.
+Eingebettete Videos auf Ihrer Website erhöhen die durchschnittliche Verweildauer um 2–3 Minuten – ein wichtiges Google-Ranking-Signal. Seiten mit Videos erhalten laut Moovly 53-mal mehr Chancen auf erste Google-Seite-Rankings.
 
 LinkedIn-Video-Posts mit B2B-Fachinhalt erreichen organisch typischerweise 3.000–15.000 Impressionen – ohne Werbebudget. Das entspricht einer Reichweite, für die Sie bei klassischen LinkedIn-Ads 300–1.500 € ausgeben würden.
 
@@ -155,7 +155,7 @@ Nach 4 Wochen: Welches Format hat mehr Engagement erzeugt? Welches Video hat meh
 
 ## CodaAI Co-Create und Video: Der integrierte Workflow
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) integriert Video-Content in den gesamten Content-Workflow. Aus einem Blog-Artikel entsteht automatisch ein Video-Skript; aus einem Erklärvideo entstehen LinkedIn-Post, Blog-Einbettungsartikel und Newsletter-Snippet.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) integriert Video-Content in den gesamten Content-Workflow. Aus einem Blog-Artikel entsteht automatisch ein Video-Skript; aus einem Erklärvideo entstehen LinkedIn-Post, Blog-Einbettungsartikel und Newsletter-Snippet.
 
 Das Prinzip: Ein Thema, alle Formate. Statt Video, Text und Social Media separat zu planen, entsteht aus einer inhaltlichen Eingabe ein vollständiges Content-Paket – für alle Kanäle, konsistent in Botschaft und Qualität.
 

@@ -1,5 +1,5 @@
 ---
-title: "AI Content Marketing 2025: The Complete Strategy for Maximum Visibility"
+title: "KI Content Marketing Strategie 2025"
 description: "How to rank at the top in Google and AI search engines like ChatGPT and Perplexity using AI-powered content marketing. Strategy, formats and concrete steps."
 pubDate: 2026-01-15
 updatedDate: 2026-03-01

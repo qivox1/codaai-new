@@ -1,5 +1,5 @@
 ---
-title: "Content Marketing vs. Google Ads: Was B2B-Mittelständler wirklich weiterbringt"
+title: "Content Marketing vs. Google Ads B2B"
 description: "Content Marketing oder Google Ads: Was lohnt sich für B2B-Mittelständler? Ehrlicher Vergleich mit Zahlen, ROI-Rechnung und klaren Empfehlungen."
 pubDate: 2026-02-26
 updatedDate: 2026-03-01
@@ -150,7 +150,7 @@ Diese Verteilung maximiert den ROI, weil der Content die Grundlage für alles an
 
 Das größte Hindernis für B2B-Mittelständler beim Content Marketing ist nicht der Wille – es ist die Kapazität. Wer hat im Marketingteam mit 2–3 Personen Zeit für 8 hochwertige Artikel pro Monat?
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) löst genau dieses Problem: Die Plattform übernimmt Keyword-Recherche, Wettbewerbsanalyse, Strukturierung und Texterstellung automatisch. Ein Artikel, der sonst 10–16 Stunden Aufwand bedeutet, entsteht in 30–45 Minuten aktiver Arbeitszeit.
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) löst genau dieses Problem: Die Plattform übernimmt Keyword-Recherche, Wettbewerbsanalyse, Strukturierung und Texterstellung automatisch. Ein Artikel, der sonst 10–16 Stunden Aufwand bedeutet, entsteht in 30–45 Minuten aktiver Arbeitszeit.
 
 Konkret: Sie geben das Thema vor – CodaAI Co-Create analysiert die Top-Rankings, erstellt das Briefing, generiert einen vollständig SEO-optimierten Artikel mit korrekter H2/H3-Struktur, FAQ-Sektionen und Meta-Daten, und produziert gleichzeitig den LinkedIn-Post und Newsletter-Snippet zur Distribution.
 

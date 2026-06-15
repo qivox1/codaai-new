@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT, Perplexity and AI Search: SEO Visibility for B2B in 2026"
+title: "ChatGPT & Perplexity SEO for B2B 2026"
 description: "2026 SEO is split: 50% classic Google, 20% AI Overviews, 20% ChatGPT/Perplexity, 10% others. A clear B2B visibility strategy for the new search landscape."
 pubDate: 2026-02-25
 lang: en

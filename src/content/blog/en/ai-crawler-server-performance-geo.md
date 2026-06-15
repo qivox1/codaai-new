@@ -1,5 +1,5 @@
 ---
-title: "Building GEO Visibility: How Technology + CodaAI Content Convince AI Search Engines"
+title: "GEO Visibility: AI Search Engine Guide"
 description: "With the right server performance and GEO-optimized content from CodaAI, AI crawlers like GPTBot and ClaudeBot will reliably cite your website."
 pubDate: 2026-03-22
 lang: en

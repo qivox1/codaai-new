@@ -1,5 +1,5 @@
 ---
-title: "Der unterschätzte B2B-Vertriebskanal: Wie Ihr Unternehmensblog qualifizierte Leads generiert"
+title: "B2B-Blog als Vertriebskanal nutzen"
 description: "B2B-Blogs generieren mehr Leads als die meisten Mittelständler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist – mit echten Zahlen und konkretem ROI."
 pubDate: 2026-03-05
 updatedDate: 2026-03-01
@@ -146,7 +146,7 @@ Google und KI-Suchmaschinen bewerten Inhalte nach E-E-A-T: Experience, Expertise
 
 Das Argument, das Mittelständler am häufigsten gegen einen Blog bringen: „Wir haben keine Kapazität." Das war 2020 noch verständlich. Heute ist es eine Frage des richtigen Workflows.
 
-[CodaAI Co-Create](https://coda-ai.de/co-create) ist eine KI-Plattform, die den gesamten Content-Produktionsprozess automatisiert – von der Keyword-Recherche über die Wettbewerbsanalyse bis zum fertigen, SEO-optimierten Artikel. Die verbleibende menschliche Aufgabe: das Thema vorgeben (5 Minuten) und den Artikel fachlich prüfen (15–20 Minuten).
+[CodaAI Co-Create](https://www.codaai.ai/co-create/) ist eine KI-Plattform, die den gesamten Content-Produktionsprozess automatisiert – von der Keyword-Recherche über die Wettbewerbsanalyse bis zum fertigen, SEO-optimierten Artikel. Die verbleibende menschliche Aufgabe: das Thema vorgeben (5 Minuten) und den Artikel fachlich prüfen (15–20 Minuten).
 
 Was CodaAI Co-Create automatisch liefert:
 - Keyword-Analyse und Wettbewerbsrecherche

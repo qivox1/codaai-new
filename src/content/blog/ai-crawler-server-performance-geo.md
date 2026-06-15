@@ -1,5 +1,5 @@
 ---
-title: "GEO-Sichtbarkeit aufbauen: Wie Technik + CodaAI-Content KI-Suchmaschinen überzeugen"
+title: "GEO-Sichtbarkeit für KI-Suchmaschinen"
 description: "Mit der richtigen Server-Performance und GEO-optimiertem Content von CodaAI werden AI Crawler wie GPTBot und ClaudeBot deine Website zuverlässig zitieren."
 pubDate: 2026-03-22
 lang: de

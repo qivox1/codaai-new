@@ -42,7 +42,7 @@ const articleSchema = JSON.stringify({
   url: articleUrl,
   datePublished: pubDate.toISOString(),
   ...(updatedDate && { dateModified: updatedDate.toISOString() }),
-  image: { '@type': 'ImageObject', url: ogImage },
+  image: ogImage,
   author: {
     '@type': 'Person',
     name: author,
@@ -53,7 +53,7 @@ const articleSchema = JSON.stringify({
     '@type': 'Organization',
     name: 'CodaAI',
     url: `${SITE_URL}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
+    logo: `${SITE_URL}/images/og-image.png`,
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   inLanguage: 'de',

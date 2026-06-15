@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT SEO: Wie Ihre Website in ChatGPT, Perplexity und Google AI gefunden wird"
+title: "ChatGPT SEO: In KI-Suchen gefunden werden"
 description: "Wie Sie Ihre Website für KI-Suchmaschinen wie ChatGPT und Perplexity optimieren – konkrete Maßnahmen für mehr Sichtbarkeit in AI-Antworten."
 pubDate: 2026-02-12
 updatedDate: 2026-03-01
@@ -196,7 +196,6 @@ Diese manuelle Methode dauert 15–20 Minuten pro Woche und liefert direkte Einb
 - **Google Search Console:** AI Overview Impressions unter Performance → Search Type → Web (seit 2024 verfügbar)
 - **Perplexity:** manuelle Abfragen, Quellenangaben direkt sichtbar und anklickbar
 - **[Brand24](https://brand24.com/)** und **[Mention](https://mention.com/):** tracken Markenerwähnungen auch in KI-generierten Inhalten
-- **[AIHref](https://aihref.com/):** spezialisiertes Tool für AI-Traffic-Analyse (Beta)
 
 ### KPIs für KI-Sichtbarkeit
 

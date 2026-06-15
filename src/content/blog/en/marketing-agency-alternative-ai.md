@@ -1,5 +1,5 @@
 ---
-title: "Marketing Agency Alternative: Why AI Platforms Replace Agencies for Mid-Market Companies"
+title: "AI vs Marketing Agency: Mid-Market Guide"
 description: "Why AI content platforms like CodaAI are becoming viable alternatives to marketing agencies – and when you should still hire an agency."
 pubDate: 2026-03-08
 updatedDate: 2026-03-01

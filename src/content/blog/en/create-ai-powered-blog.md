@@ -1,5 +1,5 @@
 ---
-title: "Creating a Blog with AI: How to Publish 4 Articles Monthly Without a Content Team"
+title: "Create a Blog with AI: 4 Articles/Month"
 description: "How to start and maintain a B2B blog using AI without hiring full-time writers or expensive agencies."
 pubDate: 2026-01-28
 updatedDate: 2026-03-01
