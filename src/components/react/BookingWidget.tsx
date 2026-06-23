@@ -37,8 +37,16 @@ interface Props {
 const T = {
   de: {
     headline: '15-Minuten-Strategiegespräch',
-    sub: 'Per Video oder Telefon · kostenlos',
+    sub: 'Per Video oder Telefon',
     duration: '15 Min',
+    reassurePill: 'Kostenlos & unverbindlich',
+    reassureCta: 'Kein Verkaufsgespräch · Antwort sofort per E-Mail',
+    doneLead: 'Wir haben Ihren Termin reserviert.',
+    doneWhenLabel: 'Termin', doneType: 'Art',
+    doneTypeMeeting: 'Webmeeting (Video)', doneTypeCall: 'Telefontermin',
+    doneMailHint: 'Bestätigung & Kalender-Datei sind unterwegs an Ihre E-Mail.',
+    doneCallHint: 'Wir rufen Sie pünktlich an.',
+    doneMeetHint: 'Den Video-Link finden Sie in der E-Mail.',
     loading: 'Freie Termine werden geladen …',
     q1: 'Wie möchten Sie sprechen?',
     meeting: 'Webmeeting', meetingSub: 'per Video',
@@ -87,8 +95,16 @@ const T = {
   },
   en: {
     headline: '15-minute strategy call',
-    sub: 'Via video or phone · free',
+    sub: 'Via video or phone',
     duration: '15 min',
+    reassurePill: 'Free & no obligation',
+    reassureCta: 'No sales pitch · instant email confirmation',
+    doneLead: 'We’ve reserved your appointment.',
+    doneWhenLabel: 'When', doneType: 'Type',
+    doneTypeMeeting: 'Web meeting (video)', doneTypeCall: 'Phone call',
+    doneMailHint: 'Confirmation & calendar file are on their way to your email.',
+    doneCallHint: 'We’ll call you on time.',
+    doneMeetHint: 'The video link is in the email.',
     loading: 'Loading available times …',
     q1: 'How would you like to talk?',
     meeting: 'Web meeting', meetingSub: 'via video',
@@ -181,7 +197,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
   const [busy, setBusy] = useState(false);
   const [stepErr, setStepErr] = useState('');
   const [verifyErr, setVerifyErr] = useState('');
-  const [doneText, setDoneText] = useState('');
+  const [doneInfo, setDoneInfo] = useState<{ when: string; isCall: boolean; hasMeet: boolean } | null>(null);
 
   const weeks: Week[] = useMemo(() => {
     const map: Record<string, Week> = {};
@@ -306,9 +322,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
         setBusy(false);
         if (res && res.ok) {
           const isCall = res.type === 'call';
-          const artLabel = isCall ? t.callLabel : t.meetingLabel;
-          const tail = isCall ? t.afterCall : (res.meetLink ? t.afterMeet : t.afterMeetNoLink);
-          setDoneText(`Ihr ${artLabel} ${t.doneIsBooked} «${res.when || ''}».${tail}`);
+          setDoneInfo({ when: res.when || '', isCall, hasMeet: !!res.meetLink });
           if (resendRef.current) { clearInterval(resendRef.current); resendRef.current = null; }
           setView('done');
         } else {
@@ -362,15 +376,20 @@ export default function BookingWidget({ lang = 'de' }: Props) {
   return (
     <div className={cardCls}>
       {/* Kopf */}
-      <div className="flex items-center gap-3 border-b border-border bg-cta/5 px-6 py-4">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cta text-cta-foreground">
-          <Video className="h-5 w-5" />
+      <div className="flex items-start gap-3 border-b border-border bg-gradient-to-br from-cta/10 via-cta/5 to-transparent px-6 py-4">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cta/10 ring-1 ring-cta/20">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </span>
-        <div className="leading-tight">
+        <div className="min-w-0 leading-tight">
           <b className="block text-foreground">{t.headline}</b>
           <span className="text-sm text-muted-foreground">{t.sub}</span>
+          <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-cta/10 px-2 py-0.5 text-xs font-medium text-cta-accessible">
+            <Check className="h-3 w-3" /> {t.reassurePill}
+          </span>
         </div>
-        <span className="ml-auto rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">{t.duration}</span>
+        <span className="ml-auto shrink-0 rounded-full bg-cta/10 px-3 py-1 text-xs font-semibold text-cta-accessible">{t.duration}</span>
       </div>
 
       <div className="p-6">
@@ -406,7 +425,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                           role="radio"
                           aria-checked={on}
                           onClick={() => chooseType(ty as BookType)}
-                          className={`flex flex-col items-center gap-1 rounded-xl border p-4 text-center transition-colors ${on ? 'border-cta bg-cta/10' : 'border-border hover:border-cta/50'}`}
+                          className={`flex flex-col items-center gap-1 rounded-xl border p-4 text-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 ${on ? 'border-cta bg-cta/10 shadow-sm' : 'border-border hover:border-cta hover:bg-cta/5'}`}
                         >
                           <Icon className={`h-6 w-6 ${on ? 'text-cta' : 'text-muted-foreground'}`} />
                           <span className="font-semibold text-foreground">{label}</span>
@@ -442,7 +461,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                           key={gIdx}
                           type="button"
                           onClick={() => selectDay(gIdx)}
-                          className={`rounded-lg border px-1 py-2 text-center transition-colors ${gIdx === selDayIdx ? 'border-cta bg-cta/10' : 'border-border hover:border-cta/50'}`}
+                          className={`rounded-lg border px-1 py-2 text-center transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 ${gIdx === selDayIdx ? 'border-cta bg-cta/10 shadow-sm' : 'border-border hover:border-cta hover:bg-cta/10'}`}
                         >
                           <div className="text-xs text-muted-foreground">{day.dayLabel}</div>
                           <div className="text-sm font-semibold text-foreground">{day.dateLabel}</div>
@@ -469,7 +488,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                     <div className="mb-3 inline-flex rounded-lg border border-border p-1">
                       {(['am', 'pm'] as const).map((p) => (
                         <button key={p} type="button" onClick={() => setSelPart(p)}
-                          className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${selPart === p ? 'bg-cta text-cta-foreground' : 'text-muted-foreground'}`}>
+                          className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${selPart === p ? 'bg-cta text-cta-foreground' : 'text-muted-foreground hover:text-cta-accessible'}`}>
                           {p === 'am' ? t.am : t.pm}
                         </button>
                       ))}
@@ -478,7 +497,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                     {slotTimes.map((s) => (
                       <button key={s.iso} type="button" onClick={() => selectSlot(s.iso)}
-                        className={`rounded-lg border py-2 text-sm font-medium transition-colors ${s.iso === selIso ? 'border-cta bg-cta text-cta-foreground' : 'border-border text-foreground hover:border-cta/50'}`}>
+                        className={`rounded-lg border py-2 text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 ${s.iso === selIso ? 'border-cta bg-cta text-cta-foreground shadow-sm' : 'border-border text-foreground hover:border-cta hover:bg-cta/10'}`}>
                         {s.hm}
                       </button>
                     ))}
@@ -502,6 +521,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                     className="flex w-full items-center justify-center gap-2 rounded-lg bg-cta px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
                     {busy ? (<><Loader2 className="h-4 w-4 animate-spin" /> {selType === 'call' ? t.sendingCode : t.booking}</>) : t.book}
                   </button>
+                  <p className="text-center text-xs text-muted-foreground">{t.reassureCta}</p>
                   {stepErr && <p className="text-sm text-destructive">{stepErr}</p>}
                 </form>
               )}
@@ -536,11 +556,26 @@ export default function BookingWidget({ lang = 'de' }: Props) {
 
         {view === 'done' && (
           <div className="py-6 text-center">
-            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-cta text-cta-foreground">
-              <Check className="h-6 w-6" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-cta/10 ring-4 ring-cta/10">
+              <Check className="h-8 w-8 text-cta" />
             </div>
             <b className="block text-lg text-foreground">{t.doneTitle}</b>
-            <p className="mt-2 text-muted-foreground">{doneText}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t.doneLead}</p>
+            {doneInfo && (
+              <div className="mx-auto mt-4 max-w-xs space-y-2 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-muted-foreground">{t.doneWhenLabel}</span>
+                  <b className="text-right text-foreground">{doneInfo.when}</b>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-muted-foreground">{t.doneType}</span>
+                  <b className="text-foreground">{doneInfo.isCall ? t.doneTypeCall : t.doneTypeMeeting}</b>
+                </div>
+              </div>
+            )}
+            <p className="mx-auto mt-3 max-w-xs text-xs text-muted-foreground">
+              {doneInfo?.isCall ? t.doneCallHint : doneInfo?.hasMeet ? t.doneMeetHint : ''} {t.doneMailHint}
+            </p>
           </div>
         )}
       </div>
