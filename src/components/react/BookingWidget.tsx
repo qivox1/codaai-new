@@ -63,7 +63,7 @@ const T = {
     week: 'Woche', of: 'von',
     verifyTitle: 'Handynummer bestätigen',
     verifyInfo1: 'Wir haben Ihnen einen 6-stelligen Code per SMS an',
-    verifyInfo2: 'geschickt. Bitte hier eingeben:',
+    verifyInfo2: ' gesendet. Bitte hier eingeben:',
     codePlaceholder: '6-stelliger Code',
     verifyBook: 'Bestätigen & Termin buchen',
     resend: 'Code erneut senden', resending: 'Senden …', changeNum: 'Nummer ändern',
