@@ -1,0 +1,59 @@
+---
+import BookingWidget from './react/BookingWidget';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+
+const copy = {
+  de: {
+    eyebrow: 'Kostenloses Erstgespräch',
+    title: '15 Minuten Webmeeting oder Telefonat.',
+    lead: 'In einem kurzen Gespräch zeigen wir Ihnen, wie CodaAI Ihre Content-Produktion übernimmt – und was das konkret für Ihre Sichtbarkeit und Ihre Kosten bedeutet. Kein Verkaufsgespräch, sondern ein klarer Befund.',
+    points: [
+      'Ihr individueller Content- & Sichtbarkeits-Status – live gezeigt',
+      'Wo CodaAI Ihre Marketingkosten senkt',
+      'Direkt einen Slot wählen – kein Formular-Umweg',
+    ],
+  },
+  en: {
+    eyebrow: 'Free intro call',
+    title: '15 minutes – web meeting or phone.',
+    lead: 'In a short call we show you how CodaAI takes over your content production – and what that means for your visibility and your costs. Not a sales pitch, just a clear assessment.',
+    points: [
+      'Your individual content & visibility status – shown live',
+      'Where CodaAI cuts your marketing costs',
+      'Pick a slot directly – no form detour',
+    ],
+  },
+}[lang];
+---
+
+<section id="termin" class="py-24 lg:py-32 border-t border-border bg-muted/30">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{copy.eyebrow}</p>
+        <h2 class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{copy.title}</h2>
+        <p class="mt-6 text-lg leading-relaxed text-muted-foreground">{copy.lead}</p>
+        <ul class="mt-8 space-y-4">
+          {copy.points.map((p) => (
+            <li class="flex items-start gap-3">
+              <svg class="mt-0.5 h-6 w-6 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 11 3 3L22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+              </svg>
+              <span class="text-foreground">{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <BookingWidget lang={lang} client:visible />
+      </div>
+    </div>
+  </div>
+</section>

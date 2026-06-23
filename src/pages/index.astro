@@ -12,6 +12,7 @@ import { getTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import RoutineWork from '../components/RoutineWork.astro';
 import GlobalReach from '../components/GlobalReach.astro';
+import Booking from '../components/Booking.astro';
 
 const language = 'de' as const;
 const tr = getTranslations(language);
@@ -91,6 +92,7 @@ const faqSchema = JSON.stringify({
     <RoutineWork lang={language} />
     <GlobalReach lang={language} />
     <FAQ lang={language} />
+    <Booking lang={language} />
 
     {/* ── Neueste Artikel ───────────────────────────────────────────────────── */}
     <section aria-labelledby="blog-section-heading" class="py-20 lg:py-28 bg-background border-t border-border">
