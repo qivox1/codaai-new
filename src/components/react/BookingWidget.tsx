@@ -19,7 +19,7 @@ import { Video, Phone, Check, Loader2, ChevronLeft, ChevronRight } from 'lucide-
  */
 
 // ⚠️ Nach dem Apps-Script-Deploy unter hi@codaai.ai hier die /exec-URL eintragen.
-const BOOKING_ENDPOINT = '';
+const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
 // Fallback, falls das Backend (noch) nicht erreichbar ist:
 const FALLBACK_URL = '/kontakt';
 
