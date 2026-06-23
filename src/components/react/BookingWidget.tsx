@@ -562,18 +562,18 @@ export default function BookingWidget({ lang = 'de' }: Props) {
             <b className="block text-lg text-foreground">{t.doneTitle}</b>
             <p className="mt-1 text-sm text-muted-foreground">{t.doneLead}</p>
             {doneInfo && (
-              <div className="mx-auto mt-4 max-w-xs space-y-2 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted-foreground">{t.doneWhenLabel}</span>
-                  <b className="text-right text-foreground">{doneInfo.when}</b>
+              <dl className="mx-auto mt-4 max-w-sm divide-y divide-border rounded-xl border border-border bg-muted/40 text-left">
+                <div className="px-4 py-3">
+                  <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t.doneWhenLabel}</dt>
+                  <dd className="mt-1 font-semibold leading-snug text-foreground">{doneInfo.when}</dd>
                 </div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted-foreground">{t.doneType}</span>
-                  <b className="text-foreground">{doneInfo.isCall ? t.doneTypeCall : t.doneTypeMeeting}</b>
+                <div className="px-4 py-3">
+                  <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t.doneType}</dt>
+                  <dd className="mt-1 font-semibold leading-snug text-foreground">{doneInfo.isCall ? t.doneTypeCall : t.doneTypeMeeting}</dd>
                 </div>
-              </div>
+              </dl>
             )}
-            <p className="mx-auto mt-3 max-w-xs text-xs text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-muted-foreground">
               {doneInfo?.isCall ? t.doneCallHint : doneInfo?.hasMeet ? t.doneMeetHint : ''} {t.doneMailHint}
             </p>
           </div>
