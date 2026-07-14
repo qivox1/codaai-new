@@ -1,0 +1,435 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+
+// Apps-Script-Backend (gleiche Web-App wie Buchungs-Widget, Aktionen webinar_code / webinar_register)
+const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+const slots = [
+  { id: '2026-09-08', day: 'Dienstag', date: '8. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-08T11:00:00+02:00' },
+  { id: '2026-09-29', day: 'Dienstag', date: '29. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-29T11:00:00+02:00' },
+];
+
+const learnings = [
+  {
+    t: 'Die stille Vorentscheidung',
+    d: 'Wie B2B-Kaufentscheidungen heute wirklich fallen: Einkäufer recherchieren, vergleichen und bilden ihre Shortlist — zunehmend in KI-Antworten, lange bevor Ihr Vertrieb davon erfährt.',
+  },
+  {
+    t: 'Live-Audit echter Firmen',
+    d: 'Wir fragen ChatGPT und die Google KI-Übersicht live nach Mittelstands-Marken — mit der Methodik der 8 Einkäuferfragen. Auf Wunsch testen wir anonym auch Firmen aus dem Publikum.',
+  },
+  {
+    t: 'Der Fahrplan: 5 Hebel',
+    d: 'Was Sie mit Bordmitteln selbst tun können, wo die Grenze liegt — und die fünf Hebel, mit denen Sie sichtbar werden und aus Sichtbarkeit Aufträge machen.',
+  },
+];
+
+const agenda = [
+  { min: '00–05', t: 'Begrüßung + Live-Umfrage', d: '„Haben Sie Ihre Firma schon mal in ChatGPT gesucht?"' },
+  { min: '05–20', t: 'Die stille Vorentscheidung', d: 'Wie B2B-Kaufprozesse heute ablaufen: Buying Center, Recherchephase — und warum die Entscheidung vor dem Erstkontakt fällt.' },
+  { min: '20–35', t: 'Live-Audit', d: 'Echte Mittelstands-Marken live in ChatGPT + Google KI-Übersicht, Methodik der 8 Einkäuferfragen, typische Befunde aus hunderten Audits.' },
+  { min: '35–45', t: 'Was Sie mit ChatGPT selbst machen können', d: 'DIY ernst genommen: was mit Bordmitteln geht — und wo die Grenze liegt.' },
+  { min: '45–60', t: 'Der Fahrplan + Ihr persönliches Audit', d: '5 Hebel von Sichtbarkeit bis Auftrag, Q&A — und Ihre persönliche Sichtbarkeits-Analyse, die nach dem Webinar für Sie bereitsteht.' },
+];
+
+const eventSchema = JSON.stringify(slots.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Empfohlen oder unsichtbar? — Warum Ihre nächsten Aufträge in ChatGPT & Co. entschieden werden',
+  startDate: s.iso,
+  endDate: s.iso.replace('T11:00', 'T12:00'),
+  eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: { '@type': 'VirtualLocation', url: `${SITE_URL}/webinar/` },
+  organizer: { '@type': 'Organization', name: 'CodaAI', url: SITE_URL },
+  performer: [
+    { '@type': 'Person', name: 'Norbert Schuster' },
+    { '@type': 'Person', name: 'Oliver Parrizas' },
+  ],
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },
+  description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit für jeden Teilnehmer.',
+})));
+---
+
+<Layout
+  lang="de"
+  title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
+  description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
+  jsonLd={[eventSchema]}
+>
+  <Navbar lang="de" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+        <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
+
+        <div class="max-w-3xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+            Kostenloses Live-Webinar · 60 Minuten
+          </p>
+          <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            Empfohlen oder <span class="text-cta">unsichtbar</span>?
+          </h1>
+          <p class="mt-5 text-xl font-semibold leading-snug text-foreground lg:text-2xl">
+            Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
+          </p>
+          <p class="mt-5 text-base leading-relaxed text-muted-foreground lg:text-lg">
+            Mit Live-Check von Teilnehmer-Firmen und Ihrem persönlichen Sichtbarkeits-Audit — belegt durch
+            <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">7.184 KI-Antworten zu 449 mittelständischen Unternehmen</a>.
+          </p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          {slots.map((s) => (
+            <span class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-foreground">
+              <svg class="h-4 w-4 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              {s.day}, {s.date} · {s.time}
+            </span>
+          ))}
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-5">
+          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+            Kostenlos anmelden →
+          </a>
+          <p class="text-xs text-muted-foreground">Kostenlos · begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+      <!-- ── Das erwartet Sie ─────────────────────────────────────────── -->
+      <section aria-labelledby="h-learnings" class="py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das erwartet Sie</p>
+        <h2 id="h-learnings" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei Dinge, die Sie mitnehmen</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {learnings.map((l, i) => (
+            <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+              <h3 class="mt-4 text-lg font-semibold text-foreground">{l.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-6 text-sm text-muted-foreground">
+          Und danach: <strong class="text-foreground">Ihr persönliches Sichtbarkeits-Audit</strong> — für jeden Teilnehmer bereits erstellt,
+          fertig und kostenlos. Kein Projekt, kein Commitment.
+        </p>
+      </section>
+
+      <!-- ── Agenda ───────────────────────────────────────────────────── -->
+      <section aria-labelledby="h-agenda" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ablauf</p>
+        <h2 id="h-agenda" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">60 Minuten, kein Werbeblock</h2>
+        <ol class="mt-10 space-y-4">
+          {agenda.map((a) => (
+            <li class="flex flex-col gap-2 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-baseline sm:gap-6">
+              <span class="w-20 shrink-0 text-sm font-bold tabular-nums text-cta-accessible">Min. {a.min}</span>
+              <div>
+                <h3 class="font-semibold text-foreground">{a.t}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{a.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- ── Speaker ──────────────────────────────────────────────────── -->
+      <section aria-labelledby="h-speaker" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihre Gastgeber</p>
+        <h2 id="h-speaker" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Stratege trifft Praktiker</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <article class="flex gap-5 rounded-2xl border border-border bg-card p-8">
+            <span aria-hidden="true" class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-cta/10 text-2xl font-bold text-cta-accessible">NS</span>
+            <div>
+              <h3 class="text-lg font-semibold text-foreground">Norbert Schuster</h3>
+              <p class="text-sm font-medium text-cta-accessible">Stratege für Marketing &amp; Vertrieb, strike2</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Autor von „KI im B2B – Marketing und Vertrieb neu denken" (2025), Entwickler der
+                Wasserloch-Strategie® und des Schuster-Modells. Erklärt, warum Aufträge heute in der
+                stillen Vorentscheidung fallen — und wie aus Sichtbarkeit ein Umsatzsystem wird.
+              </p>
+            </div>
+          </article>
+          <article class="flex gap-5 rounded-2xl border border-border bg-card p-8">
+            <img src={`${base}/images/speaker-oliver-parrizas.webp`} alt="Porträt Oliver Parrizas" width="160" height="160" loading="lazy" decoding="async" class="h-20 w-20 shrink-0 rounded-full object-cover" />
+            <div>
+              <h3 class="text-lg font-semibold text-foreground">Oliver Parrizas</h3>
+              <p class="text-sm font-medium text-cta-accessible">Digital- &amp; Sichtbarkeits-Analyst</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Führt die Live-Audits durch: echte Firmen, echte KI-Antworten, die Methodik der
+                8 Einkäuferfragen — und die Zahlen hinter der bislang umfangreichsten Auswertung
+                zur KI-Sichtbarkeit des deutschen Mittelstands.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Anmeldung ────────────────────────────────────────────────── -->
+      <section id="anmeldung" aria-labelledby="h-anmeldung" class="scroll-mt-28 border-t border-border py-16">
+        <div class="rounded-3xl bg-foreground p-8 text-background sm:p-12">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Anmeldung</p>
+          <h2 id="h-anmeldung" class="text-3xl font-semibold tracking-tight sm:text-4xl">Sichern Sie sich Ihren Platz</h2>
+          <p class="mt-4 max-w-2xl text-base leading-relaxed opacity-80">
+            Kostenlos, 60 Minuten, via Zoom. Nach dem Webinar erhalten Sie Ihre persönliche
+            Sichtbarkeits-Analyse — deshalb fragen wir nach Ihrer Firmen-Domain.
+          </p>
+
+          <!-- Schritt 1: Daten -->
+          <form id="webinar-form" class="mt-8 max-w-2xl" novalidate>
+            <fieldset class="grid gap-4 sm:grid-cols-2">
+              <legend class="mb-3 text-sm font-semibold uppercase tracking-widest opacity-60">Ihr Termin</legend>
+              {slots.map((s, i) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-background/20 bg-background/10 px-5 py-4 transition-colors has-[:checked]:border-cta has-[:checked]:bg-cta/10">
+                  <input type="radio" name="slot" value={s.id} checked={i === 0} class="h-4 w-4 accent-[#DF41FB]" />
+                  <span class="text-sm"><strong class="block">{s.day}, {s.date}</strong><span class="opacity-70">{s.time} · Zoom</span></span>
+                </label>
+              ))}
+            </fieldset>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="w-name" class="mb-1.5 block text-sm font-medium">Name *</label>
+                <input id="w-name" name="name" type="text" autocomplete="name" required
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="Vor- und Nachname" />
+              </div>
+              <div>
+                <label for="w-email" class="mb-1.5 block text-sm font-medium">Firmen-E-Mail *</label>
+                <input id="w-email" name="email" type="email" autocomplete="email" required
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="name@ihre-firma.de" />
+              </div>
+              <div>
+                <label for="w-domain" class="mb-1.5 block text-sm font-medium">Firmen-Domain *</label>
+                <input id="w-domain" name="domain" type="text" inputmode="url" spellcheck="false" required
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="ihre-firma.de" />
+                <p class="mt-1.5 text-xs opacity-60">Wir prüfen die KI-Sichtbarkeit Ihres Unternehmens vorab — Sie erhalten Ihre persönliche Analyse nach dem Webinar.</p>
+              </div>
+              <div>
+                <label for="w-phone" class="mb-1.5 block text-sm font-medium">Handynummer *</label>
+                <input id="w-phone" name="phone" type="tel" autocomplete="tel" required
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="+49 170 1234567" />
+                <p class="mt-1.5 text-xs opacity-60">Sie erhalten Ihren Zugangslink und eine Erinnerung per SMS. Zur Bestätigung senden wir Ihnen gleich einen Code.</p>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="w-position" class="mb-1.5 block text-sm font-medium">Position <span class="opacity-50">(optional)</span></label>
+                <input id="w-position" name="position" type="text" autocomplete="organization-title"
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="z. B. Geschäftsführung, Marketing, Vertrieb" />
+              </div>
+            </div>
+
+            <input type="text" name="website" id="w-hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+            <div class="mt-6 space-y-3">
+              <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+                <input id="w-consent" type="checkbox" required class="mt-1 h-4 w-4 shrink-0 accent-[#DF41FB]" />
+                <span>CodaAI darf mich zur Besprechung meiner persönlichen Sichtbarkeits-Analyse per E-Mail und Telefon kontaktieren.
+                  Hinweise in der <a href={`${base}/datenschutz/`} class="underline decoration-background/30 underline-offset-2 hover:decoration-cta">Datenschutzerklärung</a>. *</span>
+              </label>
+              <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+                <input id="w-livetest" type="checkbox" class="mt-1 h-4 w-4 shrink-0 accent-[#DF41FB]" />
+                <span>Meine Firma darf im Webinar <strong>anonym</strong> live getestet werden.</span>
+              </label>
+            </div>
+
+            <p id="w-error" class="mt-4 hidden rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm" role="alert"></p>
+
+            <button id="w-submit" type="submit"
+              class="mt-6 inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50">
+              SMS-Code anfordern →
+            </button>
+          </form>
+
+          <!-- Schritt 2: SMS-Code -->
+          <div id="webinar-code" class="mt-8 hidden max-w-xl">
+            <p class="text-sm leading-relaxed opacity-80">Wir haben einen 6-stelligen Code an <strong id="w-phone-echo" class="text-cta"></strong> gesendet.</p>
+            <form id="webinar-code-form" class="mt-4 flex flex-col gap-3 sm:flex-row" novalidate>
+              <label for="w-code" class="sr-only">SMS-Code</label>
+              <input id="w-code" name="code" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required
+                class="w-full flex-1 rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-center text-2xl tracking-[0.4em] text-background placeholder:text-background/40 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="••••••" />
+              <button id="w-verify" type="submit"
+                class="rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50">
+                Anmeldung abschließen
+              </button>
+            </form>
+            <p id="w-code-error" class="mt-3 hidden rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm" role="alert"></p>
+            <div class="mt-3 flex items-center gap-4 text-xs opacity-70">
+              <button id="w-resend" type="button" class="underline underline-offset-2 hover:text-cta disabled:opacity-40" disabled>Code erneut senden</button>
+              <button id="w-back" type="button" class="underline underline-offset-2 hover:text-cta">Angaben ändern</button>
+            </div>
+          </div>
+
+          <!-- Erfolg -->
+          <div id="webinar-success" class="mt-8 hidden max-w-2xl rounded-xl border border-cta/40 bg-cta/10 p-6">
+            <p class="text-lg font-semibold">Ihre Anmeldung ist bestätigt ✓</p>
+            <p class="mt-2 text-sm leading-relaxed opacity-90">
+              <span id="w-success-when"></span> — die Bestätigung ist unterwegs in Ihr Postfach.
+              Ihren Zoom-Zugangslink erhalten Sie rechtzeitig per E-Mail und SMS.
+              Bis dahin: <a href={`${base}/studie/`} class="font-semibold text-cta underline underline-offset-2">die Auswertung hinter dem Webinar lesen →</a>
+            </p>
+          </div>
+
+          <p class="mt-8 text-xs opacity-60">
+            Kostenlos · begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete · Abmeldung jederzeit formlos möglich.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <Footer lang="de" />
+</Layout>
+
+<script>
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+  const dl = (name: string, params: Record<string, string> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: name, ...params });
+  };
+  dl('webinar_view');
+
+  const $ = (id: string) => document.getElementById(id);
+  const form = $('webinar-form') as HTMLFormElement;
+  const codeBox = $('webinar-code');
+  const codeForm = $('webinar-code-form') as HTMLFormElement;
+  const successBox = $('webinar-success');
+  const errBox = $('w-error');
+  const codeErrBox = $('w-code-error');
+  const submitBtn = $('w-submit') as HTMLButtonElement;
+  const verifyBtn = $('w-verify') as HTMLButtonElement;
+  const resendBtn = $('w-resend') as HTMLButtonElement;
+
+  const ERR: Record<string, string> = {
+    name_missing: 'Bitte geben Sie Ihren Namen an.',
+    email_invalid: 'Bitte prüfen Sie Ihre E-Mail-Adresse.',
+    domain_invalid: 'Bitte prüfen Sie die Domain (z. B. ihre-firma.de).',
+    phone_invalid: 'Bitte prüfen Sie die Handynummer (z. B. +49 170 1234567).',
+    slot_invalid: 'Bitte wählen Sie einen Termin.',
+    consent_missing: 'Bitte bestätigen Sie die Einwilligung.',
+    too_many_codes: 'Zu viele Code-Anforderungen — bitte versuchen Sie es in einer Stunde erneut.',
+    sms_send_failed: 'SMS-Versand aktuell nicht möglich. Bitte melden Sie sich per E-Mail an: hi@codaai.ai',
+    code_missing: 'Bitte geben Sie den 6-stelligen Code ein.',
+    code_expired: 'Der Code ist abgelaufen. Bitte fordern Sie einen neuen an.',
+    code_invalid: 'Der Code stimmt nicht. Bitte prüfen Sie Ihre Eingabe.',
+    code_attempts: 'Zu viele Fehlversuche. Bitte fordern Sie einen neuen Code an.',
+    network: 'Verbindung fehlgeschlagen. Bitte erneut versuchen — oder per E-Mail an hi@codaai.ai anmelden.',
+  };
+  const msg = (k: string) => ERR[k] || ERR.network;
+
+  let payload: Record<string, any> = {};
+  let token = '';
+
+  const showErr = (box: HTMLElement | null, key: string) => {
+    if (!box) return;
+    box.textContent = msg(key);
+    box.classList.remove('hidden');
+  };
+
+  const post = async (body: Record<string, any>) => {
+    const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(body) });
+    return res.json();
+  };
+
+  const startResendTimer = () => {
+    let s = 60;
+    resendBtn.disabled = true;
+    const t = setInterval(() => {
+      s -= 1;
+      resendBtn.textContent = s > 0 ? `Code erneut senden (${s}s)` : 'Code erneut senden';
+      if (s <= 0) { clearInterval(t); resendBtn.disabled = false; }
+    }, 1000);
+  };
+
+  form?.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    errBox?.classList.add('hidden');
+    if (($('w-hp') as HTMLInputElement)?.value) return; // Honeypot
+
+    const name = ($('w-name') as HTMLInputElement).value.trim();
+    const email = ($('w-email') as HTMLInputElement).value.trim();
+    const domain = ($('w-domain') as HTMLInputElement).value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+    const phone = ($('w-phone') as HTMLInputElement).value.trim();
+    const position = ($('w-position') as HTMLInputElement).value.trim();
+    const slot = (form.querySelector('input[name="slot"]:checked') as HTMLInputElement)?.value || '';
+    const consent = ($('w-consent') as HTMLInputElement).checked;
+    const livetest = ($('w-livetest') as HTMLInputElement).checked;
+
+    if (!name) return showErr(errBox, 'name_missing');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showErr(errBox, 'email_invalid');
+    if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(domain)) return showErr(errBox, 'domain_invalid');
+    if (!/^\+?[\d\s/()-]{7,20}$/.test(phone)) return showErr(errBox, 'phone_invalid');
+    if (!slot) return showErr(errBox, 'slot_invalid');
+    if (!consent) return showErr(errBox, 'consent_missing');
+
+    payload = { action: 'webinar_register', name, email, domain, phone, position, slot, consent, livetest };
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Code wird gesendet …';
+    try {
+      const r = await post({ action: 'webinar_code', phone });
+      if (!r.ok) { showErr(errBox, r.error); return; }
+      token = r.token;
+      form.classList.add('hidden');
+      codeBox?.classList.remove('hidden');
+      const echo = $('w-phone-echo'); if (echo) echo.textContent = r.phone || phone;
+      ($('w-code') as HTMLInputElement)?.focus();
+      startResendTimer();
+    } catch {
+      showErr(errBox, 'network');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'SMS-Code anfordern →';
+    }
+  });
+
+  codeForm?.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    codeErrBox?.classList.add('hidden');
+    const code = ($('w-code') as HTMLInputElement).value.trim();
+    if (!/^\d{6}$/.test(code)) return showErr(codeErrBox, 'code_missing');
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = 'Wird geprüft …';
+    try {
+      const r = await post({ ...payload, token, code });
+      if (!r.ok) { showErr(codeErrBox, r.error); return; }
+      codeBox?.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+      const when = $('w-success-when'); if (when) when.textContent = r.when || '';
+      dl('webinar_signup', { webinar_slot: payload.slot });
+      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      showErr(codeErrBox, 'network');
+    } finally {
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = 'Anmeldung abschließen';
+    }
+  });
+
+  resendBtn?.addEventListener('click', async () => {
+    codeErrBox?.classList.add('hidden');
+    try {
+      const r = await post({ action: 'webinar_code', phone: payload.phone });
+      if (!r.ok) { showErr(codeErrBox, r.error); return; }
+      token = r.token;
+      startResendTimer();
+    } catch {
+      showErr(codeErrBox, 'network');
+    }
+  });
+
+  $('w-back')?.addEventListener('click', () => {
+    codeBox?.classList.add('hidden');
+    form?.classList.remove('hidden');
+  });
+</script>
