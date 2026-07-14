@@ -1,0 +1,694 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+
+const DATENSTAND = 'Juni/Juli 2026';
+const VERSION = '1.0';
+// Webinar-Modul erst mit Live-Gang von /webinar aktivieren (Olis Entscheidung 14.07.2026)
+const SHOW_WEBINAR = false;
+
+// ── Kennzahlen (Quelle: geo_v2_export, Auswertung 13.07.2026 — vor Go-Live Refresh!) ──
+const K = {
+  unternehmen: 449,
+  fragen: 3592,
+  antworten: 7184,
+  ohneNennung: 54.7,        // % aller Fragen ohne Nennung des Unternehmens
+  ersetzt: 46.8,            // % Firmen: KI empfiehlt Wettbewerber, Firma fehlt mehrheitlich
+  seoParadox: 34.9,         // % der SEO-starken Firmen (≥100 Top-10) in ChatGPT unsichtbar
+  seoStarkN: 361,
+  komplettUnsichtbar: 12.9, // % Firmen: 0 von 8 Fragen
+  kategorieBlind: 25.6,     // % Firmen: bei Marktfrage zum eigenen Kerngeschäft unsichtbar
+  chatgptAvg: 24.9,
+  googleAvg: 39.4,
+  nieChatgpt: 39.6,
+  nieGoogle: 15.1,
+  nieZitiert: 39.0,
+  platz1: 23.8,
+  avgPosition: '1,8',
+  verlustMedian: '47.000',
+};
+
+const reportSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Report',
+  name: 'KI-Blindtest Mittelstand 2026 — Auswertung zur KI-Sichtbarkeit mittelständischer Unternehmen',
+  alternativeName: 'Empfohlen oder unsichtbar?',
+  url: `${SITE_URL}/studie/`,
+  datePublished: '2026-07-14',
+  dateModified: '2026-07-14',
+  inLanguage: 'de',
+  version: VERSION,
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  description:
+    'Auswertung von 7.184 KI-Antworten (ChatGPT und Google KI-Übersicht) auf 3.592 realistische Einkäuferfragen zu 449 mittelständischen Unternehmen: 54,7 % der Fragen bleiben ohne Nennung des jeweiligen Unternehmens; bei 46,8 % der Unternehmen empfiehlt die KI namentlich Wettbewerber.',
+  about: [
+    { '@type': 'Thing', name: 'Generative Engine Optimization (GEO)' },
+    { '@type': 'Thing', name: 'KI-Sichtbarkeit' },
+    { '@type': 'Thing', name: 'Mittelstand' },
+  ],
+});
+
+const datasetSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'KI-Blindtest Mittelstand 2026 — Rohdaten-Aggregat',
+  description:
+    '449 mittelständische Unternehmen × 8 qualifizierte Einkäuferfragen, abgefragt auf ChatGPT und Google KI-Übersicht (7.184 dokumentierte Antworten). Erhoben Juni/Juli 2026. Aggregierte Kennzahlen öffentlich; Einzeldaten unternehmensbezogen und zugangsgeschützt.',
+  url: `${SITE_URL}/studie/`,
+  creator: { '@id': `${SITE_URL}/#organization` },
+  temporalCoverage: '2026-06/2026-07',
+  spatialCoverage: 'DACH',
+  isAccessibleForFree: true,
+});
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Ist diese Auswertung repräsentativ für den deutschen Mittelstand?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nein, und das behaupten wir bewusst nicht. Die 449 Unternehmen stammen aus unserer eigenen Audit-Praxis und sind B2B-lastig. Die Auswertung ist nach unserer Recherche jedoch die bislang umfangreichste ihrer Art im deutschsprachigen Raum — kleinere Erhebungen (24 bzw. 150 Unternehmen) kommen unabhängig von uns zu ähnlichen Ergebnissen.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie wurden die Einkäuferfragen erstellt?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pro Unternehmen wurden 8 qualifizierte deutsche Fragen in drei Archetypen generiert (Marktübersicht, Anwendungsfall, Wettbewerbsvergleich) — auf Basis einer automatisierten Analyse der Website, der Branche und des Wettbewerbsumfelds, mit anschließender Qualitätsprüfung. Die Fragensätze sind eingefroren und damit für Verlaufsmessungen wiederholbar.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche KI-Systeme wurden abgefragt?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ChatGPT (Modellantworten ohne Live-Websuche) und die Google KI-Übersicht (deutsche Lokalisierung). Beide Oberflächen wurden mit identischen Fragen abgefragt; erfasst wurden Markennennung, Position der Nennung, genannte Wettbewerber und ob die eigene Website als Quelle zitiert wird.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Kann ich die Sichtbarkeit meines eigenen Unternehmens prüfen lassen?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja. Mit derselben Methodik erstellen wir ein individuelles Sichtbarkeits-Audit für Ihr Unternehmen — mit Ihren realen Einkäuferfragen, den echten KI-Antworten und den Wettbewerbern, die statt Ihnen empfohlen werden. Geben Sie dazu oben auf dieser Seite Ihre Domain ein.',
+      },
+    },
+  ],
+});
+
+// Anonymisierte Echt-Beispiele aus dem Datensatz (Branche statt Firmenname, Wettbewerber anonymisiert)
+const beispiele = [
+  {
+    branche: 'Hersteller von Not- und Sicherheitsbeleuchtung',
+    kontext: 'ca. 880 Top-10-Rankings bei Google — organisch gut sichtbar',
+    frage: 'Welche LED-Notleuchten sind für den Einsatz in gewerblichen Flucht- und Rettungswegen nach aktueller Norm empfehlenswert?',
+    ergebnis: 'Das Unternehmen wird nicht genannt. Stattdessen empfehlen die KI-Systeme über den gesamten Fragensatz hinweg zwei direkte Wettbewerber je fünfmal.',
+  },
+  {
+    branche: 'Maschinenbauer für Fabrikautomation und Fördertechnik',
+    kontext: 'ca. 640 Top-10-Rankings — KI-Sichtbarkeit: 0 von 8 Fragen',
+    frage: 'Welche Hersteller von Aluminium-Profilsystemen für die Fabrikautomation gelten als führend in Europa?',
+    ergebnis: 'Keine Nennung in ChatGPT und Google KI-Übersicht. Der meistgenannte Wettbewerber erscheint in den Antworten siebenmal — ein DAX-naher Großkonzern dominiert die Kategorie.',
+  },
+  {
+    branche: 'Anbieter von Galvanotechnik und Oberflächenveredelung',
+    kontext: 'über 1.200 Top-10-Rankings — KI-Sichtbarkeit: 0 von 8 Fragen',
+    frage: 'Welche Anbieter für galvanische Metallveredelung in Deutschland gelten als besonders zuverlässig?',
+    ergebnis: 'Das Unternehmen taucht in keiner Antwort auf — obwohl es bei klassischen Google-Suchen zu denselben Themen auf Seite 1 rankt. Empfohlen werden zwei internationale Gruppen.',
+  },
+];
+---
+
+<Layout
+  lang="de"
+  title="KI-Blindtest Mittelstand 2026: Empfohlen oder unsichtbar? | CodaAI"
+  description="Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen: In 55 % der Einkäuferfragen wird das Unternehmen nicht genannt — bei 47 % empfiehlt die KI stattdessen Wettbewerber. Methodik, Ergebnisse und Domain-Check."
+  jsonLd={[reportSchema, datasetSchema, faqSchema]}
+>
+  <Navbar lang="de" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+        <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'KI-Blindtest 2026' }]} class="mb-8" />
+
+        <div class="max-w-3xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+            Datenauswertung · KI-Blindtest Mittelstand 2026
+          </p>
+          <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            Empfohlen oder <span class="text-cta">unsichtbar</span>?
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">
+            Wir haben KI-Assistenten die Fragen echter Einkäufer gestellt — zu 449 mittelständischen
+            Unternehmen. Das Ergebnis ist die nach unserer Kenntnis bislang umfangreichste Auswertung
+            zur KI-Sichtbarkeit des Mittelstands im deutschsprachigen Raum. Es ist kein beruhigendes Ergebnis.
+          </p>
+        </div>
+
+        <!-- Kennzahlen-Band -->
+        <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">untersuchte Unternehmen</dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="3592">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">realistische Einkäuferfragen</dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-cta lg:text-5xl" data-count="7184">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">dokumentierte KI-Antworten</dt>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Datenstand: {DATENSTAND}
+          </span>
+          <span>Version {VERSION}</span>
+          <a href="#methodik" class="font-medium text-cta-accessible transition-colors hover:text-cta">Methodik ↓</a>
+          <a href="#limitationen" class="font-medium text-cta-accessible transition-colors hover:text-cta">Limitationen ↓</a>
+          <a href="#zitieren" class="font-medium text-cta-accessible transition-colors hover:text-cta">Zitieren ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Inhalt + TOC ─────────────────────────────────────────────────── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
+
+        <!-- TOC (Desktop) -->
+        <aside class="hidden lg:block">
+          <nav aria-label="Inhaltsverzeichnis" class="sticky top-28 py-16 text-sm">
+            <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Inhalt</p>
+            <ol class="space-y-3 border-l border-border">
+              <li><a href="#zusammenfassung" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Zusammenfassung</a></li>
+              <li><a href="#ergebnisse" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Kernergebnisse</a></li>
+              <li><a href="#plattformen" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">ChatGPT vs. Google KI</a></li>
+              <li><a href="#beispiele" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Beispiele</a></li>
+              <li><a href="#domain-check" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Domain-Check</a></li>
+              <li><a href="#methodik" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Methodik</a></li>
+              <li><a href="#limitationen" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Limitationen</a></li>
+              <li><a href="#faq" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Häufige Fragen</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="min-w-0">
+
+          <!-- ── Zusammenfassung ──────────────────────────────────────── -->
+          <section id="zusammenfassung" aria-labelledby="h-zusammenfassung" class="scroll-mt-28 py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Abstract</p>
+            <h2 id="h-zusammenfassung" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Zusammenfassung</h2>
+            <div class="mt-8 rounded-2xl border-l-4 border-cta bg-muted/30 p-8">
+              <p class="text-lg leading-relaxed text-foreground">
+                B2B-Kaufentscheidungen beginnen zunehmend in KI-Antworten — lange bevor ein Anbieter kontaktiert wird.
+                Diese Auswertung misst, ob mittelständische Unternehmen dort vorkommen. Dazu wurden je Unternehmen
+                acht realistische Einkäuferfragen an ChatGPT und die Google KI-Übersicht gestellt und die Antworten
+                systematisch ausgewertet: Wird das Unternehmen genannt? An welcher Position? Wer wird stattdessen
+                empfohlen? Wird die eigene Website als Quelle zitiert?
+              </p>
+              <p class="mt-4 text-lg leading-relaxed text-foreground">
+                Das Ergebnis: In <strong>{K.ohneNennung.toLocaleString('de-DE')} %</strong> aller Fragen wird das
+                betroffene Unternehmen nicht genannt. Bei <strong>{K.ersetzt.toLocaleString('de-DE')} %</strong> der
+                Unternehmen empfehlen die KI-Systeme namentlich Wettbewerber, während das Unternehmen selbst bei der
+                Mehrheit seiner Kernfragen fehlt. Und selbst starke Google-Rankings schützen nicht:
+                <strong>{K.seoParadox.toLocaleString('de-DE')} %</strong> der organisch gut sichtbaren Unternehmen
+                sind in ChatGPT vollständig unsichtbar.
+              </p>
+            </div>
+          </section>
+
+          <!-- ── Kernergebnisse ───────────────────────────────────────── -->
+          <section id="ergebnisse" aria-labelledby="h-ergebnisse" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ergebnisse</p>
+            <h2 id="h-ergebnisse" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Vier Befunde, die wehtun</h2>
+
+            <div class="mt-10 grid gap-6 sm:grid-cols-2">
+
+              <!-- Befund 1 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">55&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">der Einkäuferfragen bleiben ohne Nennung</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  In 1.965 von 3.592 Fragen taucht das jeweilige Unternehmen in keiner der beiden
+                  KI-Antworten auf. Die Mehrheit der Kaufanbahnungen findet damit ohne das Unternehmen statt —
+                  und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="54,7 Prozent der Fragen ohne Nennung">
+                  <div class="h-full rounded-full bg-cta" style="width:54.7%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 2 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">47&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">werden durch Wettbewerber ersetzt</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  Bei 210 von 449 Unternehmen empfehlen die KI-Systeme namentlich Wettbewerber, während das
+                  Unternehmen selbst bei der Mehrheit seiner Fragen fehlt. {K.komplettUnsichtbar.toLocaleString('de-DE')} %
+                  sind vollständig ersetzt: null Nennungen bei acht Fragen — die Konkurrenz steht in jeder Antwort.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="46,8 Prozent der Unternehmen werden durch Wettbewerber ersetzt">
+                  <div class="h-full rounded-full bg-cta" style="width:46.8%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 3 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">35&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">Das SEO-Paradox: Gute Rankings schützen nicht</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {K.seoStarkN} der untersuchten Unternehmen haben mehr als 100 Top-10-Rankings bei Google.
+                  Jedes dritte davon ({K.seoParadox.toLocaleString('de-DE')} %) ist in ChatGPT trotzdem komplett
+                  unsichtbar. Klassische SEO-Stärke und KI-Sichtbarkeit sind zwei verschiedene Disziplinen.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="34,9 Prozent der SEO-starken Unternehmen sind in ChatGPT unsichtbar">
+                  <div class="h-full rounded-full bg-cta" style="width:34.9%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 4 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">26&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">unsichtbar beim eigenen Kerngeschäft</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  Jedes vierte Unternehmen wird selbst bei der Marktübersichts-Frage zu seiner
+                  <em>eigenen</em> Kategorie nicht genannt („Welche Anbieter für … gelten als führend?").
+                  Wer hier fehlt, existiert für die Discovery-Phase seiner Branche nicht.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="25,6 Prozent bei der eigenen Kategorie-Frage unsichtbar">
+                  <div class="h-full rounded-full bg-cta" style="width:25.6%"></div>
+                </div>
+              </article>
+            </div>
+
+            <p class="mt-6 text-xs leading-relaxed text-muted-foreground">
+              Ergänzende Kennzahlen: Wo Unternehmen genannt werden, stehen sie im Schnitt an Position {K.avgPosition};
+              in {K.platz1.toLocaleString('de-DE')} % aller Fragen erreicht das Unternehmen Platz 1.
+              Bei {K.nieZitiert.toLocaleString('de-DE')} % der Unternehmen wird die eigene Website in keiner Antwort
+              als Quelle zitiert — die KI beschreibt diese Firmen ausschließlich auf Basis Dritter.
+              Eine konservative Modellrechnung beziffert die mediane Opportunität auf rund {K.verlustMedian} € pro
+              Unternehmen und Jahr (<a href="#limitationen" class="underline decoration-border underline-offset-2 hover:text-foreground">Einordnung</a>).
+            </p>
+          </section>
+
+          <!-- ── Plattform-Vergleich ──────────────────────────────────── -->
+          <section id="plattformen" aria-labelledby="h-plattformen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Plattform-Vergleich</p>
+            <h2 id="h-plattformen" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">ChatGPT ist deutlich blinder als die Google KI-Übersicht</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              Dieselben Fragen, zwei Systeme, zwei Realitäten: ChatGPT antwortet überwiegend aus Trainingsdaten —
+              wer dort fehlt, fehlt strukturell und kann das kurzfristig kaum korrigieren. Die Google KI-Übersicht
+              greift stärker auf den Live-Index zu.
+            </p>
+
+            <div class="mt-10 space-y-8 rounded-2xl border border-border bg-card p-8">
+              <div>
+                <div class="mb-2 flex items-baseline justify-between gap-4">
+                  <span class="text-sm font-semibold text-foreground">Ø Sichtbarkeit in ChatGPT</span>
+                  <span class="text-2xl font-bold tabular-nums text-foreground">24,9&thinsp;%</span>
+                </div>
+                <div class="h-3 overflow-hidden rounded-full bg-muted">
+                  <div class="h-full rounded-full bg-cta" style="width:24.9%"></div>
+                </div>
+                <p class="mt-2 text-xs text-muted-foreground">{K.nieChatgpt.toLocaleString('de-DE')} % der Unternehmen werden von ChatGPT <strong>nie</strong> genannt.</p>
+              </div>
+              <div>
+                <div class="mb-2 flex items-baseline justify-between gap-4">
+                  <span class="text-sm font-semibold text-foreground">Ø Sichtbarkeit in der Google KI-Übersicht</span>
+                  <span class="text-2xl font-bold tabular-nums text-foreground">39,4&thinsp;%</span>
+                </div>
+                <div class="h-3 overflow-hidden rounded-full bg-muted">
+                  <div class="h-full rounded-full bg-cta/60" style="width:39.4%"></div>
+                </div>
+                <p class="mt-2 text-xs text-muted-foreground">{K.nieGoogle.toLocaleString('de-DE')} % der Unternehmen erscheinen auch hier in keiner Antwort.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Beispiele ────────────────────────────────────────────── -->
+          <section id="beispiele" aria-labelledby="h-beispiele" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Aus dem Datensatz</p>
+            <h2 id="h-beispiele" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei echte Fälle — anonymisiert</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              Originalfragen aus der Erhebung. Unternehmens- und Wettbewerbernamen sind aus Fairness anonymisiert —
+              in den individuellen Audits stehen sie im Klartext.
+            </p>
+
+            <div class="mt-10 space-y-4">
+              {beispiele.map((b) => (
+                <details class="group rounded-2xl border border-border bg-card open:border-cta/40 open:shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{b.branche}</p>
+                      <p class="mt-1 text-sm text-muted-foreground">{b.kontext}</p>
+                    </div>
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <div class="border-t border-border px-6 py-6">
+                    <p class="text-sm font-medium text-muted-foreground">Gestellte Einkäuferfrage:</p>
+                    <blockquote class="mt-2 rounded-xl bg-muted/40 p-4 text-foreground">„{b.frage}"</blockquote>
+                    <p class="mt-4 text-sm font-medium text-muted-foreground">Ergebnis:</p>
+                    <p class="mt-2 leading-relaxed text-foreground">{b.ergebnis}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <!-- ── Domain-Check ─────────────────────────────────────────── -->
+          <section id="domain-check" aria-labelledby="h-domain-check" class="scroll-mt-28 border-t border-border py-16">
+            <div class="rounded-3xl bg-foreground p-8 text-background sm:p-12">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Der Test für Ihr Unternehmen</p>
+              <h2 id="h-domain-check" class="text-3xl font-semibold tracking-tight sm:text-4xl">Und Sie — empfohlen oder unsichtbar?</h2>
+              <p class="mt-4 max-w-2xl text-base leading-relaxed opacity-80">
+                Dieselbe Methodik, angewendet auf Ihr Unternehmen: Ihre acht Einkäuferfragen, die echten
+                KI-Antworten, Ihre Wettbewerber. Geben Sie Ihre Domain ein — wir zeigen Ihnen, was die KI antwortet.
+              </p>
+
+              <form id="domain-check-form" class="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row" novalidate>
+                <label for="domain-input" class="sr-only">Ihre Firmen-Domain</label>
+                <input
+                  id="domain-input"
+                  name="domain"
+                  type="text"
+                  inputmode="url"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="ihre-firma.de"
+                  class="w-full flex-1 rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50"
+                  required
+                />
+                <button
+                  type="submit"
+                  class="rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-transparent"
+                >
+                  Sichtbarkeit prüfen
+                </button>
+              </form>
+
+              <!-- Personalisierter Einstieg (per ?d=… aus Nurture-Links, via JS eingeblendet) -->
+              <div id="domain-known" class="mt-6 hidden rounded-xl border border-cta/40 bg-cta/10 p-5">
+                <p class="text-sm leading-relaxed">
+                  Für <strong id="domain-known-name" class="text-cta"></strong> liegt bereits eine vollständige
+                  Sichtbarkeits-Analyse vor.
+                </p>
+                <a id="domain-known-link" href="#" class="mt-3 inline-flex items-center gap-2 rounded-lg bg-cta px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                  Zur persönlichen Analyse →
+                </a>
+              </div>
+
+              <!-- Antwort für manuelle Eingaben (via JS eingeblendet) -->
+              <div id="domain-response" class="mt-6 hidden rounded-xl border border-background/20 bg-background/10 p-5">
+                <p class="text-sm leading-relaxed">
+                  Danke — wir prüfen <strong id="domain-response-name" class="text-cta"></strong> mit der Methodik
+                  dieser Auswertung. Das vollständige Audit erstellen wir kostenlos; die Ergebnisse besprechen wir
+                  in 15 Minuten, ohne Verkaufsdruck.
+                </p>
+                <div class="mt-3 flex flex-wrap gap-3">
+                  <a id="domain-response-cta" href={`${base}/#termin`} class="inline-flex items-center gap-2 rounded-lg bg-cta px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                    Analyse anfordern (15-Min-Termin) →
+                  </a>
+                </div>
+              </div>
+
+              <p class="mt-6 text-xs opacity-60">
+                Kostenlos · keine Registrierung für die Prüfung · Ergebnisse werden nicht veröffentlicht.
+              </p>
+            </div>
+          </section>
+
+          <!-- ── Webinar-Modul (deaktiviert via SHOW_WEBINAR, bis /webinar existiert — danach durch Recording ersetzen) ── -->
+          {SHOW_WEBINAR && (
+          <section id="webinar" aria-labelledby="h-webinar" class="scroll-mt-28 border-t border-border py-16">
+            <div class="grid items-center gap-10 rounded-3xl border border-cta/30 bg-gradient-to-br from-cta/5 to-transparent p-8 sm:p-12 lg:grid-cols-[1fr_auto]">
+              <div>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Live-Webinar</p>
+                <h2 id="h-webinar" class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                  Die Ergebnisse live — inklusive Test von Teilnehmer-Firmen
+                </h2>
+                <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+                  Am <strong class="text-foreground">Dienstag, 29. September 2026, 11:00–12:00 Uhr</strong> stellen wir
+                  die Auswertung gemeinsam mit <strong class="text-foreground">Norbert Schuster</strong> (Autor
+                  „KI im B2B – Marketing und Vertrieb neu denken") vor — und testen live Unternehmen aus dem Publikum.
+                  Jeder Teilnehmer erhält im Anschluss sein persönliches Sichtbarkeits-Audit.
+                </p>
+              </div>
+              <div class="flex flex-col items-start gap-3 lg:items-end">
+                <a href={`${base}/webinar/`} class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                  Kostenlos anmelden →
+                </a>
+                <p class="text-xs text-muted-foreground">Begrenzt auf 100 Plätze · Aufzeichnung für Angemeldete</p>
+              </div>
+            </div>
+          </section>
+          )}
+
+          <!-- ── Methodik ─────────────────────────────────────────────── -->
+          <section id="methodik" aria-labelledby="h-methodik" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Transparenz</p>
+            <h2 id="h-methodik" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Methodik</h2>
+
+            <ol class="mt-10 space-y-6">
+              {[
+                {
+                  t: 'Stichprobe',
+                  d: `${K.unternehmen} mittelständische Unternehmen aus dem deutschsprachigen Raum, überwiegend B2B (u. a. Maschinenbau, Elektrotechnik, Bauzulieferer, industrielle Dienstleistungen). Auswahl aus der eigenen Audit-Praxis — keine Zufallsstichprobe (siehe Limitationen).`,
+                },
+                {
+                  t: 'Fragen-Generierung',
+                  d: 'Pro Unternehmen 8 qualifizierte deutsche Einkäuferfragen in drei Archetypen: Marktübersicht (2), Anwendungsfall (4), Wettbewerbsvergleich (2). Erstellt auf Basis einer automatisierten Analyse von Website, Branche und Wettbewerbsumfeld, mit deterministischer Qualitätsprüfung. Die Fragensätze werden eingefroren und sind damit für Verlaufsmessungen exakt wiederholbar.',
+                },
+                {
+                  t: 'Abfrage',
+                  d: 'Jede Frage wurde an zwei Oberflächen gestellt: ChatGPT (Modellantwort ohne Live-Websuche — misst das strukturelle „Wissen" des Modells) und Google KI-Übersicht (deutsche Lokalisierung). Erhebungszeitraum: Juni/Juli 2026.',
+                },
+                {
+                  t: 'Auswertung',
+                  d: 'Pro Antwort wurden erfasst: Nennung des Unternehmens (inkl. Marken-Aliase), Position der Nennung, namentlich empfohlene Wettbewerber sowie die Frage, ob die eigene Website als Quelle zitiert wird. Aggregation zu Sichtbarkeits-Kennzahlen je Unternehmen und über den Gesamtdatensatz.',
+                },
+                {
+                  t: 'Monetäre Einordnung',
+                  d: 'Die genannten Opportunitätskosten sind eine konservative Modellrechnung auf Basis organischer Traffic-Werte (Sistrix-Datenbasis) und Discovery-Annahmen — als Größenordnung gedacht, nicht als Prognose. Sie ist durchgängig als Modellrechnung gekennzeichnet.',
+                },
+              ].map((m, i) => (
+                <li class="flex gap-5 rounded-2xl border border-border bg-card p-6">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+                  <div>
+                    <h3 class="font-semibold text-foreground">{m.t}</h3>
+                    <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <!-- ── Limitationen ─────────────────────────────────────────── -->
+          <section id="limitationen" aria-labelledby="h-limitationen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ehrlichkeit vor Effekt</p>
+            <h2 id="h-limitationen" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Limitationen</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              Eine Auswertung ist nur so glaubwürdig wie die Grenzen, die sie selbst benennt.
+            </p>
+            <ul class="mt-8 space-y-4">
+              {[
+                'Keine Zufallsstichprobe: Die Unternehmen stammen aus unserer Audit-Praxis und sind B2B-lastig. Aussagen gelten für die untersuchten 449 Unternehmen — nicht für „den deutschen Mittelstand" insgesamt.',
+                'Momentaufnahme: KI-Antworten sind volatil; Modell-Updates können Nennungen verschieben. Datenstand ist ausgewiesen; die eingefrorenen Fragensätze machen Verlaufsmessungen möglich.',
+                'ChatGPT wurde bewusst ohne Live-Websuche abgefragt, um das strukturelle Modell-Wissen zu messen. Mit aktivierter Websuche können einzelne Antworten abweichen.',
+                'Die monetäre Einordnung ist eine Modellrechnung mit konservativen Annahmen, keine Umsatzprognose.',
+                'Zwei kleinere, unabhängige Erhebungen Dritter (24 bzw. 150 Unternehmen, Frühjahr 2026) kommen zu ähnlichen Größenordnungen — das stützt die Richtung der Befunde, ersetzt aber keine Repräsentativität.',
+              ].map((l) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <svg class="mt-0.5 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                  <span>{l}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- ── Zitieren ─────────────────────────────────────────────── -->
+          <section id="zitieren" aria-labelledby="h-zitieren" class="scroll-mt-28 border-t border-border py-16">
+            <h2 id="h-zitieren" class="text-2xl font-semibold tracking-tight text-foreground">Diese Auswertung zitieren</h2>
+            <p class="mt-3 max-w-2xl text-sm text-muted-foreground">
+              Die aggregierten Kennzahlen dürfen mit Quellenangabe frei zitiert werden — in Artikeln, Vorträgen und
+              Publikationen. Für Rückfragen zur Methodik: <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible hover:text-cta">hi@codaai.ai</a>
+            </p>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <code id="cite-text" class="block flex-1 rounded-xl border border-border bg-muted/40 px-5 py-4 text-sm text-foreground">
+                CodaAI (2026): KI-Blindtest Mittelstand 2026 — Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen. Version {VERSION}, Datenstand {DATENSTAND}. {SITE_URL}/studie/
+              </code>
+              <button id="cite-copy" type="button" class="shrink-0 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-cta hover:text-cta">
+                Kopieren
+              </button>
+            </div>
+          </section>
+
+          <!-- ── FAQ ──────────────────────────────────────────────────── -->
+          <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
+            <h2 id="h-faq" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Häufige Fragen</h2>
+            <div class="mt-8 space-y-4">
+              {[
+                {
+                  q: 'Ist diese Auswertung repräsentativ für den deutschen Mittelstand?',
+                  a: 'Nein, und das behaupten wir bewusst nicht. Die 449 Unternehmen stammen aus unserer eigenen Audit-Praxis und sind B2B-lastig. Die Auswertung ist nach unserer Recherche jedoch die bislang umfangreichste ihrer Art im deutschsprachigen Raum — kleinere Erhebungen (24 bzw. 150 Unternehmen) kommen unabhängig von uns zu ähnlichen Ergebnissen.',
+                },
+                {
+                  q: 'Wie wurden die Einkäuferfragen erstellt?',
+                  a: 'Pro Unternehmen wurden 8 qualifizierte deutsche Fragen in drei Archetypen generiert (Marktübersicht, Anwendungsfall, Wettbewerbsvergleich) — auf Basis einer automatisierten Analyse der Website, der Branche und des Wettbewerbsumfelds, mit anschließender Qualitätsprüfung. Die Fragensätze sind eingefroren und damit für Verlaufsmessungen wiederholbar.',
+                },
+                {
+                  q: 'Welche KI-Systeme wurden abgefragt?',
+                  a: 'ChatGPT (Modellantworten ohne Live-Websuche) und die Google KI-Übersicht (deutsche Lokalisierung). Beide Oberflächen wurden mit identischen Fragen abgefragt; erfasst wurden Markennennung, Position der Nennung, genannte Wettbewerber und ob die eigene Website als Quelle zitiert wird.',
+                },
+                {
+                  q: 'Kann ich die Sichtbarkeit meines eigenen Unternehmens prüfen lassen?',
+                  a: 'Ja. Mit derselben Methodik erstellen wir ein individuelles Sichtbarkeits-Audit für Ihr Unternehmen — mit Ihren realen Einkäuferfragen, den echten KI-Antworten und den Wettbewerbern, die statt Ihnen empfohlen werden. Geben Sie dazu oben auf dieser Seite Ihre Domain ein.',
+                },
+              ].map((f) => (
+                <details class="group rounded-2xl border border-border bg-card open:border-cta/40">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <!-- ── Abschluss-CTA ────────────────────────────────────────── -->
+          <section class="border-t border-border py-16">
+            <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
+              <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                15 Minuten, ein klarer Befund.
+              </h2>
+              <p class="mx-auto mt-4 max-w-xl text-muted-foreground">
+                Kein Verkaufsgespräch: Wir zeigen Ihnen Ihre KI-Sichtbarkeit anhand echter Einkäuferfragen —
+                und die zwei bis drei Hebel, die bei Ihnen am schnellsten wirken.
+              </p>
+              <a href={`${base}/#termin`} class="mt-8 inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                Kostenloses Erstgespräch buchen →
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer lang="de" />
+</Layout>
+
+<script>
+  // ── Zähler-Animation im Hero ─────────────────────────────────────────────
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  const fmt = new Intl.NumberFormat('de-DE');
+  const animate = (el: HTMLElement) => {
+    const target = Number(el.dataset.count ?? '0');
+    const dur = 1400;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt.format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          animate(e.target as HTMLElement);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((c) => io.observe(c));
+  } else {
+    counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
+  }
+
+  // ── Domain-Check ─────────────────────────────────────────────────────────
+  const normalize = (v: string) =>
+    v.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+
+  const form = document.getElementById('domain-check-form') as HTMLFormElement | null;
+  const input = document.getElementById('domain-input') as HTMLInputElement | null;
+  const known = document.getElementById('domain-known');
+  const knownName = document.getElementById('domain-known-name');
+  const knownLink = document.getElementById('domain-known-link') as HTMLAnchorElement | null;
+  const resp = document.getElementById('domain-response');
+  const respName = document.getElementById('domain-response-name');
+
+  const dl = (name: string, params: Record<string, string> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: name, ...params });
+  };
+
+  // Personalisierter Einstieg aus Nurture-Links: /studie?d=firma.de
+  const param = new URLSearchParams(location.search).get('d');
+  if (param && known && knownName && knownLink && input) {
+    const dom = normalize(param);
+    if (/^[a-z0-9.-]+\.[a-z]{2,}$/.test(dom)) {
+      input.value = dom;
+      knownName.textContent = dom;
+      knownLink.href = `https://audit.codaai.ai/${dom}`;
+      known.classList.remove('hidden');
+      dl('study_personalized_view', { study_domain: dom });
+    }
+  }
+
+  form?.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    if (!input || !resp || !respName) return;
+    const dom = normalize(input.value);
+    if (!/^[a-z0-9.-]+\.[a-z]{2,}$/.test(dom)) {
+      input.focus();
+      input.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    input.removeAttribute('aria-invalid');
+    known?.classList.add('hidden');
+    respName.textContent = dom;
+    resp.classList.remove('hidden');
+    resp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    dl('study_domain_check', { study_domain: dom });
+  });
+
+  // ── Zitat kopieren ───────────────────────────────────────────────────────
+  const citeBtn = document.getElementById('cite-copy');
+  const citeText = document.getElementById('cite-text');
+  citeBtn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(citeText?.textContent?.trim() ?? '');
+      citeBtn.textContent = 'Kopiert ✓';
+      setTimeout(() => (citeBtn.textContent = 'Kopieren'), 2000);
+      dl('study_cite_copy');
+    } catch {
+      /* Clipboard nicht verfügbar — kein Fallback nötig */
+    }
+  });
+</script>
