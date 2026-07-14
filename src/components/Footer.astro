@@ -9,6 +9,10 @@ const { lang } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+// Studien-Teaser: nur auf DE-Seiten, nicht auf /studie selbst (kein Link auf sich selbst)
+const isStudiePage = Astro.url.pathname.replace(/\/$/, '').endsWith('/studie');
+const showStudyTeaser = lang === 'de' && !isStudiePage;
+
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
 const complianceBadges = [
   {
@@ -46,6 +50,33 @@ const currentYear = new Date().getFullYear();
 
 <footer class="border-t border-border bg-background">
   <div class="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-12">
+
+    {showStudyTeaser && (
+      <a
+        href={`${base}/studie/`}
+        class="group mb-10 flex flex-col items-center gap-5 rounded-3xl bg-foreground p-6 text-background transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
+        aria-label="Zur Studie: KI-Blindtest Mittelstand 2026 — Empfohlen oder unsichtbar?"
+      >
+        <img
+          src={`${base}/images/studie-teaser-de.webp`}
+          alt=""
+          width="138"
+          height="180"
+          loading="lazy"
+          decoding="async"
+          class="h-24 w-auto flex-none"
+        />
+        <span class="min-w-0 flex-1 text-center sm:text-left">
+          <span class="block text-xs font-semibold uppercase tracking-widest text-cta">KI-Blindtest Mittelstand 2026</span>
+          <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">Empfohlen oder <span class="text-cta">unsichtbar</span>?</span>
+          <span class="mt-1 block text-sm opacity-70">449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.</span>
+        </span>
+        <span class="inline-flex flex-none items-center gap-2 rounded-xl bg-cta px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
+          Zur Studie →
+        </span>
+      </a>
+    )}
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
       <div>
         <a href={`${base}/`} class="flex items-center gap-2" aria-label="CodaAI – zur Startseite">
