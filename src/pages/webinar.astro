@@ -77,7 +77,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
             Live-Webinar · Empfohlen oder unsichtbar · 60 Minuten
           </p>
-          <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             <span class="block">Wer in KI-Antworten</span>
             <span class="block text-cta">nicht genannt wird,</span>
             <span class="block">wird nicht angefragt.</span>
@@ -91,6 +91,22 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </p>
         </div>
 
+        <!-- Kennzahlen-Band (identisch zu /studie) -->
+        <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">untersuchte Unternehmen</dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="3592">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">realistische Einkäuferfragen</dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-cta lg:text-5xl" data-count="7184">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">dokumentierte KI-Antworten</dt>
+          </div>
+        </dl>
+
         <div class="mt-10 flex flex-wrap items-center gap-4">
           {slots.map((s) => (
             <span class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-foreground">
@@ -102,9 +118,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
         <div class="mt-8 flex flex-wrap items-center gap-5">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-            Kostenlos anmelden →
+            Anmelden →
           </a>
-          <p class="text-xs text-muted-foreground">Kostenlos · begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete</p>
+          <p class="text-xs text-muted-foreground">Begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete</p>
         </div>
       </div>
     </section>
@@ -434,4 +450,33 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     codeBox?.classList.add('hidden');
     form?.classList.remove('hidden');
   });
+
+  // ── Zähler-Animation im Kennzahlen-Band (identisch zu /studie) ───────────
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  const fmt = new Intl.NumberFormat('de-DE');
+  const animate = (el: HTMLElement) => {
+    const target = Number(el.dataset.count ?? '0');
+    const dur = 1400;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt.format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          animate(e.target as HTMLElement);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((c) => io.observe(c));
+  } else {
+    counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
+  }
 </script>
