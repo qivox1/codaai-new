@@ -46,6 +46,39 @@ const agenda = [
   { min: '45–60', t: 'Der Fahrplan + Ihr persönliches Audit', d: '5 Hebel von Sichtbarkeit bis Auftrag, Q&A — und Ihre persönliche Sichtbarkeits-Analyse, die nach dem Webinar für Sie bereitsteht.' },
 ];
 
+const webinarFaq = [
+  {
+    q: 'Warum fragen wir nach Ihrer Handynummer?',
+    a: 'Sie erhalten Ihren Zoom-Zugangslink und eine Erinnerung kurz vor dem Termin per SMS — direkt aufs Handy statt ins volle Postfach. Die Code-Verifizierung schützt uns außerdem vor Fake-Anmeldungen. Es gibt keine Werbung per SMS.',
+  },
+  {
+    q: 'Wird meine Firma im Webinar öffentlich getestet?',
+    a: 'Nur, wenn Sie das bei der Anmeldung ausdrücklich erlauben — und dann ausschließlich anonym, ohne Nennung Ihres Firmennamens. Ihr persönliches Sichtbarkeits-Audit erhalten grundsätzlich nur Sie selbst.',
+  },
+  {
+    q: 'Was kostet die Teilnahme — und wo ist der Haken?',
+    a: 'Die Teilnahme ist kostenlos, inklusive Ihres persönlichen Sichtbarkeits-Audits. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 15-Minuten-Gespräch buchen — mehr nicht.',
+  },
+  {
+    q: 'Wir ranken bei Google gut — lohnt sich das trotzdem?',
+    a: 'Gerade dann: 35 % der untersuchten Unternehmen mit über 100 Top-10-Rankings bei Google sind in ChatGPT komplett unsichtbar. Klassische SEO-Stärke und KI-Sichtbarkeit sind zwei verschiedene Disziplinen — genau dieses SEO-Paradox zeigen wir live.',
+  },
+  {
+    q: 'Gibt es eine Aufzeichnung?',
+    a: 'Ja, alle Angemeldeten erhalten die Aufzeichnung. Live lohnt sich trotzdem: Der anonyme Live-Check von Teilnehmer-Firmen findet nur im Termin statt.',
+  },
+];
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: webinarFaq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+});
+
 const eventSchema = JSON.stringify(slots.map((s) => ({
   '@context': 'https://schema.org',
   '@type': 'Event',
@@ -70,7 +103,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   lang="de"
   title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
   description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
-  jsonLd={[eventSchema]}
+  jsonLd={[eventSchema, faqSchema]}
 >
   <Navbar lang="de" />
   <main id="main-content" class="pt-24 lg:pt-28">
@@ -148,10 +181,65 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </article>
           ))}
         </div>
-        <p class="mt-6 text-sm text-muted-foreground">
-          Und danach: <strong class="text-foreground">Ihr persönliches Sichtbarkeits-Audit</strong> — für jeden Teilnehmer bereits erstellt,
-          fertig und kostenlos. Kein Projekt, kein Commitment.
-        </p>
+        <div class="mt-10">
+          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+        </div>
+      </section>
+
+      <!-- ── Ergebnis / Outcome ───────────────────────────────────────── -->
+      <section aria-labelledby="h-outcome" class="border-t border-border py-16">
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
+            <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach den 60 Minuten haben Sie:</h2>
+            <ul class="mt-8 space-y-4">
+              {[
+                ['Ihr persönliches Sichtbarkeits-Audit', ' — für die Domain aus Ihrer Anmeldung bereits fertig erstellt, kommt nach dem Webinar per E-Mail.'],
+                ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
+                ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
+                ['Den direkten Vergleich', ' — Ihre Werte gegen 449 untersuchte Unternehmen aus 258 Branchen.'],
+              ].map(([t, d]) => (
+                <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+                  <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                  <span><strong class="text-foreground">{t}</strong>{d}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8">
+              <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+              <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+            </div>
+          </div>
+          <figure>
+            <img src={`${base}/images/webinar-audit-hero.webp`} alt="Beispiel eines CodaAI Digital Visibility Audits: Unternehmensprofil, Geschäftsbereiche, 27 Sprachversionen und SEO-Kennzahlen" width="1600" height="1000" loading="lazy" decoding="async" class="w-full rounded-2xl" />
+            <figcaption class="mt-3 text-xs text-muted-foreground">Echtes Audit aus dem Studien-Datensatz — so sieht Ihr persönliches Ergebnis aus.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ── Selbstqualifikation ──────────────────────────────────────── -->
+      <section aria-labelledby="h-fit" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das?</p>
+        <h2 id="h-fit" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Sie sind hier richtig, wenn Sie erkennen:</h2>
+        <ul class="mt-8 max-w-3xl space-y-4">
+          {[
+            'Ihre Google-Rankings sind gut — aber Sie wissen nicht, was ChatGPT antwortet, wenn Einkäufer nach Ihrer Leistung fragen.',
+            'Ihre Anfragen kommen über Empfehlungen und Bestandskunden — und werden spürbar weniger.',
+            'Sie sind führend in Ihrer Nische, aber außerhalb Ihres Netzwerks kennt Sie kaum jemand.',
+            'Der KI-Wandel verändert, wie Ihre Kunden suchen — und Ihre bisherige Sichtbarkeit deckt das nicht ab.',
+            'Sie wollen keine Agentur-Versprechen, sondern erst einmal schwarz auf weiß sehen, wo Sie stehen.',
+          ].map((t) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-10">
+          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+        </div>
       </section>
 
       <!-- ── Agenda ───────────────────────────────────────────────────── -->
@@ -169,6 +257,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </li>
           ))}
         </ol>
+        <div class="mt-10">
+          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+        </div>
       </section>
 
       <!-- ── Speaker ──────────────────────────────────────────────────── -->
@@ -212,6 +304,19 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             Kostenlos, 60 Minuten, via Zoom. Nach dem Webinar erhalten Sie Ihre persönliche
             Sichtbarkeits-Analyse — deshalb fragen wir nach Ihrer Firmen-Domain.
           </p>
+
+          <!-- Countdown zum nächsten Termin -->
+          <div id="w-countdown" class="mt-8 flex flex-wrap items-center gap-4" hidden>
+            <span class="text-sm opacity-70">Der nächste Termin startet in:</span>
+            <span class="flex items-center gap-2">
+              {['Tage', 'Std.', 'Min.', 'Sek.'].map((label, i) => (
+                <span class="w-16 rounded-xl bg-background/10 px-2 py-2.5 text-center">
+                  <span id={`cd-${i}`} class="block text-2xl font-bold tabular-nums">–</span>
+                  <span class="block text-[10px] uppercase tracking-widest opacity-60">{label}</span>
+                </span>
+              ))}
+            </span>
+          </div>
 
           <!-- Schritt 1: Daten -->
           <form id="webinar-form" class="mt-8 max-w-2xl" novalidate>
@@ -309,6 +414,49 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mt-8 text-xs opacity-60">
             Kostenlos · begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete · Abmeldung jederzeit formlos möglich.
           </p>
+        </div>
+      </section>
+
+      <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
+      <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
+        <h2 id="h-faq" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Häufige Fragen</h2>
+        <div class="mt-8 space-y-4">
+          {webinarFaq.map((f) => (
+            <details class="group rounded-2xl border border-border bg-card open:border-cta/40">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── Zwei-Wege-Schluss ────────────────────────────────────────── -->
+      <section aria-labelledby="h-entscheidung" class="border-t border-border py-16">
+        <div class="rounded-3xl bg-muted/30 p-8 sm:p-12">
+          <h2 id="h-entscheidung" class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Die Entscheidung liegt bei Ihnen.</h2>
+          <div class="mt-8 grid gap-6 md:grid-cols-2">
+            <div class="rounded-2xl border border-border bg-card p-6">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">1</span>
+              <p class="mt-4 leading-relaxed text-muted-foreground">
+                Sie machen weiter wie bisher — und erfahren auch in sechs Monaten nicht,
+                wen die KI Ihren Kunden empfiehlt, wenn diese nach Ihrer Leistung fragen.
+              </p>
+            </div>
+            <div class="rounded-2xl border-2 border-cta/40 bg-card p-6">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">2</span>
+              <p class="mt-4 leading-relaxed text-foreground">
+                Sie investieren 60 Minuten — und wissen danach schwarz auf weiß, wo Sie in
+                KI-Antworten stehen. Inklusive Ihres persönlichen Audits, kostenlos und fertig erstellt.
+              </p>
+            </div>
+          </div>
+          <div class="mt-8">
+            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+            <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+          </div>
         </div>
       </section>
 
@@ -458,6 +606,26 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     codeBox?.classList.add('hidden');
     form?.classList.remove('hidden');
   });
+
+  // ── Countdown zum nächsten Termin ────────────────────────────────────────
+  const slotDates = ['2026-09-08T11:00:00+02:00', '2026-09-29T11:00:00+02:00'].map((d) => new Date(d));
+  const cdBox = $('w-countdown');
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const tickCd = () => {
+    const now = Date.now();
+    const next = slotDates.find((d) => d.getTime() > now);
+    if (!next || !cdBox) { cdBox?.setAttribute('hidden', ''); return; }
+    cdBox.removeAttribute('hidden');
+    let rest = Math.floor((next.getTime() - now) / 1000);
+    const dd = Math.floor(rest / 86400); rest -= dd * 86400;
+    const hh = Math.floor(rest / 3600); rest -= hh * 3600;
+    const mm = Math.floor(rest / 60);
+    const ss = rest - mm * 60;
+    const vals = [String(dd), pad(hh), pad(mm), pad(ss)];
+    vals.forEach((v, i) => { const el = $(`cd-${i}`); if (el) el.textContent = v; });
+  };
+  tickCd();
+  setInterval(tickCd, 1000);
 
   // ── Zähler-Animation im Kennzahlen-Band (identisch zu /studie) ───────────
   const counters = document.querySelectorAll<HTMLElement>('[data-count]');
