@@ -302,7 +302,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </div>
             <p class="audit-title" aria-hidden="true"><span class="at-c">CodaAI</span> <span class="at-p">Digital Visibility Audit</span></p>
             <div class="audit-labels" aria-hidden="true">
-              {['Sistrix-KPIs', 'Keyword-Entwicklung', 'Ranking-Verteilung', 'Marktwettbewerb', 'SEO-Wettbewerb', 'KI-Sichtbarkeit', 'Echte Fragen & Antworten aus der KI', 'Erkenntnisse & Diagnose'].map((l) => (
+              {['Sistrix-KPIs', 'Keyword-Entwicklung', 'Ranking-Verteilung', 'Marktwettbewerb', 'SEO-Wettbewerb', 'KI-Sichtbarkeit', 'Fragen & Antworten aus der KI', 'Erkenntnisse & Diagnose'].map((l) => (
                 <span class="audit-label">{l}</span>
               ))}
             </div>
@@ -818,8 +818,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   .audit-title .at-c { color: #fff; }
   .audit-title .at-p { color: #DF41FB; }
   .audit-labels {
-    position: absolute; z-index: 2; right: 30px; bottom: 36px;
-    width: min(62%, 640px); text-align: right;
+    position: absolute; z-index: 2; right: 30px;
+    bottom: calc(50% + var(--s, 0.5) * -405px);
+    width: min(70%, 760px); text-align: right;
     font-size: max(14px, calc(var(--s, 0.5) * 40px));
   }
   .audit-label {
