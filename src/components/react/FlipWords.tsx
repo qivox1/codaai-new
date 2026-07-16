@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 interface Word {
   text: string;
   color: string;
+  duration?: number; // optionale Anzeigedauer pro Wort (ms) — überschreibt displayDuration
 }
 
 interface FlipWordsProps {
@@ -24,9 +25,9 @@ export default function FlipWords({
   useEffect(() => {
     const showTimer = setTimeout(() => {
       setPhase('exit');
-    }, displayDuration);
+    }, words[index].duration ?? displayDuration);
     return () => clearTimeout(showTimer);
-  }, [index, displayDuration]);
+  }, [index, displayDuration, words]);
 
   useEffect(() => {
     if (phase === 'exit') {
