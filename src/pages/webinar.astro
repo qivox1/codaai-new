@@ -20,21 +20,33 @@ const h1FlipWords = [
 
 const slots = [
   { id: '2026-09-08', day: 'Dienstag', date: '8. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-08T11:00:00+02:00' },
-  { id: '2026-09-29', day: 'Dienstag', date: '29. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-29T11:00:00+02:00' },
 ];
 
+// Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
+const painStats = [
+  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte aller Fragen taucht das betroffene Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
+  { n: '47 %', t: 'werden durch Wettbewerber ersetzt', d: 'Fast bei jedem zweiten Unternehmen empfiehlt die KI namentlich die Konkurrenz, während die Firma selbst bei der Mehrheit ihrer Kernfragen fehlt.' },
+  { n: '35 %', t: 'trotz guter Google-Rankings unsichtbar', d: 'Jede dritte Firma mit über 100 Top-10-Rankings ist in ChatGPT komplett unsichtbar. Klassische SEO-Stärke schützt nicht.' },
+];
+const painDaily = [
+  'Ihre Anfragen kommen über Empfehlungen und Bestandskunden — und werden spürbar weniger.',
+  'Sie sind führend in Ihrer Nische, aber außerhalb Ihres Netzwerks kennt Sie kaum jemand.',
+  'Sie wissen nicht, was ChatGPT antwortet, wenn Einkäufer nach Ihrer Leistung fragen — und niemand sagt es Ihnen.',
+];
+
+// Learnings = die Antworten auf die Schmerzpunkte (Problem → Lösung)
 const learnings = [
   {
-    t: 'Die stille Vorentscheidung',
-    d: 'Wie B2B-Kaufentscheidungen heute wirklich fallen: Einkäufer recherchieren, vergleichen und bilden ihre Shortlist — zunehmend in KI-Antworten, lange bevor Ihr Vertrieb davon erfährt.',
+    t: 'Verstehen, wo Ihre Aufträge heute entschieden werden',
+    d: 'Die stille Vorentscheidung entschlüsselt: wie Einkäufer heute recherchieren und ihre Shortlist bilden, warum die Entscheidung vor dem Erstkontakt fällt — und an welcher Stelle Ihr Unternehmen sichtbar sein muss.',
   },
   {
-    t: 'Live-Audit echter Firmen',
-    d: 'Wir fragen ChatGPT und die Google KI-Übersicht live nach Mittelstands-Marken — mit der Methodik der 8 Einkäuferfragen. Auf Wunsch testen wir anonym auch Firmen aus dem Publikum.',
+    t: 'Sehen, was die KI über Firmen wie Ihre sagt',
+    d: 'Live-Audit vor Ihren Augen: echte Mittelstands-Marken in ChatGPT & Google KI-Übersicht, geprüft mit der Methodik der 8 Einkäuferfragen — auf Wunsch anonym auch Firmen aus dem Publikum.',
   },
   {
-    t: 'Der Fahrplan: 5 Hebel',
-    d: 'Was Sie mit Bordmitteln selbst tun können, wo die Grenze liegt — und die fünf Hebel, mit denen Sie sichtbar werden und aus Sichtbarkeit Aufträge machen.',
+    t: 'Wissen, wie Sie empfohlen werden statt zu fehlen',
+    d: 'Der Fahrplan gegen die Unsichtbarkeit: die 5 Hebel von Sichtbarkeit bis Auftrag — was Sie mit Bordmitteln selbst tun können und wo die Grenze liegt.',
   },
 ];
 
@@ -168,10 +180,35 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
 
-      <!-- ── Das erwartet Sie ─────────────────────────────────────────── -->
-      <section aria-labelledby="h-learnings" class="py-16">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das erwartet Sie</p>
-        <h2 id="h-learnings" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei Dinge, die Sie mitnehmen</h2>
+      <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
+      <section aria-labelledby="h-problem" class="py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das Problem</p>
+        <h2 id="h-problem" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Ihre Kunden fragen zuerst die KI — und Sie erfahren nichts davon.</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {painStats.map((p) => (
+            <article class="flex flex-col rounded-2xl border border-border bg-card p-8">
+              <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
+              <h3 class="mt-4 text-lg font-semibold text-foreground">{p.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-8 max-w-3xl font-medium text-foreground">Und im Alltag fühlt sich das so an:</p>
+        <ul class="mt-4 max-w-3xl space-y-3">
+          {painDaily.map((t) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Alle Zahlen aus unserer Auswertung von 7.184 KI-Antworten zu 449 Unternehmen — <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 hover:text-cta">zur Studie</a>.</p>
+      </section>
+
+      <!-- ── Die Lösung / Das erwartet Sie ────────────────────────────── -->
+      <section aria-labelledby="h-learnings" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Die Lösung — im Live-Webinar</p>
+        <h2 id="h-learnings" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">60 Minuten, drei Antworten</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {learnings.map((l, i) => (
             <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
@@ -183,7 +220,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </div>
         <div class="mt-10">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
       </section>
 
@@ -193,10 +230,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach den 60 Minuten haben Sie:</h2>
         <ul class="mt-8 max-w-3xl space-y-4">
               {[
-            ['Ihr persönliches Sichtbarkeits-Audit', ' — für die Domain aus Ihrer Anmeldung bereits fertig erstellt, kommt nach dem Webinar per E-Mail.'],
             ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
             ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
             ['Den direkten Vergleich', ' — Ihre Werte gegen 449 untersuchte Unternehmen aus 258 Branchen.'],
+            ['Ihr persönliches Sichtbarkeits-Audit', ' — für die Domain aus Ihrer Anmeldung bereits fertig erstellt, kommt nach dem Webinar per E-Mail.'],
           ].map(([t, d]) => (
             <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
               <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
@@ -206,7 +243,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </ul>
         <div class="mt-8">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
 
         <!-- Scroll-Bühne: das komplette echte Audit läuft durch die 3D-Ebene (Pin + Scroll-Fortschritt) -->
@@ -220,30 +257,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
             <p class="audit-caption">Echtes Audit aus dem Studien-Datensatz · 27 Sprachversionen — so sieht Ihr persönliches Ergebnis aus.</p>
           </div>
-        </div>
-      </section>
-
-      <!-- ── Selbstqualifikation ──────────────────────────────────────── -->
-      <section aria-labelledby="h-fit" class="border-t border-border py-16">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das?</p>
-        <h2 id="h-fit" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Sie sind hier richtig, wenn Sie erkennen:</h2>
-        <ul class="mt-8 max-w-3xl space-y-4">
-          {[
-            'Ihre Google-Rankings sind gut — aber Sie wissen nicht, was ChatGPT antwortet, wenn Einkäufer nach Ihrer Leistung fragen.',
-            'Ihre Anfragen kommen über Empfehlungen und Bestandskunden — und werden spürbar weniger.',
-            'Sie sind führend in Ihrer Nische, aber außerhalb Ihres Netzwerks kennt Sie kaum jemand.',
-            'Der KI-Wandel verändert, wie Ihre Kunden suchen — und Ihre bisherige Sichtbarkeit deckt das nicht ab.',
-            'Sie wollen keine Agentur-Versprechen, sondern erst einmal schwarz auf weiß sehen, wo Sie stehen.',
-          ].map((t) => (
-            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
-              <svg class="mt-1 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              <span>{t}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="mt-10">
-          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
       </section>
 
@@ -264,7 +277,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </ol>
         <div class="mt-10">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
       </section>
 
@@ -325,15 +338,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
           <!-- Schritt 1: Daten -->
           <form id="webinar-form" class="mt-8 max-w-2xl" novalidate>
-            <fieldset class="grid gap-4 sm:grid-cols-2">
-              <legend class="mb-3 text-sm font-semibold uppercase tracking-widest opacity-60">Ihr Termin</legend>
-              {slots.map((s, i) => (
-                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-background/20 bg-background/10 px-5 py-4 transition-colors has-[:checked]:border-cta has-[:checked]:bg-cta/10">
-                  <input type="radio" name="slot" value={s.id} checked={i === 0} class="h-4 w-4 accent-[#DF41FB]" />
-                  <span class="text-sm"><strong class="block">{s.day}, {s.date}</strong><span class="opacity-70">{s.time} · Zoom</span></span>
-                </label>
-              ))}
-            </fieldset>
+            <div class="flex items-center gap-3 rounded-xl border border-cta/40 bg-cta/10 px-5 py-4">
+              <svg class="h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span class="text-sm"><strong class="block">{slots[0].day}, {slots[0].date}</strong><span class="opacity-70">{slots[0].time} · Live via Zoom</span></span>
+            </div>
 
             <div class="mt-6 grid gap-4 sm:grid-cols-2">
               <div>
@@ -417,7 +425,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
 
           <p class="mt-8 text-xs opacity-60">
-            Kostenlos · begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete · Abmeldung jederzeit formlos möglich.
+            Kostenlos · begrenzt auf 100 Plätze · Aufzeichnung für Angemeldete · Abmeldung jederzeit formlos möglich.
           </p>
         </div>
       </section>
@@ -460,7 +468,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
           <div class="mt-8">
             <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-            <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+            <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
           </div>
         </div>
       </section>
@@ -541,7 +549,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     const domain = ($('w-domain') as HTMLInputElement).value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
     const phone = ($('w-phone') as HTMLInputElement).value.trim();
     const position = ($('w-position') as HTMLInputElement).value.trim();
-    const slot = (form.querySelector('input[name="slot"]:checked') as HTMLInputElement)?.value || '';
+    const slot = '2026-09-08';
     const consent = ($('w-consent') as HTMLInputElement).checked;
     const livetest = ($('w-livetest') as HTMLInputElement).checked;
 
@@ -613,7 +621,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   });
 
   // ── Countdown zum nächsten Termin ────────────────────────────────────────
-  const slotDates = ['2026-09-08T11:00:00+02:00', '2026-09-29T11:00:00+02:00'].map((d) => new Date(d));
+  const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
