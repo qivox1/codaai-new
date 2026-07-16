@@ -139,10 +139,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mt-5 text-xl font-semibold leading-snug text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
-          <p class="mt-5 text-base leading-relaxed text-muted-foreground lg:text-lg">
-            <strong class="text-foreground">Echte Studie, echte Fakten</strong> — erhoben im Juni/Juli 2026.
-            <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
-          </p>
         </div>
 
         <!-- KI-Antwort-Karte (Hero-Visual): echte Antwort-Situation aus dem Studien-Datensatz, sequenziell animiert -->
@@ -198,8 +194,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </script>
         </div>
 
+        <!-- Studien-Zeile: leitet den Zahlenblock ein (unterhalb der KI-Karte) -->
+        <p class="mt-12 text-base leading-relaxed text-muted-foreground lg:text-lg">
+          <strong class="text-foreground">Echte Studie, echte Fakten</strong> — erhoben im Juni/Juli 2026.
+          <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
+        </p>
+
         <!-- Kennzahlen-Band (identisch zu /studie) -->
-        <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+        <dl class="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
           <div class="bg-card px-8 py-8 text-center">
             <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
             <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">untersuchte Unternehmen</span><span class="block">aus 258 Branchen</span></dt>
