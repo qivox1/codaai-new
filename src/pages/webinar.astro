@@ -24,8 +24,8 @@ const slots = [
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
 const painStats = [
-  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte aller Fragen taucht das betroffene Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
-  { n: 'fast 1/2', t: 'werden durch Wettbewerber ersetzt', d: 'Fast bei jedem zweiten Unternehmen empfiehlt die KI namentlich die Konkurrenz, während die Firma selbst bei der Mehrheit ihrer Kernfragen fehlt.' },
+  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte der Fragen taucht das untersuchte Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
+  { n: 'fast 1/2', t: 'werden durch namentlich empfohlene Wettbewerber ersetzt', d: 'Bei fast jedem zweiten Unternehmen empfiehlt die KI konkret die Konkurrenz, während das Unternehmen selbst bei der Mehrheit seiner Kernfragen zum Produkt- und Leistungsspektrum fehlt.' },
   { n: '> 1/3', t: 'trotz guter Google-Rankings unsichtbar', d: 'Über ein Drittel der Firmen mit mehr als 100 Top-10-Rankings ist in ChatGPT komplett unsichtbar. Klassische SEO-Stärke schützt nicht.' },
 ];
 const painDaily = [
@@ -196,7 +196,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
         <!-- Studien-Zeile: leitet den Zahlenblock ein (unterhalb der KI-Karte) -->
         <p class="mt-12 text-base leading-relaxed text-muted-foreground lg:text-lg">
-          <strong class="text-foreground">Echte Studie, echte Fakten</strong> — erhoben im Juni/Juli 2026.
+          <strong class="text-foreground">Echte Studie, harte Fakten</strong> — erhoben im Juni/Juli 2026.
           <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
         </p>
 
@@ -235,7 +235,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           {painStats.map((p) => (
             <article class="flex flex-col rounded-2xl border border-border bg-card p-8">
               <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
-              <h3 class="mt-4 text-lg font-semibold text-foreground">{p.t}</h3>
+              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
             </article>
           ))}
