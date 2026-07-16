@@ -3,12 +3,20 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import FlipWords from '../components/react/FlipWords';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // Apps-Script-Backend (gleiche Web-App wie Buchungs-Widget, Aktionen webinar_code / webinar_register)
 const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+// Rotierende Konsequenz-Zeile der H1 (FlipWords-Effekt wie im Startseiten-Hero)
+const h1FlipWords = [
+  { text: 'wird nicht angefragt.', color: '#141414' },
+  { text: 'fehlt auf der Shortlist.', color: '#141414' },
+  { text: 'verliert den Auftrag.', color: '#DF41FB' },
+];
 
 const slots = [
   { id: '2026-09-08', day: 'Dienstag', date: '8. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-08T11:00:00+02:00' },
@@ -75,12 +83,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
         <div class="max-w-3xl">
           <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
-            Live-Webinar · Empfohlen oder unsichtbar · 60 Minuten
+            Empfohlen oder unsichtbar · Live-Webinar · 60 Minuten
           </p>
-          <h1 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <h1 class="text-3xl font-bold tracking-tight leading-[1.25] text-foreground sm:text-4xl lg:text-5xl">
             <span class="block">Wer in KI-Antworten</span>
             <span class="block text-cta">nicht genannt wird,</span>
-            <span class="block">wird nicht angefragt.</span>
+            <span class="block"><FlipWords words={h1FlipWords} client:idle /></span>
           </h1>
           <p class="mt-5 text-xl font-semibold leading-snug text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
