@@ -241,17 +241,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
 
-      <!-- ── Social Proof: anonymisierte Logo-Leiste aus dem Studien-Datensatz ── -->
-      <section aria-label="Für die Studie auditierte Unternehmen (anonymisiert)" class="border-b border-border py-10">
-        <p class="text-center text-sm font-medium text-muted-foreground"><strong class="font-semibold text-foreground">449 Unternehmen aus 258 Branchen</strong> haben wir für die Studie auditiert — hier eine anonymisierte Auswahl.</p>
-        <div class="logo-marquee mt-6" aria-hidden="true">
-          <div class="logo-track">
-            <img src={`${base}/images/logos-blur-strip.png`} width="3877" height="88" alt="" loading="lazy" decoding="async" />
-            <img src={`${base}/images/logos-blur-strip.png`} width="3877" height="88" alt="" loading="lazy" decoding="async" />
-          </div>
-        </div>
-      </section>
-
       <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
       <section aria-labelledby="h-problem" class="py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das Problem</p>
@@ -907,19 +896,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   @media (prefers-reduced-motion: reduce) {
     .audit-pin { height: auto; }
     .audit-scene { position: relative; height: 80vh; }
-  }
-
-  /* ── Anonymisierte Logo-Leiste (Marquee) ── */
-  .logo-marquee {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  }
-  .logo-track { display: flex; width: max-content; animation: logomarq 60s linear infinite; }
-  .logo-track img { height: 44px; width: auto; display: block; }
-  @keyframes logomarq { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) {
-    .logo-track { animation: none; }
   }
 
   /* ── KI-Antwort-Karte: Sequenz-Animation ──
