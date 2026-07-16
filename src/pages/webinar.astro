@@ -725,31 +725,32 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     if (pinImg.complete) pinUpdate(); else pinImg.addEventListener('load', pinUpdate);
   }
 
-  // ── Zähler-Animation im Kennzahlen-Band (identisch zu /studie) ───────────
-  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  // ── Zähler-Animation im Kennzahlen-Band: langsam + nacheinander ──────────
+  // 449 zählt hoch → 1 s Pause → 3.592 → 1 s Pause → 7.184
+  const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
   const fmt = new Intl.NumberFormat('de-DE');
-  const animate = (el: HTMLElement) => {
+  const animate = (el: HTMLElement) => new Promise<void>((resolve) => {
     const target = Number(el.dataset.count ?? '0');
-    const dur = 1400;
+    const dur = 2400;
     const t0 = performance.now();
     const tick = (t: number) => {
       const p = Math.min((t - t0) / dur, 1);
       const eased = 1 - Math.pow(1 - p, 3);
       el.textContent = fmt.format(Math.round(target * eased));
-      if (p < 1) requestAnimationFrame(tick);
+      if (p < 1) requestAnimationFrame(tick); else resolve();
     };
     requestAnimationFrame(tick);
-  };
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          animate(e.target as HTMLElement);
-          io.unobserve(e.target);
-        }
-      });
+  });
+  if (counters.length && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver(async (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      for (const c of counters) {
+        await animate(c);
+        await new Promise((r) => setTimeout(r, 1000));
+      }
     }, { threshold: 0.4 });
-    counters.forEach((c) => io.observe(c));
+    io.observe(counters[0]);
   } else {
     counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
   }
