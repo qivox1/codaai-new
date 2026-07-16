@@ -189,32 +189,37 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
       <!-- ── Ergebnis / Outcome ───────────────────────────────────────── -->
       <section aria-labelledby="h-outcome" class="border-t border-border py-16">
-        <div class="grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
-            <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach den 60 Minuten haben Sie:</h2>
-            <ul class="mt-8 space-y-4">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
+        <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach den 60 Minuten haben Sie:</h2>
+        <ul class="mt-8 max-w-3xl space-y-4">
               {[
-                ['Ihr persönliches Sichtbarkeits-Audit', ' — für die Domain aus Ihrer Anmeldung bereits fertig erstellt, kommt nach dem Webinar per E-Mail.'],
-                ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
-                ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
-                ['Den direkten Vergleich', ' — Ihre Werte gegen 449 untersuchte Unternehmen aus 258 Branchen.'],
-              ].map(([t, d]) => (
-                <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
-                  <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
-                  <span><strong class="text-foreground">{t}</strong>{d}</span>
-                </li>
-              ))}
-            </ul>
-            <div class="mt-8">
-              <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
-              <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+            ['Ihr persönliches Sichtbarkeits-Audit', ' — für die Domain aus Ihrer Anmeldung bereits fertig erstellt, kommt nach dem Webinar per E-Mail.'],
+            ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
+            ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
+            ['Den direkten Vergleich', ' — Ihre Werte gegen 449 untersuchte Unternehmen aus 258 Branchen.'],
+          ].map(([t, d]) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span><strong class="text-foreground">{t}</strong>{d}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-8">
+          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Anmelden →</a>
+          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09. oder Di, 29.09.2026 · 11:00 Uhr · Zoom</p>
+        </div>
+
+        <!-- Scroll-Bühne: das komplette echte Audit läuft durch die 3D-Ebene (Pin + Scroll-Fortschritt) -->
+        <div class="audit-pin" id="audit-pin">
+          <div class="audit-scene">
+            <div class="audit-fit" id="audit-fit">
+              <div class="audit-card">
+                <img id="audit-img" src={`${base}/images/audit-full.webp`} width="1500" height="5678" alt="Komplettes CodaAI Digital Visibility Audit für hoermann.de: Unternehmensprofil, 27 Sprachversionen, SEO-Kennzahlen, Keyword-Entwicklung, GEO-Score und Einkäuferfragen" loading="lazy" decoding="async" />
+              </div>
             </div>
+            <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
+            <p class="audit-caption">Echtes Audit aus dem Studien-Datensatz · 27 Sprachversionen — so sieht Ihr persönliches Ergebnis aus.</p>
           </div>
-          <figure>
-            <img src={`${base}/images/webinar-audit-hero.webp`} alt="Beispiel eines CodaAI Digital Visibility Audits: Unternehmensprofil, Geschäftsbereiche, 27 Sprachversionen und SEO-Kennzahlen" width="1600" height="1000" loading="lazy" decoding="async" class="w-full rounded-2xl" />
-            <figcaption class="mt-3 text-xs text-muted-foreground">Echtes Audit aus dem Studien-Datensatz — so sieht Ihr persönliches Ergebnis aus.</figcaption>
-          </figure>
         </div>
       </section>
 
@@ -627,6 +632,35 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   tickCd();
   setInterval(tickCd, 1000);
 
+  // ── Scroll-Pinning: komplettes Audit läuft durch die 3D-Ebene ───────────
+  const pinWrap = $('audit-pin');
+  const pinImg = $('audit-img') as HTMLImageElement | null;
+  const pinFit = $('audit-fit');
+  const pinBar = $('audit-bar-i');
+  const CARD_H = 932;
+  const fitScale = () => {
+    if (!pinFit) return;
+    const s = Math.min(window.innerWidth / 1600, window.innerHeight / 1000) * 1.04;
+    pinFit.style.setProperty('--s', String(s));
+  };
+  fitScale();
+  if (pinWrap && pinImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let pinTicking = false;
+    const pinUpdate = () => {
+      pinTicking = false;
+      const total = pinWrap.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.max(0, Math.min(1, -pinWrap.getBoundingClientRect().top / total));
+      const range = pinImg.offsetHeight - CARD_H;
+      pinImg.style.transform = `translateY(${-p * range}px)`;
+      if (pinBar) pinBar.style.width = `${p * 100}%`;
+    };
+    const onPinScroll = () => { if (!pinTicking) { pinTicking = true; requestAnimationFrame(pinUpdate); } };
+    window.addEventListener('scroll', onPinScroll, { passive: true });
+    window.addEventListener('resize', () => { fitScale(); onPinScroll(); });
+    if (pinImg.complete) pinUpdate(); else pinImg.addEventListener('load', pinUpdate);
+  }
+
   // ── Zähler-Animation im Kennzahlen-Band (identisch zu /studie) ───────────
   const counters = document.querySelectorAll<HTMLElement>('[data-count]');
   const fmt = new Intl.NumberFormat('de-DE');
@@ -656,3 +690,34 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
   }
 </script>
+
+<style>
+  /* ── Scroll-Audit-Bühne (Geometrie identisch zum Video-Render) ── */
+  .audit-pin { height: 300vh; position: relative; margin-top: 3.5rem; }
+  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0d0d10; border-radius: 24px; }
+  .audit-scene::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(42% 46% at 62% 68%, rgba(120, 10, 140, 0.55), transparent 70%),
+      radial-gradient(30% 34% at 78% 30%, rgba(90, 8, 105, 0.4), transparent 70%);
+    filter: blur(60px);
+  }
+  .audit-fit { position: absolute; left: 50%; top: 50%; width: 1600px; height: 1000px; transform: translate(-50%, -50%) scale(var(--s, 0.5)); }
+  .audit-card {
+    position: absolute; left: 0; top: 0; width: 1100px; height: 932px; overflow: hidden;
+    border-radius: 26px; border: 2px solid rgba(255, 255, 255, 0.28); background: #fff;
+    transform-origin: 0 0;
+    transform: matrix3d(0.716517, 0.145607, 0, -0.00010973, -0.36913, 0.48935, 0, -0.00005871, 0, 0, 1, 0, 500, 130, 0, 1);
+    box-shadow: -40px 70px 90px rgba(0, 0, 0, 0.55);
+  }
+  .audit-card img { display: block; width: 100%; will-change: transform; }
+  .audit-caption { position: absolute; left: 24px; bottom: 22px; color: rgba(255, 255, 255, 0.65); font-size: 13px; z-index: 2; margin: 0; }
+  .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
+  .audit-bar i { display: block; height: 100%; width: 0%; background: #DF41FB; border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .audit-pin { height: auto; }
+    .audit-scene { position: relative; height: 80vh; }
+  }
+</style>
