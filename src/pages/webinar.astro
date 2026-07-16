@@ -61,8 +61,8 @@ const agenda = [
 
 const webinarFaq = [
   {
-    q: 'Warum fragen wir nach Ihrer Handynummer?',
-    a: 'Sie erhalten Ihren Zoom-Zugangslink und eine Erinnerung kurz vor dem Termin per SMS — direkt aufs Handy statt ins volle Postfach. Die Code-Verifizierung schützt uns außerdem vor Fake-Anmeldungen. Es gibt keine Werbung per SMS.',
+    q: 'Wie erhalte ich den Zugangslink?',
+    a: 'Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail. Den Zoom-Zugangslink senden wir rechtzeitig vor dem Termin an dieselbe Adresse — es gibt keinen Newsletter und keine Werbung.',
   },
   {
     q: 'Wird meine Firma im Webinar öffentlich getestet?',
@@ -447,20 +447,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
                   class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="Ihr Vorname" />
               </div>
               <div>
+                <label for="w-lastname" class="mb-1.5 block text-sm font-medium">Nachname *</label>
+                <input id="w-lastname" name="lastname" type="text" autocomplete="family-name" required
+                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="Ihr Nachname" />
+              </div>
+              <div class="sm:col-span-2">
                 <label for="w-email" class="mb-1.5 block text-sm font-medium">Unternehmens-E-Mail *</label>
                 <input id="w-email" name="email" type="email" autocomplete="email" required
                   class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="name@ihre-firma.de" />
-              </div>
-              <div>
-                <label for="w-domain" class="mb-1.5 block text-sm font-medium">Unternehmens-Website *</label>
-                <input id="w-domain" name="domain" type="text" inputmode="url" spellcheck="false" required
-                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="ihre-firma.de" />
-              </div>
-              <div>
-                <label for="w-phone" class="mb-1.5 block text-sm font-medium">Handynummer *</label>
-                <input id="w-phone" name="phone" type="tel" autocomplete="tel" required
-                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="+49 170 1234567" />
-                <p class="mt-1.5 text-xs opacity-60">Sie erhalten Ihren Webinar-Zugangslink sowie das Passwort für Ihr persönliches Digital Visibility Dashboard per SMS. Zur Bestätigung senden wir Ihnen gleich einen Code.</p>
               </div>
             </div>
 
@@ -486,31 +480,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </button>
           </form>
 
-          <!-- Schritt 2: SMS-Code -->
-          <div id="webinar-code" class="mt-8 hidden max-w-xl">
-            <p class="text-sm leading-relaxed opacity-80">Wir haben einen 6-stelligen Code an <strong id="w-phone-echo" class="text-cta"></strong> gesendet.</p>
-            <form id="webinar-code-form" class="mt-4 flex flex-col gap-3 sm:flex-row" novalidate>
-              <label for="w-code" class="sr-only">SMS-Code</label>
-              <input id="w-code" name="code" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required
-                class="w-full flex-1 rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-center text-2xl tracking-[0.4em] text-background placeholder:text-background/40 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="••••••" />
-              <button id="w-verify" type="submit"
-                class="rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50">
-                Anmeldung abschließen
-              </button>
-            </form>
-            <p id="w-code-error" class="mt-3 hidden rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm" role="alert"></p>
-            <div class="mt-3 flex items-center gap-4 text-xs opacity-70">
-              <button id="w-resend" type="button" class="underline underline-offset-2 hover:text-cta disabled:opacity-40" disabled>Code erneut senden</button>
-              <button id="w-back" type="button" class="underline underline-offset-2 hover:text-cta">Angaben ändern</button>
-            </div>
-          </div>
-
           <!-- Erfolg -->
           <div id="webinar-success" class="mt-8 hidden max-w-2xl rounded-xl border border-cta/40 bg-cta/10 p-6">
             <p class="text-lg font-semibold">Ihre Anmeldung ist bestätigt ✓</p>
             <p class="mt-2 text-sm leading-relaxed opacity-90">
               <span id="w-success-when"></span> — die Bestätigung ist unterwegs in Ihr Postfach.
-              Ihren Zoom-Zugangslink erhalten Sie rechtzeitig per E-Mail und SMS.
+              Ihren Zoom-Zugangslink erhalten Sie rechtzeitig per E-Mail.
               Bis dahin: <a href={`${base}/studie/`} class="font-semibold text-cta underline underline-offset-2">die Auswertung hinter dem Webinar lesen →</a>
             </p>
           </div>
@@ -579,34 +554,17 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
   const $ = (id: string) => document.getElementById(id);
   const form = $('webinar-form') as HTMLFormElement;
-  const codeBox = $('webinar-code');
-  const codeForm = $('webinar-code-form') as HTMLFormElement;
   const successBox = $('webinar-success');
   const errBox = $('w-error');
-  const codeErrBox = $('w-code-error');
   const submitBtn = $('w-submit') as HTMLButtonElement;
-  const verifyBtn = $('w-verify') as HTMLButtonElement;
-  const resendBtn = $('w-resend') as HTMLButtonElement;
 
   const ERR: Record<string, string> = {
-    name_missing: 'Bitte geben Sie Ihren Namen an.',
+    name_missing: 'Bitte geben Sie Vor- und Nachnamen an.',
     email_invalid: 'Bitte prüfen Sie Ihre E-Mail-Adresse.',
-    domain_invalid: 'Bitte prüfen Sie die Domain (z. B. ihre-firma.de).',
-    phone_invalid: 'Bitte prüfen Sie die Handynummer (z. B. +49 170 1234567).',
-    slot_invalid: 'Bitte wählen Sie einen Termin.',
     consent_missing: 'Bitte bestätigen Sie die Einwilligung.',
-    too_many_codes: 'Zu viele Code-Anforderungen — bitte versuchen Sie es in einer Stunde erneut.',
-    sms_send_failed: 'SMS-Versand aktuell nicht möglich. Bitte melden Sie sich per E-Mail an: hi@codaai.ai',
-    code_missing: 'Bitte geben Sie den 6-stelligen Code ein.',
-    code_expired: 'Der Code ist abgelaufen. Bitte fordern Sie einen neuen an.',
-    code_invalid: 'Der Code stimmt nicht. Bitte prüfen Sie Ihre Eingabe.',
-    code_attempts: 'Zu viele Fehlversuche. Bitte fordern Sie einen neuen Code an.',
     network: 'Verbindung fehlgeschlagen. Bitte erneut versuchen — oder per E-Mail an hi@codaai.ai anmelden.',
   };
   const msg = (k: string) => ERR[k] || ERR.network;
-
-  let payload: Record<string, any> = {};
-  let token = '';
 
   const showErr = (box: HTMLElement | null, key: string) => {
     if (!box) return;
@@ -619,95 +577,38 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     return res.json();
   };
 
-  const startResendTimer = () => {
-    let s = 60;
-    resendBtn.disabled = true;
-    const t = setInterval(() => {
-      s -= 1;
-      resendBtn.textContent = s > 0 ? `Code erneut senden (${s}s)` : 'Code erneut senden';
-      if (s <= 0) { clearInterval(t); resendBtn.disabled = false; }
-    }, 1000);
-  };
-
   form?.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     errBox?.classList.add('hidden');
     if (($('w-hp') as HTMLInputElement)?.value) return; // Honeypot
 
-    const name = ($('w-name') as HTMLInputElement).value.trim();
+    const firstname = ($('w-name') as HTMLInputElement).value.trim();
+    const lastname = ($('w-lastname') as HTMLInputElement).value.trim();
     const email = ($('w-email') as HTMLInputElement).value.trim();
-    const domain = ($('w-domain') as HTMLInputElement).value.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
-    const phone = ($('w-phone') as HTMLInputElement).value.trim();
-    const position = ($('w-position') as HTMLInputElement | null)?.value.trim() ?? '';
     const slot = '2026-09-08';
     const consent = ($('w-consent') as HTMLInputElement).checked;
     const livetest = ($('w-livetest') as HTMLInputElement).checked;
 
-    if (!name) return showErr(errBox, 'name_missing');
+    if (!firstname || !lastname) return showErr(errBox, 'name_missing');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showErr(errBox, 'email_invalid');
-    if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(domain)) return showErr(errBox, 'domain_invalid');
-    if (!/^\+?[\d\s/()-]{7,20}$/.test(phone)) return showErr(errBox, 'phone_invalid');
-    if (!slot) return showErr(errBox, 'slot_invalid');
     if (!consent) return showErr(errBox, 'consent_missing');
 
-    payload = { action: 'webinar_register', name, email, domain, phone, position, slot, consent, livetest };
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Code wird gesendet …';
+    submitBtn.textContent = 'Wird gesendet …';
     try {
-      const r = await post({ action: 'webinar_code', phone });
+      const r = await post({ action: 'webinar_register', name: `${firstname} ${lastname}`, email, domain: '', phone: '', position: '', slot, consent, livetest });
       if (!r.ok) { showErr(errBox, r.error); return; }
-      token = r.token;
       form.classList.add('hidden');
-      codeBox?.classList.remove('hidden');
-      const echo = $('w-phone-echo'); if (echo) echo.textContent = r.phone || phone;
-      ($('w-code') as HTMLInputElement)?.focus();
-      startResendTimer();
+      successBox?.classList.remove('hidden');
+      const when = $('w-success-when'); if (when) when.textContent = r.when || '';
+      dl('webinar_signup', { webinar_slot: slot });
+      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch {
       showErr(errBox, 'network');
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'SMS-Code anfordern →';
+      submitBtn.textContent = 'Anmeldung absenden →';
     }
-  });
-
-  codeForm?.addEventListener('submit', async (ev) => {
-    ev.preventDefault();
-    codeErrBox?.classList.add('hidden');
-    const code = ($('w-code') as HTMLInputElement).value.trim();
-    if (!/^\d{6}$/.test(code)) return showErr(codeErrBox, 'code_missing');
-    verifyBtn.disabled = true;
-    verifyBtn.textContent = 'Wird geprüft …';
-    try {
-      const r = await post({ ...payload, token, code });
-      if (!r.ok) { showErr(codeErrBox, r.error); return; }
-      codeBox?.classList.add('hidden');
-      successBox?.classList.remove('hidden');
-      const when = $('w-success-when'); if (when) when.textContent = r.when || '';
-      dl('webinar_signup', { webinar_slot: payload.slot });
-      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } catch {
-      showErr(codeErrBox, 'network');
-    } finally {
-      verifyBtn.disabled = false;
-      verifyBtn.textContent = 'Anmeldung abschließen';
-    }
-  });
-
-  resendBtn?.addEventListener('click', async () => {
-    codeErrBox?.classList.add('hidden');
-    try {
-      const r = await post({ action: 'webinar_code', phone: payload.phone });
-      if (!r.ok) { showErr(codeErrBox, r.error); return; }
-      token = r.token;
-      startResendTimer();
-    } catch {
-      showErr(codeErrBox, 'network');
-    }
-  });
-
-  $('w-back')?.addEventListener('click', () => {
-    codeBox?.classList.add('hidden');
-    form?.classList.remove('hidden');
   });
 
   // ── Countdown zum nächsten Termin ────────────────────────────────────────
