@@ -10,8 +10,11 @@ const { lang } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Studien-Teaser: nur auf DE-Seiten, nicht auf /studie selbst (kein Link auf sich selbst)
-const isStudiePage = Astro.url.pathname.replace(/\/$/, '').endsWith('/studie');
-const showStudyTeaser = lang === 'de' && !isStudiePage;
+// und nicht auf /webinar (Conversion-Seite ohne Exit-Pfade)
+const cleanPath = Astro.url.pathname.replace(/\/$/, '');
+const isStudiePage = cleanPath.endsWith('/studie');
+const isWebinarPage = cleanPath.endsWith('/webinar');
+const showStudyTeaser = lang === 'de' && !isStudiePage && !isWebinarPage;
 
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
 const complianceBadges = [
