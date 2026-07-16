@@ -117,6 +117,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
   description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
   jsonLd={[eventSchema, faqSchema]}
+  ogImage="https://www.codaai.ai/images/og-webinar.jpg"
 >
   <Navbar lang="de" />
   <main id="main-content" class="pt-24 lg:pt-28">
@@ -217,7 +218,19 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
         </dl>
 
-        <div class="mt-10 flex flex-wrap items-center gap-5">
+        <div id="w-countdown-hero" class="mt-10 flex flex-wrap items-center gap-4" hidden>
+          <span class="text-sm text-muted-foreground">Das Webinar startet in:</span>
+          <span class="flex items-center gap-2">
+            {['Tage', 'Std.', 'Min.', 'Sek.'].map((label, i) => (
+              <span class="w-16 rounded-xl border border-border bg-card px-2 py-2.5 text-center">
+                <span data-cdh={i} class="block text-2xl font-bold tabular-nums text-foreground">–</span>
+                <span class="block text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
+              </span>
+            ))}
+          </span>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-5">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
             Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →
           </a>
@@ -227,6 +240,17 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     </section>
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+      <!-- ── Social Proof: anonymisierte Logo-Leiste aus dem Studien-Datensatz ── -->
+      <section aria-label="Für die Studie auditierte Unternehmen (anonymisiert)" class="border-b border-border py-10">
+        <p class="text-center text-sm font-medium text-muted-foreground"><strong class="font-semibold text-foreground">449 Unternehmen aus 258 Branchen</strong> haben wir für die Studie auditiert — hier eine anonymisierte Auswahl.</p>
+        <div class="logo-marquee mt-6" aria-hidden="true">
+          <div class="logo-track">
+            <img src={`${base}/images/logos-blur-strip.png`} width="3877" height="88" alt="" loading="lazy" decoding="async" />
+            <img src={`${base}/images/logos-blur-strip.png`} width="3877" height="88" alt="" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </section>
 
       <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
       <section aria-labelledby="h-problem" class="py-16">
@@ -330,6 +354,39 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <div class="mt-10">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
         </div>
+      </section>
+
+      <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
+      <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
+        <h2 id="h-fuerwen" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
+            ['Marketing-Verantwortliche', 'Sie investieren in SEO und Content — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
+            ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
+          ].map(([t, d]) => (
+            <article class="rounded-2xl border border-border bg-card p-8">
+              <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-8 max-w-3xl font-medium text-foreground">Sie sind hier richtig, wenn:</p>
+        <ul class="mt-4 max-w-3xl space-y-3">
+          {[
+            'Ihr Geschäft von erklärungsbedürftigen Produkten und längeren Kaufprozessen lebt.',
+            'Empfehlungen noch tragen — aber der Anfrage-Eingang spürbar dünner wird.',
+            'Sie den eigenen Stand kennen wollen, bevor Sie Budget in Maßnahmen stecken.',
+            'Sie in mehreren Märkten verkaufen, Ihre KI-Sichtbarkeit dort aber nie geprüft wurde.',
+          ].map((t) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Kein passendes Format für B2C-Shops — unsere Methodik ist auf B2B-Kaufprozesse gebaut.</p>
       </section>
 
       <!-- ── Speaker ──────────────────────────────────────────────────── -->
@@ -667,19 +724,24 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   // ── Countdown zum nächsten Termin ────────────────────────────────────────
   const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
+  const cdBoxHero = $('w-countdown-hero');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
     const now = Date.now();
     const next = slotDates.find((d) => d.getTime() > now);
-    if (!next || !cdBox) { cdBox?.setAttribute('hidden', ''); return; }
-    cdBox.removeAttribute('hidden');
+    if (!next) { cdBox?.setAttribute('hidden', ''); cdBoxHero?.setAttribute('hidden', ''); return; }
+    cdBox?.removeAttribute('hidden');
+    cdBoxHero?.removeAttribute('hidden');
     let rest = Math.floor((next.getTime() - now) / 1000);
     const dd = Math.floor(rest / 86400); rest -= dd * 86400;
     const hh = Math.floor(rest / 3600); rest -= hh * 3600;
     const mm = Math.floor(rest / 60);
     const ss = rest - mm * 60;
     const vals = [String(dd), pad(hh), pad(mm), pad(ss)];
-    vals.forEach((v, i) => { const el = $(`cd-${i}`); if (el) el.textContent = v; });
+    vals.forEach((v, i) => {
+      const el = $(`cd-${i}`); if (el) el.textContent = v;
+      document.querySelectorAll(`[data-cdh="${i}"]`).forEach((h) => { h.textContent = v; });
+    });
   };
   tickCd();
   setInterval(tickCd, 1000);
@@ -845,6 +907,19 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   @media (prefers-reduced-motion: reduce) {
     .audit-pin { height: auto; }
     .audit-scene { position: relative; height: 80vh; }
+  }
+
+  /* ── Anonymisierte Logo-Leiste (Marquee) ── */
+  .logo-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .logo-track { display: flex; width: max-content; animation: logomarq 60s linear infinite; }
+  .logo-track img { height: 44px; width: auto; display: block; }
+  @keyframes logomarq { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track { animation: none; }
   }
 
   /* ── KI-Antwort-Karte: Sequenz-Animation ──
