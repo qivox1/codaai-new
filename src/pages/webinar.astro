@@ -13,9 +13,9 @@ const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtb
 
 // Rotierende Konsequenz-Zeile der H1 (FlipWords-Effekt wie im Startseiten-Hero)
 const h1FlipWords = [
-  { text: 'wird nicht angefragt.', color: '#141414' },
-  { text: 'fehlt auf der Shortlist.', color: '#141414' },
-  { text: 'verliert den Auftrag.', color: '#DF41FB' },
+  { text: 'wird nicht angefragt.', color: '#BBBBBB' },
+  { text: 'fehlt auf der Shortlist.', color: '#BBBBBB' },
+  { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
 ];
 
 const slots = [
@@ -87,7 +87,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </p>
           <h1 class="text-3xl font-bold tracking-tight leading-[1.25] text-foreground sm:text-4xl lg:text-5xl">
             <span class="block">Wer in KI-Antworten</span>
-            <span class="block text-cta">nicht genannt wird,</span>
+            <span class="block">nicht genannt wird,</span>
             <span class="block"><FlipWords words={h1FlipWords} client:idle /></span>
           </h1>
           <p class="mt-5 text-xl font-semibold leading-snug text-foreground lg:text-2xl">
@@ -103,15 +103,15 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
           <div class="bg-card px-8 py-8 text-center">
             <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground">untersuchte Unternehmen</dt>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">untersuchte Unternehmen aus über 100 Branchen</dt>
           </div>
           <div class="bg-card px-8 py-8 text-center">
             <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="3592">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground">realistische Einkäuferfragen</dt>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">firmenspezifische Einkäuferfragen zu Produkten &amp; Leistungen</dt>
           </div>
           <div class="bg-card px-8 py-8 text-center">
             <dd class="text-4xl font-bold tabular-nums tracking-tight text-cta lg:text-5xl" data-count="7184">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground">dokumentierte KI-Antworten</dt>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground">dokumentierte KI-Antworten aus ChatGPT &amp; Google KI-Übersicht</dt>
           </div>
         </dl>
 
