@@ -268,7 +268,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </div>
         <div class="mt-10">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
       </section>
 
@@ -291,7 +290,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </ul>
         <div class="mt-8">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
 
         <!-- Scroll-Bühne: das komplette echte Audit läuft durch die 3D-Ebene (Pin + Scroll-Fortschritt) -->
@@ -331,7 +329,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </ol>
         <div class="mt-10">
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-          <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
         </div>
       </section>
 
@@ -341,7 +338,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <h2 id="h-speaker" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Stratege trifft Praktiker</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-2">
           <article class="flex gap-5 rounded-2xl border border-border bg-card p-8">
-            <span aria-hidden="true" class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-cta/10 text-2xl font-bold text-cta-accessible">NS</span>
+            <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Porträt Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="h-20 w-20 shrink-0 rounded-full object-cover" />
             <div>
               <h3 class="text-lg font-semibold text-foreground">Norbert Schuster</h3>
               <p class="text-sm font-medium text-cta-accessible">Stratege für Marketing &amp; Vertrieb, strike2</p>
@@ -371,11 +368,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <section id="anmeldung" aria-labelledby="h-anmeldung" class="scroll-mt-28 border-t border-border py-16">
         <div class="rounded-3xl bg-foreground p-8 text-background sm:p-12">
           <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Anmeldung</p>
-          <h2 id="h-anmeldung" class="text-3xl font-semibold tracking-tight sm:text-4xl">Sichern Sie sich Ihren Platz</h2>
-          <p class="mt-4 max-w-2xl text-base leading-relaxed opacity-80">
-            Kostenlos, 60 Minuten, via Zoom. Nach dem Webinar erhalten Sie Ihre persönliche
-            Sichtbarkeits-Analyse — deshalb fragen wir nach Ihrer Firmen-Domain.
-          </p>
+          <h2 id="h-anmeldung" class="text-3xl font-semibold tracking-tight sm:text-4xl">Webinar „Empfohlen oder unsichtbar?" am Dienstag, den 8. September 2026</h2>
 
           <!-- Countdown zum nächsten Termin -->
           <div id="w-countdown" class="mt-8 flex flex-wrap items-center gap-4" hidden>
@@ -522,8 +515,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
           <div class="mt-8">
             <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-            <p class="mt-2 text-xs text-muted-foreground">Di, 08.09.2026 · 11:00 Uhr · Zoom</p>
-          </div>
+            </div>
         </div>
       </section>
 
@@ -697,14 +689,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   // ── Scroll-Pinning: komplettes Audit läuft durch die 3D-Ebene ───────────
   const pinWrap = $('audit-pin');
   const pinImg = $('audit-img') as HTMLImageElement | null;
-  const pinFit = $('audit-fit');
+  const pinScene = document.querySelector<HTMLElement>('.audit-scene');
   const pinBar = $('audit-bar-i');
   const pinLabels = Array.from(document.querySelectorAll('.audit-label'));
   const CARD_H = 932;
   const fitScale = () => {
-    if (!pinFit) return;
+    if (!pinScene) return;
     const s = Math.min(window.innerWidth / 1600, window.innerHeight / 1000) * 1.04;
-    pinFit.style.setProperty('--s', String(s));
+    pinScene.style.setProperty('--s', String(s));
   };
   fitScale();
   if (pinWrap && pinImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -818,16 +810,26 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   }
   .audit-card img { display: block; width: 100%; will-change: transform; }
   .audit-caption { position: absolute; left: 24px; bottom: 22px; color: rgba(255, 255, 255, 0.65); font-size: 13px; z-index: 2; margin: 0; }
+  /* Titel-Oberkante auf Höhe der Karten-Oberkante (Stage-y 130), Labels entlang der
+     unteren Kartenkante (BL 165/620 → BR 1145/905, Neigung ~16.2°) — Positionen und
+     Schriftgrößen skalieren über --s mit der Grafik mit. */
   .audit-title {
-    position: absolute; top: 26px; right: 30px; z-index: 2; margin: 0;
-    text-align: right; font-size: clamp(20px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
+    position: absolute; top: calc(50% + var(--s, 0.5) * -370px); right: 30px; z-index: 2; margin: 0;
+    text-align: right; font-size: max(14px, calc(var(--s, 0.5) * 40px)); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
   }
   .audit-title .at-c { color: #fff; }
   .audit-title .at-p { color: #DF41FB; }
-  .audit-labels { position: absolute; right: 30px; bottom: 40px; z-index: 2; height: 1.3em; font-size: clamp(20px, 2.4vw, 34px); }
+  .audit-labels {
+    position: absolute; z-index: 2;
+    left: calc(50% + var(--s, 0.5) * -635px);
+    top: calc(50% + var(--s, 0.5) * 150px);
+    width: calc(var(--s, 0.5) * 900px);
+    font-size: max(14px, calc(var(--s, 0.5) * 40px));
+    transform: rotate(16.2deg); transform-origin: left top;
+  }
   .audit-label {
-    position: absolute; right: 0; bottom: 0; white-space: nowrap;
-    font-weight: 600; letter-spacing: -0.01em; color: #fff;
+    position: absolute; left: 0; top: 0;
+    font-weight: 600; letter-spacing: -0.01em; color: #fff; line-height: 1.25;
     opacity: 0; transform: translateY(12px);
     transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1);
   }
