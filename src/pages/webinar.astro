@@ -24,9 +24,9 @@ const slots = [
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
 const painStats = [
-  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte aller Fragen taucht das betroffene Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
-  { n: '47 %', t: 'werden durch Wettbewerber ersetzt', d: 'Fast bei jedem zweiten Unternehmen empfiehlt die KI namentlich die Konkurrenz, während die Firma selbst bei der Mehrheit ihrer Kernfragen fehlt.' },
-  { n: '35 %', t: 'trotz guter Google-Rankings unsichtbar', d: 'Jede dritte Firma mit über 100 Top-10-Rankings ist in ChatGPT komplett unsichtbar. Klassische SEO-Stärke schützt nicht.' },
+  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte aller Fragen taucht das betroffene Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
+  { n: '47 %', t: 'werden durch Wettbewerber ersetzt', d: 'Fast bei jedem zweiten Unternehmen empfiehlt die KI namentlich die Konkurrenz, während die Firma selbst bei der Mehrheit ihrer Kernfragen fehlt.' },
+  { n: '35 %', t: 'trotz guter Google-Rankings unsichtbar', d: 'Jede dritte Firma mit über 100 Top-10-Rankings ist in ChatGPT komplett unsichtbar. Klassische SEO-Stärke schützt nicht.' },
 ];
 const painDaily = [
   'Ihre Anfragen kommen über Empfehlungen und Bestandskunden — und werden spürbar weniger.',
@@ -224,12 +224,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </div>
       </section>
 
-      <!-- ── Ergebnis / Outcome ───────────────────────────────────────── -->
+      <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
       <section aria-labelledby="h-outcome" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
         <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach den 60 Minuten haben Sie:</h2>
         <ul class="mt-8 max-w-3xl space-y-4">
-              {[
+          {[
             ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
             ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
             ['Den direkten Vergleich', ' — Ihre Werte gegen 449 untersuchte Unternehmen aus 258 Branchen.'],
