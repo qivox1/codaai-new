@@ -695,8 +695,18 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     if (!pinScene) return;
     const s = Math.min(window.innerWidth / 1600, window.innerHeight / 1000) * 1.04;
     pinScene.style.setProperty('--s', String(s));
+    requestAnimationFrame(() => {
+      const t = pinScene.querySelector('.audit-title');
+      const l = pinScene.querySelector<HTMLElement>('.audit-labels');
+      if (t && l) {
+        const sr = pinScene.getBoundingClientRect();
+        const tr = t.getBoundingClientRect();
+        l.style.right = `${Math.max(30, Math.round(sr.right - tr.left))}px`;
+      }
+    });
   };
   fitScale();
+  if (document.fonts?.ready) document.fonts.ready.then(fitScale);
   if (pinWrap && pinImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let pinTicking = false;
     const pinUpdate = () => {
@@ -818,9 +828,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   .audit-title .at-c { color: #fff; }
   .audit-title .at-p { color: #DF41FB; }
   .audit-labels {
-    position: absolute; z-index: 2; right: 30px;
+    position: absolute; z-index: 2; right: 30px; /* wird per JS auf die linke Titelkante gesetzt */
     bottom: calc(50% + var(--s, 0.5) * -405px);
-    width: min(70%, 760px); text-align: right;
+    width: min(60%, 700px); text-align: right;
     font-size: max(14px, calc(var(--s, 0.5) * 40px));
   }
   .audit-label {
