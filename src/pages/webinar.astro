@@ -129,7 +129,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     <!-- ── Hero ─────────────────────────────────────────────────────────── -->
     <section class="relative overflow-hidden border-b border-border bg-background">
       <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
-      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
         <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
 
         <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
@@ -145,6 +145,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mt-8 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
+          <div class="mt-8">
+            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+              Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →
+            </a>
+            <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete</p>
+          </div>
         </div>
 
         <!-- KI-Antwort-Karte (Hero-Visual): echte Antwort-Situation aus dem Studien-Datensatz, sequenziell animiert -->
@@ -222,24 +228,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
         </dl>
 
-        <div id="w-countdown-hero" class="mt-10 flex flex-wrap items-center gap-4" hidden>
-          <span class="text-sm text-muted-foreground">Das Webinar startet in:</span>
-          <span class="flex items-center gap-2">
-            {['Tage', 'Std.', 'Min.', 'Sek.'].map((label, i) => (
-              <span class="w-16 rounded-xl border border-border bg-card px-2 py-2.5 text-center">
-                <span data-cdh={i} class="block text-2xl font-bold tabular-nums text-foreground">–</span>
-                <span class="block text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
-              </span>
-            ))}
-          </span>
-        </div>
-
-        <div class="mt-6 flex flex-wrap items-center gap-5">
-          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-            Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →
-          </a>
-          <p class="text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete</p>
-        </div>
       </div>
     </section>
 
@@ -621,14 +609,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
   const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
-  const cdBoxHero = $('w-countdown-hero');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
     const now = Date.now();
     const next = slotDates.find((d) => d.getTime() > now);
-    if (!next || now < CD_SHOW_FROM) { cdBox?.setAttribute('hidden', ''); cdBoxHero?.setAttribute('hidden', ''); return; }
+    if (!next || now < CD_SHOW_FROM) { cdBox?.setAttribute('hidden', ''); return; }
     cdBox?.removeAttribute('hidden');
-    cdBoxHero?.removeAttribute('hidden');
     let rest = Math.floor((next.getTime() - now) / 1000);
     const dd = Math.floor(rest / 86400); rest -= dd * 86400;
     const hh = Math.floor(rest / 3600); rest -= hh * 3600;
@@ -637,7 +623,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     const vals = [String(dd), pad(hh), pad(mm), pad(ss)];
     vals.forEach((v, i) => {
       const el = $(`cd-${i}`); if (el) el.textContent = v;
-      document.querySelectorAll(`[data-cdh="${i}"]`).forEach((h) => { h.textContent = v; });
     });
   };
   tickCd();
