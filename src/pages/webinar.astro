@@ -55,7 +55,7 @@ const agenda = [
   { min: '5 Min.', t: 'Begrüßung + Live-Umfrage', d: '„Haben Sie Ihre Firma schon mal in ChatGPT gesucht?"' },
   { min: '15 Min.', t: 'Die stille Vorentscheidung', d: 'Wie B2B-Kaufprozesse heute ablaufen: Buying Center, Recherchephase — und warum die Entscheidung vor dem Erstkontakt fällt.' },
   { min: '15 Min.', t: 'Live-Audit', d: 'Echte Mittelstands-Marken live in ChatGPT + Google KI-Übersicht, Methodik der 8 Einkäuferfragen, typische Befunde aus hunderten Audits.' },
-  { min: '10 Min.', t: 'Was Sie mit ChatGPT selbst machen können', d: 'DIY ernst genommen: was mit Bordmitteln geht — und wo die Grenze liegt.' },
+  { min: '10 Min.', t: 'Was Sie mit ChatGPT oder Copilot selbst machen können', d: 'DIY ernst genommen: was mit Bordmitteln geht — und wo die Grenze liegt.' },
   { min: '15 Min.', t: 'Der Fahrplan: von der Strategie zum Auftrag', d: 'Warum vor der Sichtbarkeit die strategische Planung steht — und nach der Lead-Generierung ein sauberer Prozess, der aus Anfragen Aufträge macht. Die 5 Hebel im Zusammenspiel, plus Q&A.' },
 ];
 
@@ -70,7 +70,11 @@ const webinarFaq = [
   },
   {
     q: 'Was kostet die Teilnahme — und wo ist der Haken?',
-    a: 'Die Teilnahme ist kostenlos, inklusive Ihres persönlichen Sichtbarkeits-Audits. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 15-Minuten-Gespräch buchen — mehr nicht.',
+    a: 'Die Teilnahme ist kostenlos — auf Wunsch inklusive Ihres persönlichen Sichtbarkeits-Audits. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 15-Minuten-Gespräch buchen — mehr nicht.',
+  },
+  {
+    q: 'Bei uns ist nur Microsoft Copilot erlaubt — bringt mir das Webinar trotzdem etwas?',
+    a: 'Ja. Copilot nutzt dieselben GPT-Modelle wie ChatGPT — alles, was wir im Webinar zum Selbst-Prüfen zeigen, funktioniert dort genauso. Unsere Studien-Messungen beziehen sich auf ChatGPT und die Google KI-Übersicht; die Mechanik, nach der KI-Assistenten Anbieter empfehlen oder weglassen, ist bei Copilot dieselbe.',
   },
   {
     q: 'Wir ranken bei Google gut — lohnt sich das trotzdem?',
@@ -108,7 +112,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   ],
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },
-  description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit für jeden Teilnehmer.',
+  description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit auf Wunsch.',
 })));
 ---
 
@@ -234,7 +238,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
             Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →
           </a>
-          <p class="text-xs text-muted-foreground">Begrenzt auf 100 Plätze je Termin · Aufzeichnung für Angemeldete</p>
+          <p class="text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete</p>
         </div>
       </div>
     </section>
@@ -293,7 +297,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
             ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
             ['Die Einordnung', ' — was die Ergebnisse von 449 untersuchten Unternehmen aus 258 Branchen für Unternehmen wie Ihres bedeuten.'],
-            ['Ihr persönliches Sichtbarkeits-Audit', ' — wird Ihnen nach dem Webinar per E-Mail zugestellt und bringt echte Erkenntnisse, wie Ihr Unternehmen derzeit in der KI dasteht.'],
+            ['Auf Wunsch: Ihr persönliches Sichtbarkeits-Audit', ' — Ihr individuelles Dashboard zeigt, wie Ihr Unternehmen derzeit in der KI dasteht. Den Zugang senden wir aus Datenschutzgründen persönlich per SMS.'],
           ].map(([t, d]) => (
             <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
               <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
@@ -393,8 +397,8 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
               <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
                 Autor des Haufe-Standardwerks „Digitalisierung in Marketing und Vertrieb" und mehr
                 als einem Dutzend weiterer Bücher — zuletzt „KI im B2B – Marketing und Vertrieb
-                neu denken" (2026). Entwickler des strike2 Framework® mit Schuster-Modell®,
-                Wasserloch-Strategie® und Empathischem Funnel. Im Webinar liefert er den
+                neu denken" (2026). Entwickler des strike2®-Frameworks mit Schuster-Modell®,
+                Wasserloch-Strategie® und Empathischem Funnel®. Im Webinar liefert er den
                 strategischen Rahmen: von der stillen Vorentscheidung bis zur Revenue Engine.
               </p>
             </div>
@@ -612,6 +616,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   });
 
   // ── Countdown zum nächsten Termin ────────────────────────────────────────
+  // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
+  // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
+  const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
   const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
   const cdBoxHero = $('w-countdown-hero');
@@ -619,7 +626,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   const tickCd = () => {
     const now = Date.now();
     const next = slotDates.find((d) => d.getTime() > now);
-    if (!next) { cdBox?.setAttribute('hidden', ''); cdBoxHero?.setAttribute('hidden', ''); return; }
+    if (!next || now < CD_SHOW_FROM) { cdBox?.setAttribute('hidden', ''); cdBoxHero?.setAttribute('hidden', ''); return; }
     cdBox?.removeAttribute('hidden');
     cdBoxHero?.removeAttribute('hidden');
     let rest = Math.floor((next.getTime() - now) / 1000);
@@ -635,6 +642,18 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   };
   tickCd();
   setInterval(tickCd, 1000);
+
+  // ── Anmeldungen-Zähler (Social Proof) — erscheint erst ab 50 Anmeldungen ─
+  fetch(`${ENDPOINT}?action=webinar_seats`)
+    .then((r) => r.json())
+    .then((j) => {
+      const el = $('w-seats');
+      if (el && j?.ok && Number(j.count) >= 50) {
+        el.textContent = `Bereits ${new Intl.NumberFormat('de-DE').format(j.count)} Anmeldungen · `;
+        el.removeAttribute('hidden');
+      }
+    })
+    .catch(() => {});
 
   // ── Scroll-Pinning: komplettes Audit läuft durch die 3D-Ebene ───────────
   const pinWrap = $('audit-pin');
@@ -654,6 +673,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         const sr = pinScene.getBoundingClientRect();
         const tr = t.getBoundingClientRect();
         l.style.right = `${Math.max(30, Math.round(sr.right - tr.left))}px`;
+      }
+      // Overlap-Schutz (Norbert-Feedback 17.07.): Ragt die gekippte Karte bis unter
+      // Titel/Labels, bekommen beide einen dunklen Chip-Hintergrund — lesbar statt Kollision.
+      const card = pinScene.querySelector('.audit-card');
+      if (t && card) {
+        const cr = card.getBoundingClientRect();
+        const tr2 = t.getBoundingClientRect();
+        pinScene.classList.toggle('labels-clash', cr.right > tr2.left - 12);
       }
     });
   };
@@ -792,6 +819,13 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1);
   }
   .audit-label.on { opacity: 1; transform: none; }
+  /* Overlap-Schutz: wenn die Karte bis unter die Texte ragt (schmale Fenster),
+     bekommen Titel + Labels einen dunklen Chip — Overlay statt unlesbarer Kollision. */
+  .labels-clash .audit-title,
+  .labels-clash .audit-label {
+    background: rgba(8, 8, 14, 0.62); padding: 0.18em 0.5em; border-radius: 0.5em;
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  }
   .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
   .audit-bar i { display: block; height: 100%; width: 0%; background: #DF41FB; border-radius: 2px; }
   @media (prefers-reduced-motion: reduce) {
