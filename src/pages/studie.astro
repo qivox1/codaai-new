@@ -698,6 +698,14 @@ const beispiele = [
         const tr = t.getBoundingClientRect();
         l.style.right = `${Math.max(30, Math.round(sr.right - tr.left))}px`;
       }
+      // Overlap-Schutz (Norbert-Feedback 17.07.): Ragt die gekippte Karte bis unter
+      // Titel/Labels, bekommen beide einen dunklen Chip-Hintergrund — lesbar statt Kollision.
+      const card = pinScene.querySelector('.audit-card');
+      if (t && card) {
+        const cr = card.getBoundingClientRect();
+        const tr2 = t.getBoundingClientRect();
+        pinScene.classList.toggle('labels-clash', cr.right > tr2.left - 12);
+      }
     });
   };
   fitScale();
@@ -827,6 +835,13 @@ const beispiele = [
     transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1);
   }
   .audit-label.on { opacity: 1; transform: none; }
+  /* Overlap-Schutz: wenn die Karte bis unter die Texte ragt (schmale Fenster),
+     bekommen Titel + Labels einen dunklen Chip — Overlay statt unlesbarer Kollision. */
+  .labels-clash .audit-title,
+  .labels-clash .audit-label {
+    background: rgba(8, 8, 14, 0.62); padding: 0.18em 0.5em; border-radius: 0.5em;
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  }
   .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
   .audit-bar i { display: block; height: 100%; width: 0%; background: #DF41FB; border-radius: 2px; }
   @media (prefers-reduced-motion: reduce) {
