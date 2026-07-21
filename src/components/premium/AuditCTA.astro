@@ -1,0 +1,289 @@
+---
+/**
+ * AuditCTA — wiederverwendbarer Lead-CTA „Digital Visibility Audit anfordern".
+ *
+ * Interaktion (Wunsch Oli 21.07.2026): Pill-Button klappt bei Klick nach rechts
+ * zu einem URL-Feld auf (pinker quadratischer Pfeil-Button zum Weiter), danach
+ * Vorname + Name + E-Mail, dann Bestätigung „Audit wird erstellt und innerhalb
+ * von 24 Stunden zugesandt".
+ *
+ * Backend: dieselbe Apps-Script-Web-App wie Buchungs-Widget/Webinar, Action
+ * `visibility_check` (Vorname/Name seit v8, 21.07.2026 — siehe
+ * buchung-backend/Code.gs + domain-check-deploy-anleitung.md). Optimistische UI
+ * wie beim HeroDomainCheck: wirft der Fetch nicht, gilt es als abgeschickt;
+ * Netzwerkfehler → Fallback-Hinweis mit Kontakt-Link.
+ *
+ * Mehrfach-Instanz-fähig: das gehostete Script verdrahtet ALLE [data-acta] auf
+ * der Seite. Styles sind Astro-scoped und liegen dadurch spezifischer als der
+ * globale #cai-premium-Reset (:where(...) = 0 Spezifität).
+ *
+ * Props:
+ *   variant  'solid' (magenta Pill, für Hero/Kette) | 'band' (mit Rahmen-Karte
+ *            auf hellem Band, für die Zwischen-CTAs). Default 'solid'.
+ *   label    Button-Text. Default „Digital Visibility Audit kostenlos anfordern".
+ *   align    'start' | 'center'. Default 'start'.
+ */
+interface Props {
+  variant?: 'solid' | 'band';
+  label?: string;
+  align?: 'start' | 'center';
+}
+const {
+  variant = 'solid',
+  label = 'Digital Visibility Audit kostenlos anfordern',
+  align = 'start',
+} = Astro.props;
+---
+
+<div class={`acta acta--${variant} acta--${align}`} data-acta data-state="idle">
+  {/* Honeypot — für Menschen unsichtbar, Bots füllen es aus */}
+  <div class="acta-hp" aria-hidden="true">
+    <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  {/* Idle: der Auslöser-Button */}
+  <button type="button" class="acta-trigger" data-open>
+    <span>{label}</span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  {/* Aufgeklapptes Formular */}
+  <form class="acta-form" novalidate autocomplete="off" data-form>
+    <div class="acta-line acta-line--url">
+      <input class="acta-in" data-url type="text" inputmode="url" spellcheck="false"
+             placeholder="Ihre Website-URL — z. B. ihrefirma.de" aria-label="Website-URL" />
+      <button type="button" class="acta-sq" data-next aria-label="Weiter">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="acta-contact" data-contact>
+      <p class="acta-hint">Wohin dürfen wir Ihr Audit senden?</p>
+      <div class="acta-grid">
+        <input class="acta-in" data-firstname type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
+        <input class="acta-in" data-lastname type="text" placeholder="Name" aria-label="Name" autocomplete="family-name" />
+      </div>
+      <div class="acta-line">
+        <input class="acta-in" data-email type="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse" autocomplete="email" />
+        <button type="button" class="acta-sq" data-submit aria-label="Audit anfordern">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <p class="acta-err" data-err hidden></p>
+  </form>
+
+  {/* Bestätigung */}
+  <div class="acta-done" data-done>
+    <span class="acta-check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <p><b>Vielen Dank!</b> Das CodaAI-Team erstellt Ihr persönliches Digital Visibility Audit und sendet es Ihnen <b>innerhalb von 24&nbsp;Stunden</b> zu.</p>
+  </div>
+</div>
+
+<style>
+  .acta { --pink:#DF41FB; --pink-d:#c231e0; --ink:#141414; --muted:#6b6b76; --bd:#e4e4ec;
+    display:inline-block; position:relative; width:100%; max-width:520px; text-align:left; }
+  .acta--center { margin-left:auto; margin-right:auto; }
+  .acta--start { margin-left:0; margin-right:0; }
+
+  /* Honeypot versteckt */
+  .acta-hp { position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; }
+
+  /* ---------- Auslöser-Button ---------- */
+  .acta-trigger {
+    display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+    font:inherit; font-weight:700; font-size:15px; line-height:1;
+    color:#fff; background:var(--pink); border:none; border-radius:999px;
+    padding:16px 26px; box-shadow:0 10px 30px -8px rgba(223,65,251,.55);
+    transition:transform .18s ease, box-shadow .25s ease, opacity .2s ease;
+  }
+  .acta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px rgba(223,65,251,.65); }
+  .acta-trigger svg { transition:transform .2s ease; }
+  .acta-trigger:hover svg { transform:translateX(3px); }
+  .acta--band .acta-trigger { background:var(--pink); }
+
+  /* ---------- Formular (klappt auf) ---------- */
+  .acta-form {
+    max-width:0; opacity:0; overflow:hidden; pointer-events:none;
+    transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease;
+  }
+  .acta-line { display:flex; align-items:stretch; gap:8px; }
+  .acta-in {
+    font:inherit; font-size:15px; color:var(--ink); background:#fff;
+    border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
+    outline:none; width:100%; min-width:0;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  .acta-in::placeholder { color:#9a9aa6; }
+  .acta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(223,65,251,.16); }
+  .acta-line--url .acta-in { flex:1; }
+
+  .acta-sq {
+    flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+    width:52px; border:none; border-radius:14px; cursor:pointer;
+    color:#fff; background:var(--pink);
+    box-shadow:0 8px 22px -8px rgba(223,65,251,.6);
+    transition:background .18s ease, transform .18s ease;
+  }
+  .acta-sq:hover { background:var(--pink-d); transform:translateY(-1px); }
+  .acta-sq:active { transform:translateY(0); }
+  .acta-sq svg { transition:transform .2s ease; }
+  .acta-sq:hover svg { transform:translateX(2px); }
+
+  /* Kontakt-Block (zweiter Schritt) */
+  .acta-contact { max-height:0; opacity:0; overflow:hidden;
+    transition:max-height .45s ease, opacity .35s ease, margin-top .45s ease; }
+  .acta-hint { font-size:13px; font-weight:600; color:var(--muted); margin:0 0 8px; }
+  .acta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+
+  .acta-err { margin-top:8px; font-size:13px; color:#c0245a; }
+  .acta-err a { color:#c0245a; font-weight:600; text-decoration:underline; }
+
+  /* Bestätigung */
+  .acta-done { display:none; align-items:center; gap:14px;
+    border:1.5px solid rgba(223,65,251,.32); background:rgba(223,65,251,.06);
+    border-radius:16px; padding:16px 18px; max-width:520px; }
+  .acta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:999px; background:var(--pink); }
+  .acta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
+
+  /* ---------- State-Schaltung ---------- */
+  .acta[data-state="idle"] .acta-form,
+  .acta[data-state="idle"] .acta-done { display:none; }
+
+  .acta:not([data-state="idle"]):not([data-state="done"]) .acta-trigger { display:none; }
+  .acta[data-state="done"] .acta-trigger,
+  .acta[data-state="done"] .acta-form { display:none; }
+
+  .acta[data-state="url"] .acta-form,
+  .acta[data-state="contact"] .acta-form,
+  .acta[data-state="sending"] .acta-form { max-width:520px; opacity:1; pointer-events:auto; }
+
+  .acta[data-state="contact"] .acta-contact,
+  .acta[data-state="sending"] .acta-contact { max-height:220px; opacity:1; margin-top:10px; }
+
+  .acta[data-state="sending"] .acta-sq { opacity:.6; pointer-events:none; }
+
+  .acta[data-state="done"] .acta-done { display:flex; }
+
+  @media (max-width:520px) {
+    .acta-trigger { width:100%; justify-content:center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .acta-form, .acta-contact, .acta-trigger, .acta-sq, .acta-in { transition:none !important; }
+  }
+</style>
+
+<script>
+  // Digital-Visibility-Audit-CTA — verdrahtet ALLE [data-acta]-Instanzen.
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+  function normalizeDomain(raw: string): string {
+    let s = (raw || '').trim().toLowerCase();
+    s = s.replace(/^https?:\/\//, '').replace(/^www\./, '');
+    s = s.split(/[/?#]/)[0];
+    return s.trim();
+  }
+  const DOMAIN_RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
+  const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+  function initAudit(root: Element) {
+    if ((root as HTMLElement).dataset.wired === '1') return;
+    (root as HTMLElement).dataset.wired = '1';
+
+    const $ = (s: string) => root.querySelector(s) as HTMLElement | null;
+    const openBtn = $('[data-open]');
+    const nextBtn = $('[data-next]');
+    const submitBtn = $('[data-submit]');
+    const urlIn = $('[data-url]') as HTMLInputElement | null;
+    const firstIn = $('[data-firstname]') as HTMLInputElement | null;
+    const lastIn = $('[data-lastname]') as HTMLInputElement | null;
+    const emailIn = $('[data-email]') as HTMLInputElement | null;
+    const hp = $('[data-hp]') as HTMLInputElement | null;
+    const err = $('[data-err]') as HTMLElement | null;
+
+    const setState = (s: string) => root.setAttribute('data-state', s);
+    const showErr = (msg: string) => {
+      if (!err) return;
+      err.innerHTML = msg;
+      err.hidden = false;
+    };
+    const clearErr = () => { if (err) err.hidden = true; };
+
+    openBtn?.addEventListener('click', () => {
+      setState('url');
+      setTimeout(() => urlIn?.focus(), 420);
+    });
+
+    const goContact = () => {
+      clearErr();
+      const dom = normalizeDomain(urlIn?.value || '');
+      if (!dom || !DOMAIN_RE.test(dom)) {
+        showErr('Bitte geben Sie eine gültige Website-Adresse ein (z. B. ihrefirma.de).');
+        urlIn?.focus();
+        return;
+      }
+      setState('contact');
+      setTimeout(() => firstIn?.focus(), 380);
+    };
+    nextBtn?.addEventListener('click', goContact);
+    urlIn?.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') { e.preventDefault(); goContact(); }
+    });
+
+    const submit = () => {
+      clearErr();
+      const dom = normalizeDomain(urlIn?.value || '');
+      const first = (firstIn?.value || '').trim();
+      const last = (lastIn?.value || '').trim();
+      const email = (emailIn?.value || '').trim();
+
+      if (!dom || !DOMAIN_RE.test(dom)) { setState('url'); showErr('Bitte prüfen Sie die Website-Adresse.'); urlIn?.focus(); return; }
+      if (!first) { showErr('Bitte geben Sie Ihren Vornamen an.'); firstIn?.focus(); return; }
+      if (!last) { showErr('Bitte geben Sie Ihren Namen an.'); lastIn?.focus(); return; }
+      if (!EMAIL_RE.test(email)) { showErr('Bitte geben Sie eine gültige E-Mail-Adresse an.'); emailIn?.focus(); return; }
+
+      // Honeypot → stiller Erfolg, kein echter Request
+      if (hp && hp.value) { setState('done'); return; }
+
+      setState('sending');
+      let lang = 'de';
+      try { lang = document.documentElement.lang || 'de'; } catch (e) {}
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'visibility_check',
+          domain: dom, email, firstname: first, lastname: last,
+          website: hp ? hp.value : '',
+        }),
+      })
+        .then(() => {
+          try {
+            const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+            dl.push({ event: 'audit_request_submitted', lang });
+          } catch (e) {}
+          setState('done');
+        })
+        .catch(() => {
+          setState('contact');
+          showErr('Da ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.');
+        });
+    };
+    submitBtn?.addEventListener('click', submit);
+    emailIn?.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') { e.preventDefault(); submit(); }
+    });
+  }
+
+  function boot() { document.querySelectorAll('[data-acta]').forEach(initAudit); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>

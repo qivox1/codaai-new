@@ -1,6 +1,7 @@
 ---
 /* CodaAI Premium-Startseite — aus prototyp-startseite.html transformiert.
    Global-CSS auf #cai-premium gescopt; GSAP/ScrollTrigger/Lenis via CDN. */
+import AuditCTA from './AuditCTA.astro';
 ---
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@
       </h1>
       <p class="desc">94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wir sorgen dafür, dass Sie dort empfohlen werden — und aus Empfehlungen qualifizierte Anfragen werden. Das CodaAI Digital Visibility System aus SEO, AEO und GEO macht genau das messbar.</p>
       <div class="ctas">
-        <a href="#termin" class="btn cta mag" data-mag>Sichtbarkeit prüfen lassen →</a>
+        <AuditCTA label="Digital Visibility Audit kostenlos anfordern" />
         <a href="#programm" class="btn ghost mag" data-mag>Das System im Detail →</a>
       </div>
       <div class="pb"><i>AI</i><span>Powered by AI · SEO · AEO · GEO</span></div>
@@ -213,6 +214,18 @@
   </div>
 </section>
 
+<!-- CTA-Band nach SEO/AEO/GEO -->
+<section class="acta-band" style="padding:78px 0;background:#fbfbfd;border-top:1px solid #ececf2">
+  <div class="wrap" style="text-align:center;max-width:760px">
+    <p style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.015em;color:#141414;line-height:1.25;margin:0 0 22px">
+      Wie sichtbar ist Ihr Unternehmen heute in ChatGPT &amp; der Google&nbsp;KI-Übersicht?
+    </p>
+    <div style="display:flex;justify-content:center">
+      <AuditCTA variant="band" align="center" />
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONCLUSIO (Farbüberblendung + Zitat) ================= -->
 <section class="conclusio" id="conclusio">
   <div class="cc-scene" id="cc-scene">
@@ -341,6 +354,18 @@
   </div>
 </section>
 
+<!-- CTA-Band nach dem System-Modul -->
+<section class="acta-band" style="padding:78px 0;background:#fbfbfd;border-top:1px solid #ececf2;border-bottom:1px solid #ececf2">
+  <div class="wrap" style="text-align:center;max-width:760px">
+    <p style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.015em;color:#141414;line-height:1.25;margin:0 0 22px">
+      Sehen Sie schwarz auf weiß, wo Sie stehen — und wo Ihr Wettbewerber empfohlen wird.
+    </p>
+    <div style="display:flex;justify-content:center">
+      <AuditCTA variant="band" align="center" />
+    </div>
+  </div>
+</section>
+
 <!-- ================= OUTCOME — „Die Kette" ================= -->
 <section class="outcome" id="outcome">
   <div class="oc-scene" id="oc-scene">
@@ -373,7 +398,9 @@
       <div class="oc-final" data-final>
         <p class="ft">Jeder Auftrag beginnt mit einer Empfehlung.</p>
         <p class="fq">Die Frage ist nur: <em>Ihre — oder die Ihres Wettbewerbers?</em></p>
-        <a href="#termin" class="btn cta mag" data-mag>Jetzt Sichtbarkeit prüfen lassen →</a>
+        <div style="display:flex;justify-content:center;margin-top:26px">
+          <AuditCTA variant="band" align="center" label="Jetzt Digital Visibility Audit anfordern" />
+        </div>
       </div>
     </div>
   </div>
