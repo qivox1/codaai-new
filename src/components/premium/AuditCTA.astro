@@ -52,10 +52,12 @@ const {
     <div class="acta-line acta-line--url">
       <input class="acta-in" data-url type="text" inputmode="url" spellcheck="false"
              placeholder="Ihre Website-URL — z. B. ihrefirma.de" aria-label="Website-URL" />
-      <button type="button" class="acta-sq" data-next aria-label="Weiter">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button type="button" class="acta-sq" data-next aria-label="Website prüfen und weiter">
+        <svg class="acta-ico" viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="acta-spin" aria-hidden="true"></span>
       </button>
     </div>
+    <p class="acta-note" data-note hidden></p>
 
     <div class="acta-contact" data-contact>
       <p class="acta-hint">Wohin dürfen wir Ihr Audit senden?</p>
@@ -133,6 +135,20 @@ const {
   .acta-sq svg { transition:transform .2s ease; }
   .acta-sq:hover svg { transform:translateX(2px); }
 
+  /* Lade-Spinner am Pfeil während der Erreichbarkeitsprüfung */
+  .acta-spin { display:none; width:18px; height:18px; border-radius:50%;
+    border:2px solid rgba(255,255,255,.45); border-top-color:#fff; animation:acta-rot .7s linear infinite; }
+  @keyframes acta-rot { to { transform:rotate(360deg); } }
+  .acta.is-checking [data-next] { pointer-events:none; }
+  .acta.is-checking [data-next] .acta-ico { display:none; }
+  .acta.is-checking [data-next] .acta-spin { display:inline-block; }
+
+  /* Neutrale Status-Zeile (Prüfung läuft / erreichbar) */
+  .acta-note { margin-top:8px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+  .acta-note.ok { color:#128a4e; }
+  .acta-note .acta-dot { width:14px; height:14px; border:2px solid var(--muted); border-top-color:transparent;
+    border-radius:50%; animation:acta-rot .7s linear infinite; }
+
   /* Kontakt-Block (zweiter Schritt) */
   .acta-contact { max-height:0; opacity:0; overflow:hidden;
     transition:max-height .45s ease, opacity .35s ease, margin-top .45s ease; }
@@ -204,6 +220,7 @@ const {
     const emailIn = $('[data-email]') as HTMLInputElement | null;
     const hp = $('[data-hp]') as HTMLInputElement | null;
     const err = $('[data-err]') as HTMLElement | null;
+    const noteEl = $('[data-note]') as HTMLElement | null;
     const formEl = root.querySelector('[data-form]') as HTMLFormElement | null;
 
     // Impliziten Submit (z. B. Enter in einem Feld) NIE die Seite neu laden lassen.
@@ -222,7 +239,26 @@ const {
       setTimeout(() => urlIn?.focus(), 420);
     });
 
+    const setNote = (msg: string, spin: boolean, ok?: boolean) => {
+      if (!noteEl) return;
+      noteEl.innerHTML = (spin ? '<span class="acta-dot"></span>' : '') + msg;
+      noteEl.classList.toggle('ok', !!ok);
+      noteEl.hidden = false;
+    };
+    const clearNote = () => { if (noteEl) noteEl.hidden = true; };
+
+    let checking = false;
+    const advance = () => {
+      root.classList.remove('is-checking');
+      clearNote();
+      setState('contact');
+      setTimeout(() => firstIn?.focus(), 380);
+    };
+
+    // Klick auf den Pfeil: erst Format prüfen, dann per Backend live prüfen, ob die
+    // Website überhaupt erreichbar ist (existiert das Unternehmen / ist die Seite online?).
     const goContact = () => {
+      if (checking) return;
       clearErr();
       const dom = normalizeDomain(urlIn?.value || '');
       if (!dom || !DOMAIN_RE.test(dom)) {
@@ -230,8 +266,25 @@ const {
         urlIn?.focus();
         return;
       }
-      setState('contact');
-      setTimeout(() => firstIn?.focus(), 380);
+      checking = true;
+      root.classList.add('is-checking');
+      setNote('Wir prüfen, ob die Website erreichbar ist …', true);
+      fetch(ENDPOINT + '?action=check_site&domain=' + encodeURIComponent(dom), { method: 'GET' })
+        .then((r) => r.json())
+        .then((res) => {
+          checking = false;
+          // reachable === false NUR wenn das Backend das ausdrücklich sagt (v9+).
+          // Fehlt das Feld (altes Backend) oder Netzfehler → fail-open, Lead nicht blockieren.
+          if (res && res.reachable === false) {
+            root.classList.remove('is-checking');
+            clearNote();
+            showErr('Diese Website konnten wir nicht live erreichen. Bitte prüfen Sie die Adresse — oder schreiben Sie uns direkt an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.');
+            urlIn?.focus();
+          } else {
+            advance();
+          }
+        })
+        .catch(() => { checking = false; advance(); });
     };
     nextBtn?.addEventListener('click', goContact);
     urlIn?.addEventListener('keydown', (e) => {
