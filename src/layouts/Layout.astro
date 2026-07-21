@@ -120,11 +120,11 @@ const csp = [
   // Astro generates inline <script> blocks (theme init, mobile menu) â unsafe-inline required
   // strict-dynamic is not viable with static generation (no per-request nonces)
   // GTM loader needs googletagmanager.com for gtm.js
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
   // Tailwind/Radix inline styles + React inline style props
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
-  "font-src 'self' https://fonts.gstatic.com",
+  "font-src 'self'",
   // Local images + data: URIs + GA4 measurement pixel
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net",
   // Supabase + GA4 data collection endpoints + GTM

@@ -1,11 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import TeamSection from '../components/TeamSection.astro';
+import Pricing from '../components/Pricing.astro';
 import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
-import PremiumHome from '../components/premium/Home.astro';
 import { getTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
+import RoutineWork from '../components/RoutineWork.astro';
+import GlobalReach from '../components/GlobalReach.astro';
 import Booking from '../components/Booking.astro';
 
 const language = 'de' as const;
@@ -25,10 +31,10 @@ const softwareSchema = JSON.stringify({
   '@type': 'SoftwareApplication',
   name: 'CodaAI',
   applicationCategory: 'BusinessApplication',
-  applicationSubCategory: 'Digital Visibility Platform',
+  applicationSubCategory: 'Content Marketing Platform',
   operatingSystem: 'Web',
   url: `${SITE_URL}/`,
-  description: 'Digital-Visibility-Programm für den B2B-Mittelstand: Sichtbarkeit in ChatGPT, Google KI-Übersicht und klassischer Suche – SEO, AEO und GEO plus KI-gestützte Content-Produktion.',
+  description: 'KI-gestützte Content-Plattform, die Ihre gesamte Content-Produktion übernimmt – SEO-Texte, Grafiken und Videos. Bis zu 88 % günstiger als eine klassische Content-Agentur.',
   inLanguage: ['de', 'en'],
   offers: {
     '@type': 'Offer',
@@ -42,70 +48,16 @@ const softwareSchema = JSON.stringify({
     },
   },
   featureList: [
-    'Digital Visibility Audit',
-    'KI-Sichtbarkeits-Monitoring mit Monatsreport',
-    'SEO inklusive Bing-Optimierung',
-    'Technische KI-Zugänglichkeit (GEO/AEO)',
+    'KI-gestützte Redaktionsplanung',
     'SEO-optimierte Blogartikel bis 4.000 Wörter',
-    'KI-generierte Grafiken und Videos',
-    'Digital-PR und Markennennungen',
+    'KI-generierte Grafiken und Infografiken',
+    'GEO-Optimierung für KI-Suchmaschinen',
+    'Automatische Social-Media-Videos',
+    'Multi-Channel-Content-Distribution',
   ],
   screenshot: `${SITE_URL}/images/og-image.png`,
   provider: {
     '@id': `${SITE_URL}/#organization`,
-  },
-});
-
-// Service schema — Digital-Visibility-Programm mit den drei buchbaren Stufen
-const visibilityServiceSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Digital-Visibility-Programm',
-  serviceType: 'Digital Visibility (SEO, AEO, GEO)',
-  provider: {
-    '@id': `${SITE_URL}/#organization`,
-  },
-  areaServed: 'DE',
-  audience: {
-    '@type': 'BusinessAudience',
-    audienceType: 'B2B-Mittelstand',
-  },
-  description: 'Digital-Visibility-Programm für den B2B-Mittelstand: Sichtbarkeit in ChatGPT, Google KI-Übersicht und klassischer Suche – SEO, AEO und GEO plus KI-gestützte Content-Produktion. Drei Stufen: Basis, Aktiv, Dominanz.',
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Digital-Visibility-Stufen',
-    itemListElement: [
-      {
-        '@type': 'Offer',
-        name: 'Basis',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '490',
-          priceCurrency: 'EUR',
-          unitText: 'MONTH',
-        },
-      },
-      {
-        '@type': 'Offer',
-        name: 'Aktiv',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '990',
-          priceCurrency: 'EUR',
-          unitText: 'MONTH',
-        },
-      },
-      {
-        '@type': 'Offer',
-        name: 'Dominanz',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '1790',
-          priceCurrency: 'EUR',
-          unitText: 'MONTH',
-        },
-      },
-    ],
   },
 });
 
@@ -126,27 +78,19 @@ const faqSchema = JSON.stringify({
 
 <Layout
   lang={language}
-  title="CodaAI – Digital Visibility: sichtbar in ChatGPT & Google"
-  description="Einkäufer fragen zuerst die KI. CodaAI macht B2B-Unternehmen dort sichtbar: ChatGPT, Google KI-Übersicht, klassische Suche — SEO, AEO & GEO plus Content."
-  jsonLd={[softwareSchema, visibilityServiceSchema, faqSchema]}
+  title="CodaAI – KI Content-Plattform für SEO, Design & Video"
+  description="Sparen Sie über 100.000 € pro Jahr. CodaAI übernimmt Ihre gesamte Content-Produktion – SEO-Texte, Grafiken und Videos. Alles aus einer KI-Plattform."
+  jsonLd={[softwareSchema, faqSchema]}
 >
   <Navbar lang={language} />
   <main id="main-content">
-    {/* Sektionsrhythmus (Prototyp Nr. 9): weiß (Hero) → dunkel (Problem) → weiß (SEO/AEO/GEO)
-        → grau (Programm-Bento) → weiß (Outcome-Funnel, neu) → getönt (Beweis)
-        → … restliche Sektionen unverändert. Jede in-scope Sektion steckt in einem
-        Reveal-Wrapper (fx/Reveal) für den scroll-getriggerten Einblendeffekt.
-        Navbar/Footer/Booking/TeamSection/Blog bleiben unangetastet und daher auch
-        ungewrappt.
-        Feinschliff-Welle E1 (Review Oli, 20.07.2026): StufenTeaser ist von der
-        Startseite auf die Preisseiten gewandert (siehe preise.astro / en/pricing.astro,
-        dort jetzt als volle Sektion statt schmalem Kurven-Band). ProcessSteps ist von
-        der Startseite entfernt — der kombinierte Prozess-/Outcome-Verlauf lebt jetzt
-        gebündelt auf /digital-visibility (Sektion „Der komplette Verlauf"). Die
-        Agentur-Vergleichs-Sektion (Pricing.astro) ist auf Olis Wunsch ausgeblendet
-        (siehe Kommentar unten). ProcessSteps.astro und Pricing.astro selbst bleiben
-        unverändert und ungelöscht im Repo. */}
-    <PremiumHome />
+    <Hero lang={language} />
+    <Features lang={language} />
+    <ProcessSteps lang={language} />
+    <TeamSection lang={language} />
+    <Pricing lang={language} />
+    <RoutineWork lang={language} />
+    <GlobalReach lang={language} />
     <FAQ lang={language} />
     <Booking lang={language} />
 
