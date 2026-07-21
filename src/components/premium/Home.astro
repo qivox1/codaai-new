@@ -385,7 +385,6 @@
 
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script is:inline src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script is:inline>
 
 (function(){
@@ -543,17 +542,14 @@
   })();
 
   /* ================= reduced-motion: hier Schluss ================= */
-  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined' || typeof Lenis==='undefined'){ return; }
+  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined'){ return; }
   document.body.classList.add('anim');
 
-  /* Lenis Smooth-Scroll */
-  var lenis=new Lenis({lerp:0.09,wheelMultiplier:0.9});
-  function raf(t){lenis.raf(t);requestAnimationFrame(raf);} requestAnimationFrame(raf);
+  /* Native Scroll — Lenis entfernt für Cross-Browser-Stabilität (v. a. Safari) */
   gsap.registerPlugin(ScrollTrigger);
-  lenis.on('scroll',ScrollTrigger.update);
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
-      var id=a.getAttribute('href'); if(id&&id.charAt(0)==='#'){e.preventDefault();var el=document.querySelector(id);if(el)lenis.scrollTo(el,{offset:0});}
+      var id=a.getAttribute('href'); if(id&&id.length>1&&id.charAt(0)==='#'){var el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}}
     });
   });
 
@@ -591,7 +587,7 @@
       setTimeout(function(){ pphase.textContent=PHASES[i]; pnum.textContent='Schritt '+(i+1)+' / 5';
         pphase.style.opacity=1; pphase.style.transform='none'; },180);
     }
-    var tl=gsap.timeline({scrollTrigger:{trigger:'#p-scene',start:'top top',end:'bottom bottom',scrub:0.6,pin:'.p-stage',
+    var tl=gsap.timeline({scrollTrigger:{trigger:'#p-scene',start:'top top',end:'bottom bottom',scrub:0.6,
       onUpdate:function(self){document.getElementById('prail').style.height=(self.progress*100).toFixed(1)+'%';setStep(Math.min(4,Math.floor(self.progress*5)));}}});
     tl.to({},{duration:1,onUpdate:function(){qEl.textContent=QUERY.slice(0,Math.round(QUERY.length*this.progress()));}},0);
     tl.to('[data-res]',{opacity:1,y:0,stagger:0.25,duration:1,ease:'power2.out'},1).to('#serplabel',{opacity:.9,duration:.4},1.6);
@@ -648,7 +644,7 @@
   /* ---------- CONCLUSIO: Farbüberblendung light→pink + Zitat Wort für Wort ---------- */
   (function(){
     if(!document.getElementById('cc-scene')) return;
-    var tl=gsap.timeline({scrollTrigger:{trigger:'#cc-scene',start:'top top',end:'bottom bottom',scrub:0.7,pin:'.cc-stage'}});
+    var tl=gsap.timeline({scrollTrigger:{trigger:'#cc-scene',start:'top top',end:'bottom bottom',scrub:0.7}});
     tl.to('#cc-veil',{opacity:0,duration:1.1,ease:'power2.inOut'},0);                                  // Farbüberblendung
     // Codrops-Style „Some More" — 3D-Wort-Flip, jetzt ZEILE für ZEILE mit Atempausen (Dramaturgie)
     var rows=['.cc-r1','.cc-r2','.cc-r3','.cc-r4','.cc-r5'];
@@ -682,7 +678,7 @@
     mult.v=0; setMult();
     gsap.set(brk,{xPercent:-50,yPercent:-50,scale:0});
 
-    var tl=gsap.timeline({scrollTrigger:{trigger:'#oc-scene',start:'top top',end:'bottom bottom',scrub:0.7,pin:'.oc-stage'}});
+    var tl=gsap.timeline({scrollTrigger:{trigger:'#oc-scene',start:'top top',end:'bottom bottom',scrub:0.7}});
 
     // 1) AUFLADEN — Glieder leuchten nacheinander, Energie fließt durch, Zahl zählt hoch
     nodes.forEach(function(n,i){
@@ -727,7 +723,7 @@
 </script>
 
 <style is:global>
-  #cai-premium{position:relative;overflow-x:clip}
+  #cai-premium{position:relative}
 
   #cai-premium{
     --magenta:#DF41FB;
