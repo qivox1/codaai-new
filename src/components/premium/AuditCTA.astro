@@ -27,15 +27,17 @@ interface Props {
   variant?: 'solid' | 'band';
   label?: string;
   align?: 'start' | 'center';
+  theme?: 'light' | 'dark';
 }
 const {
   variant = 'solid',
   label = 'Digital Visibility Audit kostenlos anfordern',
   align = 'start',
+  theme = 'light',
 } = Astro.props;
 ---
 
-<div class={`acta acta--${variant} acta--${align}`} data-acta data-state="idle">
+<div class={`acta acta--${variant} acta--${align} ${theme === 'dark' ? 'acta--dark' : ''}`} data-acta data-state="idle">
   {/* Honeypot — für Menschen unsichtbar, Bots füllen es aus */}
   <div class="acta-hp" aria-hidden="true">
     <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
@@ -165,6 +167,14 @@ const {
   .acta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
     width:40px; height:40px; border-radius:999px; background:var(--pink); }
   .acta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
+
+  /* Dunkle Variante (invertiertes Band): heller Sekundärtext + Bestätigung,
+     Eingabefelder bleiben weiß mit dunklem Text (weiterhin gut lesbar). */
+  .acta.acta--dark { --muted:#b9b9c6; }
+  .acta.acta--dark .acta-done { border-color:rgba(223,65,251,.5); background:rgba(223,65,251,.14); }
+  .acta.acta--dark .acta-done p { color:#f4f4f7; }
+  .acta.acta--dark .acta-err { color:#ff9db6; }
+  .acta.acta--dark .acta-err a { color:#ff9db6; }
 
   /* ---------- State-Schaltung ---------- */
   .acta[data-state="idle"] .acta-form,
