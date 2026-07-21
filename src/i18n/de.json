@@ -195,8 +195,40 @@
     ]
   },
   "faq": {
-    "title": "Fragen & Antworten",
+    "title": "Fragen & Antworten (FAQ)",
     "items": [
+      {
+        "question": "Was ist der Unterschied zwischen SEO, AEO und GEO?",
+        "answer": "SEO (Suchmaschinenoptimierung) sorgt dafür, dass Ihre Website in Google und Bing rankt — das Fundament. AEO (Answer Engine Optimization) bringt Ihre Inhalte in Googles KI-Übersicht, die Antwortbox über den Suchergebnissen. GEO (Generative Engine Optimization) sorgt dafür, dass Ihr Unternehmen in ChatGPT, Gemini, Perplexity und Claude namentlich empfohlen wird. Die drei Ebenen bauen aufeinander auf — erst zusammen ergeben sie Digital Visibility. Im Digital-Visibility-Programm arbeiten wir immer an allen dreien."
+      },
+      {
+        "question": "Wie viel kann ich tatsächlich sparen?",
+        "answer": "Beim Content: bis zu 88 % gegenüber klassischen Agenturpreisen — ein vollständiges Content-Paket kostet bei einer Agentur ca. 4.200 €, bei CodaAI ab 349 €* pro Monat (mit Jahreslizenz). Beim Sichtbarkeits-Programm: Ein vergleichbarer Agentur-Retainer liegt im DACH-Raum im Schnitt bei rund 3.800 € pro Monat (Marktbenchmark DACH 2026) — bei CodaAI kosten z. B. 4 Artikel plus Stufe Aktiv zusammen 2.670 € pro Monat, transparent im Preisrechner kalkulierbar statt „auf Anfrage“. Möglich wird beides durch das Co-Creation-Modell: menschliche Expertise für Strategie und Qualität, KI-Skalierung für die Produktion."
+      },
+      {
+        "question": "Wie funktioniert es? Was brauche ich zum Starten?",
+        "answer": "Der Einstieg ist Ihr Digital Visibility Audit: Wir dokumentieren, was ChatGPT und die Google KI-Übersicht heute über Ihr Unternehmen antworten — Ihr Status schwarz auf weiß, als persönliches Dashboard. In einem 15-Minuten-Gespräch gehen wir den Befund gemeinsam durch. Danach übernimmt das CodaAI-Team die strategische Planung: Themenfindung, Redaktionsplan, Sichtbarkeits-Fahrplan. Die Produktion läuft im Co-Create-Modell — Sie bringen Ihr Wissen ein, wir bringen Prozess, Struktur und KI-Leistung."
+      },
+      {
+        "question": "Wie messen Sie KI-Sichtbarkeit?",
+        "answer": "Wir dokumentieren monatlich, wie oft Ihr Unternehmen in KI-Antworten auf relevante Einkäuferfragen genannt wird (Mention Rate), welche Quellen die KI dafür zitiert und wie Ihr Anteil im Vergleich zum Wettbewerb aussieht (Share of Voice). Wichtig für die Einordnung: KI-Antworten sind nicht deterministisch — dieselbe Frage kann unterschiedlich beantwortet werden. Seriöse Messung zeigt deshalb Trends über Wochen und Monate, keine Tages-„Platzierungen“. Genau so ist unser Monatsreport aufgebaut."
+      },
+      {
+        "question": "Was ist das Sichtbarkeits-Versprechen?",
+        "answer": "Jede Digital-Visibility-Stufe enthält unser Versprechen: Zeigt sich nach 90 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter. Gemessen wird über Ihr monatliches Monitoring — dieselben Zahlen, die Sie ohnehin von uns bekommen. Es ist ein Versprechen auf unsere Arbeit, keine Platzierungs-Zusage: Wir tragen das Risiko mit, statt es Ihnen allein zu überlassen."
+      },
+      {
+        "question": "Warum garantieren Sie keine bestimmte Platzierung in ChatGPT?",
+        "answer": "Weil das niemand seriös kann. KI-Antworten sind nicht deterministisch — dieselbe Frage kann heute anders beantwortet werden als morgen, und es existiert kein Programm, mit dem sich eine Nennung kaufen oder buchen ließe. Anbieter, die „Platz 1 in ChatGPT“ garantieren, versprechen etwas technisch Unmögliches. Wir arbeiten stattdessen an den nachweislich wirksamen Hebeln, messen die Entwicklung transparent — und hinterlegen das mit unserem Sichtbarkeits-Versprechen."
+      },
+      {
+        "question": "Was unterscheidet CodaAI von KI-Schreibtools und klassischen Agenturen?",
+        "answer": "Von KI-Schreibtools: Hinter jedem Projekt steht ein Expertenteam, das plant, orchestriert und qualitätssichert — kein Tool, das Texte ohne Strategie ausspuckt. Von klassischen Agenturen: Wir machen Sichtbarkeit messbar, statt sie zu behaupten. Eigene Studie mit 7.184 dokumentierten KI-Antworten (CodaAI-Studie 2026), persönliches Audit vor Vertragsbeginn, monatliches KI-Monitoring im laufenden Programm — und transparente Preise im Rechner statt „auf Anfrage“."
+      },
+      {
+        "question": "Arbeitet CodaAI auch direkt in unserem CMS?",
+        "answer": "Wir arbeiten hybrid. Alles, was ohne Zugriff auf Ihre Systeme geht, übernehmen wir komplett: Content-Produktion, Digital-PR, Bewertungsplattformen, Monitoring und Reporting. Für Änderungen an Ihrer Website — etwa technische KI-Zugänglichkeit oder Seiten-Optimierungen — liefern wir Ihrem Web-Team umsetzungsreife Artefakte: fertige Texte, konkrete Code-Snippets, präzise Anleitungen zum Einfügen. Nach dem Einbau prüfen wir die Umsetzung und nehmen sie ab. So bleibt Ihre Website-Hoheit bei Ihnen, und nichts bleibt liegen."
+      },
       {
         "question": "Wie arbeitet CodaAI mit Agenturen und Marketing-Teams zusammen?",
         "answer": "CodaAI ist auf dem Co-Creation-Prinzip aufgebaut: Menschliche Expertise steuert, KI skaliert. Agenturen und Marketing-Teams bringen strategisches Know-how, Branchenkenntnis und das Gespür für ihre Zielgruppe ein – das CodaAI-Team übersetzt das in einen strukturierten Produktionsprozess. Spezialisierte KI-Experten übernehmen die wiederkehrenden, zeitaufwändigen Aufgaben. Das Ergebnis: Agenturqualität mit der Effizienz einer KI-gestützten Produktion. Erfahrung, die lenkt. KI, die leistet."
@@ -206,32 +238,20 @@
         "answer": "Im Co-Create-Modell orchestriert das CodaAI-Team den gesamten Prozess: Menschliche Experten definieren Strategie, Tonalität und Qualitätsstandards – die KI führt aus. Sechs spezialisierte KI-Module übernehmen ihre jeweiligen Aufgaben: Strategie & Planung, Textproduktion, Grafik & Design, SEO & GEO, Video und Distribution. Die KI übernimmt die repetitiven, skalierbaren Teile; menschliche Expertise sichert Relevanz, Markenkonsistenz und kreative Qualität. Wie ein Dirigent, der sein Orchester kennt und jeden Einsatz präzise führt."
       },
       {
-        "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Bis zu 88 % gegenüber klassischen Agenturpreisen. Ein vollständiges Content-Paket kostet bei einer Agentur ca. 4.200 € – bei CodaAI ab 349 €* pro Monat (mit Jahreslizenz). Möglich wird das durch das Co-Creation-Modell: Menschliche Expertise dort, wo sie wirklich zählt – Strategie, Qualitätssicherung und Markenkommunikation. KI-Automatisierung dort, wo Skalierung den Unterschied macht."
-      },
-      {
-        "question": "Wie funktioniert es? Was brauche ich zum Starten?",
-        "answer": "Sie werden vom CodaAI-Team persönlich durch den gesamten Prozess geführt. In einem ersten Gespräch lernen unsere Experten Ihre Ziele, Branche und Zielgruppe kennen. Anschließend übernimmt das Team die strategische Planung: Themenfindung, Redaktionsplan und Publikationsstrategie. Die sechs KI-Experten beschleunigen dann die Produktion – von SEO-optimierten Artikeln über professionelle Grafiken bis hin zu Videos. Co-Creation bedeutet: Sie bringen Ihr Wissen ein, wir bringen Prozess, Struktur und KI-Leistung."
-      },
-      {
-        "question": "Was unterscheidet CodaAI von anderen KI-Schreibtools?",
-        "answer": "Andere KI-Tools generieren Texte – ohne Strategie, ohne Kontext, ohne Qualitätssicherung. CodaAI ist ein Co-Creation-System: Hinter jedem Projekt steht ein Expertenteam, das Ihre Inhalte strategisch plant, die KI-Produktion orchestriert und das Ergebnis auf Ihre Marke abstimmt. Kein anderes Tool verbindet menschliche Content-Expertise so konsequent mit KI-Skalierung – von der Planung bis zur Veröffentlichung."
-      },
-      {
         "question": "Ist CodaAI für meine Branche geeignet?",
-        "answer": "Ja – für jede Branche, die auf Content Marketing setzt. Das CodaAI-Team legt gemeinsam mit Ihnen die passende Fachsprache, den Ton und die relevanten Themen fest. Die KI-Experten adaptieren sich entsprechend und lernen Ihren spezifischen Markt kennen. Von Tech-Startups bis zu etablierten Unternehmen: Im Co-Creation-Prozess ist Ihr Branchenwissen immer Teil der Lösung."
+        "answer": "Ja — für jede Branche, die auf digitale Sichtbarkeit und Content Marketing setzt. Unser Kern ist der B2B-Mittelstand im DACH-Raum, typischerweise Unternehmen mit 50 bis 500 Mitarbeitenden, in denen Geschäftsführung und Marketingleitung gemeinsam entscheiden. Das CodaAI-Team legt mit Ihnen Fachsprache, Ton und relevante Themen fest; die KI-Experten adaptieren sich entsprechend. Im Co-Creation-Prozess ist Ihr Branchenwissen immer Teil der Lösung."
       },
       {
         "question": "Welche Vertragslaufzeiten gibt es?",
-        "answer": "Die Mindestvertragslaufzeit beträgt ein Quartal (3 Monate). Mit einer Jahreslizenz erhalten Sie 20 % Rabatt gegenüber der quartalsweisen Abrechnung – ideal für Content Marketing und SEO-Maßnahmen, die langfristig wirken. Die Kündigung erfolgt jeweils zum Ende des gewählten Abrechnungszeitraums (Quartal oder Jahr)."
-      },
-      {
-        "question": "Was passiert nach der Kündigung?",
-        "answer": "Wenn Sie kündigen, endet Ihr Abonnement am Ende des aktuellen Abrechnungszeitraums (Quartal oder Jahr). Sie behalten die vollen Rechte an allen während Ihres Abonnements erstellten Inhalten. Es gibt keine versteckten Gebühren und keine Kündigungsgebühren."
+        "answer": "Zwei Modelle: Reine Content-Pakete laufen wie bisher — Mindestlaufzeit ein Quartal, mit Jahreslizenz 20 % günstiger. Mit einer Digital-Visibility-Stufe (Basis, Aktiv oder Dominanz) beträgt die Mindestlaufzeit 6 Monate — Sichtbarkeit in Suche und KI-Antworten braucht diesen Zeitraum, um messbar zu werden. Dafür ist das Sichtbarkeits-Versprechen enthalten: Zeigt sich nach 90 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter."
       },
       {
         "question": "Warum sollte ich mindestens 3–6 Monate einplanen?",
-        "answer": "Content Marketing ist eine langfristige Investition in Ihre digitale Sichtbarkeit – kein Sprint. Neue Inhalte müssen von Suchmaschinen zunächst gecrawlt, indexiert und bewertet werden. Allein dieser Prozess dauert je nach Website und Wettbewerbssituation 2–8 Wochen, gefolgt von weiteren Wochen, in denen Algorithmen Relevanz und Nutzerverhalten auswerten. Auch KI-Modelle wie ChatGPT oder Perplexity aktualisieren ihre Wissensbasis nicht täglich – dort entsteht Sichtbarkeit durch kontinuierlich erscheinenden, zitierfähigen Content über Zeit. Im Co-Creation-Modell heißt das: Wer konsequent und qualitätsorientiert über 6–12 Monate publiziert, baut schrittweise eine glaubwürdige digitale Präsenz auf, die Suchmaschinen und KI-Systemen auffällt. Die Mindestlaufzeit von 3 Monaten ist der Einstiegspunkt – nachhaltige Sichtbarkeitsgewinne entstehen erfahrungsgemäß ab 6 Monaten konsequenter Publikation."
+        "answer": "Weil Sichtbarkeit ein Aufbau-Prozess ist, kein Schalter. Neue Inhalte müssen gecrawlt, indexiert und bewertet werden; KI-Systeme greifen auf Quellen zurück, die über Zeit Vertrauen aufgebaut haben. Branchenweit gilt: erste KI-Nennungen nach etwa 8–12 Wochen, belastbare Sichtbarkeit nach 3–6 Monaten (Marktbenchmark DACH 2026). Genau darauf sind unsere Laufzeiten und das 90-Tage-Sichtbarkeits-Versprechen zugeschnitten — ehrliche Zeiträume statt Wunder-Zusagen."
+      },
+      {
+        "question": "Was passiert nach der Kündigung?",
+        "answer": "Wenn Sie kündigen, endet Ihr Abonnement am Ende des aktuellen Abrechnungszeitraums. Sie behalten die vollen Rechte an allen während Ihres Abonnements erstellten Inhalten — ebenso alle Audit-Ergebnisse und Monatsreports. Es gibt keine versteckten Gebühren und keine Kündigungsgebühren."
       }
     ]
   },
