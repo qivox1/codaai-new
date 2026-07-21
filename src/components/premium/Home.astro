@@ -385,6 +385,7 @@
 
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script is:inline>
 
 (function(){
@@ -542,14 +543,19 @@
   })();
 
   /* ================= reduced-motion: hier Schluss ================= */
-  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined'){ return; }
+  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined' || typeof Lenis==='undefined'){ return; }
   document.body.classList.add('anim');
 
-  /* Native Scroll — Lenis entfernt für Cross-Browser-Stabilität (v. a. Safari) */
+  /* scroll-behavior:smooth (aus global.css) kollidiert mit ScrollTrigger — neutralisieren */
+  document.documentElement.style.scrollBehavior='auto';
   gsap.registerPlugin(ScrollTrigger);
+  /* Lenis treibt ScrollTrigger.update (nativer Scroll-Listener greift auf dieser Seite nicht zuverlässig) */
+  var lenis=new Lenis({lerp:0.09,wheelMultiplier:0.9});
+  function lenisRaf(t){lenis.raf(t);requestAnimationFrame(lenisRaf);} requestAnimationFrame(lenisRaf);
+  lenis.on('scroll',ScrollTrigger.update);
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
-      var id=a.getAttribute('href'); if(id&&id.length>1&&id.charAt(0)==='#'){var el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}}
+      var id=a.getAttribute('href'); if(id&&id.length>1&&id.charAt(0)==='#'){var el=document.querySelector(id);if(el){e.preventDefault();lenis.scrollTo(el,{offset:0});}}
     });
   });
 
