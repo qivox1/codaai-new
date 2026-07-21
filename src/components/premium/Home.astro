@@ -543,7 +543,7 @@
   })();
 
   /* ================= reduced-motion: hier Schluss ================= */
-  if(reduced){ return; }
+  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined' || typeof Lenis==='undefined'){ return; }
   document.body.classList.add('anim');
 
   /* Lenis Smooth-Scroll */
