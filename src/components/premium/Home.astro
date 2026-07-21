@@ -717,7 +717,13 @@
     var s=document.getElementById('sys'); if(s&&s.__start) setTimeout(s.__start,260);
   }});
 
+  // Pins/Positionen neu berechnen, sobald Fonts/Bilder das Layout verschoben haben
   ScrollTrigger.refresh();
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ ScrollTrigger.refresh(); }); }
+  setTimeout(function(){ ScrollTrigger.refresh(); }, 600);
+  setTimeout(function(){ ScrollTrigger.refresh(); }, 1600);
+  window.addEventListener('resize', function(){ ScrollTrigger.refresh(); });
 })();
 
 </script>
