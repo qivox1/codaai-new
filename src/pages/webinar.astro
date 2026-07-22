@@ -124,12 +124,26 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   ogImage="https://www.codaai.ai/images/og-webinar.jpg"
 >
   <Navbar lang="de" />
+
+  <!-- ── Motion-Layer: Fortschrittsbalken + Grain (additiv, wfx-*) ──────── -->
+  <div class="wfx-progress" aria-hidden="true"><i id="wfx-prog"></i></div>
+  <div class="wfx-grain" aria-hidden="true"></div>
+  <script is:inline>
+    /* Motion-Gate so früh wie möglich setzen (verhindert Reveal-Flash).
+       Ohne JS oder mit reduced-motion bleibt die Seite exakt wie zuvor sichtbar. */
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.classList.add('wfx-on');
+    }
+  </script>
+
   <main id="main-content" class="pt-24 lg:pt-28">
 
     <!-- ── Hero ─────────────────────────────────────────────────────────── -->
     <section class="relative overflow-hidden border-b border-border bg-background">
       <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
-      <div class="mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
+      <div class="wfx-aurora" aria-hidden="true"><span class="wfx-blob wb1"></span><span class="wfx-blob wb2"></span><span class="wfx-blob wb3"></span></div>
+      <div class="wfx-spot" id="wfx-herospot" aria-hidden="true"></div>
+      <div class="relative z-10 mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
         <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
 
         <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
@@ -236,11 +250,11 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
       <section aria-labelledby="h-problem" class="py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das Problem</p>
-        <h2 id="h-problem" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Potenzielle Käufer fragen zuerst die KI — und Sie erfahren nichts davon.</h2>
+        <h2 id="h-problem" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Potenzielle Käufer fragen zuerst die KI — und Sie erfahren nichts davon.</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
-            <article class="flex flex-col rounded-2xl border border-border bg-card p-8">
-              <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
+            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
+              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
               <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
             </article>
@@ -249,7 +263,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <p class="mt-8 max-w-3xl font-medium text-foreground">Und im Alltag fühlt sich das so an:</p>
         <ul class="mt-4 max-w-3xl space-y-3">
           {painDaily.map((t) => (
-            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+            <li class="wfx-reveal flex items-start gap-3 leading-relaxed text-muted-foreground">
               <svg class="mt-1 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
               <span>{t}</span>
             </li>
@@ -261,10 +275,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Die Lösung / Das erwartet Sie ────────────────────────────── -->
       <section aria-labelledby="h-learnings" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Die Lösung — im Live-Webinar</p>
-        <h2 id="h-learnings" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei Antworten, die Sie aus dem Webinar mitnehmen</h2>
+        <h2 id="h-learnings" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei Antworten, die Sie aus dem Webinar mitnehmen</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {learnings.map((l, i) => (
-            <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
               <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
               <h3 class="mt-4 text-lg font-semibold text-foreground">{l.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
@@ -279,8 +293,8 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
       <section aria-labelledby="h-outcome" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
-        <h2 id="h-outcome" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach 60 Minuten haben Sie:</h2>
-        <ul class="mt-8 max-w-3xl space-y-4">
+        <h2 id="h-outcome" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach 60 Minuten haben Sie:</h2>
+        <ul class="wfx-reveal mt-8 max-w-3xl space-y-4">
           {[
             ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
             ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
@@ -320,10 +334,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Agenda ───────────────────────────────────────────────────── -->
       <section aria-labelledby="h-agenda" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ablauf</p>
-        <h2 id="h-agenda" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Webinar-Agenda</h2>
-        <ol class="mt-10 space-y-4">
+        <h2 id="h-agenda" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Webinar-Agenda</h2>
+        <ol id="wfx-agenda" class="wfx-agenda mt-10 space-y-4">
           {agenda.map((a) => (
-            <li class="flex flex-col gap-2 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-baseline sm:gap-6">
+            <li class="wfx-reveal wfx-agitem flex flex-col gap-2 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-baseline sm:gap-6">
               <span class="w-20 shrink-0 text-sm font-bold tabular-nums text-cta-accessible">{a.min}</span>
               <div>
                 <h3 class="font-semibold text-foreground">{a.t}</h3>
@@ -340,14 +354,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
       <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
-        <h2 id="h-fuerwen" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
+        <h2 id="h-fuerwen" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {[
             ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
             ['Marketing-Verantwortliche', 'Sie investieren in SEO und Content — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
             ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
           ].map(([t, d]) => (
-            <article class="rounded-2xl border border-border bg-card p-8">
+            <article class="wfx-reveal wfx-tilt rounded-2xl border border-border bg-card p-8">
               <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
               <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </article>
@@ -373,11 +387,11 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Speaker ──────────────────────────────────────────────────── -->
       <section aria-labelledby="h-speaker" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihre Gastgeber</p>
-        <h2 id="h-speaker" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Strategy meets Execution</h2>
+        <h2 id="h-speaker" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Strategy meets Execution</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-2">
-          <article class="flex gap-5 rounded-2xl border border-border bg-card p-8">
+          <article class="wfx-reveal flex gap-5 rounded-2xl border border-border bg-card p-8">
             <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" aria-label="LinkedIn-Profil von Norbert Schuster (öffnet in neuem Fenster)" class="shrink-0">
-              <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Porträt Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="h-20 w-20 rounded-full object-cover" />
+              <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Porträt Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="wfx-parallax h-20 w-20 rounded-full object-cover" />
             </a>
             <div>
               <h3 class="text-lg font-semibold text-foreground"><a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="transition-colors hover:text-cta">Norbert Schuster</a></h3>
@@ -391,9 +405,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
               </p>
             </div>
           </article>
-          <article class="flex gap-5 rounded-2xl border border-border bg-card p-8">
+          <article class="wfx-reveal flex gap-5 rounded-2xl border border-border bg-card p-8">
             <a href="https://www.linkedin.com/in/oliver-parrizas/" target="_blank" rel="noopener" aria-label="LinkedIn-Profil von Oliver Parrizas (öffnet in neuem Fenster)" class="shrink-0">
-              <img src={`${base}/images/speaker-oliver-parrizas.webp`} alt="Porträt Oliver Parrizas" width="160" height="160" loading="lazy" decoding="async" class="h-20 w-20 rounded-full object-cover" />
+              <img src={`${base}/images/speaker-oliver-parrizas.webp`} alt="Porträt Oliver Parrizas" width="160" height="160" loading="lazy" decoding="async" class="wfx-parallax h-20 w-20 rounded-full object-cover" />
             </a>
             <div>
               <h3 class="text-lg font-semibold text-foreground"><a href="https://www.linkedin.com/in/oliver-parrizas/" target="_blank" rel="noopener" class="transition-colors hover:text-cta">Oliver Parrizas</a></h3>
@@ -412,7 +426,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
       <!-- ── Anmeldung ────────────────────────────────────────────────── -->
       <section id="anmeldung" aria-labelledby="h-anmeldung" class="scroll-mt-28 border-t border-border py-16">
-        <div class="rounded-3xl bg-foreground p-8 text-background sm:p-12">
+        <div class="wfx-reveal rounded-3xl bg-foreground p-8 text-background sm:p-12">
           <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Anmeldung</p>
           <h2 id="h-anmeldung" class="text-3xl font-semibold tracking-tight sm:text-4xl">Webinar „Empfohlen oder unsichtbar?"</h2>
           <p class="mt-3 text-lg font-normal opacity-80">Dienstag, den 8. September 2026, 11:00 bis 12:00 Uhr</p>
@@ -490,10 +504,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
       <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
       <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
-        <h2 id="h-faq" class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Häufige Fragen</h2>
+        <h2 id="h-faq" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Häufige Fragen</h2>
         <div class="mt-8 space-y-4">
           {webinarFaq.map((f) => (
-            <details class="group rounded-2xl border border-border bg-card open:border-cta/40">
+            <details class="wfx-reveal group rounded-2xl border border-border bg-card open:border-cta/40">
               <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                 {f.q}
                 <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -507,16 +521,16 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Zwei-Wege-Schluss ────────────────────────────────────────── -->
       <section aria-labelledby="h-entscheidung" class="border-t border-border py-16">
         <div class="rounded-3xl bg-muted/30 p-8 sm:p-12">
-          <h2 id="h-entscheidung" class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Die Entscheidung liegt bei Ihnen.</h2>
+          <h2 id="h-entscheidung" class="wfx-reveal text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Die Entscheidung liegt bei Ihnen.</h2>
           <div class="mt-8 grid gap-6 md:grid-cols-2">
-            <div class="rounded-2xl border border-border bg-card p-6">
+            <div class="wfx-reveal rounded-2xl border border-border bg-card p-6">
               <span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">1</span>
               <p class="mt-4 leading-relaxed text-muted-foreground">
                 Sie machen weiter wie bisher — und erfahren auch in sechs Monaten nicht,
                 wen die KI Ihren Kunden empfiehlt, wenn diese nach Ihrer Leistung fragen.
               </p>
             </div>
-            <div class="rounded-2xl border-2 border-cta/40 bg-card p-6">
+            <div class="wfx-reveal rounded-2xl border-2 border-cta/40 bg-card p-6">
               <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">2</span>
               <p class="mt-4 leading-relaxed text-foreground">
                 Sie investieren 60 Minuten — und wissen danach schwarz auf weiß, wo Sie in
@@ -853,3 +867,229 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   .kianim .kpunch.k-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s cubic-bezier(.22, 1, .36, 1); animation: kpulse 1.5s ease .5s 1; }
   .kianim .kfoot.k-in, .kianim .kcap.k-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
 </style>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     Motion-Layer (additiv, wfx-*) — GSAP/ScrollTrigger/Lenis-Scrollytelling
+     ON TOP der bestehenden Seite. Alle Verstecke gaten via body.wfx-on, das
+     nur mit JS UND ohne reduced-motion gesetzt wird → ohne JS / reduced-motion
+     bleibt die Seite exakt wie zuvor (voll sichtbar, kein Layout-Shift).
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Fixed chrome: Fortschrittsbalken + Grain ── */
+  .wfx-progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; z-index: 60; background: transparent; pointer-events: none; }
+  .wfx-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #DF41FB, #7c3aed); }
+  .wfx-grain {
+    position: fixed; inset: 0; z-index: 59; pointer-events: none; opacity: .028; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @media (prefers-reduced-motion: reduce) { .wfx-grain { display: none; } }
+
+  /* ── Hero: Aurora-Blobs + Cursor-Spotlight ── */
+  .wfx-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .wfx-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: .5; }
+  .wfx-blob.wb1 { width: 460px; height: 460px; top: -120px; right: 6%; background: radial-gradient(circle at 30% 30%, rgba(223,65,251,.42), transparent 70%); animation: wfx-float1 15s ease-in-out infinite; }
+  .wfx-blob.wb2 { width: 420px; height: 420px; bottom: -170px; left: 0%; background: radial-gradient(circle at 60% 40%, rgba(124,58,237,.26), transparent 70%); animation: wfx-float2 19s ease-in-out infinite; }
+  .wfx-blob.wb3 { width: 300px; height: 300px; top: 34%; left: 42%; background: radial-gradient(circle, rgba(223,65,251,.18), transparent 70%); animation: wfx-float1 22s ease-in-out infinite reverse; }
+  @keyframes wfx-float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,30px); } }
+  @keyframes wfx-float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,-30px); } }
+  .wfx-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .4s ease;
+    background: radial-gradient(340px circle at var(--mx,50%) var(--my,40%), rgba(223,65,251,.10), transparent 70%); }
+  @media (prefers-reduced-motion: reduce) { .wfx-blob { animation: none; } }
+
+  /* ── KI-Karten-Tilt (Hero) — nur der innere Karten-Container kippt,
+       die bestehende kianim-Sequenz auf #ki-card bleibt unberührt ── */
+  .wfx-ki { perspective: 1200px; }
+  .wfx-ki > .rounded-3xl { transition: transform .25s ease; transform-style: preserve-3d; }
+
+  /* ── Reveals — Ausgangszustand NUR wenn body.wfx-on aktiv ── */
+  body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
+
+  /* ── 3D-Tilt-Karten (Für wen) ── */
+  .wfx-tilt { transition: transform .25s ease; transform-style: preserve-3d; will-change: transform; }
+  .wfx-mag { will-change: transform; }
+
+  /* ── Anmeldung: Fokus-Glow auf aktiven Feldern (additiv) ── */
+  #anmeldung input:focus, #anmeldung textarea:focus, #anmeldung select:focus {
+    box-shadow: 0 0 0 4px rgba(223,65,251,.20), 0 0 26px rgba(223,65,251,.28);
+  }
+
+  /* ── Agenda: selbstzeichnende Timeline (nur mit GSAP aktiv → wfx-gsap) ── */
+  .wfx-agrail { position: absolute; left: .55rem; top: .6rem; bottom: .6rem; width: 2px; border-radius: 2px; background: hsl(var(--border)); overflow: hidden; pointer-events: none; }
+  .wfx-agrail b { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: scaleY(0); transform-origin: top; background: linear-gradient(#DF41FB, #7c3aed); }
+  .wfx-agdot { position: absolute; left: -1.72rem; top: 1.7rem; width: 12px; height: 12px; border-radius: 50%; background: hsl(var(--border)); border: 2px solid hsl(var(--card)); transition: background .35s ease, box-shadow .35s ease; }
+  .wfx-agdot.wfx-lit { background: #DF41FB; box-shadow: 0 0 0 4px rgba(223,65,251,.15); }
+  @media (min-width: 640px) {
+    body.wfx-gsap .wfx-agenda { position: relative; padding-left: 2rem; }
+    body.wfx-gsap .wfx-agitem { position: relative; }
+  }
+  /* Rail/Dots nur ab sm sichtbar; darunter nichts injiziert (JS-Guard) */
+  @media (max-width: 639px) { .wfx-agrail, .wfx-agdot { display: none; } }
+</style>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script is:inline>
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;                       // reduced-motion: Motion-Schicht komplett aus
+
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---------- Fortschrittsbalken ---------- */
+  var prog = document.getElementById('wfx-prog');
+  function onScrollProg(){
+    if(!prog) return;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? (window.scrollY || window.pageYOffset) / h : 0;
+    prog.style.width = (Math.max(0, Math.min(1, p)) * 100) + '%';
+  }
+  window.addEventListener('scroll', onScrollProg, { passive: true });
+  window.addEventListener('resize', onScrollProg);
+  onScrollProg();
+
+  /* ---------- Reveals (IntersectionObserver, one-shot, mit Geschwister-Stagger) ---------- */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.wfx-reveal'));
+  reveals.forEach(function(el){
+    var sibs = Array.prototype.filter.call(el.parentNode.children, function(c){
+      return c.classList && c.classList.contains('wfx-reveal');
+    });
+    var idx = sibs.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = Math.min(idx * 90, 360) + 'ms';
+  });
+  if (hasIO) {
+    var ioR = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('wfx-in'); ioR.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ ioR.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('wfx-in'); });
+  }
+
+  /* ---------- Count-up NUR für echte Zahlen (.wfx-pnum) ---------- */
+  var fmtN = new Intl.NumberFormat('de-DE');
+  function countUp(el){
+    var raw = (el.textContent || '').trim();
+    var m = raw.match(/^(\d[\d.  ,]*)\s*(.*)$/);
+    if(!m) return;                            // "fast 1/2", "> 1/3" → bleibt unverändert
+    var target = parseInt(m[1].replace(/[^\d]/g, ''), 10);
+    if(!isFinite(target)) return;
+    var suffix = m[2] ? ' ' + m[2] : '';
+    var dur = 1200, t0 = null;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtN.format(Math.round(target * e)) + suffix;
+      if(p < 1) requestAnimationFrame(step); else el.textContent = fmtN.format(target) + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var pnums = Array.prototype.slice.call(document.querySelectorAll('.wfx-pnum'));
+  if (pnums.length && hasIO) {
+    var ioC = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ ioC.unobserve(e.target); countUp(e.target); } });
+    }, { threshold: 0.5 });
+    pnums.forEach(function(el){ ioC.observe(el); });
+  }
+
+  /* ---------- Hero: Cursor-Spotlight + KI-Karten-Tilt (innerer Container) ---------- */
+  (function(){
+    var hero = document.querySelector('#main-content > section');
+    var spot = document.getElementById('wfx-herospot');
+    var ki = document.getElementById('ki-card');
+    var kinner = ki ? ki.querySelector('.rounded-3xl') : null;
+    if (ki) ki.classList.add('wfx-ki');
+    if (!hero) return;
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      if (spot){ spot.style.setProperty('--mx', (x*100)+'%'); spot.style.setProperty('--my', (y*100)+'%'); spot.style.opacity = '1'; }
+      if (kinner){ kinner.style.transform = 'rotateY(' + ((x-0.5)*7) + 'deg) rotateX(' + ((0.5-y)*7) + 'deg)'; }
+    });
+    hero.addEventListener('pointerleave', function(){
+      if (spot) spot.style.opacity = '0';
+      if (kinner) kinner.style.transform = '';
+    });
+  })();
+
+  /* ---------- Magnetische CTA-Buttons ---------- */
+  document.querySelectorAll('#main-content a[href="#anmeldung"]').forEach(function(b){
+    b.classList.add('wfx-mag');
+    b.addEventListener('pointermove', function(e){
+      var r = b.getBoundingClientRect();
+      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*0.2) + 'px,' + ((e.clientY-r.top-r.height/2)*0.3) + 'px)';
+    });
+    b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
+  });
+
+  /* ---------- 3D-Tilt (Für-wen-Karten) ---------- */
+  document.querySelectorAll('.wfx-tilt').forEach(function(c){
+    c.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect();
+      var x = (e.clientX-r.left)/r.width, y = (e.clientY-r.top)/r.height;
+      c.style.transform = 'perspective(700px) rotateY(' + ((x-0.5)*6) + 'deg) rotateX(' + ((0.5-y)*6) + 'deg) translateY(-2px)';
+    });
+    c.addEventListener('pointerleave', function(){ c.style.transform = ''; });
+  });
+
+  /* ======= Ab hier GSAP/Lenis-abhängig — sonst degradiert alles sauber ======= */
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') return;
+  document.body.classList.add('wfx-gsap');
+  document.documentElement.style.scrollBehavior = 'auto';   // kollidiert sonst mit Lenis/ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis-Smooth-Scroll — scrollt das echte Dokument, native scroll-Events feuern
+     weiter → der bestehende Audit-Pin (native onPinScroll) läuft unverändert. */
+  var lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
+  function lenisRaf(t){ lenis.raf(t); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+  lenis.on('scroll', ScrollTrigger.update);
+  lenis.on('scroll', onScrollProg);
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id && id.length > 1 && id.charAt(0) === '#') {
+        var el = document.querySelector(id);
+        if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -90 }); }
+      }
+    });
+  });
+
+  /* ---------- Agenda: selbstzeichnende Timeline + aufleuchtende Dots ---------- */
+  (function(){
+    if (window.matchMedia('(max-width: 639px)').matches) return;   // Timeline nur ab sm
+    var ol = document.getElementById('wfx-agenda'); if(!ol) return;
+    var items = Array.prototype.slice.call(ol.querySelectorAll('.wfx-agitem'));
+    if(!items.length) return;
+    var rail = document.createElement('i'); rail.className = 'wfx-agrail';
+    var fill = document.createElement('b'); rail.appendChild(fill); ol.appendChild(rail);
+    var dots = items.map(function(li){
+      var d = document.createElement('span'); d.className = 'wfx-agdot'; li.appendChild(d); return d;
+    });
+    ScrollTrigger.create({
+      trigger: ol, start: 'top 78%', end: 'bottom 62%', scrub: 0.5,
+      onUpdate: function(self){
+        fill.style.transform = 'scaleY(' + self.progress.toFixed(3) + ')';
+        var lit = Math.round(self.progress * dots.length);
+        dots.forEach(function(d, i){ d.classList.toggle('wfx-lit', i < lit); });
+      }
+    });
+  })();
+
+  /* ---------- Speaker-Porträts: sanfter Scroll-Parallax ---------- */
+  gsap.utils.toArray('.wfx-parallax').forEach(function(img){
+    gsap.fromTo(img, { y: -8 }, {
+      y: 8, ease: 'none',
+      scrollTrigger: { trigger: img.closest('article') || img, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+    });
+  });
+
+  /* ---------- Positionen neu berechnen, wenn Fonts/Bilder das Layout verschieben ---------- */
+  ScrollTrigger.refresh();
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('resize', function(){ ScrollTrigger.refresh(); });
+  setTimeout(function(){ ScrollTrigger.refresh(); }, 800);
+})();
+</script>
