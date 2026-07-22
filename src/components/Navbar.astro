@@ -12,16 +12,47 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const home = lang === 'de' ? `${base}/` : `${base}/en/`;
 
-const navItems = [
-  { label: t(lang, "navbar.how"), href: `${home}#features` },
-  { label: t(lang, "navbar.team"), href: `${home}#team` },
-  { label: lang === 'de' ? 'Preise' : 'Pricing', href: lang === 'de' ? `${base}/preise/` : `${base}/en/pricing/` },
-  { label: 'Blog', href: lang === 'de' ? `${base}/blog/` : `${base}/en/blog/` },
-  { label: t(lang, "navbar.faq"), href: `${home}#faq` },
-  { label: lang === 'de' ? 'Kontakt' : 'Contact', href: lang === 'de' ? `${base}/kontakt/` : `${base}/en/contact/` },
+/*
+ * Hauptnavigation — Umpositionierung „Digital Visibility" (22.07.2026, Entscheidung Oli):
+ *
+ * Die DE-Startseite ist die neue Premium-Version (Sektionen #programm/#schauplaetze/#faq,
+ * KEIN #features / #team mehr). Die EN-Startseite läuft noch das alte Content-Agentur-Design
+ * (#features + #team existieren dort weiter). Deshalb sind DE- und EN-Nav BEWUSST getrennt:
+ *
+ *   DE (neu):  Digital Visibility · Preise · Blog · FAQ · Kontakt
+ *              — „Wie es funktioniert" → ersetzt durch „Digital Visibility" (/digital-visibility/)
+ *              — „Team" entfernt (keine Team-Seite mehr auf der neuen Site)
+ *   EN (alt):  unverändert, bis die EN-Premium-Welle kommt (sonst tote #features/#team-Links)
+ *
+ * ⚠️ Deploy-Kopplung: Der DE-Punkt „Digital Visibility" zeigt auf /digital-visibility/,
+ *    die noch im Staging liegt. Diese Navbar geht daher GEMEINSAM mit der Leistungsseite
+ *    /digital-visibility/ live (nicht vorher — sonst 404).
+ * 📌 To-do (später): „Über uns" als DE-Nav-Punkt ergänzen, sobald eine Über-uns-/Team-Seite
+ *    existiert. Bis dahin bewusst weggelassen.
+ */
+const navItemsDe = [
+  // INTERIM (22.07.2026): zeigt auf die Startseiten-Sektion #programm (Das System),
+  // solange /digital-visibility/ noch nicht live ist. Beim Launch der Leistungsseite
+  // nur diesen href auf `${base}/digital-visibility/` umstellen — Label bleibt gleich.
+  { label: 'Digital Visibility', href: `${home}#programm` },
+  { label: 'Preise', href: `${base}/preise/` },
+  { label: 'Blog', href: `${base}/blog/` },
+  { label: t('de', "navbar.faq"), href: `${home}#faq` },
+  { label: 'Kontakt', href: `${base}/kontakt/` },
 ];
 
-// Language toggle: DE â /en/, EN â /
+const navItemsEn = [
+  { label: t('en', "navbar.how"), href: `${home}#features` },
+  { label: t('en', "navbar.team"), href: `${home}#team` },
+  { label: 'Pricing', href: `${base}/en/pricing/` },
+  { label: 'Blog', href: `${base}/en/blog/` },
+  { label: t('en', "navbar.faq"), href: `${home}#faq` },
+  { label: 'Contact', href: `${base}/en/contact/` },
+];
+
+const navItems = lang === 'de' ? navItemsDe : navItemsEn;
+
+// Language toggle: DE â /en/, EN â /
 const langToggleHref = lang === 'de' ? `${base}/en/` : `${base}/`;
 const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
 ---
