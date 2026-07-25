@@ -63,8 +63,8 @@ const aboutPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': `${SITE_URL}/co-create/#webpage`,
-  name: 'Mission & CoCreate-Prinzip – CodaAI',
-  description: 'Das CodaAI-Team verbindet jahrzehntelange Marketingexpertise mit KI-Effizienz. Erfahren Sie mehr über das CoCreate-Prinzip und Gründerin Anja Miebach.',
+  name: 'AI + HI. Amplified. – Das CoCreate-Prinzip von CodaAI',
+  description: 'KI allein reicht nicht. CodaAI verbindet künstliche und menschliche Intelligenz – AI + HI. Amplified. Das CoCreate-Prinzip: Erfahrung, die lenkt, und KI, die leistet.',
   url: `${SITE_URL}/co-create/`,
   inLanguage: 'de',
   isPartOf: {
@@ -79,7 +79,7 @@ const aboutPageSchema = {
   ],
   author: { '@id': `${SITE_URL}/co-create/#anja-miebach` },
   datePublished: '2024-01-01',
-  dateModified: '2026-03-01',
+  dateModified: '2026-07-25',
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -93,8 +93,8 @@ const aboutPageSchema = {
 <Layout
   heroImage={`${SITE_URL}/images/team/anja-miebach.webp`}
   lang="de"
-  title="Mission & CoCreate-Prinzip – CodaAI"
-  description="Das CodaAI-Team verbindet jahrzehntelange Marketing-Expertise mit KI-Effizienz. Erfahren Sie mehr über das CoCreate-Prinzip und die Vision hinter CodaAI."
+  title="AI + HI. Amplified. – Das CoCreate-Prinzip von CodaAI"
+  description="KI allein reicht nicht. CodaAI verbindet künstliche und menschliche Intelligenz – AI + HI. Amplified. Das CoCreate-Prinzip: Erfahrung, die lenkt, und KI, die leistet."
   jsonLd={[JSON.stringify(personSchema), JSON.stringify(aboutPageSchema)]}
 >
   <Navbar lang="de" />
@@ -120,20 +120,20 @@ const aboutPageSchema = {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
-              CodaAI CoCreate
+              Co-Create · AI + HI. Amplified.
             </div>
 
             <h1 class="text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
-              Wenn menschliche<br/>
+              Wenn menschliche und<br/>
               <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-                Expertise und KI
+                künstliche Intelligenz
               </span><br/>
-              verschmelzen
+              sich verstärken
             </h1>
 
             <p class="text-lg text-muted-foreground leading-relaxed mb-8">
-              Menschliches Gespür, über 20 Jahre Marketing-Expertise und unermüdliche KI-Power:
-              Das ist CodaAI.
+              Über 20 Jahre Marketing-Expertise. Unermüdliche KI-Power. Und ein Team, das aus
+              beidem mehr macht, als jede Seite allein je könnte. Das ist CodaAI CoCreate.
             </p>
 
             {/* Expertise stats */}
@@ -177,34 +177,75 @@ const aboutPageSchema = {
       </div>
     </section>
 
-    {/* ── COCREATE PRINCIPLE ──────────────────────────────────────────────── */}
+    {/* ── CONFLICT / WARUM „NUR KI" NICHT REICHT ──────────────────────────── */}
+    <section class="py-20 lg:py-24">
+      <div class="mx-auto max-w-3xl px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Warum „nur KI" nicht reicht</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-foreground">
+            Zwei bequeme Irrtümer –<br/>
+            und warum wir an keinen glauben.
+          </h2>
+        </div>
+
+        <div class="space-y-5 text-muted-foreground text-base leading-relaxed">
+          <p>
+            Der erste Irrtum heißt „KI macht das jetzt": Content per Knopfdruck, Strategie aus dem
+            Sprachmodell. Das Ergebnis kennt jeder – austauschbar, gesichtslos, überall gleich. Ein
+            KI-Text, der niemanden empfiehlt und niemanden überzeugt.
+          </p>
+          <p>
+            Der zweite heißt „das kann nur der Mensch": Handarbeit, teuer, langsam, nicht skalierbar –
+            ein Modell, das sich immer weniger Mittelständler leisten können.
+          </p>
+          <p class="text-foreground font-medium">
+            Wir glauben an das Dazwischen. KI allein reicht nicht – und der Mensch allein reicht nicht
+            mehr. Die Stärke entsteht dort, wo Rechenleistung auf Erfahrung, Urteilsvermögen und
+            unternehmerisches Gespür trifft.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ── COCREATE PRINCIPLE · AI + HI. AMPLIFIED. ────────────────────────── */}
     <section class="py-20 lg:py-28 bg-card/30">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Marketing neu gedacht:<br/>
+          <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Marketing neu gedacht</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-5">
+            AI + HI.{' '}
             <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-              Die Ära der CoCreation
+              Amplified.
             </span>
           </h2>
           <p class="text-muted-foreground text-lg">
-            KI allein reicht nicht. Die wahre Stärke entfaltet sich erst dort, wo Rechenleistung auf menschliche
-            Intuition, strategische Weitsicht und tiefes unternehmerisches Verständnis trifft.
+            Zwei Arten von Intelligenz. Die menschliche: Erfahrung, Gespür, das Wissen, wann eine Zahl
+            stimmt und sich trotzdem falsch anfühlt. Die künstliche: Tempo, Reichweite, das Sichten in
+            Sekunden, wofür ein Team Wochen bräuchte. Getrennt ist jede nur die halbe Antwort –
+            zusammen ergeben sie mehr als ihre Summe.
           </p>
+
+          {/* Powered by AI + HI seal */}
+          <div class="mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cta/10 border border-cta/20 text-sm font-medium text-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#df41fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/>
+            </svg>
+            Powered by <span class="text-cta font-semibold">AI + HI</span>
+          </div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {[
             {
               icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>`,
-              title: 'Menschliche Expertise',
-              description: 'Das CodaAI-Team bringt jahrelange professionelle Marketingerfahrung mit: Es steuert Strategie, prüft Qualität und verleiht jedem Content die menschliche Note, die ihn authentisch und wirkungsvoll macht.',
+              title: 'HI · Human Intelligence',
+              description: 'Unser Team bringt über 20 Jahre Marketingerfahrung mit. Es steuert die Strategie, prüft die Qualität und gibt jedem Ergebnis die menschliche Note, die es authentisch und wirkungsvoll macht.',
               items: ['Strategische Ausrichtung', 'Qualitätssicherung', 'Branchenverständnis', 'Unternehmerische Klarheit'],
               accent: 'violet',
             },
             {
               icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
-              title: 'KI-Effizienz',
+              title: 'AI · Artificial Intelligence',
               description: 'Unsere KI übernimmt datengetriebene Analyse, beschleunigt Prozesse und generiert effizient hochwertige Inhalte – so dass Ihr Potenzial exponentiell erweitert wird.',
               items: ['Skalierbare Produktion', 'Datengetriebene Analyse', 'Automatisierte Prozesse', 'Konstant hohe Qualität'],
               accent: 'indigo',
@@ -318,9 +359,9 @@ const aboutPageSchema = {
                 desc: 'Strategien, die auf KPIs ausgerichtet sind – organische Reichweite, Sichtbarkeit und qualifizierte Leads',
               },
               {
-                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 5l0 15"/><path d="M9 11l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 11l-3 -6l-3 6a3 3 0 0 0 6 0"/>`,
-                title: 'EU AI Act & DSGVO-konform',
-                desc: 'Alle Prozesse und Inhalte sind auf EU-Datenschutz, AI Act und rechtliche Anforderungen ausgerichtet',
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/><path d="M9 12l2 2l4 -4"/>`,
+                title: 'Der Mensch bleibt am Steuer',
+                desc: 'Der EU AI Act nennt es „human oversight" – wir haben es zum Markenkern gemacht. Jeder Output ist DSGVO-konform, EU-AI-Act-gerecht und in Deutschland gehostet',
               },
             ].map(item => (
               <div class="flex gap-4 p-5 rounded-xl bg-card border border-border hover:border-cta/25 transition-colors duration-200 group">
@@ -351,9 +392,9 @@ const aboutPageSchema = {
         <p class="text-cta text-sm font-medium uppercase tracking-widest mb-6">Unser Versprechen</p>
         <blockquote class="text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-8">
           „Der einzig sinnvolle Weg in die Zukunft des Marketings ist die Symbiose aus
-          menschlicher Stärke und KI-Effizienz:
+          menschlicher Stärke und KI-Effizienz. Wir verstärken beide.
           <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-            CodaAI CoCreate.
+            AI + HI. Amplified.
           </span>"
         </blockquote>
         <div class="flex items-center justify-center gap-3">
@@ -377,7 +418,7 @@ const aboutPageSchema = {
     <section class="py-16 lg:py-20 border-t border-border">
       <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center">
         <h2 class="text-2xl font-bold text-foreground mb-4">
-          Bereit, Ihr Marketing zu transformieren?
+          Bereit, aus zwei Intelligenzen Ihren Vorsprung zu machen?
         </h2>
         <p class="text-muted-foreground mb-8">
           Entdecken Sie, wie das CoCreate-Prinzip Ihr Unternehmen voranbringt –
