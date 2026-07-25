@@ -206,7 +206,7 @@ import AuditCTA from './AuditCTA.astro';
             2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen wird nicht genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber übernehmen die Empfehlung.</span></span>
           </p>
         </div></div>
@@ -231,7 +231,7 @@ import AuditCTA from './AuditCTA.astro';
             sollte den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Die KI nennt Normen und Anforderungen — und dann Anbieter. Das Unternehmen führt passende Produkte im Programm, kommt in der Antwort aber nicht vor.</span></span>
           </p>
         </div></div>
@@ -256,7 +256,7 @@ import AuditCTA from './AuditCTA.astro';
             3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen ist die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese Frage wird es nicht genannt.</span></span>
           </p>
         </div></div>
@@ -728,7 +728,7 @@ import AuditCTA from './AuditCTA.astro';
       v._done=true; v.style.opacity='1';
       var typed=v.querySelector('.mi-vtyped'), label=v.querySelector('.mi-vlabel');
       v.classList.add('is-scanning');
-      var phases=['KI liest die Frage …','KI prüft die KI-Antwort …','KI ermittelt den Befund …'];
+      var phases=['CodaAI liest die Frage.','CodaAI prüft die Antwort.','CodaAI ermittelt den Befund.'];
       var pi=0;
       var cyc=setInterval(function(){ pi++; if(label&&phases[pi]) label.textContent=phases[pi]; if(pi>=phases.length-1) clearInterval(cyc); },2000);
       setTimeout(function(){
@@ -1377,21 +1377,21 @@ import AuditCTA from './AuditCTA.astro';
      im Spiegel. Grund fuer #B01FD1 statt Marken-Magenta: weisser Fliesstext
      braucht 4,5:1 — auf #B01FD1 sind es 5,30:1, auf #DF41FB nur 3,34:1. */
   .mi-verdict{margin-top:16px;display:flex;gap:12px;align-items:flex-start;
-    background:var(--magenta);color:#0d0d10;border-radius:14px;padding:15px 17px;
+    background:var(--magenta);color:#fff;border-radius:14px;padding:15px 17px;
     font-size:1rem;line-height:1.6;font-weight:500;
     box-shadow:0 12px 30px -16px rgba(223,65,251,.5)}
-  .mi-verdict b{color:#0d0d10;font-weight:800;letter-spacing:.01em}
-  .mi-verdict em{font-style:italic;color:#0d0d10}
-  .mi-verdict .dot{width:9px;height:9px;flex:none;border-radius:50%;background:#0d0d10;margin-top:8px;opacity:.6}
-  .mi-vscan{display:none;align-items:center;gap:9px;color:#0d0d10;font-weight:600;font-size:.9rem}
+  .mi-verdict b{color:#fff;font-weight:800;letter-spacing:.01em}
+  .mi-verdict em{font-style:italic;color:#fff}
+  .mi-verdict .dot{width:9px;height:9px;flex:none;border-radius:50%;background:#fff;margin-top:8px;opacity:.85}
+  .mi-vscan{display:none;align-items:center;gap:9px;color:#fff;font-weight:600;font-size:.9rem}
   .mi-vscan .sd{display:inline-flex;gap:5px}
-  .mi-vscan .sd i{width:7px;height:7px;border-radius:50%;background:#0d0d10;opacity:.55;animation:mi-sd 1s ease infinite}
+  .mi-vscan .sd i{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.5;animation:mi-sd 1s ease infinite}
   .mi-vscan .sd i:nth-child(2){animation-delay:.15s}
   .mi-vscan .sd i:nth-child(3){animation-delay:.3s}
   @keyframes mi-sd{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-3px);opacity:1}}
   .mi-verdict.is-scanning .dot,.mi-verdict.is-scanning .mi-vout{display:none}
   .mi-verdict.is-scanning .mi-vscan{display:inline-flex}
-  .mi-vtyped.typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#0d0d10;margin-left:2px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
+  .mi-vtyped.typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#fff;margin-left:2px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
   @keyframes mi-caret{50%{opacity:0}}
   .mi-src,.mi-ans,.mi-verdict{transition:opacity .45s ease}
   .mi-ans.mi-typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#B01FD1;margin-left:1px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
