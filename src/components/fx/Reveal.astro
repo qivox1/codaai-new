@@ -1,0 +1,84 @@
+---
+/**
+ * Reveal — wiederverwendbarer Scroll-Reveal-Wrapper (Prototyp-Mechanik Nr. 9).
+ * Kinder faden/sliden beim ersten Einscrollen ein (IntersectionObserver, one-shot).
+ * reduced-motion → Endzustand sofort sichtbar, keine Animation.
+ *
+ * Props:
+ *   as       – Wrapper-Tag, Default 'div'
+ *   delay    – zusätzliche CSS-transition-delay in ms (für gestaffelte Reveals)
+ *   class    – zusätzliche Klassen auf dem Wrapper
+ *   threshold – IntersectionObserver-Schwelle, Default 0.12
+ */
+interface Props {
+  as?: string;
+  delay?: number;
+  class?: string;
+  threshold?: number;
+}
+
+const { as: Tag = 'div', delay = 0, class: className = '', threshold = 0.12 } = Astro.props;
+---
+
+<Tag
+  class:list={['cai-reveal', className]}
+  style={delay ? `transition-delay:${delay}ms` : undefined}
+  data-reveal
+  data-threshold={threshold}
+>
+  <slot />
+</Tag>
+
+<style>
+  .cai-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .cai-reveal.cai-in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cai-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__caiRevealInit) return;
+    window.__caiRevealInit = true;
+
+    var reduced = false;
+    try {
+      reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+
+    var els = document.querySelectorAll('[data-reveal]');
+    if (reduced || !('IntersectionObserver' in window)) {
+      els.forEach(function (e) {
+        e.classList.add('cai-in');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('cai-in');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    els.forEach(function (e) {
+      io.observe(e);
+    });
+  })();
+</script>

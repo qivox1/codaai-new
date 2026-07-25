@@ -1,0 +1,125 @@
+---
+/**
+ * CurveDraw — SVG-Kurve, die sich beim Einscrollen zeichnet (Prototyp-Mechanik Nr. 6).
+ * Steilheit als Prop (flach/deutlich/steil); Endpunkt pulsiert kurz nach dem Zeichnen.
+ * reduced-motion → Kurve sofort vollständig, kein Pulsieren.
+ *
+ * Props:
+ *   steepness – 'flat' | 'medium' | 'steep', Default 'medium'
+ *   color     – Stroke-Farbe der Kurve, Default CTA-Magenta (#DF41FB)
+ *   delay     – zusätzliche Verzögerung in ms, bevor die Kurve zu zeichnen beginnt
+ *   height    – gerenderte Höhe, Default 100
+ *   class     – zusätzliche Klassen
+ */
+interface Props {
+  steepness?: 'flat' | 'medium' | 'steep';
+  color?: string;
+  delay?: number;
+  height?: string | number;
+  class?: string;
+}
+
+const { steepness = 'medium', color = '#DF41FB', delay = 0, height = 100, class: className = '' } = Astro.props;
+
+const CURVES: Record<string, string> = {
+  flat: 'M10,96 C80,92 160,84 248,68',
+  medium: 'M10,96 C80,88 150,62 248,34',
+  steep: 'M10,96 C90,92 150,44 248,12',
+};
+const ENDPOINTS: Record<string, { x: number; y: number }> = {
+  flat: { x: 248, y: 68 },
+  medium: { x: 248, y: 34 },
+  steep: { x: 248, y: 12 },
+};
+const d = CURVES[steepness];
+const end = ENDPOINTS[steepness];
+---
+
+<svg
+  viewBox="0 0 260 110"
+  width="100%"
+  height={height}
+  class:list={['cai-curve', className]}
+  aria-hidden="true"
+  preserveAspectRatio="none"
+  data-curvedraw
+  style={delay ? `--cai-curve-delay:${delay}ms` : undefined}
+>
+  <line x1="8" y1="98" x2="252" y2="98" stroke="hsl(var(--border))" stroke-width="1.5" />
+  <path class="cai-curve-line" pathLength="1" stroke={color} d={d} />
+  <g class="cai-curve-dot">
+    <circle class="cai-curve-pulse" cx={end.x} cy={end.y} r="8" fill={color} />
+    <circle cx={end.x} cy={end.y} r="4" fill={color} />
+  </g>
+</svg>
+
+<style>
+  .cai-curve-line {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  [data-curvedraw].cai-go .cai-curve-line {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.3s ease var(--cai-curve-delay, 0ms);
+  }
+  .cai-curve-dot { opacity: 0; }
+  [data-curvedraw].cai-go .cai-curve-dot {
+    opacity: 1;
+    transition: opacity 0.3s ease calc(var(--cai-curve-delay, 0ms) + 1.2s);
+  }
+  .cai-curve-pulse {
+    opacity: 0.45;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  [data-curvedraw].cai-go .cai-curve-pulse {
+    animation: cai-sonar 2s ease-out calc(var(--cai-curve-delay, 0ms) + 1.4s) infinite;
+  }
+  @keyframes cai-sonar {
+    from { transform: scale(0.4); opacity: 0.7; }
+    to { transform: scale(2.6); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cai-curve-line { stroke-dashoffset: 0 !important; transition: none !important; }
+    .cai-curve-dot { opacity: 1 !important; }
+    .cai-curve-pulse { animation: none !important; opacity: 0 !important; }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__caiCurveInit) return;
+    window.__caiCurveInit = true;
+
+    var reduced = false;
+    try {
+      reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+
+    var curves = document.querySelectorAll('[data-curvedraw]');
+    if (reduced || !('IntersectionObserver' in window)) {
+      curves.forEach(function (c) {
+        c.classList.add('cai-go');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('cai-go');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    curves.forEach(function (c) {
+      io.observe(c);
+    });
+  })();
+</script>

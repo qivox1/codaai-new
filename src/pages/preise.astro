@@ -4,53 +4,252 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import PricingCalculator from '../components/react/PricingCalculator';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import Reveal from '../components/fx/Reveal.astro';
+import StufenTeaser from '../components/StufenTeaser.astro';
+import TierSwitcher from '../components/dv/TierSwitcher.astro';
+import PromiseTypo from '../components/dv/PromiseTypo.astro';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// ── Detail-Tabelle „Alle Leistungen je Stufe" (24.07. von /digital-visibility hierher verlagert) ──
+const tierKeys = ['ohne', 'basis', 'aktiv', 'dominanz'];
+
+const tiers = [
+  { key: 'ohne', name: 'Ohne Stufe', price: '+0 €' },
+  { key: 'basis', name: 'Basis', price: '+490 € / Monat' },
+  { key: 'aktiv', name: 'Aktiv', price: '+990 € / Monat' },
+  { key: 'dominanz', name: 'Dominanz', price: '+1.790 € / Monat' },
+];
+
+const stufenRows = [
+  { label: 'Content-Paket (Artikel, Grafiken, Videos, Übersetzungen — wie konfiguriert)', ohne: true, basis: true, aktiv: true, dominanz: true },
+  { label: 'Digital Visibility Audit', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'KI-Sichtbarkeits-Monitoring + Monatsreport', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'Klassisches SEO inkl. Bing/IndexNow', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'Technische KI-Zugänglichkeit (Artefakte + Abnahme)', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'Datendichter, zitierfähiger Content', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'Content-Refresh + Bestandsseiten-Optimierung', ohne: false, basis: true, aktiv: true, dominanz: true },
+  { label: 'Digital-PR & Brand-Mentions', ohne: false, basis: false, aktiv: true, dominanz: true },
+  { label: 'Review-Plattform-Management', ohne: false, basis: false, aktiv: true, dominanz: true },
+  { label: 'Listicle- & Vergleichs-Strategie', ohne: false, basis: false, aktiv: true, dominanz: true },
+  { label: 'YouTube-Ausrichtung der Videoproduktion', ohne: false, basis: false, aktiv: true, dominanz: true },
+  { label: 'Eigene Studien & Daten-Assets', ohne: false, basis: false, aktiv: false, dominanz: true },
+  { label: 'Wissensdatenbanken (Wikidata & Co.)', ohne: false, basis: false, aktiv: false, dominanz: true },
+  { label: 'LinkedIn-Thought-Leadership', ohne: false, basis: false, aktiv: false, dominanz: true },
+  { label: 'Wettbewerbs-Beobachtung (Share of Voice)', ohne: false, basis: false, aktiv: false, dominanz: true },
+];
+
+const stufenSpecialRows = [
+  { label: 'Mindestlaufzeit', ohne: 'Quartal/Jahr', basis: '6 Monate', aktiv: '6 Monate', dominanz: '6 Monate' },
+  { label: 'Sichtbarkeits-Versprechen', ohne: false, basis: true, aktiv: true, dominanz: true },
+];
+
+// ── Ehrlichkeits-Block „Seriosität ist keine Zusatzleistung" ──
+const honestyPoints = [
+  {
+    title: 'llms.txt & „KI-Dateien"',
+    text: 'Legen wir kostenlos mit an — verkaufen sie aber nicht als Wunderhebel. Die Studienlage ist eindeutig: KI-Systeme rufen diese Dateien praktisch nicht ab.',
+  },
+  {
+    title: 'Schema-Markup',
+    text: 'Gehört bei uns zur SEO-Basis — nicht als teurer „KI-Zitat-Booster" deklariert. Als Wunderhebel für KI-Zitate ist es im kontrollierten Test widerlegt.',
+  },
+  {
+    title: 'Platzierungs-Garantien',
+    text: '„Platz 1 in ChatGPT — garantiert" gibt es bei uns nicht. KI-Antworten sind nicht deterministisch; wer eine Nennung zusichert, verkauft etwas, das es technisch nicht gibt.',
+  },
+];
 ---
 
 <Layout
   lang={lang}
-  title="Preise – CodaAI Content-Pakete"
-  description="Flexible Content-Pakete ab 449 €/Monat. SEO-Texte, Grafiken und Videos. Vergleichen Sie CodaAI mit Agenturkosten und sparen Sie über 90 %."
+  title="Preise – Content-Pakete & Digital-Visibility-Stufen | CodaAI"
+  description="Transparent kalkuliert: Content-Pakete ab 349 €* pro Artikel, Sichtbarkeits-Programm ab +490 €/Monat. Preisrechner statt „auf Anfrage&quot; — inkl. Sichtbarkeits-Versprechen."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
       <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Preise' }]} class="mb-0" />
     </div>
-    <PricingCalculator lang={lang} base={base} client:load />
+
+    <!-- Preisseiten-Intro -->
+    <Reveal as="div" class="mx-auto max-w-3xl px-6 lg:px-8 pt-6 lg:pt-8 pb-0 text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        Ihr Preis in zwei Schritten
+      </h1>
+      <p class="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+        Erst das Content-Paket konfigurieren, dann die Digital-Visibility-Stufe wählen — fertig ist Ihr Monatspreis. Transparent kalkuliert, während der Markt „auf Anfrage" schreibt.
+      </p>
+      <p class="mt-3 text-sm font-medium text-cta-accessible max-w-2xl mx-auto">
+        Jede Stufe zahlt auf dasselbe Ziel ein: empfohlen werden — und qualifizierte Anfragen gewinnen.
+      </p>
+    </Reveal>
+
+    <!-- Stufen-Teaser: volle Sektion (Kurven + Leistungs-Bullets + Preise), auf Wunsch Oli
+         20.07.2026 von der Startseite hierher verlagert — direkt oberhalb des Rechners.
+         Titel + CTA-Ziel sind für den Preisseiten-Kontext überschrieben (CTA springt zum
+         Rechner statt erneut auf /preise/). -->
+    <Reveal as="div">
+      <StufenTeaser lang={lang} title="Die drei Sichtbarkeits-Stufen im Überblick" ctaHref="#rechner" />
+    </Reveal>
+
+    <div id="rechner" class="scroll-mt-24 lg:scroll-mt-28">
+      <Reveal as="div">
+        <PricingCalculator lang={lang} base={base} client:load />
+      </Reveal>
+    </div>
+
+    <!-- ── Alle Leistungen je Stufe im Detail (24.07. von /digital-visibility verlagert) ── -->
+    <section id="leistungen" class="py-20 lg:py-28 bg-background border-t border-border scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal as="div">
+          <p class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-4">Was in welcher Stufe steckt</p>
+          <h2 class="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight">Alle Leistungen je Stufe im Detail</h2>
+          <p class="mt-6 max-w-3xl text-lg text-muted-foreground leading-relaxed">
+            Jede Stufe ist ein fester monatlicher Aufpreis zu Ihrem Content-Paket — unabhängig von der Artikelzahl. Das Content-Paket selbst konfigurieren Sie oben im Preisrechner.
+          </p>
+        </Reveal>
+
+        <Reveal as="div" delay={100}>
+          <TierSwitcher base={base} tiers={tiers} tierKeys={tierKeys} stufenRows={stufenRows} stufenSpecialRows={stufenSpecialRows} />
+        </Reveal>
+      </div>
+    </section>
+
+    <!-- ── Ehrlichkeits-Block „Seriosität ist keine Zusatzleistung" (dunkle Sektion) ── -->
+    <section id="ehrlichkeit" data-theme="dark" class="cai-dvdark relative overflow-hidden bg-background py-20 lg:py-28 border-t border-border">
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal as="div">
+          <p class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-4">Aus über 25 Jahren Erfahrung</p>
+          <h2 class="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight max-w-3xl leading-[1.2] sm:leading-[1.2] lg:leading-[1.2]">Seriosität ist bei uns keine Zusatzleistung.</h2>
+          <p class="mt-6 max-w-3xl text-lg text-muted-foreground leading-relaxed">
+            Wir arbeiten seit über 25 Jahren an digitaler Sichtbarkeit — vom Aufkommen der Suchmaschinen bis zum heutigen Start der KI-Systeme. Wer diesen Wandel schon einmal begleitet hat, erkennt Hype von Substanz. Deshalb behandeln wir manche Dinge als das, was sie sind: selbstverständlich — nicht als Premium-Posten auf Ihrer Rechnung.
+          </p>
+        </Reveal>
+
+        <div class="mt-12 grid md:grid-cols-3 gap-6">
+          {honestyPoints.map((point: any, i: number) => (
+            <Reveal as="div" delay={i * 120} class="rounded-2xl border border-border bg-card p-6">
+              <span class="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-cta/10" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-cta-accessible">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </span>
+              <h3 class="font-semibold text-foreground mb-3">{point.title}</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">{point.text}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal as="p" delay={200} class="mt-8 max-w-3xl text-sm text-muted-foreground leading-relaxed">
+          Warum wir das offenlegen? Weil Vertrauen die Grundlage einer Zusammenarbeit ist, die auf 6 Monate und länger angelegt ist. Sie sollen wissen, wofür Sie bezahlen — und wofür nicht.
+        </Reveal>
+      </div>
+    </section>
+
+    <!-- ── Versprechen „Bewegt sich nichts, arbeiten wir umsonst." ── -->
+    <section id="versprechen" class="py-16 lg:py-20 bg-muted/20 border-t border-border">
+      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center">
+        <Reveal as="div">
+          <p class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Unser Versprechen</p>
+          <h2 class="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">Bewegt sich nichts, arbeiten wir umsonst.</h2>
+
+          <div class="mt-6">
+            <PromiseTypo
+              size="compact"
+              text="Zeigt sich nach 120 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter."
+              highlights={['120 Tagen', 'keine messbare Bewegung', 'kostenlos weiter']}
+            />
+          </div>
+
+          <p class="mt-6 text-base text-muted-foreground leading-relaxed">
+            Das Digital-Visibility-Programm läuft mit 6 Monaten Mindestlaufzeit — Sichtbarkeit in Suche und KI-Antworten entsteht über Monate, nicht über Nacht. Gemessen wird transparent über Ihr monatliches KI-Sichtbarkeits-Monitoring.
+          </p>
+          <p class="mt-4 text-base text-muted-foreground leading-relaxed">
+            Was wir bewusst nicht versprechen: eine bestimmte Platzierung in ChatGPT oder Google. KI-Antworten sind nicht deterministisch — niemand kann eine Nennung zusichern, und wer es doch tut, verkauft etwas, das es technisch nicht gibt. Unser Versprechen setzt deshalb an unserer Arbeit an, nicht an einer Scheinsicherheit.
+          </p>
+          <a href="#faq" class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-cta-accessible hover:text-cta transition-colors">
+            Details im FAQ →
+          </a>
+        </Reveal>
+      </div>
+    </section>
 
   <!-- FAQ Preise -->
-  <section aria-label="Häufige Fragen zu den Preisen" class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
-    <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Häufige Fragen zu den Preisen</h2>
+  <section id="faq" aria-label="Häufige Fragen zu den Preisen" class="mx-auto max-w-3xl px-6 lg:px-8 py-16 border-t border-border scroll-mt-24 lg:scroll-mt-28">
+    <Reveal as="div">
+      <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Häufige Fragen zu den Preisen</h2>
+    </Reveal>
     <dl class="space-y-6">
+      <Reveal as="div" delay={0}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Wie wird das Digital-Visibility-Programm abgerechnet?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Als fester monatlicher Aufpreis zu Ihrem Content-Paket – unabhängig davon, wie viele Artikel Sie beziehen: Basis +490 €, Aktiv +990 €, Dominanz +1.790 € pro Monat (netto). Beispiel: 4 Artikel (1.680 €) plus Stufe Aktiv (990 €) ergeben 2.670 € pro Monat. Content-Paket und Programm stehen zusammen auf einer Rechnung.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Welche Mindestlaufzeit gilt?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Ohne Digital-Visibility-Stufe wie bisher: 3 Monate bei quartalsweiser Abrechnung, 12 Monate bei Jahreszahlung (20 % günstiger). Mit Stufe gilt eine Mindestlaufzeit von 6 Monaten – Sichtbarkeit in Suche und KI-Antworten braucht diesen Zeitraum, um messbar zu werden. Es gibt kein automatisches Rollover: Sie entscheiden aktiv über die Verlängerung.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Was genau ist das Sichtbarkeits-Versprechen?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Jede Stufe enthält es: Zeigt sich nach 120 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter. Gemessen wird über Ihr monatliches KI-Monitoring – dieselben Reports, die Sie ohnehin erhalten. Es ist ein Versprechen auf unsere Arbeit, keine Platzierungs-Zusage: Eine bestimmte Nennung in ChatGPT kann niemand seriös zusichern.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Kann ich die Stufe später wechseln?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Ja. Ein Upgrade (z. B. Basis → Aktiv) ist jederzeit zum nächsten Monat möglich, die laufende Mindestlaufzeit läuft dabei einfach weiter. Ein Downgrade oder die Abwahl der Stufe ist zum Ende der 6-monatigen Mindestlaufzeit möglich. Die Artikelzahl Ihres Content-Pakets bleibt davon unabhängig anpassbar wie bisher.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Wie funktioniert die Abrechnung?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Sie zahlen monatlich oder jährlich im Voraus. Bei Jahreszahlung sparen Sie 20 % gegenüber der quartalsweisen Abrechnung. Es gibt keine versteckten Kosten – der Preis pro Artikel ist fest und vorab bekannt.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Kann ich das Paket monatlich ändern?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Ja, die Artikelanzahl lässt sich zu jedem Verlängerungszeitpunkt anpassen. Upgrades sind sofort möglich, Downgrades gelten ab dem nächsten Abrechnungszeitraum.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Was ist im Preis enthalten?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Jeder Artikel beinhaltet Recherche, SEO-Optimierung, bis zu 4.000 Wörter, 3 passende Bilder bzw. 1 Infografik sowie Veröffentlichung auf Ihrer Website. Optional sind Übersetzungen und Social-Media-Videos zubuchbar.</dd>
       </div>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">Gibt es eine Mindestlaufzeit?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Bei der quartalsweisen Abrechnung beträgt die Mindestlaufzeit 3 Monate. Bei Jahreszahlung 12 Monate. Es gibt kein automatisches Rollover – Sie entscheiden aktiv über die Verlängerung.</dd>
-      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Wie schnell werden die Artikel geliefert?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">In der Regel erhalten Sie Ihren ersten Artikel innerhalb von 48 Stunden nach Auftragsbestätigung. Laufende Artikel werden nach einem vorab abgestimmten Redaktionskalender geliefert.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Gibt es eine kostenlose Testphase?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Ja – fordern Sie einen kostenlosen Premium-Artikel an, ohne Kreditkarte oder Verpflichtung. So können Sie Qualität und Stil unserer Texte risikofrei testen, bevor Sie ein Paket buchen.</dd>
       </div>
+      </Reveal>
     </dl>
   </section>
   </main>
+
+  <style>
+    /* Ehrlichkeits-Block: dezentes Raster (identisch zur Optik der Startseite,
+       aus dem Foreground-Token abgeleitet, keine neue Farbe). */
+    .cai-dvdark {
+      background-image:
+        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+  </style>
+
   <Footer lang={lang} />
 </Layout>

@@ -1,0 +1,114 @@
+---
+/**
+ * PromiseTypo — Versprechen als Typo-Statement mit animiertem Unterstrich
+ * (Prototyp-Mechanik Nr. 7, Muster identisch zu Versprechen.astro auf der Startseite,
+ * hier eigenständig für /digital-visibility gehalten). Der Wortlaut wird verbatim
+ * übergeben und nur um <span data-underline>-Markup für die Unterstrich-Phrasen ergänzt
+ * — kein Zeichen am Text selbst verändert.
+ *
+ * Props:
+ *   text        – der volle Versprechen-Satz (verbatim)
+ *   highlights  – Phrasen aus `text`, in Reihenfolge ihres Auftretens, die einen
+ *                 animierten Magenta-Unterstrich bekommen
+ */
+interface Props {
+  text: string;
+  highlights: string[];
+  size?: 'default' | 'compact';
+}
+
+const { text, highlights, size = 'default' } = Astro.props;
+const sizeClass =
+  size === 'compact'
+    ? 'text-lg sm:text-xl lg:text-2xl font-semibold leading-[1.4] sm:leading-[1.4] lg:leading-[1.4]'
+    : 'text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.3] sm:leading-[1.3] lg:leading-[1.3]';
+
+function splitHighlights(input: string, phrases: string[]): { text: string; highlight: boolean }[] {
+  let rest = input;
+  const segments: { text: string; highlight: boolean }[] = [];
+  for (const phrase of phrases) {
+    const idx = rest.indexOf(phrase);
+    if (idx === -1) continue;
+    if (idx > 0) segments.push({ text: rest.slice(0, idx), highlight: false });
+    segments.push({ text: phrase, highlight: true });
+    rest = rest.slice(idx + phrase.length);
+  }
+  if (rest) segments.push({ text: rest, highlight: false });
+  return segments;
+}
+
+const segments = splitHighlights(text, highlights);
+---
+
+<p class={`cai-dvpromise-state mx-auto max-w-3xl text-center text-foreground ${sizeClass}`} data-dvpromise>
+  {segments.map((seg, i) =>
+    seg.highlight ? (
+      <span class={`cai-dvul cai-dvu${i}`} data-dv-underline>{seg.text}</span>
+    ) : (
+      seg.text
+    )
+  )}
+</p>
+
+<style>
+  .cai-dvul {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+  }
+  .cai-dvul::after {
+    content: '';
+    position: absolute;
+    left: -2px; right: -2px; bottom: 0.06em;
+    height: 0.3em;
+    z-index: -1;
+    background: rgba(223, 65, 251, 0.32);
+    border-radius: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s ease;
+  }
+  .cai-dvpromise-go .cai-dvul::after { transform: scaleX(1); }
+  .cai-dvpromise-go .cai-dvul:nth-of-type(1)::after { transition-delay: 0s; }
+  .cai-dvpromise-go .cai-dvul:nth-of-type(2)::after { transition-delay: .4s; }
+  .cai-dvpromise-go .cai-dvul:nth-of-type(3)::after { transition-delay: .8s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cai-dvul::after { transform: scaleX(1) !important; transition: none !important; }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__caiDvPromiseInit) return;
+    window.__caiDvPromiseInit = true;
+
+    var reduced = false;
+    try {
+      reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {}
+
+    var blocks = document.querySelectorAll('[data-dvpromise]');
+    if (reduced || !('IntersectionObserver' in window)) {
+      blocks.forEach(function (b) {
+        b.classList.add('cai-dvpromise-go');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('cai-dvpromise-go');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    blocks.forEach(function (b) {
+      io.observe(b);
+    });
+  })();
+</script>

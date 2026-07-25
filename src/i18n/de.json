@@ -307,5 +307,155 @@
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschnießlich an Unternehmenskunden.",
     "mission": "Co-Create"
+  },
+  "tiers": {
+    "eyebrow": "Drei Stufen",
+    "title": "Wählen Sie Ihre Sichtbarkeits-Stufe",
+    "intro": "Das Digital-Visibility-Programm gibt es in drei Stufen — als fester monatlicher Aufpreis zu Ihrem Content-Paket, unabhängig von der Artikelzahl.",
+    "items": [
+      {
+        "name": "Basis",
+        "badge": "Empfohlener Einstieg",
+        "price": "+490 € / Monat",
+        "priceNote": "zusätzlich zum Content-Paket",
+        "text": "Das Pflichtprogramm für messbare KI-Sichtbarkeit: Audit, monatliches KI-Monitoring, SEO inklusive Bing, technische KI-Zugänglichkeit und laufende Aktualisierung Ihrer Bestandsseiten."
+      },
+      {
+        "name": "Aktiv",
+        "badge": "",
+        "price": "+990 € / Monat",
+        "priceNote": "zusätzlich zum Content-Paket",
+        "text": "Alles aus Basis plus die stärksten externen Hebel: Digital-PR und Markennennungen, Bewertungsplattformen, Platzierung in Vergleichsartikeln und YouTube-Ausrichtung Ihrer Videos."
+      },
+      {
+        "name": "Dominanz",
+        "badge": "",
+        "price": "+1.790 € / Monat",
+        "priceNote": "zusätzlich zum Content-Paket",
+        "text": "Für den Anspruch, die Referenz Ihrer Branche zu werden: eigene Studien und Daten-Assets, Wissensdatenbanken, LinkedIn-Thought-Leadership und laufende Wettbewerbs-Beobachtung."
+      }
+    ],
+    "note": "Jede Stufe: 6 Monate Mindestlaufzeit · inkl. Sichtbarkeits-Versprechen. Das Content-Paket ist auch ohne Stufe buchbar.",
+    "ctaLabel": "Ihren Preis im Rechner kalkulieren →",
+    "ctaHref": "/preise/"
+  },
+  "program": {
+    "eyebrow": "Das Digital-Visibility-Programm",
+    "title": "Ein Programm. Drei Ebenen. Ein Ziel: empfohlen werden.",
+    "subtitle": "Sichtbarkeit in KI-Antworten entsteht zum großen Teil außerhalb der eigenen Website. Unser Programm arbeitet deshalb auf drei Ebenen — vom Fundament bis zur Marktführerschaft. Was in welcher Stufe enthalten ist, zeigt der Stufen-Vergleich.",
+    "groups": [
+      {
+        "title": "Kern-Leistungen — in jeder Stufe enthalten",
+        "items": [
+          {
+            "title": "Digital Visibility Audit",
+            "text": "Der Startpunkt: Wir dokumentieren, was ChatGPT und die Google KI-Übersicht heute über Ihr Unternehmen antworten — mit der Methodik unserer Studie, als persönliches Dashboard schwarz auf weiß."
+          },
+          {
+            "title": "KI-Sichtbarkeits-Monitoring",
+            "text": "Monatlicher Report über Ihre Nennungen in KI-Antworten: Trends statt Momentaufnahmen, ehrlich gemessen. Ohne Messung kein beweisbarer Fortschritt."
+          },
+          {
+            "title": "SEO — inklusive Bing",
+            "text": "Klassische Suchmaschinenoptimierung für Google und Bing. Bing ist der unterschätzte Kanal: ChatGPT bedient sich bei seiner Websuche aus dem Bing-Index — kaum ein Anbieter optimiert dafür."
+          },
+          {
+            "title": "Technische KI-Zugänglichkeit",
+            "text": "KI-Crawler führen kein JavaScript aus — was für sie unsichtbar ist, kann nicht zitiert werden. Wir prüfen und beheben das: Crawler-Freigaben, Rendering, lesbarer Text statt PDF."
+          },
+          {
+            "title": "Zitierfähiger Content",
+            "text": "Inhalte mit Statistiken, Quellen und klaren Aussagen — das Format, das KI-Systeme nachweislich bevorzugt zitieren. Produziert im bewährten Co-Create-Modell."
+          },
+          {
+            "title": "Content-Refresh & Bestandsseiten",
+            "text": "KI-Systeme bevorzugen aktuelle Inhalte. Wir halten Ihre wichtigsten Seiten und Artikel systematisch frisch — datierte Titel, aktualisierte Zahlen, optimierte Kernseiten."
+          }
+        ]
+      },
+      {
+        "title": "Skalierung — ab Stufe Aktiv",
+        "items": [
+          {
+            "title": "Digital-PR & Markennennungen",
+            "text": "Der stärkste messbare Treiber von KI-Sichtbarkeit: Ihr Name auf Fachseiten, in Branchenmedien und Portalen. Die KI empfiehlt, wen sie aus vielen Quellen kennt."
+          },
+          {
+            "title": "Bewertungsplattformen",
+            "text": "Profile auf den relevanten Bewertungs- und Vergleichsplattformen Ihrer Branche — aufgebaut und gepflegt. KI-Antworten stützen sich im B2B stark auf genau diese Quellen."
+          },
+          {
+            "title": "Vergleichs- & Listicle-Platzierung",
+            "text": "„Beste Anbieter für X“-Artikel sind das dominante Zitierformat bei Kauffragen. Wir bauen eigene Vergleichsinhalte auf Ihrer Domain und platzieren Sie in fremden."
+          },
+          {
+            "title": "YouTube-Sichtbarkeit",
+            "text": "YouTube gehört zu den meistzitierten Quellen in KI-Antworten. Wir richten Ihre Videoproduktion darauf aus — indexierbar, mit Transkript, statt nur Social-Feeds."
+          }
+        ]
+      },
+      {
+        "title": "Premium — Stufe Dominanz",
+        "items": [
+          {
+            "title": "Eigene Studien & Daten-Assets",
+            "text": "Der stärkste Zitatmagnet: eigene Zahlen, die sonst niemand hat — Mini-Studien und Branchen-Benchmarks unter Ihrem Namen. Wir machen es mit unserer eigenen Studie vor."
+          },
+          {
+            "title": "Wissensdatenbanken",
+            "text": "Strukturierte Einträge in Wissensdatenbanken wie Wikidata, damit KI-Systeme Ihr Unternehmen als klar definierte Größe kennen — realistisch geprüft statt versprochen."
+          },
+          {
+            "title": "LinkedIn-Thought-Leadership",
+            "text": "Im B2B zählt LinkedIn mehr als jedes Forum: Fachbeiträge, die Ihre Expertise dort sichtbar machen, wo Entscheider lesen — und wo KI-Antworten mitlesen."
+          },
+          {
+            "title": "Wettbewerbs-Beobachtung",
+            "text": "Wer wird in Ihren Einkäuferfragen statt Ihnen genannt? Wir messen Ihren Anteil an den KI-Empfehlungen im Vergleich zu benannten Wettbewerbern — Quartal für Quartal."
+          }
+        ]
+      }
+    ],
+    "contentBox": {
+      "title": "Content ist der Treibstoff — Sichtbarkeit das Ziel.",
+      "text": "Die Content-Produktion, für die CodaAI steht, bleibt der Kern: SEO-Artikel bis 4.000 Wörter, Grafiken, Videos und Übersetzungen im Co-Create-Modell. Neu ist die Richtung — jedes Stück Content zahlt jetzt messbar auf Ihre Sichtbarkeit in Suche und KI-Antworten ein.",
+      "ctaLabel": "Alle Leistungen im Detail →",
+      "ctaHref": "/preise/#leistungen"
+    },
+    "bento": {
+      "auditLabel": "Digital Visibility Audit",
+      "auditDomain": "ihre-domain.de",
+      "kpis": [
+        {
+          "label": "SEO-Sichtbarkeit",
+          "value": "6,2",
+          "percent": 62
+        },
+        {
+          "label": "AIO-Präsenz",
+          "value": "41 %",
+          "percent": 41
+        },
+        {
+          "label": "KI-Nennungsrate",
+          "value": "12 %",
+          "percent": 12
+        }
+      ],
+      "trendCaption": "Entwicklung über die Laufzeit",
+      "beamLabel": "Sichtbar in jeder Engine",
+      "beamSource": "Ihre Website",
+      "beamTargets": [
+        "ChatGPT",
+        "Google",
+        "Perplexity"
+      ],
+      "monitoringLabel": "Monitoring",
+      "liveLabel": "Live",
+      "mentionsLabel": "Erwähnungen",
+      "contentLabel": "Content, der zitiert wird",
+      "citeBadge": "Als Quelle zitiert",
+      "detailsLabel": "Alle Leistungen dieser Gruppe anzeigen"
+    }
   }
 }

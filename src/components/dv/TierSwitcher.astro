@@ -1,0 +1,263 @@
+---
+/**
+ * TierSwitcher — interaktiver Stufen-Vergleich (Umschalter Basis|Aktiv|Dominanz).
+ * Umschalter als ARIA-Tablist über der bestehenden Tabelle/Kartenstruktur; die gewählte
+ * Stufe wird spaltenweise hervorgehoben (Desktop-Tabelle) bzw. zeigt die passende Karte
+ * (Mobil). CurveDraw-Mini-Kurve im Kopf jeder wählbaren Stufe (Prototyp Nr. 6/8).
+ * Inhalte/Preise unverändert — nur Darstellung. Ohne JS/CSS-Support bleibt "Basis"
+ * serverseitig vorausgewählt (data-selected="basis"), die Tabelle/Karten funktionieren
+ * unverändert wie zuvor.
+ */
+import CurveDraw from '../fx/CurveDraw.astro';
+
+interface Tier {
+  key: string;
+  name: string;
+  price: string;
+}
+interface Row {
+  label: string;
+  [key: string]: any;
+}
+interface Props {
+  base: string;
+  tiers: Tier[];
+  tierKeys: string[];
+  stufenRows: Row[];
+  stufenSpecialRows: Row[];
+}
+
+const { base, tiers, tierKeys, stufenRows, stufenSpecialRows } = Astro.props;
+
+const selectableTiers = tiers.filter((t) => t.key !== 'ohne');
+const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
+  basis: 'flat',
+  aktiv: 'medium',
+  dominanz: 'steep',
+};
+---
+
+<div class="cai-tierwrap" data-tier-wrap data-selected="basis">
+  {/* ── Umschalter (ARIA-Tablist) ────────────────────────────────────── */}
+  <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Digital-Visibility-Stufe wählen" data-tier-tablist>
+    {selectableTiers.map((tier, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`tiertab-${tier.key}`}
+        aria-selected={tier.key === 'basis' ? 'true' : 'false'}
+        aria-controls="stufen-panel"
+        tabindex={tier.key === 'basis' ? 0 : -1}
+        data-tier-tab={tier.key}
+        class:list={[
+          'cai-tiertab relative flex min-w-[140px] flex-1 flex-col items-start gap-2 rounded-2xl border-2 bg-card px-5 py-4 text-left transition-colors sm:flex-none',
+          tier.key === 'basis' ? 'border-cta' : 'border-border',
+        ]}
+      >
+        <span class="cai-tabrec absolute -top-2.5 right-4 rounded-full bg-cta px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">Empfohlen</span>
+        <span class="flex w-full items-center justify-between gap-3">
+          <span class="font-semibold text-foreground">{tier.name}</span>
+          <span class="cai-tabprice text-xs text-muted-foreground">{tier.price}</span>
+        </span>
+        <CurveDraw steepness={steepness[tier.key] ?? 'medium'} height={36} class="w-full" />
+      </button>
+    ))}
+  </div>
+
+  <div id="stufen-panel">
+    {/* Desktop-Tabelle (ab md) */}
+    <div class="mt-10 hidden md:block overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <caption class="sr-only">Leistungen je Digital-Visibility-Stufe im Vergleich</caption>
+        <thead>
+          <tr class="border-b border-border">
+            <th scope="col" class="py-4 pr-4 text-sm font-semibold text-foreground align-bottom">Leistung</th>
+            {tierKeys.map((key: string) => {
+              const tier = tiers.find((t: Tier) => t.key === key)!;
+              return (
+                <th
+                  scope="col"
+                  data-tiercol={key}
+                  class="cai-tiercol py-4 px-4 text-sm font-semibold text-foreground text-center align-bottom rounded-t-xl"
+                >
+                  {key !== 'ohne' && <span class="cai-tierbadge mb-1 inline-block rounded-full bg-cta px-2.5 py-0.5 text-[11px] font-semibold text-white">Ihre Empfehlung</span>}
+                  <span class="block">{tier.name}</span>
+                  {key !== 'ohne' && (
+                    <span class="cai-tierprice block font-normal text-muted-foreground">{tier.price.replace(' / Monat', '/Mon.')}</span>
+                  )}
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {[...stufenRows, ...stufenSpecialRows].map((row: Row) => (
+            <tr class="border-b border-border/60">
+              <th scope="row" class="py-3 pr-4 text-sm font-medium text-foreground text-left">{row.label}</th>
+              {tierKeys.map((key: string) => (
+                <td data-tiercol={key} class="cai-tiercol py-3 px-4 text-center">
+                  {typeof row[key] === 'string' ? (
+                    <span class="text-sm text-muted-foreground">{row[key]}</span>
+                  ) : row[key] ? (
+                    <>
+                      <svg class="mx-auto size-5 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12l5 5L20 7"></path>
+                      </svg>
+                      <span class="sr-only">Enthalten</span>
+                    </>
+                  ) : (
+                    <>
+                      <span aria-hidden="true" class="text-muted-foreground">—</span>
+                      <span class="sr-only">Nicht enthalten</span>
+                    </>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {/* Mobiler Karten-Stack (unter md) — "Ohne Stufe" bleibt immer als Referenz sichtbar,
+        die drei gewählten Stufen zeigen jeweils nur die aktive Karte. */}
+    <div class="md:hidden mt-8 space-y-6" data-tier-mobile>
+      {tiers.map((tier: Tier) => (
+        <div
+          data-tier-card={tier.key !== 'ohne' ? tier.key : undefined}
+          class="rounded-2xl border border-border bg-card p-6"
+        >
+          <div class="flex items-baseline justify-between gap-2">
+            <h3 class="text-lg font-semibold text-foreground">{tier.name}</h3>
+            <span class="text-sm font-semibold text-cta-accessible">{tier.price}</span>
+          </div>
+          <ul class="mt-4 space-y-2">
+            {stufenRows.filter((row: Row) => row[tier.key]).map((row: Row) => (
+              <li class="flex items-start gap-2 text-sm text-foreground">
+                <svg class="mt-0.5 size-4 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12l5 5L20 7"></path>
+                </svg>
+                <span>{row.label}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 text-xs text-muted-foreground border-t border-border pt-4">
+            Mindestlaufzeit: {stufenSpecialRows[0][tier.key]} · Sichtbarkeits-Versprechen: {stufenSpecialRows[1][tier.key] ? 'inklusive' : '—'}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <p class="mt-8 text-sm text-muted-foreground">
+    „Basis" ist unsere Empfehlung für den Einstieg. Alle Preise netto, zusätzlich zum gewählten Content-Paket.
+  </p>
+  <div class="mt-6">
+    <a href={`${base}/preise/`} class="btn-cta px-6 py-3 text-sm">Ihren Gesamtpreis im Rechner kalkulieren →</a>
+  </div>
+</div>
+
+<style>
+  .cai-tiertab { cursor: pointer; }
+  .cai-tiertab:hover { border-color: hsl(var(--cta) / 0.6); }
+  .cai-tiertab:focus-visible { outline: 3px solid hsl(var(--cta) / 0.4); outline-offset: 2px; }
+
+  /* „Empfohlen"-Pille am aktiven Umschalter — nur die gewählte Stufe zeigt sie */
+  .cai-tabrec { display: none; }
+  .cai-tiertab[aria-selected="true"] .cai-tabrec { display: inline-block; animation: cai-tierpop .35s ease both; }
+  .cai-tiertab[aria-selected="true"] .cai-tabprice { color: hsl(var(--cta)); font-weight: 600; }
+
+  /* Desktop: gewählte Spalte deutlich hervorheben */
+  .cai-tiercol { transition: background-color 0.25s ease; }
+  [data-tier-wrap][data-selected="basis"] .cai-tiercol[data-tiercol="basis"],
+  [data-tier-wrap][data-selected="aktiv"] .cai-tiercol[data-tiercol="aktiv"],
+  [data-tier-wrap][data-selected="dominanz"] .cai-tiercol[data-tiercol="dominanz"] {
+    background-color: hsl(var(--cta) / 0.09);
+  }
+  /* Kopfzeile der gewählten Spalte bekommt einen kräftigen Akzent-Rahmen oben */
+  [data-tier-wrap][data-selected="basis"] th.cai-tiercol[data-tiercol="basis"],
+  [data-tier-wrap][data-selected="aktiv"] th.cai-tiercol[data-tiercol="aktiv"],
+  [data-tier-wrap][data-selected="dominanz"] th.cai-tiercol[data-tiercol="dominanz"] {
+    box-shadow: inset 0 3px 0 0 hsl(var(--cta));
+  }
+  /* Preis der gewählten Spalte prominent */
+  [data-tier-wrap][data-selected="basis"] th.cai-tiercol[data-tiercol="basis"] .cai-tierprice,
+  [data-tier-wrap][data-selected="aktiv"] th.cai-tiercol[data-tiercol="aktiv"] .cai-tierprice,
+  [data-tier-wrap][data-selected="dominanz"] th.cai-tiercol[data-tiercol="dominanz"] .cai-tierprice {
+    color: hsl(var(--cta)); font-weight: 600;
+  }
+  /* „Ihre Empfehlung"-Badge nur im Kopf der gewählten Spalte */
+  .cai-tierbadge { display: none; }
+  [data-tier-wrap][data-selected="basis"] th.cai-tiercol[data-tiercol="basis"] .cai-tierbadge,
+  [data-tier-wrap][data-selected="aktiv"] th.cai-tiercol[data-tiercol="aktiv"] .cai-tierbadge,
+  [data-tier-wrap][data-selected="dominanz"] th.cai-tiercol[data-tiercol="dominanz"] .cai-tierbadge {
+    display: inline-block; animation: cai-tierpop .35s ease both;
+  }
+  @keyframes cai-tierpop { from { opacity: 0; transform: translateY(4px) scale(.9); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .cai-tabrec, .cai-tierbadge { animation: none !important; } }
+
+  /* Mobil: nur die gewählte Stufen-Karte zeigen, "Ohne Stufe" bleibt immer sichtbar */
+  [data-tier-mobile] [data-tier-card] { display: none; }
+  [data-tier-wrap][data-selected="basis"] [data-tier-mobile] [data-tier-card="basis"],
+  [data-tier-wrap][data-selected="aktiv"] [data-tier-mobile] [data-tier-card="aktiv"],
+  [data-tier-wrap][data-selected="dominanz"] [data-tier-mobile] [data-tier-card="dominanz"] {
+    display: block;
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.__caiTierSwitchInit) return;
+    window.__caiTierSwitchInit = true;
+
+    var wraps = document.querySelectorAll('[data-tier-wrap]');
+    wraps.forEach(function (wrap) {
+      var tabs = wrap.querySelectorAll('[data-tier-tab]');
+      if (!tabs.length) return;
+
+      function select(key, focus) {
+        wrap.setAttribute('data-selected', key);
+        tabs.forEach(function (tab) {
+          var active = tab.getAttribute('data-tier-tab') === key;
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          tab.setAttribute('tabindex', active ? '0' : '-1');
+          tab.classList.toggle('border-cta', active);
+          tab.classList.toggle('border-border', !active);
+          if (active && focus) tab.focus();
+        });
+      }
+
+      /* Der Stufen-Assistent (Quiz) steuert die Tabelle mit: bei einer Empfehlung
+         wird hier die passende Spalte/der passende Tab hervorgehoben. */
+      document.addEventListener('cai:tier-select', function (e) {
+        var key = e && e.detail && e.detail.key;
+        if (key) select(key, false);
+      });
+
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () {
+          select(tab.getAttribute('data-tier-tab'), false);
+        });
+        tab.addEventListener('keydown', function (e) {
+          var list = Array.prototype.slice.call(tabs);
+          var idx = list.indexOf(tab);
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            var next = list[(idx + 1) % list.length];
+            select(next.getAttribute('data-tier-tab'), true);
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            var prev = list[(idx - 1 + list.length) % list.length];
+            select(prev.getAttribute('data-tier-tab'), true);
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            select(list[0].getAttribute('data-tier-tab'), true);
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            select(list[list.length - 1].getAttribute('data-tier-tab'), true);
+          }
+        });
+      });
+    });
+  })();
+</script>

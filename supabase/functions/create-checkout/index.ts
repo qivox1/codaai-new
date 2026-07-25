@@ -14,6 +14,31 @@ const CORS = {
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
 
+// ── Digital Visibility Program — server-side price authority ──────────────
+// MUST mirror VISIBILITY_TIER_PRICES in PricingCalculator.tsx. The client's
+// `visibilityPrice` is never trusted directly — it is only used to detect
+// tampering (see validation below). If the two tables ever drift, update
+// both in the same change.
+type VisibilityTier = 'none' | 'basis' | 'aktiv' | 'dominanz';
+
+const VISIBILITY_TIER_PRICES: Record<VisibilityTier, number> = {
+  none: 0,
+  basis: 490,
+  aktiv: 990,
+  dominanz: 1790,
+};
+
+const VISIBILITY_TIER_NAMES_DE: Record<VisibilityTier, string> = {
+  none: 'Ohne',
+  basis: 'Basis',
+  aktiv: 'Aktiv',
+  dominanz: 'Dominanz',
+};
+
+function isVisibilityTier(value: unknown): value is VisibilityTier {
+  return value === 'none' || value === 'basis' || value === 'aktiv' || value === 'dominanz';
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
 
@@ -66,7 +91,41 @@ serve(async (req) => {
       );
 
     const pkg = reg.package_config;
-    const monthlyTotal = Math.round(pkg.monthlyTotal); // in EUR (no decimals)
+    const monthlyTotal = Math.round(pkg.monthlyTotal); // in EUR (no decimals), content-only
+
+    // ── Digital Visibility Program — server-side validation ───
+    // Requests without a visibility_tier field (old clients / pure content
+    // subscriptions) fall back to 'none' and behave exactly like before.
+    let visibilityTier: VisibilityTier = 'none';
+
+    if (pkg.visibilityTier !== undefined && pkg.visibilityTier !== null) {
+      // Client explicitly selected a tier — it must be one of the known values.
+      if (!isVisibilityTier(pkg.visibilityTier))
+        return Response.json(
+          { error: 'Ungültige Sichtbarkeits-Stufe.' },
+          { status: 400, headers: CORS }
+        );
+
+      visibilityTier = pkg.visibilityTier;
+
+      // Never trust pkg.visibilityPrice from the client for the actual charge —
+      // the price always comes from VISIBILITY_TIER_PRICES below. This check
+      // only guards against a stale/tampered client: if the client's own price
+      // disagrees with our table for the tier it picked, reject outright
+      // instead of silently correcting it.
+      if (
+        typeof pkg.visibilityPrice === 'number' &&
+        pkg.visibilityPrice !== VISIBILITY_TIER_PRICES[visibilityTier]
+      ) {
+        return Response.json(
+          { error: 'Ungültiger Preis für die gewählte Sichtbarkeits-Stufe.' },
+          { status: 400, headers: CORS }
+        );
+      }
+    }
+
+    const visibilityPrice = VISIBILITY_TIER_PRICES[visibilityTier];
+    const grandTotal = monthlyTotal + visibilityPrice;
 
     // ── Build human-readable description ─────────────────────
     const cycleLabel = pkg.billingCycle === 'annual' ? 'Jahreslizenz' : 'Quartalslizenz';
@@ -89,23 +148,40 @@ serve(async (req) => {
       });
     }
 
+    // ── Line items: content package + (optional) Digital Visibility Program ─
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [{
+      price_data: {
+        currency:    'eur',
+        unit_amount: monthlyTotal * 100, // Stripe uses cents
+        recurring:   { interval: 'month' },
+        product_data: {
+          name:        'CodaAI Content-Paket',
+          description,
+        },
+      },
+      quantity: 1,
+    }];
+
+    if (visibilityTier !== 'none') {
+      lineItems.push({
+        price_data: {
+          currency:    'eur',
+          unit_amount: visibilityPrice * 100, // Stripe uses cents
+          recurring:   { interval: 'month' },
+          product_data: {
+            name: `Digital-Visibility-Programm ${VISIBILITY_TIER_NAMES_DE[visibilityTier]}`,
+          },
+        },
+        quantity: 1,
+      });
+    }
+
     // ── Create Stripe Checkout Session ────────────────────────
     const session = await stripe.checkout.sessions.create({
       customer:     customer.id,
       mode:         'subscription',
       locale:       'de',
-      line_items: [{
-        price_data: {
-          currency:    'eur',
-          unit_amount: monthlyTotal * 100, // Stripe uses cents
-          recurring:   { interval: 'month' },
-          product_data: {
-            name:        'CodaAI Content-Paket',
-            description,
-          },
-        },
-        quantity: 1,
-      }],
+      line_items: lineItems,
       subscription_data: {
         metadata: {
           registrationId,
@@ -113,12 +189,15 @@ serve(async (req) => {
           billingCycle:       pkg.billingCycle,
           includeSocialVideos: String(pkg.includeSocialVideos),
           includeTranslations: String(pkg.includeTranslations),
+          visibility_tier:     visibilityTier,
         },
       },
       // Pass the order value to /checkout-success so GA4's `new_customer` event
       // can include `value` and `currency` for revenue reporting. session_id is
       // also used client-side as the GA4 transaction_id (idempotency).
-      success_url: `${SITE_URL}/checkout-success?session_id={CHECKOUT_SESSION_ID}&amount=${monthlyTotal}&currency=EUR`,
+      // `amount` is the rounded monthly TOTAL incl. the Digital Visibility
+      // Program surcharge, so revenue tracking reflects the real charge.
+      success_url: `${SITE_URL}/checkout-success?session_id={CHECKOUT_SESSION_ID}&amount=${grandTotal}&currency=EUR`,
       cancel_url:  `${SITE_URL}/preise?cancelled=1`,
       payment_method_types: ['card', 'sepa_debit'],
       customer_update: { address: 'auto' },

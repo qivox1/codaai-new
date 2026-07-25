@@ -287,5 +287,155 @@
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* All prices are net prices plus 19 % VAT. Our services are exclusively for business customers.",
     "mission": "Co-Create"
+  },
+  "tiers": {
+    "eyebrow": "Three tiers",
+    "title": "Choose your visibility tier",
+    "intro": "The Digital Visibility Programme comes in three tiers — a fixed monthly add-on to your content package, independent of article volume.",
+    "items": [
+      {
+        "name": "Basic",
+        "badge": "Recommended starting point",
+        "price": "+€490 / month",
+        "priceNote": "in addition to your content package",
+        "text": "The must-have for measurable AI visibility: audit, monthly AI monitoring, SEO including Bing, technical AI accessibility, and ongoing updates to your existing pages."
+      },
+      {
+        "name": "Active",
+        "badge": "",
+        "price": "+€990 / month",
+        "priceNote": "in addition to your content package",
+        "text": "Everything in Basic plus the strongest external levers: digital PR and brand mentions, review platforms, placement in comparison articles, and YouTube alignment for your videos."
+      },
+      {
+        "name": "Dominance",
+        "badge": "",
+        "price": "+€1,790 / month",
+        "priceNote": "in addition to your content package",
+        "text": "For the ambition to become the reference in your industry: proprietary studies and data assets, knowledge bases, LinkedIn thought leadership, and ongoing competitive monitoring."
+      }
+    ],
+    "note": "Every tier: 6-month minimum term · includes the Visibility Promise. The content package can also be booked without a tier.",
+    "ctaLabel": "Calculate your price in the calculator →",
+    "ctaHref": "/en/pricing/"
+  },
+  "program": {
+    "eyebrow": "The Digital Visibility Programme",
+    "title": "One programme. Three layers. One goal: getting recommended.",
+    "subtitle": "Visibility in AI answers is largely created outside your own website. That's why our programme works on three layers — from the foundation to market leadership. The tier comparison shows what's included at each level.",
+    "groups": [
+      {
+        "title": "Core services — included at every tier",
+        "items": [
+          {
+            "title": "Digital Visibility Audit",
+            "text": "The starting point: we document what ChatGPT and Google's AI Overview answer about your company today — using our study's methodology, delivered as your personal, black-and-white dashboard."
+          },
+          {
+            "title": "AI Visibility Monitoring",
+            "text": "A monthly report on your mentions in AI answers: trends, not snapshots, honestly measured. Without measurement, there's no provable progress."
+          },
+          {
+            "title": "Classic SEO — including Bing",
+            "text": "Search engine optimisation for Google and Bing. Bing is the underrated channel: ChatGPT's web search draws on the Bing index — hardly any provider optimises for it."
+          },
+          {
+            "title": "Technical AI accessibility",
+            "text": "AI crawlers don't execute JavaScript — what's invisible to them can't be cited. We check and fix this: crawler access, rendering, readable text instead of PDFs."
+          },
+          {
+            "title": "Citable content",
+            "text": "Content with statistics, sources and clear statements — the format AI systems demonstrably prefer to cite. Produced in our proven Co-Create model."
+          },
+          {
+            "title": "Content refresh & existing pages",
+            "text": "AI systems favour up-to-date content. We keep your key pages and articles systematically fresh — dated titles, updated figures, optimised core pages."
+          }
+        ]
+      },
+      {
+        "title": "Scaling — from tier Active",
+        "items": [
+          {
+            "title": "Digital PR & brand mentions",
+            "text": "The strongest measurable driver of AI visibility: your name on industry sites, in trade media and portals. AI recommends whoever it knows from many sources."
+          },
+          {
+            "title": "Review platforms",
+            "text": "Profiles on the review and comparison platforms relevant to your industry — built and maintained. In B2B, AI answers lean heavily on exactly these sources."
+          },
+          {
+            "title": "Comparison & listicle placement",
+            "text": "“Best vendors for X” articles are the dominant citation format for buying questions. We build our own comparison content on your domain and place you in third-party ones."
+          },
+          {
+            "title": "YouTube visibility",
+            "text": "YouTube is among the most-cited sources in AI answers. We align your video production accordingly — indexable, with transcripts, instead of just social feeds."
+          }
+        ]
+      },
+      {
+        "title": "Premium — tier Dominance",
+        "items": [
+          {
+            "title": "Proprietary studies & data assets",
+            "text": "The strongest citation magnet: your own numbers that nobody else has — mini-studies and industry benchmarks under your name. We prove it works with our own study."
+          },
+          {
+            "title": "Knowledge bases",
+            "text": "Structured entries in knowledge bases like Wikidata, so AI systems recognise your company as a clearly defined entity — realistically assessed, not just promised."
+          },
+          {
+            "title": "LinkedIn thought leadership",
+            "text": "In B2B, LinkedIn counts for more than any forum: expert articles that make your expertise visible where decision-makers read — and where AI answers increasingly read along."
+          },
+          {
+            "title": "Competitive monitoring",
+            "text": "Who gets named in your buyer questions instead of you? We measure your share against named competitors in the AI recommendations — quarter after quarter."
+          }
+        ]
+      }
+    ],
+    "contentBox": {
+      "title": "Content is the fuel — visibility is the goal.",
+      "text": "The content production CodaAI stands for remains the core: SEO articles up to 4,000 words, graphics, videos and translations in the Co-Create model. What's new is the direction — every piece of content now measurably pays into your visibility in search and AI answers.",
+      "ctaLabel": "See every service in detail →",
+      "ctaHref": "/en/pricing/"
+    },
+    "bento": {
+      "auditLabel": "Digital Visibility Audit",
+      "auditDomain": "yourdomain.com",
+      "kpis": [
+        {
+          "label": "SEO visibility",
+          "value": "6.2",
+          "percent": 62
+        },
+        {
+          "label": "AIO presence",
+          "value": "41%",
+          "percent": 41
+        },
+        {
+          "label": "AI mention rate",
+          "value": "12%",
+          "percent": 12
+        }
+      ],
+      "trendCaption": "Progress over the contract term",
+      "beamLabel": "Visible in every engine",
+      "beamSource": "Your website",
+      "beamTargets": [
+        "ChatGPT",
+        "Google",
+        "Perplexity"
+      ],
+      "monitoringLabel": "Monitoring",
+      "liveLabel": "Live",
+      "mentionsLabel": "Mentions",
+      "contentLabel": "Content that gets cited",
+      "citeBadge": "Cited as a source",
+      "detailsLabel": "Show all services in this group"
+    }
   }
 }

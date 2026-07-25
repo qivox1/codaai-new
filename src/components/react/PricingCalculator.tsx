@@ -106,6 +106,101 @@ const FEATURES_EN = [
   '3 images or 1 infographic per blog article',        // left
 ];
 
+// ─── Digital Visibility Program tiers ──────────────────────────────────────
+// Fixed monthly surcharges — independent of contentPieces AND billingCycle
+// (same price whether the customer bills annually or quarterly).
+type VisibilityTier = 'none' | 'basis' | 'aktiv' | 'dominanz';
+
+const VISIBILITY_TIER_PRICES: Record<VisibilityTier, number> = {
+  none: 0,
+  basis: 490,
+  aktiv: 990,
+  dominanz: 1790,
+};
+
+const VISIBILITY_TIER_NAMES_DE: Record<VisibilityTier, string> = {
+  none: 'Ohne',
+  basis: 'Basis',
+  aktiv: 'Aktiv',
+  dominanz: 'Dominanz',
+};
+
+const VISIBILITY_TIER_NAMES_EN: Record<VisibilityTier, string> = {
+  none: 'None',
+  basis: 'Basic',
+  aktiv: 'Active',
+  dominanz: 'Dominance',
+};
+
+interface VisibilityTierDef {
+  id: VisibilityTier;
+  recommended?: boolean;
+  featuresDe: string[];
+  featuresEn: string[];
+}
+
+const VISIBILITY_TIERS: VisibilityTierDef[] = [
+  {
+    id: 'none',
+    featuresDe: [
+      'Nur Content-Produktion — ohne Sichtbarkeits-Programm',
+    ],
+    featuresEn: [
+      'Content production only — no visibility program',
+    ],
+  },
+  {
+    id: 'basis',
+    recommended: true,
+    featuresDe: [
+      'Digital Visibility Audit',
+      'KI-Sichtbarkeits-Monitoring + Monatsreport',
+      'SEO-Basis inkl. Bing',
+      'Technische KI-Zugänglichkeit (Prüf-Artefakte fürs Web-Team)',
+    ],
+    featuresEn: [
+      'Digital Visibility Audit',
+      'AI visibility monitoring + monthly report',
+      'SEO basics incl. Bing',
+      'Technical AI accessibility (audit artefacts for your web team)',
+    ],
+  },
+  {
+    id: 'aktiv',
+    featuresDe: [
+      'Alles aus Basis',
+      'Digital-PR & Markennennungen',
+      'Bewertungsplattform-Management',
+      'Platzierung in Vergleichsartikeln',
+      'YouTube-Optimierung der Videos',
+    ],
+    featuresEn: [
+      'Everything in Basic',
+      'Digital PR & brand mentions',
+      'Review platform management',
+      'Placement in comparison articles',
+      'YouTube optimisation of your videos',
+    ],
+  },
+  {
+    id: 'dominanz',
+    featuresDe: [
+      'Alles aus Aktiv',
+      'Eigene Daten-Studie pro Jahr',
+      'Wissensdatenbanken (u. a. Wikidata)',
+      'LinkedIn-Thought-Leadership-Support',
+      'Laufende Wettbewerbs-Beobachtung',
+    ],
+    featuresEn: [
+      'Everything in Active',
+      'Own data study per year',
+      'Knowledge bases (incl. Wikidata)',
+      'LinkedIn thought-leadership support',
+      'Ongoing competitor monitoring',
+    ],
+  },
+];
+
 const SUPABASE_URL      = 'https://fcauvtwqkluvsbicaojo.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjYXV2dHdxa2x1dnNiaWNhb2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4ODA2NjcsImV4cCI6MjA2NTQ1NjY2N30.7Y3VDYZH3RhXpt_Dswn21sLrfDrkFQU7ZXVt38sa45c';
 const FN = (name: string) => `${SUPABASE_URL}/functions/v1/${name}`;
@@ -124,6 +219,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const [includeSocialVideos, setIncludeSocialVideos] = useState(false);
   const [includeTranslations, setIncludeTranslations] = useState(false);
   const [translationLanguages, setTranslationLanguages] = useState(1);
+  const [visibilityTier, setVisibilityTier] = useState<VisibilityTier>('basis');
 
   // ── Checkout flow state ───────────────────────────────────
   const [step, setStep] = useState<CheckoutStep>('form');
@@ -173,6 +269,18 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
   const monthlyTotal =
     contentPieces * pricePerPiece + videosCostPerMonth + translationsCostPerMonth;
 
+  // ── Digital Visibility Program surcharge ──
+  // Fixed per tier, independent of contentPieces/billingCycle. Added on top
+  // of the (unchanged) content monthlyTotal to form the grand total shown
+  // to the customer and used for funnel tracking.
+  const visibilityPrice = VISIBILITY_TIER_PRICES[visibilityTier];
+  const grandTotal = monthlyTotal + visibilityPrice;
+
+  const handleVisibilityTierChange = (tier: VisibilityTier) => {
+    setVisibilityTier(tier);
+    pushDL('visibility_tier_selected', { visibility_tier: tier, lang });
+  };
+
   // Annual equivalent for savings display (when quarterly is selected)
   const annualEquivalent =
     contentPieces * getAnnualPricePerPiece(contentPieces)
@@ -208,7 +316,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
       include_social_videos: includeSocialVideos,
       include_translations: includeTranslations,
       translation_languages: translationLanguages,
-      value: monthlyTotal,
+      visibility_tier: visibilityTier,
+      value: grandTotal,
       currency: 'EUR',
       lang,
     });
@@ -222,6 +331,8 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
         includeTranslations,
         translationLanguages,
         monthlyTotal,
+        visibilityTier,
+        visibilityPrice,
       };
       const res  = await fetch(FN('start-verification'), { method: 'POST', headers: HEADERS, body: JSON.stringify({ email: email.trim(), phone: phone.trim(), packageConfig, lang }) });
       const data = await res.json();
@@ -252,7 +363,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
 
       // GA4 funnel: phone OTP verified, user about to confirm email magic link.
       pushDL('otp_verified', {
-        value: monthlyTotal,
+        value: grandTotal,
         currency: 'EUR',
         lang,
       });
@@ -290,11 +401,11 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
             <p className="text-sm font-medium text-cta-accessible uppercase tracking-wider mb-4">
               {lang === 'de' ? 'Preise' : 'Pricing'}
             </p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground mb-4 tracking-tight">
               {lang === 'de'
                 ? 'Content Produktion zum Festpreis ohne Überraschungen'
                 : 'Fixed-price content production — no surprises'}
-            </h1>
+            </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               {lang === 'de'
                 ? 'Wählen Sie Ihr Volumen und Ihre Laufzeit. Mit Jahreslizenz 20 % günstiger als quartalsweise.'
@@ -502,6 +613,81 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                 </div>
               </div>
 
+              {/* ── KI-Sichtbarkeits-Programm / AI Visibility Program ────────── */}
+              <div className="mb-10">
+                <div className="mb-4">
+                  <p className="text-foreground font-semibold text-lg">
+                    {lang === 'de' ? 'KI-Sichtbarkeits-Programm' : 'AI Visibility Program'}
+                  </p>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {lang === 'de'
+                      ? 'Wird Ihre Marke in ChatGPT, Google KI-Übersicht & Co. genannt? Wählen Sie Ihre Stufe.'
+                      : 'Is your brand mentioned in ChatGPT, Google AI Overview & co.? Choose your tier.'}
+                  </p>
+                </div>
+                <div
+                  role="radiogroup"
+                  aria-label={lang === 'de' ? 'KI-Sichtbarkeits-Programm wählen' : 'Choose your AI visibility program'}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                >
+                  {VISIBILITY_TIERS.map((tier) => {
+                    const isSelected = visibilityTier === tier.id;
+                    const price = VISIBILITY_TIER_PRICES[tier.id];
+                    const name = lang === 'de' ? VISIBILITY_TIER_NAMES_DE[tier.id] : VISIBILITY_TIER_NAMES_EN[tier.id];
+                    const features = lang === 'de' ? tier.featuresDe : tier.featuresEn;
+                    return (
+                      <label
+                        key={tier.id}
+                        htmlFor={`visibility-tier-${tier.id}`}
+                        className={`relative flex flex-col gap-2 rounded-xl border p-5 cursor-pointer transition-all duration-200 focus-within:ring-2 focus-within:ring-cta ${
+                          isSelected ? 'bg-cta/10 border-cta' : 'bg-border/30 border-border hover:bg-border/50'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          id={`visibility-tier-${tier.id}`}
+                          name="visibility-tier"
+                          value={tier.id}
+                          checked={isSelected}
+                          onChange={() => handleVisibilityTierChange(tier.id)}
+                          className="sr-only"
+                        />
+                        {tier.recommended && (
+                          <span className="absolute -top-2.5 right-4 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-cta text-white shadow-sm">
+                            {lang === 'de' ? 'Empfohlen' : 'Recommended'}
+                          </span>
+                        )}
+                        <div className="flex items-center justify-between gap-2">
+                          <span className={`text-sm font-semibold ${isSelected ? 'text-cta-accessible' : 'text-foreground'}`}>
+                            {name}
+                          </span>
+                          <span className={`text-xs font-bold whitespace-nowrap ${isSelected ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
+                            {tier.id === 'none'
+                              ? (lang === 'de' ? 'Ohne Programm: 0 €' : 'No program: €0')
+                              : `+${formatCurrency(price)}/${lang === 'de' ? 'Monat' : 'month'}`}
+                          </span>
+                        </div>
+                        <ul className="text-xs text-muted-foreground space-y-1">
+                          {features.map((feature) => (
+                            <li key={feature} className="flex items-start gap-1.5">
+                              <Check className="w-3 h-3 text-cta mt-0.5 flex-shrink-0" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </label>
+                    );
+                  })}
+                </div>
+                {visibilityTier !== 'none' && (
+                  <p className="text-muted-foreground text-xs mt-3">
+                    {lang === 'de'
+                      ? '6 Monate Mindestlaufzeit · inkl. Sichtbarkeits-Versprechen: keine messbare Bewegung nach 120 Tagen → Programm bis Laufzeitende kostenlos'
+                      : '6-month minimum term · visibility commitment: no measurable movement after 120 days → program free for the rest of the term'}
+                  </p>
+                )}
+              </div>
+
               {/* ── Price Display ─────────────────────────────────────────── */}
               <div className="text-center mb-10">
                 <div className={`rounded-2xl p-6 transition-all duration-300 ${
@@ -519,7 +705,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                   )}
                   <div className="flex items-baseline justify-center gap-2 mb-1">
                     <span className="text-5xl font-bold text-foreground">
-                      {formatCurrency(monthlyTotal)}<sup className="text-2xl align-super">*</sup>
+                      {formatCurrency(grandTotal)}<sup className="text-2xl align-super">*</sup>
                     </span>
                     <span className="text-muted-foreground text-lg">
                       /{lang === 'de' ? 'Monat' : 'month'}
@@ -555,6 +741,13 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                       return parts.join(' · ');
                     })()}
                   </p>
+                  {visibilityTier !== 'none' && (
+                    <p className="text-muted-foreground text-sm mt-1">
+                      {lang === 'de'
+                        ? `Digital-Visibility-Programm ${VISIBILITY_TIER_NAMES_DE[visibilityTier]}: +${formatCurrency(visibilityPrice)}/Monat`
+                        : `Digital Visibility Program ${VISIBILITY_TIER_NAMES_EN[visibilityTier]}: +${formatCurrency(visibilityPrice)}/month`}
+                    </p>
+                  )}
                   {!isAnnual && (
                     <button
                       type="button"
@@ -766,7 +959,7 @@ export default function PricingCalculator({ lang = 'de', base = '' }: PricingCal
                     <a
                       href={magicUrl}
                       onClick={() => pushDL('magic_link_clicked', {
-                        value: monthlyTotal,
+                        value: grandTotal,
                         currency: 'EUR',
                         lang,
                       })}

@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import PricingCalculator from '../../components/react/PricingCalculator';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import Reveal from '../../components/fx/Reveal.astro';
+import StufenTeaser from '../../components/StufenTeaser.astro';
 
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -11,44 +13,102 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <Layout
   lang={lang}
-  title="Pricing – CodaAI Content Packages"
-  description="Flexible content packages from €449/month. SEO articles, graphics and videos. Compare CodaAI with agency costs and save over 90%."
+  title="Pricing – Content Packages & Digital Visibility Tiers | CodaAI"
+  description="Transparently calculated: content packages from €349* per article, visibility program from +€490/month. A real pricing calculator instead of 'on request' — incl. visibility commitment."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
       <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
     </div>
-    <PricingCalculator lang={lang} base={base} client:load />
+
+    <!-- Pricing page intro -->
+    <Reveal as="div" class="mx-auto max-w-3xl px-6 lg:px-8 pt-6 lg:pt-8 pb-0 text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        Your price in two steps
+      </h1>
+      <p class="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+        First configure your content package, then choose your Digital Visibility tier — your monthly price is ready. Transparently calculated, while the rest of the market still says "on request."
+      </p>
+      <p class="mt-3 text-sm font-medium text-cta-accessible max-w-2xl mx-auto">
+        Every tier pays into the same goal: get recommended — and win qualified inquiries.
+      </p>
+    </Reveal>
+
+    <!-- Tier teaser: full section (curves + bullet points + prices), moved here from the
+         homepage per Oli's request on 20.07.2026 — directly above the calculator. Title
+         and CTA target are overridden for the pricing-page context (CTA jumps to the
+         calculator instead of back to /en/pricing/). -->
+    <Reveal as="div">
+      <StufenTeaser lang={lang} title="The three Visibility tiers at a glance" ctaHref="#calculator" />
+    </Reveal>
+
+    <div id="calculator" class="scroll-mt-24 lg:scroll-mt-28">
+      <Reveal as="div">
+        <PricingCalculator lang={lang} base={base} client:load />
+      </Reveal>
+    </div>
 
   <!-- FAQ Pricing -->
-  <section aria-label="Frequently Asked Questions about Pricing" class="mx-auto max-w-3xl px-6 lg:px-8 py-16">
-    <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Frequently Asked Questions about Pricing</h2>
+  <section aria-label="Frequently Asked Questions about Pricing" class="mx-auto max-w-3xl px-6 lg:px-8 py-16 border-t border-border">
+    <Reveal as="div">
+      <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Frequently Asked Questions about Pricing</h2>
+    </Reveal>
     <dl class="space-y-6">
+      <Reveal as="div" delay={0}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">How is the Digital Visibility Program billed?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">As a fixed monthly surcharge on top of your content package – regardless of how many articles you order: Basic +€490, Active +€990, Dominance +€1,790 per month (net). Example: 4 articles (€1,680) plus the Active tier (€990) add up to €2,670 per month. Content package and program appear together on one invoice.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">What minimum contract term applies?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Without a Digital Visibility tier, as before: 3 months with quarterly billing, 12 months with annual payment (20% cheaper). With a tier, the minimum term is 6 months – visibility in search and AI answers needs that time to become measurable. There is no automatic rollover: you actively decide on renewal.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">What exactly is the visibility commitment?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Every tier includes it: if there is no measurable movement in your AI mentions after 120 days, we continue running the visibility program free of charge for the rest of the term. It is measured through your monthly AI monitoring – the same reports you receive anyway. It is a commitment to our work, not a placement guarantee: no one can seriously promise a specific mention in ChatGPT.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
+      <div class="rounded-xl border border-border bg-card p-6">
+        <dt class="font-semibold text-foreground mb-2">Can I switch tiers later?</dt>
+        <dd class="text-muted-foreground text-sm leading-relaxed">Yes. An upgrade (e.g. Basic → Active) is possible at any time from the next month, and your running minimum term simply continues. A downgrade or removing the tier is possible at the end of the 6-month minimum term. The number of articles in your content package can still be adjusted independently, as before.</dd>
+      </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">How does billing work?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">You pay monthly or annually in advance. With annual payment you save 20% compared to quarterly billing. There are no hidden costs – the price per article is fixed and known upfront.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Can I change my package each month?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Yes, the number of articles can be adjusted at each renewal date. Upgrades are immediate; downgrades take effect at the next billing period.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">What is included in the price?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Every article includes research, SEO optimisation, up to 4,000 words, 3 matching images or 1 infographic, and publication on your website. Translations and social media videos are available as optional add-ons.</dd>
       </div>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">Is there a minimum contract period?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">With quarterly billing the minimum term is 3 months. With annual payment it is 12 months. There is no automatic rollover – you actively decide on renewal.</dd>
-      </div>
+      </Reveal>
+      <Reveal as="div" delay={40}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">How quickly are articles delivered?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">As a rule you receive your first article within 48 hours of order confirmation. Ongoing articles are delivered according to a pre-agreed editorial calendar.</dd>
       </div>
+      </Reveal>
+      <Reveal as="div" delay={0}>
       <div class="rounded-xl border border-border bg-card p-6">
         <dt class="font-semibold text-foreground mb-2">Is there a free trial?</dt>
         <dd class="text-muted-foreground text-sm leading-relaxed">Yes – request a free premium article with no credit card or commitment required. That way you can test the quality and style of our content risk-free before subscribing to a package.</dd>
       </div>
+      </Reveal>
     </dl>
   </section>
   </main>
