@@ -164,7 +164,7 @@ import AuditCTA from './AuditCTA.astro';
   <div class="wrap">
     <div class="mi-head">
       <span class="eyebrow">Beispiel-Audit · echte Zahlen, Firmenname entfernt</span>
-      <h2 class="sec">Ein echtes Digital Visibility Audit — <em>nur nicht Ihres.</em></h2>
+      <h2 class="sec">Ein echtes Audit zeigt schwarz auf weiß, <em>wer statt Ihnen empfohlen wird.</em></h2>
       <p class="lead">Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem
         Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen
         Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles
@@ -204,9 +204,11 @@ import AuditCTA from './AuditCTA.astro';
           <p class="mi-ans">„Bei mittleren Projektgrößen gibt es mehrere deutsche Hersteller von
             Sanitärarmaturen, die ein gutes Preis-Leistungs-Verhältnis bieten: 1. <mark>Grohe</mark> …
             2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“</p>
-          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Das Unternehmen wird nicht
-            genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber
-            übernehmen die Empfehlung.</span></p>
+          <p class="mi-verdict" data-verdict>
+            <span class="dot"></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen wird nicht genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber übernehmen die Empfehlung.</span></span>
+          </p>
         </div></div>
       </div>
 
@@ -227,9 +229,11 @@ import AuditCTA from './AuditCTA.astro';
           <p class="mi-ans">„Für barrierefreie Bäder in Pflegeeinrichtungen empfehlen sich Duschsysteme,
             die Sicherheit, Ergonomie, Wartungsfreundlichkeit und Langlebigkeit vereinen. Die Auswahl
             sollte den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen …“</p>
-          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Die KI nennt Normen und
-            Anforderungen — und dann Anbieter. Das Unternehmen führt passende Produkte im Programm,
-            kommt in der Antwort aber nicht vor.</span></p>
+          <p class="mi-verdict" data-verdict>
+            <span class="dot"></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Die KI nennt Normen und Anforderungen — und dann Anbieter. Das Unternehmen führt passende Produkte im Programm, kommt in der Antwort aber nicht vor.</span></span>
+          </p>
         </div></div>
       </div>
 
@@ -250,9 +254,11 @@ import AuditCTA from './AuditCTA.astro';
           <p class="mi-ans">„Es gibt mehrere günstigere Alternativen zu Hansgrohe, die dennoch qualitativ
             hochwertige Duschsysteme anbieten: 1. <mark>GROHE</mark> … 2. <mark>Ideal Standard</mark> …
             3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“</p>
-          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Das Unternehmen
-            <em>ist</em> die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese
-            Frage wird es nicht genannt.</span></p>
+          <p class="mi-verdict" data-verdict>
+            <span class="dot"></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen ist die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese Frage wird es nicht genannt.</span></span>
+          </p>
         </div></div>
       </div>
 
@@ -679,6 +685,30 @@ import AuditCTA from './AuditCTA.astro';
     var items=[].slice.call(document.querySelectorAll('.mi-q'));
     var touched=false, fired=false, timer=null;
 
+    var vRed = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    [].slice.call(document.querySelectorAll('.mi-verdict[data-verdict]')).forEach(function(v){
+      var typed=v.querySelector('.mi-vtyped'); if(!typed) return;
+      v._full=typed.textContent;
+      if(!vRed) v._pending=true;
+    });
+    function revealVerdict(b){
+      if(vRed||!b) return;
+      var v=b.querySelector('.mi-verdict[data-verdict]');
+      if(!v||!v._pending||v._done) return;
+      v._done=true;
+      var typed=v.querySelector('.mi-vtyped');
+      v.classList.add('is-scanning');
+      setTimeout(function(){
+        v.classList.remove('is-scanning');
+        typed.classList.add('typing'); typed.textContent='';
+        var full=v._full||'', i=0;
+        (function tick(){
+          i+=2; typed.textContent=full.slice(0,Math.min(i,full.length));
+          if(i<full.length){ setTimeout(tick,16); } else { typed.classList.remove('typing'); }
+        })();
+      },1400);
+    }
+
     function closeAll(){
       heads.forEach(function(h){ h.setAttribute('aria-expanded','false'); h.nextElementSibling.style.maxHeight='0px'; });
     }
@@ -687,6 +717,7 @@ import AuditCTA from './AuditCTA.astro';
       h.setAttribute('aria-expanded','true');
       var b=h.nextElementSibling;
       b.style.maxHeight=b.scrollHeight+48+'px';
+      revealVerdict(b);
       if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },500);
     }
     heads.forEach(function(h){
@@ -1306,6 +1337,16 @@ import AuditCTA from './AuditCTA.astro';
   .mi-verdict b{color:#fff;font-weight:800;letter-spacing:.01em}
   .mi-verdict em{font-style:italic;color:#fff}
   .mi-verdict .dot{width:9px;height:9px;flex:none;border-radius:50%;background:#fff;margin-top:8px;opacity:.85}
+  .mi-vscan{display:none;align-items:center;gap:9px;color:#fff;font-weight:600;font-size:.9rem}
+  .mi-vscan .sd{display:inline-flex;gap:5px}
+  .mi-vscan .sd i{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.5;animation:mi-sd 1s ease infinite}
+  .mi-vscan .sd i:nth-child(2){animation-delay:.15s}
+  .mi-vscan .sd i:nth-child(3){animation-delay:.3s}
+  @keyframes mi-sd{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-3px);opacity:1}}
+  .mi-verdict.is-scanning .dot,.mi-verdict.is-scanning .mi-vout{display:none}
+  .mi-verdict.is-scanning .mi-vscan{display:inline-flex}
+  .mi-vtyped.typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#fff;margin-left:2px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
+  @keyframes mi-caret{50%{opacity:0}}
   .mi-foot{padding:18px 22px;background:#fafafc;border-top:1px solid var(--line);font-size:.84rem;color:var(--mut)}
   .mi-foot a{color:var(--magenta-ink);font-weight:700}
   .mi-after{margin-top:34px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center}
