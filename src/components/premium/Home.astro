@@ -350,8 +350,8 @@ import AuditCTA from './AuditCTA.astro';
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pb">Es fehlt eine einzige Empfehlung:<em>Ihr Unternehmen.</em></p>
-        <p class="pt">Alles andere ergibt sich daraus.</p>
+        <p class="pb">Alles hängt an der ersten Nennung —<em>Ihrer.</em></p>
+        <p class="pt">Fehlt sie, geht der Auftrag an einen anderen.</p>
       </div>
 
     </div>
@@ -633,28 +633,12 @@ import AuditCTA from './AuditCTA.astro';
     // …und stürzen beim Bruch mit ein: die Zahl wird ein zweites Mal wertvoll.
     tl.to(['#v-seo','#v-ai'],{width:'0%',duration:.8,ease:'power2.in'}, B);
 
-    // 3) REPARATUR — die Wende wird gezeigt, nicht behauptet: der erste Schritt
-    //    leuchtet wieder auf, die folgenden ziehen nach, der Wert kommt zurück.
-    //    Genau das leistet CodaAI — deshalb blendet danach der Magenta-Block auf.
-    var R=B+1.5;
-    tl.to(brk,{opacity:0,scale:0,duration:.35,ease:'power2.in'}, R);
-    tl.to(tag,{opacity:0,duration:.3}, R);
-    tl.to(nodes[0],{opacity:1,borderColor:LIT,boxShadow:SHA,duration:.5,ease:'power2.out'}, R+0.1);
-    tl.to(num(0),{backgroundColor:'#DF41FB',color:'#ffffff',duration:.5}, R+0.1);
-    [1,2,3].forEach(function(i,k){
-      tl.to(nodes[i],{opacity:1,borderColor:LIT,boxShadow:SHA,duration:.45,ease:'power2.out'}, R+0.45+k*0.3);
-      tl.to(num(i),{backgroundColor:'#DF41FB',color:'#ffffff',duration:.45}, R+0.45+k*0.3);
-      tl.to(conns[i-1],{width:'100%',duration:.35,ease:'none'}, R+0.35+k*0.3);
-    });
-    tl.to(mult,{v:4.4,duration:1.1,ease:'power2.out',onUpdate:setMult}, R+0.5);
-    tl.to('#v-seo',{width:'20%',duration:.9,ease:'power2.out'}, R+0.5);
-    tl.to('#v-ai', {width:'88%',duration:1.1,ease:'power2.out'}, R+0.5);
-
-    // 4) POINTE — der Hebel, der die Wende ausloest
-    tl.to('[data-punch]',{opacity:1,duration:.7,ease:'power2.out'}, R+1.9);
-    // Die Pointe bleibt stehen — direkt danach folgt der Magenta-Angebotsblock,
-    // der die Auflösung liefert. Kein Ausblenden, kein zweites Overlay.
-    tl.to({},{duration:1.1}, R+2.7);
+    // 3) POINTE — direkt nach dem Bruch blendet die Magenta-Flaeche auf.
+    //    (Frueher lag hier ein "Reparatur"-Beat, der die Kaesten erneut aufleuchten
+    //    liess — das wirkte wie ein Neustart der Animation. Entfernt: Bruch -> Pointe.)
+    tl.to('[data-punch]',{opacity:1,duration:.7,ease:'power2.out'}, B+1.2);
+    // Die Pointe bleibt stehen — direkt danach folgt der Magenta-Angebotsblock.
+    tl.to({},{duration:1.0}, B+2.0);
 
     // 4) AUFLÖSUNG — überlappender Crossfade direkt in den Schluss (Overlay deckt die Kette voll ab)
   })();
@@ -819,7 +803,7 @@ import AuditCTA from './AuditCTA.astro';
   .hero-grid{position:relative;z-index:2;display:grid;gap:48px;grid-template-columns:minmax(0,1fr) 420px;align-items:center}
   @media(max-width:1040px){.hero-grid{grid-template-columns:1fr}}
   /* H1 exakt wie Live: Inter, font-semibold (600), tracking-tight, leading 1.15 */
-  .hero h1{font-size:clamp(1.85rem,3vw,2.45rem);font-weight:600;letter-spacing:-0.025em;line-height:1.18}
+  .hero h1{font-size:clamp(2.05rem,3.6vw,3rem);font-weight:700;letter-spacing:-0.025em;line-height:1.15}
   .hero h1 .l1{display:block}
   /* 25.07.2026: nowrap war ein Überrest der alten kurzen H1-Zeile („Sichtbar, wo
      Ihre Kunden"). Mit dem längeren Fragesatz lief der Text aus der Spalte und
@@ -1111,7 +1095,7 @@ import AuditCTA from './AuditCTA.astro';
   /* ============ OUTCOME FUNNEL ============ */
   /* ============ OUTCOME — „Die Kette" (gepinnte Scroll-Szene) ============ */
   .outcome{background:#fff;border-top:1px solid var(--line)}
-  .oc-scene{height:380vh;position:relative}
+  .oc-scene{height:270vh;position:relative}
   .oc-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:0 clamp(20px,5vw,60px);background:radial-gradient(92% 72% at 50% 32%,rgba(223,65,251,.05),transparent 60%),#fff}
   .oc-top{text-align:center;margin-bottom:clamp(28px,6vh,60px)}
