@@ -277,8 +277,8 @@ import AuditCTA from './AuditCTA.astro';
      ein magenta Button auf magenta Grund unsichtbar wäre. -->
 <section class="offer" id="angebot">
   <div class="wrap">
-    <h2 class="sec off-h">CodaAI bringt Ihre Marke in die Antwort.<span class="off-l2">In Googles
-      KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.</span></h2>
+    <h2 class="sec off-h">CodaAI bringt Ihre Marke in die Antwort.</h2>
+    <h3 class="off-l2">In Googles KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.</h3>
 
     <div class="tiers">
       <article class="tier">
@@ -350,8 +350,8 @@ import AuditCTA from './AuditCTA.astro';
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pt">Kein Name am Anfang. <em>Kein Auftrag am Ende.</em></p>
-        <p class="pb">Dieser Verlust taucht in keiner Statistik auf.</p>
+        <p class="pb">Kein Name am Anfang. <em>Kein Auftrag am Ende.</em></p>
+        <p class="pt">Dieser Verlust taucht in keiner Statistik auf.</p>
       </div>
 
     </div>
@@ -1111,10 +1111,17 @@ import AuditCTA from './AuditCTA.astro';
   .oc-payoff{margin-top:clamp(26px,6vh,52px);text-align:center}
   .oc-payoff .pv{font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;color:var(--magenta);font-variant-numeric:tabular-nums;line-height:1}
   .oc-payoff .pl{display:block;margin:8px auto 0;max-width:34ch;font-size:.9rem;color:var(--mut);line-height:1.4}
-  .oc-punch,.oc-final{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:6vh 8vw;opacity:0;pointer-events:none;background:radial-gradient(90% 70% at 50% 40%,#fff, #faf7fc)}
-  .oc-punch .pt{font-size:clamp(1.2rem,2.8vw,1.9rem);font-weight:700;color:var(--fg)}
-  .oc-punch .pb{font-size:clamp(1.5rem,4.4vw,3rem);font-weight:800;letter-spacing:-.02em;max-width:22ch;line-height:1.15}
-  .oc-punch .pb em{font-style:normal;color:var(--magenta)}
+  /* 25.07.2026: Die Pointe blendet auf Magenta statt auf Weiss — der Farbwechsel
+     ist die Aussage. Wichtig: der Verlauf ist in der MITTE tiefer (#B01FD1) und
+     nach aussen Marken-Magenta. Grund: dort steht die Schrift. Weiss auf #DF41FB
+     erreicht nur 3,34:1 und faellt fuer Fliesstext durch; auf #B01FD1 sind es
+     5,30:1 und der Marken-Ton bleibt am Rand sichtbar. */
+  .oc-punch,.oc-final{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:6vh 8vw;opacity:0;pointer-events:none;background:radial-gradient(95% 75% at 50% 42%,#B01FD1,#DF41FB)}
+  .oc-punch .pb{font-size:clamp(1.5rem,4.4vw,3rem);font-weight:800;letter-spacing:-.02em;max-width:24ch;line-height:1.15;color:#fff}
+  .oc-punch .pb em{font-style:normal;color:#fff}
+  .oc-punch .pb{color:rgba(255,255,255,.82)}
+  .oc-punch .pb em{color:#fff}
+  .oc-punch .pt{font-size:clamp(1.05rem,2.2vw,1.5rem);font-weight:600;color:rgba(255,255,255,.9)}
   /* Schluss der Kette blendet zu Schwarz (Crossfade über oc-punch), Schrift weiß, Pink bleibt */
   .oc-final{background:radial-gradient(110% 85% at 50% 42%,#17171c,#08080b)}
   .oc-final .ft{font-size:clamp(1.3rem,3vw,2.1rem);font-weight:700;color:#eaeaf0}
@@ -1131,6 +1138,9 @@ import AuditCTA from './AuditCTA.astro';
   body:not(.anim) .oc-node{opacity:1}
   body:not(.anim) .oc-conn i{width:100%}
   body:not(.anim) .oc-punch,body:not(.anim) .oc-final{position:static;opacity:1;background:none;margin-top:44px}
+  /* Ohne Animation fehlt der magenta Grund — sonst waere weisse Schrift auf Weiss unsichtbar. */
+  body:not(.anim) .oc-punch .pb,body:not(.anim) .oc-punch .pt{color:var(--fg)}
+  body:not(.anim) .oc-punch .pb em{color:var(--magenta-ink)}
   body:not(.anim) .oc-final{background:#0f0f12;padding:44px 8vw;border-radius:18px}
 
   /* ============ VERSPRECHEN ============ */
@@ -1178,7 +1188,11 @@ import AuditCTA from './AuditCTA.astro';
   .rooms{background:var(--muted);color:var(--fg);padding:clamp(64px,9vh,104px) 0;
     border-top:1px solid var(--line)}
   .rooms-lead{max-width:52ch}
-  .rooms-lead b{color:var(--magenta-ink);font-weight:800}
+  /* Marken-Pink statt des abgedunkelten Tons: die Ueberschrift ist Grosstext
+     (>=28,8px, weight 800), damit gilt die AA-Schwelle 3,0 — #DF41FB erreicht
+     auf #F7F4FA 3,07:1. Knapp, aber zulaessig. Achtung: fuer KLEINE Texte auf
+     diesem Grund weiterhin --magenta-ink verwenden (dort gilt 4,5). */
+  .rooms-lead b{color:var(--magenta);font-weight:800}
   .acc{margin-top:26px;border-top:1px solid var(--line2)}
   .accbtn{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;font:inherit;
     color:var(--fg);padding:18px 0;cursor:pointer;text-align:left}
@@ -1276,8 +1290,14 @@ import AuditCTA from './AuditCTA.astro';
 
   /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ── */
   .offer{background:var(--magenta);color:#0d0d10;padding:clamp(70px,10vh,110px) 0}
-  .offer .off-h{max-width:30ch}
-  .offer .off-l2{display:block;margin-top:8px;color:#2a1229}
+  .offer .off-h{max-width:26ch}
+  /* Dieselbe Hierarchie wie im Hero: grosse Aussage, darunter die kleinere,
+     zurueckgenommene Zeile. Achtung — ein echtes Grau ist hier unmoeglich: der
+     Hero-Grauton #8e8e9c erreicht auf Magenta nur 1,03:1 und waere unsichtbar.
+     Die Zuruecknahme kommt deshalb aus Groesse und Schriftschnitt; als Farbe der
+     dunkelste noch gedaempfte Ton mit 5,17:1. */
+  .offer .off-l2{margin-top:12px;max-width:46ch;color:#2a1229;
+    font-size:clamp(1.05rem,1.9vw,1.4rem);font-weight:500;line-height:1.42;letter-spacing:-.02em}
   .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
   @media(max-width:900px){.tiers{grid-template-columns:1fr}}
   .tier{background:#fff;border-radius:18px;padding:22px 22px 24px;box-shadow:0 16px 44px rgba(70,8,84,.22)}
