@@ -1,0 +1,66 @@
+---
+/*
+ * /faq — Sammelseite für alle Fragen & Antworten (AP3, 25.07.2026).
+ *
+ * Hintergrund: Beim Startseiten-Umbau (AP5) verlässt die FAQ-Sektion die Startseite.
+ * Damit die 14 Einträge und das FAQPage-Schema nicht ersatzlos verschwinden, bekommen
+ * sie hier ein eigenes Zuhause — Entscheidung 9 der Reduktions-Analyse: umverteilen,
+ * nichts vernichten.
+ *
+ * Quelle der Einträge bleibt `i18n/de.json → faq.items`; FAQ.astro wird unverändert
+ * wiederverwendet. Die Aufteilung in allgemeine und Preisfragen erfolgt erst mit dem
+ * /preise-Umbau (AP7) — dann wandern die fünf Preis-/Vertragsfragen dorthin.
+ */
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import FAQ from '../components/FAQ.astro';
+import { getTranslations } from '../i18n/utils';
+
+const lang = 'de' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const tr = getTranslations(lang);
+
+// FAQPage-Schema wandert von der Startseite hierher (siehe index.astro).
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: tr.faq.items.map((item: { question: string; answer: string }) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+});
+---
+
+<Layout
+  lang={lang}
+  title="Fragen & Antworten – CodaAI | SEO, AEO, GEO und Digital Visibility"
+  description="Antworten auf die häufigsten Fragen zu Digital Visibility: Unterschied zwischen SEO, AEO und GEO, wie KI-Sichtbarkeit gemessen wird, Zusammenarbeit mit Agenturen, Laufzeiten und das Sichtbarkeits-Versprechen."
+  jsonLd={[faqSchema]}
+>
+  <Navbar lang={lang} />
+  <main class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-0">
+      <Breadcrumb
+        items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Fragen & Antworten' }]}
+        class="mb-8"
+      />
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        Fragen &amp; Antworten
+      </h1>
+      <p class="mt-5 text-lg text-muted-foreground leading-relaxed">
+        Was Digital Visibility ist, wie wir KI-Sichtbarkeit messen und was das für Ihr Unternehmen
+        bedeutet. Fehlt Ihre Frage?
+        <a href={`${base}/kontakt/`} class="text-cta-accessible hover:text-cta font-medium">Schreiben Sie uns.</a>
+      </p>
+    </div>
+
+    <FAQ lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

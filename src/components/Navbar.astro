@@ -1,6 +1,5 @@
 ---
 import { t } from '../i18n/utils';
-import ContentRequestForm from './react/ContentRequestForm';
 
 interface Props {
   lang: 'de' | 'en';
@@ -94,7 +93,6 @@ const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
           {langToggleLabel}
         </span>
       </a>
-      <ContentRequestForm lang={lang} client:idle />
     </div>
 
     <!-- Mobile menu button -->
@@ -140,8 +138,7 @@ const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
           </svg>
           {langToggleLabel}
         </a>
-        <ContentRequestForm lang={lang} client:idle />
-      </div>
+        </div>
     </div>
   </div>
 </header>
