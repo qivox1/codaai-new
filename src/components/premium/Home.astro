@@ -350,7 +350,7 @@ import AuditCTA from './AuditCTA.astro';
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pb">Es fehlt ein einziges Wort — <em>Ihr Name.</em></p>
+        <p class="pb">Es fehlt eine einzige Empfehlung:<em>Ihr Unternehmen.</em></p>
         <p class="pt">Alles andere ergibt sich daraus.</p>
       </div>
 
@@ -1140,8 +1140,10 @@ import AuditCTA from './AuditCTA.astro';
      #B01FD1: Schwarz 3,66:1, Weiss 5,30:1. Die grosse Zeile ist Grosstext
      (24–48px, weight 800), damit gilt die Schwelle 3,0. */
   .oc-punch .pb{font-size:clamp(1.5rem,4.4vw,3rem);font-weight:800;letter-spacing:-.02em;
-    max-width:24ch;line-height:1.15;color:#0d0d10}
-  .oc-punch .pb em{font-style:normal;color:#fff}
+    max-width:38ch;line-height:1.15;color:#0d0d10}
+  /* Zweite Zeile, weiss: der Satz kippt mit dem Zeilenumbruch von der Diagnose
+     ('es fehlt …') auf das Subjekt ('Ihr Unternehmen') — das ist die Pointe. */
+  .oc-punch .pb em{display:block;margin-top:6px;font-style:normal;color:#fff}
   .oc-punch .pt{font-size:clamp(1.05rem,2.2vw,1.5rem);font-weight:600;color:#fff}
   /* Schluss der Kette blendet zu Schwarz (Crossfade über oc-punch), Schrift weiß, Pink bleibt */
   .oc-final{background:radial-gradient(110% 85% at 50% 42%,#17171c,#08080b)}
