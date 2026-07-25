@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import WebinarSignup from '../components/premium/WebinarSignup.astro';
 import FlipWords from '../components/react/FlipWords';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -157,11 +158,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mt-8 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
-          <div class="mt-8">
-            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
-              Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →
-            </a>
-            <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete</p>
+          <div class="mt-8 scroll-mt-28" id="anmeldung">
+            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" />
+            <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete · kostenlos</p>
           </div>
         </div>
 
@@ -331,7 +330,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
       <!-- ── Agenda ───────────────────────────────────────────────────── -->
       <section aria-labelledby="h-agenda" class="border-t border-border py-16">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ablauf</p>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ablauf &amp; Sprecher</p>
         <h2 id="h-agenda" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Webinar-Agenda</h2>
         <ol id="wfx-agenda" class="wfx-agenda mt-10 space-y-4">
           {agenda.map((a) => (
@@ -344,48 +343,8 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </li>
           ))}
         </ol>
-        <div class="mt-10">
-          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-        </div>
-      </section>
 
-      <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
-      <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
-        <h2 id="h-fuerwen" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-          {[
-            ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
-            ['Marketing-Verantwortliche', 'Sie investieren in SEO und Content — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
-            ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
-          ].map(([t, d]) => (
-            <article class="wfx-reveal wfx-tilt rounded-2xl border border-border bg-card p-8">
-              <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
-            </article>
-          ))}
-        </div>
-        <p class="mt-8 max-w-3xl font-medium text-foreground">Sie sind hier richtig, wenn:</p>
-        <ul class="mt-4 max-w-3xl space-y-3">
-          {[
-            'Ihr Geschäft von erklärungsbedürftigen Produkten und längeren Kaufprozessen lebt.',
-            'Empfehlungen noch tragen — aber der Anfrage-Eingang spürbar dünner wird.',
-            'Sie den eigenen Stand kennen wollen, bevor Sie Budget in Maßnahmen stecken.',
-            'Sie in mehreren Märkten verkaufen, Ihre KI-Sichtbarkeit dort aber nie geprüft wurde.',
-          ].map((t) => (
-            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
-              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
-              <span>{t}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Kein passendes Format für B2C-Shops — unsere Methodik ist auf B2B-Kaufprozesse gebaut.</p>
-      </section>
-
-      <!-- ── Speaker ──────────────────────────────────────────────────── -->
-      <section aria-labelledby="h-speaker" class="border-t border-border py-16">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihre Gastgeber</p>
-        <h2 id="h-speaker" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Strategy meets Execution</h2>
+        <h3 class="wfx-reveal mt-14 text-2xl font-semibold tracking-tight text-foreground">Ihre Gastgeber — Strategy meets Execution</h3>
         <div class="mt-10 grid gap-6 md:grid-cols-2">
           <article class="wfx-reveal flex gap-5 rounded-2xl border border-border bg-card p-8">
             <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" aria-label="LinkedIn-Profil von Norbert Schuster (öffnet in neuem Fenster)" class="shrink-0">
@@ -421,84 +380,40 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </div>
           </article>
         </div>
+        <div class="mt-12"><a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a></div>
       </section>
 
-      <!-- ── Anmeldung ────────────────────────────────────────────────── -->
-      <section id="anmeldung" aria-labelledby="h-anmeldung" class="scroll-mt-28 border-t border-border py-16">
-        <div class="wfx-reveal rounded-3xl bg-foreground p-8 text-background sm:p-12">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Anmeldung</p>
-          <h2 id="h-anmeldung" class="text-3xl font-semibold tracking-tight sm:text-4xl">Webinar „Empfohlen oder unsichtbar?"</h2>
-          <p class="mt-3 text-lg font-normal opacity-80">Dienstag, den 8. September 2026, 11:00 bis 12:00 Uhr</p>
-
-          <!-- Countdown zum nächsten Termin -->
-          <div id="w-countdown" class="mt-8 flex flex-wrap items-center gap-4" hidden>
-            <span class="text-sm opacity-70">Der nächste Termin startet in:</span>
-            <span class="flex items-center gap-2">
-              {['Tage', 'Std.', 'Min.', 'Sek.'].map((label, i) => (
-                <span class="w-16 rounded-xl bg-background/10 px-2 py-2.5 text-center">
-                  <span id={`cd-${i}`} class="block text-2xl font-bold tabular-nums">–</span>
-                  <span class="block text-[10px] uppercase tracking-widest opacity-60">{label}</span>
-                </span>
-              ))}
-            </span>
-          </div>
-
-          <!-- Schritt 1: Daten -->
-          <form id="webinar-form" class="mt-8 max-w-2xl" novalidate>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label for="w-name" class="mb-1.5 block text-sm font-medium">Vorname *</label>
-                <input id="w-name" name="name" type="text" autocomplete="given-name" required
-                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="Ihr Vorname" />
-              </div>
-              <div>
-                <label for="w-lastname" class="mb-1.5 block text-sm font-medium">Nachname *</label>
-                <input id="w-lastname" name="lastname" type="text" autocomplete="family-name" required
-                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="Ihr Nachname" />
-              </div>
-              <div class="sm:col-span-2">
-                <label for="w-email" class="mb-1.5 block text-sm font-medium">Unternehmens-E-Mail *</label>
-                <input id="w-email" name="email" type="email" autocomplete="email" required
-                  class="w-full rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" placeholder="name@ihre-firma.de" />
-              </div>
-            </div>
-
-            <input type="text" name="website" id="w-hp" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
-            <div class="mt-6 space-y-3">
-              <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
-                <input id="w-consent" type="checkbox" required class="mt-1 h-4 w-4 shrink-0 accent-[#DF41FB]" />
-                <span>CodaAI darf mich per E-Mail und Telefon kontaktieren.
-                  Hinweise in der <a href={`${base}/datenschutz/`} class="underline decoration-background/30 underline-offset-2 hover:decoration-cta">Datenschutzerklärung</a>. *</span>
-              </label>
-              <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
-                <input id="w-livetest" type="checkbox" class="mt-1 h-4 w-4 shrink-0 accent-[#DF41FB]" />
-                <span>Meine Firma darf im Webinar <strong>anonym</strong> live getestet werden.</span>
-              </label>
-            </div>
-
-            <p id="w-error" class="mt-4 hidden rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm" role="alert"></p>
-
-            <button id="w-submit" type="submit"
-              class="mt-6 inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50">
-              Anmeldung absenden →
-            </button>
-          </form>
-
-          <!-- Erfolg -->
-          <div id="webinar-success" class="mt-8 hidden max-w-2xl rounded-xl border border-cta/40 bg-cta/10 p-6">
-            <p class="text-lg font-semibold">Ihre Anmeldung ist bestätigt ✓</p>
-            <p class="mt-2 text-sm leading-relaxed opacity-90">
-              <span id="w-success-when"></span> — die Bestätigung ist unterwegs in Ihr Postfach.
-              Ihren Zoom-Zugangslink erhalten Sie rechtzeitig per E-Mail.
-              Bis dahin: <a href={`${base}/studie/`} class="font-semibold text-cta underline underline-offset-2">die Auswertung hinter dem Webinar lesen →</a>
-            </p>
-          </div>
-
-          <p class="mt-8 text-xs opacity-60">
-            Kostenlos · begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete · Abmeldung jederzeit formlos möglich.
-          </p>
+      <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
+      <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
+        <h2 id="h-fuerwen" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
+            ['Marketing-Verantwortliche', 'Sie investieren in SEO und Content — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
+            ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
+          ].map(([t, d]) => (
+            <article class="wfx-reveal wfx-tilt rounded-2xl border border-border bg-card p-8">
+              <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
+            </article>
+          ))}
         </div>
+        <p class="mt-8 max-w-3xl font-medium text-foreground">Sie sind hier richtig, wenn:</p>
+        <ul class="mt-4 max-w-3xl space-y-3">
+          {[
+            'Ihr Geschäft von erklärungsbedürftigen Produkten und längeren Kaufprozessen lebt.',
+            'Empfehlungen noch tragen — aber der Anfrage-Eingang spürbar dünner wird.',
+            'Sie den eigenen Stand kennen wollen, bevor Sie Budget in Maßnahmen stecken.',
+            'Sie in mehreren Märkten verkaufen, Ihre KI-Sichtbarkeit dort aber nie geprüft wurde.',
+          ].map((t) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Kein passendes Format für B2C-Shops — unsere Methodik ist auf B2B-Kaufprozesse gebaut.</p>
       </section>
 
       <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
@@ -517,29 +432,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </div>
       </section>
 
-      <!-- ── Zwei-Wege-Schluss ────────────────────────────────────────── -->
-      <section aria-labelledby="h-entscheidung" class="border-t border-border py-16">
-        <div class="rounded-3xl bg-muted/30 p-8 sm:p-12">
-          <h2 id="h-entscheidung" class="wfx-reveal text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Die Entscheidung liegt bei Ihnen.</h2>
-          <div class="mt-8 grid gap-6 md:grid-cols-2">
-            <div class="wfx-reveal rounded-2xl border border-border bg-card p-6">
-              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">1</span>
-              <p class="mt-4 leading-relaxed text-muted-foreground">
-                Sie machen weiter wie bisher — und erfahren auch in sechs Monaten nicht,
-                wen die KI Ihren Kunden empfiehlt, wenn diese nach Ihrer Leistung fragen.
-              </p>
-            </div>
-            <div class="wfx-reveal rounded-2xl border-2 border-cta/40 bg-card p-6">
-              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">2</span>
-              <p class="mt-4 leading-relaxed text-foreground">
-                Sie investieren 60 Minuten — und wissen danach schwarz auf weiß, wo Sie in
-                KI-Antworten stehen. Inklusive Ihres persönlichen Audits, kostenlos und fertig erstellt.
-              </p>
-            </div>
-          </div>
+      <!-- ── Schluss-CTA ────────────────────────────────────────────── -->
+      <section aria-labelledby="h-schluss" class="border-t border-border py-16">
+        <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
+          <h2 id="h-schluss" class="wfx-reveal text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">60 Minuten, die zeigen, wo Sie in KI-Antworten stehen.</h2>
+          <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Kostenlos, inklusive Ihres persönlichen Audits — Sie brauchen nur Website, Namen und E-Mail.</p>
           <div class="mt-8">
-            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
-            </div>
+            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt Platz sichern →</a>
+          </div>
         </div>
       </section>
 

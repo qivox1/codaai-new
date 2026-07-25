@@ -1,0 +1,217 @@
+---
+/**
+ * WebinarSignup — schlanke Anmeldung im Stil der Startseiten-AuditCTA, aber auf
+ * das Webinar verdrahtet. Flow: URL → Vorname/Name → E-Mail + Pflicht-Einwilligung
+ * → Bestätigung. Sendet action `webinar_register` an dieselbe Apps-Script-Web-App
+ * (Sheet-Eintrag + Bestätigungsmail). URL-Erreichbarkeit wird NICHT blockierend
+ * geprüft (Wunsch Oli 25.07.2026 — kein Tippfehler soll eine Anmeldung kosten).
+ *
+ * Eigene [data-wacta]-Verdrahtung, damit die AuditCTA-Instanzen (visibility_check)
+ * nicht kollidieren.
+ */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+interface Props { label?: string; align?: 'start' | 'center'; theme?: 'light' | 'dark'; }
+const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light' } = Astro.props;
+---
+
+<div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-state="idle">
+  <div class="wacta-hp" aria-hidden="true">
+    <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <button type="button" class="wacta-trigger" data-open>
+    <span>{label}</span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <form class="wacta-form" novalidate autocomplete="off" data-form>
+    <div class="wacta-line wacta-line--url">
+      <input class="wacta-in" data-url type="text" inputmode="url" spellcheck="false"
+             placeholder="Ihre Website-URL — z. B. ihrefirma.de" aria-label="Website-URL" />
+      <button type="button" class="wacta-sq" data-next aria-label="Weiter">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="wacta-contact" data-contact>
+      <p class="wacta-hint">Ihre Anmeldung — wohin dürfen wir den Zugangslink senden?</p>
+      <div class="wacta-grid">
+        <input class="wacta-in" data-firstname type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
+        <input class="wacta-in" data-lastname type="text" placeholder="Name" aria-label="Name" autocomplete="family-name" />
+      </div>
+      <input class="wacta-in" data-email type="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse" autocomplete="email" />
+      <label class="wacta-consent">
+        <input type="checkbox" data-consent />
+        <span>CodaAI darf mich im Zuge der Webinaranmeldung kontaktieren. Hinweise in der <a href={`${base}/datenschutz/`} target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+      </label>
+      <button type="button" class="wacta-submit" data-submit>Platz sichern →</button>
+    </div>
+
+    <p class="wacta-err" data-err hidden></p>
+  </form>
+
+  <div class="wacta-done" data-done>
+    <span class="wacta-check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <p><b>Vielen Dank!</b> Ihre Anmeldung zum Webinar am <b>Di, 08.09.2026, 11:00&nbsp;Uhr</b> ist eingegangen — den Zugangslink senden wir rechtzeitig per E-Mail.</p>
+  </div>
+</div>
+
+<style>
+  .wacta { --pink:#DF41FB; --pink-d:#c231e0; --ink:#141414; --muted:#6b6b76; --bd:#e4e4ec;
+    display:block; position:relative; width:100%; max-width:520px; text-align:left; }
+  .wacta--center { margin-left:auto; margin-right:auto; }
+
+  .wacta-hp { position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; }
+
+  .wacta-trigger {
+    display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+    font:inherit; font-weight:700; font-size:15px; line-height:1;
+    color:#fff; background:var(--pink); border:none; border-radius:999px;
+    padding:16px 26px; box-shadow:0 10px 30px -8px rgba(223,65,251,.55);
+    transition:transform .18s ease, box-shadow .25s ease, opacity .2s ease;
+  }
+  .wacta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px rgba(223,65,251,.65); }
+  .wacta-trigger svg { transition:transform .2s ease; }
+  .wacta-trigger:hover svg { transform:translateX(3px); }
+
+  .wacta-form { max-width:0; opacity:0; overflow:hidden; pointer-events:none;
+    transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease; }
+  .wacta-line { display:flex; align-items:stretch; gap:8px; }
+  .wacta-in { font:inherit; font-size:15px; color:var(--ink); background:#fff;
+    border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
+    outline:none; width:100%; min-width:0;
+    transition:border-color .18s ease, box-shadow .18s ease; }
+  .wacta-in::placeholder { color:#9a9aa6; }
+  .wacta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(223,65,251,.16); }
+  .wacta-line--url .wacta-in { flex:1; }
+
+  .wacta-sq { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+    width:52px; border:none; border-radius:14px; cursor:pointer;
+    color:#fff; background:var(--pink); box-shadow:0 8px 22px -8px rgba(223,65,251,.6);
+    transition:background .18s ease, transform .18s ease; }
+  .wacta-sq:hover { background:var(--pink-d); transform:translateY(-1px); }
+  .wacta-sq svg { transition:transform .2s ease; }
+  .wacta-sq:hover svg { transform:translateX(2px); }
+
+  .wacta-contact { max-height:0; opacity:0; overflow:hidden;
+    transition:max-height .45s ease, opacity .35s ease, margin-top .45s ease; }
+  .wacta-hint { font-size:13px; font-weight:600; color:var(--muted); margin:0 0 8px; }
+  .wacta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .wacta-contact .wacta-in[data-email] { margin-bottom:10px; }
+
+  .wacta-consent { display:flex; align-items:flex-start; gap:9px; font-size:12.5px;
+    line-height:1.45; color:var(--muted); cursor:pointer; margin-bottom:12px; }
+  .wacta-consent input { margin-top:2px; width:16px; height:16px; flex:0 0 auto; accent-color:var(--pink); cursor:pointer; }
+  .wacta-consent a { color:var(--pink-d); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+
+  .wacta-submit { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; font:inherit; font-weight:700; font-size:15px; color:#fff;
+    background:var(--pink); border:none; border-radius:14px; padding:14px 20px; cursor:pointer;
+    box-shadow:0 10px 26px -10px rgba(223,65,251,.6); transition:background .18s ease, transform .18s ease, opacity .2s ease; }
+  .wacta-submit:hover { background:var(--pink-d); transform:translateY(-1px); }
+
+  .wacta-err { margin-top:8px; font-size:13px; color:#c0245a; }
+  .wacta-err a { color:#c0245a; font-weight:600; text-decoration:underline; }
+
+  .wacta-done { display:none; align-items:center; gap:14px;
+    border:1.5px solid rgba(223,65,251,.32); background:rgba(223,65,251,.06);
+    border-radius:16px; padding:16px 18px; max-width:520px; }
+  .wacta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:999px; background:var(--pink); }
+  .wacta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
+
+  .wacta.wacta--dark { --muted:#b9b9c6; }
+  .wacta.wacta--dark .wacta-done p { color:#f4f4f7; }
+  .wacta.wacta--dark .wacta-done { border-color:rgba(223,65,251,.5); background:rgba(223,65,251,.14); }
+
+  .wacta[data-state="idle"] .wacta-form,
+  .wacta[data-state="idle"] .wacta-done { display:none; }
+  .wacta:not([data-state="idle"]):not([data-state="done"]) .wacta-trigger { display:none; }
+  .wacta[data-state="done"] .wacta-trigger,
+  .wacta[data-state="done"] .wacta-form { display:none; }
+  .wacta[data-state="url"] .wacta-form,
+  .wacta[data-state="contact"] .wacta-form,
+  .wacta[data-state="sending"] .wacta-form { max-width:520px; opacity:1; pointer-events:auto; }
+  .wacta[data-state="contact"] .wacta-contact,
+  .wacta[data-state="sending"] .wacta-contact { max-height:360px; opacity:1; margin-top:10px; }
+  .wacta[data-state="sending"] .wacta-submit { opacity:.6; pointer-events:none; }
+  .wacta[data-state="done"] .wacta-done { display:flex; }
+
+  @media (max-width:520px) { .wacta-trigger { width:100%; justify-content:center; } }
+  @media (prefers-reduced-motion: reduce) {
+    .wacta-form, .wacta-contact, .wacta-trigger, .wacta-sq, .wacta-submit, .wacta-in { transition:none !important; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+    var SLOT = '2026-09-08';
+    function normalizeDomain(raw) {
+      var s = (raw || '').trim().toLowerCase();
+      s = s.replace(/^https?:\/\//, '').replace(/^www\./, '');
+      s = s.split(/[/?#]/)[0];
+      return s.trim();
+    }
+    var DOMAIN_RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
+    var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    function initWacta(root) {
+      if (root.dataset.wired === '1') return;
+      root.dataset.wired = '1';
+      var q = function (s) { return root.querySelector(s); };
+      var openBtn = q('[data-open]'), nextBtn = q('[data-next]'), submitBtn = q('[data-submit]');
+      var urlIn = q('[data-url]'), firstIn = q('[data-firstname]'), lastIn = q('[data-lastname]');
+      var emailIn = q('[data-email]'), consentIn = q('[data-consent]'), hp = q('[data-hp]');
+      var err = q('[data-err]'), formEl = root.querySelector('[data-form]');
+      if (formEl) formEl.addEventListener('submit', function (e) { e.preventDefault(); });
+      var setState = function (s) { root.setAttribute('data-state', s); };
+      var showErr = function (m) { if (err) { err.innerHTML = m; err.hidden = false; } };
+      var clearErr = function () { if (err) err.hidden = true; };
+      if (openBtn) openBtn.addEventListener('click', function () { setState('url'); setTimeout(function () { if (urlIn) urlIn.focus(); }, 420); });
+      var goContact = function () {
+        clearErr();
+        var dom = normalizeDomain(urlIn ? urlIn.value : '');
+        if (!dom || !DOMAIN_RE.test(dom)) { showErr('Bitte geben Sie eine g&uuml;ltige Website-Adresse ein (z. B. ihrefirma.de).'); if (urlIn) urlIn.focus(); return; }
+        setState('contact');
+        setTimeout(function () { if (firstIn) firstIn.focus(); }, 380);
+      };
+      if (nextBtn) nextBtn.addEventListener('click', goContact);
+      if (urlIn) urlIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goContact(); } });
+      var submit = function () {
+        clearErr();
+        var dom = normalizeDomain(urlIn ? urlIn.value : '');
+        var first = (firstIn ? firstIn.value : '').trim();
+        var last = (lastIn ? lastIn.value : '').trim();
+        var email = (emailIn ? emailIn.value : '').trim();
+        if (!dom || !DOMAIN_RE.test(dom)) { setState('url'); showErr('Bitte pr&uuml;fen Sie die Website-Adresse.'); if (urlIn) urlIn.focus(); return; }
+        if (!first) { showErr('Bitte geben Sie Ihren Vornamen an.'); if (firstIn) firstIn.focus(); return; }
+        if (!last) { showErr('Bitte geben Sie Ihren Namen an.'); if (lastIn) lastIn.focus(); return; }
+        if (!EMAIL_RE.test(email)) { showErr('Bitte geben Sie eine g&uuml;ltige E-Mail-Adresse an.'); if (emailIn) emailIn.focus(); return; }
+        if (!consentIn || !consentIn.checked) { showErr('Bitte best&auml;tigen Sie die Einwilligung.'); return; }
+        if (hp && hp.value) { setState('done'); return; }
+        setState('sending');
+        var lang = 'de';
+        try { lang = document.documentElement.lang || 'de'; } catch (e) {}
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'webinar_register', name: first + ' ' + last, email: email, domain: dom, phone: '', position: '', slot: SLOT, consent: true, livetest: false })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            if (r && r.ok === false) { setState('contact'); showErr('Anmeldung nicht m&ouml;glich. Bitte erneut versuchen &mdash; oder per E-Mail an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.'); return; }
+            try { var dl = (window.dataLayer = window.dataLayer || []); dl.push({ event: 'webinar_signup', webinar_slot: SLOT, lang: lang }); } catch (e) {}
+            setState('done');
+          })
+          .catch(function () { setState('contact'); showErr('Da ist etwas schiefgelaufen. Bitte erneut versuchen oder an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a> schreiben.'); });
+      };
+      if (submitBtn) submitBtn.addEventListener('click', submit);
+      if (emailIn) emailIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); if (consentIn) consentIn.focus(); } });
+    }
+    function boot() { var list = document.querySelectorAll('[data-wacta]'); for (var i = 0; i < list.length; i++) initWacta(list[i]); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
+  })();
+</script>
