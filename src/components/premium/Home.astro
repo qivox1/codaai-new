@@ -206,7 +206,7 @@ import AuditCTA from './AuditCTA.astro';
             2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen wird nicht genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber übernehmen die Empfehlung.</span></span>
           </p>
         </div></div>
@@ -231,7 +231,7 @@ import AuditCTA from './AuditCTA.astro';
             sollte den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Die KI nennt Normen und Anforderungen — und dann Anbieter. Das Unternehmen führt passende Produkte im Programm, kommt in der Antwort aber nicht vor.</span></span>
           </p>
         </div></div>
@@ -256,7 +256,7 @@ import AuditCTA from './AuditCTA.astro';
             3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“</p>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span>KI wertet die Antwort aus …</span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">KI liest die Frage …</span></span>
             <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das Unternehmen ist die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese Frage wird es nicht genannt.</span></span>
           </p>
         </div></div>
@@ -697,16 +697,23 @@ import AuditCTA from './AuditCTA.astro';
       if(!v||!v._pending||v._done) return;
       v._done=true;
       var typed=v.querySelector('.mi-vtyped');
+      var label=v.querySelector('.mi-vlabel');
       v.classList.add('is-scanning');
+      // Lange Scan-Phase (~9s), damit man erst Frage und KI-Antwort lesen kann;
+      // der Loader wandert durch drei Phasen, dann tippt sich der Befund ein.
+      var phases=['KI liest die Frage …','KI prüft die KI-Antwort …','KI ermittelt den Befund …'];
+      var pi=0;
+      var cyc=setInterval(function(){ pi++; if(label&&phases[pi]) label.textContent=phases[pi]; if(pi>=phases.length-1) clearInterval(cyc); },3000);
       setTimeout(function(){
+        clearInterval(cyc);
         v.classList.remove('is-scanning');
         typed.classList.add('typing'); typed.textContent='';
         var full=v._full||'', i=0;
         (function tick(){
           i+=2; typed.textContent=full.slice(0,Math.min(i,full.length));
-          if(i<full.length){ setTimeout(tick,16); } else { typed.classList.remove('typing'); }
+          if(i<full.length){ setTimeout(tick,22); } else { typed.classList.remove('typing'); }
         })();
-      },1400);
+      },9000);
     }
 
     function closeAll(){
