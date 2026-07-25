@@ -14,8 +14,8 @@ import AuditCTA from './AuditCTA.astro';
 <div class="dotnav" id="dotnav">
   <a href="#hero" data-nav="hero" class="on"><span>Start</span></a>
   <a href="#problem" data-nav="problem"><span>Das Problem</span></a>
-  <a href="#schauplaetze" data-nav="schauplaetze"><span>SEO · AEO · GEO</span></a>
-  <a href="#programm" data-nav="programm"><span>Das System</span></a>
+  <a href="#spiegel" data-nav="spiegel"><span>Ein echtes Audit</span></a>
+  <a href="#angebot" data-nav="angebot"><span>Das Angebot</span></a>
   <a href="#outcome" data-nav="outcome"><span>Auftragseingang</span></a>
 </div>
 
@@ -26,13 +26,12 @@ import AuditCTA from './AuditCTA.astro';
   <div class="wrap hero-grid">
     <div>
       <h1>
-        <span class="l1">Sichtbar, wo Ihre Kunden</span>
-        <span class="flip" id="flip" aria-live="polite"><span class="sizer">Anbieter vergleichen.</span></span>
+        <span class="l1">Die KI empfiehlt drei Anbieter. Sind Sie einer davon?</span>
       </h1>
-      <p class="desc">94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wir sorgen dafür, dass Sie dort empfohlen werden — und aus Empfehlungen qualifizierte Anfragen werden. Das CodaAI Digital Visibility System aus SEO, AEO und GEO macht genau das messbar.</p>
+      <p class="hl2">Dort, wo Ihre Kunden <span class="flip" id="flip" aria-live="polite"><span class="sizer">Anbieter vergleichen.</span></span></p>
+      <p class="desc">94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wer dort nicht empfohlen wird, bekommt die Anfrage nicht — und erfährt nie, dass es sie gab.</p>
       <div class="ctas">
-        <AuditCTA label="Digital Visibility Audit kostenlos anfordern" />
-        <a href="#programm" class="btn ghost mag" data-mag>Das System im Detail →</a>
+        <AuditCTA label="Zeigen Sie mir, was die KI über uns sagt" />
       </div>
       <div class="pb"><i>AI</i><span>Powered by AI · SEO · AEO · GEO</span></div>
     </div>
@@ -61,12 +60,12 @@ import AuditCTA from './AuditCTA.astro';
     <div class="p-stage">
       <div class="p-rail"><i id="prail"></i></div>
       <div class="p-steps" id="psteps">
-        <span data-step="0">Suchanfrage</span><span data-step="1">Google-Treffer</span><span data-step="2">KI-Übersicht</span><span data-step="3">Wettbewerber</span><span data-step="4">Ihr Blindspot</span>
+        <span data-step="0">Die Frage</span><span data-step="1">Die KI-Antwort</span><span data-step="2">Ihre Leerstelle</span>
       </div>
       <div class="p-phasebar">
         <span class="eyebrow">Wie Einkäufer heute entscheiden</span>
         <p class="p-phasehl" id="pphase">Ihr Kunde sucht — in Google oder gleich in der KI.</p>
-        <span class="p-phasenum" id="pphasenum">Schritt 1 / 5</span>
+        <span class="p-phasenum" id="pphasenum">Beat 1 / 3</span>
       </div>
       <div class="p-inner">
         <div class="browser">
@@ -105,263 +104,211 @@ import AuditCTA from './AuditCTA.astro';
   </div>
 </section>
 
-<!-- ================= SEO / AEO / GEO (horizontal) ================= -->
-<section class="hz" id="schauplaetze">
-  <div class="hz-pin" id="hz-pin">
-    <div class="hz-head">
-      <p class="eyebrow">Drei Disziplinen, ein Ziel</p>
-      <h2 class="sec">SEO, AEO, GEO —<span class="l2">was ist das eigentlich?</span></h2>
-    </div>
-    <div class="hz-count" id="hzcount"><i class="on"></i><i></i><i></i></div>
-    <div class="hz-track" id="hz-track">
-
-      <!-- SEO -->
-      <div class="hz-panel">
-        <div class="disc">
-          <svg class="disc-illu" viewBox="0 0 420 420" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <line x1="60" y1="150" x2="250" y2="150" stroke-linecap="round"/>
-            <line x1="60" y1="188" x2="215" y2="188" stroke-linecap="round"/>
-            <line x1="60" y1="226" x2="240" y2="226" stroke-linecap="round"/>
-            <circle cx="240" cy="205" r="120"/>
-            <line x1="326" y1="291" x2="394" y2="362" stroke-width="6" stroke-linecap="round"/>
-            <path d="M300 152 l6 17 17 6 -17 6 -6 17 -6 -17 -17 -6 17 -6 z" fill="currentColor" stroke="none"/>
-          </svg>
-          <div>
-            <div class="disc-kicker">SEO</div>
-            <div class="disc-step">Ebene 1 · Suchmaschinenoptimierung</div>
-            <h3 class="disc-title">Gefunden werden, wenn jemand aktiv sucht.</h3>
-            <p class="disc-def">Ihre Website rankt in <b>Google und Bing</b>. Sucht ein Einkäufer „Antriebstechnik Sondermaschinenbau", steht Ihre Leistungsseite auf Seite 1. Das Fundament — denn auch KI-Systeme bedienen sich aus den Suchindizes.</p>
-          </div>
-          <div class="disc-demo">
-            <div class="d-card">
-              <div class="d-sq"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5" stroke-linecap="round"/></svg> Antriebstechnik Sondermaschinenbau</div>
-              <div class="d-row"><span class="d-rank">1</span><span>Berger Antriebstechnik</span></div>
-              <div class="d-row"><span class="d-rank">2</span><span>Systemtechnik Nord</span></div>
-              <div class="d-row you"><span class="d-rank">4</span><span>Ihre Firma — sichtbar auf Seite 1 ✓</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AEO -->
-      <div class="hz-panel">
-        <div class="disc">
-          <svg class="disc-illu" viewBox="0 0 420 420" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <rect x="70" y="95" width="292" height="132" rx="18"/>
-            <line x1="100" y1="140" x2="320" y2="140" stroke-linecap="round"/>
-            <line x1="100" y1="172" x2="288" y2="172" stroke-linecap="round"/>
-            <path d="M352 58 l9 25 25 9 -25 9 -9 25 -9 -25 -25 -9 25 -9 z" fill="currentColor" stroke="none"/>
-            <line x1="80" y1="272" x2="250" y2="272" stroke-linecap="round"/>
-            <line x1="80" y1="304" x2="215" y2="304" stroke-linecap="round"/>
-            <line x1="80" y1="336" x2="240" y2="336" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <div class="disc-kicker">AEO</div>
-            <div class="disc-step">Ebene 2 · Answer Engine Optimization</div>
-            <h3 class="disc-title">Zitiert werden in Googles KI-Übersicht.</h3>
-            <p class="disc-def">Google beantwortet immer mehr Fragen <b>direkt über den Treffern</b> — in der KI-Übersicht. AEO sorgt dafür, dass Ihre Inhalte in dieser Antwortbox als Quelle erscheinen. Wer dort fehlt, verliert Klicks trotz gutem Ranking.</p>
-          </div>
-          <div class="disc-demo">
-            <div class="d-card">
-              <div class="d-aio">
-                <div class="h"><span style="color:var(--magenta)">✦</span> KI-Übersicht</div>
-                <p>Worauf es bei der Auswahl eines Anbieters ankommt, fassen mehrere Quellen zusammen — darunter <strong>Ihre Leistungsseite</strong> und <strong>Ihr Fachbeitrag</strong>.</p>
-              </div>
-              <span class="d-check">✓ Als Quelle zitiert</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- GEO -->
-      <div class="hz-panel">
-        <div class="disc">
-          <svg class="disc-illu" viewBox="0 0 420 420" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <line x1="210" y1="210" x2="90" y2="110"/>
-            <line x1="210" y1="210" x2="330" y2="90"/>
-            <line x1="210" y1="210" x2="352" y2="228"/>
-            <line x1="210" y1="210" x2="300" y2="342"/>
-            <line x1="210" y1="210" x2="112" y2="322"/>
-            <line x1="210" y1="210" x2="70" y2="222"/>
-            <circle cx="90" cy="110" r="7"/>
-            <circle cx="330" cy="90" r="7"/>
-            <circle cx="352" cy="228" r="7"/>
-            <circle cx="300" cy="342" r="7"/>
-            <circle cx="112" cy="322" r="7"/>
-            <circle cx="70" cy="222" r="7"/>
-            <circle cx="210" cy="210" r="22"/>
-            <circle cx="210" cy="210" r="13" fill="currentColor" stroke="none"/>
-          </svg>
-          <div>
-            <div class="disc-kicker">GEO</div>
-            <div class="disc-step">Ebene 3 · Generative Engine Optimization</div>
-            <h3 class="disc-title">Namentlich empfohlen in ChatGPT &amp; Co.</h3>
-            <p class="disc-def">Die Königsdisziplin: Ihr Unternehmen wird in <b>ChatGPT, Gemini, Perplexity und Claude</b> beim Namen genannt, wenn Einkäufer nach Anbietern fragen. GEO entscheidet, ob dort Ihr Name steht — oder der Ihres Wettbewerbers.</p>
-          </div>
-          <div class="disc-demo">
-            <div class="d-card">
-              <div class="d-gpt">
-                <p class="u">Welche Hersteller sollten wir anfragen?</p>
-                <p>Empfehlenswert sind vor allem <strong>Ihre Firma</strong> (dokumentierte Prozesse, starke Referenzen) sowie zwei weitere Anbieter.</p>
-              </div>
-              <span class="d-check">✓ Namentlich empfohlen</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CTA-Band nach SEO/AEO/GEO (invertiert: schwarz/weiß) -->
-<section class="acta-band" style="padding:78px 0;background:#0f0f12;border-top:1px solid #1e1e26;border-bottom:1px solid #1e1e26">
-  <div class="wrap" style="text-align:center;max-width:760px">
-    <p style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.015em;color:#ffffff;line-height:1.25;margin:0 0 22px">
-      Wie sichtbar ist Ihr Unternehmen heute in ChatGPT &amp; der Google&nbsp;KI-Übersicht?
-    </p>
-    <div style="display:flex;justify-content:center">
-      <AuditCTA variant="band" align="center" theme="dark" />
-    </div>
-  </div>
-</section>
-
-<!-- ================= CONCLUSIO (Farbüberblendung + Zitat) ================= -->
-<section class="conclusio" id="conclusio">
-  <div class="cc-scene" id="cc-scene">
-    <div class="cc-stage">
-      <div class="cc-veil" id="cc-veil"></div>
-      <div class="cc-quote">
-        <span class="cc-mark" aria-hidden="true">&ldquo;</span>
-        <div class="cc-row cc-r1">
-          <span class="cc-w t-label">Jede</span>
-          <span class="cc-w cc-big t-outline">Ebene</span>
-          <span class="cc-w t-label">für sich</span>
-        </div>
-        <div class="cc-row cc-r2">
-          <span class="cc-w t-mid">bleibt</span>
-          <span class="cc-w cc-big t-huge">Stückwerk.</span>
-        </div>
-        <div class="cc-row cc-r3">
-          <span class="cc-w t-label">Erst alle</span>
-          <span class="cc-w cc-big t-outline">3</span>
-          <span class="cc-w t-mid">zusammen</span>
-          <span class="cc-w t-label">ergeben</span>
-        </div>
-        <div class="cc-row cc-r4">
-          <span class="cc-w cc-big t-mega">Digital Visibility.</span>
-        </div>
-        <div class="cc-row cc-r5">
-          <span class="cc-w cc-sub">Sichtbar an jeder Stelle, an der Ihre Kunden entscheiden.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PROGRAMM / BENTO ================= -->
-<section class="prog" id="programm">
+<!-- ================= DREI STELLEN + BEGRIFFE (Akkordeon) ================= -->
+<!-- Ersetzt die frühere gepinnte SEO/AEO/GEO-Horizontalszene (~200vh Scrollstrecke
+     für drei Definitionen). Die Erklärung bleibt vollständig erhalten, kostet aber
+     null Scrollstrecke: Grundzustand eine Zeile, Tiefe auf Klick. Es ist das
+     EINZIGE Akkordeon der Startseite — das Muster bleibt für optionales
+     Begriffswissen reserviert. -->
+<section class="rooms" id="stellen">
   <div class="wrap">
-    <div class="prog-head">
-      <p class="eyebrow">Das CodaAI Digital Visibility System</p>
-      <h2 class="sec">Ein System. Drei Ebenen. Ein Ziel: empfohlen werden.</h2>
-      <p class="lead" style="margin-top:14px">Sichtbarkeit in KI-Antworten entsteht zum großen Teil außerhalb der eigenen Website. Unser System arbeitet deshalb auf drei Ebenen — vom Fundament bis zur Marktführerschaft.</p>
-    </div>
-    <div class="sys" id="sys">
-      <!-- Showcase (wechselt je Ebene) -->
-      <div class="sys-stage">
-        <div class="sys-panel on" data-level="0">
-          <div class="shot">
-            <div class="shot-head"><b>Digital Visibility Audit</b><span class="chip2">ihre-domain.de</span></div>
-            <div class="barrow2"><span class="bl">SEO-Sichtbarkeit</span><span class="bt"><i style="--w:62%"></i></span><span class="bv">6,2</span></div>
-            <div class="barrow2"><span class="bl">AIO-Präsenz</span><span class="bt"><i style="--w:41%"></i></span><span class="bv">41 %</span></div>
-            <div class="barrow2"><span class="bl">KI-Nennungsrate</span><span class="bt"><i style="--w:12%"></i></span><span class="bv">12 %</span></div>
-            <p class="shot-cap">Ihr Ausgangswert — schwarz auf weiß.</p>
-          </div>
-        </div>
-        <div class="sys-panel" data-level="1">
-          <div class="shot">
-            <div class="shot-head"><b>Sichtbar in jeder Engine</b><span class="chip2">Digital-PR</span></div>
-            <svg class="eng" viewBox="0 0 260 150" width="100%" height="150" style="margin-top:6px">
-              <g><line x1="92" y1="75" x2="176" y2="25" stroke="var(--magenta)" stroke-opacity=".35" stroke-width="1.5"/><rect x="176" y="12" width="80" height="26" rx="6" fill="none" stroke="var(--line2)"/><text x="216" y="29" text-anchor="middle" font-size="11" font-weight="700" fill="#444">ChatGPT</text></g>
-              <g><line x1="92" y1="75" x2="176" y2="75" stroke="var(--magenta)" stroke-opacity=".35" stroke-width="1.5"/><rect x="176" y="62" width="80" height="26" rx="6" fill="none" stroke="var(--line2)"/><text x="216" y="79" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Google</text></g>
-              <g><line x1="92" y1="75" x2="176" y2="125" stroke="var(--magenta)" stroke-opacity=".35" stroke-width="1.5"/><rect x="176" y="112" width="80" height="26" rx="6" fill="none" stroke="var(--line2)"/><text x="216" y="129" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Perplexity</text></g>
-              <rect x="4" y="60" width="88" height="30" rx="8" fill="var(--magenta)"/><text x="48" y="79" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">Ihre Website</text>
-            </svg>
-            <p class="shot-cap">Ihr Name in fremden Quellen — die KI empfiehlt, wen sie oft liest.</p>
-          </div>
-        </div>
-        <div class="sys-panel" data-level="2">
-          <div class="shot">
-            <div class="shot-head"><b>Eigene Studie &amp; Daten-Assets</b><span class="chip2">Zitatmagnet</span></div>
-            <svg viewBox="0 0 260 150" width="100%" height="150" style="margin-top:6px">
-              <line x1="10" y1="130" x2="250" y2="130" stroke="var(--line)" stroke-width="1.5"/>
-              <rect class="gbar" x="30" y="94" width="34" height="36" rx="4" fill="rgba(223,65,251,.32)"/>
-              <rect class="gbar" x="86" y="72" width="34" height="58" rx="4" fill="rgba(223,65,251,.5)"/>
-              <rect class="gbar" x="142" y="48" width="34" height="82" rx="4" fill="rgba(223,65,251,.72)"/>
-              <rect class="gbar" x="198" y="24" width="34" height="106" rx="4" fill="var(--magenta)"/>
-            </svg>
-            <p class="shot-cap"><strong>7.184</strong> dokumentierte KI-Antworten — Zahlen, die sonst niemand hat.</p>
-          </div>
-        </div>
-        <button class="sys-pp" aria-label="Pause">&#10073;&#10073;</button>
-      </div>
+    <p class="rooms-lead">Diese Entscheidung fällt an drei Stellen: in der klassischen Suche
+      (<b>SEO</b>), in Googles KI-Übersicht (<b>AEO</b>) und in KI-Assistenten wie ChatGPT (<b>GEO</b>).</p>
 
-      <!-- Segmented-Pill-Tabs -->
-      <div class="sys-tabs">
-        <div class="sys-tablist" role="tablist" aria-label="Die drei Ebenen des Systems">
-          <button class="sys-tab on" role="tab" data-tab="0" aria-selected="true">Fundament<i class="pgr"></i></button>
-          <button class="sys-tab" role="tab" data-tab="1" aria-selected="false">Skalierung<i class="pgr"></i></button>
-          <button class="sys-tab" role="tab" data-tab="2" aria-selected="false">Marktführerschaft<i class="pgr"></i></button>
+    <div class="acc">
+      <button class="accbtn" id="accbtn" aria-expanded="false" aria-controls="accbody">
+        <span>Was die drei Begriffe bedeuten</span>
+        <span class="ar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+      </button>
+      <div class="accbody" id="accbody">
+        <div class="tabs" role="tablist" aria-label="SEO, AEO und GEO">
+          <button class="tab on" data-tab="0" role="tab" aria-selected="true">SEO</button>
+          <button class="tab" data-tab="1" role="tab" aria-selected="false">AEO</button>
+          <button class="tab" data-tab="2" role="tab" aria-selected="false">GEO</button>
         </div>
-      </div>
-
-      <!-- Erläuterungen je Ebene -->
-      <div class="sys-body">
-        <div class="sys-content on" data-content="0">
-          <div class="sys-lead"><span class="lv">Ebene 1 · in jeder Stufe enthalten</span><h3>Das Fundament — messbar und zitierfähig.</h3></div>
-          <div class="sys-items" style="grid-template-rows:repeat(3,auto)">
-            <div class="sys-item"><span class="dot">1</span><div><b>Digital Visibility Audit</b><p>Was ChatGPT &amp; die Google KI-Übersicht heute über Sie sagen — als persönliches Dashboard.</p></div></div>
-            <div class="sys-item"><span class="dot">2</span><div><b>KI-Sichtbarkeits-Monitoring</b><p>Monatlicher Report Ihrer KI-Nennungen. Ohne Messung kein beweisbarer Fortschritt.</p></div></div>
-            <div class="sys-item"><span class="dot">3</span><div><b>SEO — inklusive Bing</b><p>Google und Bing. ChatGPT bedient sich beim Bing-Index — kaum jemand optimiert dafür.</p></div></div>
-            <div class="sys-item"><span class="dot">4</span><div><b>Technische KI-Zugänglichkeit</b><p>KI-Crawler lesen kein JavaScript. Wir machen Ihre Inhalte lesbar und zitierbar.</p></div></div>
-            <div class="sys-item"><span class="dot">5</span><div><b>Zitierfähiger Content</b><p>Statistiken, Quellen, klare Aussagen — das Format, das KI bevorzugt zitiert.</p></div></div>
-            <div class="sys-item"><span class="dot">6</span><div><b>Content-Refresh &amp; Bestandsseiten</b><p>Wir halten Ihre wichtigsten Seiten systematisch aktuell — KI bevorzugt frische Inhalte.</p></div></div>
+        <div class="panes">
+          <div class="pane on" data-pane="0">
+            <span class="plv">Ebene 1 · Search Engine Optimization</span>
+            <h3>Gefunden werden, wenn jemand aktiv sucht.</h3>
+            <p>Ihre Website rankt in Google und Bing. Sucht ein Einkäufer nach Ihrer Leistung, steht
+              Ihre Seite auf Seite 1. Das Fundament — denn auch KI-Systeme bedienen sich aus den Suchindizes.</p>
           </div>
-        </div>
-        <div class="sys-content" data-content="1">
-          <div class="sys-lead"><span class="lv">Ebene 2 · die nächste Ausbaustufe</span><h3>Skalierung — außerhalb Ihrer Website.</h3></div>
-          <div class="sys-items" style="grid-template-rows:repeat(2,auto)">
-            <div class="sys-item"><span class="dot">1</span><div><b>Digital-PR &amp; Markennennungen</b><p>Ihr Name auf Fachseiten und in Branchenmedien — der stärkste Treiber der KI-Sichtbarkeit.</p></div></div>
-            <div class="sys-item"><span class="dot">2</span><div><b>Bewertungsplattformen</b><p>Profile auf den relevanten Vergleichsportalen Ihrer Branche — KI stützt sich stark darauf.</p></div></div>
-            <div class="sys-item"><span class="dot">3</span><div><b>Vergleichs- &amp; Listicle-Platzierung</b><p>„Beste Anbieter für X" — das dominante Zitierformat bei Kauffragen.</p></div></div>
-            <div class="sys-item"><span class="dot">4</span><div><b>YouTube-Sichtbarkeit</b><p>YouTube zählt zu den meistzitierten Quellen in KI-Antworten.</p></div></div>
+          <div class="pane" data-pane="1">
+            <span class="plv">Ebene 2 · Answer Engine Optimization</span>
+            <h3>Zitiert werden in Googles KI-Übersicht.</h3>
+            <p>Google beantwortet immer mehr Fragen direkt über den Treffern. AEO sorgt dafür, dass Ihre
+              Inhalte in dieser Antwortbox als Quelle erscheinen. Wer dort fehlt, verliert Klicks trotz gutem Ranking.</p>
           </div>
-        </div>
-        <div class="sys-content" data-content="2">
-          <div class="sys-lead"><span class="lv">Ebene 3 · die Spitze des Systems</span><h3>Marktführerschaft — die Quellen selbst besetzen.</h3></div>
-          <div class="sys-items" style="grid-template-rows:repeat(2,auto)">
-            <div class="sys-item"><span class="dot">1</span><div><b>Eigene Studien &amp; Daten-Assets</b><p>Eigene Zahlen, die sonst niemand hat — der stärkste Zitatmagnet überhaupt.</p></div></div>
-            <div class="sys-item"><span class="dot">2</span><div><b>Wissensdatenbanken</b><p>Strukturierte Einträge in Wikidata &amp; Co. — KI kennt Sie als klar definierte Größe.</p></div></div>
-            <div class="sys-item"><span class="dot">3</span><div><b>LinkedIn-Thought-Leadership</b><p>Fachbeiträge dort, wo Entscheider lesen — und KI mitliest.</p></div></div>
-            <div class="sys-item"><span class="dot">4</span><div><b>Wettbewerbs-Beobachtung</b><p>Wer wird statt Ihnen genannt? Ihr Anteil an KI-Empfehlungen, Quartal für Quartal.</p></div></div>
+          <div class="pane" data-pane="2">
+            <span class="plv">Ebene 3 · Generative Engine Optimization</span>
+            <h3>Namentlich empfohlen in ChatGPT &amp; Co.</h3>
+            <p>Die Königsdisziplin: Ihr Unternehmen wird in ChatGPT, Gemini, Perplexity und Claude beim
+              Namen genannt, wenn Einkäufer nach Anbietern fragen. GEO entscheidet, ob dort Ihr Name
+              steht — oder der Ihres Wettbewerbers.</p>
           </div>
         </div>
       </div>
-
-      <p class="sys-more"><a href="#termin">Alle Leistungen im Detail besprechen →</a></p>
     </div>
   </div>
 </section>
 
-<!-- CTA-Band nach dem System-Modul (invertiert: schwarz/weiß, identisch zum Band nach SEO/AEO/GEO) -->
-<section class="acta-band" style="padding:78px 0;background:#0f0f12;border-top:1px solid #1e1e26;border-bottom:1px solid #1e1e26">
-  <div class="wrap" style="text-align:center;max-width:760px">
-    <p style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.015em;color:#ffffff;line-height:1.25;margin:0 0 22px">
-      Sehen Sie schwarz auf weiß, wo Sie stehen — und wo Ihr Wettbewerber empfohlen wird.
-    </p>
-    <div style="display:flex;justify-content:center">
-      <AuditCTA variant="band" align="center" theme="dark" />
+<!-- ================= DER SPIEGEL — echtes Muster-Audit ================= -->
+<!-- Herzstück der reduzierten Startseite: ersetzt geschätzt 800 Wörter Erklärung
+     durch Beweis. Interaktion statt Animation — der Besucher öffnet selbst.
+     Quelle: https://audit.codaai.ai/view/musteraudit  (echtes Audit, Firmenname,
+     Logo und Website-Ansicht entfernt, Zahlen und KI-Antworten unverändert). -->
+<section class="mirror" id="spiegel">
+  <div class="wrap">
+    <div class="mi-head">
+      <span class="eyebrow">Ein echtes Audit — nur nicht Ihres</span>
+      <h2 class="sec">Das ist ein echtes Digital Visibility Audit.<br><em>Nur nicht Ihres.</em></h2>
+      <p class="lead">Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem
+        Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen
+        Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles
+        KI-Übersicht gestellt und protokolliert, wer genannt wurde. Name und Logo sind entfernt.
+        Die Befunde nicht.</p>
+      <p class="mi-cue"><i aria-hidden="true">↓</i> Klappen Sie eine Frage auf. In Ihrem Audit steht dort
+        Ihre Branche — und der Name, der statt Ihrem genannt wird.</p>
+    </div>
+
+    <div class="mi-card" id="mi-card">
+      <div class="mi-top">
+        <span class="mi-lg">Coda<em>AI</em> Digital Visibility Audit</span>
+        <span class="mi-anon">Firmenname entfernt · Zahlen unverändert</span>
+      </div>
+
+      <div class="mi-kpi">
+        <div><b class="bad">0 %</b><span>KI-Sichtbarkeit</span></div>
+        <div><b class="bad">0 von 8</b><span>Fragen mit Nennung</span></div>
+        <div><b class="bad">100 %</b><span>der Fragen nennen stattdessen Wettbewerber</span></div>
+        <div><b>8</b><span>individuell formulierte Käuferfragen</span></div>
+      </div>
+
+      <div class="mi-q">
+        <button class="mi-qh" aria-expanded="false">
+          <span class="mi-st">Marktübersicht</span>
+          <span class="mi-main">
+            <span class="mi-t">Welche deutschen Hersteller von Sanitärarmaturen bieten das beste
+              Preis-Leistungs-Verhältnis für mittlere Projektgrößen?</span>
+            <span class="mi-res">Genannt wurden: <b>Grohe</b>, <b>Hansa</b>, <b>Hansgrohe</b>, <b>Keuco</b>, <b>Kludi</b></span>
+          </span>
+          <span class="mi-flag">nicht genannt</span>
+          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
+        </button>
+        <div class="mi-qb"><div class="mi-qi">
+          <p class="mi-src">ChatGPT · dokumentiert am 25.06.2026</p>
+          <p class="mi-ans">„Bei mittleren Projektgrößen gibt es mehrere deutsche Hersteller von
+            Sanitärarmaturen, die ein gutes Preis-Leistungs-Verhältnis bieten: 1. <mark>Grohe</mark> …
+            2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“</p>
+          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Das Unternehmen wird nicht
+            genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber
+            übernehmen die Empfehlung.</span></p>
+        </div></div>
+      </div>
+
+      <div class="mi-q">
+        <button class="mi-qh" aria-expanded="false">
+          <span class="mi-st">Anwendungsfall</span>
+          <span class="mi-main">
+            <span class="mi-t">Welche Duschsysteme mit Handbrause empfehlen sich für barrierefreie
+              Bäder in Pflegeeinrichtungen?</span>
+            <span class="mi-res">Genannt wurden: <b>Grohe</b>, <b>Hansa</b>, <b>Hansgrohe</b></span>
+          </span>
+          <span class="mi-flag">nicht genannt</span>
+          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
+        </button>
+        <div class="mi-qb"><div class="mi-qi">
+          <p class="mi-src">Google KI-Übersicht · dokumentiert am 25.06.2026</p>
+          <p class="mi-ans">„Für barrierefreie Bäder in Pflegeeinrichtungen empfehlen sich Duschsysteme,
+            die Sicherheit, Ergonomie, Wartungsfreundlichkeit und Langlebigkeit vereinen. Die Auswahl
+            sollte den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen …“</p>
+          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Die KI nennt Normen und
+            Anforderungen — und dann Anbieter. Das Unternehmen führt passende Produkte im Programm,
+            kommt in der Antwort aber nicht vor.</span></p>
+        </div></div>
+      </div>
+
+      <div class="mi-q">
+        <button class="mi-qh" aria-expanded="false">
+          <span class="mi-st">Wettbewerbsvergleich</span>
+          <span class="mi-main">
+            <span class="mi-t">Welche günstigeren Alternativen zu Hansgrohe gibt es bei Duschsystemen
+              für Bauträger?</span>
+            <span class="mi-res">Genannt wurden: <b>Grohe</b>, <b>Ideal Standard</b>, <b>Hansa</b>, <b>RAVAK</b>, <b>Kludi</b></span>
+          </span>
+          <span class="mi-flag">nicht genannt</span>
+          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
+        </button>
+        <div class="mi-qb"><div class="mi-qi">
+          <p class="mi-src">ChatGPT · dokumentiert am 25.06.2026</p>
+          <p class="mi-ans">„Es gibt mehrere günstigere Alternativen zu Hansgrohe, die dennoch qualitativ
+            hochwertige Duschsysteme anbieten: 1. <mark>GROHE</mark> … 2. <mark>Ideal Standard</mark> …
+            3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“</p>
+          <p class="mi-verdict"><span class="dot"></span><span><b>Befund:</b> Das Unternehmen
+            <em>ist</em> die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese
+            Frage wird es nicht genannt.</span></p>
+        </div></div>
+      </div>
+
+      <p class="mi-foot">Auszug: 3 von 8 individuell formulierten Käuferfragen.
+        <a href="https://audit.codaai.ai/view/musteraudit?unlocked=1" target="_blank" rel="noopener">Das
+        vollständige Audit ansehen →</a></p>
+    </div>
+
+    <div class="mi-after">
+      <p>Für Ihr Unternehmen formulieren wir 8 eigene Fragen. Ergebnis in 24 Stunden.</p>
+      <AuditCTA label="Mein Audit anfordern" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= ANGEBOT (Magenta) ================= -->
+<!-- Ersetzt die frühere gepinnte Programm-/Bento-Szene (260vh). Kommerziell der
+     wichtigste Block der Seite und deshalb der EINZIGE gesättigte: der Farbsprung
+     von Schwarz auf Magenta ist die härteste Kante der Seite — genau dort, wo aus
+     Diagnose Angebot wird. Dunkle Schrift (Kontrast 5,81:1 gegen #DF41FB; weiße
+     Schrift käme nur auf 3,34:1 und fiele durch). Audit-Button hier dunkel, weil
+     ein magenta Button auf magenta Grund unsichtbar wäre. -->
+<section class="offer" id="angebot">
+  <div class="wrap">
+    <h2 class="sec off-h">CodaAI bringt Ihre Marke in die Antwort.<span class="off-l2">In Googles
+      KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.</span></h2>
+
+    <div class="tiers">
+      <article class="tier">
+        <div class="tbars"><i class="hi"></i><i></i><i></i></div>
+        <span class="tno">Stufe 1 · Basis</span>
+        <h3>Das Fundament — messbar und zitierfähig.</h3>
+        <p>Ihre Website wird für KI-Systeme lesbar, Ihre Leistungen stehen als Text statt im PDF,
+          Ihre KI-Nennungen werden monatlich gemessen. In jeder Stufe enthalten.</p>
+      </article>
+      <article class="tier">
+        <div class="tbars"><i class="hi"></i><i class="hi"></i><i></i></div>
+        <span class="tno">Stufe 2 · Aktiv</span>
+        <h3>Skalierung — außerhalb Ihrer Website.</h3>
+        <p>Zusätzlich Präsenz auf den Quellen, aus denen KI-Systeme zitieren: Fachportale,
+          Verzeichnisse, Branchenmedien. Damit die Empfehlung nicht nur von Ihnen selbst kommt.</p>
+      </article>
+      <article class="tier">
+        <div class="tbars"><i class="hi"></i><i class="hi"></i><i class="hi"></i></div>
+        <span class="tno">Stufe 3 · Dominanz</span>
+        <h3>Marktführerschaft — die Quellen selbst besetzen.</h3>
+        <p>Sie werden zur Quelle, die zitiert wird: eigene Studien, Fachbeiträge und Daten, auf die
+          sich Ihr Markt beruft. Die stärkste Position, die es in KI-Antworten gibt.</p>
+      </article>
+    </div>
+
+    <a class="off-link" href="/preise/">Alle Leistungen je Stufe und die Preise →</a>
+
+    <div class="off-cta">
+      <AuditCTA label="Audit kostenlos anfordern" />
+      <p class="off-micro">Kostenlos und unverbindlich.<s>·</s>Kein Verkaufsanruf — Sie erhalten das
+        Audit per E-Mail.<s>·</s>Auch sinnvoll, wenn Sie eine Agentur haben: sie bekommt die Bausteine.</p>
     </div>
   </div>
 </section>
@@ -371,8 +318,9 @@ import AuditCTA from './AuditCTA.astro';
   <div class="oc-scene" id="oc-scene">
     <div class="oc-stage">
       <div class="oc-top">
-        <span class="eyebrow">Von Sichtbarkeit zu Auftragseingang</span>
-        <h2 class="sec">Sichtbarkeit ist kein Selbstzweck.</h2>
+        <span class="eyebrow">Was Nicht-genannt-Werden kostet</span>
+        <h2 class="sec">Nicht genannt. Nicht angefragt. Kein Auftrag.</h2>
+        <p class="oc-lead">So entsteht heute ein Auftrag — und so bricht er ab.</p>
       </div>
 
       <div class="oc-chain" id="oc-chain">
@@ -385,23 +333,26 @@ import AuditCTA from './AuditCTA.astro';
         <div class="oc-node" data-node="3"><div class="nn">4</div><b>Beauftragt</b><p>Auftragseingang</p></div>
       </div>
 
-      <div class="oc-payoff">
-        <span class="pv" id="oc-mult">4,4&#8202;×</span>
-        <span class="pl">so viel häufiger werden aus KI-Besuchern Kunden — wenn die Kette hält (Semrush 2025).</span>
+      <div class="oc-vals" id="oc-vals">
+        <div class="vrow">
+          <span class="vlab">Besucher aus klassischer Suche</span>
+          <span class="vtrack"><i class="vfill" id="v-seo"></i></span>
+          <span class="vnum">1,0&#8202;×</span>
+        </div>
+        <div class="vrow">
+          <span class="vlab">Besucher aus KI-Antworten</span>
+          <span class="vtrack"><i class="vfill hi" id="v-ai"></i></span>
+          <span class="vnum hi" id="oc-mult">0,0&#8202;×</span>
+        </div>
+        <p class="vsrc">So viel häufiger werden aus KI-Besuchern Kunden. Es sind Ihre wertvollsten
+          Besucher. (Semrush 2025)</p>
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pt">Fehlt das erste Glied, bricht alles dahinter zusammen.</p>
-        <p class="pb">Und das Schlimmste: <em>dieser Verlust taucht in keiner Statistik auf.</em></p>
+        <p class="pt">Kein Name am Anfang. <em>Kein Auftrag am Ende.</em></p>
+        <p class="pb">Dieser Verlust taucht in keiner Statistik auf.</p>
       </div>
 
-      <div class="oc-final" data-final>
-        <p class="ft">Jeder Auftrag beginnt mit einer Empfehlung.</p>
-        <p class="fq">Die Frage ist nur: <em>Ihre — oder die Ihres Wettbewerbers?</em></p>
-        <div style="display:flex;justify-content:center;margin-top:26px;pointer-events:auto">
-          <AuditCTA variant="band" align="center" theme="dark" label="Jetzt Digital Visibility Audit anfordern" />
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -591,7 +542,7 @@ import AuditCTA from './AuditCTA.astro';
   ScrollTrigger.create({start:0,end:'max',onUpdate:function(self){
     prog.style.width=(self.progress*100)+'%';
   }});
-  ['hero','problem','schauplaetze','programm','outcome'].forEach(function(id){
+  ['hero','problem','spiegel','outcome','angebot'].forEach(function(id){
     ScrollTrigger.create({trigger:'#'+id,start:'top center',end:'bottom center',
       onToggle:function(self){ if(self.isActive){
         document.querySelectorAll('.dotnav a').forEach(function(a){a.classList.toggle('on',a.dataset.nav===id);});
@@ -605,11 +556,9 @@ import AuditCTA from './AuditCTA.astro';
     var AI_TEXT="Für den industriellen Mittelstand werden am häufigsten Alpha Systems, Beta Technik und Gamma Group empfohlen — starke Referenzen, Komplettlösungen und schneller Service.";
     var steps=document.querySelectorAll('#psteps span');
     var PHASES=[
-      "Ihr Kunde sucht — in Google oder gleich in der KI.",
-      "Google zeigt seine Trefferliste …",
-      "… doch ganz oben antwortet zuerst die KI-Übersicht.",
-      "Sie empfiehlt drei Wettbewerber — namentlich.",
-      "Ihr Unternehmen? Nicht genannt."
+      "Ihr Kunde fragt.",
+      "Die KI antwortet — Ihre Treffer rutschen nach unten.",
+      "Drei Wettbewerber haben Namen. Sie haben eine Leerstelle."
     ];
     var pphase=document.getElementById('pphase'), pnum=document.getElementById('pphasenum'), lastStep=-1;
     function setStep(i){
@@ -617,11 +566,11 @@ import AuditCTA from './AuditCTA.astro';
       if(i===lastStep) return;
       lastStep=i;
       pphase.style.opacity=0; pphase.style.transform='translateY(-8px)';
-      setTimeout(function(){ pphase.textContent=PHASES[i]; pnum.textContent='Schritt '+(i+1)+' / 5';
+      setTimeout(function(){ pphase.textContent=PHASES[i]; pnum.textContent='Beat '+(i+1)+' / 3';
         pphase.style.opacity=1; pphase.style.transform='none'; },180);
     }
     var tl=gsap.timeline({scrollTrigger:{trigger:'#p-scene',start:'top top',end:'bottom bottom',scrub:0.6,
-      onUpdate:function(self){document.getElementById('prail').style.height=(self.progress*100).toFixed(1)+'%';setStep(Math.min(4,Math.floor(self.progress*5)));}}});
+      onUpdate:function(self){document.getElementById('prail').style.height=(self.progress*100).toFixed(1)+'%';setStep(Math.min(2,Math.floor(self.progress*3)));}}});
     tl.to({},{duration:1,onUpdate:function(){qEl.textContent=QUERY.slice(0,Math.round(QUERY.length*this.progress()));}},0);
     tl.to('[data-res]',{opacity:1,y:0,stagger:0.25,duration:1,ease:'power2.out'},1).to('#serplabel',{opacity:.9,duration:.4},1.6);
     tl.to('#ai',{y:'0%',duration:1.4,ease:'power3.inOut'},2.4)
@@ -642,59 +591,6 @@ import AuditCTA from './AuditCTA.astro';
     tl.to('#punch',{opacity:1,duration:1,ease:'power2.out'},6.4)
       .to('#pstat',{opacity:0,duration:.8,ease:'power2.in'},6.4);
   })();
-
-  /* ---------- SEO/AEO/GEO: gepinnter Horizontal-Scroll ---------- */
-  (function(){
-    var track=document.getElementById('hz-track'), pin=document.getElementById('hz-pin');
-    var dots=document.querySelectorAll('#hzcount i');
-    var panels=track.children.length;
-    // Hintergrund-Illustrationen: „zeichnen sich selbst" beim Panel-Eintritt
-    var illus=gsap.utils.toArray('.disc-illu');
-    function strokesOf(svg){ return svg.querySelectorAll('line,rect,circle:not([fill]),path:not([fill])'); }
-    function fillsOf(svg){ return svg.querySelectorAll('[fill="currentColor"]'); }
-    illus.forEach(function(svg){
-      gsap.set(svg,{opacity:0});
-      strokesOf(svg).forEach(function(el){ el.setAttribute('pathLength','1'); el.style.strokeDasharray='1'; el.style.strokeDashoffset='1'; });
-      gsap.set(fillsOf(svg),{opacity:0,scale:0,transformOrigin:'50% 50%'});
-    });
-    function drawPanel(i){
-      var svg=illus[i]; if(!svg) return;
-      gsap.to(svg,{opacity:.2,duration:.6,ease:'power2.out'});
-      gsap.fromTo(strokesOf(svg),{strokeDashoffset:1},{strokeDashoffset:0,duration:1.1,stagger:0.04,ease:'power1.inOut'});
-      gsap.fromTo(fillsOf(svg),{opacity:0,scale:0},{opacity:1,scale:1,transformOrigin:'50% 50%',duration:.5,delay:.55,ease:'back.out(2)'});
-    }
-    var lastIdx=-1;
-    gsap.to(track,{x:function(){return -(track.scrollWidth-window.innerWidth);},ease:'none',
-      scrollTrigger:{trigger:'#schauplaetze',start:'top top',end:function(){return '+='+(track.scrollWidth-window.innerWidth);},
-        scrub:0.5,pin:pin,invalidateOnRefresh:true,
-        onUpdate:function(self){
-          var idx=Math.round(self.progress*(panels-1));
-          dots.forEach(function(d,i){d.classList.toggle('on',i===idx);});
-          if(idx!==lastIdx){ lastIdx=idx; drawPanel(idx); }
-        }}});
-  })();
-
-  /* ---------- CONCLUSIO: Farbüberblendung light→pink + Zitat Wort für Wort ---------- */
-  (function(){
-    if(!document.getElementById('cc-scene')) return;
-    var tl=gsap.timeline({scrollTrigger:{trigger:'#cc-scene',start:'top top',end:'bottom bottom',scrub:0.7}});
-    tl.to('#cc-veil',{opacity:0,duration:1.1,ease:'power2.inOut'},0);                                  // Farbüberblendung
-    // Codrops-Style „Some More" — 3D-Wort-Flip, jetzt ZEILE für ZEILE mit Atempausen (Dramaturgie)
-    var rows=['.cc-r1','.cc-r2','.cc-r3','.cc-r4','.cc-r5'];
-    var at  =[0.6,   1.7,   3.3,   4.6,   5.9];   // größerer Freiraum zwischen Zeile 2 (Stückwerk) und Zeile 3
-    rows.forEach(function(sel,i){
-      tl.fromTo(sel+' .cc-w',
-        {opacity:0,yPercent:65,rotationX:-92,filter:'blur(8px)'},
-        {opacity:1,yPercent:0,rotationX:0,filter:'blur(0px)',stagger:0.08,duration:1.2,ease:'power3.out'},
-        at[i]);
-    });
-    tl.to({},{duration:0.9},7.0);                                                                        // am Ende kurz halten
-  })();
-
-  /* ---------- BENTO: scroll-verkettet ---------- */
-  gsap.utils.toArray('[data-cell]').forEach(function(cell,i){
-    ScrollTrigger.create({trigger:cell,start:'top 85%',onEnter:function(){setTimeout(function(){cell.classList.add('in');},i*90);}});
-  });
 
   /* ---------- OUTCOME „Die Kette": Aufladen → Bruch → Pointe → Auflösung ---------- */
   (function(){
@@ -720,6 +616,9 @@ import AuditCTA from './AuditCTA.astro';
       if(i<conns.length) tl.to(conns[i],{width:'100%',duration:.5,ease:'none'}, 0.5+i*0.5);
     });
     tl.to(mult,{v:4.4,duration:1.7,ease:'power1.out',onUpdate:setMult}, 0.4);
+    // Ä10: Die 4,4 × bekommt eine Bezugsgröße — ohne sie ist die Zahl bedeutungslos.
+    tl.to('#v-seo',{width:'20%',duration:1.1,ease:'power2.out'}, 0.4);
+    tl.to('#v-ai', {width:'88%',duration:1.7,ease:'power2.out'}, 0.4);
 
     // 2) BRUCH — erstes Glied wird grau, Kette reißt, Zahl fällt auf 0
     var B=2.7;
@@ -731,24 +630,98 @@ import AuditCTA from './AuditCTA.astro';
     tl.to([num(1),num(2),num(3)],{backgroundColor:'#eceaf1',color:'#9a9aa7',duration:.5}, B);
     tl.to(conns,{width:'0%',duration:.5,ease:'none'}, B);
     tl.to(mult,{v:0,duration:.8,ease:'power2.in',onUpdate:setMult}, B);
+    // …und stürzen beim Bruch mit ein: die Zahl wird ein zweites Mal wertvoll.
+    tl.to(['#v-seo','#v-ai'],{width:'0%',duration:.8,ease:'power2.in'}, B);
 
     // 3) POINTE — der stille Verlust
     tl.to('[data-punch]',{opacity:1,duration:.7,ease:'power2.out'}, B+1.1);
-    tl.to({},{duration:.7}, B+1.9);
+    // Die Pointe bleibt stehen — direkt danach folgt der Magenta-Angebotsblock,
+    // der die Auflösung liefert. Kein Ausblenden, kein zweites Overlay.
+    tl.to({},{duration:1.1}, B+1.9);
 
     // 4) AUFLÖSUNG — überlappender Crossfade direkt in den Schluss (Overlay deckt die Kette voll ab)
-    tl.to('[data-punch]',{opacity:0,duration:.6}, B+2.5);
-    tl.to('[data-final]',{opacity:1,duration:.7,ease:'power2.out'}, B+2.5);
-    tl.to({},{duration:.9}, B+3.6);
   })();
 
-  /* ---------- SYSTEM-Sektion: animierter Aufbau + Start des Tab-Durchlaufs beim Einscrollen ---------- */
-  ScrollTrigger.create({trigger:'#programm',start:'top 70%',once:true,onEnter:function(){
-    gsap.from('#programm .sys-stage',{opacity:0,y:34,duration:.9,ease:'power3.out'});
-    gsap.from('#programm .sys-tablist',{opacity:0,y:20,duration:.8,delay:.18,ease:'power3.out'});
-    gsap.from('#programm .sys-body',{opacity:0,y:20,duration:.8,delay:.3,ease:'power3.out'});
-    var s=document.getElementById('sys'); if(s&&s.__start) setTimeout(s.__start,260);
-  }});
+
+  /* ---------- Begriffe-Akkordeon + Tab-Karten (ersetzt den Horizontal-Pin) ---------- */
+  (function(){
+    var btn=document.getElementById('accbtn'), body=document.getElementById('accbody');
+    if(!btn||!body) return;
+    function fit(){ body.style.maxHeight=body.scrollHeight+40+'px'; }
+    btn.addEventListener('click',function(){
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded', open?'false':'true');
+      if(open){ body.style.maxHeight='0px'; } else { fit(); }
+      if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },520);
+    });
+    body.querySelectorAll('.tab').forEach(function(t){
+      t.addEventListener('click',function(){
+        body.querySelectorAll('.tab').forEach(function(o){o.classList.remove('on');o.setAttribute('aria-selected','false');});
+        body.querySelectorAll('.pane').forEach(function(o){o.classList.remove('on');});
+        t.classList.add('on'); t.setAttribute('aria-selected','true');
+        var pane=body.querySelector('.pane[data-pane="'+t.dataset.tab+'"]');
+        if(pane) pane.classList.add('on');
+        if(btn.getAttribute('aria-expanded')==='true') fit();
+      });
+    });
+  })();
+
+  /* ---------- Spiegel: Fragekarten + Selbstöffnung als Lehrstück ----------
+     Regel aus der Animations-Doktrin: Selbstöffnung ist erlaubt, wenn sie eine
+     Interaktion LEHRT, die sonst unentdeckt bliebe — Auslöser ist die erste Frage
+     selbst bei >=70 % Sichtbarkeit (nicht der Container, sonst öffnet sie sich
+     unter der Falz), sie feuert genau einmal und bricht ab, wenn weitergescrollt
+     oder vorher selbst geklickt wird. */
+  (function(){
+    var heads=[].slice.call(document.querySelectorAll('.mi-qh'));
+    if(!heads.length) return;
+    var items=[].slice.call(document.querySelectorAll('.mi-q'));
+    var touched=false, fired=false, timer=null;
+
+    function closeAll(){
+      heads.forEach(function(h){ h.setAttribute('aria-expanded','false'); h.nextElementSibling.style.maxHeight='0px'; });
+    }
+    function open(h){
+      closeAll();
+      h.setAttribute('aria-expanded','true');
+      var b=h.nextElementSibling;
+      b.style.maxHeight=b.scrollHeight+48+'px';
+      if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },500);
+    }
+    heads.forEach(function(h){
+      h.addEventListener('click',function(){
+        touched=true; clearTimeout(timer);
+        items.forEach(function(i){ i.classList.remove('hint'); });
+        if(h.getAttribute('aria-expanded')==='true'){
+          h.setAttribute('aria-expanded','false'); h.nextElementSibling.style.maxHeight='0px';
+        } else { open(h); }
+      });
+    });
+
+    var first=items[0];
+    if(!first) return;
+    var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function fire(){
+      if(fired||touched) return;
+      fired=true; open(heads[0]);
+      items.forEach(function(it,i){ if(i>0) it.classList.add('hint'); });
+    }
+    if(reduced){ open(heads[0]); return; }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(fired||touched) return;
+        if(e.isIntersecting){
+          clearTimeout(timer);
+          timer=setTimeout(function(){
+            var r=first.getBoundingClientRect();
+            var visible=Math.min(r.bottom,window.innerHeight)-Math.max(r.top,0);
+            if(r.height && visible/r.height>=0.7) fire();
+          },1200);
+        } else { clearTimeout(timer); }
+      });
+    },{threshold:[0,0.7]});
+    io.observe(first);
+  })();
 
   // Pins/Positionen neu berechnen, sobald Fonts/Bilder das Layout verschoben haben
   ScrollTrigger.refresh();
@@ -832,6 +805,8 @@ import AuditCTA from './AuditCTA.astro';
   .hero h1{font-size:clamp(2rem,3.4vw,3rem);font-weight:600;letter-spacing:-0.025em;line-height:1.15}
   .hero h1 .l1{display:block}
   @media(min-width:640px){.hero h1 .l1{white-space:nowrap}}
+  .hero .hl2{margin-top:14px;font-size:clamp(1.05rem,1.9vw,1.45rem);font-weight:500;line-height:1.4;
+    letter-spacing:-.02em;color:#8e8e9c}
   .flip{display:inline-block;position:relative;min-height:1.2em}
   .flip .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(16px);filter:blur(10px);color:#BBBBBB}
   .flip .w.pink{color:var(--magenta)}
@@ -880,7 +855,7 @@ import AuditCTA from './AuditCTA.astro';
 
   /* ============ PROBLEM (dunkle gepinnte Szene) ============ */
   .problem{background:var(--d-bg);color:var(--d-fg)}
-  .p-scene{position:relative;height:580vh}
+  .p-scene{position:relative;height:320vh}
   .p-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;
     background:
       linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/46px 46px,
@@ -905,6 +880,9 @@ import AuditCTA from './AuditCTA.astro';
   .bbar .d{width:11px;height:11px;border-radius:50%;background:#2a2a34}
   .omni{flex:1;margin-left:.6rem;display:flex;align-items:center;gap:.5rem;background:#1c1c26;border:1px solid var(--d-line);border-radius:999px;padding:.5rem .9rem;font-size:.9rem;color:var(--d-fg)}
   .omni svg{flex:none;opacity:.6}.q{white-space:nowrap;overflow:hidden}
+  /* Ä3: Suchanfrage tippt in Magenta — Feld-Chrome bleibt neutral, sonst verpufft
+     der Farbkontrast, wenn sich die magenta KI-Antwort in Beat 2 darüberschiebt. */
+  #qtext{color:var(--magenta);font-weight:500}
   .qcaret{display:inline-block;width:2px;height:1.05em;background:var(--magenta);vertical-align:-2px;margin-left:1px}
   .vp{position:relative;height:clamp(360px,52vh,520px);overflow:hidden}
   .serp{position:absolute;inset:0;padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:1.15rem}
@@ -1112,7 +1090,7 @@ import AuditCTA from './AuditCTA.astro';
   /* ============ OUTCOME FUNNEL ============ */
   /* ============ OUTCOME — „Die Kette" (gepinnte Scroll-Szene) ============ */
   .outcome{background:#fff;border-top:1px solid var(--line)}
-  .oc-scene{height:560vh;position:relative}
+  .oc-scene{height:320vh;position:relative}
   .oc-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:0 clamp(20px,5vw,60px);background:radial-gradient(92% 72% at 50% 32%,rgba(223,65,251,.05),transparent 60%),#fff}
   .oc-top{text-align:center;margin-bottom:clamp(28px,6vh,60px)}
@@ -1186,5 +1164,134 @@ import AuditCTA from './AuditCTA.astro';
   @media (prefers-reduced-motion: reduce){
     .blob,.b1,.b2,.b3{animation:none}
   }
+
+
+  /* ═══════════ NEU 25.07.2026 (AP5) ═══════════════════════════════════ */
+
+  /* ── Drei Stellen + Begriffe-Akkordeon (ersetzt die 200vh-Horizontalszene) ── */
+  .rooms{background:var(--d-bg);color:var(--d-fg);padding:clamp(64px,9vh,104px) 0}
+  .rooms-lead{font-size:clamp(1.05rem,1.9vw,1.35rem);font-weight:600;line-height:1.5;max-width:62ch}
+  .rooms-lead b{color:var(--magenta);font-weight:700}
+  .acc{margin-top:26px;border-top:1px solid var(--d-line)}
+  .accbtn{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;font:inherit;
+    color:var(--d-fg);padding:18px 0;cursor:pointer;text-align:left}
+  .accbtn>span:first-child{font-size:1rem;font-weight:600}
+  .accbtn .ar{margin-left:auto;width:30px;height:30px;flex:none;border-radius:50%;
+    border:1px solid var(--d-line2);display:grid;place-items:center;transition:.3s}
+  .accbtn .ar svg{width:15px;height:15px}
+  .accbtn[aria-expanded="true"] .ar{background:var(--magenta);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
+  .accbody{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);border-bottom:1px solid var(--d-line)}
+  .tabs{display:flex;gap:8px;padding:4px 0 20px;flex-wrap:wrap}
+  .tab{background:var(--d-card);border:1px solid var(--d-line);color:var(--d-mut);border-radius:999px;
+    padding:9px 18px;font:inherit;font-size:.86rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:.25s}
+  .tab.on{background:var(--magenta);border-color:var(--magenta);color:#fff}
+  .panes{padding-bottom:24px}
+  .pane{display:none;max-width:66ch}
+  .pane.on{display:block}
+  .pane .plv{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--magenta)}
+  .pane h3{margin-top:8px;font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
+  .pane p{margin-top:8px;color:var(--d-mut);font-size:.95rem;line-height:1.7}
+
+  /* ── Der Spiegel: echtes Muster-Audit, Interaktion statt Animation ── */
+  .mirror{background:var(--muted);padding:clamp(72px,10vh,112px) 0;border-top:1px solid var(--line)}
+  .mi-head{max-width:80ch}
+  .mi-head .sec{margin-top:12px}
+  .mi-head .sec em{font-style:normal;color:var(--magenta)}
+  .mi-head .lead{margin-top:16px}
+  .mi-cue{margin-top:16px;display:flex;gap:10px;align-items:flex-start;font-size:.98rem;font-weight:600;line-height:1.5}
+  .mi-cue i{width:24px;height:24px;flex:none;border-radius:50%;background:var(--magenta);color:#fff;
+    display:grid;place-items:center;font-style:normal;font-size:.78rem}
+  .mi-card{margin-top:32px;background:var(--card);border:1px solid var(--line);border-radius:20px;
+    overflow:hidden;box-shadow:0 26px 70px -34px rgba(20,10,40,.28)}
+  .mi-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 22px;
+    border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(223,65,251,.08),transparent)}
+  .mi-lg{font-weight:800;font-size:.95rem;letter-spacing:-.02em}
+  .mi-lg em{font-style:normal;color:var(--magenta)}
+  .mi-anon{margin-left:auto;font-size:.72rem;color:var(--mut);border:1px solid var(--line2);padding:5px 11px;border-radius:999px}
+  .mi-kpi{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+  .mi-kpi>div{padding:18px 22px;border-right:1px solid var(--line)}
+  .mi-kpi>div:last-child{border-right:0}
+  .mi-kpi b{display:block;font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:800;letter-spacing:-.03em}
+  .mi-kpi b.bad{color:var(--magenta)}
+  .mi-kpi span{display:block;margin-top:5px;font-size:.74rem;color:var(--mut);line-height:1.45}
+  @media(max-width:760px){.mi-kpi{grid-template-columns:repeat(2,1fr)}.mi-kpi>div{border-bottom:1px solid var(--line)}}
+  .mi-q{border-bottom:1px solid var(--line)}
+  .mi-q:last-of-type{border-bottom:0}
+  .mi-qh{display:grid;grid-template-columns:132px minmax(0,1fr) auto auto;gap:16px;align-items:center;
+    width:100%;background:none;border:0;font:inherit;text-align:left;padding:18px 22px;cursor:pointer;transition:background .2s}
+  .mi-qh:hover{background:rgba(223,65,251,.04)}
+  .mi-st{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta)}
+  .mi-t{display:block;font-size:1rem;font-weight:600;line-height:1.45}
+  .mi-res{display:block;margin-top:6px;font-size:.84rem;color:var(--mut);line-height:1.5}
+  .mi-res b{color:var(--magenta-ink);font-weight:700}
+  .mi-flag{font-size:.72rem;font-weight:700;white-space:nowrap;padding:5px 11px;border-radius:999px;
+    background:rgba(223,65,251,.1);color:var(--magenta-ink);border:1px solid rgba(223,65,251,.35)}
+  .mi-cta{display:flex;align-items:center;gap:9px}
+  .mi-cta em{font-style:normal;font-size:.8rem;font-weight:700;color:var(--magenta-ink);white-space:nowrap}
+  .mi-ar{width:30px;height:30px;flex:none;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.3s}
+  .mi-ar svg{width:15px;height:15px}
+  .mi-qh[aria-expanded="true"] .mi-ar{background:var(--magenta);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
+  .mi-qh[aria-expanded="true"] .mi-cta em{display:none}
+  .mi-q.hint .mi-ar{animation:miPulse 1.9s ease-in-out infinite}
+  @keyframes miPulse{0%,100%{box-shadow:0 0 0 0 rgba(223,65,251,.42)}50%{box-shadow:0 0 0 9px rgba(223,65,251,0)}}
+  @media(max-width:820px){.mi-qh{grid-template-columns:minmax(0,1fr) auto}.mi-st{display:none}.mi-cta em{display:none}}
+  .mi-qb{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+  .mi-qi{padding:0 22px 24px 170px}
+  @media(max-width:820px){.mi-qi{padding:0 22px 24px}}
+  .mi-src{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:9px}
+  .mi-ans{font-size:.94rem;line-height:1.8;color:#33333c;background:#fafafc;border:1px solid var(--line);
+    border-left:3px solid var(--magenta);border-radius:0 12px 12px 0;padding:15px 17px}
+  .mi-ans mark{background:rgba(223,65,251,.14);color:var(--magenta-ink);font-weight:700;padding:1px 5px;border-radius:5px}
+  .mi-verdict{margin-top:13px;display:flex;gap:10px;align-items:flex-start;font-size:.92rem;line-height:1.65}
+  .mi-verdict em{font-style:italic}
+  .mi-verdict .dot{width:8px;height:8px;flex:none;border-radius:50%;background:var(--magenta);margin-top:7px}
+  .mi-foot{padding:18px 22px;background:#fafafc;border-top:1px solid var(--line);font-size:.84rem;color:var(--mut)}
+  .mi-foot a{color:var(--magenta-ink);font-weight:700}
+  .mi-after{margin-top:34px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center}
+  @media(max-width:900px){.mi-after{grid-template-columns:1fr;gap:18px}}
+  .mi-after>p{font-size:clamp(1.05rem,1.9vw,1.3rem);font-weight:700;max-width:26ch;line-height:1.4}
+
+  /* ── Outcome: 4,4 × als Balkenvergleich (Ä10) ── */
+  .oc-lead{margin-top:10px;color:var(--d-mut);font-size:1rem;line-height:1.6}
+  .oc-vals{max-width:540px;margin:22px auto 0;text-align:left}
+  .vrow{display:grid;grid-template-columns:190px minmax(0,1fr) 58px;gap:12px;align-items:center;margin:10px 0}
+  .vlab{font-size:.8rem;color:var(--d-mut)}
+  .vtrack{height:12px;background:rgba(255,255,255,.09);border-radius:999px;overflow:hidden;display:block}
+  .vfill{display:block;height:100%;width:0;border-radius:999px;background:rgba(255,255,255,.28)}
+  .vfill.hi{background:linear-gradient(90deg,#b52fd0,var(--magenta))}
+  .vnum{font-size:.86rem;font-weight:800;text-align:right;font-variant-numeric:tabular-nums;color:var(--d-fg)}
+  .vnum.hi{color:var(--magenta)}
+  .vsrc{margin-top:10px;font-size:.74rem;color:var(--d-mut);line-height:1.5}
+  @media(max-width:620px){.vrow{grid-template-columns:minmax(0,1fr) 50px}.vlab{grid-column:1/-1}}
+
+  /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ── */
+  .offer{background:var(--magenta);color:#0d0d10;padding:clamp(70px,10vh,110px) 0}
+  .offer .off-h{max-width:30ch}
+  .offer .off-l2{display:block;margin-top:8px;color:#2a1229}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+  @media(max-width:900px){.tiers{grid-template-columns:1fr}}
+  .tier{background:#fff;border-radius:18px;padding:22px 22px 24px;box-shadow:0 16px 44px rgba(70,8,84,.22)}
+  .tbars{display:flex;gap:5px;align-items:flex-end;height:26px;margin-bottom:15px}
+  .tbars i{width:11px;border-radius:3px;background:#ece0ef;display:block;height:40%}
+  .tbars i:nth-child(2){height:68%}
+  .tbars i:nth-child(3){height:100%}
+  .tbars i.hi{background:#0d0d10}
+  .tier .tno{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta-ink)}
+  .tier h3{margin-top:8px;font-size:1.05rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:#0d0d10}
+  .tier p{margin-top:9px;font-size:.9rem;line-height:1.7;color:#4a3b49}
+  .off-link{display:inline-block;margin-top:24px;color:#0d0d10;font-size:.95rem;font-weight:700;
+    text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+  .off-cta{margin-top:30px;max-width:680px}
+  .off-micro{margin-top:14px;font-size:.86rem;line-height:1.8;color:#2a1229}
+  .off-micro s{text-decoration:none;color:rgba(13,13,16,.42);margin:0 7px}
+  /* Formular auf Magenta: Felder weiß, Button dunkel — ein magenta Button
+     wäre auf magenta Grund unsichtbar. */
+  .offer input,.offer textarea{background:#fff!important;border-color:rgba(13,13,16,.2)!important;color:#0d0d10!important}
+  .offer .acta-trigger,.offer .acta-sq,.offer .acta--band .acta-trigger,.offer button[type="submit"]{
+    background:#0d0d10!important;border-color:#0d0d10!important;color:#fff!important;
+    box-shadow:0 8px 26px rgba(13,13,16,.3)!important}
+  .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(13,13,16,.42)!important}
+  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#2a1229!important}
+  .offer .acta{--pink:#0d0d10;--pink-d:#000}
 
 </style>

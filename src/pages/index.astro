@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import PremiumHome from '../components/premium/Home.astro';
@@ -109,26 +108,13 @@ const visibilityServiceSchema = JSON.stringify({
   },
 });
 
-// FAQPage schema — enables expandable FAQ rich results in Google Search
-const faqSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: tr.faq.items.map((item: { question: string; answer: string }) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-});
 ---
 
 <Layout
   lang={language}
   title="CodaAI – Digital Visibility: sichtbar in ChatGPT & Google"
   description="Einkäufer fragen zuerst die KI. CodaAI macht B2B-Unternehmen dort sichtbar: ChatGPT, Google KI-Übersicht, klassische Suche — SEO, AEO & GEO plus Content."
-  jsonLd={[softwareSchema, visibilityServiceSchema, faqSchema]}
+  jsonLd={[softwareSchema, visibilityServiceSchema]}
 >
   <Navbar lang={language} />
   <main id="main-content">
@@ -147,7 +133,9 @@ const faqSchema = JSON.stringify({
         (siehe Kommentar unten). ProcessSteps.astro und Pricing.astro selbst bleiben
         unverändert und ungelöscht im Repo. */}
     <PremiumHome />
-    <FAQ lang={language} />
+    {/* AP5 (25.07.2026): Die FAQ ist von der Startseite auf /faq gewandert — die Seite
+        hat jetzt genau einen Hauptausgang (Audit) und einen Nebenausgang (Termin).
+        Das FAQPage-Schema liegt entsprechend auf /faq, nicht mehr hier. */}
     <Booking lang={language} />
 
     {/* ── Neueste Artikel ───────────────────────────────────────────────────── */}
