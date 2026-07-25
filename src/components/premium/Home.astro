@@ -350,8 +350,8 @@ import AuditCTA from './AuditCTA.astro';
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pb">Kein Name am Anfang. <em>Kein Auftrag am Ende.</em></p>
-        <p class="pt">Dieser Verlust taucht in keiner Statistik auf.</p>
+        <p class="pb">Es fehlt ein einziges Wort — <em>Ihr Name.</em></p>
+        <p class="pt">Alles andere ergibt sich daraus.</p>
       </div>
 
     </div>
@@ -634,11 +634,28 @@ import AuditCTA from './AuditCTA.astro';
     // …und stürzen beim Bruch mit ein: die Zahl wird ein zweites Mal wertvoll.
     tl.to(['#v-seo','#v-ai'],{width:'0%',duration:.8,ease:'power2.in'}, B);
 
-    // 3) POINTE — der stille Verlust
-    tl.to('[data-punch]',{opacity:1,duration:.7,ease:'power2.out'}, B+1.1);
+    // 3) REPARATUR — die Wende wird gezeigt, nicht behauptet: der erste Schritt
+    //    leuchtet wieder auf, die folgenden ziehen nach, der Wert kommt zurück.
+    //    Genau das leistet CodaAI — deshalb blendet danach der Magenta-Block auf.
+    var R=B+1.5;
+    tl.to(brk,{opacity:0,scale:0,duration:.35,ease:'power2.in'}, R);
+    tl.to(tag,{opacity:0,duration:.3}, R);
+    tl.to(nodes[0],{opacity:1,borderColor:LIT,boxShadow:SHA,duration:.5,ease:'power2.out'}, R+0.1);
+    tl.to(num(0),{backgroundColor:'#DF41FB',color:'#ffffff',duration:.5}, R+0.1);
+    [1,2,3].forEach(function(i,k){
+      tl.to(nodes[i],{opacity:1,borderColor:LIT,boxShadow:SHA,duration:.45,ease:'power2.out'}, R+0.45+k*0.3);
+      tl.to(num(i),{backgroundColor:'#DF41FB',color:'#ffffff',duration:.45}, R+0.45+k*0.3);
+      tl.to(conns[i-1],{width:'100%',duration:.35,ease:'none'}, R+0.35+k*0.3);
+    });
+    tl.to(mult,{v:4.4,duration:1.1,ease:'power2.out',onUpdate:setMult}, R+0.5);
+    tl.to('#v-seo',{width:'20%',duration:.9,ease:'power2.out'}, R+0.5);
+    tl.to('#v-ai', {width:'88%',duration:1.1,ease:'power2.out'}, R+0.5);
+
+    // 4) POINTE — der Hebel, der die Wende ausloest
+    tl.to('[data-punch]',{opacity:1,duration:.7,ease:'power2.out'}, R+1.9);
     // Die Pointe bleibt stehen — direkt danach folgt der Magenta-Angebotsblock,
     // der die Auflösung liefert. Kein Ausblenden, kein zweites Overlay.
-    tl.to({},{duration:1.1}, B+1.9);
+    tl.to({},{duration:1.1}, R+2.7);
 
     // 4) AUFLÖSUNG — überlappender Crossfade direkt in den Schluss (Overlay deckt die Kette voll ab)
   })();
@@ -1094,7 +1111,7 @@ import AuditCTA from './AuditCTA.astro';
   /* ============ OUTCOME FUNNEL ============ */
   /* ============ OUTCOME — „Die Kette" (gepinnte Scroll-Szene) ============ */
   .outcome{background:#fff;border-top:1px solid var(--line)}
-  .oc-scene{height:320vh;position:relative}
+  .oc-scene{height:380vh;position:relative}
   .oc-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:0 clamp(20px,5vw,60px);background:radial-gradient(92% 72% at 50% 32%,rgba(223,65,251,.05),transparent 60%),#fff}
   .oc-top{text-align:center;margin-bottom:clamp(28px,6vh,60px)}
