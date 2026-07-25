@@ -115,7 +115,7 @@ const aboutPageSchema = {
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: text */}
-          <div>
+          <div class="reveal-left">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cta/10 border border-cta/20 text-cta text-xs font-medium mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -125,9 +125,7 @@ const aboutPageSchema = {
 
             <h1 class="text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
               Wenn menschliche und<br/>
-              <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-                künstliche Intelligenz
-              </span><br/>
+              <span class="text-cta">künstliche Intelligenz</span><br/>
               sich verstärken
             </h1>
 
@@ -143,7 +141,7 @@ const aboutPageSchema = {
                 { value: '94%', label: 'günstiger als\ntraditionelle Agenturen' },
                 { value: '200+', label: 'Unternehmens-\nkunden' },
               ].map(stat => (
-                <div class="p-4 rounded-xl bg-card border border-border text-center">
+                <div class="p-4 rounded-xl bg-card border border-border text-center transition-all duration-300 hover:-translate-y-1 hover:border-cta/30">
                   <div class="text-2xl font-bold text-cta mb-1">{stat.value}</div>
                   <div class="text-xs text-muted-foreground leading-tight whitespace-pre-line">{stat.label}</div>
                 </div>
@@ -152,11 +150,9 @@ const aboutPageSchema = {
           </div>
 
           {/* Right: portrait */}
-          <div class="flex justify-center lg:justify-end">
+          <div class="flex justify-center lg:justify-end reveal-right">
             <div class="relative">
-              {/* Glow ring */}
-              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-cta/25 to-pink-500/20 blur-2xl scale-105"></div>
-              <div class="relative rounded-2xl overflow-hidden border border-cta/20 shadow-2xl shadow-cta/20 w-full max-w-sm">
+              <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 w-full max-w-sm">
                 <img
                   src={`${base}/images/team/anja-miebach.webp`}
                   alt="Anja Miebach – Gründerin und Inhaberin von CodaAI"
@@ -180,7 +176,7 @@ const aboutPageSchema = {
     {/* ── CONFLICT / WARUM „NUR KI" NICHT REICHT ──────────────────────────── */}
     <section class="py-20 lg:py-24">
       <div class="mx-auto max-w-3xl px-6 lg:px-8">
-        <div class="text-center mb-10">
+        <div class="text-center mb-10 reveal">
           <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Warum „nur KI" nicht reicht</p>
           <h2 class="text-3xl lg:text-4xl font-bold text-foreground">
             Zwei bequeme Irrtümer –<br/>
@@ -188,7 +184,7 @@ const aboutPageSchema = {
           </h2>
         </div>
 
-        <div class="space-y-5 text-muted-foreground text-base leading-relaxed">
+        <div class="space-y-5 text-muted-foreground text-base leading-relaxed reveal">
           <p>
             Der erste Irrtum heißt „KI macht das jetzt": Content per Knopfdruck, Strategie aus dem
             Sprachmodell. Das Ergebnis kennt jeder – austauschbar, gesichtslos, überall gleich. Ein
@@ -210,13 +206,10 @@ const aboutPageSchema = {
     {/* ── COCREATE PRINCIPLE · AI + HI. AMPLIFIED. ────────────────────────── */}
     <section class="py-20 lg:py-28 bg-card/30">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-16">
+        <div class="max-w-3xl mx-auto text-center mb-16 reveal">
           <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Marketing neu gedacht</p>
           <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-5">
-            AI + HI.{' '}
-            <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-              Amplified.
-            </span>
+            AI + HI. <span class="text-cta font-extrabold">Amplified.</span>
           </h2>
           <p class="text-muted-foreground text-lg">
             Zwei Arten von Intelligenz. Die menschliche: Erfahrung, Gespür, das Wissen, wann eine Zahl
@@ -227,10 +220,10 @@ const aboutPageSchema = {
 
           {/* Powered by AI + HI seal */}
           <div class="mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cta/10 border border-cta/20 text-sm font-medium text-foreground">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#df41fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="seal-spark" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#df41fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/>
             </svg>
-            Powered by <span class="text-cta font-semibold">AI + HI</span>
+            Powered by <span class="text-cta font-semibold">AI + <span class="hi-pop">HI</span></span>
           </div>
         </div>
 
@@ -241,20 +234,18 @@ const aboutPageSchema = {
               title: 'HI · Human Intelligence',
               description: 'Unser Team bringt über 20 Jahre Marketingerfahrung mit. Es steuert die Strategie, prüft die Qualität und gibt jedem Ergebnis die menschliche Note, die es authentisch und wirkungsvoll macht.',
               items: ['Strategische Ausrichtung', 'Qualitätssicherung', 'Branchenverständnis', 'Unternehmerische Klarheit'],
-              accent: 'violet',
             },
             {
               icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
               title: 'AI · Artificial Intelligence',
               description: 'Unsere KI übernimmt datengetriebene Analyse, beschleunigt Prozesse und generiert effizient hochwertige Inhalte – so dass Ihr Potenzial exponentiell erweitert wird.',
               items: ['Skalierbare Produktion', 'Datengetriebene Analyse', 'Automatisierte Prozesse', 'Konstant hohe Qualität'],
-              accent: 'indigo',
             },
-          ].map(card => (
-            <div class={`relative p-8 rounded-2xl bg-card border border-border overflow-hidden group hover:border-cta/30 transition-colors duration-300`}>
+          ].map((card, i) => (
+            <div class={`relative p-8 rounded-2xl bg-card border border-border overflow-hidden group transition-all duration-300 hover:-translate-y-1.5 hover:border-cta/40 reveal ${i === 1 ? 'reveal-d2' : 'reveal-d1'}`}>
               <div class={`absolute top-0 right-0 w-48 h-48 bg-cta/5 rounded-full blur-2xl group-hover:bg-cta/10 transition-colors duration-500`}></div>
               <div class="relative">
-                <div class={`w-12 h-12 rounded-xl bg-cta/10 border border-cta/20 flex items-center justify-center mb-5`}>
+                <div class={`w-12 h-12 rounded-xl bg-cta/10 border border-cta/20 flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110`}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                     stroke='#df41fb'
                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -287,14 +278,11 @@ const aboutPageSchema = {
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="grid lg:grid-cols-5 gap-12 items-start">
           {/* Text: 3 cols */}
-          <div class="lg:col-span-3 space-y-6">
+          <div class="lg:col-span-3 space-y-6 reveal-left">
             <div>
               <p class="text-cta text-sm font-medium uppercase tracking-widest mb-3">Über die Gründerin</p>
               <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-5">
-                Anja –<br/>
-                <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-                  Unternehmerin mit Fokus
-                </span>
+                Anja – <span class="text-cta">Unternehmerin mit Fokus</span>
               </h2>
             </div>
 
@@ -331,7 +319,7 @@ const aboutPageSchema = {
             {/* Expertise tags */}
             <div class="flex flex-wrap gap-2 pt-2">
               {['KI Content Marketing', 'B2B Strategie', 'GEO Optimierung', 'SEO', 'Marketing Automation', 'Digitale Transformation'].map(tag => (
-                <span class="px-3 py-1 text-xs font-medium rounded-full bg-cta/10 border border-cta/20 text-cta">
+                <span class="px-3 py-1 text-xs font-medium rounded-full bg-cta/10 border border-cta/20 text-cta transition-colors duration-200 hover:bg-cta/20">
                   {tag}
                 </span>
               ))}
@@ -339,7 +327,7 @@ const aboutPageSchema = {
           </div>
 
           {/* Credentials sidebar: 2 cols */}
-          <div class="lg:col-span-2 space-y-4">
+          <div class="lg:col-span-2 space-y-4 reveal-right">
             <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest">Expertise & Erfahrung</h3>
 
             {[
@@ -364,7 +352,7 @@ const aboutPageSchema = {
                 desc: 'Der EU AI Act nennt es „human oversight" – wir haben es zum Markenkern gemacht. Jeder Output ist DSGVO-konform, EU-AI-Act-gerecht und in Deutschland gehostet',
               },
             ].map(item => (
-              <div class="flex gap-4 p-5 rounded-xl bg-card border border-border hover:border-cta/25 transition-colors duration-200 group">
+              <div class="flex gap-4 p-5 rounded-xl bg-card border border-border transition-all duration-200 hover:border-cta/25 hover:-translate-y-0.5 group">
                 <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-cta/10 flex items-center justify-center group-hover:bg-cta/15 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                     stroke="#df41fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -388,14 +376,12 @@ const aboutPageSchema = {
         <div class="absolute inset-0 bg-gradient-to-r from-cta/5 via-background to-pink-900/5"></div>
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cta/8 rounded-full blur-[100px]"></div>
       </div>
-      <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+      <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center reveal">
         <p class="text-cta text-sm font-medium uppercase tracking-widest mb-6">Unser Versprechen</p>
         <blockquote class="text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-8">
           „Der einzig sinnvolle Weg in die Zukunft des Marketings ist die Symbiose aus
           menschlicher Stärke und KI-Effizienz. Wir verstärken beide.
-          <span class="bg-gradient-to-r from-cta to-violet-600 bg-clip-text text-transparent">
-            AI + HI. Amplified.
-          </span>"
+          <span class="text-cta">AI + HI. <span class="font-extrabold">Amplified.</span></span>"
         </blockquote>
         <div class="flex items-center justify-center gap-3">
           <img
@@ -416,7 +402,7 @@ const aboutPageSchema = {
 
     {/* ── CTA ─────────────────────────────────────────────────────────────── */}
     <section class="py-16 lg:py-20 border-t border-border">
-      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center">
+      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center reveal">
         <h2 class="text-2xl font-bold text-foreground mb-4">
           Bereit, aus zwei Intelligenzen Ihren Vorsprung zu machen?
         </h2>
@@ -438,3 +424,64 @@ const aboutPageSchema = {
 
   <Footer lang="de" />
 </Layout>
+
+<style>
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal { transform: translateY(28px); }
+  .reveal-left { transform: translateX(-32px); }
+  .reveal-right { transform: translateX(32px); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .is-visible { opacity: 1 !important; transform: none !important; }
+
+  .hi-pop {
+    font-weight: 800;
+    color: #df41fb;
+    text-shadow: 0 0 16px rgba(223, 65, 251, 0.55);
+  }
+
+  .seal-spark {
+    transform-origin: center;
+    animation: sealSpark 2.6s ease-in-out infinite;
+  }
+  @keyframes sealSpark {
+    0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.15) rotate(8deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .seal-spark { animation: none !important; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
