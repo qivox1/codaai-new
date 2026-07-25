@@ -46,8 +46,8 @@ import AuditCTA from './AuditCTA.astro';
           <div class="kr" data-kr><span class="n">1</span><span class="m"><b>Berger Antriebstechnik GmbH</b><s>namentlich empfohlen · als Quelle zitiert</s></span><span class="bdg">Sichtbarkeit 63 %</span></div>
           <div class="kr" data-kr><span class="n">2</span><span class="m"><b>Systemtechnik Nord GmbH &amp; Co. KG</b><s>namentlich empfohlen</s></span><span class="bdg">Position 2</span></div>
           <div class="kr" data-kr><span class="n">3</span><span class="m"><b>ProTec Industrieanlagen AG</b><s>namentlich empfohlen</s></span><span class="bdg">häufig zitiert</span></div>
+          <div class="kr kr-empty" data-kr><span class="n"></span><span class="m"><b>Ihr Unternehmen</b><s>steht hier nicht</s></span><span class="bdg-empty">— —</span></div>
         </div>
-        <div class="kpunch" id="kpunch"><b>… und Sie?</b><s>In 55 % der Einkäuferfragen nicht genannt.</s></div>
         <div class="kfoot" id="kfoot"><em>Dokumentiert in</em><span class="pill">ChatGPT</span><span class="pill">Google KI-Übersicht</span></div>
       </div>
       <p class="kcap">Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten (CodaAI-Studie 2026).</p>
@@ -415,7 +415,7 @@ import AuditCTA from './AuditCTA.astro';
     var qt=document.getElementById('kqtext'), caret=document.getElementById('kqcaret');
     if(reduced){ qt.textContent=Q; caret.style.display='none';
       document.querySelectorAll('[data-kr]').forEach(function(r){r.classList.add('in');});
-      document.getElementById('kpunch').classList.add('in'); document.getElementById('kfoot').classList.add('in'); return; }
+      document.getElementById('kfoot').classList.add('in'); return; }
     var wait=function(ms){return new Promise(function(r){setTimeout(r,ms);});};
     (async function(){
       await wait(500);
@@ -424,8 +424,7 @@ import AuditCTA from './AuditCTA.astro';
       var th=document.getElementById('kthink'); th.classList.add('on'); await wait(1500); th.classList.remove('on');
       var rows=document.querySelectorAll('[data-kr]');
       for(var j=0;j<rows.length;j++){ rows[j].classList.add('in'); await wait(300); }
-      await wait(450); document.getElementById('kpunch').classList.add('in');
-      await wait(400); document.getElementById('kfoot').classList.add('in');
+      await wait(450); document.getElementById('kfoot').classList.add('in');
       await wait(1200); caret.style.display='none';
     })();
   })();
@@ -865,9 +864,10 @@ import AuditCTA from './AuditCTA.astro';
   .kr .m b{display:block;font-size:.85rem;font-weight:700;filter:blur(3.5px);user-select:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .kr .m s{display:block;font-size:.72rem;color:var(--mut);text-decoration:none}
   .kr .bdg{margin-left:auto;flex:none;font-size:.68rem;font-weight:700;color:var(--magenta-ink);border:1px solid rgba(223,65,251,.3);background:rgba(223,65,251,.08);border-radius:999px;padding:4px 9px;white-space:nowrap}
-  .kpunch{margin-top:16px;border:1px solid rgba(223,65,251,.3);background:rgba(223,65,251,.05);border-radius:16px;padding:13px 15px;opacity:0;transform:translateY(8px)}
-  .kpunch.in{opacity:1;transform:none;transition:opacity .5s,transform .5s}
-  .kpunch b{font-size:.9rem}.kpunch s{display:block;margin-top:2px;font-size:.9rem;font-weight:700;color:var(--magenta-ink);text-decoration:none}
+  .kr-empty{border:1.5px dashed var(--magenta);background:rgba(223,65,251,.05)}
+  .kr-empty .n{border:1.5px dashed var(--magenta);background:transparent;color:var(--magenta-ink)}
+  .kr-empty .m b{filter:none;color:var(--magenta-ink)}
+  .kr-empty .bdg-empty{margin-left:auto;flex:none;color:var(--magenta-ink);opacity:.55;letter-spacing:.2em;font-weight:800;font-size:.8rem;white-space:nowrap}
   .kfoot{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;opacity:0}
   .kfoot.in{opacity:1;transition:opacity .5s}
   .kfoot em{font-style:normal;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);font-weight:600}
