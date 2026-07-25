@@ -685,24 +685,52 @@ import AuditCTA from './AuditCTA.astro';
     var touched=false, fired=false, timer=null;
 
     var vRed = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    [].slice.call(document.querySelectorAll('.mi-verdict[data-verdict]')).forEach(function(v){
-      var typed=v.querySelector('.mi-vtyped'); if(!typed) return;
-      v._full=typed.textContent;
-      if(!vRed) v._pending=true;
+    function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // Gestufte Enthuellung je Frage: Quelle/Logo -> KI-Antwort (Typewriter) -> Befund (Scan+Typewriter)
+    [].slice.call(document.querySelectorAll('.mi-qb')).forEach(function(b){
+      var src=b.querySelector('.mi-src'), ans=b.querySelector('.mi-ans'), v=b.querySelector('.mi-verdict[data-verdict]');
+      if(v){ var typed=v.querySelector('.mi-vtyped'); if(typed) v._full=typed.textContent; }
+      if(vRed) return;                 // reduced motion: alles statisch sichtbar
+      if(ans){
+        var toks=[];
+        [].slice.call(ans.childNodes).forEach(function(n){
+          if(n.nodeType===3) toks.push({t:n.nodeValue});
+          else if(n.nodeType===1 && n.tagName==='MARK') toks.push({m:n.textContent});
+          else if(n.nodeType===1) toks.push({t:n.textContent});
+        });
+        ans._toks=toks; ans._html=ans.innerHTML; ans.style.opacity='0';
+      }
+      if(src) src.style.opacity='0';
+      if(v){ v.style.opacity='0'; v._pending=true; }
+      b._staged=true;
     });
-    function revealVerdict(b){
-      if(vRed||!b) return;
-      var v=b.querySelector('.mi-verdict[data-verdict]');
+
+    function typeAns(el, toks, done){
+      var total=toks.reduce(function(a,x){return a+(x.t!=null?x.t:x.m).length;},0);
+      el.style.opacity='1'; el.classList.add('mi-typing');
+      var i=0;
+      (function tick(){
+        i+=2; var n=i, html='';
+        for(var k=0;k<toks.length;k++){
+          if(n<=0) break;
+          var tok=toks[k], s=(tok.t!=null?tok.t:tok.m), isMark=(tok.m!=null);
+          html+= isMark ? '<mark>'+esc(s.slice(0,n))+'</mark>' : esc(s.slice(0,n));
+          n-=s.length;
+        }
+        el.innerHTML=html;
+        if(i<total){ setTimeout(tick,14); } else { el.innerHTML=el._html; el.classList.remove('mi-typing'); done&&done(); }
+      })();
+    }
+
+    function revealVerdict(v){
       if(!v||!v._pending||v._done) return;
-      v._done=true;
-      var typed=v.querySelector('.mi-vtyped');
-      var label=v.querySelector('.mi-vlabel');
+      v._done=true; v.style.opacity='1';
+      var typed=v.querySelector('.mi-vtyped'), label=v.querySelector('.mi-vlabel');
       v.classList.add('is-scanning');
-      // Lange Scan-Phase (~9s), damit man erst Frage und KI-Antwort lesen kann;
-      // der Loader wandert durch drei Phasen, dann tippt sich der Befund ein.
       var phases=['KI liest die Frage …','KI prüft die KI-Antwort …','KI ermittelt den Befund …'];
       var pi=0;
-      var cyc=setInterval(function(){ pi++; if(label&&phases[pi]) label.textContent=phases[pi]; if(pi>=phases.length-1) clearInterval(cyc); },3000);
+      var cyc=setInterval(function(){ pi++; if(label&&phases[pi]) label.textContent=phases[pi]; if(pi>=phases.length-1) clearInterval(cyc); },2000);
       setTimeout(function(){
         clearInterval(cyc);
         v.classList.remove('is-scanning');
@@ -712,7 +740,18 @@ import AuditCTA from './AuditCTA.astro';
           i+=2; typed.textContent=full.slice(0,Math.min(i,full.length));
           if(i<full.length){ setTimeout(tick,22); } else { typed.classList.remove('typing'); }
         })();
-      },9000);
+      },6000);
+    }
+
+    function revealBody(b){
+      if(vRed||!b||!b._staged||b._bdone) return;
+      b._bdone=true;
+      var src=b.querySelector('.mi-src'), ans=b.querySelector('.mi-ans'), v=b.querySelector('.mi-verdict[data-verdict]');
+      if(src) src.style.opacity='1';                              // Stufe 1: Quelle/Logo
+      setTimeout(function(){                                      // Stufe 2: Antwort tippt sich ein
+        if(ans && ans._toks){ typeAns(ans, ans._toks, function(){ if(v) revealVerdict(v); }); }
+        else if(v){ revealVerdict(v); }                          // Stufe 3: Befund
+      }, 600);
     }
 
     function closeAll(){
@@ -723,7 +762,7 @@ import AuditCTA from './AuditCTA.astro';
       h.setAttribute('aria-expanded','true');
       var b=h.nextElementSibling;
       b.style.maxHeight=b.scrollHeight+48+'px';
-      revealVerdict(b);
+      revealBody(b);
       if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },500);
     }
     heads.forEach(function(h){
@@ -1353,6 +1392,8 @@ import AuditCTA from './AuditCTA.astro';
   .mi-verdict.is-scanning .mi-vscan{display:inline-flex}
   .mi-vtyped.typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#0d0d10;margin-left:2px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
   @keyframes mi-caret{50%{opacity:0}}
+  .mi-src,.mi-ans,.mi-verdict{transition:opacity .45s ease}
+  .mi-ans.mi-typing::after{content:"";display:inline-block;width:2px;height:1.05em;background:#B01FD1;margin-left:1px;vertical-align:-3px;animation:mi-caret .8s step-end infinite}
   .mi-foot{padding:18px 22px;background:#fafafc;border-top:1px solid var(--line);font-size:.84rem;color:var(--mut)}
   .mi-foot a{color:var(--magenta-ink);font-weight:700}
   .mi-after{margin-top:34px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center}
