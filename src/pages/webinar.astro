@@ -283,7 +283,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           ))}
         </div>
         <div class="mt-10">
-          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
+          <WebinarSignup label="Jetzt zum Webinar anmelden" />
         </div>
       </section>
 
@@ -305,7 +305,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           ))}
         </ul>
         <div class="mt-8">
-          <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a>
+          <WebinarSignup label="Jetzt zum Webinar anmelden" />
         </div>
 
         <!-- Scroll-Bühne: das komplette echte Audit läuft durch die 3D-Ebene (Pin + Scroll-Fortschritt) -->
@@ -356,8 +356,10 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
               <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
                 Autor des Haufe-Standardwerks „Digitalisierung in Marketing und Vertrieb" und mehr
                 als einem Dutzend weiterer Bücher — zuletzt „KI im B2B – Marketing und Vertrieb
-                neu denken" (2026). Entwickler des strike2®-Frameworks mit Schuster-Modell®,
-                Wasserloch-Strategie® und Empathischem Funnel®. Im Webinar liefert er den
+                neu denken" (2026). Entwickler des strike2®-Frameworks: systematisches Lead-Management entlang der
+                Buyer Journey (Schuster-Modell®), Präsenz dort, wo Einkäufer sich informieren
+                (Wasserloch-Strategie®), und ein an den Bedürfnissen der Käufer ausgerichteter
+                Vertriebs-Funnel (Empathischer Funnel®). Im Webinar liefert er den
                 strategischen Rahmen: von der stillen Vorentscheidung bis zum skalierbaren
                 System für Neukunden- und Bestandskundenumsatz.
               </p>
@@ -380,7 +382,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             </div>
           </article>
         </div>
-        <div class="mt-12"><a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt zum Webinar am Di, 08.09.2026, 11:00 Uhr anmelden →</a></div>
+        <div class="mt-12"><WebinarSignup label="Jetzt zum Webinar anmelden" /></div>
       </section>
 
       <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
@@ -437,8 +439,8 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
           <h2 id="h-schluss" class="wfx-reveal text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">60 Minuten, die zeigen, wo Sie in KI-Antworten stehen.</h2>
           <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Kostenlos, inklusive Ihres persönlichen Audits — Sie brauchen nur Website, Namen und E-Mail.</p>
-          <div class="mt-8">
-            <a href="#anmeldung" class="inline-flex items-center gap-2 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">Jetzt Platz sichern →</a>
+          <div class="mt-8 flex justify-center">
+            <WebinarSignup label="Jetzt Platz sichern" align="center" />
           </div>
         </div>
       </section>
