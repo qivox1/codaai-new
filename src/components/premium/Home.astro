@@ -1198,12 +1198,21 @@ import AuditCTA from './AuditCTA.astro';
      diesem Grund weiterhin --magenta-ink verwenden (dort gilt 4,5). */
   .rooms-lead b{color:var(--magenta);font-weight:800}
   .acc{margin-top:26px;border-top:1px solid var(--line2)}
-  .accbtn{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;font:inherit;
-    color:var(--fg);padding:18px 0;cursor:pointer;text-align:left}
+  /* 25.07.2026: Der Button lief über die volle Containerbreite, dadurch stand der
+     Pfeil auf dem Desktop weit rechts vom Label — man erkannte nicht, dass beides
+     zusammengehört. Jetzt inline, Pfeil direkt neben dem Text, und beim Hovern
+     wechselt er auf Pink. */
+  .accbtn{display:inline-flex;align-items:center;gap:12px;width:auto;background:none;border:0;font:inherit;
+    color:var(--fg);padding:18px 0;cursor:pointer;text-align:left;transition:color .2s}
   .accbtn>span:first-child{font-size:1rem;font-weight:600}
-  .accbtn .ar{margin-left:auto;width:30px;height:30px;flex:none;border-radius:50%;
+  .accbtn .ar{width:30px;height:30px;flex:none;border-radius:50%;
     border:1px solid var(--line2);display:grid;place-items:center;transition:.3s}
   .accbtn .ar svg{width:15px;height:15px}
+  .accbtn:hover,.accbtn:focus-visible{color:var(--magenta-ink);outline:none}
+  .accbtn:hover>span:first-child,.accbtn:focus-visible>span:first-child{text-decoration:underline;
+    text-decoration-thickness:1.5px;text-underline-offset:4px}
+  .accbtn:hover .ar,.accbtn:focus-visible .ar{border-color:var(--magenta);color:var(--magenta);
+    background:rgba(223,65,251,.1)}
   .accbtn[aria-expanded="true"] .ar{background:var(--magenta);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
   .accbody{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);border-bottom:1px solid var(--line2)}
   .tabs{display:flex;gap:8px;padding:4px 0 20px;flex-wrap:wrap}
