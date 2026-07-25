@@ -163,8 +163,8 @@ import AuditCTA from './AuditCTA.astro';
 <section class="mirror" id="spiegel">
   <div class="wrap">
     <div class="mi-head">
-      <span class="eyebrow">Ein echtes Audit — nur nicht Ihres</span>
-      <h2 class="sec">Das ist ein echtes Digital Visibility Audit.<br><em>Nur nicht Ihres.</em></h2>
+      <span class="eyebrow">Beispiel-Audit · echte Zahlen, Firmenname entfernt</span>
+      <h2 class="sec">Ein echtes Digital Visibility Audit — <em>nur nicht Ihres.</em></h2>
       <p class="lead">Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem
         Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen
         Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles
@@ -1243,7 +1243,17 @@ import AuditCTA from './AuditCTA.astro';
      löst das Problem strukturell und liest sich mobil ebenfalls besser. */
   .mi-qh{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:18px;align-items:center;
     width:100%;background:none;border:0;font:inherit;text-align:left;padding:18px 22px;cursor:pointer;transition:background .2s}
-  .mi-qh:hover{background:rgba(223,65,251,.04)}
+  /* 25.07.2026: Der Hover war mit 4 % Magenta praktisch unsichtbar. Wer die
+     Selbstöffnung verpasst, muss trotzdem erkennen, dass die Zeilen anklickbar
+     sind — deshalb hellgrauer Grund, magenta Kante links und ein reagierender
+     Pfeil. Tastaturbedienung bekommt denselben Zustand über :focus-visible. */
+  .mi-qh:hover,.mi-qh:focus-visible{background:var(--muted2);outline:none;
+    box-shadow:inset 3px 0 0 var(--magenta)}
+  .mi-qh:hover .mi-ar,.mi-qh:focus-visible .mi-ar{border-color:var(--magenta);color:var(--magenta);
+    background:rgba(223,65,251,.08)}
+  .mi-qh:hover .mi-cta em,.mi-qh:focus-visible .mi-cta em{text-decoration:underline;
+    text-decoration-thickness:1.5px;text-underline-offset:3px}
+  .mi-qh[aria-expanded="true"]{background:var(--muted2);box-shadow:inset 3px 0 0 var(--magenta)}
   .mi-st{display:block;margin-bottom:7px;font-size:.66rem;font-weight:800;letter-spacing:.14em;
     text-transform:uppercase;color:var(--magenta-ink)}
   .mi-t{display:block;font-size:1rem;font-weight:600;line-height:1.45}
