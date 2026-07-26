@@ -63,15 +63,15 @@ import AuditCTA from './AuditCTA.astro';
       <div class="p-steps" id="psteps">
         <span data-step="0">Die Frage</span><span data-step="1">Die KI-Antwort</span><span data-step="2">Ihre Leerstelle</span>
       </div>
-      <div class="p-phasebar">
+      <div class="p-phasebar" id="pphasebar">
         <span class="eyebrow">Wie Einkäufer heute entscheiden</span>
         <p class="p-phasehl" id="pphase">Ein potenzieller Kunde fragt bei google.de.</p>
-        <span class="p-phasenum" id="pphasenum">Schritt 1 / 3</span>
       </div>
       <div class="p-inner">
         <div class="browser">
           <div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span>
             <div class="omni"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span class="q"><span id="qtext"></span><span class="qcaret" id="qcaret"></span></span></div>
+            <span class="p-phasenum" id="pphasenum">Schritt 1 / 3</span>
           </div>
           <div class="vp">
             <div class="serp" id="serp">
@@ -586,7 +586,9 @@ import AuditCTA from './AuditCTA.astro';
       .to('#pstat .src',{color:'#6b6b76',duration:.5},5.75);
     // Kurz weiß, dann parallel zur 55 % ins Nichts ausblenden — Blick wandert zur Mitte
     tl.to('#punch',{opacity:1,duration:1,ease:'power2.out'},6.4)
-      .to('#pstat',{opacity:0,duration:.8,ease:'power2.in'},6.4);
+      .to('#pstat',{opacity:0,duration:.8,ease:'power2.in'},6.4)
+      // Phasen-Ueberschrift raus, sonst steht sie hinter der 55-%-Pointe
+      .to('#pphasebar',{opacity:0,duration:.6,ease:'power2.in'},6.4);
   })();
 
   /* ---------- OUTCOME „Die Kette": Aufladen → Bruch → Pointe → Auflösung ---------- */
@@ -946,11 +948,23 @@ import AuditCTA from './AuditCTA.astro';
   .p-steps span.on{opacity:1;color:var(--d-fg)}
   @media(max-width:640px){.p-steps{display:none}}
   /* Phasen-Leiste oben: Eyebrow + pro Phase wechselnde Klartext-Headline */
-  .p-phasebar{position:absolute;top:clamp(92px,13vh,150px);left:0;right:0;text-align:center;z-index:42;padding:0 20px;pointer-events:none}
+  .p-phasebar{position:absolute;top:clamp(76px,10vh,120px);left:0;right:0;text-align:center;z-index:42;padding:0 20px;pointer-events:none;
+    transition:opacity .5s ease}
   .p-phasebar .eyebrow{color:var(--magenta)}
-  .p-phasehl{margin-top:10px;font-size:clamp(1.15rem,2.6vw,1.75rem);font-weight:700;letter-spacing:-.01em;color:#fff;
-    transition:opacity .35s ease,transform .35s ease}
-  .p-phasenum{display:inline-block;margin-top:6px;font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--d-mut)}
+  .p-phasehl{margin:10px auto 0;max-width:46ch;font-size:clamp(1.02rem,2.4vw,1.7rem);font-weight:700;letter-spacing:-.01em;color:#fff;
+    line-height:1.25;transition:opacity .35s ease,transform .35s ease}
+  /* Schritt-Zaehler sitzt jetzt RECHTS in der Browser-Titelleiste statt unter der
+     Ueberschrift — dort lag er frueher auf der Adresszeile und auf dem Suchtext. */
+  .p-phasenum{flex:none;margin-left:.7rem;font-size:.64rem;font-weight:700;letter-spacing:.1em;color:var(--d-mut);
+    border:1px solid var(--d-line);border-radius:999px;padding:.3rem .62rem;background:#14141c;white-space:nowrap}
+  @media(max-width:560px){.p-phasenum{display:none}}
+  /* Sicherheitsabstand: schiebt die Grafik so weit nach unten, dass sie die weisse
+     Phasen-Ueberschrift nie beruehrt (Buehne ist flex-zentriert -> Effekt = margin/2). */
+  .p-inner{margin-top:clamp(130px,24vh,210px)}
+  @media(max-width:900px){
+    .p-phasehl{font-size:1.02rem}
+    .p-inner{margin-top:clamp(92px,14vh,130px)}
+  }
   .browser{border:1px solid var(--d-line2);border-radius:16px;background:var(--d-bg2);box-shadow:0 40px 120px -40px rgba(0,0,0,.9);overflow:hidden}
   .bbar{display:flex;align-items:center;gap:.5rem;padding:.7rem .9rem;border-bottom:1px solid var(--d-line);background:#0f0f16}
   .bbar .d{width:11px;height:11px;border-radius:50%;background:#2a2a34}
@@ -983,7 +997,7 @@ import AuditCTA from './AuditCTA.astro';
   .p-stat .lab{margin-top:.5rem;font-size:.82rem;color:var(--d-mut);line-height:1.45}
   .p-stat .src{margin-top:.5rem;font-size:.66rem;color:rgba(154,154,167,.7)}
   @media(max-width:900px){.p-stat{position:static;transform:none;width:auto;margin-top:1rem}}
-  .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:radial-gradient(80% 60% at 50% 50%,rgba(10,10,15,.86),rgba(10,10,15,.96));opacity:0;pointer-events:none;z-index:50}
+  .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:radial-gradient(80% 60% at 50% 50%,rgba(10,10,15,.955),rgba(10,10,15,.995));backdrop-filter:blur(3px);opacity:0;pointer-events:none;z-index:50}
   .punch .num{font-size:clamp(3.5rem,12vw,8rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,#fff,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
   .punch .cap{font-size:clamp(1.1rem,2.6vw,1.7rem);font-weight:600;max-width:24ch;line-height:1.3}
   .punch .cap em{font-style:normal;color:var(--magenta)}
