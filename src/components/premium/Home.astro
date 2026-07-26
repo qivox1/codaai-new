@@ -961,9 +961,17 @@ import AuditCTA from './AuditCTA.astro';
   /* Sicherheitsabstand: schiebt die Grafik so weit nach unten, dass sie die weisse
      Phasen-Ueberschrift nie beruehrt (Buehne ist flex-zentriert -> Effekt = margin/2). */
   .p-inner{margin-top:clamp(130px,24vh,210px)}
+  /* Unter 900px reicht ein Abstandswert nicht: dort rutscht die Statistik-Karte
+     in den Fluss und die Buehne wird eng. Deshalb laeuft die Phasenleiste hier
+     im normalen Fluss statt absolut — dann kann sie die Grafik konstruktions-
+     bedingt nicht mehr ueberlagern, egal wie lang die Ueberschrift wird. */
   @media(max-width:900px){
-    .p-phasehl{font-size:1.02rem}
-    .p-inner{margin-top:clamp(92px,14vh,130px)}
+    .p-stage{flex-direction:column;justify-content:center;padding:72px 0 20px}
+    .p-phasebar{position:static;margin-bottom:18px}
+    .p-inner{margin-top:0}
+    .p-phasehl{font-size:1.02rem;max-width:34ch}
+    .vp{height:clamp(260px,38vh,380px)}
+    .p-stat .lab{font-size:.76rem}
   }
   .browser{border:1px solid var(--d-line2);border-radius:16px;background:var(--d-bg2);box-shadow:0 40px 120px -40px rgba(0,0,0,.9);overflow:hidden}
   .bbar{display:flex;align-items:center;gap:.5rem;padding:.7rem .9rem;border-bottom:1px solid var(--d-line);background:#0f0f16}
