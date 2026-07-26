@@ -121,35 +121,44 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
   <main id="main-content">
 
     <!-- ââ Hero âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
-    <header class={`relative pb-0 overflow-hidden bg-background ${heroImage ? 'pt-24' : 'pt-32 lg:pt-40'}`}>
+    <header class={`relative bg-background ${heroImage ? 'pt-24 pb-8' : 'pt-32 lg:pt-40 pb-0'}`}>
       {heroImage ? (
-        <div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
-          <img
-            src={heroImage}
-            alt={heroImageAlt ?? title}
-            width={1584}
-            height={672}
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-          <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(223,65,251,0.35) 0%, rgba(140,20,180,0.20) 50%, rgba(0,0,0,0) 100%)" />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.35) 45%, transparent 100%)" />
-          <div class="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-8 pb-10">
+        <Fragment>
+          {/* Bildband: volle Breite, deutlich groesser, KEIN Text darueber –
+              so bleibt das Motiv erkennbar und die H1 kann nicht mehr abgeschnitten
+              werden (frueher lag der absolut positionierte Textblock im Bild und
+              wurde bei langem Titel/Summary von overflow-hidden gekappt). */}
+          <div class="relative w-full overflow-hidden bg-background">
+            <img
+              src={heroImage}
+              alt={heroImageAlt ?? title}
+              width={1600}
+              height={900}
+              class="w-full h-[52vw] min-h-[220px] max-h-[480px] object-cover object-center"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+            {/* dezenter Markenakzent nur an der Unterkante – blendet das Bild in die Seite ein */}
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-28" style="background: linear-gradient(to top, rgba(223,65,251,0.20) 0%, rgba(223,65,251,0.06) 45%, transparent 100%)" />
+          </div>
+
+          {/* Textblock UNTER dem Bild, auf normalem Untergrund */}
+          <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8">
+            <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog', href: `${base}/blog/` }, { label: title }]} class="mb-6" />
             <div class="max-w-3xl">
-              <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-3">{category}</p>
-              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight tracking-tight">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight tracking-tight text-balance">
                 {title}
               </h1>
               {summary && (
-                <p class="mt-4 text-lg text-white/80 leading-relaxed" data-speakable>
+                <p class="mt-5 text-lg text-muted-foreground leading-relaxed" data-speakable>
                   {summary}
                 </p>
               )}
             </div>
           </div>
-        </div>
+        </Fragment>
       ) : (
         <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-10">
           <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog', href: `${base}/blog/` }, { label: title }]} class="mb-6" />
@@ -167,12 +176,6 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
         </div>
       )}
 
-      <!-- Breadcrumb (when hero image present) -->
-      {heroImage && (
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 py-4">
-          <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog', href: `${base}/blog/` }, { label: title }]} />
-        </div>
-      )}
     </header>
 
     <!-- ââ Author bar + Meta ââââââââââââââââââââââââââââââââââââââââââââââââ -->
