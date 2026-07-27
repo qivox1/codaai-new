@@ -153,6 +153,23 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
 
   useEffect(() => { pushDL('pricing_view', { lang }); }, [lang]);
 
+  /* Stufen-Vorauswahl aus der URL — die Spalten der Matrix und die Stufen-Links
+     auf /leistungen zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner.
+     EN-Schreibweisen werden mitgenommen, damit /en/pricing/?tier=active greift. */
+  useEffect(() => {
+    try {
+      const q = new URLSearchParams(window.location.search);
+      const raw = (q.get('stufe') || q.get('tier') || '').toLowerCase();
+      const map: Record<string, TierKey> = {
+        basis: 'basis', base: 'basis',
+        aktiv: 'aktiv', active: 'aktiv',
+        dominanz: 'dominanz', dominance: 'dominanz',
+      };
+      const picked = map[raw];
+      if (picked) { setTier(picked); setArticles(TIERS[picked].min); }
+    } catch (_) { /* kein window/URLSearchParams → Default bleibt */ }
+  }, []);
+
   // Slider immer im Fenster der gewählten Stufe halten
   const cfg = TIERS[tier];
   useEffect(() => {
