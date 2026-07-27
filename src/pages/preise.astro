@@ -13,58 +13,53 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 /* ── Die drei Stufen (Beschluss 27.07.2026) ───────────────────────────────────
    Sichtbarkeit ist das Produkt, Content die Dosierung. "Ohne Stufe" entfällt.
    Stückpreis hängt an der Stufe, jede Stufe hat ein disjunktes Artikelfenster.
+
+   Reduktion 27.07.2026 (Entscheidung Oli, nach dem Launch von /leistungen):
+   Die Karten teasern nur noch — Beschreibung, Umfang, Preis, Link. Die
+   Bausteinlisten stehen vollständig auf /leistungen und werden hier nicht
+   mehr zweitverwertet. Ebenso entfällt der Block „Was wir nicht versprechen"
+   (steht dort in voller Länge) und die FAQ schrumpft auf die fünf Preis- und
+   Vertragsfragen.
    Konzept: umbau-digital-visibility/2026-07-27_Preise-Neukonzept_Beschluss.md   */
 const stufen = [
   {
     level: 'Stufe 1 · Fundament',
     name: 'Basis',
     anchor: 'lesbar',
-    claim: 'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig. Das Pflichtprogramm — alles andere baut darauf auf.',
+    claim:
+      'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat schwarz auf weiß, wo Sie genannt werden und wer statt Ihnen. Das Pflichtprogramm, auf dem alles andere aufbaut.',
+    umfang: '6 Bausteine',
     from: 'ab 1.470 €',
     window: '2–3 Artikel · 490 € je Artikel · Programm +490 €',
     recommended: false,
-    points: [
-      'Monatlicher Bericht: Wo werden Sie in KI-Antworten genannt — und wer statt Ihnen',
-      'Google- <strong>und Bing</strong>-Optimierung — Bing, weil ChatGPT von dort zitiert',
-      'Wir prüfen, ob KI-Systeme Ihre Website überhaupt lesen können — Ihr Web-Team bekommt die Korrekturen fertig zum Einbauen',
-      'Fachbeiträge mit Zahlen und Quellen — das Format, das KI-Systeme zitieren',
-    ],
   },
   {
     level: 'Stufe 2 · Skalierung',
     name: 'Aktiv',
     anchor: 'quellen',
-    claim: 'Die Empfehlung kommt nicht nur von Ihnen selbst. Präsenz auf den Quellen, aus denen KI-Systeme zitieren.',
+    claim:
+      'Die Empfehlung kommt nicht mehr nur von Ihnen selbst: Ihr Name taucht auch dort auf, wo KI-Systeme ihre Belege holen — Fachportale, Vergleichsinhalte, Bewertungsplattformen, YouTube.',
+    umfang: '10 Bausteine · alles aus Basis plus vier',
     from: 'ab 2.670 €',
     window: '4–7 Artikel · 420 € je Artikel · Programm +990 €',
     recommended: true,
-    points: [
-      '<strong>Alles aus Basis</strong>',
-      'Erwähnungen Ihrer Marke auf Fachportalen und in Branchenmedien — der stärkste belegte Hebel',
-      'Eigene Vergleichsinhalte in der Form, aus der KI-Systeme am häufigsten zitieren',
-      'Präsenz auf Bewertungsplattformen',
-      'Ihre Videos auffindbar auf YouTube, mit Transkript',
-    ],
   },
   {
     level: 'Stufe 3 · Marktführerschaft',
     name: 'Dominanz',
     anchor: 'quelle-werden',
-    claim: 'Ihr Markt beruft sich auf Ihre Zahlen. Die stärkste Position, die es in KI-Antworten gibt.',
+    claim:
+      'Ihr Markt beruft sich auf Ihre Zahlen: eigene Branchenstudie, Eintrag in die Wissensdatenbanken, sichtbare Köpfe. Die stärkste Position, die es in KI-Antworten gibt — Sie sind dann nicht mehr ein Anbieter, sondern die Quelle.',
+    umfang: '14 Bausteine · alles aus Aktiv plus vier',
     from: 'ab 4.910 €',
     window: '8–12 Artikel · 390 € je Artikel · Programm +1.790 €',
     recommended: false,
-    points: [
-      '<strong>Alles aus Aktiv</strong>',
-      'Eine eigene Branchenstudie pro Jahr — Zahlen, die andere zitieren müssen',
-      'Eintrag in die Wissensdatenbanken, aus denen KI ihr Grundwissen zieht',
-      'Sichtbarkeit Ihrer Köpfe auf LinkedIn',
-    ],
   },
 ];
 
-/* ── FAQ (auf die neue Logik gezogen; alte Einträge zu Staffel, 20 %,
-      48-Stunden-Lieferung und Gratis-Artikel entfallen) ── */
+/* ── FAQ — reduziert auf die fünf Preis- und Vertragsfragen (27.07.2026).
+      Die Inhaltsfragen („Was steckt in einem Fachbeitrag", „Was messen Sie
+      monatlich", „Nur Artikel ohne Programm") beantwortet jetzt /leistungen. ── */
 const faqs = [
   {
     q: 'Wie setzt sich mein Monatspreis zusammen?',
@@ -75,24 +70,12 @@ const faqs = [
     a: 'Weil der Mengenrabatt an der Stufe hängt, nicht an der Artikelzahl: 490 € in Basis, 420 € in Aktiv, 390 € in Dominanz. Wer mehr Inhalt braucht, ist in einer höheren Stufe günstiger unterwegs — und bekommt die stärkeren Hebel dazu. Ein Preis je Stufe statt einer Rabatttabelle.',
   },
   {
-    q: 'Kann ich nur Artikel buchen, ohne Programm?',
-    a: 'Nein. Inhalte allein werden 2026 nicht mehr zuverlässig gefunden — es braucht die technische Basis, die Messung und, ab Stufe 2, die Quellen außerhalb Ihrer Website. Deshalb ist jede Stufe ein Ganzes, und deshalb hat sie eine Mindestmenge an Inhalt: Mehr Reichweite braucht mehr Treibstoff.',
-  },
-  {
     q: 'Welche Mindestlaufzeit gilt?',
     a: 'Sechs Monate, bei monatlicher Abrechnung. Sichtbarkeit in Suche und KI-Antworten entsteht über Monate — die ersten Erwähnungen erscheinen im deutschen Markt typischerweise nach 8 bis 12 Wochen. Wer sich auf zwölf Monate festlegt, zahlt 10 % weniger. Es gibt kein automatisches Rollover: Sie entscheiden aktiv über die Verlängerung.',
   },
   {
     q: 'Kann ich die Stufe später wechseln?',
     a: 'Ein Upgrade ist jederzeit zum nächsten Monat möglich, die laufende Mindestlaufzeit läuft dabei weiter. Ein Downgrade zum Ende der Mindestlaufzeit. Die Artikelzahl innerhalb Ihrer Stufe passen Sie zu jedem Verlängerungszeitpunkt an.',
-  },
-  {
-    q: 'Was ist in einem Fachbeitrag enthalten?',
-    a: 'Recherche mit Quellenangaben, 1.500 bis 4.000 Wörter, drei passende Bilder oder eine Infografik, Optimierung für Google, Bing und KI-Systeme sowie die Veröffentlichung auf Ihrer Website. Wir rechnen nicht nach Wörtern — die Länge richtet sich nach dem Thema.',
-  },
-  {
-    q: 'Was messen Sie monatlich?',
-    a: 'Drei Dinge, an einem beim Start festgelegten Satz echter Einkäuferfragen: in welchen KI-Antworten Ihr Unternehmen genannt wird, an welcher Stelle es steht, und welche Ihrer Seiten als Quelle zitiert werden. Sie bekommen dieselben Zahlen, mit denen wir intern arbeiten — jeden Monat zum gleichen Termin.',
   },
   {
     q: 'Wie bekomme ich ein verbindliches Angebot?',
@@ -136,7 +119,7 @@ const faqSchema = {
       </p>
     </Reveal>
 
-    <!-- ── 2 · Die drei Stufen ──────────────────────────────────────────── -->
+    <!-- ── 2 · Die drei Stufen — Teaser, Details auf /leistungen ─────────── -->
     <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
@@ -146,6 +129,8 @@ const faqSchema = {
           </h2>
           <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
             Jede Stufe enthält alles aus der vorherigen — und eine Mindestmenge an Inhalt, weil mehr Reichweite mehr Treibstoff braucht.
+            Was genau darin steckt, steht Baustein für Baustein auf
+            <a href={`${base}/leistungen/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">der Leistungsseite</a>.
           </p>
         </Reveal>
 
@@ -163,35 +148,30 @@ const faqSchema = {
               )}
               <p class="text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{s.level}</p>
               <h3 class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{s.name}</h3>
-              <p class="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
 
-              <div class="mt-5 border-t border-border pt-5">
+              <div class="mt-6 border-t border-border pt-5">
                 <p><span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span> <span class="text-sm text-muted-foreground">/ Monat</span></p>
                 <p class="mt-1.5 text-[12.5px] text-muted-foreground">{s.window}</p>
+                <p class="mt-3 text-[12.5px] font-semibold text-foreground">{s.umfang}</p>
               </div>
 
-              <ul class="mt-6 flex flex-1 flex-col gap-2.5">
-                {s.points.map((p) => (
-                  <li class="relative pl-6 text-[13.5px] leading-relaxed text-foreground">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute left-0 top-[5px] text-cta-accessible" aria-hidden="true">
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    <span set:html={p} />
-                  </li>
-                ))}
-              </ul>
-
               <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-                <a href="#rechner" class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
-                  Preis für diese Stufe rechnen →
+                <a href={`${base}/leistungen/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
+                  Alle Bausteine ansehen →
                 </a>
-                <a href={`${base}/leistungen/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Alle Bausteine →
+                <a href="#rechner" class="inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">
+                  Preis rechnen →
                 </a>
               </div>
             </Reveal>
           ))}
         </div>
+
+        <Reveal as="p" delay={360} class="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          Wir schreiben genauso auf, was wir bewusst <strong class="font-semibold text-foreground">nicht</strong> anbieten — sechs Punkte, jeder mit Begründung:
+          <a href={`${base}/leistungen/#nicht-im-angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">nachlesen →</a>
+        </Reveal>
       </div>
     </section>
 
@@ -201,39 +181,7 @@ const faqSchema = {
     <!-- ── 4 · Termin ───────────────────────────────────────────────────── -->
     <Booking lang={lang} />
 
-    <!-- ── 5 · Was wir nicht versprechen ───────────────────────────────── -->
-    <section id="ehrlichkeit" data-theme="dark" class="cai-dvdark relative overflow-hidden border-t border-border bg-background py-20 lg:py-28">
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <Reveal as="div">
-            <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Aus über 25 Jahren Erfahrung</p>
-            <h2 class="max-w-[22ch] text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.2] sm:leading-[1.2]">
-              Was wir Ihnen nicht versprechen.
-            </h2>
-            <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-muted-foreground">
-              Weil Vertrauen die Grundlage einer Zusammenarbeit ist, die auf mindestens sechs Monate angelegt ist. Sie sollen wissen, wofür Sie bezahlen — und wofür nicht.
-            </p>
-          </Reveal>
-
-          <Reveal as="div" delay={120} class="space-y-7">
-            <div class="border-l-[3px] border-cta pl-6">
-              <h3 class="text-lg font-semibold text-foreground">„Platz 1 in ChatGPT — garantiert"</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Gibt es bei uns nicht. KI-Antworten sind nicht deterministisch: Dieselbe Frage kann heute und morgen unterschiedlich beantwortet werden. Wer eine Nennung zusichert, verkauft etwas, das es technisch nicht gibt.
-              </p>
-            </div>
-            <div class="border-l-[3px] border-cta pl-6">
-              <h3 class="text-lg font-semibold text-foreground">Technische Zusatzposten</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Wir berechnen keine Positionen, die nachweislich nichts bringen — auch wenn sie sich gut anhören. llms.txt und Schema-Markup machen wir mit, wo sie sinnvoll sind; als „KI-Zitat-Booster" stehen sie nicht auf Ihrer Rechnung.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 6 · FAQ ──────────────────────────────────────────────────────── -->
+    <!-- ── 5 · FAQ ──────────────────────────────────────────────────────── -->
     <section id="faq" aria-label="Häufige Fragen zum Preis" class="mx-auto max-w-3xl border-t border-border px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
       <Reveal as="div">
         <h2 class="mb-8 text-center text-2xl font-semibold text-foreground">Häufige Fragen zum Preis</h2>
@@ -257,16 +205,6 @@ const faqSchema = {
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
-
-  <style>
-    /* Ehrlichkeits-Block: dezentes Raster, aus dem Foreground-Token abgeleitet. */
-    .cai-dvdark {
-      background-image:
-        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
-      background-size: 44px 44px;
-    }
-  </style>
 
   <Footer lang={lang} />
 </Layout>
