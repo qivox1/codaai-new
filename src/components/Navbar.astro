@@ -18,22 +18,21 @@ const home = lang === 'de' ? `${base}/` : `${base}/en/`;
  * KEIN #features / #team mehr). Die EN-Startseite läuft noch das alte Content-Agentur-Design
  * (#features + #team existieren dort weiter). Deshalb sind DE- und EN-Nav BEWUSST getrennt:
  *
- *   DE (neu):  Digital Visibility · Preise · Blog · FAQ · Kontakt
- *              — „Wie es funktioniert" → ersetzt durch „Digital Visibility" (/digital-visibility/)
+ *   DE (neu):  Leistungen · Preise · Blog · FAQ · Kontakt
+ *              — „Wie es funktioniert" → „Digital Visibility" (interim) → seit 27.07.2026
+ *                „Leistungen" (/leistungen/ — die 14 Bausteine)
  *              — „Team" entfernt (keine Team-Seite mehr auf der neuen Site)
  *   EN (alt):  unverändert, bis die EN-Premium-Welle kommt (sonst tote #features/#team-Links)
  *
- * ⚠️ Deploy-Kopplung: Der DE-Punkt „Digital Visibility" zeigt auf /digital-visibility/,
- *    die noch im Staging liegt. Diese Navbar geht daher GEMEINSAM mit der Leistungsseite
- *    /digital-visibility/ live (nicht vorher — sonst 404).
+ * ⚠️ Deploy-Kopplung: Der DE-Punkt „Leistungen" zeigt auf /leistungen/. Diese Navbar geht
+ *    daher nur GEMEINSAM mit src/pages/leistungen.astro live (nicht vorher — sonst 404).
  * 📌 To-do (später): „Über uns" als DE-Nav-Punkt ergänzen, sobald eine Über-uns-/Team-Seite
  *    existiert. Bis dahin bewusst weggelassen.
  */
 const navItemsDe = [
-  // INTERIM (22.07.2026): zeigt auf die Startseiten-Sektion #programm (Das System),
-  // solange /digital-visibility/ noch nicht live ist. Beim Launch der Leistungsseite
-  // nur diesen href auf `${base}/digital-visibility/` umstellen — Label bleibt gleich.
-  { label: 'Digital Visibility', href: `${home}#angebot` },
+  // 27.07.2026 (Entscheidung Oli): „Digital Visibility" raus, „Leistungen" rein — die
+  // Seite mit den 14 Bausteinen. /digital-visibility/ wird nicht mehr gebaut.
+  { label: 'Leistungen', href: `${base}/leistungen/` },
   { label: 'Preise', href: `${base}/preise/` },
   { label: 'Blog', href: `${base}/blog/` },
   { label: t('de', "navbar.faq"), href: `${base}/faq/` },

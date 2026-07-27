@@ -1,0 +1,459 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Booking from '../components/Booking.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Reveal from '../components/fx/Reveal.astro';
+
+const lang = 'de' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/* ── /leistungen — die 14 Bausteine im Detail (Beschluss 27.07.2026, C3/AP10) ──
+   Ordnungsprinzip: drei Fragen, die der Kunde sich selbst stellt — nicht drei
+   Stufennamen. Regel für jede Karte: kein Baustein ohne Zahl. Genau drei
+   Elemente je Karte — was wir tun (zwei Sätze) · warum es wirkt (belegte Zahl)
+   · ab welcher Stufe.
+   Quellen der Belegzahlen: GEO-AEO-SEO-Massnahmen-Recherche_2026-07-18.md
+   Lieferentscheidungen vom 27.07.2026 (Oli): Vergleichsartikel = eigene Inhalte
+   als Zusage + fremde Listen ehrlich als Bemühen · YouTube = nur die von uns
+   produzierten Videos · LinkedIn = wir schreiben, die Führungskraft postet ·
+   Branchenstudie = wir erheben, der Kunde ist Herausgeber.                    */
+
+const gruppen = [
+  {
+    id: 'lesbar',
+    kapitel: 'Ebene 1 · Fundament',
+    frage: 'Kann die KI mein Unternehmen überhaupt lesen und zitieren?',
+    antwort:
+      'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig. Diese sechs Bausteine sind in jeder Stufe enthalten — ohne sie wirkt nichts, was danach kommt.',
+    stufe: 'Basis',
+    preiszeile: '2–3 Fachbeiträge pro Monat · 490 € je Beitrag · Programm +490 € · ab 1.470 € / Monat',
+    bausteine: [
+      {
+        name: 'Fachbeiträge',
+        zusatz: 'der Motor des Programms',
+        tut: 'Wir recherchieren, schreiben und veröffentlichen Fachbeiträge von 1.500 bis 4.000 Wörtern — mit Statistiken, Quellenangaben und Expertenzitaten, je Beitrag drei Bilder oder eine Infografik. Wie viele es pro Monat sind, bestimmt Ihre Stufe: 2–3 in Basis, 4–7 in Aktiv, 8–12 in Dominanz.',
+        beleg:
+          'Statistiken, Zitate und Quellenangaben steigern die Sichtbarkeit in KI-Antworten um <strong>30–40 %</strong>.',
+        quelle: 'Princeton GEO, KDD 2024, 10.000 Abfragen',
+        ab: 'Basis',
+      },
+      {
+        name: 'Monatliche Messung',
+        tut: 'Ein beim Start eingefrorener Satz von acht echten Einkäuferfragen wird jeden Monat in ChatGPT und der Google-KI-Übersicht gestellt. Gemessen wird, ob Sie genannt werden, an welcher Stelle, welche Ihrer Seiten als Quelle zitiert werden — und welcher Wettbewerber statt Ihnen dasteht.',
+        beleg:
+          'Ohne Messung kein beweisbarer Erfolg. Vergleichbare Monitoring-Werkzeuge kosten allein <strong>89–499 € pro Monat</strong>.',
+        quelle: 'Marktvergleich GEO-Monitoring DACH, 07/2026',
+        ab: 'Basis',
+      },
+      {
+        name: 'Google- und Bing-Optimierung',
+        tut: 'Klassisches SEO für Ihre Beiträge und Ihre Kernseiten — ausdrücklich inklusive Bing: Bing Webmaster Tools, IndexNow-Anbindung, Indexierungskontrolle. Bing ist kein Nebenschauplatz, sondern die Quelle, aus der ChatGPT seine Belege zieht.',
+        beleg:
+          '<strong>87 %</strong> der SearchGPT-Zitate stammen aus den Bing-Top-Ergebnissen; Google-Seite-1 korreliert mit r ≈ 0,65 mit ChatGPT-Nennungen.',
+        quelle: 'Seer Interactive, n > 500',
+        ab: 'Basis',
+      },
+      {
+        name: 'Technische KI-Zugänglichkeit',
+        tut: 'Wir prüfen, ob KI-Crawler Ihre Seiten überhaupt lesen können: serverseitiges Rendering, Crawler-Freigaben in der robots.txt, sichtbarer HTML-Text statt PDF oder Bild. Sie bekommen eine Liste umsetzungsreifer Korrekturen für Ihr Web-Team und danach die Prüfung, ob der Einbau gewirkt hat — wir greifen nicht selbst in Ihre Systeme ein.',
+        beleg:
+          'Kein großer KI-Crawler führt JavaScript aus — client-gerenderte Inhalte sind für ChatGPT <strong>unsichtbar</strong>.',
+        quelle: 'Vercel / MERJ, über 500 Mio. GPTBot-Abrufe',
+        ab: 'Basis',
+      },
+      {
+        name: 'Aktualisierung der Bestandsseiten',
+        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen inhaltlich aktualisiert und neu datiert, nicht nur neue geschrieben. Wir entscheiden anhand der Messung, welche Seite einen Refresh braucht und welche trägt.',
+        beleg:
+          'KI-Assistenten zitieren <strong>25,7 %</strong> frischere Inhalte als die organische Google-Suche; 51,6 % der B2B-Zitate tragen die Jahreszahl im Titel.',
+        quelle: 'Ahrefs, 17 Mio. Zitate',
+        ab: 'Basis',
+      },
+      {
+        name: 'Maßnahmenplan aus Ihrem Audit',
+        tut: 'Einmalig beim Start wird aus Ihrem Digital Visibility Audit ein priorisierter Plan: was in welcher Reihenfolge, mit welcher Wirkungserwartung. Das Audit selbst bleibt kostenlos — bezahlt wird die Einordnung und der Fahrplan daraus.',
+        beleg:
+          'Grundlage ist die Auswertung von <strong>449 Unternehmen</strong> und 7.184 KI-Antworten aus dem eigenen KI-Blindtest.',
+        quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
+        ab: 'Basis',
+      },
+    ],
+  },
+  {
+    id: 'quellen',
+    kapitel: 'Ebene 2 · Skalierung',
+    frage: 'Bin ich dort präsent, wo die KI ihre Belege holt?',
+    antwort:
+      'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Vier Bausteine außerhalb Ihrer Website — zusätzlich zu allem aus dem Fundament.',
+    stufe: 'Aktiv',
+    preiszeile: '4–7 Fachbeiträge pro Monat · 420 € je Beitrag · Programm +990 € · ab 2.670 € / Monat',
+    bausteine: [
+      {
+        name: 'Markennennungen auf Drittseiten',
+        zusatz: 'Digital-PR',
+        tut: 'Wir platzieren Ihr Unternehmen in Fachportalen, Branchenmedien und Verzeichnissen: Themenrecherche, Redaktionsansprache, fertige Beitragsangebote. Ziel ist die Erwähnung, nicht der Link — deshalb zählen für uns auch Nennungen ohne Verlinkung.',
+        beleg:
+          'Markennennungen korrelieren mit <strong>r = 0,664</strong> mit KI-Sichtbarkeit — Backlinks nur mit 0,218, also dreifach schwächer.',
+        quelle: 'Ahrefs, 75.000 Marken',
+        ab: 'Aktiv',
+      },
+      {
+        name: 'Vergleichsartikel und Anbieter-Listen',
+        tut: 'Wir schreiben und pflegen Ihre eigenen datierten Vergleichs- und Auswahlinhalte — das ist die Leistung, die wir zusagen. Für die Aufnahme in fremde „Beste Anbieter"-Artikel recherchieren wir die relevanten Redaktionen, sprechen sie an und liefern die Fakten; über die Aufnahme entscheidet die Redaktion, nicht wir.',
+        beleg:
+          '<strong>70,8 %</strong> aller Zitate bei B2B-Kaufprompts stammen aus „Beste"- und „Top"-Listen.',
+        quelle: 'Overthink Group, 1.263 Prompts',
+        ab: 'Aktiv',
+      },
+      {
+        name: 'Bewertungsplattformen',
+        tut: 'Wir legen Ihre Profile auf den Plattformen an und pflegen sie, aus denen KI-Systeme in Ihrer Branche zitieren — ProvenExpert, Trustpilot, Google, bei Software-Nähe G2 und Capterra. Es geht um Vollständigkeit und Aktualität des Profils, nicht um das Sammeln von Bewertungsmassen.',
+        beleg:
+          '<strong>100 %</strong> der von ChatGPT empfohlenen B2B-Werkzeuge hatten ein Capterra-Profil, 99 % ein G2-Profil — die Anzahl der Bewertungen korrelierte dabei nicht.',
+        quelle: 'Quoleady',
+        ab: 'Aktiv',
+      },
+      {
+        name: 'YouTube-Veröffentlichung Ihrer Videos',
+        tut: 'Die Social Videos, die wir aus Ihren Fachbeiträgen produzieren, veröffentlichen wir YouTube-gerecht: Titel, Beschreibung, Kapitelmarken und Transkript. Ihren bestehenden Kanal und Ihre älteren Videos fassen wir nicht an — das wäre ein eigenes Projekt.',
+        beleg:
+          'YouTube-Nennungen sind das stärkste Einzelsignal für KI-Sichtbarkeit (<strong>r ≈ 0,737</strong>); YouTube ist in rund 40 % aller deutschen AI-Mode-Antworten verlinkt.',
+        quelle: 'Ahrefs 2026 · SISTRIX',
+        ab: 'Aktiv',
+      },
+    ],
+  },
+  {
+    id: 'quelle-werden',
+    kapitel: 'Ebene 3 · Marktführerschaft',
+    frage: 'Zitiert die KI mich, weil andere mich zitieren?',
+    antwort:
+      'Ihr Markt beruft sich auf Ihre Zahlen. Vier Bausteine, die aus einem Anbieter eine Quelle machen — zusätzlich zu allem aus den beiden Ebenen davor.',
+    stufe: 'Dominanz',
+    preiszeile: '8–12 Fachbeiträge pro Monat · 390 € je Beitrag · Programm +1.790 € · ab 4.910 € / Monat',
+    bausteine: [
+      {
+        name: 'Eigene Branchenstudie',
+        tut: 'Einmal im Jahr entsteht eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt: Wir konzipieren die Fragestellung, erheben die Daten — aus einer Marktbefragung oder aus Ihren vorhandenen Zahlen — und bereiten sie als Studienseite mit Grafiken und Pressetext auf. Verbreitet wird sie über die Digital-PR aus Ebene 2.',
+        beleg:
+          'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp überhaupt — unsere eigene Studie mit <strong>449 Unternehmen</strong> und 7.184 KI-Antworten ist der Beweis in eigener Sache.',
+        quelle: 'Princeton GEO · CodaAI-Studie 2026',
+        ab: 'Dominanz',
+      },
+      {
+        name: 'Wissensdatenbanken',
+        tut: 'Konkret sind das drei Dinge: ein Wikidata-Eintrag Ihres Unternehmens als maschinenlesbares Strukturwissen, ein vollständiges Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments. Wikipedia versprechen wir ausdrücklich nicht — die Relevanzkriterien schließen die meisten Mittelständler aus, und ein bezahlter Artikel wird gelöscht.',
+        beleg:
+          'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT — Wikipedia allein stellt <strong>7,8 %</strong> aller Zitate.',
+        quelle: 'Semrush · Profound',
+        ab: 'Dominanz',
+      },
+      {
+        name: 'LinkedIn Ihrer Führungskräfte',
+        tut: 'Aus jedem Fachbeitrag entstehen fertige LinkedIn-Beiträge im Namen Ihrer Köpfe, dazu die Optimierung der Profile selbst. Veröffentlicht wird von der Person — wir arbeiten nicht mit fremden Account-Zugängen.',
+        beleg:
+          'LinkedIn erscheint in rund <strong>15 %</strong> der AI-Mode-Antworten — im B2B deutlich stärker als Reddit mit 1,4 %.',
+        quelle: 'SISTRIX, AI-Mode-Quellen DE',
+        ab: 'Dominanz',
+      },
+      {
+        name: 'Wettbewerbs-Beobachtung',
+        tut: 'Zusätzlich zu Ihren eigenen Nennungen läuft ein monatlicher Vergleich gegen namentlich benannte Wettbewerber: Wer wird in Ihren Einkäuferfragen wie oft empfohlen, und wie verschiebt sich das über die Monate. Dieselbe Datengrundlage wie Ihre Messung, nur mit dem Markt daneben.',
+        beleg:
+          'Basiert auf demselben eingefrorenen Fragensatz wie Ihre Messung — <strong>vergleichbar über die gesamte Laufzeit</strong>.',
+        quelle: 'CodaAI-Messverfahren',
+        ab: 'Dominanz',
+      },
+    ],
+  },
+];
+
+/* Matrix: dieselben 14 Bausteine, kumulativ. Für den Einkauf, nicht für den Erstleser. */
+const matrix = gruppen.flatMap((g) =>
+  g.bausteine.map((b) => ({
+    name: b.name,
+    basis: b.ab === 'Basis',
+    aktiv: b.ab === 'Basis' || b.ab === 'Aktiv',
+    dominanz: true,
+  })),
+);
+
+const nichtImAngebot = [
+  {
+    t: 'llms.txt als bezahlte Leistung',
+    d: 'Eine Loganalyse über 137.000 Domains zeigt: 97 % dieser Dateien erhielten null Abrufe. Wir legen sie kostenlos mit an — verkaufen sie aber nicht.',
+  },
+  {
+    t: 'Schema-Markup als „KI-Zitat-Booster"',
+    d: 'Im kontrollierten Experiment über 1.885 Seiten gegen 4.000 Kontrollseiten: kein messbarer Effekt auf KI-Zitate. Gehört zur SEO-Basis, ist aber kein Premium-Posten.',
+  },
+  {
+    t: 'Jede Form von Platzierungs-Garantie',
+    d: 'KI-Antworten sind nicht deterministisch. „Platz 1 in ChatGPT garantiert" ist das Erkennungszeichen unseriöser Anbieter — ein buchbares Placement existiert bei keinem KI-System.',
+  },
+  {
+    t: 'Reddit- und Foren-Seeding',
+    d: 'Dominiert Verbraucherfragen, im B2B-Nischenkontext aber nur 1,4 % der Zitate — und die Muster schwanken extrem: Reddit fiel bei ChatGPT innerhalb von sechs Wochen von 60 % auf 10 %.',
+  },
+  {
+    t: 'Wikipedia-Artikel',
+    d: 'Die Relevanzkriterien schließen die meisten Mittelständler aus, bezahlte Artikel werden gelöscht. Wir versprechen Wikidata, nicht Wikipedia.',
+  },
+  {
+    t: '„KI-Traffic ersetzt SEO"',
+    d: 'KI-Verweise machen rund 1 % des Traffics aus. Das ehrliche Argument ist die Vorentscheidung im Kaufprozess — nicht das Besuchervolumen.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'CodaAI Digital Visibility',
+  serviceType: 'KI-Sichtbarkeit (GEO) und SEO für B2B-Unternehmen',
+  provider: { '@id': 'https://www.codaai.ai/#organization' },
+  areaServed: 'DE',
+  description:
+    'Managed Service für Sichtbarkeit in KI-Antworten: 14 Bausteine in drei Stufen — von der technischen Lesbarkeit der Website über Markennennungen auf Drittquellen bis zur eigenen Branchenstudie.',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Leistungsbausteine',
+    itemListElement: gruppen.map((g) => ({
+      '@type': 'OfferCatalog',
+      name: `${g.kapitel.split('· ')[1]} (${g.stufe})`,
+      itemListElement: g.bausteine.map((b) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: b.name, description: b.tut },
+      })),
+    })),
+  },
+};
+---
+
+<Layout
+  lang={lang}
+  title="Leistungen – die 14 Bausteine der KI-Sichtbarkeit | CodaAI"
+  description="Was in den drei Stufen tatsächlich geliefert wird: 14 Bausteine, jeder mit der Studienzahl, auf die er sich stützt — und die Liste dessen, was wir bewusst nicht anbieten."
+>
+  <Navbar lang={lang} />
+  <main class="pt-0">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
+      <Breadcrumb
+        items={[
+          { label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` },
+          { label: 'Preise', href: `${base}/preise/` },
+          { label: 'Leistungen' },
+        ]}
+        class="mb-0"
+      />
+    </div>
+
+    <!-- ── 1 · Hero ─────────────────────────────────────────────────────── -->
+    <Reveal as="div" class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-14 lg:pb-16">
+      <h1 class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        Was in den drei Stufen tatsächlich geliefert wird
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Vierzehn Bausteine, geordnet nach den drei Fragen, die über Ihre Sichtbarkeit in KI-Antworten
+        entscheiden. Zu jedem steht, was wir konkret tun und welche Zahl dafür spricht — denn ohne Beleg
+        gehört ein Baustein nicht in ein Angebot.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a
+          href={`${base}/preise/#rechner`}
+          class="inline-flex items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        >
+          Preis konfigurieren →
+        </a>
+        <p class="text-sm text-muted-foreground">
+          Programme starten bei <strong class="font-semibold text-foreground">1.470 € pro Monat</strong> · netto · 6 Monate Mindestlaufzeit
+        </p>
+      </div>
+    </Reveal>
+
+    <!-- ── 2 · Die drei Fragen mit ihren Bausteinen ─────────────────────── -->
+    {gruppen.map((g, gi) => (
+      <section
+        id={g.id}
+        aria-label={g.frage}
+        class={`scroll-mt-24 border-t border-border py-16 lg:py-24 lg:scroll-mt-28 ${gi % 2 === 1 ? 'bg-muted/20' : ''}`}
+      >
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <Reveal as="div">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{g.kapitel}</p>
+            <h2 class="max-w-[26ch] text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+              {g.frage}
+            </h2>
+            <p class="mt-5 max-w-[62ch] text-base leading-relaxed text-muted-foreground lg:text-lg">
+              {g.antwort}
+            </p>
+            <p class="mt-6 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-4 py-2.5">
+              <span class="text-sm font-bold tracking-tight text-foreground">Stufe {g.stufe}</span>
+              <span class="text-[12.5px] text-muted-foreground">{g.preiszeile}</span>
+            </p>
+          </Reveal>
+
+          <div class="mt-10 grid gap-5 md:grid-cols-2 lg:gap-6">
+            {g.bausteine.map((b, i) => (
+              <Reveal
+                as="article"
+                delay={(i % 2) * 90}
+                class="flex flex-col rounded-2xl border border-border bg-card p-6 lg:p-7"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <h3 class="text-lg font-semibold tracking-tight text-foreground">
+                    {b.name}
+                    {b.zusatz && (
+                      <span class="mt-0.5 block text-[12.5px] font-normal text-muted-foreground">{b.zusatz}</span>
+                    )}
+                  </h3>
+                  <span class="shrink-0 rounded-md border border-border px-2 py-1 text-[10.5px] font-bold uppercase tracking-widest text-muted-foreground">
+                    ab {b.ab}
+                  </span>
+                </div>
+
+                <p class="mt-4 flex-1 text-[14.5px] leading-relaxed text-foreground">{b.tut}</p>
+
+                <div class="mt-5 border-t border-border pt-4">
+                  <p class="text-[13px] leading-relaxed text-muted-foreground" set:html={b.beleg} />
+                  <p class="mt-1.5 text-[11.5px] uppercase tracking-wide text-muted-foreground/70">{b.quelle}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- ── 3 · Matrix ───────────────────────────────────────────────────── -->
+    <section id="matrix" aria-label="Alle Bausteine je Stufe" class="border-t border-border py-16 lg:py-24 scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-4xl px-6 lg:px-8">
+        <Reveal as="div">
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+            Alle Bausteine auf einen Blick
+          </h2>
+          <p class="mt-4 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
+            Jede Stufe enthält vollständig, was die Stufe darunter enthält. Diese Übersicht ist für den
+            Einkauf gedacht — sie geht unverändert in Ihr Angebot ein.
+          </p>
+        </Reveal>
+
+        <Reveal as="div" delay={90} class="mt-8 overflow-x-auto">
+          <table class="w-full min-w-[520px] border-collapse text-left">
+            <thead>
+              <tr>
+                <th scope="col" class="border-b-2 border-border pb-3 pr-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Baustein
+                </th>
+                <th scope="col" class="border-b-2 border-border px-3 pb-3 text-center text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Basis
+                </th>
+                <th scope="col" class="border-b-2 border-border px-3 pb-3 text-center text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Aktiv
+                </th>
+                <th scope="col" class="border-b-2 border-border px-3 pb-3 text-center text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Dominanz
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {matrix.map((m) => (
+                <tr class="border-b border-border">
+                  <th scope="row" class="py-3 pr-4 text-[14px] font-medium text-foreground">{m.name}</th>
+                  {[m.basis, m.aktiv, m.dominanz].map((on, ci) => (
+                    <td class="px-3 py-3 text-center">
+                      {on ? (
+                        <span class="sr-only">{['Basis', 'Aktiv', 'Dominanz'][ci]}: enthalten</span>
+                      ) : (
+                        <span class="sr-only">{['Basis', 'Aktiv', 'Dominanz'][ci]}: nicht enthalten</span>
+                      )}
+                      {on ? (
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-cta-accessible" aria-hidden="true">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      ) : (
+                        <span class="text-muted-foreground/40" aria-hidden="true">—</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              <tr>
+                <th scope="row" class="pt-4 pr-4 text-[13px] font-semibold text-muted-foreground">Fachbeiträge pro Monat</th>
+                <td class="px-3 pt-4 text-center text-[13px] font-semibold text-foreground">2–3</td>
+                <td class="px-3 pt-4 text-center text-[13px] font-semibold text-foreground">4–7</td>
+                <td class="px-3 pt-4 text-center text-[13px] font-semibold text-foreground">8–12</td>
+              </tr>
+              <tr>
+                <th scope="row" class="pt-2 pr-4 text-[13px] font-semibold text-muted-foreground">Ab Monatspreis</th>
+                <td class="px-3 pt-2 text-center text-[13px] font-semibold text-foreground">1.470 €</td>
+                <td class="px-3 pt-2 text-center text-[13px] font-semibold text-foreground">2.670 €</td>
+                <td class="px-3 pt-2 text-center text-[13px] font-semibold text-foreground">4.910 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </Reveal>
+
+        <Reveal as="p" delay={140} class="mt-6 text-sm text-muted-foreground">
+          Übersetzungen kosten 99 € je Sprache und Beitrag, Social Videos 120 € je Video — in jeder Stufe
+          gleich. <a href={`${base}/preise/#rechner`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Zum Preisrechner →</a>
+        </Reveal>
+      </div>
+    </section>
+
+    <!-- ── 4 · Bewusst nicht im Angebot ─────────────────────────────────── -->
+    <section id="nicht-im-angebot" data-theme="dark" class="cai-dvdark border-t border-border bg-background py-16 lg:py-24 scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal as="div">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Aus über 25 Jahren Erfahrung</p>
+          <h2 class="max-w-[24ch] text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+            Sechs Dinge, die wir bewusst nicht anbieten
+          </h2>
+          <p class="mt-5 max-w-[62ch] text-base leading-relaxed text-muted-foreground lg:text-lg">
+            Sie stehen in vielen Angeboten dieser Branche. Bei uns nicht — und zwar mit Begründung.
+          </p>
+        </Reveal>
+
+        <div class="mt-10 grid gap-x-10 gap-y-7 lg:grid-cols-2">
+          {nichtImAngebot.map((n, i) => (
+            <Reveal as="div" delay={(i % 2) * 80} class="border-l-[3px] border-cta pl-6">
+              <h3 class="text-base font-semibold text-foreground">{n.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{n.d}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5 · Termin ───────────────────────────────────────────────────── -->
+    <Booking lang={lang} />
+
+    <!-- ── 6 · Abschluss ────────────────────────────────────────────────── -->
+    <section class="mx-auto max-w-3xl border-t border-border px-6 py-14 text-center lg:px-8">
+      <Reveal as="div">
+        <p class="text-base leading-relaxed text-muted-foreground">
+          Welche Stufe zu Ihnen passt, hängt davon ab, wie sichtbar Sie heute sind.
+          <a href={`${base}/#angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Audit kostenlos anfordern →</a>
+        </p>
+        <p class="mt-3 text-sm text-muted-foreground">
+          Oder direkt <a href={`${base}/preise/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">zu den Preisen</a>.
+        </p>
+      </Reveal>
+    </section>
+  </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+
+  <style>
+    /* Dezentes Raster für den Ehrlichkeits-Block — identisch zu /preise. */
+    .cai-dvdark {
+      background-image:
+        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+  </style>
+
+  <Footer lang={lang} />
+</Layout>

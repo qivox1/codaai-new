@@ -18,6 +18,7 @@ const stufen = [
   {
     level: 'Stufe 1 · Fundament',
     name: 'Basis',
+    anchor: 'lesbar',
     claim: 'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig. Das Pflichtprogramm — alles andere baut darauf auf.',
     from: 'ab 1.470 €',
     window: '2–3 Artikel · 490 € je Artikel · Programm +490 €',
@@ -32,6 +33,7 @@ const stufen = [
   {
     level: 'Stufe 2 · Skalierung',
     name: 'Aktiv',
+    anchor: 'quellen',
     claim: 'Die Empfehlung kommt nicht nur von Ihnen selbst. Präsenz auf den Quellen, aus denen KI-Systeme zitieren.',
     from: 'ab 2.670 €',
     window: '4–7 Artikel · 420 € je Artikel · Programm +990 €',
@@ -39,7 +41,7 @@ const stufen = [
     points: [
       '<strong>Alles aus Basis</strong>',
       'Erwähnungen Ihrer Marke auf Fachportalen und in Branchenmedien — der stärkste belegte Hebel',
-      'Platzierung in „Die besten Anbieter für …"-Artikeln, aus denen KI zitiert',
+      'Eigene Vergleichsinhalte in der Form, aus der KI-Systeme am häufigsten zitieren',
       'Präsenz auf Bewertungsplattformen',
       'Ihre Videos auffindbar auf YouTube, mit Transkript',
     ],
@@ -47,13 +49,14 @@ const stufen = [
   {
     level: 'Stufe 3 · Marktführerschaft',
     name: 'Dominanz',
+    anchor: 'quelle-werden',
     claim: 'Ihr Markt beruft sich auf Ihre Zahlen. Die stärkste Position, die es in KI-Antworten gibt.',
     from: 'ab 4.910 €',
     window: '8–12 Artikel · 390 € je Artikel · Programm +1.790 €',
     recommended: false,
     points: [
       '<strong>Alles aus Aktiv</strong>',
-      'Eine eigene Auswertung pro Jahr — Zahlen, die andere zitieren müssen',
+      'Eine eigene Branchenstudie pro Jahr — Zahlen, die andere zitieren müssen',
       'Eintrag in die Wissensdatenbanken, aus denen KI ihr Grundwissen zieht',
       'Sichtbarkeit Ihrer Köpfe auf LinkedIn',
     ],
@@ -178,9 +181,14 @@ const faqSchema = {
                 ))}
               </ul>
 
-              <a href="#rechner" class="mt-6 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
-                Preis für diese Stufe rechnen →
-              </a>
+              <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+                <a href="#rechner" class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
+                  Preis für diese Stufe rechnen →
+                </a>
+                <a href={`${base}/leistungen/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">
+                  Alle Bausteine →
+                </a>
+              </div>
             </Reveal>
           ))}
         </div>
