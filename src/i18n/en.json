@@ -14,9 +14,9 @@
       "all-in-one.",
       "better value."
     ],
-    "description": "Save over €100,000 per year and reclaim 200+ hours monthly. CodaAI handles your entire content production – from strategy and SEO articles to graphics and finished videos. Everything from one platform, without coordination overhead.",
+    "description": "Get recommended in ChatGPT, Google's AI Overview and classic search. CodaAI builds your digital visibility — technical foundation, citable content, external sources — and measures every month whether your company gets named.",
     "poweredBy": "Powered by AI",
-    "users": "200+ Users",
+    "users": "449 companies analysed",
     "loginPlaceholder": "login@youremail.com"
   },
   "features": {
@@ -25,7 +25,7 @@
     "subtitle": "CodaAI elevates your entire content production to a new level: from editorial planning to SEO articles, from professional graphics to viral videos.",
     "hoverForDetails": "Hover for details",
     "yourBenefits": "Your Benefits:",
-    "getFreePremiumArticle": "Get your free Premium Blog Article",
+    "getFreePremiumArticle": "Request a free audit",
     "experts": [
       {
         "title": "Editorial Planning",
@@ -207,7 +207,7 @@
       },
       {
         "question": "How much can I actually save?",
-        "answer": "Up to 88% less than traditional agency fees. A complete content package costs €2,000+ per article at an agency – CodaAI starts from €349*/month with an annual licence. This is possible through the Co-Creation model: human expertise where it truly matters – strategy, quality control, and brand direction. AI automation where scale makes the difference."
+        "answer": "A comparable agency retainer in the DACH region averages around €3,800 per month (DACH market benchmark 2026), with the SME band at €1,500–5,000. CodaAI's visibility tiers start at €1,470 per month and can be calculated in the pricing calculator instead of costing “on request”. This is possible through the Co-Creation model: human expertise for strategy and factual review, AI scale for production."
       },
       {
         "question": "How does it work? What do I need to get started?",
@@ -223,7 +223,7 @@
       },
       {
         "question": "What contract terms are available?",
-        "answer": "The minimum contract term is one quarter (3 months). With an annual licence, you save 20% compared to quarterly billing – ideal for content marketing and SEO initiatives that deliver results over time. Cancellation is possible at the end of the chosen billing period (quarterly or annually)."
+        "answer": "Six months, billed monthly — visibility in search and AI answers needs that time to become measurable; first mentions typically appear after 8 to 12 weeks in the German market. Committing to twelve months costs 10 % less. There is no automatic rollover: renewal is always an active decision."
       },
       {
         "question": "What happens after I cancel?",
@@ -239,12 +239,12 @@
     "badge": "The Real Cost of Content",
     "title": "What traditional agencies charge",
     "totalLabel": "Total Agency Cost Per Article",
-    "totalCost": "~4.200 €",
+    "totalCost": "~€3,800",
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from 349 €*",
-    "codaAIPer": "instead of ~4.200 €. >85% cheaper.",
+    "codaAIPrice": "from €1,470*",
+    "codaAIPer": "instead of the ~€3,800 market average.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
       {
@@ -272,8 +272,8 @@
         "description": "Editorial calendar management, briefings, feedback rounds, and project management overhead."
       }
     ],
-    "codaAIStatt": "instead of ~4.200 €",
-    "codaAISavings": ">85% cheaper"
+    "codaAIStatt": "instead of ~€3,800",
+    "codaAISavings": "below the DACH market average"
   },
   "footer": {
     "tagline1": "Premium Content.",
@@ -291,31 +291,31 @@
   "tiers": {
     "eyebrow": "Three tiers",
     "title": "Choose your visibility tier",
-    "intro": "The Digital Visibility Programme comes in three tiers — a fixed monthly add-on to your content package, independent of article volume.",
+    "intro": "The Digital Visibility programme comes in three tiers. You pick a tier and dose how much content is produced each month — more reach needs more fuel.",
     "items": [
       {
         "name": "Basic",
-        "badge": "Recommended starting point",
-        "price": "+€490 / month",
-        "priceNote": "in addition to your content package",
+        "badge": "",
+        "price": "from €1,470 / month",
+        "priceNote": "2–3 articles · €490 each · programme +€490",
         "text": "The must-have for measurable AI visibility: audit, monthly AI monitoring, SEO including Bing, technical AI accessibility, and ongoing updates to your existing pages."
       },
       {
         "name": "Active",
-        "badge": "",
-        "price": "+€990 / month",
-        "priceNote": "in addition to your content package",
+        "badge": "Recommended",
+        "price": "from €2,670 / month",
+        "priceNote": "4–7 articles · €420 each · programme +€990",
         "text": "Everything in Basic plus the strongest external levers: digital PR and brand mentions, review platforms, placement in comparison articles, and YouTube alignment for your videos."
       },
       {
         "name": "Dominance",
         "badge": "",
-        "price": "+€1,790 / month",
-        "priceNote": "in addition to your content package",
+        "price": "from €4,910 / month",
+        "priceNote": "8–12 articles · €390 each · programme +€1,790",
         "text": "For the ambition to become the reference in your industry: proprietary studies and data assets, knowledge bases, LinkedIn thought leadership, and ongoing competitive monitoring."
       }
     ],
-    "note": "Every tier: 6-month minimum term · includes the Visibility Promise. The content package can also be booked without a tier.",
+    "note": "Every tier: 6-month minimum term · 10 % less on 12 months. There is no content package without a tier.",
     "ctaLabel": "Calculate your price in the calculator →",
     "ctaHref": "/en/pricing/"
   },
@@ -391,7 +391,7 @@
           },
           {
             "title": "Competitive monitoring",
-            "text": "Who gets named in your buyer questions instead of you? We measure your share against named competitors in the AI recommendations — quarter after quarter."
+            "text": "Who gets named in your buyer questions instead of you? We measure your share against named competitors in the AI recommendations — month after month."
           }
         ]
       }

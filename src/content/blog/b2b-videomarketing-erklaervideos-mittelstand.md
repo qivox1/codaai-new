@@ -171,4 +171,4 @@ Mit KI-gestützten Produktionswerkzeugen ist die Kostenhürde für professionell
 
 Die Frage ist nicht mehr, ob Sie Video-Content produzieren sollten. Die Frage ist, ob Sie bereit sind, diesen Kanal Ihren Wettbewerbern zu überlassen – oder ob Sie ihn aktiv bespielen wollen.
 
-**Möchten Sie wissen, wie CodaAI Co-Create Video-Content in Ihren Content-Workflow integriert?** Fordern Sie eine Demo an – wir zeigen Ihnen, wie aus Ihren Fachthemen in 48 Stunden ein vollständiges Content-Paket aus Artikel, LinkedIn-Post und Video-Skript entsteht.
+**Möchten Sie wissen, wie CodaAI Co-Create Video-Content in Ihren Content-Workflow integriert?** Fordern Sie Ihr kostenloses Digital Visibility Audit an – wir zeigen Ihnen, in welchen Einkäuferfragen Ihr Unternehmen in KI-Antworten fehlt und welche Inhalte diese Lücke schließen.

@@ -2,115 +2,263 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import PricingCalculator from '../../components/react/PricingCalculator';
+import Booking from '../../components/Booking.astro';
+import PricingCalculatorV2 from '../../components/react/PricingCalculatorV2';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Reveal from '../../components/fx/Reveal.astro';
-import StufenTeaser from '../../components/StufenTeaser.astro';
 
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/* ── The three tiers (decision of 27.07.2026) ─────────────────────────────────
+   Visibility is the product, content is the dosage. "No tier" is gone.
+   The per-article price sits with the tier, every tier has a disjoint window.
+   Concept: umbau-digital-visibility/2026-07-27_Preise-Neukonzept_Beschluss.md   */
+const stufen = [
+  {
+    level: 'Tier 1 · Foundation',
+    name: 'Basis',
+    claim: 'Your website becomes readable, findable and quotable for AI systems. The compulsory programme — everything else builds on it.',
+    from: 'from €1,470',
+    window: '2–3 articles · €490 per article · programme +€490',
+    recommended: false,
+    points: [
+      'Monthly report: where you are named in AI answers — and who is named instead of you',
+      'Google <strong>and Bing</strong> optimisation — Bing, because that is where ChatGPT quotes from',
+      'We check whether AI systems can read your website at all — your web team receives the fixes ready to implement',
+      'Expert articles with figures and sources — the format AI systems quote',
+    ],
+  },
+  {
+    level: 'Tier 2 · Scale',
+    name: 'Active',
+    claim: 'The recommendation no longer comes from you alone. Presence on the sources AI systems quote from.',
+    from: 'from €2,670',
+    window: '4–7 articles · €420 per article · programme +€990',
+    recommended: true,
+    points: [
+      '<strong>Everything from Basis</strong>',
+      'Mentions of your brand on trade portals and in industry media — the strongest documented lever',
+      'Placement in "the best providers for …" articles that AI quotes from',
+      'Presence on review platforms',
+      'Your videos findable on YouTube, with transcript',
+    ],
+  },
+  {
+    level: 'Tier 3 · Market leadership',
+    name: 'Dominance',
+    claim: 'Your market cites your figures. The strongest position there is in AI answers.',
+    from: 'from €4,910',
+    window: '8–12 articles · €390 per article · programme +€1,790',
+    recommended: false,
+    points: [
+      '<strong>Everything from Active</strong>',
+      'One study of your own per year — figures others have to quote',
+      'Entry into the knowledge bases AI draws its basic knowledge from',
+      'Visibility for your people on LinkedIn',
+    ],
+  },
+];
+
+/* ── FAQ (pulled onto the new logic; the old entries on volume tiers, the annual-payment discount,
+      48-hour delivery and free articles are gone) ── */
+const faqs = [
+  {
+    q: 'How is my monthly price made up?',
+    a: 'From three items: the number of expert articles multiplied by the per-article price of your tier, the optional extensions (translations, videos) and the fixed programme price of the tier. Example: 4 articles × €420 = €1,680, plus the Active programme at €990 = €2,670 per month. All net, all on one invoice.',
+  },
+  {
+    q: 'Why does an article cost more in Basis than in Dominance?',
+    a: 'Because the volume discount sits with the tier, not with the number of articles: €490 in Basis, €420 in Active, €390 in Dominance. Anyone who needs more content is better off in a higher tier — and gets the stronger levers along with it. One price per tier instead of a discount table.',
+  },
+  {
+    q: 'Can I book articles only, without a programme?',
+    a: 'No. In 2026, content on its own is no longer reliably found — it needs the technical foundation, the measurement and, from tier 2 onwards, the sources outside your own website. That is why every tier is a whole, and why it comes with a minimum amount of content: more reach needs more fuel.',
+  },
+  {
+    q: 'What minimum term applies?',
+    a: 'Six months, billed monthly. Visibility in search and AI answers builds over months — in the German market the first mentions typically appear after 8 to 12 weeks. Commit to twelve months and you pay 10 % less. There is no automatic rollover: you actively decide on renewal.',
+  },
+  {
+    q: 'Can I switch tiers later?',
+    a: 'An upgrade is possible at any time from the next month, and your running minimum term simply continues. A downgrade takes effect at the end of the minimum term. The number of articles within your tier can be adjusted at every renewal date.',
+  },
+  {
+    q: 'What is included in an expert article?',
+    a: 'Research with sources cited, 1,500 to 4,000 words, three matching images or one infographic, optimisation for Google, Bing and AI systems, plus publication on your website. We do not bill by the word — the length follows the topic.',
+  },
+  {
+    q: 'What do you measure each month?',
+    a: 'Three things, against a set of real buyer questions agreed at the start: which AI answers name your company, in which position it appears, and which of your pages are quoted as a source. You get the same figures we work with internally — every month, on the same date.',
+  },
+  {
+    q: 'How do I get a binding quote?',
+    a: 'Straight from the calculator: choose your configuration, click "Request this quote as a PDF" — and you receive your quote by email, ready to forward to management or procurement. Billing is by invoice, no credit card needed.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout
   lang={lang}
-  title="Pricing – Content Packages & Digital Visibility Tiers | CodaAI"
-  description="Transparently calculated: content packages from €349* per article, visibility program from +€490/month. A real pricing calculator instead of 'on request' — incl. visibility commitment."
+  title="Pricing – AI visibility from €1,470 per month | CodaAI"
+  description="Transparently calculated instead of &quot;on request&quot;: three visibility tiers from €1,470 per month, a pricing calculator with a sum you can check, quote as a PDF on request."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
-      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
     </div>
 
-    <!-- Pricing page intro -->
-    <Reveal as="div" class="mx-auto max-w-3xl px-6 lg:px-8 pt-6 lg:pt-8 pb-0 text-center">
+    <!-- ── 1 · Hero ─────────────────────────────────────────────────────── -->
+    <Reveal as="div" class="mx-auto max-w-4xl px-6 lg:px-8 pt-8 lg:pt-10 pb-16 lg:pb-20">
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
-        Your price in two steps
+        What does it cost to be recommended in AI answers?
       </h1>
-      <p class="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-        First configure your content package, then choose your Digital Visibility tier — your monthly price is ready. Transparently calculated, while the rest of the market still says "on request."
+      <p class="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
+        You choose one of three tiers and set how much content is produced each month. That is the whole calculation — one you can check yourself, while the rest of the market writes "on request".
       </p>
-      <p class="mt-3 text-sm font-medium text-cta-accessible max-w-2xl mx-auto">
-        Every tier pays into the same goal: get recommended — and win qualified inquiries.
+      <p class="mt-7 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-5 py-3">
+        <span class="text-2xl font-bold tracking-tight text-foreground">from €1,470</span>
+        <span class="text-sm text-muted-foreground">per month · net · 6-month minimum term</span>
       </p>
     </Reveal>
 
-    <!-- Tier teaser: full section (curves + bullet points + prices), moved here from the
-         homepage per Oli's request on 20.07.2026 — directly above the calculator. Title
-         and CTA target are overridden for the pricing-page context (CTA jumps to the
-         calculator instead of back to /en/pricing/). -->
-    <Reveal as="div">
-      <StufenTeaser lang={lang} title="The three Visibility tiers at a glance" ctaHref="#calculator" />
-    </Reveal>
+    <!-- ── 2 · The three tiers ──────────────────────────────────────────── -->
+    <section id="tiers" aria-label="The three visibility tiers" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal as="div">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Three tiers</p>
+          <h2 class="max-w-3xl text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.2] sm:leading-[1.2]">
+            First your website. Then the sources around it. Then you are the source.
+          </h2>
+          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Every tier contains everything from the one before — and a minimum amount of content, because more reach needs more fuel.
+          </p>
+        </Reveal>
 
-    <div id="calculator" class="scroll-mt-24 lg:scroll-mt-28">
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          {stufen.map((s, i) => (
+            <Reveal
+              as="div"
+              delay={i * 110}
+              class={`relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${s.recommended ? 'border-cta shadow-[0_10px_40px_hsl(var(--cta)/0.12)]' : 'border-border'}`}
+            >
+              {s.recommended && (
+                <span class="absolute -top-3 left-6 rounded-md bg-cta px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-widest text-white">
+                  Recommended
+                </span>
+              )}
+              <p class="text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{s.level}</p>
+              <h3 class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{s.name}</h3>
+              <p class="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
+
+              <div class="mt-5 border-t border-border pt-5">
+                <p><span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span> <span class="text-sm text-muted-foreground">/ month</span></p>
+                <p class="mt-1.5 text-[12.5px] text-muted-foreground">{s.window}</p>
+              </div>
+
+              <ul class="mt-6 flex flex-1 flex-col gap-2.5">
+                {s.points.map((p) => (
+                  <li class="relative pl-6 text-[13.5px] leading-relaxed text-foreground">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute left-0 top-[5px] text-cta-accessible" aria-hidden="true">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    <span set:html={p} />
+                  </li>
+                ))}
+              </ul>
+
+              <a href="#rechner" class="mt-6 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
+                Calculate the price for this tier →
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3 · Pricing calculator (contains both exits) ─────────────────── -->
+    <PricingCalculatorV2 lang={lang} base={base} bookingHref={`${base}/en/pricing/#termin`} client:load />
+
+    <!-- ── 4 · Booking ──────────────────────────────────────────────────── -->
+    <Booking lang={lang} />
+
+    <!-- ── 5 · What we do not promise ──────────────────────────────────── -->
+    <section id="honesty" data-theme="dark" class="cai-dvdark relative overflow-hidden border-t border-border bg-background py-20 lg:py-28">
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <Reveal as="div">
+            <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">From over 25 years of experience</p>
+            <h2 class="max-w-[22ch] text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.2] sm:leading-[1.2]">
+              What we will not promise you.
+            </h2>
+            <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-muted-foreground">
+              Because trust is the basis of a collaboration designed to run for at least six months. You should know what you are paying for — and what you are not.
+            </p>
+          </Reveal>
+
+          <Reveal as="div" delay={120} class="space-y-7">
+            <div class="border-l-[3px] border-cta pl-6">
+              <h3 class="text-lg font-semibold text-foreground">"Number one in ChatGPT — guaranteed"</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                You will not get that from us. AI answers are not deterministic: the same question can be answered differently today and tomorrow. Anyone who guarantees a mention is selling something that does not technically exist.
+              </p>
+            </div>
+            <div class="border-l-[3px] border-cta pl-6">
+              <h3 class="text-lg font-semibold text-foreground">Technical add-on line items</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                We do not bill for items that demonstrably do nothing — however good they sound. We do llms.txt and schema markup where they make sense; they do not appear on your invoice as an "AI citation booster".
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6 · FAQ ──────────────────────────────────────────────────────── -->
+    <section id="faq" aria-label="Frequently asked questions about pricing" class="mx-auto max-w-3xl border-t border-border px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
       <Reveal as="div">
-        <PricingCalculator lang={lang} base={base} client:load />
+        <h2 class="mb-8 text-center text-2xl font-semibold text-foreground">Frequently asked questions about pricing</h2>
       </Reveal>
-    </div>
+      <dl class="space-y-6">
+        {faqs.map((f, i) => (
+          <Reveal as="div" delay={(i % 2) * 40}>
+            <div class="rounded-xl border border-border bg-card p-6">
+              <dt class="mb-2 font-semibold text-foreground">{f.q}</dt>
+              <dd class="text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
+            </div>
+          </Reveal>
+        ))}
+      </dl>
 
-  <!-- FAQ Pricing -->
-  <section aria-label="Frequently Asked Questions about Pricing" class="mx-auto max-w-3xl px-6 lg:px-8 py-16 border-t border-border">
-    <Reveal as="div">
-      <h2 class="text-2xl font-semibold text-foreground mb-8 text-center">Frequently Asked Questions about Pricing</h2>
-    </Reveal>
-    <dl class="space-y-6">
-      <Reveal as="div" delay={0}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">How is the Digital Visibility Program billed?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">As a fixed monthly surcharge on top of your content package – regardless of how many articles you order: Basic +€490, Active +€990, Dominance +€1,790 per month (net). Example: 4 articles (€1,680) plus the Active tier (€990) add up to €2,670 per month. Content package and program appear together on one invoice.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={40}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">What minimum contract term applies?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Without a Digital Visibility tier, as before: 3 months with quarterly billing, 12 months with annual payment (20% cheaper). With a tier, the minimum term is 6 months – visibility in search and AI answers needs that time to become measurable. There is no automatic rollover: you actively decide on renewal.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={0}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">What exactly is the visibility commitment?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Every tier includes it: if there is no measurable movement in your AI mentions after 120 days, we continue running the visibility program free of charge for the rest of the term. It is measured through your monthly AI monitoring – the same reports you receive anyway. It is a commitment to our work, not a placement guarantee: no one can seriously promise a specific mention in ChatGPT.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={40}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">Can I switch tiers later?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Yes. An upgrade (e.g. Basic → Active) is possible at any time from the next month, and your running minimum term simply continues. A downgrade or removing the tier is possible at the end of the 6-month minimum term. The number of articles in your content package can still be adjusted independently, as before.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={0}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">How does billing work?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">You pay monthly or annually in advance. With annual payment you save 20% compared to quarterly billing. There are no hidden costs – the price per article is fixed and known upfront.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={40}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">Can I change my package each month?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Yes, the number of articles can be adjusted at each renewal date. Upgrades are immediate; downgrades take effect at the next billing period.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={0}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">What is included in the price?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Every article includes research, SEO optimisation, up to 4,000 words, 3 matching images or 1 infographic, and publication on your website. Translations and social media videos are available as optional add-ons.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={40}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">How quickly are articles delivered?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">As a rule you receive your first article within 48 hours of order confirmation. Ongoing articles are delivered according to a pre-agreed editorial calendar.</dd>
-      </div>
-      </Reveal>
-      <Reveal as="div" delay={0}>
-      <div class="rounded-xl border border-border bg-card p-6">
-        <dt class="font-semibold text-foreground mb-2">Is there a free trial?</dt>
-        <dd class="text-muted-foreground text-sm leading-relaxed">Yes – request a free premium article with no credit card or commitment required. That way you can test the quality and style of our content risk-free before subscribing to a package.</dd>
-      </div>
-      </Reveal>
-    </dl>
-  </section>
+      <p class="mt-10 text-center text-sm text-muted-foreground">
+        No figures for your company yet?
+        <a href={`${base}/en/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Request a free audit →</a>
+      </p>
+    </section>
   </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+
+  <style>
+    /* Honesty block: subtle grid, derived from the foreground token. */
+    .cai-dvdark {
+      background-image:
+        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+  </style>
+
   <Footer lang={lang} />
 </Layout>

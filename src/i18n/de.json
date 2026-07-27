@@ -14,9 +14,9 @@
       "aus einer Hand.",
       "mehr Wert."
     ],
-    "description": "Sparen Sie über 100.000 € pro Jahr und gewinnen Sie 200+ Stunden monatlich zurück. CodaAI übernimmt Ihre gesamte Content-Produktion – von der Strategie über SEO-Texte und Grafiken bis zum fertigen Video. Alles aus einer Plattform, ohne Koordinationsaufwand.",
+    "description": "Werden Sie in ChatGPT, der Google KI-Übersicht und der klassischen Suche empfohlen. CodaAI baut Ihre digitale Sichtbarkeit auf — technische Basis, zitierfähige Inhalte, externe Quellen — und misst jeden Monat, ob Ihr Unternehmen genannt wird.",
     "poweredBy": "Powered by AI",
-    "users": "200+ Nutzer",
+    "users": "449 Unternehmen analysiert",
     "loginPlaceholder": "login@ihreemail.com"
   },
   "features": {
@@ -25,7 +25,7 @@
     "subtitle": "Blogartikel, Grafiken, Videos und mehr – CodaAI produziert alles, was Ihr Marketing braucht. Automatisch und in Agenturqualität.",
     "hoverForDetails": "Hover für Details",
     "yourBenefits": "Ihre Vorteile:",
-    "getFreePremiumArticle": "Jetzt kostenlosen Artikel sichern",
+    "getFreePremiumArticle": "Kostenloses Audit anfordern",
     "experts": [
       {
         "title": "Redaktionsplanung",
@@ -203,7 +203,7 @@
       },
       {
         "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Beim Content: bis zu 88 % gegenüber klassischen Agenturpreisen — ein vollständiges Content-Paket kostet bei einer Agentur ca. 4.200 €, bei CodaAI ab 349 €* pro Monat (mit Jahreslizenz). Beim Sichtbarkeits-Programm: Ein vergleichbarer Agentur-Retainer liegt im DACH-Raum im Schnitt bei rund 3.800 € pro Monat (Marktbenchmark DACH 2026) — bei CodaAI kosten z. B. 4 Artikel plus Stufe Aktiv zusammen 2.670 € pro Monat, transparent im Preisrechner kalkulierbar statt „auf Anfrage“. Möglich wird beides durch das Co-Creation-Modell: menschliche Expertise für Strategie und Qualität, KI-Skalierung für die Produktion."
+        "answer": "Ein vergleichbarer Agentur-Retainer liegt im DACH-Raum im Schnitt bei rund 3.800 € pro Monat (Marktbenchmark DACH 2026), das KMU-Band bei 1.500–5.000 €. Bei CodaAI starten die Sichtbarkeits-Stufen bei 1.470 € pro Monat und sind im Preisrechner nachrechenbar, statt „auf Anfrage“ zu kosten. Möglich wird das durch das Co-Creation-Modell: menschliche Expertise für Strategie und fachliche Prüfung, KI-Skalierung für die Produktion."
       },
       {
         "question": "Wie funktioniert es? Was brauche ich zum Starten?",
@@ -243,7 +243,7 @@
       },
       {
         "question": "Welche Vertragslaufzeiten gibt es?",
-        "answer": "Zwei Modelle: Reine Content-Pakete laufen wie bisher — Mindestlaufzeit ein Quartal, mit Jahreslizenz 20 % günstiger. Mit einer Digital-Visibility-Stufe (Basis, Aktiv oder Dominanz) beträgt die Mindestlaufzeit 6 Monate — Sichtbarkeit in Suche und KI-Antworten braucht diesen Zeitraum, um messbar zu werden. Dafür ist das Sichtbarkeits-Versprechen enthalten: Zeigt sich nach 90 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter."
+        "answer": "Sechs Monate, bei monatlicher Abrechnung — Sichtbarkeit in Suche und KI-Antworten braucht diesen Zeitraum, um messbar zu werden; die ersten Erwähnungen erscheinen im deutschen Markt typischerweise nach 8 bis 12 Wochen. Wer sich auf zwölf Monate festlegt, zahlt 10 % weniger. Es gibt kein automatisches Rollover: Sie entscheiden aktiv über die Verlängerung."
       },
       {
         "question": "Warum sollte ich mindestens 3–6 Monate einplanen?",
@@ -259,12 +259,12 @@
     "badge": "So viel zahlen Sie heute für Content",
     "title": "Was traditionelle Agenturen berechnen",
     "totalLabel": "Gesamte Agenturkosten pro Artikel",
-    "totalCost": "~4.200 €",
+    "totalCost": "~3.800 €",
     "totalHours": "/ 36,5 Stunden",
     "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
     "withCodaAI": "Mit CodaAI",
-    "codaAIPrice": "ab 349 €*",
-    "codaAIPer": "statt ~4.200 €. >85 % günstiger.",
+    "codaAIPrice": "ab 1.470 €*",
+    "codaAIPer": "statt ~3.800 € Marktschnitt.",
     "freeTrial": "Kostenlos testen",
     "costBreakdown": [
       {
@@ -292,8 +292,8 @@
         "description": "Redaktionskalender-Management, Briefings, Feedbackrunden und Projektmanagement."
       }
     ],
-    "codaAIStatt": "statt ~4.200 €",
-    "codaAISavings": ">85 % günstiger"
+    "codaAIStatt": "statt ~3.800 € Marktschnitt",
+    "codaAISavings": "unter dem DACH-Marktschnitt"
   },
   "footer": {
     "tagline1": "Exzellenter Content.",
@@ -305,37 +305,37 @@
     "termsConditions": "AGB",
     "allRightsReserved": "Alle Rechte vorbehalten.",
     "madeIn": "Made with {heart} in Germany",
-    "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschnießlich an Unternehmenskunden.",
+    "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschließlich an Unternehmenskunden.",
     "mission": "Co-Create"
   },
   "tiers": {
     "eyebrow": "Drei Stufen",
     "title": "Wählen Sie Ihre Sichtbarkeits-Stufe",
-    "intro": "Das Digital-Visibility-Programm gibt es in drei Stufen — als fester monatlicher Aufpreis zu Ihrem Content-Paket, unabhängig von der Artikelzahl.",
+    "intro": "Das Digital-Visibility-Programm gibt es in drei Stufen. Sie wählen eine Stufe und dosieren, wie viel Inhalt monatlich entsteht — mehr Reichweite braucht mehr Treibstoff.",
     "items": [
       {
         "name": "Basis",
-        "badge": "Empfohlener Einstieg",
-        "price": "+490 € / Monat",
-        "priceNote": "zusätzlich zum Content-Paket",
+        "badge": "",
+        "price": "ab 1.470 € / Monat",
+        "priceNote": "2–3 Artikel · 490 € je Artikel · Programm +490 €",
         "text": "Das Pflichtprogramm für messbare KI-Sichtbarkeit: Audit, monatliches KI-Monitoring, SEO inklusive Bing, technische KI-Zugänglichkeit und laufende Aktualisierung Ihrer Bestandsseiten."
       },
       {
         "name": "Aktiv",
-        "badge": "",
-        "price": "+990 € / Monat",
-        "priceNote": "zusätzlich zum Content-Paket",
+        "badge": "Empfohlen",
+        "price": "ab 2.670 € / Monat",
+        "priceNote": "4–7 Artikel · 420 € je Artikel · Programm +990 €",
         "text": "Alles aus Basis plus die stärksten externen Hebel: Digital-PR und Markennennungen, Bewertungsplattformen, Platzierung in Vergleichsartikeln und YouTube-Ausrichtung Ihrer Videos."
       },
       {
         "name": "Dominanz",
         "badge": "",
-        "price": "+1.790 € / Monat",
-        "priceNote": "zusätzlich zum Content-Paket",
+        "price": "ab 4.910 € / Monat",
+        "priceNote": "8–12 Artikel · 390 € je Artikel · Programm +1.790 €",
         "text": "Für den Anspruch, die Referenz Ihrer Branche zu werden: eigene Studien und Daten-Assets, Wissensdatenbanken, LinkedIn-Thought-Leadership und laufende Wettbewerbs-Beobachtung."
       }
     ],
-    "note": "Jede Stufe: 6 Monate Mindestlaufzeit · inkl. Sichtbarkeits-Versprechen. Das Content-Paket ist auch ohne Stufe buchbar.",
+    "note": "Jede Stufe: 6 Monate Mindestlaufzeit · 12 Monate 10 % günstiger. Ein Content-Paket ohne Stufe gibt es nicht.",
     "ctaLabel": "Ihren Preis im Rechner kalkulieren →",
     "ctaHref": "/preise/"
   },
@@ -411,7 +411,7 @@
           },
           {
             "title": "Wettbewerbs-Beobachtung",
-            "text": "Wer wird in Ihren Einkäuferfragen statt Ihnen genannt? Wir messen Ihren Anteil an den KI-Empfehlungen im Vergleich zu benannten Wettbewerbern — Quartal für Quartal."
+            "text": "Wer wird in Ihren Einkäuferfragen statt Ihnen genannt? Wir messen Ihren Anteil an den KI-Empfehlungen im Vergleich zu benannten Wettbewerbern — Monat für Monat."
           }
         ]
       }
@@ -420,7 +420,7 @@
       "title": "Content ist der Treibstoff — Sichtbarkeit das Ziel.",
       "text": "Die Content-Produktion, für die CodaAI steht, bleibt der Kern: SEO-Artikel bis 4.000 Wörter, Grafiken, Videos und Übersetzungen im Co-Create-Modell. Neu ist die Richtung — jedes Stück Content zahlt jetzt messbar auf Ihre Sichtbarkeit in Suche und KI-Antworten ein.",
       "ctaLabel": "Alle Leistungen im Detail →",
-      "ctaHref": "/preise/#leistungen"
+      "ctaHref": "/preise/#stufen"
     },
     "bento": {
       "auditLabel": "Digital Visibility Audit",
