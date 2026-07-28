@@ -1,0 +1,906 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Booking from '../components/Booking.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Reveal from '../components/fx/Reveal.astro';
+
+const lang = 'de' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/* ── /digital-visibility — die 14 Bausteine (Beschluss 27.07.2026, C3/AP10) ────
+   Relaunch 28.07.2026 (Entscheidung Oli): Seite von /leistungen umgezogen und
+   im Menü „Digital Visibility" genannt — derselbe Name wie Audit, Dashboard und
+   Service-Schema, damit die Kette Audit → Programm → Rechnung eine Marke trägt.
+   /leistungen/ bleibt als Weiterleitungsseite (noindex) bestehen.
+   Weitere Änderungen dieser Welle:
+   · Hero verkauft statt zu beschreiben (H1 knüpft an die Startseite an), die
+     Preiszeile ist raus — der Preis ist der Einwand, nicht das Versprechen.
+   · H2 stellt die Kundenfrage statt der Produktstruktur.
+   · Akkordeon: nur Stufe 1 offen, kein Scroll-Automatik-Öffner mehr; der
+     geschlossene Kopf zeigt beim Überfahren magenta, dass dort Inhalt liegt.
+   · Ein Linien-Piktogramm je Baustein (Tabelle ICON), Stufen-Linie, Zähler-Band,
+     Matrix-Häkchen zeichnen sich — alles mit reduced-motion- und No-JS-Fallback.
+   · Die Belegzahlen sind wieder auf der Seite, aber still: sie erscheinen beim
+     Überfahren einer Karte (auf Touch dauerhaft).
+   ──────────────────────────────────────────────────────────────────────────────
+   Überarbeitung 27.07.2026 (Entscheidung Oli):
+   · H1 aus Kundensicht — nicht „was wir liefern", sondern „was Sie brauchen".
+     Einleitung erklärt die Logik: Niemand kennt die Formel, aber die belegten
+     Faktoren sind bekannt und stecken vollständig im Programm.
+   · Wording vereinheitlicht: durchgehend „Stufe 1/2/3" (nie „Ebene"/„Bereich"),
+     identisch zu /preise → Stufe 1 · Fundament (Basis) usw.
+   · Belegzahlen: Fassung fürs Gespräch und fürs Angebot weiterhin unter
+     umbau-digital-visibility/leistungsumfang-14-bausteine.html
+   · Darstellung als Akkordeon: Man sieht zuerst die drei Stufen, beim
+     Einscrollen öffnet sich die jeweilige Stufe und die Bausteine blenden
+     gestaffelt ein. Ohne JavaScript sind alle Stufen offen.
+   Lieferentscheidungen 27.07.2026: Vergleichsartikel ehrlich getrennt ·
+   YouTube nur eigene Videos · LinkedIn: wir schreiben, Kunde postet ·
+   Branchenstudie: wir erheben, Kunde ist Herausgeber · Wikidata statt Wikipedia. */
+
+const stufen = [
+  {
+    id: 'lesbar',
+    nr: 1,
+    kicker: 'Stufe 1 · Fundament',
+    name: 'Basis',
+    frage: 'Kann die KI mein Unternehmen überhaupt lesen und zitieren?',
+    antwort:
+      'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat, wo Sie genannt werden und wer statt Ihnen. Diese sechs Bausteine stecken in jeder Stufe.',
+    preiszeile: '2–3 Fachbeiträge pro Monat · 490 € je Beitrag · Programm +490 € · ab 1.470 € / Monat',
+    bausteine: [
+      {
+        name: 'Fachbeiträge',
+        zusatz: 'der Motor des Programms',
+        tut: 'Wir recherchieren, schreiben und veröffentlichen Fachbeiträge von 1.500 bis 4.000 Wörtern — mit Statistiken, Quellenangaben und Expertenzitaten, je Beitrag drei Bilder oder eine Infografik. Wie viele es pro Monat sind, bestimmt Ihre Stufe: 2–3 in Basis, 4–7 in Aktiv, 8–12 in Dominanz.',
+        beleg: 'Statistiken, Zitate und Quellenangaben steigern die Sichtbarkeit in KI-Antworten um 30–40 %.',
+        quelle: 'Princeton GEO, KDD 2024, 10.000 Abfragen',
+      },
+      {
+        name: 'Monatliche Messung',
+        tut: 'Ein beim Start eingefrorener Satz von acht echten Einkäuferfragen wird jeden Monat in ChatGPT und der Google-KI-Übersicht gestellt. Gemessen wird, ob Sie genannt werden, an welcher Stelle, welche Ihrer Seiten als Quelle zitiert werden — und welcher Wettbewerber statt Ihnen dasteht.',
+        beleg: 'Ohne Messung kein beweisbarer Erfolg. Vergleichbare Monitoring-Werkzeuge kosten allein 89–499 € pro Monat.',
+        quelle: 'Marktvergleich GEO-Monitoring DACH, 07/2026',
+      },
+      {
+        name: 'Google- und Bing-Optimierung',
+        tut: 'Klassisches SEO für Ihre Beiträge und Ihre Kernseiten — ausdrücklich inklusive Bing: Bing Webmaster Tools, IndexNow-Anbindung, Indexierungskontrolle. Bing ist kein Nebenschauplatz, sondern die Quelle, aus der ChatGPT seine Belege zieht.',
+        beleg: '87 % der SearchGPT-Zitate stammen aus den Bing-Top-Ergebnissen; Google-Seite-1 korreliert mit r ≈ 0,65 mit ChatGPT-Nennungen.',
+        quelle: 'Seer Interactive, n > 500',
+      },
+      {
+        name: 'Technische KI-Zugänglichkeit',
+        tut: 'Wir prüfen, ob KI-Crawler Ihre Seiten überhaupt lesen können: serverseitiges Rendering, Crawler-Freigaben in der robots.txt, sichtbarer HTML-Text statt PDF oder Bild. Sie bekommen eine Liste umsetzungsreifer Korrekturen für Ihr Web-Team — wir greifen nicht selbst in Ihre Systeme ein.',
+        beleg: 'Kein großer KI-Crawler führt JavaScript aus — client-gerenderte Inhalte sind für ChatGPT unsichtbar.',
+        quelle: 'Vercel / MERJ, über 500 Mio. GPTBot-Abrufe',
+      },
+      {
+        name: 'Aktualisierung der Bestandsseiten',
+        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen inhaltlich aktualisiert und neu datiert, nicht nur neue geschrieben. Anhand der Messung entscheiden wir, welche Seite einen Refresh braucht und welche trägt.',
+        beleg: 'KI-Assistenten zitieren 25,7 % frischere Inhalte als die organische Google-Suche; 51,6 % der B2B-Zitate tragen die Jahreszahl im Titel.',
+        quelle: 'Ahrefs, 17 Mio. Zitate',
+      },
+      {
+        name: 'Maßnahmenplan aus Ihrem Audit',
+        tut: 'Einmalig beim Start wird aus Ihrem Digital Visibility Audit ein priorisierter Plan: was in welcher Reihenfolge, mit welcher Wirkungserwartung. Das Audit selbst bleibt kostenlos — bezahlt wird die Einordnung und der Fahrplan daraus.',
+        beleg: 'Grundlage ist die Auswertung von 449 Unternehmen und 7.184 KI-Antworten aus dem eigenen KI-Blindtest.',
+        quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
+      },
+    ],
+  },
+  {
+    id: 'quellen',
+    nr: 2,
+    kicker: 'Stufe 2 · Skalierung',
+    name: 'Aktiv',
+    frage: 'Bin ich dort präsent, wo die KI ihre Belege holt?',
+    antwort:
+      'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Vier Bausteine außerhalb Ihrer Website — zusätzlich zu allem aus Stufe 1.',
+    preiszeile: '4–7 Fachbeiträge pro Monat · 420 € je Beitrag · Programm +990 € · ab 2.670 € / Monat',
+    bausteine: [
+      {
+        name: 'Markennennungen auf Drittseiten',
+        zusatz: 'Digital-PR',
+        tut: 'Wir platzieren Ihr Unternehmen in Fachportalen, Branchenmedien und Verzeichnissen: Themenrecherche, Redaktionsansprache, fertige Beitragsangebote. Ziel ist die Erwähnung, nicht der Link — deshalb zählen für uns auch Nennungen ohne Verlinkung.',
+        beleg: 'Markennennungen korrelieren mit r = 0,664 mit KI-Sichtbarkeit — Backlinks nur mit 0,218.',
+        quelle: 'Ahrefs, 75.000 Marken',
+      },
+      {
+        name: 'Vergleichsartikel und Anbieter-Listen',
+        tut: 'Wir schreiben und pflegen Ihre eigenen datierten Vergleichs- und Auswahlinhalte — das ist die Leistung, die wir zusagen. Für die Aufnahme in fremde „Beste Anbieter"-Artikel recherchieren wir die Redaktionen, sprechen sie an und liefern die Fakten; über die Aufnahme entscheidet die Redaktion, nicht wir.',
+        beleg: '70,8 % aller Zitate bei B2B-Kaufprompts stammen aus „Beste"- und „Top"-Listen.',
+        quelle: 'Overthink Group, 1.263 Prompts',
+      },
+      {
+        name: 'Bewertungsplattformen',
+        tut: 'Wir legen Ihre Profile auf den Plattformen an und pflegen sie, aus denen KI-Systeme in Ihrer Branche zitieren — ProvenExpert, Trustpilot, Google, bei Software-Nähe G2 und Capterra. Es geht um Vollständigkeit und Aktualität des Profils, nicht um das Sammeln von Bewertungsmassen.',
+        beleg: '100 % der von ChatGPT empfohlenen B2B-Werkzeuge hatten ein Capterra-Profil, 99 % ein G2-Profil — die Anzahl der Bewertungen korrelierte nicht.',
+        quelle: 'Quoleady',
+      },
+      {
+        name: 'YouTube-Veröffentlichung Ihrer Videos',
+        tut: 'Die Social Videos, die wir aus Ihren Fachbeiträgen produzieren, veröffentlichen wir YouTube-gerecht: Titel, Beschreibung, Kapitelmarken und Transkript. Ihren bestehenden Kanal und Ihre älteren Videos fassen wir nicht an — das wäre ein eigenes Projekt.',
+        beleg: 'YouTube-Nennungen sind das stärkste Einzelsignal für KI-Sichtbarkeit (r ≈ 0,737); YouTube ist in rund 40 % aller deutschen AI-Mode-Antworten verlinkt.',
+        quelle: 'Ahrefs 2026 · SISTRIX',
+      },
+    ],
+  },
+  {
+    id: 'quelle-werden',
+    nr: 3,
+    kicker: 'Stufe 3 · Marktführerschaft',
+    name: 'Dominanz',
+    frage: 'Zitiert die KI mich, weil andere mich zitieren?',
+    antwort:
+      'Ihr Markt beruft sich auf Ihre Zahlen. Vier Bausteine, die aus einem Anbieter eine Quelle machen — zusätzlich zu allem aus den Stufen 1 und 2.',
+    preiszeile: '8–12 Fachbeiträge pro Monat · 390 € je Beitrag · Programm +1.790 € · ab 4.910 € / Monat',
+    bausteine: [
+      {
+        name: 'Eigene Branchenstudie',
+        tut: 'Einmal im Jahr entsteht eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt: Wir konzipieren die Fragestellung, erheben die Daten — aus einer Marktbefragung oder aus Ihren vorhandenen Zahlen — und bereiten sie als Studienseite mit Grafiken und Pressetext auf. Verbreitet wird sie über die Digital-PR aus Stufe 2.',
+        beleg: 'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp — unsere eigene Studie mit 449 Unternehmen ist der Beweis in eigener Sache.',
+        quelle: 'Princeton GEO · CodaAI-Studie 2026',
+      },
+      {
+        name: 'Wissensdatenbanken',
+        tut: 'Konkret sind das drei Dinge: ein Wikidata-Eintrag Ihres Unternehmens als maschinenlesbares Strukturwissen, ein vollständiges Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments. Wikipedia versprechen wir ausdrücklich nicht — die Relevanzkriterien schließen die meisten Mittelständler aus, und ein bezahlter Artikel wird gelöscht.',
+        beleg: 'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT — Wikipedia allein stellt 7,8 % aller Zitate.',
+        quelle: 'Semrush · Profound',
+      },
+      {
+        name: 'LinkedIn Ihrer Führungskräfte',
+        tut: 'Aus jedem Fachbeitrag entstehen fertige LinkedIn-Beiträge im Namen Ihrer Köpfe, dazu die Optimierung der Profile selbst. Veröffentlicht wird von der Person — wir arbeiten nicht mit fremden Account-Zugängen.',
+        beleg: 'LinkedIn erscheint in rund 15 % der AI-Mode-Antworten — im B2B deutlich stärker als Reddit mit 1,4 %.',
+        quelle: 'SISTRIX, AI-Mode-Quellen DE',
+      },
+      {
+        name: 'Wettbewerbs-Beobachtung',
+        tut: 'Zusätzlich zu Ihren eigenen Nennungen läuft ein monatlicher Vergleich gegen namentlich benannte Wettbewerber: Wer wird in Ihren Einkäuferfragen wie oft empfohlen, und wie verschiebt sich das über die Monate. Dieselbe Datengrundlage wie Ihre Messung, nur mit dem Markt daneben.',
+        beleg: 'Basiert auf demselben eingefrorenen Fragensatz wie Ihre Messung — vergleichbar über die gesamte Laufzeit.',
+        quelle: 'CodaAI-Messverfahren',
+      },
+    ],
+  },
+];
+
+/* ── Piktogramme ───────────────────────────────────────────────────────────
+   Ein Linien-Icon je Baustein, 24×24-Raster, Strichstärke 1.75, runde Enden —
+   dieselbe Bildsprache wie die Audit-Dashboards. Bewusst KEINE Marken-Logos
+   (YouTube, LinkedIn): die brechen den Stil und sind rechtlich unnötig.
+   Zuordnung über den Bausteinnamen, damit die Datenobjekte oben unberührt
+   bleiben. Fehlt ein Name in der Tabelle, rendert die Karte ohne Kachel. */
+const ICON: Record<string, string> = {
+  'Fachbeiträge':
+    '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/>',
+  'Monatliche Messung':
+    '<path d="M4 5v14h16"/><path d="M7 15l4-5 3 3 5-7"/>',
+  'Google- und Bing-Optimierung':
+    '<circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/>',
+  'Technische KI-Zugänglichkeit':
+    '<path d="M9 8l-4 4 4 4"/><path d="M15 8l4 4-4 4"/><path d="M13 6l-2 12"/>',
+  'Aktualisierung der Bestandsseiten':
+    '<path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/>',
+  'Maßnahmenplan aus Ihrem Audit':
+    '<path d="M4 7l1.8 1.8L9 5.6"/><path d="M4 16l1.8 1.8L9 14.6"/><path d="M13 8h7M13 17h7"/>',
+  'Markennennungen auf Drittseiten':
+    '<path d="M9.5 7C7.6 7 6 8.6 6 10.5S7.6 14 9.5 14c0 2-1.4 3.4-3 4"/><path d="M18.5 7C16.6 7 15 8.6 15 10.5s1.6 3.5 3.5 3.5c0 2-1.4 3.4-3 4"/>',
+  'Vergleichsartikel und Anbieter-Listen':
+    '<path d="M8 4h8v3.5a4 4 0 0 1-8 0z"/><path d="M8 5.5H5.5V7A3 3 0 0 0 8.5 10"/><path d="M16 5.5h2.5V7A3 3 0 0 1 15.5 10"/><path d="M12 11.5V15"/><path d="M9.5 20h5"/><path d="M10.5 15h3v5h-3z"/>',
+  'Bewertungsplattformen':
+    '<path d="M12 4.5l2.3 4.7 5.2.8-3.75 3.65.9 5.15L12 16.4l-4.65 2.4.9-5.15L4.5 10l5.2-.8z"/>',
+  'YouTube-Veröffentlichung Ihrer Videos':
+    '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.3l4.7 2.7-4.7 2.7z"/>',
+  'Eigene Branchenstudie':
+    '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 14v3M12 10.5v6.5M15 12.5v4.5"/>',
+  'Wissensdatenbanken':
+    '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/>',
+  'LinkedIn Ihrer Führungskräfte':
+    '<circle cx="9.5" cy="8" r="3"/><path d="M4 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8"/><path d="M17.5 14.6A5.5 5.5 0 0 1 21 19.8"/>',
+  'Wettbewerbs-Beobachtung':
+    '<path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/>',
+};
+
+/* Kennzahlen-Band unter dem Hero — dieselbe Zähler-Mechanik wie /studie. */
+const kennzahlen = [
+  { wert: 14, label: 'Bausteine', sub: 'jeder durch Daten gedeckt' },
+  { wert: 3, label: 'Stufen', sub: 'jede enthält die darunter' },
+  { wert: 8, label: 'Einkäuferfragen', sub: 'jeden Monat neu gemessen' },
+];
+
+/* Matrix: dieselben 14 Bausteine, kumulativ. Spalten führen in den Preisrechner. */
+const matrix = stufen.flatMap((g) =>
+  g.bausteine.map((b) => ({
+    name: b.name,
+    basis: g.nr === 1,
+    aktiv: g.nr <= 2,
+    dominanz: true,
+  })),
+);
+
+const spalten = [
+  { key: 'basis', label: 'Basis', sub: 'Stufe 1', preis: 'ab 1.470 €', artikel: '2–3' },
+  { key: 'aktiv', label: 'Aktiv', sub: 'Stufe 2', preis: 'ab 2.670 €', artikel: '4–7' },
+  { key: 'dominanz', label: 'Dominanz', sub: 'Stufe 3', preis: 'ab 4.910 €', artikel: '8–12' },
+];
+
+const nichtImAngebot = [
+  {
+    t: 'llms.txt als bezahlte Leistung',
+    d: 'Eine Loganalyse über 137.000 Domains zeigt: 97 % dieser Dateien erhielten null Abrufe. Wir legen sie kostenlos mit an — verkaufen sie aber nicht.',
+  },
+  {
+    t: 'Schema-Markup als „KI-Zitat-Booster"',
+    d: 'Im kontrollierten Experiment kein messbarer Effekt auf KI-Zitate. Gehört zur SEO-Basis, ist aber kein Premium-Posten.',
+  },
+  {
+    t: 'Jede Form von Platzierungs-Garantie',
+    d: 'KI-Antworten sind nicht deterministisch. „Platz 1 in ChatGPT garantiert" ist das Erkennungszeichen unseriöser Anbieter — buchbare Platzierungen existieren bei keinem KI-System.',
+  },
+  {
+    t: 'Reddit- und Foren-Seeding',
+    d: 'Dominiert Verbraucherfragen, im B2B-Nischenkontext aber nur 1,4 % der Zitate — und die Muster schwanken extrem.',
+  },
+  {
+    t: 'Wikipedia-Artikel',
+    d: 'Die Relevanzkriterien schließen die meisten Mittelständler aus, bezahlte Artikel werden gelöscht. Wir versprechen Wikidata, nicht Wikipedia.',
+  },
+  {
+    t: '„KI-Traffic ersetzt SEO"',
+    d: 'KI-Verweise machen rund 1 % des Traffics aus. Das ehrliche Argument ist die Vorentscheidung im Kaufprozess — nicht das Besuchervolumen.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'CodaAI Digital Visibility',
+  serviceType: 'KI-Sichtbarkeit (GEO) und SEO für B2B-Unternehmen',
+  provider: { '@id': 'https://www.codaai.ai/#organization' },
+  areaServed: 'DE',
+  description:
+    'Managed Service für Sichtbarkeit in KI-Antworten: 14 Bausteine in drei Stufen — von der technischen Lesbarkeit der Website über Markennennungen auf Drittquellen bis zur eigenen Branchenstudie.',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Leistungsbausteine',
+    itemListElement: stufen.map((g) => ({
+      '@type': 'OfferCatalog',
+      name: `${g.kicker} (${g.name})`,
+      itemListElement: g.bausteine.map((b) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: b.name, description: b.tut },
+      })),
+    })),
+  },
+};
+---
+
+<Layout
+  lang={lang}
+  title="Digital Visibility – so wird Ihr Unternehmen in KI-Antworten empfohlen | CodaAI"
+  description="Niemand kennt die Formel, nach der ChatGPT & Co. empfehlen. Die belegten Faktoren kennt man — alle 14 stecken in einem Programm mit drei Stufen. Jeden Monat gemessen."
+>
+  <Navbar lang={lang} />
+  <main class="pt-0">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
+      <Breadcrumb
+        items={[
+          { label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` },
+          { label: 'Preise', href: `${base}/preise/` },
+          { label: 'Digital Visibility' },
+        ]}
+        class="mb-0"
+      />
+    </div>
+
+    <!-- ── 1 · Hero ───────────────────────────────── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-12 lg:pb-16">
+      <h1 class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        <span class="cai-line block">Die KI empfiehlt drei Anbieter.</span>
+        <span class="cai-line block">Das hier bringt Sie unter die drei.</span>
+      </h1>
+
+      <div class="cai-line mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-muted-foreground" style="--d:2">
+        <p>
+          Kein Anbieter kennt die Formel, nach der ChatGPT, Perplexity oder die Google-KI entscheiden,
+          wen sie empfehlen — wir auch nicht. Gemessen ist aber, was mit Empfehlungen zusammenhängt:
+          <strong class="font-semibold text-foreground">14 Faktoren</strong>, jeder einzelne durch Daten gedeckt.
+        </p>
+        <p>
+          Wir arbeiten alle 14 ab, Monat für Monat. Und zeigen Ihnen jeden Monat schwarz auf weiß,
+          ob Ihr Name inzwischen in der Antwort steht — oder weiterhin der Ihres Wettbewerbers.
+        </p>
+      </div>
+
+      <div class="cai-line mt-8" style="--d:3">
+        <a
+          href={`${base}/preise/#rechner`}
+          class="inline-flex items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        >
+          Preis konfigurieren →
+        </a>
+      </div>
+
+      <!-- Kennzahlen-Band — Zähler laufen beim ersten Einscrollen hoch. -->
+      <div class="cai-line mt-12 grid gap-8 border-t border-border pt-8 sm:grid-cols-3" style="--d:4" data-counters>
+        {kennzahlen.map((k) => (
+          <div>
+            <div class="text-3xl font-semibold tracking-tight text-cta-accessible sm:text-4xl" data-count={k.wert}>{k.wert}</div>
+            <div class="mt-1 text-[15px] font-semibold text-foreground">{k.label}</div>
+            <div class="text-sm text-muted-foreground">{k.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── 2 · Die drei Stufen als Akkordeon ────────────────────────────── -->
+    <section aria-label="Die drei Stufen und ihre Bausteine" class="border-t border-border bg-muted/20 py-16 lg:py-20">
+      <div class="mx-auto max-w-5xl px-6 lg:px-8">
+        <Reveal as="div" class="mb-10">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Das Programm</p>
+          <h2 class="max-w-[26ch] text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+            Drei Fragen entscheiden, ob die KI Sie empfiehlt.
+          </h2>
+          <p class="mt-4 max-w-[62ch] text-base leading-relaxed text-muted-foreground">
+            Auf jede Frage antwortet eine Stufe. Jede Stufe enthält vollständig, was darunter liegt —
+            klappen Sie auf, was Sie interessiert.
+          </p>
+        </Reveal>
+
+        <div class="cai-acc relative space-y-4" data-acc>
+          <!-- Stufen-Linie: verbindet die drei Zahlen, füllt sich beim Scrollen.
+               Rein dekorativ, wird per JS positioniert und gefüllt. -->
+          <span class="cai-spine" aria-hidden="true"><span class="cai-spine-fill"></span></span>
+          {stufen.map((g) => (
+            <section id={g.id} class="cai-stufe scroll-mt-24 overflow-hidden rounded-2xl border border-border bg-card lg:scroll-mt-28" data-stufe>
+              <h3>
+                <button
+                  type="button"
+                  class="cai-head flex w-full items-start gap-4 p-6 text-left lg:gap-6 lg:p-7"
+                  aria-expanded="true"
+                  aria-controls={`panel-${g.nr}`}
+                  data-head
+                >
+                  <span class="cai-nr mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cta/40 bg-cta/10 text-lg font-bold text-foreground">
+                    {g.nr}
+                  </span>
+                  <span class="min-w-0 flex-1">
+                    <span class="block text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{g.kicker}</span>
+                    <span class="mt-1 block text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                      {g.name} — {g.frage}
+                    </span>
+                    <span class="mt-2 block text-[13px] text-muted-foreground">{g.preiszeile}</span>
+                  </span>
+                  <span class="cai-hint hidden shrink-0 self-center whitespace-nowrap text-[12.5px] font-semibold text-cta-accessible sm:block">
+                    {g.bausteine.length} Bausteine ansehen
+                  </span>
+                  <svg class="cai-chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+              </h3>
+
+              <div id={`panel-${g.nr}`} class="cai-panel" data-panel>
+                <div class="border-t border-border px-6 pb-7 pt-6 lg:px-7">
+                  <p class="max-w-[64ch] text-[15px] leading-relaxed text-muted-foreground">{g.antwort}</p>
+
+                  <div class="mt-6 grid gap-4 md:grid-cols-2">
+                    {g.bausteine.map((b, i) => (
+                      <article class="cai-item rounded-xl border border-border bg-background p-5" style={`--i:${i}`} tabindex="0">
+                        {ICON[b.name] && (
+                          <span class="cai-ico mb-3 flex h-10 w-10 items-center justify-center rounded-[10px]" aria-hidden="true">
+                            <svg
+                              viewBox="0 0 24 24"
+                              width="21"
+                              height="21"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.75"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              set:html={ICON[b.name]}
+                            />
+                          </span>
+                        )}
+                        <h4 class="text-base font-semibold tracking-tight text-foreground">
+                          {b.name}
+                          {b.zusatz && (
+                            <span class="mt-0.5 block text-[12px] font-normal text-muted-foreground">{b.zusatz}</span>
+                          )}
+                        </h4>
+                        <p class="mt-2.5 text-[14px] leading-relaxed text-muted-foreground">{b.tut}</p>
+                        {b.beleg && (
+                          <p class="cai-beleg text-[12.5px] leading-relaxed">
+                            <span class="block font-semibold text-foreground">{b.beleg}</span>
+                            <span class="mt-0.5 block text-[11.5px] text-muted-foreground">Quelle: {b.quelle}</span>
+                          </p>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+
+                  <a
+                    href={`${base}/preise/?stufe=${g.name.toLowerCase()}#rechner`}
+                    class="mt-6 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta"
+                  >
+                    Stufe {g.name} im Preisrechner öffnen →
+                  </a>
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3 · Matrix — Spalten führen in den Rechner ───────────────────── -->
+    <section id="matrix" aria-label="Alle Bausteine je Stufe" class="border-t border-border py-16 lg:py-24 scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-4xl px-6 lg:px-8">
+        <Reveal as="div">
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+            Alle Bausteine auf einen Blick
+          </h2>
+          <p class="mt-4 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
+            Klicken Sie auf eine Spalte — der Preisrechner öffnet sich mit dieser Stufe.
+          </p>
+        </Reveal>
+
+        <Reveal as="div" delay={90} class="mt-8 overflow-x-auto">
+          <table class="cai-matrix w-full min-w-[560px] border-collapse text-left" data-matrix>
+            <thead>
+              <tr>
+                <th scope="col" class="border-b-2 border-border pb-3 pr-4 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Baustein
+                </th>
+                {spalten.map((s) => (
+                  <th scope="col" class="border-b-2 border-border px-2 pb-3 text-center align-bottom">
+                    <a
+                      href={`${base}/preise/?stufe=${s.key}#rechner`}
+                      class="group block rounded-lg px-2 py-2 transition-colors hover:bg-cta/10"
+                      data-col
+                    >
+                      <span class="block text-[10.5px] font-bold uppercase tracking-widest text-muted-foreground">{s.sub}</span>
+                      <span class="mt-0.5 block text-[15px] font-semibold text-foreground">{s.label}</span>
+                      <span class="mt-0.5 block text-[12px] text-muted-foreground">{s.preis}</span>
+                      <span class="mt-1 block text-[11px] font-semibold text-cta-accessible opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                        rechnen →
+                      </span>
+                    </a>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {matrix.map((m) => (
+                <tr class="border-b border-border">
+                  <th scope="row" class="py-3 pr-4 text-[14px] font-medium text-foreground">{m.name}</th>
+                  {[m.basis, m.aktiv, m.dominanz].map((on, ci) => (
+                    <td class="px-3 py-3 text-center">
+                      <span class="sr-only">{['Basis', 'Aktiv', 'Dominanz'][ci]}: {on ? 'enthalten' : 'nicht enthalten'}</span>
+                      {on ? (
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="cai-check mx-auto text-cta-accessible" style={`--c:${ci}`} aria-hidden="true">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      ) : (
+                        <span class="text-muted-foreground/40" aria-hidden="true">—</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              <tr>
+                <th scope="row" class="pt-4 pr-4 text-[13px] font-semibold text-muted-foreground">Fachbeiträge pro Monat</th>
+                {spalten.map((s) => (
+                  <td class="px-3 pt-4 text-center text-[13px] font-semibold text-foreground">{s.artikel}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" class="pt-2 pr-4 text-[13px] font-semibold text-muted-foreground">Ab Monatspreis</th>
+                {spalten.map((s) => (
+                  <td class="px-3 pt-2 text-center text-[13px] font-semibold text-foreground">{s.preis.replace('ab ', '')}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </Reveal>
+
+        <Reveal as="p" delay={140} class="mt-6 text-sm text-muted-foreground">
+          Übersetzungen kosten 99 € je Sprache und Beitrag, Social Videos 120 € je Video — in jeder Stufe
+          gleich. <a href={`${base}/preise/#rechner`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Zum Preisrechner →</a>
+        </Reveal>
+      </div>
+    </section>
+
+    <!-- ── 4 · Bewusst nicht im Angebot ─────────────────────────────────── -->
+    <section id="nicht-im-angebot" data-theme="dark" class="cai-dvdark border-t border-border bg-background py-16 lg:py-24 scroll-mt-24 lg:scroll-mt-28">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal as="div">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Aus über 25 Jahren Erfahrung</p>
+          <h2 class="max-w-[24ch] text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
+            Sechs Dinge, die wir bewusst nicht anbieten
+          </h2>
+          <p class="mt-5 max-w-[62ch] text-base leading-relaxed text-muted-foreground lg:text-lg">
+            Sie stehen in vielen Angeboten dieser Branche. Bei uns nicht — und zwar mit Begründung.
+          </p>
+        </Reveal>
+
+        <div class="mt-10 grid gap-x-10 gap-y-7 lg:grid-cols-2">
+          {nichtImAngebot.map((n, i) => (
+            <Reveal as="div" delay={(i % 2) * 80} class="border-l-[3px] border-cta pl-6">
+              <h3 class="text-base font-semibold text-foreground">{n.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{n.d}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5 · Termin ───────────────────────────────────────────────────── -->
+    <Booking lang={lang} />
+
+    <!-- ── 6 · Abschluss ────────────────────────────────────────────────── -->
+    <section class="mx-auto max-w-3xl border-t border-border px-6 py-14 text-center lg:px-8">
+      <Reveal as="div">
+        <p class="text-base leading-relaxed text-muted-foreground">
+          Welche Stufe zu Ihnen passt, hängt davon ab, wie sichtbar Sie heute sind.
+          <a href={`${base}/#angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Audit kostenlos anfordern →</a>
+        </p>
+        <p class="mt-3 text-sm text-muted-foreground">
+          Oder direkt <a href={`${base}/preise/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">zu den Preisen</a>.
+        </p>
+      </Reveal>
+    </section>
+  </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+
+  <style>
+    /* Dezentes Raster für den Ehrlichkeits-Block — identisch zu /preise. */
+    .cai-dvdark {
+      background-image:
+        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    /* ── Hero: Zeilen laufen beim Laden nacheinander ein ────────────────── */
+    .cai-line {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: caiLineIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--d, 0) * 110ms);
+    }
+    h1 .cai-line:nth-child(2) { --d: 1; }
+    @keyframes caiLineIn { to { opacity: 1; transform: none; } }
+
+    /* ── Stufen-Linie ───────────────────────────────────────────────────
+       Läuft links neben den drei Karten mit und füllt sich beim Scrollen —
+       das macht sichtbar, was der Text sagt: jede Stufe enthält die darunter.
+       Position und Höhe setzt das Skript, damit sie exakt von der ersten zur
+       dritten Zahl reicht. Unter 1024px ausgeblendet (kein Platz).          */
+    .cai-spine {
+      position: absolute;
+      left: -26px;
+      width: 2px;
+      border-radius: 2px;
+      background: hsl(var(--border));
+      opacity: 0;
+      display: none;
+      pointer-events: none;
+    }
+    @media (min-width: 1024px) {
+      .cai-spine.is-ready { display: block; opacity: 1; }
+    }
+    .cai-spine-fill {
+      display: block;
+      width: 100%;
+      height: 0;
+      border-radius: 2px;
+      background: hsl(var(--cta));
+      transition: height 0.12s linear;
+    }
+
+    /* ── Akkordeon ──────────────────────────────────────────────────────
+       Ohne JavaScript ist alles offen (kein Inhalt geht verloren). Erst die
+       Klasse .cai-js, die das Skript setzt, aktiviert das Zuklappen.        */
+    .cai-head { cursor: default; }
+    .cai-js .cai-head { cursor: pointer; }
+    .cai-chev { transition: transform 0.35s ease, color 0.2s ease; }
+    .cai-js .cai-stufe:not(.is-open) .cai-chev { transform: rotate(-90deg); }
+    .cai-js .cai-head:hover .cai-chev { color: hsl(var(--cta)); }
+
+    .cai-stufe {
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .cai-js .cai-stufe:not(.is-open):hover,
+    .cai-js .cai-stufe:not(.is-open):focus-within {
+      border-color: hsl(var(--cta) / 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px -18px hsl(var(--cta) / 0.55);
+    }
+
+    /* Die Zahl ist das Signal: beim Überfahren und im geöffneten Zustand
+       füllt sie sich magenta. */
+    .cai-nr {
+      transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease,
+        transform 0.22s ease;
+    }
+    .cai-js .cai-head:hover .cai-nr,
+    .cai-js .cai-head:focus-visible .cai-nr,
+    .cai-js .cai-stufe.is-open .cai-nr {
+      background: hsl(var(--cta));
+      border-color: hsl(var(--cta));
+      color: #fff;
+    }
+    .cai-js .cai-head:hover .cai-nr { transform: translateY(-1px); }
+
+    .cai-hint {
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+    .cai-js .cai-stufe:not(.is-open) .cai-head:hover .cai-hint,
+    .cai-js .cai-stufe:not(.is-open) .cai-head:focus-visible .cai-hint {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cai-js .cai-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cai-js .cai-stufe.is-open .cai-panel { max-height: 2600px; }
+
+    /* Bausteine blenden gestaffelt ein, sobald die Stufe geöffnet wird. */
+    .cai-js .cai-item {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+    .cai-js .cai-stufe.is-open .cai-item {
+      opacity: 1;
+      transform: none;
+      transition-delay: calc(120ms + var(--i) * 70ms);
+    }
+    .cai-stufe.is-open { border-color: hsl(var(--cta) / 0.45); }
+
+    /* Karten-Hover — höhere Spezifität als die Einblend-Regel darüber. */
+    .cai-item { outline: none; }
+    .cai-js .cai-stufe.is-open .cai-item:hover,
+    .cai-js .cai-stufe.is-open .cai-item:focus-visible,
+    .cai-item:hover,
+    .cai-item:focus-visible {
+      border-color: hsl(var(--cta) / 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px -16px hsl(var(--cta) / 0.5);
+      transition-delay: 0ms;
+    }
+
+    /* Piktogramm-Kachel */
+    .cai-ico {
+      background: hsl(var(--cta) / 0.1);
+      color: hsl(var(--cta-accessible));
+      transition: background-color 0.22s ease, transform 0.22s ease;
+    }
+    .cai-item:hover .cai-ico,
+    .cai-item:focus-visible .cai-ico {
+      background: hsl(var(--cta) / 0.2);
+      transform: translateY(-1px) scale(1.05);
+    }
+
+    /* Beleg — liegt still in der Karte und erscheint beim Überfahren.
+       Auf Touch-Geräten (kein Hover) steht er dauerhaft da, sonst wäre die
+       Zahl dort nicht erreichbar. */
+    .cai-beleg {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 1px solid transparent;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease,
+        padding-top 0.35s ease, border-color 0.3s ease;
+    }
+    .cai-item:hover .cai-beleg,
+    .cai-item:focus-visible .cai-beleg {
+      max-height: 14rem;
+      opacity: 1;
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top-color: hsl(var(--cta) / 0.45);
+    }
+    @media (hover: none) {
+      .cai-beleg {
+        max-height: none;
+        opacity: 1;
+        margin-top: 0.85rem;
+        padding-top: 0.75rem;
+        border-top-color: hsl(var(--cta) / 0.45);
+      }
+    }
+
+    /* ── Matrix ─────────────────────────────────────────────────────────
+       Häkchen zeichnen sich spaltenweise, sobald die Tabelle ins Bild kommt.
+       Ohne JS (keine .cai-anim-Klasse) stehen sie einfach da.               */
+    .cai-matrix.cai-anim .cai-check path {
+      stroke-dasharray: 26;
+      stroke-dashoffset: 26;
+    }
+    .cai-matrix.cai-anim.is-drawn .cai-check path {
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.45s ease;
+      transition-delay: calc(140ms + var(--c) * 180ms);
+    }
+    .cai-matrix td { transition: background-color 0.18s ease; }
+    .cai-matrix[data-hl='0'] td:nth-child(2),
+    .cai-matrix[data-hl='1'] td:nth-child(3),
+    .cai-matrix[data-hl='2'] td:nth-child(4) {
+      background: hsl(var(--cta) / 0.08);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cai-line { opacity: 1; transform: none; animation: none; }
+      .cai-js .cai-panel { transition: none; }
+      .cai-js .cai-item { opacity: 1; transform: none; transition: none; }
+      .cai-chev,
+      .cai-stufe,
+      .cai-nr,
+      .cai-ico,
+      .cai-beleg,
+      .cai-spine-fill { transition: none; }
+      .cai-js .cai-stufe:not(.is-open):hover { transform: none; }
+      .cai-matrix.cai-anim .cai-check path { stroke-dashoffset: 0; }
+    }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var reduced = false;
+      try {
+        reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      } catch (e) {}
+
+      /* ── 1 · Akkordeon ───────────────────────────────────────────────
+         Bewusst ohne Scroll-Automatik: Es ist immer genau das offen, was der
+         Nutzer geöffnet hat. Beim Laden ist das Stufe 1 — oder die Stufe,
+         auf die ein Anker zeigt. */
+      var acc = document.querySelector('[data-acc]');
+      if (acc) {
+        var stufen = Array.prototype.slice.call(acc.querySelectorAll('[data-stufe]'));
+        acc.classList.add('cai-js');
+
+        var setOpen = function (el, open) {
+          el.classList.toggle('is-open', open);
+          var head = el.querySelector('[data-head]');
+          if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+
+        var hash = (location.hash || '').replace('#', '');
+        var target = null;
+        stufen.forEach(function (el) { if (el.id === hash) target = el; });
+        stufen.forEach(function (el, i) {
+          setOpen(el, target ? el === target : i === 0);
+        });
+
+        stufen.forEach(function (el) {
+          var head = el.querySelector('[data-head]');
+          if (!head) return;
+          head.addEventListener('click', function () {
+            setOpen(el, !el.classList.contains('is-open'));
+            window.setTimeout(layoutSpine, 620);
+          });
+        });
+      }
+
+      /* ── 2 · Stufen-Linie ────────────────────────────────────────────
+         Reicht von der Mitte der ersten Zahl bis zur Mitte der letzten und
+         füllt sich, während die Stufen durchs Bild laufen. */
+      var spine = document.querySelector('.cai-spine');
+      var fill = spine && spine.querySelector('.cai-spine-fill');
+      var spineTop = 0;
+      var spineH = 0;
+
+      function layoutSpine() {
+        if (!spine || !acc) return;
+        var nrs = acc.querySelectorAll('.cai-nr');
+        if (nrs.length < 2) return;
+        var accR = acc.getBoundingClientRect();
+        var first = nrs[0].getBoundingClientRect();
+        var last = nrs[nrs.length - 1].getBoundingClientRect();
+        spineTop = first.top - accR.top + first.height / 2;
+        spineH = last.top - accR.top + last.height / 2 - spineTop;
+        spine.style.top = spineTop + 'px';
+        spine.style.height = spineH + 'px';
+        spine.classList.add('is-ready');
+        paintSpine();
+      }
+
+      function paintSpine() {
+        if (!fill || !spineH) return;
+        var accR = acc.getBoundingClientRect();
+        var anchor = window.innerHeight * 0.55;
+        var p = (anchor - (accR.top + spineTop)) / spineH;
+        p = p < 0 ? 0 : p > 1 ? 1 : p;
+        fill.style.height = (p * 100).toFixed(1) + '%';
+      }
+
+      /* ── 3 · Zähler im Kennzahlen-Band ──────────────────────────────── */
+      function startCounters(box) {
+        var els = box.querySelectorAll('[data-count]');
+        Array.prototype.forEach.call(els, function (el, i) {
+          var goal = parseInt(el.getAttribute('data-count'), 10) || 0;
+          if (reduced) { el.textContent = String(goal); return; }
+          el.textContent = '0';
+          var dur = 900;
+          var delay = i * 170;
+          window.setTimeout(function () {
+            var t0 = 0;
+            var step = function (ts) {
+              if (!t0) t0 = ts;
+              var k = Math.min(1, (ts - t0) / dur);
+              var eased = 1 - Math.pow(1 - k, 3);
+              el.textContent = String(Math.round(eased * goal));
+              if (k < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+          }, delay);
+        });
+      }
+
+      /* ── 4 · Matrix: Häkchen zeichnen + Spalten-Hover ────────────────── */
+      var matrix = document.querySelector('[data-matrix]');
+      if (matrix) {
+        if (!reduced) matrix.classList.add('cai-anim');
+        var cols = matrix.querySelectorAll('[data-col]');
+        Array.prototype.forEach.call(cols, function (a, i) {
+          var on = function () { matrix.setAttribute('data-hl', String(i)); };
+          var off = function () { matrix.removeAttribute('data-hl'); };
+          a.addEventListener('mouseenter', on);
+          a.addEventListener('focus', on);
+          a.addEventListener('mouseleave', off);
+          a.addEventListener('blur', off);
+        });
+      }
+
+      /* ── 5 · Beobachter + Scroll ─────────────────────────────────────── */
+      if ('IntersectionObserver' in window) {
+        var once = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              once.unobserve(e.target);
+              if (e.target.hasAttribute('data-counters')) startCounters(e.target);
+              else e.target.classList.add('is-drawn');
+            });
+          },
+          { threshold: 0.25 }
+        );
+        var band = document.querySelector('[data-counters]');
+        if (band) once.observe(band);
+        if (matrix) once.observe(matrix);
+      } else {
+        if (matrix) matrix.classList.add('is-drawn');
+      }
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+          paintSpine();
+          ticking = false;
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', layoutSpine);
+      window.addEventListener('load', layoutSpine);
+      layoutSpine();
+    })();
+  </script>
+
+  <Footer lang={lang} />
+</Layout>

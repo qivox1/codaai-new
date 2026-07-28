@@ -154,7 +154,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   useEffect(() => { pushDL('pricing_view', { lang }); }, [lang]);
 
   /* Stufen-Vorauswahl aus der URL — die Spalten der Matrix und die Stufen-Links
-     auf /leistungen zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner.
+     auf /digital-visibility zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner.
      EN-Schreibweisen werden mitgenommen, damit /en/pricing/?tier=active greift. */
   useEffect(() => {
     try {

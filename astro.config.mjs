@@ -64,6 +64,9 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/checkout-success') &&
+        // /leistungen/ ist seit 28.07.2026 nur noch eine Weiterleitung auf
+        // /digital-visibility/ und gehoert nicht in die Sitemap.
+        !page.endsWith('/leistungen/') &&
         !page.includes('/auth/') &&
         !page.endsWith('/en/404/'),
       serialize(item) {

@@ -14,9 +14,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
    Sichtbarkeit ist das Produkt, Content die Dosierung. "Ohne Stufe" entfällt.
    Stückpreis hängt an der Stufe, jede Stufe hat ein disjunktes Artikelfenster.
 
-   Reduktion 27.07.2026 (Entscheidung Oli, nach dem Launch von /leistungen):
+   Reduktion 27.07.2026 (Entscheidung Oli, nach dem Launch der Leistungsseite):
    Die Karten teasern nur noch — Beschreibung, Umfang, Preis, Link. Die
-   Bausteinlisten stehen vollständig auf /leistungen und werden hier nicht
+   Bausteinlisten stehen vollständig auf /digital-visibility und werden hier nicht
    mehr zweitverwertet. Ebenso entfällt der Block „Was wir nicht versprechen"
    (steht dort in voller Länge) und die FAQ schrumpft auf die fünf Preis- und
    Vertragsfragen.
@@ -59,7 +59,7 @@ const stufen = [
 
 /* ── FAQ — reduziert auf die fünf Preis- und Vertragsfragen (27.07.2026).
       Die Inhaltsfragen („Was steckt in einem Fachbeitrag", „Was messen Sie
-      monatlich", „Nur Artikel ohne Programm") beantwortet jetzt /leistungen. ── */
+      monatlich", „Nur Artikel ohne Programm") beantwortet jetzt /digital-visibility. ── */
 const faqs = [
   {
     q: 'Wie setzt sich mein Monatspreis zusammen?',
@@ -119,7 +119,7 @@ const faqSchema = {
       </p>
     </Reveal>
 
-    <!-- ── 2 · Die drei Stufen — Teaser, Details auf /leistungen ─────────── -->
+    <!-- ── 2 · Die drei Stufen — Teaser, Details auf /digital-visibility ─────────── -->
     <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
@@ -130,7 +130,7 @@ const faqSchema = {
           <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
             Jede Stufe enthält alles aus der vorherigen — und eine Mindestmenge an Inhalt, weil mehr Reichweite mehr Treibstoff braucht.
             Was genau darin steckt, steht Baustein für Baustein auf
-            <a href={`${base}/leistungen/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">der Leistungsseite</a>.
+            <a href={`${base}/digital-visibility/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Digital Visibility</a>.
           </p>
         </Reveal>
 
@@ -157,7 +157,7 @@ const faqSchema = {
               </div>
 
               <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-                <a href={`${base}/leistungen/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
+                <a href={`${base}/digital-visibility/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
                   Alle Bausteine ansehen →
                 </a>
                 <a href="#rechner" class="inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">
@@ -170,7 +170,7 @@ const faqSchema = {
 
         <Reveal as="p" delay={360} class="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Wir schreiben genauso auf, was wir bewusst <strong class="font-semibold text-foreground">nicht</strong> anbieten — sechs Punkte, jeder mit Begründung:
-          <a href={`${base}/leistungen/#nicht-im-angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">nachlesen →</a>
+          <a href={`${base}/digital-visibility/#nicht-im-angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">nachlesen →</a>
         </Reveal>
       </div>
     </section>
