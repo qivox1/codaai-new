@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    PricingCalculator V2 — Beschluss 27.07.2026
@@ -34,14 +34,52 @@ const VIDEO_PRICE = 120;
 const TERM_DISCOUNT = 0.9; // 12 Monate = −10 %
 const MAX_LANGS = 12;
 
+/* Zählt einen Betrag weich auf den neuen Wert — macht die Rechnung sichtbar
+   arbeiten, statt sie springen zu lassen. Respektiert reduced-motion und setzt
+   bei einer Unterbrechung am aktuell angezeigten Wert an. */
+function useCountUp(value: number, ms = 480) {
+  const [shown, setShown] = useState(value);
+  const fromRef = useRef(value);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    let reduced = false;
+    try {
+      reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (_) { /* SSR */ }
+    if (reduced || fromRef.current === value) {
+      fromRef.current = value;
+      setShown(value);
+      return;
+    }
+    const a = fromRef.current;
+    const b = value;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const k = Math.min(1, (now - t0) / ms);
+      const eased = 1 - Math.pow(1 - k, 3);
+      const v = Math.round(a + (b - a) * eased);
+      fromRef.current = v;
+      setShown(v);
+      if (k < 1) rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [value, ms]);
+
+  return shown;
+}
+
 const OFFER_ENDPOINT =
   'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
 
 const T = {
   de: {
-    kicker: 'Preisrechner',
-    h2: 'Ihr Monatspreis in drei Zeilen',
-    lead: 'Kein Angebot einholen, kein Gespräch nötig, um die Größenordnung zu kennen.',
+    kicker: 'Ihr individuelles Paket',
+    h2: 'Stellen Sie zusammen, was Sie brauchen.',
+    lead: 'Vier Angaben genügen. Sie sehen jede Position einzeln — und am Ende genau die Summe, die auf Ihrer Rechnung steht. Kein Angebot einholen, kein Gespräch nötig.',
     s1: 'Welche Stufe?',
     s2: 'Wie viele Fachbeiträge pro Monat?',
     s3: 'Übersetzungen?',
@@ -85,9 +123,9 @@ const T = {
     cancel: 'Abbrechen',
   },
   en: {
-    kicker: 'Pricing calculator',
-    h2: 'Your monthly price in three lines',
-    lead: 'No quote request, no call needed to know the ballpark.',
+    kicker: 'Your individual package',
+    h2: 'Build the package you need.',
+    lead: 'Four inputs. You see every item separately — and the exact figure that ends up on your invoice. No quote request, no call needed.',
     s1: 'Which tier?',
     s2: 'How many expert articles per month?',
     s3: 'Translations?',
@@ -183,6 +221,44 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   const ext = langSum + videoSum;
   const subtotal = content + ext + cfg.prog;
   const total = term === 12 ? Math.round(subtotal * TERM_DISCOUNT) : subtotal;
+
+  /* Die Rechnung zählt sichtbar mit: beim ersten Einscrollen von 0 hoch, danach
+     bei jeder Änderung weich auf den neuen Wert. `armed` startet auf true, damit
+     das serverseitig gerenderte HTML sofort die echte Summe zeigt — erst beim
+     Mounten wird zurückgesetzt, und nur wenn der Kasten noch unter der Kante steht. */
+  const billRef = useRef<HTMLDivElement | null>(null);
+  const [armed, setArmed] = useState(true);
+
+  useEffect(() => {
+    const el = billRef.current;
+    if (!el || !('IntersectionObserver' in window)) return;
+    let reduced = false;
+    try {
+      reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (_) { /* egal */ }
+    if (reduced) return;
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.9) return; // schon sichtbar → kein Flackern
+    setArmed(false);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          setArmed(true);
+        });
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const shownContent = useCountUp(armed ? content : 0);
+  const shownExt = useCountUp(armed ? ext : 0);
+  const shownProg = useCountUp(armed ? cfg.prog : 0);
+  const shownTotal = useCountUp(armed ? total : 0, 620);
+  const settled = shownTotal === total;
 
   const extParts: string[] = [];
   if (langs > 0) extParts.push(`${langs} ${langs === 1 ? t.language : t.languages}`);
@@ -358,10 +434,10 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
           </div>
 
           {/* ── Rechnung ─────────────────────────────────────────────── */}
-          <div className="rounded-2xl border border-border bg-card p-6 lg:sticky lg:top-24">
+          <div ref={billRef} className="rounded-2xl border border-border bg-card p-6 lg:sticky lg:top-24">
             <div className="flex items-baseline justify-between gap-4 border-b border-dashed border-border py-3 text-[14.5px] text-foreground">
               <span>{art} {t.articles} × {eur(cfg.unit)}</span>
-              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(content)}</b>
+              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(shownContent)}</b>
             </div>
 
             <div className={`flex items-baseline justify-between gap-4 border-b border-dashed border-border py-3 text-[14.5px] text-foreground ${ext === 0 ? 'opacity-50' : ''}`}>
@@ -387,17 +463,23 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                   </>
                 )}
               </span>
-              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(ext)}</b>
+              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(shownExt)}</b>
             </div>
 
             <div className="flex items-baseline justify-between gap-4 border-b border-dashed border-border py-3 text-[14.5px] text-foreground">
               <span>{t.program} {t.tierNames[tier]}</span>
-              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(cfg.prog)}</b>
+              <b className="whitespace-nowrap font-semibold tabular-nums">{eur(shownProg)}</b>
             </div>
 
             <div className="mt-5 flex items-baseline justify-between gap-4">
               <span className="text-sm text-muted-foreground">{t.yourPrice}</span>
-              <span className="text-4xl font-bold tracking-tight tabular-nums text-foreground">{eur(total)}</span>
+              <span
+                className={`origin-right text-4xl font-bold tracking-tight tabular-nums transition-[transform,color] duration-200 ${
+                  settled ? 'scale-100 text-foreground' : 'scale-[1.04] text-cta-accessible'
+                }`}
+              >
+                {eur(shownTotal)}
+              </span>
             </div>
             <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
               {t.noteBase(term)}{term === 12 && <> {t.save(eur(subtotal - total))}</>}

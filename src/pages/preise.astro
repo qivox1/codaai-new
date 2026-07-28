@@ -26,6 +26,7 @@ const stufen = [
     level: 'Stufe 1 · Fundament',
     name: 'Basis',
     anchor: 'lesbar',
+    ergebnis: 'Gefunden werden — und wissen, wo Sie stehen',
     claim:
       'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat schwarz auf weiß, wo Sie genannt werden und wer statt Ihnen. Das Pflichtprogramm, auf dem alles andere aufbaut.',
     umfang: '6 Bausteine',
@@ -37,6 +38,7 @@ const stufen = [
     level: 'Stufe 2 · Skalierung',
     name: 'Aktiv',
     anchor: 'quellen',
+    ergebnis: 'Empfohlen werden, weil andere Sie nennen',
     claim:
       'Die Empfehlung kommt nicht mehr nur von Ihnen selbst: Ihr Name taucht auch dort auf, wo KI-Systeme ihre Belege holen — Fachportale, Vergleichsinhalte, Bewertungsplattformen, YouTube.',
     umfang: '10 Bausteine · alles aus Basis plus vier',
@@ -48,6 +50,7 @@ const stufen = [
     level: 'Stufe 3 · Marktführerschaft',
     name: 'Dominanz',
     anchor: 'quelle-werden',
+    ergebnis: 'Die Quelle sein, auf die sich Ihr Markt beruft',
     claim:
       'Ihr Markt beruft sich auf Ihre Zahlen: eigene Branchenstudie, Eintrag in die Wissensdatenbanken, sichtbare Köpfe. Die stärkste Position, die es in KI-Antworten gibt — Sie sind dann nicht mehr ein Anbieter, sondern die Quelle.',
     umfang: '14 Bausteine · alles aus Aktiv plus vier',
@@ -96,7 +99,7 @@ const faqSchema = {
 
 <Layout
   lang={lang}
-  title="Preise – KI-Sichtbarkeit ab 1.470 € pro Monat | CodaAI"
+  title="Preise – damit die nächste Anfrage bei Ihnen landet | CodaAI"
   description="Transparent kalkuliert statt „auf Anfrage&quot;: drei Sichtbarkeits-Stufen ab 1.470 € pro Monat, Preisrechner mit nachrechenbarer Summe, Angebot als PDF direkt anfordern."
 >
   <Navbar lang={lang} />
@@ -105,19 +108,33 @@ const faqSchema = {
       <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Preise' }]} class="mb-0" />
     </div>
 
-    <!-- ── 1 · Hero ─────────────────────────────────────────────────────── -->
-    <Reveal as="div" class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-16 lg:pb-20">
-      <h1 class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
-        Was kostet es, in KI-Antworten empfohlen zu werden?
+    <!-- ── 1 · Hero ─────────────────────────────────────────────────────
+         Nutzenargument statt Kostenargument (Entscheidung Oli, 28.07.2026):
+         Der Entscheider kauft keine Beiträge, er will die nächste Anfrage.
+         Bewusst als Zweck formuliert („damit …"), nicht als Erfolgsversprechen
+         — Platzierungs- und Erfolgsgarantien lehnen wir ausdrücklich ab.      -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-16 lg:pb-20">
+      <h1 class="pr-line max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        <span class="block">Damit die nächste Anfrage bei Ihnen landet.</span>
+        <span class="block">Nicht beim Wettbewerber.</span>
       </h1>
-      <p class="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-        Sie wählen eine von drei Stufen und dosieren, wie viel Inhalt monatlich entsteht. Das ist die ganze Rechnung — nachrechenbar, während der Markt „auf Anfrage" schreibt.
+      <p class="pr-line mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground" style="--d:2">
+        Bevor jemand anfragt, fragt er die KI. Wir sorgen dafür, dass Ihr Name dort auftaucht,
+        wo diese Antwort entsteht — und zeigen Ihnen jeden Monat, ob er es tut.
       </p>
-      <p class="mt-7 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-5 py-3">
-        <span class="text-2xl font-bold tracking-tight text-foreground">ab 1.470 €</span>
-        <span class="text-sm text-muted-foreground">pro Monat · netto · 6 Monate Mindestlaufzeit</span>
-      </p>
-    </Reveal>
+      <div class="pr-line mt-8 flex flex-wrap items-center gap-4" style="--d:3">
+        <a
+          href="#rechner"
+          class="inline-flex items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        >
+          Preis konfigurieren →
+        </a>
+        <p class="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-5 py-3">
+          <span class="text-2xl font-bold tracking-tight text-foreground">ab 1.470 €</span>
+          <span class="text-sm text-muted-foreground">pro Monat · netto · 6 Monate Mindestlaufzeit</span>
+        </p>
+      </div>
+    </div>
 
     <!-- ── 2 · Die drei Stufen — Teaser, Details auf /digital-visibility ─────────── -->
     <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
@@ -125,21 +142,31 @@ const faqSchema = {
         <Reveal as="div">
           <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Drei Stufen</p>
           <h2 class="max-w-3xl text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.2] sm:leading-[1.2]">
-            Zuerst Ihre Website. Dann die Quellen um sie herum. Dann sind Sie die Quelle.
+            Wie oft soll Ihr Name fallen, wenn jemand nach Ihrer Leistung fragt?
           </h2>
           <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Jede Stufe enthält alles aus der vorherigen — und eine Mindestmenge an Inhalt, weil mehr Reichweite mehr Treibstoff braucht.
+            Jede Stufe erhöht die Zahl der Stellen, an denen die KI Sie findet — und enthält alles aus der Stufe darunter.
             Was genau darin steckt, steht Baustein für Baustein auf
             <a href={`${base}/digital-visibility/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Digital Visibility</a>.
           </p>
         </Reveal>
 
-        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+        <!-- Schiene: füllt sich magenta beim Scrollen und markiert die drei
+             Stufen — dieselbe Mechanik wie die Stufen-Linie auf /digital-visibility,
+             hier waagerecht. Rein dekorativ. -->
+        <div class="pr-rail mt-12 hidden lg:block" aria-hidden="true" data-rail>
+          <span class="pr-rail-fill"></span>
+          <span class="pr-dot" style="--x:16.6%"></span>
+          <span class="pr-dot" style="--x:50%"></span>
+          <span class="pr-dot" style="--x:83.3%"></span>
+        </div>
+
+        <div class="mt-8 grid gap-6 lg:mt-6 lg:grid-cols-3">
           {stufen.map((s, i) => (
             <Reveal
               as="div"
               delay={i * 110}
-              class={`relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${s.recommended ? 'border-cta shadow-[0_10px_40px_hsl(var(--cta)/0.12)]' : 'border-border'}`}
+              class={`pr-card relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${['lg:mt-10', 'lg:mt-5', 'lg:mt-0'][i]} ${s.recommended ? 'border-cta shadow-[0_10px_40px_hsl(var(--cta)/0.12)]' : 'border-border'}`}
             >
               {s.recommended && (
                 <span class="absolute -top-3 left-6 rounded-md bg-cta px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-widest text-white">
@@ -148,7 +175,8 @@ const faqSchema = {
               )}
               <p class="text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{s.level}</p>
               <h3 class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{s.name}</h3>
-              <p class="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
+              <p class="mt-3 text-[15px] font-semibold leading-snug text-foreground">{s.ergebnis}</p>
+              <p class="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
 
               <div class="mt-6 border-t border-border pt-5">
                 <p><span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span> <span class="text-sm text-muted-foreground">/ Monat</span></p>
@@ -174,6 +202,17 @@ const faqSchema = {
         </Reveal>
       </div>
     </section>
+
+    <!-- ── 2b · Übergang: führt den Blick in den Rechner ─────────────────── -->
+    <div class="border-t border-border bg-muted/20 pb-2 pt-2">
+      <div class="mx-auto flex max-w-7xl flex-col items-center px-6 pb-10 text-center lg:px-8">
+        <p class="max-w-xl text-lg leading-relaxed text-muted-foreground">
+          Welche Stufe zu Ihnen passt, hängt davon ab, wo Sie heute stehen.
+          <strong class="font-semibold text-foreground">Was sie kostet, sehen Sie sofort.</strong>
+        </p>
+        <span class="pr-drop mt-6" aria-hidden="true" data-drop><span class="pr-drop-fill"></span></span>
+      </div>
+    </div>
 
     <!-- ── 3 · Preisrechner (enthält beide Ausgänge) ────────────────────── -->
     <PricingCalculatorV2 lang={lang} base={base} bookingHref={`${base}/preise/#termin`} client:load />
@@ -205,6 +244,127 @@ const faqSchema = {
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+
+
+  <style>
+    /* ── Hero: Zeilen laufen beim Laden ein (wie /digital-visibility) ───── */
+    .pr-line {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: prLineIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--d, 0) * 110ms);
+    }
+    h1.pr-line { --d: 0; }
+    @keyframes prLineIn { to { opacity: 1; transform: none; } }
+
+    /* ── Stufen-Schiene ─────────────────────────────────────────────────── */
+    .pr-rail {
+      position: relative;
+      height: 2px;
+      border-radius: 2px;
+      background: hsl(var(--border));
+    }
+    .pr-rail-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: 2px;
+      background: hsl(var(--cta));
+      transition: width 0.12s linear;
+    }
+    .pr-dot {
+      position: absolute;
+      top: 50%;
+      left: var(--x);
+      height: 10px;
+      width: 10px;
+      margin: -5px 0 0 -5px;
+      border-radius: 999px;
+      border: 2px solid hsl(var(--border));
+      background: hsl(var(--background));
+      transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    }
+    .pr-dot.is-lit {
+      border-color: hsl(var(--cta));
+      background: hsl(var(--cta));
+      transform: scale(1.25);
+    }
+
+    /* ── Karten ─────────────────────────────────────────────────────────── */
+    .pr-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .pr-card:hover {
+      transform: translateY(-4px);
+      border-color: hsl(var(--cta) / 0.6);
+      box-shadow: 0 16px 40px -20px hsl(var(--cta) / 0.55);
+    }
+
+    /* ── Übergang: Linie zeichnet sich in den Rechner ───────────────────── */
+    .pr-drop {
+      display: block;
+      position: relative;
+      width: 2px;
+      height: 72px;
+      border-radius: 2px;
+      background: hsl(var(--border));
+      overflow: hidden;
+    }
+    .pr-drop-fill {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 0;
+      border-radius: 2px;
+      background: hsl(var(--cta));
+      transition: height 0.12s linear;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pr-line { opacity: 1; transform: none; animation: none; }
+      .pr-rail-fill, .pr-drop-fill, .pr-dot, .pr-card { transition: none; }
+      .pr-card:hover { transform: none; }
+    }
+  </style>
+
+  <script is:inline>
+    (function () {
+      /* Schiene und Übergangslinie füllen sich abhängig vom Scrollstand.
+         Beides rein dekorativ — ohne JS bleiben sie einfach grau. */
+      var rail = document.querySelector('[data-rail]');
+      var railFill = rail && rail.querySelector('.pr-rail-fill');
+      var dots = rail ? Array.prototype.slice.call(rail.querySelectorAll('.pr-dot')) : [];
+      var drop = document.querySelector('[data-drop]');
+      var dropFill = drop && drop.querySelector('.pr-drop-fill');
+
+      function pct(el, startAt, endAt) {
+        var r = el.getBoundingClientRect();
+        var h = window.innerHeight;
+        var p = (h * startAt - r.top) / (h * (startAt - endAt) || 1);
+        return p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+
+      function paint() {
+        if (railFill) {
+          var p = pct(rail, 0.9, 0.45);
+          railFill.style.width = (p * 100).toFixed(1) + '%';
+          dots.forEach(function (d, i) {
+            var at = [0.166, 0.5, 0.833][i];
+            d.classList.toggle('is-lit', p >= at);
+          });
+        }
+        if (dropFill) {
+          dropFill.style.height = (pct(drop, 0.95, 0.6) * 100).toFixed(1) + '%';
+        }
+      }
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () { paint(); ticking = false; });
+      }, { passive: true });
+      window.addEventListener('resize', paint);
+      paint();
+    })();
+  </script>
 
   <Footer lang={lang} />
 </Layout>
