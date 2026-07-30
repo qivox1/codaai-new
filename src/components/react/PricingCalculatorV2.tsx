@@ -140,7 +140,7 @@ const T = {
     langNone: 'Keine Übersetzung',
     langSome: 'Ja, übersetzen',
     vidWhat:
-      'Aus jedem Fachbeitrag schneiden wir kurze Videos für LinkedIn, Instagram, TikTok und YouTube — dort, wo niemand lange Texte liest. YouTube ist dabei kein Nebenschauplatz: Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
+      'Aus jedem Fachbeitrag schneiden wir kurze Videos zur Steigerung des Engagements für die Plattformen LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Die Social-Media-Plattformen steigern das Engagement enorm. Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
     artFew: 'Einstieg', artMid: 'Empfohlen', artMax: 'Maximum',
   },
   en: {
@@ -206,7 +206,7 @@ const T = {
     langNone: 'No translation',
     langSome: 'Yes, translate',
     vidWhat:
-      'From every article we cut short videos for LinkedIn, Instagram, TikTok and YouTube — where nobody reads long text. YouTube is no side note: mentions there correlate with AI visibility more strongly than any other single signal.',
+      'From every article we cut short videos that drive engagement on LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Social platforms lift engagement enormously, and mentions there correlate with AI visibility more strongly than any other single signal.',
     artFew: 'Entry', artMid: 'Recommended', artMax: 'Maximum',
   },
 };
