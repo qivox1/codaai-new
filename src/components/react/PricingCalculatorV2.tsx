@@ -79,7 +79,7 @@ const T = {
   de: {
     kicker: 'Ihr individuelles Paket',
     h2: 'Stellen Sie zusammen, was Sie brauchen.',
-    lead: 'Vier Angaben genügen. Sie sehen jede Position einzeln — und am Ende genau die Summe, die auf Ihrer Rechnung steht. Kein Angebot einholen, kein Gespräch nötig.',
+    lead: 'Fünf Fragen, eine nach der anderen — rechts wächst Ihre Rechnung mit. Am Ende steht genau die Summe, die auch auf der Rechnung steht. Kein Angebot einholen, kein Gespräch nötig.',
     s1: 'Welche Stufe?',
     s2: 'Wie viele Fachbeiträge pro Monat?',
     s3: 'Übersetzungen?',
@@ -121,11 +121,32 @@ const T = {
     pdfInvalid: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
     pdfConsent: 'Wir verwenden Ihre Adresse ausschließlich für dieses Angebot.',
     cancel: 'Abbrechen',
+    // Schritt-für-Schritt-Führung (28.07.2026)
+    navBack: 'Zurück',
+    navNext: 'Weiter',
+    navDone: 'Fertig — Angebot ansehen',
+    stepOf: (a: number, b: number) => `Schritt ${a} von ${b}`,
+    chips: ['Stufe', 'Beiträge', 'Sprachen', 'Videos', 'Laufzeit'],
+    q1: 'Welche Stufe passt zu Ihnen?',
+    q1sub: 'Jede Stufe enthält alles aus der darunter. Sie können später wechseln.',
+    q2: 'Wie viele Fachbeiträge pro Monat?',
+    q2sub: 'Der wichtigste Hebel: Jeder Beitrag ist eine Seite, die KI-Systeme zitieren können.',
+    q3: 'Brauchen Sie Übersetzungen?',
+    q3sub: 'Für Unternehmen, die im Ausland gefunden werden wollen.',
+    q4: 'Sollen Social Videos dazu?',
+    q4sub: 'Kurzvideos aus Ihren Beiträgen — der stärkste Einzelhebel für KI-Sichtbarkeit.',
+    q5: 'Wie lange soll die Laufzeit sein?',
+    q5sub: 'Sichtbarkeit entsteht über Monate. Wer sich länger festlegt, zahlt weniger.',
+    langNone: 'Keine Übersetzung',
+    langSome: 'Ja, übersetzen',
+    vidWhat:
+      'Aus jedem Fachbeitrag schneiden wir kurze Videos für LinkedIn, Instagram, TikTok und YouTube — dort, wo niemand lange Texte liest. YouTube ist dabei kein Nebenschauplatz: Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
+    artFew: 'Einstieg', artMid: 'Empfohlen', artMax: 'Maximum',
   },
   en: {
     kicker: 'Your individual package',
     h2: 'Build the package you need.',
-    lead: 'Four inputs. You see every item separately — and the exact figure that ends up on your invoice. No quote request, no call needed.',
+    lead: 'Five questions, one at a time — your invoice builds up on the right. The figure you end with is the one on the invoice. No quote request, no call needed.',
     s1: 'Which tier?',
     s2: 'How many expert articles per month?',
     s3: 'Translations?',
@@ -167,6 +188,26 @@ const T = {
     pdfInvalid: 'Please enter a valid email address.',
     pdfConsent: 'We use your address solely for this quote.',
     cancel: 'Cancel',
+    navBack: 'Back',
+    navNext: 'Next',
+    navDone: 'Done — see the offer',
+    stepOf: (a: number, b: number) => `Step ${a} of ${b}`,
+    chips: ['Tier', 'Articles', 'Languages', 'Videos', 'Term'],
+    q1: 'Which tier fits you?',
+    q1sub: 'Each tier contains everything from the one below. You can switch later.',
+    q2: 'How many expert articles per month?',
+    q2sub: 'The strongest lever: every article is a page AI systems can cite.',
+    q3: 'Do you need translations?',
+    q3sub: 'For companies that want to be found abroad.',
+    q4: 'Add social videos?',
+    q4sub: 'Short videos cut from your articles — the strongest single signal for AI visibility.',
+    q5: 'How long should the term be?',
+    q5sub: 'Visibility builds over months. A longer commitment costs less.',
+    langNone: 'No translation',
+    langSome: 'Yes, translate',
+    vidWhat:
+      'From every article we cut short videos for LinkedIn, Instagram, TikTok and YouTube — where nobody reads long text. YouTube is no side note: mentions there correlate with AI visibility more strongly than any other single signal.',
+    artFew: 'Entry', artMid: 'Recommended', artMax: 'Maximum',
   },
 };
 
@@ -184,6 +225,20 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   const [videos, setVideos] = useState(0);
   const [term, setTerm] = useState<6 | 12>(6);
   const [showBreakdown, setShowBreakdown] = useState(false);
+
+  /* Schritt-für-Schritt-Führung (28.07.2026): links immer nur EINE Frage,
+     rechts bleibt die Rechnung stehen. Vorbild ist das Termin-Widget.
+     `seen` merkt sich die weiteste erreichte Stufe, damit man über die Chips
+     frei vor- und zurückspringen kann, ohne den Weg noch einmal zu gehen. */
+  const STEPS = 5;
+  const [step, setStep] = useState(0);
+  const [seen, setSeen] = useState(0);
+  const goto = (n: number) => {
+    const v = Math.max(0, Math.min(STEPS - 1, n));
+    setStep(v);
+    setSeen((s) => Math.max(s, v));
+  };
+  const advance = () => goto(step + 1);
 
   const [pdfOpen, setPdfOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -329,107 +384,216 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
         <div className="mt-10 grid gap-7 lg:grid-cols-[1.25fr_.95fr] lg:items-start">
           {/* ── Konfigurator ─────────────────────────────────────────── */}
           <div className="rounded-2xl border border-border bg-card p-6 lg:p-7">
-            {/* 1 Stufe */}
-            <div className={stepBox}>
-              <div className={stepLabel}><span className={stepNum}>1</span>{t.s1}</div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label={t.s1}>
-                {(Object.keys(TIERS) as TierKey[]).map((k) => (
+            {/* Fortschritt: erledigte Schritte sind anklickbar und zeigen die Wahl. */}
+            <div className="flex flex-wrap items-center gap-2">
+              {t.chips.map((c, i) => {
+                const val = [t.tierNames[tier], `${art}`, langs ? `${langs}` : '—', videos ? `${videos}/Artikel` : '—', `${term} Mon.`][i];
+                const done = i < seen || i < step;
+                const active = i === step;
+                return (
                   <button
-                    key={k} type="button" onClick={() => setTier(k)}
-                    aria-pressed={tier === k} className={segBtn(tier === k)}
+                    key={c}
+                    type="button"
+                    onClick={() => (i <= seen ? goto(i) : undefined)}
+                    disabled={i > seen}
+                    aria-current={active ? 'step' : undefined}
+                    className={`rounded-lg px-2.5 py-1.5 text-[12px] font-semibold transition-colors ${
+                      active
+                        ? 'bg-cta text-white'
+                        : done
+                          ? 'bg-cta/10 text-cta-accessible hover:bg-cta/20'
+                          : 'text-muted-foreground'
+                    }`}
                   >
-                    {t.tierNames[k]}
-                    <small className={`mt-1 block text-[11.5px] font-medium ${tier === k ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
-                      +{eur(TIERS[k].prog)}
-                    </small>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 2 Artikel */}
-            <div className={stepBox}>
-              <div className={stepLabel}><span className={stepNum}>2</span>{t.s2}</div>
-              <p className="text-3xl font-bold tracking-tight text-foreground">
-                {art}{' '}
-                <span className="text-sm font-medium tracking-normal text-muted-foreground">
-                  {t.articles} · {t.each} {eur(cfg.unit)}
-                </span>
-              </p>
-              <input
-                type="range" min={cfg.min} max={cfg.max} step={1} value={art}
-                onChange={(e) => setArticles(Number(e.target.value))}
-                aria-label={t.s2}
-                className="mt-3 h-1.5 w-full cursor-pointer appearance-none rounded bg-border accent-cta
-                           [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none
-                           [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-[3px]
-                           [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-cta
-                           [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full
-                           [&::-moz-range-thumb]:border-[3px] [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-cta"
-              />
-              <div className="mt-2 flex justify-between text-[11.5px] text-muted-foreground">
-                <span>{cfg.min}</span><span>{cfg.max}</span>
-              </div>
-              <p className="mt-3 text-[12.5px] leading-relaxed text-muted-foreground">{t.artHint}</p>
-            </div>
-
-            {/* 3 Sprachen */}
-            <div className={stepBox}>
-              <div className={stepLabel}><span className={stepNum}>3</span>{t.s3}</div>
-              <div className="flex items-center gap-4">
-                <button
-                  type="button" onClick={() => setLangs((n) => Math.max(0, n - 1))}
-                  aria-label={lang === 'de' ? 'Eine Sprache weniger' : 'One language less'}
-                  className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
-                >−</button>
-                <b className="min-w-[2.2ch] text-center text-2xl font-bold tabular-nums text-foreground">{langs}</b>
-                <button
-                  type="button" onClick={() => setLangs((n) => Math.min(MAX_LANGS, n + 1))}
-                  aria-label={lang === 'de' ? 'Eine Sprache mehr' : 'One more language'}
-                  className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
-                >+</button>
-                <span className="text-[13.5px] text-muted-foreground">{t.langUnit}</span>
-              </div>
-              <p className="mt-3 text-[12.5px] leading-relaxed text-muted-foreground">{t.langHint}</p>
-            </div>
-
-            {/* 4 Videos */}
-            <div className={stepBox}>
-              <div className={stepLabel}><span className={stepNum}>4</span>{t.s4}</div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label={t.s4}>
-                {[0, 1, 2].map((v) => (
-                  <button
-                    key={v} type="button" onClick={() => setVideos(v)}
-                    aria-pressed={videos === v} className={segBtn(videos === v)}
-                  >
-                    {v === 0 ? t.vidNone : v === 1 ? t.vidOne : t.vidTwo}
-                    {v > 0 && (
-                      <small className={`mt-1 block text-[11.5px] font-medium ${videos === v ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
-                        {eur(v * VIDEO_PRICE)}
-                      </small>
+                    {c}
+                    {(done || active) && i !== step && (
+                      <span className="ml-1.5 font-normal opacity-80">{val}</span>
                     )}
                   </button>
-                ))}
-              </div>
-              <p className="mt-3 text-[12.5px] leading-relaxed text-muted-foreground">{t.vidHint}</p>
+                );
+              })}
             </div>
 
-            {/* 5 Laufzeit */}
-            <div className={stepBox}>
-              <div className={stepLabel}><span className={stepNum}>5</span>{t.s5}</div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label={t.s5}>
-                {([6, 12] as const).map((m) => (
-                  <button
-                    key={m} type="button" onClick={() => setTerm(m)}
-                    aria-pressed={term === m} className={segBtn(term === m)}
-                  >
-                    {m === 6 ? t.term6 : t.term12}
-                    <small className={`mt-1 block text-[11.5px] font-medium ${term === m ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
-                      {m === 6 ? t.term6sub : t.term12sub}
-                    </small>
-                  </button>
-                ))}
-              </div>
+            <p className="mt-5 text-[12.5px] font-semibold uppercase tracking-widest text-cta-accessible">
+              {t.stepOf(step + 1, STEPS)}
+            </p>
+            <h3 className="mt-1 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+              {[t.q1, t.q2, t.q3, t.q4, t.q5][step]}
+            </h3>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
+              {[t.q1sub, t.q2sub, t.q3sub, t.q4sub, t.q5sub][step]}
+            </p>
+
+            <div className="mt-6 min-h-[188px]">
+              {/* 1 · Stufe */}
+              {step === 0 && (
+                <div className="flex flex-wrap gap-2" role="group" aria-label={t.q1}>
+                  {(Object.keys(TIERS) as TierKey[]).map((k) => (
+                    <button
+                      key={k}
+                      type="button"
+                      onClick={() => { setTier(k); window.setTimeout(advance, 180); }}
+                      aria-pressed={tier === k}
+                      className={segBtn(tier === k)}
+                    >
+                      {t.tierNames[k]}
+                      <small className={`mt-1 block text-[11.5px] font-medium ${tier === k ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
+                        +{eur(TIERS[k].prog)}
+                      </small>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* 2 · Fachbeiträge — der Schwerpunkt, entsprechend groß gesetzt */}
+              {step === 1 && (
+                <div>
+                  <p className="cai-stat text-cta">
+                    {art}
+                    <span className="ml-3 align-middle text-sm font-medium tracking-normal text-muted-foreground">
+                      {t.articles} · {t.each} {eur(cfg.unit)}
+                    </span>
+                  </p>
+                  <input
+                    type="range" min={cfg.min} max={cfg.max} step={1} value={art}
+                    onChange={(e) => setArticles(Number(e.target.value))}
+                    aria-label={t.q2}
+                    className="mt-5 h-1.5 w-full cursor-pointer appearance-none rounded bg-border accent-cta
+                               [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none
+                               [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-[3px]
+                               [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:bg-cta
+                               [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full
+                               [&::-moz-range-thumb]:border-[3px] [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-cta"
+                  />
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {[
+                      { v: cfg.min, l: t.artFew },
+                      { v: Math.round((cfg.min + cfg.max) / 2), l: t.artMid },
+                      { v: cfg.max, l: t.artMax },
+                    ].map((o) => (
+                      <button
+                        key={o.v} type="button" onClick={() => setArticles(o.v)}
+                        aria-pressed={art === o.v}
+                        className={`rounded-lg border px-3 py-2 text-[12.5px] font-semibold transition-colors ${
+                          art === o.v ? 'border-cta bg-cta/10 text-foreground' : 'border-border text-muted-foreground hover:border-cta/50'
+                        }`}
+                      >
+                        {o.v} · {o.l}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-4 text-[12.5px] leading-relaxed text-muted-foreground">{t.artHint}</p>
+                </div>
+              )}
+
+              {/* 3 · Übersetzungen */}
+              {step === 2 && (
+                <div>
+                  <div className="flex flex-wrap gap-2" role="group" aria-label={t.q3}>
+                    <button
+                      type="button"
+                      onClick={() => { setLangs(0); window.setTimeout(advance, 180); }}
+                      aria-pressed={langs === 0}
+                      className={segBtn(langs === 0)}
+                    >
+                      {t.langNone}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLangs((n) => (n === 0 ? 1 : n))}
+                      aria-pressed={langs > 0}
+                      className={segBtn(langs > 0)}
+                    >
+                      {t.langSome}
+                      <small className={`mt-1 block text-[11.5px] font-medium ${langs > 0 ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
+                        {eur(LANG_PRICE)} {t.perArticle}
+                      </small>
+                    </button>
+                  </div>
+                  {langs > 0 && (
+                    <div className="mt-5 flex items-center gap-4">
+                      <button
+                        type="button" onClick={() => setLangs((n) => Math.max(0, n - 1))}
+                        aria-label={lang === 'de' ? 'Eine Sprache weniger' : 'One language less'}
+                        className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
+                      >−</button>
+                      <b className="min-w-[2.2ch] text-center text-2xl font-bold tabular-nums text-foreground">{langs}</b>
+                      <button
+                        type="button" onClick={() => setLangs((n) => Math.min(MAX_LANGS, n + 1))}
+                        aria-label={lang === 'de' ? 'Eine Sprache mehr' : 'One more language'}
+                        className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
+                      >+</button>
+                      <span className="text-[13.5px] text-muted-foreground">{t.langUnit}</span>
+                    </div>
+                  )}
+                  <p className="mt-4 text-[12.5px] leading-relaxed text-muted-foreground">{t.langHint}</p>
+                </div>
+              )}
+
+              {/* 4 · Social Videos, mit Erklärung wofür sie gut sind */}
+              {step === 3 && (
+                <div>
+                  <div className="flex flex-wrap gap-2" role="group" aria-label={t.q4}>
+                    {[0, 1, 2].map((v) => (
+                      <button
+                        key={v} type="button"
+                        onClick={() => { setVideos(v); window.setTimeout(advance, 180); }}
+                        aria-pressed={videos === v} className={segBtn(videos === v)}
+                      >
+                        {v === 0 ? t.vidNone : v === 1 ? t.vidOne : t.vidTwo}
+                        {v > 0 && (
+                          <small className={`mt-1 block text-[11.5px] font-medium ${videos === v ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
+                            {eur(v * VIDEO_PRICE)} {t.perArticle}
+                          </small>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-5 rounded-xl bg-muted/40 p-4 text-[13px] leading-relaxed text-muted-foreground">
+                    {t.vidWhat}
+                  </p>
+                </div>
+              )}
+
+              {/* 5 · Laufzeit */}
+              {step === 4 && (
+                <div className="flex flex-wrap gap-2" role="group" aria-label={t.q5}>
+                  {([6, 12] as const).map((m) => (
+                    <button
+                      key={m} type="button" onClick={() => setTerm(m)}
+                      aria-pressed={term === m} className={segBtn(term === m)}
+                    >
+                      {m === 6 ? t.term6 : t.term12}
+                      <small className={`mt-1 block text-[11.5px] font-medium ${term === m ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
+                        {m === 6 ? t.term6sub : t.term12sub}
+                      </small>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Navigation */}
+            <div className="mt-7 flex items-center justify-between gap-4 border-t border-border pt-5">
+              <button
+                type="button"
+                onClick={() => goto(step - 1)}
+                disabled={step === 0}
+                className="text-[13.5px] font-semibold text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40"
+              >
+                ← {t.navBack}
+              </button>
+              {step < STEPS - 1 ? (
+                <button
+                  type="button"
+                  onClick={advance}
+                  className="btn-cta inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white"
+                >
+                  {t.navNext} →
+                </button>
+              ) : (
+                <span className="text-[13.5px] font-semibold text-cta-accessible">{t.navDone} →</span>
+              )}
             </div>
           </div>
 
