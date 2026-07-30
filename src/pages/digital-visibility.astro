@@ -141,12 +141,6 @@ const stufen = [
     preiszeile: '8–12 Fachbeiträge pro Monat · ab 4.910 € / Monat',
     bausteine: [
       {
-        name: 'Eigene Branchenstudie',
-        tut: 'Einmal im Jahr eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt — wir erheben und gestalten sie.',
-        beleg: 'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp.',
-        quelle: 'Princeton GEO · CodaAI-Studie 2026',
-      },
-      {
         name: 'Wissensdatenbanken',
         tut: 'Wikidata-Eintrag, Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments.',
         beleg: 'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT.',
@@ -154,9 +148,15 @@ const stufen = [
       },
       {
         name: 'LinkedIn Ihrer Führungskräfte',
-        tut: 'Fertige Beiträge im Namen Ihrer Köpfe plus die Optimierung der Profile — veröffentlicht wird von der Person.',
+        tut: 'Fertige LinkedIn-Beiträge, die auf Ihre Unternehmensziele einzahlen — veröffentlicht von Ihren Führungskräften oder beliebigen Kolleginnen und Kollegen im Haus.',
         beleg: 'LinkedIn erscheint in rund 15 % der AI-Mode-Antworten — im B2B deutlich stärker als Reddit mit 1,4 %.',
         quelle: 'SISTRIX, AI-Mode-Quellen DE',
+      },
+      {
+        name: 'Eigene Branchenstudie',
+        tut: 'Einmal im Jahr eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt — wir erheben und gestalten sie.',
+        beleg: 'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp.',
+        quelle: 'Princeton GEO · CodaAI-Studie 2026',
       },
       {
         name: 'Wettbewerbs-Beobachtung',
@@ -870,11 +870,16 @@ const serviceSchema = {
           setOpen(el, target ? el === target : false);
         });
 
+        /* Immer nur EINE Stufe offen (Wunsch Oli, 28.07.2026): beim Öffnen
+           schließen sich die anderen. Ein zweiter Klick auf denselben Kopf
+           schließt ihn wieder. */
         stufen.forEach(function (el) {
           var head = el.querySelector('[data-head]');
           if (!head) return;
           head.addEventListener('click', function () {
-            setOpen(el, !el.classList.contains('is-open'));
+            var willOpen = !el.classList.contains('is-open');
+            stufen.forEach(function (other) { setOpen(other, false); });
+            setOpen(el, willOpen);
             window.setTimeout(layoutSpine, 620);
           });
         });
