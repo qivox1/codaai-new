@@ -90,7 +90,7 @@ const T = {
     each: 'je',
     artHint: '1.500–4.000 Wörter je Beitrag, inklusive 3 Bilder oder 1 Infografik. Die Länge richtet sich nach dem Thema, nicht nach Ihrem Budget.',
     langUnit: 'Sprachen · je 99 € pro Artikel',
-    langHint: 'Beliebig viele Sprachen. Jede kostet dasselbe — keine Staffel, keine Formel.',
+    langHint: 'Beliebig viele Sprachen — jede kostet dasselbe. Der erste Durchgang läuft über DeepL, hinterlegt mit Ihrem Corporate Wording und Ihren Personas, damit der Text klingt wie Ihrer.',
     vidNone: 'Keine',
     vidOne: '1 je Artikel',
     vidTwo: '2 je Artikel',
@@ -141,7 +141,7 @@ const T = {
     langSome: 'Ja, übersetzen',
     vidWhat:
       'Für jeden Fachbeitrag erstellen wir kurze Videos (maximal 30 Sekunden) zur Steigerung des Engagements für die Plattformen LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Die Social-Media-Plattformen steigern das Engagement enorm. Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
-    artFew: 'Einstieg', artMid: 'Empfohlen', artMax: 'Maximum',
+    termHint: (m: string, y: string) => `Mit 12 Monaten zahlen Sie ${m} weniger pro Monat — ${y} über die Laufzeit.`,
   },
   en: {
     kicker: 'Your individual package',
@@ -157,7 +157,7 @@ const T = {
     each: 'at',
     artHint: '1,500–4,000 words per article, including 3 images or 1 infographic. Length follows the topic, not your budget.',
     langUnit: 'languages · €99 per article each',
-    langHint: 'Any number of languages. Each costs the same — no tiers, no formula.',
+    langHint: 'Any number of languages — each costs the same. The first pass runs through DeepL, primed with your corporate wording and personas so the text sounds like yours.',
     vidNone: 'None',
     vidOne: '1 per article',
     vidTwo: '2 per article',
@@ -207,7 +207,7 @@ const T = {
     langSome: 'Yes, translate',
     vidWhat:
       'For every article we produce short videos (max. 30 seconds) that drive engagement on LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Social platforms lift engagement enormously, and mentions there correlate with AI visibility more strongly than any other single signal.',
-    artFew: 'Entry', artMid: 'Recommended', artMax: 'Maximum',
+    termHint: (m: string, y: string) => `A 12-month term saves you ${m} per month — ${y} over the term.`,
   },
 };
 
@@ -384,40 +384,37 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
         <div className="mt-10 grid gap-7 lg:grid-cols-[1.25fr_.95fr] lg:items-start">
           {/* ── Konfigurator ─────────────────────────────────────────── */}
           <div className="rounded-2xl border border-border bg-card p-6 lg:p-7">
-            {/* Fortschritt: erledigte Schritte sind anklickbar und zeigen die Wahl. */}
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Status: nur der aktive Schritt trägt seinen Namen, die anderen
+                bleiben Ziffern. Das spart den Eyebrow „Schritt X von 5" und
+                zwei Schriftgrößen im Kopf. */}
+            <div className="flex flex-wrap items-center gap-1.5">
               {t.chips.map((c, i) => {
-                const val = [t.tierNames[tier], `${art}`, langs ? `${langs}` : '—', videos ? `${videos}/Artikel` : '—', `${term} Mon.`][i];
-                const done = i < seen || i < step;
                 const active = i === step;
+                const done = i <= seen;
                 return (
                   <button
                     key={c}
                     type="button"
-                    onClick={() => (i <= seen ? goto(i) : undefined)}
-                    disabled={i > seen}
+                    onClick={() => (done ? goto(i) : undefined)}
+                    disabled={!done}
                     aria-current={active ? 'step' : undefined}
-                    className={`rounded-lg px-2.5 py-1.5 text-[12px] font-semibold transition-colors ${
+                    aria-label={`${i + 1} — ${c}`}
+                    className={`flex h-8 items-center justify-center rounded-lg text-[12.5px] font-semibold transition-colors ${
                       active
-                        ? 'bg-cta text-white'
+                        ? 'gap-2 bg-cta px-3 text-white'
                         : done
-                          ? 'bg-cta/10 text-cta-accessible hover:bg-cta/20'
-                          : 'text-muted-foreground'
+                          ? 'w-8 bg-cta/10 text-cta-accessible hover:bg-cta/20'
+                          : 'w-8 text-muted-foreground'
                     }`}
                   >
-                    {c}
-                    {(done || active) && i !== step && (
-                      <span className="ml-1.5 font-normal opacity-80">{val}</span>
-                    )}
+                    <span>{i + 1}</span>
+                    {active && <span className="font-semibold">{c}</span>}
                   </button>
                 );
               })}
             </div>
 
-            <p className="mt-5 text-[12.5px] font-semibold uppercase tracking-widest text-cta-accessible">
-              {t.stepOf(step + 1, STEPS)}
-            </p>
-            <h3 className="mt-1 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+            <h3 className="mt-5 text-xl font-bold tracking-tight text-foreground sm:text-2xl">
               {[t.q1, t.q2, t.q3, t.q4, t.q5][step]}
             </h3>
             <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
@@ -465,22 +462,9 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                                [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full
                                [&::-moz-range-thumb]:border-[3px] [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:bg-cta"
                   />
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {[
-                      { v: cfg.min, l: t.artFew },
-                      { v: Math.round((cfg.min + cfg.max) / 2), l: t.artMid },
-                      { v: cfg.max, l: t.artMax },
-                    ].map((o) => (
-                      <button
-                        key={o.v} type="button" onClick={() => setArticles(o.v)}
-                        aria-pressed={art === o.v}
-                        className={`rounded-lg border px-3 py-2 text-[12.5px] font-semibold transition-colors ${
-                          art === o.v ? 'border-cta bg-cta/10 text-foreground' : 'border-border text-muted-foreground hover:border-cta/50'
-                        }`}
-                      >
-                        {o.v} · {o.l}
-                      </button>
-                    ))}
+                  <div className="mt-2 flex justify-between text-[12px] text-muted-foreground">
+                    <span>{cfg.min}</span>
+                    <span>{cfg.max}</span>
                   </div>
                   <p className="mt-4 text-[12.5px] leading-relaxed text-muted-foreground">{t.artHint}</p>
                 </div>
@@ -557,6 +541,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
 
               {/* 5 · Laufzeit */}
               {step === 4 && (
+                <div>
                 <div className="flex flex-wrap gap-2" role="group" aria-label={t.q5}>
                   {([6, 12] as const).map((m) => (
                     <button
@@ -569,6 +554,10 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                       </small>
                     </button>
                   ))}
+                </div>
+                <p className="mt-5 rounded-xl bg-muted/40 p-4 text-[13px] leading-relaxed text-muted-foreground">
+                  {t.termHint(eur(subtotal - Math.round(subtotal * TERM_DISCOUNT)), eur(12 * (subtotal - Math.round(subtotal * TERM_DISCOUNT))))}
+                </p>
                 </div>
               )}
             </div>
