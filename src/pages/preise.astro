@@ -28,11 +28,8 @@ const stufen = [
     name: 'Gefunden',
     anchor: 'lesbar',
     ergebnis: 'Die KI kann Sie lesen — und Sie sehen monatlich, wo Sie stehen',
-    claim:
-      'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat schwarz auf weiß, wo Sie genannt werden und wer statt Ihnen. Das Pflichtprogramm, auf dem alles andere aufbaut.',
-    umfang: '6 Bausteine',
+    bausteine: '6 Bausteine',
     from: 'ab 1.470 €',
-    window: '2–3 Artikel · 490 € je Artikel · Grundpreis +490 €',
     recommended: false,
   },
   {
@@ -40,11 +37,8 @@ const stufen = [
     name: 'Empfohlen',
     anchor: 'quellen',
     ergebnis: 'Ihr Name fällt auch dort, wo die KI ihre Belege holt',
-    claim:
-      'Die Empfehlung kommt nicht mehr nur von Ihnen selbst: Ihr Name taucht auch dort auf, wo KI-Systeme ihre Belege holen — Fachportale, Vergleichsinhalte, Bewertungsplattformen, YouTube.',
-    umfang: '10 Bausteine · alles aus Stufe 1 plus vier',
+    bausteine: '10 Bausteine',
     from: 'ab 2.670 €',
-    window: '4–7 Artikel · 420 € je Artikel · Grundpreis +990 €',
     recommended: true,
   },
   {
@@ -52,11 +46,8 @@ const stufen = [
     name: 'Zitiert',
     anchor: 'quelle-werden',
     ergebnis: 'Ihr Markt beruft sich auf Ihre Zahlen',
-    claim:
-      'Ihr Markt beruft sich auf Ihre Zahlen: eigene Branchenstudie, Eintrag in die Wissensdatenbanken, sichtbare Köpfe. Die stärkste Position, die es in KI-Antworten gibt — Sie sind dann nicht mehr ein Anbieter, sondern die Quelle.',
-    umfang: '14 Bausteine · alles aus Stufe 2 plus vier',
+    bausteine: '14 Bausteine',
     from: 'ab 4.910 €',
-    window: '8–12 Artikel · 390 € je Artikel · Grundpreis +1.790 €',
     recommended: false,
   },
 ];
@@ -124,17 +115,13 @@ const faqSchema = {
         Bevor jemand anfragt, fragt er die KI. Wir sorgen dafür, dass Ihr Name dort auftaucht,
         wo diese Antwort entsteht — und zeigen Ihnen jeden Monat, ob er es tut.
       </p>
-      <div class="pr-line mt-8 flex flex-wrap items-center gap-4" style="--d:3">
+      <div class="pr-line mt-8" style="--d:3">
         <a
           href="#rechner"
           class="inline-flex items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
         >
           Preis konfigurieren →
         </a>
-        <p class="inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-5 py-3">
-          <span class="text-2xl font-bold tracking-tight text-foreground">ab 1.470 €</span>
-          <span class="text-sm text-muted-foreground">pro Monat · netto · 6 Monate Mindestlaufzeit</span>
-        </p>
       </div>
     </div>
 
@@ -146,11 +133,6 @@ const faqSchema = {
           <h2 class="cai-h2 max-w-5xl text-foreground">
             Wie oft soll Ihr Name fallen, wenn jemand nach Ihrer Leistung fragt?
           </h2>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Jede Stufe erhöht die Zahl der Stellen, an denen die KI Sie findet — und enthält alles aus der Stufe darunter.
-            Was genau darin steckt, steht Baustein für Baustein auf
-            <a href={`${base}/digital-visibility/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Digital Visibility</a>.
-          </p>
         </Reveal>
 
         <!-- Schiene: füllt sich magenta beim Scrollen und markiert die drei
@@ -177,23 +159,19 @@ const faqSchema = {
               )}
               <p class="text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{s.level}</p>
               <h3 class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{s.name}</h3>
-              <p class="mt-3 text-[15px] font-semibold leading-snug text-foreground">{s.ergebnis}</p>
-              <p class="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
+              <p class="mt-3 flex-1 text-[15px] font-semibold leading-snug text-foreground">{s.ergebnis}</p>
 
-              <div class="mt-6 border-t border-border pt-5">
-                <p><span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span> <span class="text-sm text-muted-foreground">/ Monat</span></p>
-                <p class="mt-1.5 text-[12.5px] text-muted-foreground">{s.window}</p>
-                <p class="mt-3 text-[12.5px] font-semibold text-foreground">{s.umfang}</p>
-              </div>
+              <p class="mt-6">
+                <span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span>
+                <span class="text-sm text-muted-foreground">/ Monat</span>
+              </p>
 
-              <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-                <a href={`${base}/digital-visibility/#${s.anchor}`} class="inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
-                  Alle Bausteine ansehen →
-                </a>
-                <a href="#rechner" class="inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Preis rechnen →
-                </a>
-              </div>
+              <a
+                href={`${base}/digital-visibility/#${s.anchor}`}
+                class="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta"
+              >
+                {s.bausteine} →
+              </a>
             </Reveal>
           ))}
         </div>
