@@ -12,7 +12,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 /* ── /digital-visibility — die 14 Bausteine (Beschluss 27.07.2026, C3/AP10) ────
    Relaunch 28.07.2026 (Entscheidung Oli): Seite von /leistungen umgezogen und
    im Menü „Digital Visibility" genannt — derselbe Name wie Audit, Dashboard und
-   Service-Schema, damit die Kette Audit → Programm → Rechnung eine Marke trägt.
+   Service-Schema, damit die Kette Audit → Angebot → Rechnung eine Marke trägt.
    /leistungen/ bleibt als Weiterleitungsseite (noindex) bestehen.
    Weitere Änderungen dieser Welle:
    · Hero verkauft statt zu beschreiben (H1 knüpft an die Startseite an), die
@@ -28,7 +28,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
    Überarbeitung 27.07.2026 (Entscheidung Oli):
    · H1 aus Kundensicht — nicht „was wir liefern", sondern „was Sie brauchen".
      Einleitung erklärt die Logik: Niemand kennt die Formel, aber die belegten
-     Faktoren sind bekannt und stecken vollständig im Programm.
+     Faktoren sind bekannt und stecken vollständig in den drei Stufen.
    · Wording vereinheitlicht: durchgehend „Stufe 1/2/3" (nie „Ebene"/„Bereich"),
      identisch zu /preise → Stufe 1 · Fundament (Basis) usw.
    · Belegzahlen: Fassung fürs Gespräch und fürs Angebot weiterhin unter
@@ -47,44 +47,42 @@ const stufen = [
     kicker: 'Stufe 1 · Fundament',
     name: 'Basis',
     frage: 'Kann die KI mein Unternehmen überhaupt lesen und zitieren?',
-    antwort:
-      'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat, wo Sie genannt werden und wer statt Ihnen. Diese sechs Bausteine stecken in jeder Stufe.',
-    preiszeile: '2–3 Fachbeiträge pro Monat · 490 € je Beitrag · Programm +490 € · ab 1.470 € / Monat',
+    antwort: 'Ihre Website wird für KI-Systeme lesbar und zitierfähig. Diese sechs Bausteine stecken in jeder Stufe.',
+    preiszeile: '2–3 Fachbeiträge pro Monat · ab 1.470 € / Monat',
     bausteine: [
       {
         name: 'Fachbeiträge',
-        zusatz: 'der Motor des Programms',
-        tut: 'Wir recherchieren, schreiben und veröffentlichen Fachbeiträge von 1.500 bis 4.000 Wörtern — mit Statistiken, Quellenangaben und Expertenzitaten, je Beitrag drei Bilder oder eine Infografik. Wie viele es pro Monat sind, bestimmt Ihre Stufe: 2–3 in Basis, 4–7 in Aktiv, 8–12 in Dominanz.',
+        tut: 'Wir recherchieren, schreiben und veröffentlichen Beiträge, die KI-Systeme als Quelle zitieren können.',
         beleg: 'Statistiken, Zitate und Quellenangaben steigern die Sichtbarkeit in KI-Antworten um 30–40 %.',
         quelle: 'Princeton GEO, KDD 2024, 10.000 Abfragen',
       },
       {
         name: 'Monatliche Messung',
-        tut: 'Ein beim Start eingefrorener Satz von acht echten Einkäuferfragen wird jeden Monat in ChatGPT und der Google-KI-Übersicht gestellt. Gemessen wird, ob Sie genannt werden, an welcher Stelle, welche Ihrer Seiten als Quelle zitiert werden — und welcher Wettbewerber statt Ihnen dasteht.',
+        tut: 'Acht echte Einkäuferfragen, jeden Monat in ChatGPT und der Google-KI gestellt — Sie sehen, wer genannt wird.',
         beleg: 'Ohne Messung kein beweisbarer Erfolg. Vergleichbare Monitoring-Werkzeuge kosten allein 89–499 € pro Monat.',
         quelle: 'Marktvergleich GEO-Monitoring DACH, 07/2026',
       },
       {
         name: 'Google- und Bing-Optimierung',
-        tut: 'Klassisches SEO für Ihre Beiträge und Ihre Kernseiten — ausdrücklich inklusive Bing: Bing Webmaster Tools, IndexNow-Anbindung, Indexierungskontrolle. Bing ist kein Nebenschauplatz, sondern die Quelle, aus der ChatGPT seine Belege zieht.',
-        beleg: '87 % der SearchGPT-Zitate stammen aus den Bing-Top-Ergebnissen; Google-Seite-1 korreliert mit r ≈ 0,65 mit ChatGPT-Nennungen.',
+        tut: 'Klassisches SEO für Ihre Seiten, ausdrücklich inklusive Bing — daraus zieht ChatGPT seine Belege.',
+        beleg: '87 % der SearchGPT-Zitate stammen aus den Bing-Top-Ergebnissen.',
         quelle: 'Seer Interactive, n > 500',
       },
       {
         name: 'Technische KI-Zugänglichkeit',
-        tut: 'Wir prüfen, ob KI-Crawler Ihre Seiten überhaupt lesen können: serverseitiges Rendering, Crawler-Freigaben in der robots.txt, sichtbarer HTML-Text statt PDF oder Bild. Sie bekommen eine Liste umsetzungsreifer Korrekturen für Ihr Web-Team — wir greifen nicht selbst in Ihre Systeme ein.',
+        tut: 'Wir prüfen, ob KI-Crawler Ihre Seiten lesen können, und liefern die Korrekturliste für Ihr Web-Team.',
         beleg: 'Kein großer KI-Crawler führt JavaScript aus — client-gerenderte Inhalte sind für ChatGPT unsichtbar.',
         quelle: 'Vercel / MERJ, über 500 Mio. GPTBot-Abrufe',
       },
       {
         name: 'Aktualisierung der Bestandsseiten',
-        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen inhaltlich aktualisiert und neu datiert, nicht nur neue geschrieben. Anhand der Messung entscheiden wir, welche Seite einen Refresh braucht und welche trägt.',
-        beleg: 'KI-Assistenten zitieren 25,7 % frischere Inhalte als die organische Google-Suche; 51,6 % der B2B-Zitate tragen die Jahreszahl im Titel.',
+        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen aktualisiert, nicht nur neue geschrieben.',
+        beleg: 'KI-Assistenten zitieren 25,7 % frischere Inhalte als die organische Google-Suche.',
         quelle: 'Ahrefs, 17 Mio. Zitate',
       },
       {
         name: 'Maßnahmenplan aus Ihrem Audit',
-        tut: 'Einmalig beim Start wird aus Ihrem Digital Visibility Audit ein priorisierter Plan: was in welcher Reihenfolge, mit welcher Wirkungserwartung. Das Audit selbst bleibt kostenlos — bezahlt wird die Einordnung und der Fahrplan daraus.',
+        tut: 'Aus Ihrem kostenlosen Audit wird zum Start ein priorisierter Plan: was zuerst, was danach.',
         beleg: 'Grundlage ist die Auswertung von 449 Unternehmen und 7.184 KI-Antworten aus dem eigenen KI-Blindtest.',
         quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
       },
@@ -96,33 +94,32 @@ const stufen = [
     kicker: 'Stufe 2 · Skalierung',
     name: 'Aktiv',
     frage: 'Bin ich dort präsent, wo die KI ihre Belege holt?',
-    antwort:
-      'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Vier Bausteine außerhalb Ihrer Website — zusätzlich zu allem aus Stufe 1.',
-    preiszeile: '4–7 Fachbeiträge pro Monat · 420 € je Beitrag · Programm +990 € · ab 2.670 € / Monat',
+    antwort: 'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Vier Bausteine außerhalb Ihrer Website — zusätzlich zu allem aus Stufe 1.',
+    preiszeile: '4–7 Fachbeiträge pro Monat · ab 2.670 € / Monat',
     bausteine: [
       {
         name: 'Markennennungen auf Drittseiten',
         zusatz: 'Digital-PR',
-        tut: 'Wir platzieren Ihr Unternehmen in Fachportalen, Branchenmedien und Verzeichnissen: Themenrecherche, Redaktionsansprache, fertige Beitragsangebote. Ziel ist die Erwähnung, nicht der Link — deshalb zählen für uns auch Nennungen ohne Verlinkung.',
+        tut: 'Wir platzieren Ihr Unternehmen in Fachportalen und Branchenmedien — die Erwähnung zählt, nicht der Link.',
         beleg: 'Markennennungen korrelieren mit r = 0,664 mit KI-Sichtbarkeit — Backlinks nur mit 0,218.',
         quelle: 'Ahrefs, 75.000 Marken',
       },
       {
         name: 'Vergleichsartikel und Anbieter-Listen',
-        tut: 'Wir schreiben und pflegen Ihre eigenen datierten Vergleichs- und Auswahlinhalte — das ist die Leistung, die wir zusagen. Für die Aufnahme in fremde „Beste Anbieter"-Artikel recherchieren wir die Redaktionen, sprechen sie an und liefern die Fakten; über die Aufnahme entscheidet die Redaktion, nicht wir.',
+        tut: 'Wir schreiben Ihre eigenen Vergleichsinhalte und bringen Sie bei Redaktionen für deren Anbieter-Listen ins Gespräch.',
         beleg: '70,8 % aller Zitate bei B2B-Kaufprompts stammen aus „Beste"- und „Top"-Listen.',
         quelle: 'Overthink Group, 1.263 Prompts',
       },
       {
         name: 'Bewertungsplattformen',
-        tut: 'Wir legen Ihre Profile auf den Plattformen an und pflegen sie, aus denen KI-Systeme in Ihrer Branche zitieren — ProvenExpert, Trustpilot, Google, bei Software-Nähe G2 und Capterra. Es geht um Vollständigkeit und Aktualität des Profils, nicht um das Sammeln von Bewertungsmassen.',
-        beleg: '100 % der von ChatGPT empfohlenen B2B-Werkzeuge hatten ein Capterra-Profil, 99 % ein G2-Profil — die Anzahl der Bewertungen korrelierte nicht.',
+        tut: 'Wir legen die Profile an und pflegen sie, aus denen KI-Systeme in Ihrer Branche zitieren.',
+        beleg: '100 % der von ChatGPT empfohlenen B2B-Werkzeuge hatten ein Capterra-Profil, 99 % ein G2-Profil.',
         quelle: 'Quoleady',
       },
       {
         name: 'YouTube-Veröffentlichung Ihrer Videos',
-        tut: 'Die Social Videos, die wir aus Ihren Fachbeiträgen produzieren, veröffentlichen wir YouTube-gerecht: Titel, Beschreibung, Kapitelmarken und Transkript. Ihren bestehenden Kanal und Ihre älteren Videos fassen wir nicht an — das wäre ein eigenes Projekt.',
-        beleg: 'YouTube-Nennungen sind das stärkste Einzelsignal für KI-Sichtbarkeit (r ≈ 0,737); YouTube ist in rund 40 % aller deutschen AI-Mode-Antworten verlinkt.',
+        tut: 'Die Videos aus Ihren Beiträgen veröffentlichen wir YouTube-gerecht — mit Titel, Kapiteln und Transkript.',
+        beleg: 'YouTube-Nennungen sind das stärkste Einzelsignal für KI-Sichtbarkeit (r ≈ 0,737).',
         quelle: 'Ahrefs 2026 · SISTRIX',
       },
     ],
@@ -133,31 +130,30 @@ const stufen = [
     kicker: 'Stufe 3 · Marktführerschaft',
     name: 'Dominanz',
     frage: 'Zitiert die KI mich, weil andere mich zitieren?',
-    antwort:
-      'Ihr Markt beruft sich auf Ihre Zahlen. Vier Bausteine, die aus einem Anbieter eine Quelle machen — zusätzlich zu allem aus den Stufen 1 und 2.',
-    preiszeile: '8–12 Fachbeiträge pro Monat · 390 € je Beitrag · Programm +1.790 € · ab 4.910 € / Monat',
+    antwort: 'Ihr Markt beruft sich auf Ihre Zahlen. Vier Bausteine, die aus einem Anbieter eine Quelle machen — zusätzlich zu den Stufen 1 und 2.',
+    preiszeile: '8–12 Fachbeiträge pro Monat · ab 4.910 € / Monat',
     bausteine: [
       {
         name: 'Eigene Branchenstudie',
-        tut: 'Einmal im Jahr entsteht eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt: Wir konzipieren die Fragestellung, erheben die Daten — aus einer Marktbefragung oder aus Ihren vorhandenen Zahlen — und bereiten sie als Studienseite mit Grafiken und Pressetext auf. Verbreitet wird sie über die Digital-PR aus Stufe 2.',
-        beleg: 'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp — unsere eigene Studie mit 449 Unternehmen ist der Beweis in eigener Sache.',
+        tut: 'Einmal im Jahr eine Studie, bei der Ihr Unternehmen als Herausgeber auftritt — wir erheben und gestalten sie.',
+        beleg: 'Eigene Daten-Assets sind der stärkste zitierfähige Inhaltstyp.',
         quelle: 'Princeton GEO · CodaAI-Studie 2026',
       },
       {
         name: 'Wissensdatenbanken',
-        tut: 'Konkret sind das drei Dinge: ein Wikidata-Eintrag Ihres Unternehmens als maschinenlesbares Strukturwissen, ein vollständiges Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments. Wikipedia versprechen wir ausdrücklich nicht — die Relevanzkriterien schließen die meisten Mittelständler aus, und ein bezahlter Artikel wird gelöscht.',
-        beleg: 'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT — Wikipedia allein stellt 7,8 % aller Zitate.',
+        tut: 'Wikidata-Eintrag, Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments.',
+        beleg: 'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT.',
         quelle: 'Semrush · Profound',
       },
       {
         name: 'LinkedIn Ihrer Führungskräfte',
-        tut: 'Aus jedem Fachbeitrag entstehen fertige LinkedIn-Beiträge im Namen Ihrer Köpfe, dazu die Optimierung der Profile selbst. Veröffentlicht wird von der Person — wir arbeiten nicht mit fremden Account-Zugängen.',
+        tut: 'Fertige Beiträge im Namen Ihrer Köpfe plus die Optimierung der Profile — veröffentlicht wird von der Person.',
         beleg: 'LinkedIn erscheint in rund 15 % der AI-Mode-Antworten — im B2B deutlich stärker als Reddit mit 1,4 %.',
         quelle: 'SISTRIX, AI-Mode-Quellen DE',
       },
       {
         name: 'Wettbewerbs-Beobachtung',
-        tut: 'Zusätzlich zu Ihren eigenen Nennungen läuft ein monatlicher Vergleich gegen namentlich benannte Wettbewerber: Wer wird in Ihren Einkäuferfragen wie oft empfohlen, und wie verschiebt sich das über die Monate. Dieselbe Datengrundlage wie Ihre Messung, nur mit dem Markt daneben.',
+        tut: 'Monatlicher Vergleich gegen benannte Wettbewerber: Wer wird in Ihren Fragen wie oft empfohlen?',
         beleg: 'Basiert auf demselben eingefrorenen Fragensatz wie Ihre Messung — vergleichbar über die gesamte Laufzeit.',
         quelle: 'CodaAI-Messverfahren',
       },
@@ -201,13 +197,6 @@ const ICON: Record<string, string> = {
   'Wettbewerbs-Beobachtung':
     '<path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/>',
 };
-
-/* Kennzahlen-Band unter dem Hero — dieselbe Zähler-Mechanik wie /studie. */
-const kennzahlen = [
-  { wert: 14, label: 'Bausteine', sub: 'jeder durch Daten gedeckt' },
-  { wert: 3, label: 'Stufen', sub: 'jede enthält die darunter' },
-  { wert: 8, label: 'Einkäuferfragen', sub: 'jeden Monat neu gemessen' },
-];
 
 /* Matrix: dieselben 14 Bausteine, kumulativ. Spalten führen in den Preisrechner. */
 const matrix = stufen.flatMap((g) =>
@@ -279,7 +268,7 @@ const serviceSchema = {
 <Layout
   lang={lang}
   title="Digital Visibility – so wird Ihr Unternehmen in KI-Antworten empfohlen | CodaAI"
-  description="Niemand kennt die Formel, nach der ChatGPT & Co. empfehlen. Die belegten Faktoren kennt man — alle 14 stecken in einem Programm mit drei Stufen. Jeden Monat gemessen."
+  description="Genannt zu werden ist kein Zufall. Kein Anbieter kennt die Formel der KI-Systeme — bekannt ist, woraus sie sich bedienen. Drei Visibility-Stufen, jeden Monat gemessen."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
@@ -294,22 +283,30 @@ const serviceSchema = {
       />
     </div>
 
-    <!-- ── 1 · Hero ───────────────────────────────── -->
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-12 lg:pb-16">
+    <!-- ── 1 · Hero ─────────────────────────────────────────────────────
+         H1-Richtung von Oli (28.07.2026): „Genannt werden bedarf konsequenter
+         Arbeit und ist kein Zufall" — hier nur grammatisch geglättet und auf
+         zwei Zeilen gebrochen, damit sie in die Stufen-Argumentation führt.
+         Kein Zahlenband mehr: die drei Kennzahlen (14 · 3 · 8) beschrieben den
+         Lieferumfang, nicht den Nutzen. An ihre Stelle tritt ein Ergebnissatz
+         ohne Wirkungszahl — belegbare Vorher-Nachher-Werte liegen noch nicht
+         vor, erfundene wären ein Bruch mit „keine Platzierungsgarantie".      -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-14 lg:pb-16">
       <h1 class="max-w-4xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
-        <span class="cai-line block">Die KI empfiehlt drei Anbieter.</span>
-        <span class="cai-line block">Das hier bringt Sie unter die drei.</span>
+        <span class="cai-line block">Genannt zu werden ist kein Zufall.</span>
+        <span class="cai-line block [text-wrap:balance]">Es ist konsequente Arbeit — in drei Stufen.</span>
       </h1>
 
       <div class="cai-line mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-muted-foreground" style="--d:2">
         <p>
-          Kein Anbieter kennt die Formel, nach der ChatGPT, Perplexity oder die Google-KI entscheiden,
-          wen sie empfehlen — wir auch nicht. Gemessen ist aber, was mit Empfehlungen zusammenhängt:
-          <strong class="font-semibold text-foreground">14 Faktoren</strong>, jeder einzelne durch Daten gedeckt.
+          Kein Anbieter kennt die Formel, nach der ChatGPT, Perplexity oder die Google-KI
+          entscheiden, wen sie empfehlen — wir auch nicht. Jedes System arbeitet anders, und
+          keines legt offen, warum am Ende der eine Name fällt und der andere nicht.
         </p>
         <p>
-          Wir arbeiten alle 14 ab, Monat für Monat. Und zeigen Ihnen jeden Monat schwarz auf weiß,
-          ob Ihr Name inzwischen in der Antwort steht — oder weiterhin der Ihres Wettbewerbers.
+          Bekannt ist, woraus sie sich bedienen. Genau dort setzen unsere drei Stufen an —
+          von der lesbaren Website bis zur eigenen Branchenstudie.
+          <strong class="font-semibold text-foreground">Für jedes Unternehmen ist die passende dabei.</strong>
         </p>
       </div>
 
@@ -322,23 +319,18 @@ const serviceSchema = {
         </a>
       </div>
 
-      <!-- Kennzahlen-Band — Zähler laufen beim ersten Einscrollen hoch. -->
-      <div class="cai-line mt-12 grid gap-8 border-t border-border pt-8 sm:grid-cols-3" style="--d:4" data-counters>
-        {kennzahlen.map((k) => (
-          <div>
-            <div class="text-3xl font-semibold tracking-tight text-cta-accessible sm:text-4xl" data-count={k.wert}>{k.wert}</div>
-            <div class="mt-1 text-[15px] font-semibold text-foreground">{k.label}</div>
-            <div class="text-sm text-muted-foreground">{k.sub}</div>
-          </div>
-        ))}
-      </div>
+      <p class="cai-line mt-12 max-w-3xl border-t border-border pt-8 text-lg leading-relaxed text-muted-foreground" style="--d:4">
+        Das Ziel ist erreicht, wenn Ihr Name in den Antworten steht, in denen heute Ihre
+        Wettbewerber stehen. <strong class="font-semibold text-foreground">Ob es soweit ist,
+        raten wir nicht — wir messen es jeden Monat</strong> und legen Ihnen das Ergebnis vor.
+      </p>
     </div>
 
     <!-- ── 2 · Die drei Stufen als Akkordeon ────────────────────────────── -->
     <section aria-label="Die drei Stufen und ihre Bausteine" class="border-t border-border bg-muted/20 py-16 lg:py-20">
       <div class="mx-auto max-w-5xl px-6 lg:px-8">
         <Reveal as="div" class="mb-10">
-          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Das Programm</p>
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Die drei Visibility-Stufen</p>
           <h2 class="max-w-[26ch] text-2xl sm:text-3xl font-semibold tracking-tight text-foreground leading-[1.25] sm:leading-[1.25]">
             Drei Fragen entscheiden, ob die KI Sie empfiehlt.
           </h2>
@@ -372,9 +364,6 @@ const serviceSchema = {
                     </span>
                     <span class="mt-2 block text-[13px] text-muted-foreground">{g.preiszeile}</span>
                   </span>
-                  <span class="cai-hint hidden shrink-0 self-center whitespace-nowrap text-[12.5px] font-semibold text-cta-accessible sm:block">
-                    {g.bausteine.length} Bausteine ansehen
-                  </span>
                   <svg class="cai-chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M6 9l6 6 6-6" />
                   </svg>
@@ -387,7 +376,7 @@ const serviceSchema = {
 
                   <div class="mt-6 grid gap-4 md:grid-cols-2">
                     {g.bausteine.map((b, i) => (
-                      <article class="cai-item rounded-xl border border-border bg-background p-5" style={`--i:${i}`} tabindex="0">
+                      <article class="cai-item rounded-xl border border-border bg-background p-5" style={`--i:${i}`}>
                         {ICON[b.name] && (
                           <span class="cai-ico mb-3 flex h-10 w-10 items-center justify-center rounded-[10px]" aria-hidden="true">
                             <svg
@@ -410,12 +399,6 @@ const serviceSchema = {
                           )}
                         </h4>
                         <p class="mt-2.5 text-[14px] leading-relaxed text-muted-foreground">{b.tut}</p>
-                        {b.beleg && (
-                          <p class="cai-beleg text-[12.5px] leading-relaxed">
-                            <span class="block font-semibold text-foreground">{b.beleg}</span>
-                            <span class="mt-0.5 block text-[11.5px] text-muted-foreground">Quelle: {b.quelle}</span>
-                          </p>
-                        )}
                       </article>
                     ))}
                   </div>
@@ -610,15 +593,11 @@ const serviceSchema = {
     .cai-js .cai-stufe:not(.is-open) .cai-chev { transform: rotate(-90deg); }
     .cai-js .cai-head:hover .cai-chev { color: hsl(var(--cta)); }
 
-    .cai-stufe {
-      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .cai-js .cai-stufe:not(.is-open):hover,
-    .cai-js .cai-stufe:not(.is-open):focus-within {
-      border-color: hsl(var(--cta) / 0.5);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px -18px hsl(var(--cta) / 0.55);
-    }
+    /* Bewusst nur EIN Hover-Signal (Entscheidung Oli, 28.07.2026): vorher
+       füllte sich die Zahl UND der Rahmen wurde magenta UND die Karte hob sich
+       UND ein Hinweistext erschien — vier Reize gleichzeitig. Geblieben ist die
+       Zahl; sie sitzt am Blickanfang der Zeile und genügt als Signal.          */
+    .cai-stufe { transition: border-color 0.25s ease; }
 
     /* Die Zahl ist das Signal: beim Überfahren und im geöffneten Zustand
        füllt sie sich magenta. */
@@ -632,19 +611,6 @@ const serviceSchema = {
       background: hsl(var(--cta));
       border-color: hsl(var(--cta));
       color: #fff;
-    }
-    .cai-js .cai-head:hover .cai-nr { transform: translateY(-1px); }
-
-    .cai-hint {
-      opacity: 0;
-      transform: translateX(6px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      pointer-events: none;
-    }
-    .cai-js .cai-stufe:not(.is-open) .cai-head:hover .cai-hint,
-    .cai-js .cai-stufe:not(.is-open) .cai-head:focus-visible .cai-hint {
-      opacity: 1;
-      transform: none;
     }
 
     .cai-js .cai-panel {
@@ -671,12 +637,8 @@ const serviceSchema = {
     /* Karten-Hover — höhere Spezifität als die Einblend-Regel darüber. */
     .cai-item { outline: none; }
     .cai-js .cai-stufe.is-open .cai-item:hover,
-    .cai-js .cai-stufe.is-open .cai-item:focus-visible,
-    .cai-item:hover,
-    .cai-item:focus-visible {
-      border-color: hsl(var(--cta) / 0.55);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px -16px hsl(var(--cta) / 0.5);
+    .cai-item:hover {
+      border-color: hsl(var(--cta) / 0.5);
       transition-delay: 0ms;
     }
 
@@ -686,42 +648,7 @@ const serviceSchema = {
       color: hsl(var(--cta-accessible));
       transition: background-color 0.22s ease, transform 0.22s ease;
     }
-    .cai-item:hover .cai-ico,
-    .cai-item:focus-visible .cai-ico {
-      background: hsl(var(--cta) / 0.2);
-      transform: translateY(-1px) scale(1.05);
-    }
-
-    /* Beleg — liegt still in der Karte und erscheint beim Überfahren.
-       Auf Touch-Geräten (kein Hover) steht er dauerhaft da, sonst wäre die
-       Zahl dort nicht erreichbar. */
-    .cai-beleg {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      margin-top: 0;
-      padding-top: 0;
-      border-top: 1px solid transparent;
-      transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease,
-        padding-top 0.35s ease, border-color 0.3s ease;
-    }
-    .cai-item:hover .cai-beleg,
-    .cai-item:focus-visible .cai-beleg {
-      max-height: 14rem;
-      opacity: 1;
-      margin-top: 0.85rem;
-      padding-top: 0.75rem;
-      border-top-color: hsl(var(--cta) / 0.45);
-    }
-    @media (hover: none) {
-      .cai-beleg {
-        max-height: none;
-        opacity: 1;
-        margin-top: 0.85rem;
-        padding-top: 0.75rem;
-        border-top-color: hsl(var(--cta) / 0.45);
-      }
-    }
+    .cai-item:hover .cai-ico { background: hsl(var(--cta) / 0.18); }
 
     /* ── Matrix ─────────────────────────────────────────────────────────
        Häkchen zeichnen sich spaltenweise, sobald die Tabelle ins Bild kommt.
@@ -750,9 +677,7 @@ const serviceSchema = {
       .cai-stufe,
       .cai-nr,
       .cai-ico,
-      .cai-beleg,
       .cai-spine-fill { transition: none; }
-      .cai-js .cai-stufe:not(.is-open):hover { transform: none; }
       .cai-matrix.cai-anim .cai-check path { stroke-dashoffset: 0; }
     }
   </style>
@@ -765,9 +690,9 @@ const serviceSchema = {
       } catch (e) {}
 
       /* ── 1 · Akkordeon ───────────────────────────────────────────────
-         Bewusst ohne Scroll-Automatik: Es ist immer genau das offen, was der
-         Nutzer geöffnet hat. Beim Laden ist das Stufe 1 — oder die Stufe,
-         auf die ein Anker zeigt. */
+         Beim Laden ist ALLES zu (Entscheidung Oli, 28.07.2026) — man sieht
+         zuerst die drei Stufen nebeneinander und entscheidet selbst, was man
+         aufklappt. Ausnahme: ein Anker in der URL öffnet seine Stufe. */
       var acc = document.querySelector('[data-acc]');
       if (acc) {
         var stufen = Array.prototype.slice.call(acc.querySelectorAll('[data-stufe]'));
@@ -782,8 +707,8 @@ const serviceSchema = {
         var hash = (location.hash || '').replace('#', '');
         var target = null;
         stufen.forEach(function (el) { if (el.id === hash) target = el; });
-        stufen.forEach(function (el, i) {
-          setOpen(el, target ? el === target : i === 0);
+        stufen.forEach(function (el) {
+          setOpen(el, target ? el === target : false);
         });
 
         stufen.forEach(function (el) {
