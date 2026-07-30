@@ -79,7 +79,7 @@ const T = {
   de: {
     kicker: 'Ihr individuelles Paket',
     h2: 'Stellen Sie zusammen, was Sie brauchen.',
-    lead: 'Fünf Fragen, eine nach der anderen — rechts wächst Ihre Rechnung mit. Am Ende steht genau die Summe, die auch auf der Rechnung steht. Kein Angebot einholen, kein Gespräch nötig.',
+    lead: 'Fünf Angaben, und Sie kennen Ihren Preis.',
     s1: 'Welche Stufe?',
     s2: 'Wie viele Fachbeiträge pro Monat?',
     s3: 'Übersetzungen?',
@@ -94,7 +94,7 @@ const T = {
     vidNone: 'Keine',
     vidOne: '1 je Artikel',
     vidTwo: '2 je Artikel',
-    vidHint: 'Kurzvideos für Reels, Shorts, TikTok und LinkedIn — aus Ihrem Beitrag geschnitten.',
+    vidHint: 'Kurzvideos für Ihre Fachbeiträge — für Reels, Shorts, TikTok und LinkedIn.',
     term6: '6 Monate', term6sub: 'Standardpreis',
     term12: '12 Monate', term12sub: '−10 %',
     extensions: 'Erweiterungen',
@@ -133,20 +133,20 @@ const T = {
     q2sub: 'Der wichtigste Hebel: Jeder Beitrag ist eine Seite, die KI-Systeme zitieren können.',
     q3: 'Brauchen Sie Übersetzungen?',
     q3sub: 'Für Unternehmen, die im Ausland gefunden werden wollen.',
-    q4: 'Sollen Social Videos dazu?',
-    q4sub: 'Kurzvideos aus Ihren Beiträgen — der stärkste Einzelhebel für KI-Sichtbarkeit.',
+    q4: 'Sollen Ihre Fachbeiträge mehr Reichweite bekommen?',
+    q4sub: 'Kurzvideos für Ihre Fachbeiträge tragen sie dorthin, wo Ihre Zielgruppe scrollt.',
     q5: 'Wie lange soll die Laufzeit sein?',
     q5sub: 'Sichtbarkeit entsteht über Monate. Wer sich länger festlegt, zahlt weniger.',
     langNone: 'Keine Übersetzung',
     langSome: 'Ja, übersetzen',
     vidWhat:
-      'Aus jedem Fachbeitrag schneiden wir kurze Videos zur Steigerung des Engagements für die Plattformen LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Die Social-Media-Plattformen steigern das Engagement enorm. Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
+      'Für jeden Fachbeitrag erstellen wir kurze Videos (maximal 30 Sekunden) zur Steigerung des Engagements für die Plattformen LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Die Social-Media-Plattformen steigern das Engagement enorm. Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
     artFew: 'Einstieg', artMid: 'Empfohlen', artMax: 'Maximum',
   },
   en: {
     kicker: 'Your individual package',
     h2: 'Build the package you need.',
-    lead: 'Five questions, one at a time — your invoice builds up on the right. The figure you end with is the one on the invoice. No quote request, no call needed.',
+    lead: 'Five inputs, and you know your price.',
     s1: 'Which tier?',
     s2: 'How many expert articles per month?',
     s3: 'Translations?',
@@ -161,7 +161,7 @@ const T = {
     vidNone: 'None',
     vidOne: '1 per article',
     vidTwo: '2 per article',
-    vidHint: 'Short videos for Reels, Shorts, TikTok and LinkedIn — cut from your article.',
+    vidHint: 'Short videos for your articles — for Reels, Shorts, TikTok and LinkedIn.',
     term6: '6 months', term6sub: 'standard price',
     term12: '12 months', term12sub: '−10 %',
     extensions: 'Extensions',
@@ -199,14 +199,14 @@ const T = {
     q2sub: 'The strongest lever: every article is a page AI systems can cite.',
     q3: 'Do you need translations?',
     q3sub: 'For companies that want to be found abroad.',
-    q4: 'Add social videos?',
-    q4sub: 'Short videos cut from your articles — the strongest single signal for AI visibility.',
+    q4: 'Should your articles reach further?',
+    q4sub: 'Short videos for your articles carry them to where your audience scrolls.',
     q5: 'How long should the term be?',
     q5sub: 'Visibility builds over months. A longer commitment costs less.',
     langNone: 'No translation',
     langSome: 'Yes, translate',
     vidWhat:
-      'From every article we cut short videos that drive engagement on LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Social platforms lift engagement enormously, and mentions there correlate with AI visibility more strongly than any other single signal.',
+      'For every article we produce short videos (max. 30 seconds) that drive engagement on LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Social platforms lift engagement enormously, and mentions there correlate with AI visibility more strongly than any other single signal.',
     artFew: 'Entry', artMid: 'Recommended', artMax: 'Maximum',
   },
 };
@@ -649,61 +649,21 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
               {t.noteBase(term)}{term === 12 && <> {t.save(eur(subtotal - total))}</>}
             </p>
 
-            {/* Ausgänge */}
-            {!pdfOpen ? (
-              <div className="mt-6 flex flex-col gap-3">
-                <a
-                  href={bookingHref || `${base}/#termin`}
-                  onClick={() => pushDL('booking_click', { lang, source: 'pricing', value: total, currency: 'EUR' })}
-                  className="btn-cta inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-white"
-                >
-                  {t.ctaCall}
-                </a>
-                <button
-                  type="button" onClick={() => { setPdfOpen(true); setPdfState('idle'); }}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-6 py-4 text-sm font-semibold text-foreground transition-colors hover:border-cta hover:text-cta-accessible"
-                >
-                  {t.ctaPdf}
-                </button>
-              </div>
-            ) : pdfState === 'ok' ? (
-              <div className="mt-6 rounded-xl border border-cta/40 bg-cta/10 p-4 text-sm leading-relaxed text-foreground">
-                {t.pdfOk}
-              </div>
-            ) : (
-              <form onSubmit={requestPdf} className="mt-6">
-                <p className="text-sm font-semibold text-foreground">{t.pdfTitle}</p>
-                <p className="mt-1 text-[12.5px] leading-relaxed text-muted-foreground">{t.pdfLead}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <input
-                    type="email" required value={email} placeholder={t.pdfMail}
-                    onChange={(e) => { setEmail(e.target.value); if (pdfState === 'invalid') setPdfState('idle'); }}
-                    aria-label={t.pdfMail}
-                    className="min-w-[170px] flex-1 rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none focus:border-cta"
-                  />
-                  <button
-                    type="submit" disabled={pdfState === 'sending'}
-                    className="btn-cta inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
-                  >
-                    {pdfState === 'sending' ? t.pdfSending : t.pdfSend}
-                  </button>
-                </div>
-                <p className="mt-2 text-[11.5px] leading-relaxed text-muted-foreground">{t.pdfConsent}</p>
-                {pdfState === 'invalid' && <p className="mt-2 text-[12.5px] font-medium text-cta-accessible">{t.pdfInvalid}</p>}
-                {pdfState === 'fail' && (
-                  <p className="mt-2 text-[12.5px] leading-relaxed text-muted-foreground">
-                    {t.pdfFail}{' '}
-                    <a href={mailtoHref} className="font-semibold text-cta-accessible hover:text-cta">{t.pdfFailLink}</a>
-                  </p>
-                )}
-                <button
-                  type="button" onClick={() => setPdfOpen(false)}
-                  className="mt-3 text-[12.5px] font-medium text-muted-foreground hover:text-foreground"
-                >
-                  {t.cancel}
-                </button>
-              </form>
-            )}
+            {/* Ausgang — seit 28.07.2026 nur noch der Termin.
+                Der zweite Knopf „Angebot als PDF anfordern" ist raus: Er stand
+                im Widerspruch dazu, dass man hier gar kein Angebot mehr
+                einholen muss. Der Versandpfad (requestPdf, OFFER_ENDPOINT,
+                die pdf*-Texte) bleibt im Code, falls der Ausgang zurückkommt —
+                das GA4-Ereignis `offer_pdf_requested` feuert damit nicht mehr. */}
+            <div className="mt-6">
+              <a
+                href={bookingHref || `${base}/#termin`}
+                onClick={() => pushDL('booking_click', { lang, source: 'pricing', value: total, currency: 'EUR' })}
+                className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-white"
+              >
+                {t.ctaCall}
+              </a>
+            </div>
           </div>
         </div>
       </div>
