@@ -129,9 +129,8 @@ const faqSchema = {
     <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
-          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Drei Stufen</p>
           <h2 class="cai-h2 max-w-5xl text-foreground">
-            Wie oft soll Ihr Name fallen, wenn jemand nach Ihrer Leistung fragt?
+            Drei Stufen. Je höher, desto mehr Stellen, an denen die KI Sie findet.
           </h2>
         </Reveal>
 
@@ -180,19 +179,21 @@ const faqSchema = {
           Wir schreiben genauso auf, was wir bewusst <strong class="font-semibold text-foreground">nicht</strong> anbieten — sechs Punkte, jeder mit Begründung:
           <a href={`${base}/digital-visibility/#nicht-im-angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">nachlesen →</a>
         </Reveal>
+
+        <!-- Übergang in den Konfigurator: ein Knopf, darunter die Linie, die
+             sich beim Scrollen füllt. Ersetzt das frühere Band mit zwei
+             zusätzlichen Sätzen — die Seite soll hier zügig zum Rechner. -->
+        <Reveal as="div" delay={420} class="mt-12 flex flex-col items-center">
+          <a
+            href="#rechner"
+            class="inline-flex items-center gap-2 rounded-xl bg-cta px-6 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            Preis konfigurieren →
+          </a>
+          <span class="pr-drop mt-6" aria-hidden="true" data-drop><span class="pr-drop-fill"></span></span>
+        </Reveal>
       </div>
     </section>
-
-    <!-- ── 2b · Übergang: führt den Blick in den Rechner ─────────────────── -->
-    <div class="pb-2 pt-2">
-      <div class="mx-auto flex max-w-7xl flex-col items-center px-6 pb-10 text-center lg:px-8">
-        <p class="max-w-xl text-lg leading-relaxed text-muted-foreground">
-          Welche Stufe zu Ihnen passt, hängt davon ab, wo Sie heute stehen.
-          <strong class="font-semibold text-foreground">Was sie kostet, sehen Sie sofort.</strong>
-        </p>
-        <span class="pr-drop mt-6" aria-hidden="true" data-drop><span class="pr-drop-fill"></span></span>
-      </div>
-    </div>
 
     <!-- ── 3 · Preisrechner (enthält beide Ausgänge) ────────────────────── -->
     <PricingCalculatorV2 lang={lang} base={base} bookingHref={`${base}/preise/#termin`} client:load />
@@ -205,16 +206,35 @@ const faqSchema = {
       <Reveal as="div">
         <h2 class="cai-h2 mb-8 text-center text-foreground">Häufige Fragen zum Preis</h2>
       </Reveal>
-      <dl class="space-y-6">
+      <!-- Akkordeon: man sieht die fünf Fragen, geöffnet ist immer nur eine.
+           Ohne JavaScript stehen alle Antworten da. -->
+      <div class="pr-faq space-y-3" data-faq>
         {faqs.map((f, i) => (
           <Reveal as="div" delay={(i % 2) * 40}>
-            <div class="rounded-xl border border-border bg-card p-6">
-              <dt class="mb-2 font-semibold text-foreground">{f.q}</dt>
-              <dd class="text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
+            {/* data-Attribute gehören an ein echtes Element — die Reveal-
+                Komponente reicht unbekannte Props nicht durch. */}
+            <div class="pr-fitem overflow-hidden rounded-xl border border-border bg-card" data-fitem>
+            <h3>
+              <button
+                type="button"
+                class="pr-fhead flex w-full items-center gap-4 p-5 text-left"
+                aria-expanded="false"
+                aria-controls={`faq-${i}`}
+                data-fhead
+              >
+                <span class="flex-1 font-semibold text-foreground">{f.q}</span>
+                <svg class="pr-fchev h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} class="pr-fpanel" data-fpanel>
+              <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            </div>
             </div>
           </Reveal>
         ))}
-      </dl>
+      </div>
 
       <p class="mt-10 text-center text-sm text-muted-foreground">
         Noch keine Zahlen für Ihr Unternehmen?
@@ -278,6 +298,26 @@ const faqSchema = {
       box-shadow: 0 16px 40px -20px hsl(var(--cta) / 0.55);
     }
 
+    /* ── FAQ-Akkordeon ──────────────────────────────────────────────────
+       Ohne JS (keine .pr-js) stehen alle Antworten offen. Beim Überfahren
+       zeigt der Kopf magenta, dass sich hier etwas öffnet.                  */
+    .pr-fhead { cursor: default; }
+    .pr-js .pr-fhead { cursor: pointer; }
+    .pr-fitem { transition: border-color 0.2s ease; }
+    .pr-js .pr-fitem:hover,
+    .pr-js .pr-fitem:focus-within { border-color: hsl(var(--cta) / 0.5); }
+    .pr-js .pr-fhead:hover span,
+    .pr-js .pr-fhead:focus-visible span { color: hsl(var(--cta-accessible)); }
+    .pr-js .pr-fhead:hover .pr-fchev { color: hsl(var(--cta)); }
+    .pr-fchev { transition: transform 0.3s ease, color 0.2s ease; }
+    .pr-js .pr-fitem.is-open .pr-fchev { transform: rotate(180deg); color: hsl(var(--cta)); }
+    .pr-js .pr-fpanel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .pr-js .pr-fitem.is-open .pr-fpanel { max-height: 420px; }
+
     /* ── Übergang: Linie zeichnet sich in den Rechner ───────────────────── */
     .pr-drop {
       display: block;
@@ -300,6 +340,7 @@ const faqSchema = {
     @media (prefers-reduced-motion: reduce) {
       .pr-line { opacity: 1; transform: none; animation: none; }
       .pr-rail-fill, .pr-drop-fill, .pr-dot, .pr-card { transition: none; }
+      .pr-js .pr-fpanel, .pr-fchev, .pr-fitem { transition: none; }
       .pr-card:hover { transform: none; }
     }
   </style>
@@ -333,6 +374,27 @@ const faqSchema = {
         if (dropFill) {
           dropFill.style.height = (pct(drop, 0.95, 0.6) * 100).toFixed(1) + '%';
         }
+      }
+
+      /* FAQ: immer nur eine Frage offen. */
+      var faq = document.querySelector('[data-faq]');
+      if (faq) {
+        faq.classList.add('pr-js');
+        var items = Array.prototype.slice.call(faq.querySelectorAll('[data-fitem]'));
+        items.forEach(function (el) {
+          var head = el.querySelector('[data-fhead]');
+          if (!head) return;
+          head.addEventListener('click', function () {
+            var open = !el.classList.contains('is-open');
+            items.forEach(function (o) {
+              o.classList.remove('is-open');
+              var h = o.querySelector('[data-fhead]');
+              if (h) h.setAttribute('aria-expanded', 'false');
+            });
+            el.classList.toggle('is-open', open);
+            head.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        });
       }
 
       var ticking = false;
