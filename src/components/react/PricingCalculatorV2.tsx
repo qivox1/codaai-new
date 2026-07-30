@@ -323,7 +323,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{t.kicker}</p>
-        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">{t.h2}</h2>
+        <h2 className="cai-h2 text-foreground">{t.h2}</h2>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">{t.lead}</p>
 
         <div className="mt-10 grid gap-7 lg:grid-cols-[1.25fr_.95fr] lg:items-start">

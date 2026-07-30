@@ -113,7 +113,7 @@ import AuditCTA from './AuditCTA.astro';
      Begriffswissen reserviert. -->
 <section class="rooms" id="stellen">
   <div class="wrap">
-    <h2 class="sec rooms-lead">Diese Entscheidung fällt an drei Stellen: in der klassischen Suche
+    <h2 class="cai-h2 sec rooms-lead">Diese Entscheidung fällt an drei Stellen: in der klassischen Suche
       (<b>SEO</b>), in Googles KI-Übersicht (<b>AEO</b>) und in KI-Assistenten wie ChatGPT (<b>GEO</b>).</h2>
 
     <div class="acc">
@@ -164,7 +164,7 @@ import AuditCTA from './AuditCTA.astro';
   <div class="wrap">
     <div class="mi-head">
       <span class="eyebrow">Beispiel-Audit · echte Zahlen, Firmenname entfernt</span>
-      <h2 class="sec">Ein echtes Audit zeigt schwarz auf weiß, <em>wer statt Ihnen empfohlen wird.</em></h2>
+      <h2 class="cai-h2 sec">Ein echtes Audit zeigt schwarz auf weiß, <em>wer statt Ihnen empfohlen wird.</em></h2>
       <p class="lead">Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem
         Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen
         Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles
@@ -275,7 +275,7 @@ import AuditCTA from './AuditCTA.astro';
      ein magenta Button auf magenta Grund unsichtbar wäre. -->
 <section class="offer" id="angebot">
   <div class="wrap">
-    <h2 class="sec off-h">CodaAI bringt Ihr Unternehmen in die Antwort.</h2>
+    <h2 class="cai-h2 sec off-h">CodaAI bringt Ihr Unternehmen in die Antwort.</h2>
     <h3 class="off-l2">Ihre Marke in Googles KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.</h3>
 
     <div class="tiers">
@@ -321,7 +321,7 @@ import AuditCTA from './AuditCTA.astro';
     <div class="oc-stage">
       <div class="oc-top">
         <span class="eyebrow">Was Nicht-genannt-Werden kostet</span>
-        <h2 class="sec">Nicht genannt. Nicht angefragt. Kein Auftrag.</h2>
+        <h2 class="cai-h2 sec">Nicht genannt. Nicht angefragt. Kein Auftrag.</h2>
         <p class="oc-lead">So entsteht heute ein Auftrag — und so bricht er ab.</p>
       </div>
 
@@ -836,7 +836,8 @@ import AuditCTA from './AuditCTA.astro';
   :where(#cai-premium) section{position:relative}
   .wrap{margin:0 auto;max-width:1180px;padding:0 clamp(20px,4vw,40px)}
   .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta-ink)}
-  h2.sec{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.12}
+  /* Groesse und Gewicht kommen seit 28.07.2026 aus der globalen Klasse .cai-h2 */
+  h2.sec{line-height:1.14}
   .lead{color:var(--mut);font-size:1.06rem;line-height:1.6}
 
   /* ============ Fixed chrome ============ */
@@ -1440,7 +1441,7 @@ import AuditCTA from './AuditCTA.astro';
 
   /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ── */
   .offer{background:var(--magenta);color:#0d0d10;padding:clamp(70px,10vh,110px) 0}
-  .offer .off-h{max-width:26ch}
+  .offer .off-h{max-width:40ch}
   /* Dieselbe Hierarchie wie im Hero: grosse Aussage, darunter die kleinere,
      zurueckgenommene Zeile. Achtung — ein echtes Grau ist hier unmoeglich: der
      Hero-Grauton #8e8e9c erreicht auf Magenta nur 1,03:1 und waere unsichtbar.

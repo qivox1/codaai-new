@@ -367,8 +367,35 @@
    Wer eine H1 anlegt: nur noch `class="cai-h1"` plus Farbe und Abstand, keine
    Utilities fuer Groesse, Gewicht, Zeilenhoehe oder Laufweite mehr.          */
 .cai-h1 {
-  font-size: clamp(1.75rem, 2.9vw, 2.25rem); /* 28 → 36 px */
-  font-weight: 600;
+  font-size: clamp(1.875rem, 3.1vw, 2.5rem); /* 30 → 40 px */
+  font-weight: 700;
   letter-spacing: -0.022em;
   line-height: 1.18;
+}
+
+/* ── Sitewide H2 (28.07.2026) ──────────────────────────────────────────────
+   Gemessen vor der Umstellung: auf /preise, /webinar, /faq und /studie war die
+   H2 exakt so gross wie die H1 (36 px / 600), auf der Startseite sogar groesser
+   und fetter (42 px / 800). Damit gab es keine Hierarchie mehr.
+   Jetzt: die H2 liegt eine klare Stufe unter der H1 (30 statt 36 px), traegt
+   aber dasselbe Gewicht, damit sie nicht schwach wirkt.
+   Gilt nur fuer Abschnitts-Ueberschriften. Kleine H2 in Karten- und
+   Blogteasern (18 bis 24 px) bleiben unberuehrt.                            */
+.cai-h2 {
+  font-size: clamp(1.375rem, 2.1vw, 1.75rem); /* 22 -> 28 px */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+
+/* ── Display-Zahl ──────────────────────────────────────────────────────────
+   Fuer Kennzahlen, die Aufmerksamkeit tragen sollen. Uebernimmt Groesse und
+   Gewicht der Scroll-Zahl aus der Verdraengungs-Szene der Startseite
+   (die "-59 %"), die Oli als Referenz genannt hat.                          */
+.cai-stat {
+  font-size: clamp(2.4rem, 5vw, 3.4rem); /* 38 -> 54 px */
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }

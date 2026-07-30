@@ -250,7 +250,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
       <section aria-labelledby="h-problem" class="py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Das Problem</p>
-        <h2 id="h-problem" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Potenzielle Käufer fragen zuerst die KI — und Sie erfahren nichts davon.</h2>
+        <h2 id="h-problem" class="cai-h2 wfx-reveal text-foreground">Potenzielle Käufer fragen zuerst die KI — und Sie erfahren nichts davon.</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
             <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
@@ -275,7 +275,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Die Lösung / Das erwartet Sie ────────────────────────────── -->
       <section aria-labelledby="h-learnings" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Die Lösung — im Live-Webinar</p>
-        <h2 id="h-learnings" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Drei Antworten, die Sie aus dem Webinar mitnehmen</h2>
+        <h2 id="h-learnings" class="cai-h2 wfx-reveal text-foreground">Drei Antworten, die Sie aus dem Webinar mitnehmen</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {learnings.map((l, i) => (
             <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
@@ -293,7 +293,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
       <section aria-labelledby="h-outcome" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ihr Ergebnis</p>
-        <h2 id="h-outcome" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Nach 45 Minuten haben Sie:</h2>
+        <h2 id="h-outcome" class="cai-h2 wfx-reveal text-foreground">Nach 45 Minuten haben Sie:</h2>
         <ul class="wfx-reveal mt-8 max-w-3xl space-y-4">
           {[
             ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
@@ -336,7 +336,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Agenda ───────────────────────────────────────────────────── -->
       <section aria-labelledby="h-agenda" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Ablauf &amp; Sprecher</p>
-        <h2 id="h-agenda" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Webinar-Agenda</h2>
+        <h2 id="h-agenda" class="cai-h2 wfx-reveal text-foreground">Webinar-Agenda</h2>
         <ol id="wfx-agenda" class="wfx-agenda mt-10 space-y-4">
           {agenda.map((a) => (
             <li class="wfx-reveal wfx-agitem flex flex-col gap-2 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-baseline sm:gap-6">
@@ -393,7 +393,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
       <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
-        <h2 id="h-fuerwen" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Gemacht für Entscheider im B2B-Mittelstand</h2>
+        <h2 id="h-fuerwen" class="cai-h2 wfx-reveal text-foreground">Gemacht für Entscheider im B2B-Mittelstand</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {[
             ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
@@ -425,7 +425,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
       <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
       <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
-        <h2 id="h-faq" class="wfx-reveal text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Häufige Fragen</h2>
+        <h2 id="h-faq" class="cai-h2 wfx-reveal text-foreground">Häufige Fragen</h2>
         <div class="mt-8 space-y-4">
           {webinarFaq.map((f) => (
             <details class="wfx-reveal group rounded-2xl border border-border bg-card open:border-cta/40">
@@ -442,7 +442,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <!-- ── Schluss-CTA ────────────────────────────────────────────── -->
       <section aria-labelledby="h-schluss" class="border-t border-border py-16">
         <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
-          <h2 id="h-schluss" class="wfx-reveal text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">60 Minuten, die zeigen, wo Sie in KI-Antworten stehen.</h2>
+          <h2 id="h-schluss" class="cai-h2 wfx-reveal text-foreground">60 Minuten, die zeigen, wo Sie in KI-Antworten stehen.</h2>
           <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Kostenlos, inklusive Ihres persönlichen Audits — Sie brauchen nur Website, Namen und E-Mail.</p>
           <div class="mt-8 flex justify-center">
             <WebinarSignup label="Jetzt Platz sichern" align="center" />
