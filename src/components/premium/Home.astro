@@ -25,7 +25,7 @@ import AuditCTA from './AuditCTA.astro';
   <div class="hero-spot" id="herospot"></div>
   <div class="wrap hero-grid">
     <div>
-      <h1>
+      <h1 class="cai-h1">
         <span class="l1">Die KI empfiehlt drei Anbieter.</span>
         <span class="l1b">Sind Sie einer davon?</span>
       </h1>
@@ -879,7 +879,8 @@ import AuditCTA from './AuditCTA.astro';
   .hero-grid{position:relative;z-index:2;display:grid;gap:48px;grid-template-columns:minmax(0,1fr) 420px;align-items:center}
   @media(max-width:1040px){.hero-grid{grid-template-columns:1fr}}
   /* H1 exakt wie Live: Inter, font-semibold (600), tracking-tight, leading 1.15 */
-  .hero h1{font-size:clamp(2.05rem,3.6vw,3rem);font-weight:700;letter-spacing:-0.025em;line-height:1.15}
+    /* Typografie kommt seit 28.07.2026 aus der globalen Klasse .cai-h1 — hier
+     bewusst keine eigene Größe mehr, sonst laufen die Seiten wieder auseinander. */
   .hero h1 .l1{display:block}
   /* 25.07.2026: nowrap war ein Überrest der alten kurzen H1-Zeile („Sichtbar, wo
      Ihre Kunden"). Mit dem längeren Fragesatz lief der Text aus der Spalte und

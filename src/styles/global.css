@@ -356,3 +356,19 @@
   margin-top: auto;
   padding-top: 0.625rem;
 }
+
+
+/* ── Sitewide H1 (28.07.2026) ──────────────────────────────────────────────
+   Vorher trug jede Seite ihre eigene H1-Typografie: Startseite clamp bis 48 px
+   in 700, die meisten Unterseiten 48 px in 600, Rechtsseiten 36 px in 700,
+   /studie sogar 60 px. Jetzt gilt überall dieselbe Regel — und sie ist
+   bewusst kleiner, damit lange Sätze wie „Damit die nächste Anfrage bei Ihnen
+   landet." in EINE Zeile passen.
+   Wer eine H1 anlegt: nur noch `class="cai-h1"` plus Farbe und Abstand, keine
+   Utilities fuer Groesse, Gewicht, Zeilenhoehe oder Laufweite mehr.          */
+.cai-h1 {
+  font-size: clamp(1.75rem, 2.9vw, 2.25rem); /* 28 → 36 px */
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.18;
+}

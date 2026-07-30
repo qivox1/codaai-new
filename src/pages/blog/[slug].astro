@@ -148,7 +148,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog', href: `${base}/blog/` }, { label: title }]} class="mb-6" />
             <div class="max-w-3xl">
               <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
-              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight tracking-tight text-balance">
+              <h1 class="cai-h1 text-foreground text-balance">
                 {title}
               </h1>
               {summary && (
@@ -164,7 +164,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
           <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog', href: `${base}/blog/` }, { label: title }]} class="mb-6" />
           <div class="max-w-3xl">
             <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight tracking-tight">
+            <h1 class="cai-h1 text-foreground">
               {title}
             </h1>
             {summary && (

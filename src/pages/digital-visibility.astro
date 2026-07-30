@@ -319,7 +319,7 @@ const serviceSchema = {
          ohne Wirkungszahl — belegbare Vorher-Nachher-Werte liegen noch nicht
          vor, erfundene wären ein Bruch mit „keine Platzierungsgarantie".      -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-14 lg:pb-16">
-      <h1 class="max-w-5xl text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+      <h1 class="cai-h1 max-w-5xl text-foreground">
         <span class="cai-line block">Genannt zu werden ist kein Zufall.</span>
         <span class="cai-line block">Es ist konsequente Arbeit — in drei Stufen.</span>
       </h1>
@@ -394,7 +394,7 @@ const serviceSchema = {
                     <span class="mt-1 block text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                       {g.name} — {g.frage}
                     </span>
-                    <span class="mt-2 block text-[13px] text-muted-foreground">{g.preiszeile}</span>
+                    <span class="cai-preis mt-2 block text-[13px] font-medium">{g.preiszeile}</span>
                   </span>
                   <svg class="cai-chev mt-1 h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M6 9l6 6 6-6" />
@@ -699,6 +699,27 @@ const serviceSchema = {
     }
     .cai-item:hover .cai-ico { background: hsl(var(--cta) / 0.18); }
 
+    /* Preiszeile: erscheint erst beim Überfahren des Kopfes, in Magenta —
+       dieselbe Farbe wie Zahl und Pfeil, damit der Kopf eine Handschrift hat.
+       Der Platz ist immer reserviert (nur die Deckkraft ändert sich), sonst
+       würde die Karte beim Überfahren springen. Auf Touch-Geräten steht die
+       Zeile dauerhaft, sonst wäre der Preis dort nicht erreichbar.           */
+    .cai-preis {
+      color: hsl(var(--cta-accessible));
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .cai-js .cai-head:hover .cai-preis,
+    .cai-js .cai-head:focus-visible .cai-preis,
+    .cai-js .cai-stufe.is-open .cai-preis {
+      opacity: 1;
+      transform: none;
+    }
+    @media (hover: none) {
+      .cai-preis { opacity: 1; transform: none; }
+    }
+
     /* ── Piktogramme zeichnen sich ──────────────────────────────────────
        Das Skript setzt pathLength="1" auf jede Form, dadurch ist die Strich-
        länge normiert und alle Icons zeichnen sich gleich schnell — unabhängig
@@ -773,6 +794,7 @@ const serviceSchema = {
       .cai-nr,
       .cai-ico,
       .cai-spine-fill { transition: none; }
+      .cai-preis { transition: none; }
       .cai-js .cai-ico svg > * { stroke-dashoffset: 0; transition: none; }
       .cai-js .cai-stufe.is-open .cai-item:hover .cai-ico svg > * { animation: none; }
       .cai-js .cai-cov-fill { width: var(--w); transition: none; }
