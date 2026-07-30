@@ -85,7 +85,7 @@ const T = {
     s3: 'Übersetzungen?',
     s4: 'Social Videos?',
     s5: 'Laufzeit',
-    tierNames: { basis: 'Basis', aktiv: 'Aktiv', dominanz: 'Dominanz' } as Record<TierKey, string>,
+    tierNames: { basis: 'Gefunden', aktiv: 'Empfohlen', dominanz: 'Zitiert' } as Record<TierKey, string>,
     articles: 'Artikel',
     each: 'je',
     artHint: '1.500–4.000 Wörter je Beitrag, inklusive 3 Bilder oder 1 Infografik. Die Länge richtet sich nach dem Thema, nicht nach Ihrem Budget.',
@@ -131,7 +131,7 @@ const T = {
     s3: 'Translations?',
     s4: 'Social videos?',
     s5: 'Term',
-    tierNames: { basis: 'Basis', aktiv: 'Active', dominanz: 'Dominance' } as Record<TierKey, string>,
+    tierNames: { basis: 'Found', aktiv: 'Recommended', dominanz: 'Cited' } as Record<TierKey, string>,
     articles: 'articles',
     each: 'at',
     artHint: '1,500–4,000 words per article, including 3 images or 1 infographic. Length follows the topic, not your budget.',
@@ -199,9 +199,9 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
       const q = new URLSearchParams(window.location.search);
       const raw = (q.get('stufe') || q.get('tier') || '').toLowerCase();
       const map: Record<string, TierKey> = {
-        basis: 'basis', base: 'basis',
-        aktiv: 'aktiv', active: 'aktiv',
-        dominanz: 'dominanz', dominance: 'dominanz',
+        basis: 'basis', base: 'basis', gefunden: 'basis', found: 'basis',
+        aktiv: 'aktiv', active: 'aktiv', empfohlen: 'aktiv', recommended: 'aktiv',
+        dominanz: 'dominanz', dominance: 'dominanz', zitiert: 'dominanz', cited: 'dominanz',
       };
       const picked = map[raw];
       if (picked) { setTier(picked); setArticles(TIERS[picked].min); }
@@ -319,7 +319,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
       id="rechner"
       data-theme="dark"
       aria-label={t.h2}
-      className="border-t border-border bg-background py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28"
+      className="bg-background py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{t.kicker}</p>

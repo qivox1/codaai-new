@@ -23,10 +23,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
    Konzept: umbau-digital-visibility/2026-07-27_Preise-Neukonzept_Beschluss.md   */
 const stufen = [
   {
-    level: 'Stufe 1 · Fundament',
-    name: 'Basis',
+    level: 'Stufe 1',
+    name: 'Gefunden',
     anchor: 'lesbar',
-    ergebnis: 'Gefunden werden — und wissen, wo Sie stehen',
+    ergebnis: 'Die KI kann Sie lesen — und Sie sehen monatlich, wo Sie stehen',
     claim:
       'Ihre Website wird für KI-Systeme lesbar, findbar und zitierfähig — und Sie sehen jeden Monat schwarz auf weiß, wo Sie genannt werden und wer statt Ihnen. Das Pflichtprogramm, auf dem alles andere aufbaut.',
     umfang: '6 Bausteine',
@@ -35,25 +35,25 @@ const stufen = [
     recommended: false,
   },
   {
-    level: 'Stufe 2 · Skalierung',
-    name: 'Aktiv',
+    level: 'Stufe 2',
+    name: 'Empfohlen',
     anchor: 'quellen',
-    ergebnis: 'Empfohlen werden, weil andere Sie nennen',
+    ergebnis: 'Ihr Name fällt auch dort, wo die KI ihre Belege holt',
     claim:
       'Die Empfehlung kommt nicht mehr nur von Ihnen selbst: Ihr Name taucht auch dort auf, wo KI-Systeme ihre Belege holen — Fachportale, Vergleichsinhalte, Bewertungsplattformen, YouTube.',
-    umfang: '10 Bausteine · alles aus Basis plus vier',
+    umfang: '10 Bausteine · alles aus Stufe 1 plus vier',
     from: 'ab 2.670 €',
     window: '4–7 Artikel · 420 € je Artikel · Grundpreis +990 €',
     recommended: true,
   },
   {
-    level: 'Stufe 3 · Marktführerschaft',
-    name: 'Dominanz',
+    level: 'Stufe 3',
+    name: 'Zitiert',
     anchor: 'quelle-werden',
-    ergebnis: 'Die Quelle sein, auf die sich Ihr Markt beruft',
+    ergebnis: 'Ihr Markt beruft sich auf Ihre Zahlen',
     claim:
       'Ihr Markt beruft sich auf Ihre Zahlen: eigene Branchenstudie, Eintrag in die Wissensdatenbanken, sichtbare Köpfe. Die stärkste Position, die es in KI-Antworten gibt — Sie sind dann nicht mehr ein Anbieter, sondern die Quelle.',
-    umfang: '14 Bausteine · alles aus Aktiv plus vier',
+    umfang: '14 Bausteine · alles aus Stufe 2 plus vier',
     from: 'ab 4.910 €',
     window: '8–12 Artikel · 390 € je Artikel · Grundpreis +1.790 €',
     recommended: false,
@@ -66,11 +66,11 @@ const stufen = [
 const faqs = [
   {
     q: 'Wie setzt sich mein Monatspreis zusammen?',
-    a: 'Aus drei Posten: der Anzahl Fachbeiträge multipliziert mit dem Stückpreis Ihrer Stufe, den optionalen Erweiterungen (Übersetzungen, Videos) und dem festen Grundpreis Ihrer Stufe. Beispiel: 4 Artikel × 420 € = 1.680 €, plus Grundpreis Aktiv 990 € = 2.670 € pro Monat. Alles netto, alles auf einer Rechnung.',
+    a: 'Aus drei Posten: der Anzahl Fachbeiträge multipliziert mit dem Stückpreis Ihrer Stufe, den optionalen Erweiterungen (Übersetzungen, Videos) und dem festen Grundpreis Ihrer Stufe. Beispiel: 4 Artikel × 420 € = 1.680 €, plus Grundpreis der Stufe Empfohlen 990 € = 2.670 € pro Monat. Alles netto, alles auf einer Rechnung.',
   },
   {
-    q: 'Warum kostet ein Artikel in Basis mehr als in Dominanz?',
-    a: 'Weil der Mengenrabatt an der Stufe hängt, nicht an der Artikelzahl: 490 € in Basis, 420 € in Aktiv, 390 € in Dominanz. Wer mehr Inhalt braucht, ist in einer höheren Stufe günstiger unterwegs — und bekommt die stärkeren Hebel dazu. Ein Preis je Stufe statt einer Rabatttabelle.',
+    q: 'Warum kostet ein Artikel in Stufe 1 mehr als in Stufe 3?',
+    a: 'Weil der Mengenrabatt an der Stufe hängt, nicht an der Artikelzahl: 490 € in Stufe 1, 420 € in Stufe 2, 390 € in Stufe 3. Wer mehr Inhalt braucht, ist in einer höheren Stufe günstiger unterwegs — und bekommt die stärkeren Hebel dazu. Ein Preis je Stufe statt einer Rabatttabelle.',
   },
   {
     q: 'Welche Mindestlaufzeit gilt?',
@@ -137,7 +137,7 @@ const faqSchema = {
     </div>
 
     <!-- ── 2 · Die drei Stufen — Teaser, Details auf /digital-visibility ─────────── -->
-    <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
+    <section id="stufen" aria-label="Die drei Sichtbarkeits-Stufen" class="py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
           <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Drei Stufen</p>
@@ -204,7 +204,7 @@ const faqSchema = {
     </section>
 
     <!-- ── 2b · Übergang: führt den Blick in den Rechner ─────────────────── -->
-    <div class="border-t border-border bg-muted/20 pb-2 pt-2">
+    <div class="pb-2 pt-2">
       <div class="mx-auto flex max-w-7xl flex-col items-center px-6 pb-10 text-center lg:px-8">
         <p class="max-w-xl text-lg leading-relaxed text-muted-foreground">
           Welche Stufe zu Ihnen passt, hängt davon ab, wo Sie heute stehen.
@@ -221,7 +221,7 @@ const faqSchema = {
     <Booking lang={lang} />
 
     <!-- ── 5 · FAQ ──────────────────────────────────────────────────────── -->
-    <section id="faq" aria-label="Häufige Fragen zum Preis" class="mx-auto max-w-3xl border-t border-border px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
+    <section id="faq" aria-label="Häufige Fragen zum Preis" class="mx-auto max-w-3xl px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
       <Reveal as="div">
         <h2 class="mb-8 text-center text-2xl font-semibold text-foreground">Häufige Fragen zum Preis</h2>
       </Reveal>
