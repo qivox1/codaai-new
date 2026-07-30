@@ -355,7 +355,7 @@ const serviceSchema = {
 
     <!-- ── 2 · Die drei Stufen als Akkordeon ────────────────────────────── -->
     <section aria-label="Die drei Stufen und ihre Bausteine" class="py-16 lg:py-20">
-      <div class="mx-auto max-w-5xl px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div" class="mb-10">
           <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Die drei Visibility-Stufen</p>
           <h2 class="cai-h2 max-w-4xl text-foreground">
@@ -412,7 +412,7 @@ const serviceSchema = {
                     </div>
                   </div>
 
-                  <div class="mt-6 grid gap-4 md:grid-cols-2">
+                  <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {g.bausteine.map((b, i) => (
                       <article class="cai-item rounded-xl border border-border bg-background p-5" style={`--i:${i}`}>
                         {ICON[b.name] && (
@@ -439,19 +439,26 @@ const serviceSchema = {
                         <p class="mt-2.5 text-[14px] leading-relaxed text-muted-foreground">{b.tut}</p>
                       </article>
                     ))}
-                  </div>
 
-                  <p class="mt-6 max-w-[70ch] text-[13.5px] leading-relaxed text-muted-foreground">
-                    {individualHinweis}
-                  </p>
-
-                  <div class="mt-6 flex justify-end">
-                    <a
-                      href={`${base}/preise/?stufe=${g.key}#rechner`}
-                      class="inline-flex items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                    <!-- Hinweis und Button sitzen in der Lücke der letzten
+                         Kartenzeile: bei 4 Bausteinen (Stufe 2 und 3) stehen
+                         sie rechts neben der einzelnen Karte, bei 6 (Stufe 1)
+                         gehen sie über die volle Breite darunter. Spart eine
+                         ganze Bildschirmhöhe. -->
+                    <div
+                      class="cai-foot flex flex-col justify-center gap-4 rounded-xl bg-muted/40 p-5"
+                      style={`--span:${(3 - (g.bausteine.length % 3)) % 3 || 3}`}
                     >
-                      Preis für Stufe {g.nr} berechnen →
-                    </a>
+                      <p class="text-[13.5px] leading-relaxed text-muted-foreground">
+                        {individualHinweis}
+                      </p>
+                      <a
+                        href={`${base}/preise/?stufe=${g.key}#rechner`}
+                        class="inline-flex w-fit items-center gap-2 rounded-xl bg-cta px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                      >
+                        Preis für Stufe {g.nr} berechnen →
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -463,7 +470,7 @@ const serviceSchema = {
 
     <!-- ── 3 · Matrix — Spalten führen in den Rechner ───────────────────── -->
     <section id="matrix" aria-label="Alle Bausteine je Stufe" class="py-16 lg:py-24 scroll-mt-24 lg:scroll-mt-28">
-      <div class="mx-auto max-w-4xl px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
           <h2 class="cai-h2 text-foreground">
             Alle Bausteine auf einen Blick
@@ -473,7 +480,7 @@ const serviceSchema = {
           </p>
         </Reveal>
 
-        <Reveal as="div" delay={90} class="mt-8 overflow-x-auto">
+        <Reveal as="div" delay={90} class="mt-8 max-w-4xl overflow-x-auto">
           <table class="cai-matrix w-full min-w-[560px] border-collapse text-left" data-matrix>
             <thead>
               <tr>
@@ -532,7 +539,7 @@ const serviceSchema = {
           </table>
         </Reveal>
 
-        <Reveal as="p" delay={140} class="mt-6 text-sm text-muted-foreground">
+        <Reveal as="p" delay={140} class="mt-6 max-w-4xl text-sm text-muted-foreground">
           Übersetzungen kosten 99 € je Sprache und Beitrag, Social Videos 120 € je Video — in jeder Stufe
           gleich. <a href={`${base}/preise/#rechner`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Zum Preisrechner →</a>
         </Reveal>
@@ -764,6 +771,14 @@ const serviceSchema = {
     @keyframes caiDraw {
       from { stroke-dashoffset: 1; }
       to { stroke-dashoffset: 0; }
+    }
+
+    /* Hinweis-und-Button-Feld füllt die Lücke der letzten Kartenzeile.
+       Unter 1024 px läuft es über die volle Breite, darüber belegt es genau
+       die Spalten, die in der letzten Zeile frei geblieben sind (--span). */
+    .cai-foot { grid-column: 1 / -1; }
+    @media (min-width: 1024px) {
+      .cai-foot { grid-column: span var(--span) / span var(--span); }
     }
 
     /* ── Abdeckungsbalken im Panel ──────────────────────────────────────── */
