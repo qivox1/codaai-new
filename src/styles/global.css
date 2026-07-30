@@ -399,3 +399,40 @@
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
+
+/* ── H1-Kippsatz (28.07.2026) ──────────────────────────────────────────────
+   Zeile 1 stellt fest (anthrazit), Zeile 2 dreht (magenta). Die zweite Zeile
+   erscheint zuerst ebenfalls dunkel und kippt 380 ms spaeter in die Farbe —
+   die Wendung wird sichtbar, nicht nur gelesen.
+   Markup: h1.cai-h1.cai-kipp > span.k1 + span.k2 (oder die Komponente
+   HeroHeadline.astro). Ohne JS und bei reduced-motion steht alles sofort,
+   Zeile 2 direkt in Magenta.
+   Kontrast: bei grosser fetter Schrift verlangt WCAG AA nur 3:1, das helle
+   Marken-Magenta liegt bei 3,3:1 — hier also zulaessig.                     */
+.cai-kipp .k2 { color: hsl(var(--cta)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cai-kipp .k1,
+  .cai-kipp .k2 {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: caiKippIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .cai-kipp .k1 { animation-delay: 60ms; }
+  .cai-kipp .k2 {
+    color: hsl(var(--foreground));
+    animation-delay: 200ms, 580ms;
+    animation-name: caiKippIn, caiKippTurn;
+    animation-duration: 0.55s, 0.5s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease;
+    animation-fill-mode: forwards, forwards;
+  }
+}
+
+@keyframes caiKippIn {
+  to { opacity: 1; transform: none; }
+}
+@keyframes caiKippTurn {
+  from { color: hsl(var(--foreground)); }
+  to { color: hsl(var(--cta)); }
+}

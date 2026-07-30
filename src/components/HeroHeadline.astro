@@ -1,0 +1,44 @@
+---
+/**
+ * HeroHeadline — der Kippsatz (Beschluss Oli, 28.07.2026)
+ *
+ * Jede H1 der Website ist nach demselben Muster gebaut:
+ *   Zeile 1 stellt einen Zustand fest  → anthrazit
+ *   Zeile 2 dreht ihn                  → magenta
+ *
+ * Die Farbe ist keine Dekoration, sie markiert die Wendung. Deshalb erscheint
+ * Zeile 2 zuerst ebenfalls in Anthrazit und kippt erst 380 ms später ins
+ * Magenta — man sieht die Wendung passieren, statt sie nur zu lesen.
+ *
+ * Sprachregeln (siehe CLAUDE.md, Abschnitt „H1-Kippsatz"):
+ *   1. Immer zwei Zeilen. Zeile 1 stellt fest, Zeile 2 dreht.
+ *   2. Zeile 2 ist kürzer als Zeile 1 — das Auge fällt auf die Pointe.
+ *   3. Genau EINE der beiden Zeilen spricht den Leser an („Sie"/„Ihr").
+ *   4. Kein Nebensatz, kein Komma-Geschlängel. Punkt oder Fragezeichen.
+ *   5. Kein Magenta ohne Wendung — Einwortseiten („Kontakt", „Impressum")
+ *      bleiben einzeilig und dunkel. Das hält die Farbe wertvoll.
+ *
+ * Bei `prefers-reduced-motion` und ohne JavaScript steht alles sofort da,
+ * Zeile 2 direkt in Magenta.
+ *
+ * Kontrast: #DF41FB auf Weiß ergibt 3,3:1. Für große Schrift (ab 24 px fett)
+ * verlangt WCAG AA 3:1 — hier darf also das echte Marken-Magenta stehen,
+ * anders als bei kleinem Text.
+ *
+ * Heroes mit eigener Animation (Startseite, /webinar) benutzen die Klassen
+ * `cai-kipp` / `k1` / `k2` direkt in ihrem Markup statt dieser Komponente —
+ * die Regeln in `global.css` gelten für beide Wege gleich.
+ */
+interface Props {
+  line1: string;
+  line2: string;
+  /** zusätzliche Klassen für den H1-Tag, z. B. `max-w-5xl` */
+  class?: string;
+}
+const { line1, line2, class: className = '' } = Astro.props;
+---
+
+<h1 class:list={['cai-h1 cai-kipp text-foreground', className]}>
+  <span class="k1 block">{line1}</span>
+  <span class="k2 block">{line2}</span>
+</h1>
