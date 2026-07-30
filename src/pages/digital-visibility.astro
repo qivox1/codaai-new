@@ -684,11 +684,35 @@ const serviceSchema = {
     .cai-stufe.is-open { border-color: hsl(var(--cta) / 0.45); }
 
     /* Karten-Hover — höhere Spezifität als die Einblend-Regel darüber. */
-    .cai-item { outline: none; }
+    /* ── Karten-Hover: volle Fläche in CodaAI-Magenta ────────────────────
+       Wunsch Oli (28.07.2026): Beim Überfahren färbt sich die ganze Karte,
+       Text und Piktogramm werden weiß. Die Selektoren sind bewusst so lang —
+       die Einblend-Regel darüber (`.cai-js .cai-stufe.is-open .cai-item`) hat
+       vier Klassen und würde sonst gewinnen.                                 */
+    .cai-item {
+      outline: none;
+      transition: background-color 0.22s ease, border-color 0.22s ease,
+        box-shadow 0.22s ease, opacity 0.5s ease, transform 0.5s ease;
+    }
     .cai-js .cai-stufe.is-open .cai-item:hover,
     .cai-item:hover {
-      border-color: hsl(var(--cta) / 0.5);
+      /* Tieferes Magenta statt #DF41FB (Entscheidung Oli, 28.07.2026): Weiß auf
+         dem hellen Pink erreicht nur ~3:1 Kontrast, auf dieser Tiefe ~7:1.
+         Gleiche Farbfamilie, aber der Kartentext bleibt lesbar.              */
+      background: hsl(var(--cta-accessible));
+      border-color: hsl(var(--cta-accessible));
+      box-shadow: 0 14px 34px -18px hsl(var(--cta-accessible) / 0.6);
       transition-delay: 0ms;
+    }
+    .cai-js .cai-stufe.is-open .cai-item:hover h4,
+    .cai-item:hover h4,
+    .cai-js .cai-stufe.is-open .cai-item:hover h4 span,
+    .cai-item:hover h4 span {
+      color: #fff;
+    }
+    .cai-js .cai-stufe.is-open .cai-item:hover p,
+    .cai-item:hover p {
+      color: rgba(255, 255, 255, 0.92);
     }
 
     /* Piktogramm-Kachel */
@@ -697,7 +721,11 @@ const serviceSchema = {
       color: hsl(var(--cta-accessible));
       transition: background-color 0.22s ease, transform 0.22s ease;
     }
-    .cai-item:hover .cai-ico { background: hsl(var(--cta) / 0.18); }
+    .cai-js .cai-stufe.is-open .cai-item:hover .cai-ico,
+    .cai-item:hover .cai-ico {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
 
     /* Preiszeile: erscheint erst beim Überfahren des Kopfes, in Magenta —
        dieselbe Farbe wie Zahl und Pfeil, damit der Kopf eine Handschrift hat.
@@ -795,6 +823,7 @@ const serviceSchema = {
       .cai-ico,
       .cai-spine-fill { transition: none; }
       .cai-preis { transition: none; }
+      .cai-item { transition: none; }
       .cai-js .cai-ico svg > * { stroke-dashoffset: 0; transition: none; }
       .cai-js .cai-stufe.is-open .cai-item:hover .cai-ico svg > * { animation: none; }
       .cai-js .cai-cov-fill { width: var(--w); transition: none; }
