@@ -398,7 +398,6 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                     onClick={() => (done ? goto(i) : undefined)}
                     disabled={!done}
                     aria-current={active ? 'step' : undefined}
-                    aria-label={`${i + 1} — ${c}`}
                     className={`flex h-8 items-center justify-center rounded-lg text-[12.5px] font-semibold transition-colors ${
                       active
                         ? 'gap-2 bg-cta px-3 text-white'
@@ -408,7 +407,9 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                     }`}
                   >
                     <span>{i + 1}</span>
-                    {active && <span className="font-semibold">{c}</span>}
+                    {active
+                      ? <span className="font-semibold">{c}</span>
+                      : <span className="sr-only">{c}</span>}
                   </button>
                 );
               })}

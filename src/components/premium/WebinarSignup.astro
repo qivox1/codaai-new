@@ -15,7 +15,7 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light' } = Ast
 ---
 
 <div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-state="idle">
-  <div class="wacta-hp" aria-hidden="true">
+  <div class="wacta-hp" inert>
     <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
   </div>
 

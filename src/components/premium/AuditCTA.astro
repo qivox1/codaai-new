@@ -39,7 +39,7 @@ const {
 
 <div class={`acta acta--${variant} acta--${align} ${theme === 'dark' ? 'acta--dark' : ''}`} data-acta data-state="idle">
   {/* Honeypot — für Menschen unsichtbar, Bots füllen es aus */}
-  <div class="acta-hp" aria-hidden="true">
+  <div class="acta-hp" inert>
     <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
   </div>
 

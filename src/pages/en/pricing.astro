@@ -111,7 +111,7 @@ const faqSchema = {
 <Layout
   lang={lang}
   title="Pricing – AI visibility from €1,470 per month | CodaAI"
-  description="Transparently calculated instead of &quot;on request&quot;: three visibility tiers from €1,470 per month, a pricing calculator with a sum you can check, quote as a PDF on request."
+  description="Transparently calculated instead of &quot;on request&quot;: three visibility tiers from €1,470 per month, with a pricing calculator whose total you can check."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
@@ -230,16 +230,16 @@ const faqSchema = {
       <Reveal as="div">
         <h2 class="mb-8 text-center text-2xl font-semibold text-foreground">Frequently asked questions about pricing</h2>
       </Reveal>
-      <dl class="space-y-6">
+      <div class="space-y-6">
         {faqs.map((f, i) => (
           <Reveal as="div" delay={(i % 2) * 40}>
             <div class="rounded-xl border border-border bg-card p-6">
-              <dt class="mb-2 font-semibold text-foreground">{f.q}</dt>
-              <dd class="text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
+              <h3 class="mb-2 font-semibold text-foreground">{f.q}</h3>
+              <p class="text-sm leading-relaxed text-muted-foreground">{f.a}</p>
             </div>
           </Reveal>
         ))}
-      </dl>
+      </div>
 
       <p class="mt-10 text-center text-sm text-muted-foreground">
         No figures for your company yet?
