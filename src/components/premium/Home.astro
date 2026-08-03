@@ -272,7 +272,7 @@ import AuditCTA from './AuditCTA.astro';
      wichtigste Block der Seite und deshalb der EINZIGE gesättigte: der Farbsprung
      von Schwarz auf Pink ist die härteste Kante der Seite — genau dort, wo aus
      Diagnose Angebot wird. Schrift durchgehend weiß (Beschluss Oli, 03.08.2026);
-     dafür liegt der Grund auf dem tieferen Marken-Pink #9A04B4 statt auf #DF41FB,
+     dafür liegt der Grund auf dem tieferen #C405E6 statt auf #DF41FB,
      wo Weiß nur 3,34:1 erreicht hätte. Audit-Button dunkel, weil ein pinker
      Button auf pinkem Grund unsichtbar wäre. -->
 <section class="offer" id="angebot">
@@ -1457,17 +1457,18 @@ import AuditCTA from './AuditCTA.astro';
 
   /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ──
      Schrift durchgehend weiss (Beschluss Oli, 03.08.2026). Auf dem hellen
-     #DF41FB erreicht Weiss nur 3,34:1 und faellt fuer Fliesstext durch; der
-     Grund liegt deshalb auf dem tieferen Marken-Pink #9A04B4 (= der Ton, der
-     global als --cta-accessible gefuehrt wird). Weiss kommt dort auf 6,9:1.
-     Hier bewusst als Hex und nicht als Variable, weil der Token im
-     Dunkelmodus auf einen hellen Ton kippt — die Sektion ist immer dunkel. */
-  .offer{--offer-bg:#9A04B4;background:var(--offer-bg);color:#fff;padding:clamp(70px,10vh,110px) 0}
+     #DF41FB erreicht Weiss nur 3,34:1 und faellt fuer Fliesstext durch. Der
+     Grund liegt deshalb auf #C405E6 — derselbe Farbton (H 291, S 96 %), nur
+     dunkler: der pinkste Wert, bei dem Weiss noch 4,65:1 erreicht und damit
+     die Schwelle 4,5 haelt. Jeder hellere Ton faellt durch. Folge: KEIN
+     abgetoentes Weiss in dieser Sektion — schon 95 % Deckkraft landen bei
+     4,27:1. Die Hierarchie kommt hier aus Groesse und Schnitt. */
+  .offer{--offer-bg:#C405E6;background:var(--offer-bg);color:#fff;padding:clamp(70px,10vh,110px) 0}
   .offer .off-h{max-width:40ch;color:#fff}
   /* Dieselbe Hierarchie wie im Hero: grosse Aussage, darunter die kleinere,
-     zurueckgenommene Zeile. Die Zuruecknahme kommt aus Groesse und Schnitt;
-     als Farbe leicht gedaempftes Weiss (5,9:1). */
-  .offer .off-l2{margin-top:12px;max-width:46ch;color:rgba(255,255,255,.88);
+     zurueckgenommene Zeile. Die Zuruecknahme kommt allein aus Groesse und
+     Schnitt — ein abgetoentes Weiss ginge hier nicht durch. */
+  .offer .off-l2{margin-top:12px;max-width:46ch;color:#fff;
     font-size:clamp(1.05rem,1.9vw,1.4rem);font-weight:500;line-height:1.42;letter-spacing:-.02em}
   .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
   @media(max-width:900px){.tiers{grid-template-columns:1fr}}
@@ -1480,13 +1481,13 @@ import AuditCTA from './AuditCTA.astro';
   .tier .tno{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta-ink)}
   .tier h3{margin-top:8px;font-size:1.05rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:#0d0d10}
   .tier p{margin-top:9px;font-size:.9rem;line-height:1.7;color:#4a3b49}
-  .off-price{margin-top:26px;color:rgba(255,255,255,.88);font-size:1rem;line-height:1.6;max-width:52ch}
+  .off-price{margin-top:26px;color:#fff;font-size:1rem;line-height:1.6;max-width:52ch}
   .off-price b{color:#fff;font-weight:700}
   .off-link{display:inline-block;margin-top:14px;color:#fff;font-size:.95rem;font-weight:700;
     text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
   .off-cta{margin-top:30px;max-width:680px}
-  .off-micro{margin-top:14px;font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.85)}
-  .off-micro s{text-decoration:none;color:rgba(255,255,255,.45);margin:0 7px}
+  .off-micro{margin-top:14px;font-size:.86rem;line-height:1.8;color:#fff}
+  .off-micro s{text-decoration:none;color:rgba(255,255,255,.55);margin:0 7px}
   /* Formular auf dem Pink-Grund: Felder weiß, Button dunkel — ein pinker Button
      wäre auf pinkem Grund unsichtbar. */
   .offer input,.offer textarea{background:#fff!important;border-color:rgba(13,13,16,.2)!important;color:#0d0d10!important}
@@ -1494,7 +1495,7 @@ import AuditCTA from './AuditCTA.astro';
     background:#0d0d10!important;border-color:#0d0d10!important;color:#fff!important;
     box-shadow:0 8px 26px rgba(13,13,16,.3)!important}
   .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(13,13,16,.42)!important}
-  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:rgba(255,255,255,.85)!important}
+  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#fff!important}
   .offer .acta{--pink:#0d0d10;--pink-d:#000}
 
 </style>
