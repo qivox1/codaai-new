@@ -20,6 +20,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # Volle Historie: astro.config.mjs leitet das Sitemap-lastmod aus
+          # dem Commit-Datum der jeweiligen Quelldatei ab. Bei einem flachen
+          # Clone (Default: depth 1) liefert `git log` nichts und die Sitemap
+          # kaeme ohne lastmod heraus.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4

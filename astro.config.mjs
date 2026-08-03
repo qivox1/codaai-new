@@ -2,36 +2,81 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import { execFileSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-/** @type {Record<string, string>} */
-const BLOG_LASTMOD = {
-  'blog/ai-crawler-server-performance-geo':        '2026-03-22',
-  'blog/b2b-videomarketing-erklaervideos-mittelstand': '2026-03-20',
-  'blog/marketingagentur-alternative-ki-mittelstand':  '2026-03-17',
-  'blog/marketingkosten-senken-ki-content-b2b':    '2026-03-12',
-  'blog/b2b-blog-als-vertriebskanal':              '2026-03-05',
-  'blog/content-marketing-vs-google-ads-b2b':      '2026-03-01',
-  'blog/content-marketing-mittelstand-ki':          '2026-03-01',
-  'blog/chatgpt-seo-perplexity-sichtbarkeit':      '2026-03-01',
-  'blog/redaktionsplan-ki-erstellen':              '2026-03-01',
-  'blog/ki-blog-erstellen':                        '2026-03-01',
-  'blog/blogartikel-schreiben-lassen-kosten':      '2026-03-01',
-  'blog/ki-content-marketing-strategie':           '2026-03-01',
-  'en/blog/ai-crawler-server-performance-geo':     '2026-03-22',
-  'en/blog/b2b-explainer-videos-lead-generation':  '2026-03-20',
-  'en/blog/marketing-agency-alternative-ai':       '2026-03-17',
-  'en/blog/reduce-marketing-costs-ai-content':     '2026-03-12',
-  'en/blog/b2b-blog-as-sales-channel':             '2026-03-05',
-  'en/blog/content-marketing-vs-google-ads-b2b':   '2026-03-01',
-  'en/blog/chatgpt-seo-perplexity-visibility':     '2026-03-01',
-  'en/blog/create-editorial-plan-with-ai':         '2026-03-01',
-  'en/blog/create-ai-powered-blog':                '2026-03-01',
-  'en/blog/outsource-blog-writing-costs':          '2026-03-01',
-  'en/blog/ai-content-marketing-strategy':         '2026-03-01',
-  'en/blog/ai-content-marketing-strategy-guide':   '2026-03-01',
-  'en/blog/ai-content-marketing-for-smb':          '2026-03-01',
+/**
+ * lastmod fuer die Sitemap — aus der Git-Historie, nicht hartkodiert.
+ * ---------------------------------------------------------------------------
+ * Bis 03.08.2026 stand hier `item.lastmod = BLOG_LASTMOD[path] || '2026-05-10'`.
+ * Damit meldete JEDE Nicht-Blog-Seite den 10.05.2026 — auch /digital-visibility/,
+ * die es an dem Tag noch gar nicht gab. Google hat die Sitemap zuletzt am
+ * 16.06.2026 gelesen; seither behauptete jede URL, aelter zu sein als dieser
+ * Besuch. Aus Googles Sicht hatte sich nichts geaendert, also kam es nicht
+ * wieder — 27 der 46 URLs waren dem Index nie bekannt.
+ *
+ * Jetzt: das Commit-Datum der jeweiligen Quelldatei. Findet der Build kein
+ * Datum (z. B. flacher Clone ohne Historie), wird `lastmod` WEGGELASSEN statt
+ * geraten — eine fehlende Angabe ist fuer Google unproblematisch, eine falsche
+ * kostet die Neuindexierung.
+ *
+ * ACHTUNG: Der Deploy-Workflow braucht dafuer `fetch-depth: 0`
+ * (.github/workflows/deploy.yml). Ohne die volle Historie liefert
+ * `git log` nichts.
+ */
+
+/** Seiten, deren Substanz in einer Komponente statt in der .astro-Datei liegt. */
+const EXTRA_SOURCES = {
+  'preise': ['src/components/react/PricingCalculatorV2.tsx'],
+  'en/pricing': ['src/components/react/PricingCalculatorV2.tsx'],
 };
 
+/** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */
+const ROOT = fileURLToPath(new URL('.', import.meta.url));
+const _gitDateCache = new Map();
+
+function gitLastModified(file) {
+  if (_gitDateCache.has(file)) return _gitDateCache.get(file);
+  let iso = null;
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (out) iso = out;
+  } catch {
+    iso = null;
+  }
+  _gitDateCache.set(file, iso);
+  return iso;
+}
+
+/** URL-Pfad (ohne fuehrenden/abschliessenden Slash) -> Quelldateien im Repo. */
+function sourceFilesFor(path) {
+  const candidates = [];
+  if (path === '') {
+    candidates.push('src/pages/index.astro');
+  } else {
+    candidates.push(`src/pages/${path}.astro`, `src/pages/${path}/index.astro`);
+    const de = path.match(/^blog\/(.+)$/);
+    if (de) candidates.push(`src/content/blog/${de[1]}.md`);
+    const en = path.match(/^en\/blog\/(.+)$/);
+    if (en) candidates.push(`src/content/blog/en/${en[1]}.md`, `src/content/blog/${en[1]}.md`);
+  }
+  for (const extra of EXTRA_SOURCES[path] ?? []) candidates.push(extra);
+  return candidates.filter((f) => existsSync(join(ROOT, f)));
+}
+
+function lastmodFor(path) {
+  const dates = sourceFilesFor(path)
+    .map(gitLastModified)
+    .filter(Boolean)
+    .sort();
+  return dates.length ? dates[dates.length - 1] : null;
+}
 
 /** Rehype plugin: add aria-label to GFM task-list checkboxes */
 function rehypeTaskListAriaLabel() {
@@ -71,7 +116,9 @@ export default defineConfig({
         !page.endsWith('/en/404/'),
       serialize(item) {
         const path = item.url.replace(SITE_BASE, '').replace(/\/$/, '');
-        item.lastmod = BLOG_LASTMOD[path] || '2026-05-10';
+        const lastmod = lastmodFor(path);
+        if (lastmod) item.lastmod = lastmod;
+        else delete item.lastmod;
         return item;
       },
     }),
