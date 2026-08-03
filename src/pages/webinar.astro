@@ -148,7 +148,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <div class="relative z-10 mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
         <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
 
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center">
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_480px] lg:items-center">
         <div class="max-w-3xl">
           <p class="mb-6 inline-flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
             <span class="inline-flex items-center gap-2">
@@ -172,17 +172,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </p>
 
           <div class="mt-8 scroll-mt-28" id="anmeldung">
-            <p class="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Schritt 1 von 3 — <span class="text-foreground">Ihre Website eingeben, wir prüfen sie sofort</span>
-            </p>
-            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" open={true} emit={true} />
+            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" />
             <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete · kostenlos</p>
           </div>
 
           <!-- Sprecher: Webinare werden ueber Personen gebucht. Diskretionsregel bis 30.10.2026 -> nur Norbert. -->
           <div class="mt-9 flex items-center gap-4 border-t border-border pt-6">
             <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="52" height="52" loading="lazy" decoding="async"
-                 class="h-13 w-13 shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
+                 class="shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
             <p class="text-sm leading-relaxed text-muted-foreground">
               Mit <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
               Strategieberater, Autor &amp; Speaker
@@ -190,93 +187,60 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           </div>
         </div>
 
-        <!-- ── Hero-Visual: Prüfstand ─────────────────────────────────────
-             Ruhezustand = dokumentiertes Beispiel aus dem Studien-Datensatz.
-             Sobald links eine Domain eingegeben wird, prüft die Karte live
-             gegen audit.codaai.ai/ai/mentions und zeigt die echte Zahl.
-             Bewusst OHNE erfundene Wettbewerber für die eingegebene Domain —
-             wer dort steht, ist der Live-Moment am 08.09. -->
-        <aside id="ki-card" data-mode="idle" aria-label="Beispiel einer dokumentierten KI-Antwort; nach Eingabe einer Website wird deren KI-Präsenz live geprüft">
-          <div class="kcard relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-xl sm:p-7">
-            <span class="kscan" aria-hidden="true"></span>
+        <!-- ── Prüfstand ────────────────────────────────────────────────────
+             Eigenständiges Werkzeug: Website eingeben, Befund erhalten.
+             Der Befund führt in die Anmeldung links und gibt die Domain dorthin
+             weiter. Bewusst ohne Quellenangabe.                              -->
+        <aside id="pruefstand" data-mode="idle" aria-label="Live-Prüfung: erscheint Ihre Marke in KI-Antworten?">
 
-            <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <div class="ps-ask rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
               <span class="relative flex h-2 w-2" aria-hidden="true">
                 <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
                 <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
               </span>
-              <span class="kstate">KI-Antwort · dokumentiert</span>
+              Live-Check
             </p>
+            <p class="ps-h2 font-bold leading-tight text-foreground">Prüfen Sie jetzt, ob die KI Ihre Marke kennt.</p>
+            <p class="mt-3 text-base leading-relaxed text-muted-foreground">Website eingeben — die Antwort steht in Sekunden.</p>
 
-            <p class="kq relative mt-4 rounded-2xl rounded-tl-md bg-foreground px-4 py-3 text-sm font-medium leading-relaxed text-background">
-              <span class="kq-ph">„Welche Anbieter sollten wir für unsere Ausschreibung in die engere Wahl nehmen?"</span>
-              <span class="kq-typed absolute inset-0 px-4 py-3" aria-hidden="true"><span class="kq-text"></span><span class="kq-caret"></span></span>
+            <div class="ps-line mt-6">
+              <input class="ps-in" id="ps-in" type="text" inputmode="url" spellcheck="false" autocomplete="off"
+                     placeholder="ihrefirma.de" aria-label="Ihre Website" />
+              <button type="button" class="ps-go" id="ps-go" aria-label="Marke prüfen">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="ps-err mt-3 text-sm font-medium text-cta-accessible" hidden></p>
+            <p class="mt-4 text-xs text-muted-foreground">Kostenlos · ohne Anmeldung · dauert einen Augenblick</p>
+          </div>
+
+          <div class="ps-work rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <p class="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              <span class="ps-work-lab">Prüfe …</span>
             </p>
-
-            <!-- Ruhezustand: das dokumentierte Beispiel -->
-            <div class="kbody">
-              <div class="relative">
-                <div class="kdots" aria-hidden="true"><span></span><span></span><span></span></div>
-                <ol class="mt-4 space-y-2.5" aria-hidden="true">
-                  {[
-                    ['Berger Antriebstechnik GmbH', 'namentlich empfohlen · als Quelle zitiert'],
-                    ['Systemtechnik Nord GmbH & Co. KG', 'namentlich empfohlen'],
-                    ['ProTec Industrieanlagen AG', 'namentlich empfohlen'],
-                  ].map(([name, sub], i) => (
-                    <li class="kres flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3">
-                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cta/10 text-xs font-bold text-cta-accessible">{i + 1}</span>
-                      <span class="min-w-0">
-                        <span class="block select-none truncate text-sm font-semibold text-foreground blur-[3px]">{name}</span>
-                        <span class="block text-xs text-muted-foreground">{sub}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <div class="kpunch mt-5 rounded-2xl border border-cta/30 bg-cta/5 px-4 py-3.5">
-                <p class="text-sm font-bold text-foreground">… und Sie?</p>
-                <p class="mt-0.5 text-sm font-semibold text-cta-accessible">In 55&thinsp;% der Einkäuferfragen nicht genannt.</p>
-              </div>
-            </div>
-
-            <!-- Live-Befund zur eingegebenen Domain -->
-            <div class="klive" aria-live="polite">
-              <p class="kl-target mt-4 truncate text-xs font-medium text-muted-foreground"></p>
-
-              <div class="kl-working mt-5 space-y-2.5" aria-hidden="true">
-                <span class="kl-bar"></span><span class="kl-bar"></span><span class="kl-bar"></span>
-              </div>
-
-              <div class="kl-result mt-5">
-                <p class="kl-num tabular-nums font-bold leading-none tracking-tight text-foreground"></p>
-                <p class="kl-lab mt-3 text-sm font-semibold leading-relaxed text-foreground"></p>
-                <p class="kl-sub mt-2 text-sm leading-relaxed text-muted-foreground"></p>
-              </div>
-
-              <div class="kl-open mt-5 rounded-2xl border border-dashed border-cta/40 bg-cta/5 px-4 py-3.5">
-                <p class="text-sm font-semibold text-foreground">Und wer wird stattdessen empfohlen?</p>
-                <p class="mt-0.5 text-sm text-muted-foreground">Die Namen sehen Sie am 08.09. live.</p>
-              </div>
-            </div>
-
-            <div class="kfoot mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4">
-              <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Geprüft in</span>
-              <span class="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">ChatGPT</span>
-              <span class="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">Google KI-Übersicht</span>
+            <span class="ps-scan" aria-hidden="true"></span>
+            <div class="space-y-3" aria-hidden="true">
+              <span class="ps-bar"></span><span class="ps-bar"></span><span class="ps-bar"></span>
             </div>
           </div>
-          <p class="kcap mt-3 text-center text-xs text-muted-foreground">
-            <span class="kcap-idle">Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten.</span>
-            <span class="kcap-live">Live-Abfrage gegen den CodaAI-Datenbestand · Quelle: SISTRIX AI</span>
-          </p>
+
+          <!-- Befund: vollflächig, weiße Schrift auf tiefem Magenta (Weiß hält dort 4,65:1) -->
+          <div class="ps-res rounded-3xl p-7 shadow-xl sm:p-8" aria-live="polite">
+            <p class="ps-res-kicker text-xs font-bold uppercase tracking-[0.2em]">Geprüft</p>
+            <p class="ps-dom mt-2 break-all font-bold leading-none tracking-tight"></p>
+            <p class="ps-head mt-6 font-bold leading-[0.95] tracking-tight"></p>
+            <p class="ps-lead mt-6 text-lg font-semibold leading-snug"></p>
+            <p class="ps-sub mt-3 text-base leading-relaxed"></p>
+            <button type="button" class="ps-cta mt-7" id="ps-cta">Platz im Webinar sichern →</button>
+            <button type="button" class="ps-again mt-4" id="ps-again">Andere Website prüfen</button>
+          </div>
+
         </aside>
-        <script is:inline>
-          // Animations-Modus nur mit JS + ohne reduced-motion — sonst bleibt die Karte statisch sichtbar
-          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            var kiCardEl = document.getElementById('ki-card');
-            if (kiCardEl) kiCardEl.classList.add('kianim');
-          }
-        </script>
         </div>
 
         <!-- Studien-Zeile: leitet den Zahlenblock ein (unterhalb der KI-Karte) -->
@@ -891,70 +855,86 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   /* Rail/Dots nur ab sm sichtbar; darunter nichts injiziert (JS-Guard) */
   @media (max-width: 639px) { .wfx-agrail, .wfx-agdot { display: none; } }
 
-  /* ── Hero-Prüfstand ───────────────────────────────────────────────────
-     Drei Zustände auf #ki-card, gesteuert über data-mode:
-       idle    – dokumentiertes Beispiel (Ruhezustand, wie bisher)
-       working – Domain eingegeben, Abfrage läuft
-       live    – echter Befund zur eingegebenen Domain
-     Die Höhe wird bewusst nicht animiert; ein springender Hero wirkt billig.
-     Stattdessen blendet der jeweils andere Block weich aus.                */
 
-  #ki-card .klive { display: none; }
-  #ki-card[data-mode="working"] .kbody,
-  #ki-card[data-mode="live"] .kbody { display: none; }
-  #ki-card[data-mode="working"] .klive,
-  #ki-card[data-mode="live"] .klive { display: block; animation: kfade .5s ease both; }
+  /* ── Prüfstand im Hero ────────────────────────────────────────────────
+     Drei Zustände über data-mode auf #pruefstand: idle · working · result.
+     Der Befund liegt vollflächig auf #C405E6 — dem pinksten Wert, bei dem
+     weiße Schrift noch 4,65:1 hält (siehe CLAUDE.md). Deshalb dort auch
+     kein abgetöntes Weiß: Hierarchie kommt aus Größe und Schnitt.        */
 
-  #ki-card .kcap-live { display: none; }
-  #ki-card[data-mode="live"] .kcap-idle,
-  #ki-card[data-mode="working"] .kcap-idle { display: none; }
-  #ki-card[data-mode="live"] .kcap-live,
-  #ki-card[data-mode="working"] .kcap-live { display: inline; }
+  #pruefstand .ps-work,
+  #pruefstand .ps-res { display: none; }
+  #pruefstand[data-mode="working"] .ps-ask,
+  #pruefstand[data-mode="result"] .ps-ask { display: none; }
+  #pruefstand[data-mode="working"] .ps-work { display: block; position: relative; overflow: hidden; }
+  #pruefstand[data-mode="result"] .ps-res { display: block; animation: psin .5s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes psin { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
-  @keyframes kfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  #pruefstand .ps-h2 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); }
 
-  /* Lichtstrahl, der während der Abfrage über die Karte wandert */
-  #ki-card .kscan {
-    position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 2;
-    background: linear-gradient(100deg, transparent 40%, rgba(223, 65, 251, .16) 50%, transparent 60%);
-    background-size: 260% 100%;
+  /* Eingabe */
+  #pruefstand .ps-line { display: flex; gap: 10px; }
+  #pruefstand .ps-in {
+    flex: 1; min-width: 0; height: 58px; padding: 0 18px;
+    border: 2px solid hsl(var(--cta)); border-radius: 14px;
+    background: hsl(var(--background)); color: hsl(var(--foreground));
+    font-size: 1.05rem; font-weight: 600; outline: none;
+    transition: box-shadow .2s ease;
   }
-  #ki-card[data-mode="working"] .kscan { opacity: 1; animation: kscan 1.15s linear infinite; }
-  @keyframes kscan { from { background-position: 160% 0; } to { background-position: -60% 0; } }
-
-  /* Die Karte selbst reagiert: der Rand nimmt während der Prüfung Farbe an */
-  #ki-card .kcard { transition: border-color .45s ease, box-shadow .45s ease; }
-  #ki-card[data-mode="working"] .kcard,
-  #ki-card[data-mode="live"] .kcard {
-    border-color: hsl(var(--cta) / .45);
-    box-shadow: 0 22px 50px -18px hsl(var(--cta) / .3), 0 0 0 1px hsl(var(--cta) / .1);
+  #pruefstand .ps-in::placeholder { color: hsl(var(--muted-foreground)); font-weight: 500; }
+  #pruefstand .ps-in:focus { box-shadow: 0 0 0 4px hsl(var(--cta) / .22); }
+  #pruefstand .ps-go {
+    flex: 0 0 auto; width: 58px; height: 58px; border-radius: 14px;
+    background: hsl(var(--cta)); color: #fff; border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .16s ease, background .16s ease;
   }
+  #pruefstand .ps-go:hover { background: var(--cta-accessible, hsl(var(--cta))); transform: translateX(2px); }
+  #pruefstand .ps-go:active { transform: scale(.96); }
 
-  /* Platzhalter-Balken während der Abfrage */
-  #ki-card .kl-working { display: none; }
-  #ki-card[data-mode="working"] .kl-working { display: block; }
-  #ki-card .kl-bar {
-    display: block; height: 44px; border-radius: 12px;
+  /* Prüfung läuft */
+  #pruefstand .ps-scan {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(100deg, transparent 40%, hsl(var(--cta) / .18) 50%, transparent 60%);
+    background-size: 260% 100%; animation: psscan 1.15s linear infinite;
+  }
+  @keyframes psscan { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+  #pruefstand .ps-bar {
+    display: block; height: 46px; border-radius: 12px;
     background: linear-gradient(90deg, hsl(var(--muted) / .55) 25%, hsl(var(--muted) / .2) 37%, hsl(var(--muted) / .55) 63%);
-    background-size: 400% 100%; animation: kshim 1.4s ease infinite;
+    background-size: 400% 100%; animation: psshim 1.4s ease infinite;
   }
-  #ki-card .kl-bar:nth-child(2) { animation-delay: .12s; opacity: .75; }
-  #ki-card .kl-bar:nth-child(3) { animation-delay: .24s; opacity: .5; }
-  @keyframes kshim { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+  #pruefstand .ps-bar:nth-child(2) { animation-delay: .12s; opacity: .75; }
+  #pruefstand .ps-bar:nth-child(3) { animation-delay: .24s; opacity: .5; }
+  @keyframes psshim { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 
-  /* Ergebnis */
-  #ki-card .kl-result, #ki-card .kl-open { display: none; }
-  #ki-card[data-mode="live"] .kl-result, #ki-card[data-mode="live"] .kl-open { display: block; }
-  #ki-card .kl-num {
-    font-size: clamp(2.75rem, 6vw, 4rem);
-    animation: knum .55s cubic-bezier(.22, 1, .36, 1) both;
+  /* Befund — Vollfläche */
+  #pruefstand .ps-res { background: #C405E6; color: #fff; }
+  #pruefstand .ps-res-kicker { color: #fff; opacity: .8; }
+  #pruefstand .ps-dom { font-size: clamp(1.6rem, 3.4vw, 2.35rem); color: #fff; }
+  #pruefstand .ps-head {
+    font-size: clamp(2.9rem, 6.4vw, 4.1rem); color: #fff;
+    animation: pshead .5s cubic-bezier(.22,1,.36,1) both .1s;
   }
-  #ki-card[data-tone="zero"] .kl-num { color: hsl(var(--cta)); }
-  @keyframes knum { from { opacity: 0; transform: translateY(10px) scale(.94); } to { opacity: 1; transform: none; } }
+  #pruefstand .ps-head.is-num { font-variant-numeric: tabular-nums; }
+  @keyframes pshead { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  #pruefstand .ps-lead, #pruefstand .ps-sub { color: #fff; }
+
+  #pruefstand .ps-cta {
+    display: inline-block; background: #fff; color: #C405E6;
+    font-size: 1rem; font-weight: 700; padding: 15px 26px; border-radius: 14px;
+    border: 0; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease;
+  }
+  #pruefstand .ps-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -10px rgba(0,0,0,.45); }
+  #pruefstand .ps-again {
+    display: block; background: none; border: 0; cursor: pointer; padding: 0;
+    color: #fff; font-size: .9rem; font-weight: 600;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    #ki-card .kscan { display: none; }
-    #ki-card .kl-bar, #ki-card .kl-num, #ki-card .klive { animation: none !important; }
+    #pruefstand .ps-scan, #pruefstand .ps-bar { animation: none; }
+    #pruefstand .ps-res, #pruefstand .ps-head { animation: none !important; }
   }
 
 </style>
@@ -1127,101 +1107,138 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   setTimeout(function(){ ScrollTrigger.refresh(); }, 800);
 })();
 
-  /* ── Live-Prüfung der eingegebenen Domain ──────────────────────────────
-     Hört auf das CustomEvent aus WebinarSignup und fragt audit.codaai.ai.
-     Der Endpoint nutzt SISTRIX ai.entity.prompts.count (1 Credit) und ist
-     dort durch Cache, IP-Limit und Tages-Cap abgesichert.
 
-     Bewusste Grenze: Es werden KEINE Wettbewerber-Namen für die eingegebene
-     Domain gezeigt. Die kämen aus ai.entity.competition (96 Credits) und
-     wären auf einer offenen Seite weder bezahlbar noch — bei
-     Namensgleichheit wie 'Mahr' — verlässlich. Wer empfohlen wird, ist der
-     Live-Moment am 08.09.                                                  */
+  /* ── Prüfstand: Verhalten ──────────────────────────────────────────────
+     Eigenständiges Werkzeug rechts im Hero. Fragt audit.codaai.ai, zeigt den
+     Befund vollflächig und übergibt die Domain an die Anmeldung links.
+     Die Datenquelle wird bewusst nirgends genannt.                        */
   (function () {
-    var card = document.getElementById('ki-card');
-    if (!card) return;
+    var root = document.getElementById('pruefstand');
+    if (!root) return;
 
     var ENDPOINT = 'https://audit.codaai.ai/ai/mentions';
-    var q = function (s) { return card.querySelector(s); };
-    var elTarget = q('.kl-target'), elNum = q('.kl-num'), elLab = q('.kl-lab'),
-        elSub = q('.kl-sub'), elState = q('.kstate'), elOpen = q('.kl-open');
-    var current = '', done = {}, timer = null;
+    var inp = document.getElementById('ps-in'),
+        go = document.getElementById('ps-go'),
+        again = document.getElementById('ps-again'),
+        cta = document.getElementById('ps-cta'),
+        err = root.querySelector('.ps-err'),
+        lab = root.querySelector('.ps-work-lab'),
+        elDom = root.querySelector('.ps-dom'),
+        elHead = root.querySelector('.ps-head'),
+        elLead = root.querySelector('.ps-lead'),
+        elSub = root.querySelector('.ps-sub');
 
-    var setMode = function (m) { card.setAttribute('data-mode', m); };
+    var RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
+    var cache = {}, last = '';
+
+    var norm = function (raw) {
+      var s = (raw || '').trim().toLowerCase();
+      s = s.replace(/^https?:\/\//, '').replace(/^www\./, '');
+      return s.split(/[/?#]/)[0].trim();
+    };
+    var setMode = function (m) { root.setAttribute('data-mode', m); };
+    var showErr = function (m) { if (err) { err.textContent = m; err.hidden = false; } };
+    var clearErr = function () { if (err) err.hidden = true; };
 
     var countUp = function (to) {
-      if (!elNum) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || to > 9999) {
-        elNum.textContent = to.toLocaleString('de-DE'); return;
+      elHead.classList.add('is-num');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        elHead.textContent = to.toLocaleString('de-DE'); return;
       }
-      var t0 = 0, dur = Math.min(900, 260 + to * 8);
+      var t0 = 0, dur = 950;
       var step = function (ts) {
         if (!t0) t0 = ts;
-        var p = Math.min(1, (ts - t0) / dur);
-        var e = 1 - Math.pow(1 - p, 3);
-        elNum.textContent = Math.round(to * e).toLocaleString('de-DE');
+        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        elHead.textContent = Math.round(to * e).toLocaleString('de-DE');
         if (p < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     };
 
-    var render = function (dom, data) {
-      var st = data && data.status;
-
-      // Bei Limit oder Störung nicht spekulieren, sondern zurück ins Beispiel.
-      if (st !== 'found' && st !== 'none') { setMode('idle'); return; }
-
-      if (elTarget) elTarget.textContent = 'Geprüft: ' + dom;
-
-      if (st === 'found') {
-        card.setAttribute('data-tone', 'some');
-        countUp(data.count || 0);
-        if (elLab) elLab.textContent = 'KI-Antworten nennen ' + (data.entity || dom) + '.';
-        if (elSub) elSub.textContent = 'Genannt zu werden heißt noch nicht, empfohlen zu werden — '
-          + 'entscheidend ist, an welcher Stelle Ihr Name fällt.';
-        if (elOpen) elOpen.querySelector('p').textContent = 'Und stehen Sie dort vor oder hinter dem Wettbewerb?';
+    var render = function (dom, d) {
+      elDom.textContent = dom;
+      if (d.status === 'found') {
+        elHead.textContent = '';
+        countUp(d.count || 0);
+        elLead.textContent = 'KI-Antworten nennen Ihre Marke.';
+        // Auch der Treffer muss unbequem enden — sonst liest sich eine hohe
+        // Zahl als Entwarnung, obwohl sie nichts über die Rangfolge sagt.
+        elSub.textContent = 'Diese Zahl sagt nichts darüber, an welcher Stelle Sie stehen. '
+          + 'Ob Sie empfohlen werden oder nur vorkommen, sehen Sie am 08.09. live.';
       } else {
-        card.setAttribute('data-tone', 'zero');
-        if (elNum) elNum.textContent = 'Keine.';
-        if (elLab) elLab.textContent = 'Zu ' + dom + ' findet sich keine einzige erfasste KI-Antwort, die Ihre Marke nennt.';
-        if (elSub) elSub.textContent = 'Wir haben dafür auch den Markennamen Ihrer Website geprüft, nicht nur die Domain.';
-        if (elOpen) elOpen.querySelector('p').textContent = 'Und wer wird stattdessen empfohlen?';
+        elHead.classList.remove('is-num');
+        elHead.textContent = 'Nicht gefunden.';
+        elLead.textContent = 'Keine einzige KI-Antwort nennt Ihre Marke.';
+        elSub.textContent = 'Wer nach Ihrer Leistung fragt, bekommt andere Namen genannt. '
+          + 'Welche das sind, zeigen wir am 08.09. live.';
       }
-      if (elState) elState.textContent = 'Ihre Website · live geprüft';
-      setMode('live');
+      setMode('result');
+      // Domain an die Anmeldung weitergeben
+      try {
+        document.querySelectorAll('[data-wacta] [data-url]').forEach(function (f) { f.value = dom; });
+      } catch (_) {}
     };
 
-    var check = function (dom) {
-      if (!dom || dom === current) return;
-      current = dom;
-      if (done[dom]) { render(dom, done[dom]); return; }
+    var check = function () {
+      var dom = norm(inp ? inp.value : '');
+      if (!dom || !RE.test(dom)) { showErr('Bitte geben Sie eine gültige Website ein — z. B. ihrefirma.de'); if (inp) inp.focus(); return; }
+      clearErr();
+      last = dom;
+      if (cache[dom]) { render(dom, cache[dom]); return; }
 
-      if (elState) elState.textContent = 'Prüfe ' + dom + ' …';
-      if (elTarget) elTarget.textContent = 'Prüfe ' + dom + ' …';
+      if (lab) lab.textContent = 'Prüfe ' + dom + ' …';
       setMode('working');
 
       var ctrl = null, sig;
       try { ctrl = new AbortController(); sig = ctrl.signal; } catch (_) {}
-      var bail = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (_) {} }, 9000);
+      var bail = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (_) {} }, 12000);
+      var t0 = Date.now();
 
       fetch(ENDPOINT + '?domain=' + encodeURIComponent(dom), { signal: sig })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
           clearTimeout(bail);
-          if (!d) { setMode('idle'); return; }
-          done[dom] = d;
-          // Kurz stehen lassen: eine Antwort in 200 ms wirkt wie ein Trick,
-          // nicht wie eine Prüfung.
-          setTimeout(function () { if (current === dom) render(dom, d); }, 550);
+          if (!d || (d.status !== 'found' && d.status !== 'none')) {
+            setMode('idle');
+            showErr(d && d.status === 'ratelimited'
+              ? 'Sie haben gerade viele Websites geprüft — bitte in einer Stunde erneut.'
+              : 'Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal.');
+            return;
+          }
+          cache[dom] = d;
+          // Eine Antwort nach 200 ms wirkt wie ein Trick, nicht wie eine Prüfung.
+          var wait = Math.max(0, 1100 - (Date.now() - t0));
+          setTimeout(function () { if (last === dom) render(dom, d); }, wait);
         })
-        .catch(function () { clearTimeout(bail); if (current === dom) setMode('idle'); });
+        .catch(function () {
+          clearTimeout(bail);
+          setMode('idle');
+          showErr('Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal.');
+        });
     };
 
-    document.addEventListener('codaai:domain', function (e) {
-      var dom = e && e.detail && e.detail.domain;
-      if (!dom) return;
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(function () { check(dom); }, e.detail.commit ? 0 : 250);
+    if (go) go.addEventListener('click', check);
+    if (inp) inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); check(); }
+    });
+    if (again) again.addEventListener('click', function () {
+      setMode('idle'); clearErr();
+      if (inp) { inp.value = ''; inp.focus(); }
+    });
+    if (cta) cta.addEventListener('click', function () {
+      var box = document.getElementById('anmeldung');
+      if (!box) return;
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var w = box.querySelector('[data-wacta]');
+      if (!w) return;
+      // Domain ist bereits bekannt -> direkt zu den Kontaktdaten
+      var f = w.querySelector('[data-url]');
+      if (f && f.value) { w.setAttribute('data-state', 'contact'); }
+      else { var b = w.querySelector('[data-open]'); if (b) b.click(); }
+      setTimeout(function () {
+        var n = w.querySelector('[data-firstname]');
+        if (n) n.focus();
+      }, 600);
     });
   })();
 
