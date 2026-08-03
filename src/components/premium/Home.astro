@@ -270,10 +270,11 @@ import AuditCTA from './AuditCTA.astro';
 <!-- ================= ANGEBOT (Magenta) ================= -->
 <!-- Ersetzt die frühere gepinnte Programm-/Bento-Szene (260vh). Kommerziell der
      wichtigste Block der Seite und deshalb der EINZIGE gesättigte: der Farbsprung
-     von Schwarz auf Magenta ist die härteste Kante der Seite — genau dort, wo aus
-     Diagnose Angebot wird. Dunkle Schrift (Kontrast 5,81:1 gegen #DF41FB; weiße
-     Schrift käme nur auf 3,34:1 und fiele durch). Audit-Button hier dunkel, weil
-     ein magenta Button auf magenta Grund unsichtbar wäre. -->
+     von Schwarz auf Pink ist die härteste Kante der Seite — genau dort, wo aus
+     Diagnose Angebot wird. Schrift durchgehend weiß (Beschluss Oli, 03.08.2026);
+     dafür liegt der Grund auf dem tieferen Marken-Pink #9A04B4 statt auf #DF41FB,
+     wo Weiß nur 3,34:1 erreicht hätte. Audit-Button dunkel, weil ein pinker
+     Button auf pinkem Grund unsichtbar wäre. -->
 <section class="offer" id="angebot">
   <div class="wrap">
     <h2 class="cai-h2 sec off-h">CodaAI bringt Ihr Unternehmen in die Antwort.</h2>
@@ -352,7 +353,15 @@ import AuditCTA from './AuditCTA.astro';
       </div>
 
       <div class="oc-punch" data-punch>
-        <p class="pb">Interessenten vertrauen, fragen an und beauftragen —<em>aber nur Unternehmen, die nach der Suchanfrage als Ergebnis angezeigt werden.</em></p>
+        <p class="pb">
+          <span class="l">Interessenten vertrauen,</span>
+          <span class="l">fragen an und beauftragen&#8202;&#8211;</span>
+          <em>
+            <span class="l">aber nur Unternehmen,</span>
+            <span class="l">die nach der Suchanfrage</span>
+            <span class="l">als Ergebnis angezeigt werden.</span>
+          </em>
+        </p>
       </div>
 
     </div>
@@ -1222,11 +1231,17 @@ import AuditCTA from './AuditCTA.astro';
      Aussage — vorher/nachher statt hell/heller. Kontrast auf der Verlaufsmitte
      #B01FD1: Schwarz 3,66:1, Weiss 5,30:1. Die grosse Zeile ist Grosstext
      (24–48px, weight 800), damit gilt die Schwelle 3,0. */
-  .oc-punch .pb{font-size:clamp(1.5rem,4.4vw,3rem);font-weight:800;letter-spacing:-.02em;
-    max-width:38ch;line-height:1.15;color:#0d0d10}
-  /* Zweite Zeile, weiss: der Satz kippt mit dem Zeilenumbruch von der Diagnose
-     ('es fehlt …') auf das Subjekt ('Ihr Unternehmen') — das ist die Pointe. */
-  .oc-punch .pb em{display:block;margin-top:6px;font-style:normal;color:#fff}
+  /* Der Satz steht in fuenf gesetzten Zeilen statt im freien Umbruch (Oli,
+     03.08.2026): jede Zeile traegt eine Sinneinheit, der Umbruch faellt nie
+     mitten in eine. Deshalb .l als Blockzeile — kein <br>, damit die Zeilen auf
+     schmalen Viewports notfalls doch noch umbrechen duerfen. Trenner ist der
+     kurze Gedankenstrich (–), nicht der lange Geviertstrich. */
+  .oc-punch .pb{font-size:clamp(1.35rem,3.9vw,2.6rem);font-weight:800;letter-spacing:-.02em;
+    max-width:24ch;line-height:1.18;color:#0d0d10;text-wrap:balance}
+  .oc-punch .pb .l{display:block}
+  /* Zweiter Teil weiss: der Satz kippt von der Feststellung auf die
+     Einschraenkung — das ist die Pointe. */
+  .oc-punch .pb em{display:block;margin-top:.34em;font-style:normal;color:#fff}
   .oc-punch .pt{font-size:clamp(1.05rem,2.2vw,1.5rem);font-weight:700;color:#0d0d10}
   /* Schluss der Kette blendet zu Schwarz (Crossfade über oc-punch), Schrift weiß, Pink bleibt */
   .oc-final{background:radial-gradient(110% 85% at 50% 42%,#17171c,#08080b)}
@@ -1440,15 +1455,19 @@ import AuditCTA from './AuditCTA.astro';
   .vsrc{margin-top:10px;font-size:.74rem;color:var(--d-mut);line-height:1.5}
   @media(max-width:620px){.vrow{grid-template-columns:minmax(0,1fr) 50px}.vlab{grid-column:1/-1}}
 
-  /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ── */
-  .offer{background:var(--magenta);color:#0d0d10;padding:clamp(70px,10vh,110px) 0}
-  .offer .off-h{max-width:40ch}
+  /* ── Angebot: der einzige gesättigte Block der Seite (Ä19/Ä20/Ä21) ──
+     Schrift durchgehend weiss (Beschluss Oli, 03.08.2026). Auf dem hellen
+     #DF41FB erreicht Weiss nur 3,34:1 und faellt fuer Fliesstext durch; der
+     Grund liegt deshalb auf dem tieferen Marken-Pink #9A04B4 (= der Ton, der
+     global als --cta-accessible gefuehrt wird). Weiss kommt dort auf 6,9:1.
+     Hier bewusst als Hex und nicht als Variable, weil der Token im
+     Dunkelmodus auf einen hellen Ton kippt — die Sektion ist immer dunkel. */
+  .offer{--offer-bg:#9A04B4;background:var(--offer-bg);color:#fff;padding:clamp(70px,10vh,110px) 0}
+  .offer .off-h{max-width:40ch;color:#fff}
   /* Dieselbe Hierarchie wie im Hero: grosse Aussage, darunter die kleinere,
-     zurueckgenommene Zeile. Achtung — ein echtes Grau ist hier unmoeglich: der
-     Hero-Grauton #8e8e9c erreicht auf Magenta nur 1,03:1 und waere unsichtbar.
-     Die Zuruecknahme kommt deshalb aus Groesse und Schriftschnitt; als Farbe der
-     dunkelste noch gedaempfte Ton mit 5,17:1. */
-  .offer .off-l2{margin-top:12px;max-width:46ch;color:#2a1229;
+     zurueckgenommene Zeile. Die Zuruecknahme kommt aus Groesse und Schnitt;
+     als Farbe leicht gedaempftes Weiss (5,9:1). */
+  .offer .off-l2{margin-top:12px;max-width:46ch;color:rgba(255,255,255,.88);
     font-size:clamp(1.05rem,1.9vw,1.4rem);font-weight:500;line-height:1.42;letter-spacing:-.02em}
   .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
   @media(max-width:900px){.tiers{grid-template-columns:1fr}}
@@ -1461,21 +1480,21 @@ import AuditCTA from './AuditCTA.astro';
   .tier .tno{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta-ink)}
   .tier h3{margin-top:8px;font-size:1.05rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:#0d0d10}
   .tier p{margin-top:9px;font-size:.9rem;line-height:1.7;color:#4a3b49}
-  .off-price{margin-top:26px;color:#2a1229;font-size:1rem;line-height:1.6;max-width:52ch}
-  .off-price b{color:#0d0d10;font-weight:700}
-  .off-link{display:inline-block;margin-top:14px;color:#0d0d10;font-size:.95rem;font-weight:700;
+  .off-price{margin-top:26px;color:rgba(255,255,255,.88);font-size:1rem;line-height:1.6;max-width:52ch}
+  .off-price b{color:#fff;font-weight:700}
+  .off-link{display:inline-block;margin-top:14px;color:#fff;font-size:.95rem;font-weight:700;
     text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
   .off-cta{margin-top:30px;max-width:680px}
-  .off-micro{margin-top:14px;font-size:.86rem;line-height:1.8;color:#2a1229}
-  .off-micro s{text-decoration:none;color:rgba(13,13,16,.42);margin:0 7px}
-  /* Formular auf Magenta: Felder weiß, Button dunkel — ein magenta Button
-     wäre auf magenta Grund unsichtbar. */
+  .off-micro{margin-top:14px;font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.85)}
+  .off-micro s{text-decoration:none;color:rgba(255,255,255,.45);margin:0 7px}
+  /* Formular auf dem Pink-Grund: Felder weiß, Button dunkel — ein pinker Button
+     wäre auf pinkem Grund unsichtbar. */
   .offer input,.offer textarea{background:#fff!important;border-color:rgba(13,13,16,.2)!important;color:#0d0d10!important}
   .offer .acta-trigger,.offer .acta-sq,.offer .acta--band .acta-trigger,.offer button[type="submit"]{
     background:#0d0d10!important;border-color:#0d0d10!important;color:#fff!important;
     box-shadow:0 8px 26px rgba(13,13,16,.3)!important}
   .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(13,13,16,.42)!important}
-  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#2a1229!important}
+  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:rgba(255,255,255,.85)!important}
   .offer .acta{--pink:#0d0d10;--pink-d:#000}
 
 </style>

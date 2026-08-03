@@ -36,9 +36,9 @@ interface Props {
 
 const T = {
   de: {
-    headline: '15-Minuten-Strategiegespräch',
+    headline: '30-Minuten-Strategiegespräch',
     sub: 'Per Video oder Telefon',
-    duration: '15 Min',
+    duration: '30 Min',
     reassurePill: 'Kostenlos & unverbindlich',
     reassureCta: 'Kein Verkaufsgespräch · Antwort sofort per E-Mail',
     doneLead: 'Wir haben Ihren Termin reserviert.',
@@ -94,9 +94,9 @@ const T = {
     },
   },
   en: {
-    headline: '15-minute strategy call',
+    headline: '30-minute strategy call',
     sub: 'Via video or phone',
-    duration: '15 min',
+    duration: '30 min',
     reassurePill: 'Free & no obligation',
     reassureCta: 'No sales pitch · instant email confirmation',
     doneLead: 'We’ve reserved your appointment.',
