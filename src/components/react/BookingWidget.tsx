@@ -216,17 +216,22 @@ export default function BookingWidget({ lang = 'de' }: Props) {
   // ---- Slots laden ----
   useEffect(() => {
     if (!BOOKING_ENDPOINT) { setView('fallback'); return; }
-    // Cache-Buster + no-store sind Pflicht, nicht Kosmetik: die /exec-URL
-    // antwortet mit einer Weiterleitung auf script.googleusercontent.com, deren
-    // Ziel einen kurzlebigen user_content_key traegt. Chrome merkt sich diese
-    // Weiterleitung. Sobald im Apps Script eine neue Version bereitgestellt
-    // wird, zeigt der gemerkte Link ins Leere — Google antwortet mit einer
-    // 404-HTML-Seite, r.json() wirft, und das Widget faellt fuer jeden
-    // wiederkehrenden Besucher auf „Aktuell koennen wir keine Termine laden".
-    // Beobachtet am 03.08.2026 nach dem Deploy der 30-Minuten-Version.
-    const url = BOOKING_ENDPOINT + (BOOKING_ENDPOINT.indexOf('?') > -1 ? '&' : '?')
-      + 'action=slots&cb=' + Date.now();
-    fetch(url, { cache: 'no-store' })
+    // cache:'reload' ist Pflicht, nicht Kosmetik. Die /exec-URL antwortet mit
+    // einer Weiterleitung auf script.googleusercontent.com, deren Ziel einen
+    // kurzlebigen user_content_key traegt. Chrome merkt sich diese
+    // Weiterleitung. Wird im Apps Script eine neue Version bereitgestellt,
+    // zeigt der gemerkte Link ins Leere: Google liefert eine 404-HTML-Seite,
+    // r.json() wirft, und das Widget faellt fuer jeden wiederkehrenden
+    // Besucher auf „Aktuell koennen wir keine Termine laden" — genau so am
+    // 03.08.2026 nach dem Deploy der 30-Minuten-Version beobachtet.
+    // 'reload' erzwingt eine frische Anfrage und umgeht den Redirect-Cache.
+    //
+    // KEIN Cache-Buster als Query-Parameter: ein zusaetzlicher Parameter an
+    // der /exec-URL laesst Google die Weiterleitung mit 404 beantworten —
+    // serverseitig reproduzierbar, also nicht browserabhaengig. Wer hier
+    // '&cb=' + Date.now() ergaenzt, legt die Terminbuchung lahm.
+    const url = BOOKING_ENDPOINT + (BOOKING_ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 'action=slots';
+    fetch(url, { cache: 'reload' })
       .then((r) => r.json())
       .then((res) => {
         if (!res || !res.ok || !res.slots || !res.slots.length) { setView('fallback'); return; }
