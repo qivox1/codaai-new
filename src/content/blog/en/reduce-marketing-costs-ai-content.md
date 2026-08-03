@@ -73,4 +73,4 @@ Cost reduction shouldn't mean fewer leads. AI makes both possible simultaneously
 
 ## Sources
 
-[McKinsey's Generative AI Report](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier) estimates generative AI could reduce content production costs by 20–40% for marketing functions. The [Gartner CMO Survey](https://www.gartner.com/en/marketing/topics/cmo-insights) shows 68% of CMOs face pressure to cut budgets while maintaining or increasing content output.
+[McKinsey's Generative AI Report](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier) estimates generative AI could reduce content production costs by 20–40% for marketing functions. The [Gartner 2025 CMO Spend Survey](https://www.gartner.com/en/newsroom/press-releases/2025-05-12-gartner-2025-cmo-spend-survey-reveals-marketing-budgets-have-flatlined-at-seven-percent-of-overall-company-revenue) found marketing budgets flat at 7.7% of company revenue, with 59% of CMOs saying they do not have enough budget to execute their strategy.

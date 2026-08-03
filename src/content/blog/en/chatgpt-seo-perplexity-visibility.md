@@ -240,4 +240,4 @@ And the answer is: same foundation, with slight adjustments for each system.
 
 ## Sources
 
-[SparkToro research on zero-click searches](https://sparktoro.com/blog/) shows AI-powered answer engines are reshaping how information surfaces online. According to [BrightEdge Organic Research](https://resources.brightedge.com/research-report/2024-future-of-digital/), nearly 60% of searches now end without a click — reinforcing the importance of being cited in AI-generated answers.
+SparkToro and Similarweb track how many searches still send a click. Their [2026 zero-click study](https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/) found that 68.01% of US Google searches ended without a click in the first four months of 2026 — up from 60.45% in the [2024 study](https://sparktoro.com/blog/2024-zero-click-search-study-for-every-1000-us-google-searches-only-374-clicks-go-to-the-open-web-in-the-eu-its-360/). That is the whole argument for this article: if two thirds of searches never reach your site, being cited inside the answer matters more than ranking below it.
