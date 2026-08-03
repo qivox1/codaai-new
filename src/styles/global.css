@@ -1,5 +1,10 @@
-/* Self-hosted Inter Variable Font — no Google Fonts request */
+/* Selbst gehostete Schriften — kein Google-Fonts-Request.
+   Inter: Fließtext sitewide. Instrument Serif + Playfair Display:
+   nur die Outcome-Szene der Startseite (premium/Home.astro). */
 @import '@fontsource-variable/inter/wght.css';
+@import '@fontsource/instrument-serif/latin-400.css';
+@import '@fontsource/instrument-serif/latin-400-italic.css';
+@import '@fontsource-variable/playfair-display/wght.css';
 
 @tailwind base;
 @tailwind components;

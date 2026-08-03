@@ -6,7 +6,10 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import ContentRequestForm from '../../components/react/ContentRequestForm';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const SITE_URL = 'https://qivox1.github.io/codaai-new';
+// Kanonische Basis wie auf allen anderen Seiten. Hier stand bis 03.08.2026
+// noch die alte GitHub-Pages-Adresse — sie landete dadurch im Person-/
+// Article-Schema und in der LCP-Preload-URL, die deshalb nie zum <img> passte.
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // ── E-E-A-T: Person schema (Anja Miebach) ─────────────────────────────────
 const personSchema = {
@@ -159,6 +162,7 @@ const aboutPageSchema = {
                   width="480"
                   height="480"
                   loading="eager"
+                  fetchpriority="high"
                   class="w-full h-auto object-cover"
                 />
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 py-5">
