@@ -1,6 +1,6 @@
 ---
 title: "AI Content Marketing Strategy Guide"
-description: "A complete strategic framework for AI-powered content marketing: planning, execution and measurement for B2B companies."
+description: "A complete strategic framework for AI-powered content marketing: planning, execution and measurement for B2B companies that want to scale."
 pubDate: 2026-02-05
 updatedDate: 2026-03-01
 lang: en

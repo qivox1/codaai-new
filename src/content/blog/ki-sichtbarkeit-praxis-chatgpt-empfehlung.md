@@ -1,5 +1,5 @@
 ---
-title: "KI-Sichtbarkeit in der Praxis: Wie Sie in ChatGPT und Google KI empfohlen werden"
+title: "KI-Sichtbarkeit in ChatGPT und Google KI"
 description: "KI-Sichtbarkeit in der Praxis: 7.184 ausgewertete KI-Antworten zeigen, welche Hebel B2B-Unternehmen in ChatGPT und Google KI sichtbar und empfehlbar machen."
 pubDate: 2026-07-26
 lang: de
