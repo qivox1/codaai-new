@@ -221,27 +221,12 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </aside>
         </div>
 
-        <!-- Studien-Zeile: leitet den Zahlenblock ein (unterhalb der KI-Karte) -->
-        <p class="mt-12 text-base leading-relaxed text-muted-foreground lg:text-lg">
-          <strong class="text-foreground">Echte Studie, harte Fakten</strong> — erhoben im Juni/Juli 2026.
-          <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
-        </p>
-
-        <!-- Kennzahlen-Band (identisch zu /studie) -->
-        <dl class="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
-          <div class="bg-card px-8 py-8 text-center">
-            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">untersuchte Unternehmen</span><span class="block">aus 258 Branchen</span></dt>
-          </div>
-          <div class="bg-card px-8 py-8 text-center">
-            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="3592">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">firmenspezifische Einkäuferfragen</span><span class="block">zu Produkten &amp; Leistungen</span></dt>
-          </div>
-          <div class="bg-card px-8 py-8 text-center">
-            <dd class="text-4xl font-bold tabular-nums tracking-tight text-cta lg:text-5xl" data-count="7184">0</dd>
-            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">dokumentierte KI-Antworten</span><span class="block">aus ChatGPT &amp; Google KI-Übersicht</span></dt>
-          </div>
-        </dl>
+        {/* Studien-Zeile und Kennzahlen-Band (449 · 3.592 · 7.184) am 03.08.2026
+            auf Olis Wunsch aus dem Hero entfernt: „Das Auge ist überfordert."
+            Der Hero traegt jetzt nur noch Versprechen, Anmeldung und die
+            KI-Antwort-Karte. Die Zahlen stehen weiterhin auf /studie und
+            weiter unten auf dieser Seite in der Quellenzeile — der Beleg geht
+            also nicht verloren, er drueckt nur nicht mehr im Einstieg. */}
 
       </div>
     </section>
@@ -613,35 +598,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     if (pinImg.complete) pinUpdate(); else pinImg.addEventListener('load', pinUpdate);
   }
 
-  // ── Zähler-Animation im Kennzahlen-Band: langsam + nacheinander ──────────
-  // 449 zählt hoch → 1 s Pause → 3.592 → 1 s Pause → 7.184
-  const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
-  const fmt = new Intl.NumberFormat('de-DE');
-  const animate = (el: HTMLElement) => new Promise<void>((resolve) => {
-    const target = Number(el.dataset.count ?? '0');
-    const dur = 2400;
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const p = Math.min((t - t0) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt.format(Math.round(target * eased));
-      if (p < 1) requestAnimationFrame(tick); else resolve();
-    };
-    requestAnimationFrame(tick);
-  });
-  if (counters.length && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const io = new IntersectionObserver(async (entries) => {
-      if (!entries.some((e) => e.isIntersecting)) return;
-      io.disconnect();
-      for (const c of counters) {
-        await animate(c);
-        await new Promise((r) => setTimeout(r, 1000));
-      }
-    }, { threshold: 0.4 });
-    io.observe(counters[0]);
-  } else {
-    counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
-  }
+  // Die Zaehler-Animation fuer das Kennzahlen-Band ist mit dem Band selbst
+  // entfallen (03.08.2026). Wer das Band zurueckholt, braucht sie wieder —
+  // sie steht in der Versionsgeschichte zu diesem Commit.
 
   // ── KI-Antwort-Karte: Sequenz-Animation (Frame → Frage tippen → KI denkt → Ergebnisse → Punchline) ──
   const kcard = document.getElementById('ki-card');
