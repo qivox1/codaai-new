@@ -216,8 +216,17 @@ export default function BookingWidget({ lang = 'de' }: Props) {
   // ---- Slots laden ----
   useEffect(() => {
     if (!BOOKING_ENDPOINT) { setView('fallback'); return; }
-    const url = BOOKING_ENDPOINT + (BOOKING_ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 'action=slots';
-    fetch(url)
+    // Cache-Buster + no-store sind Pflicht, nicht Kosmetik: die /exec-URL
+    // antwortet mit einer Weiterleitung auf script.googleusercontent.com, deren
+    // Ziel einen kurzlebigen user_content_key traegt. Chrome merkt sich diese
+    // Weiterleitung. Sobald im Apps Script eine neue Version bereitgestellt
+    // wird, zeigt der gemerkte Link ins Leere — Google antwortet mit einer
+    // 404-HTML-Seite, r.json() wirft, und das Widget faellt fuer jeden
+    // wiederkehrenden Besucher auf „Aktuell koennen wir keine Termine laden".
+    // Beobachtet am 03.08.2026 nach dem Deploy der 30-Minuten-Version.
+    const url = BOOKING_ENDPOINT + (BOOKING_ENDPOINT.indexOf('?') > -1 ? '&' : '?')
+      + 'action=slots&cb=' + Date.now();
+    fetch(url, { cache: 'no-store' })
       .then((r) => r.json())
       .then((res) => {
         if (!res || !res.ok || !res.slots || !res.slots.length) { setView('fallback'); return; }
