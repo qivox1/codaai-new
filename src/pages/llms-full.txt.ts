@@ -5,21 +5,37 @@ const BASE_URL = 'https://www.codaai.ai';
 
 const STATIC_PAGES = `## Statische Seiten
 
-### Startseite – KI Content für B2B
+### Startseite – Digital Visibility für den B2B-Mittelstand
 URL: ${BASE_URL}/
-CodaAI ist eine KI-gestützte Content-Plattform für den deutschen B2B-Mittelstand. Kunden bestellen fertig produzierten, SEO- und GEO-optimierten Content (Blog, SEO-Texte, Videos, Designs) ohne eigenes Marketing-Team. Alle Inhalte werden menschlich geprüft und innerhalb von 24–48 Stunden geliefert.
+Wer heute eine Leistung sucht, fragt zuerst eine KI. Die nennt in der Regel drei Anbieter. CodaAI misst, ob ein Unternehmen dazugehört, und arbeitet daran, dass es dazugehört — in drei Stufen: Gefunden, Empfohlen, Zitiert. Einstieg ist ein Digital Visibility Audit, das die tatsächlichen KI-Antworten zu echten Einkäuferfragen auswertet.
 
-### Co-Create – Content bestellen
-URL: ${BASE_URL}/co-create/
-Service-Seite: Kunden können ihren Wunsch-Content direkt anfragen. CodaAI produziert SEO-optimierte Artikel, Erklärvideos und Designs auf Basis einer kurzen Briefing-Eingabe.
+### Digital Visibility – die 14 Leistungsbausteine
+URL: ${BASE_URL}/digital-visibility/
+Drei Fragen entscheiden über eine Nennung: Kann die KI das Unternehmen lesen? Ist es dort, wo die KI ihre Belege holt? Zitiert sie es, weil andere es zitieren? Darauf verteilen sich 14 Bausteine über die Stufen Gefunden (Stufe 1), Empfohlen (Stufe 2) und Zitiert (Stufe 3). Die Seite nennt auch, was CodaAI bewusst nicht anbietet.
 
 ### Preise
 URL: ${BASE_URL}/preise/
-CodaAI-Pakete: Starter (1 Artikel/Monat), Professional (4 Artikel + weitere Assets), Enterprise (individuelle Pakete). Einstieg ab 149 €/Monat.
+Drei Sichtbarkeits-Stufen mit einem monatlichen Grundpreis ab 1.470 €, dazu ein Preisrechner, dessen Summe sich nachrechnen lässt. Abgerechnet wird per Rechnung. Es gibt keine Platzierungs- oder Erfolgsgarantie.
+
+### Studie „KI-Blindtest Mittelstand 2026"
+URL: ${BASE_URL}/studie/
+Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen, erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht. In 55 % der Fragen fällt der Firmenname nicht, bei 47 % empfiehlt die KI stattdessen Wettbewerber. Keine Zufallsstichprobe.
+
+### Webinar „Empfohlen oder unsichtbar?"
+URL: ${BASE_URL}/webinar/
+Kostenloses Webinar am 08.09.2026 mit Norbert Schuster (strike2) und Oliver Parrizas: wie Buying Center heute recherchieren, und ein Live-Audit.
+
+### Fragen & Antworten
+URL: ${BASE_URL}/faq/
+Unterschied zwischen SEO, AEO und GEO, wie KI-Sichtbarkeit gemessen wird, Laufzeiten und die Zusammenarbeit mit bestehenden Agenturen.
+
+### Co-Create – das Arbeitsprinzip
+URL: ${BASE_URL}/co-create/
+AI + HI: künstliche Intelligenz, die leistet, und menschliche Erfahrung, die lenkt.
 
 ### Blog-Übersicht
 URL: ${BASE_URL}/blog/
-Alle Blog-Artikel zu KI, Content Marketing, SEO und GEO für B2B-Unternehmen im deutschen Mittelstand.
+Fachbeiträge zu KI-Sichtbarkeit, GEO, SEO und B2B-Content für den deutschen Mittelstand.
 
 ---`;
 
@@ -36,7 +52,9 @@ export const GET: APIRoute = async () => {
 
   let output = `# CodaAI – Vollständige Inhalte (llms-full.txt)
 
-> KI Content-Plattform für SEO, Design & Video – ausgerichtet auf B2B-Mittelstand (DE/AT/CH).
+> Digital Visibility für den B2B-Mittelstand: messen und verbessern, ob KI-Systeme
+> wie ChatGPT und die Google KI-Übersicht ein Unternehmen empfehlen.
+> Betreiber: AMP Beratung, Anja Miebach, Gütersloh. Keine Platzierungs- oder Erfolgsgarantie.
 > Generiert: ${today}
 
 Diese Datei enthält den vollständigen Inhalt aller CodaAI-Seiten und Blog-Artikel für LLM-Ingestion.

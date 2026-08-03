@@ -1,38 +1,86 @@
 # CodaAI
 
-> KI Content-Plattform für SEO, Design & Video – ausgerichtet auf B2B-Mittelstand (DE/AT/CH).
+> Digital Visibility für den B2B-Mittelstand: messen und verbessern, ob KI-Systeme wie ChatGPT und die Google KI-Übersicht ein Unternehmen empfehlen, wenn jemand nach seiner Leistung fragt.
 
-CodaAI produziert KI-gestützten B2B-Content (Blogartikel, SEO-Texte, Videos, Designs) für den deutschen Mittelstand. Kunden erhalten fertig produzierten, GEO- und SEO-optimierten Content ohne eigenes Marketing-Team. Alle Inhalte werden menschlich geprüft und in 24–48 Stunden geliefert.
+CodaAI arbeitet in drei Stufen — **Gefunden**, **Empfohlen**, **Zitiert**. Grundlage ist ein
+Digital Visibility Audit, das die tatsächlichen KI-Antworten zu echten Einkäuferfragen misst.
+Betreiber ist AMP Beratung, Anja Miebach, Gütersloh. CodaAI gibt keine Platzierungs- oder
+Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme kennt niemand.
 
 ## Hauptseiten (Deutsch)
 
-- [Startseite](https://www.codaai.ai/): Übersicht – KI Content für B2B-Unternehmen im Mittelstand
-- [Co-Create – Content bestellen](https://www.codaai.ai/co-create/): Service-Seite zum direkten Anfragen von KI-Content
-- [Preise](https://www.codaai.ai/preise/): Pakete und Preisübersicht (Starter, Professional, Enterprise)
-- [Blog](https://www.codaai.ai/blog/): KI & Content Marketing Insights für den Mittelstand
+- [Startseite](https://www.codaai.ai/): Warum die KI drei Anbieter empfiehlt — und was darüber entscheidet, ob Ihr Unternehmen dazugehört
+- [Digital Visibility](https://www.codaai.ai/digital-visibility/): Die 14 Leistungsbausteine, geordnet nach den drei Stufen Gefunden, Empfohlen, Zitiert
+- [Preise](https://www.codaai.ai/preise/): Drei Sichtbarkeits-Stufen ab 1.470 € Grundpreis pro Monat, mit nachrechenbarem Preisrechner
+- [Studie „KI-Blindtest Mittelstand 2026"](https://www.codaai.ai/studie/): 449 Unternehmen, 3.592 Einkäuferfragen, 7.184 KI-Antworten — Methodik und Befunde
+- [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
+- [Fragen & Antworten](https://www.codaai.ai/faq/): Unterschied SEO, AEO und GEO, Messung, Laufzeiten, Zusammenarbeit mit bestehenden Agenturen
+- [Blog](https://www.codaai.ai/blog/): Fachbeiträge zu KI-Sichtbarkeit, GEO und B2B-Content
+- [Kontakt](https://www.codaai.ai/kontakt/): Terminbuchung und Kontaktdaten
+- [Co-Create](https://www.codaai.ai/co-create/): Das Prinzip hinter der Arbeit — künstliche und menschliche Intelligenz zusammen
 
 ## Hauptseiten (Englisch)
 
-- [Homepage](https://www.codaai.ai/en/): Overview – AI Content for B2B companies
-- [Co-Create – Order Content](https://www.codaai.ai/en/co-create/): Service page for ordering AI-generated content
-- [Pricing](https://www.codaai.ai/en/pricing/): Packages and pricing overview
-- [Blog (EN)](https://www.codaai.ai/en/blog/): AI & Content Marketing insights
+- [Homepage](https://www.codaai.ai/en/)
+- [Pricing](https://www.codaai.ai/en/pricing/)
+- [Co-Create](https://www.codaai.ai/en/co-create/)
+- [Contact](https://www.codaai.ai/en/contact/)
+- [Blog](https://www.codaai.ai/en/blog/)
+
+Die englische Fassung deckt bisher nur einen Teil der Seiten ab. Deutsch ist die Leitsprache.
+
+## Kernaussagen der Studie „KI-Blindtest Mittelstand 2026"
+
+Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen,
+erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht.
+**Keine Zufallsstichprobe** — das gehört bei jeder Weitergabe der Zahlen dazu.
+
+- In 55 % der Einkäuferfragen fällt der Name des untersuchten Unternehmens nicht.
+- Bei 47 % der Fragen empfiehlt die KI stattdessen Wettbewerber.
+- Klassische Rankings und Erwähnungen in KI-Antworten hängen nur schwach zusammen — gute SEO-Sichtbarkeit garantiert keine Nennung.
+
+## Was CodaAI ausdrücklich nicht anbietet
+
+Keine Platzierungsgarantie, keine Erfolgszusage, keine gekauften Erwähnungen und keine
+Manipulation von KI-Antworten. Die Arbeit besteht darin, ein Unternehmen für KI-Systeme
+lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu versprechen.
 
 ## Blog-Artikel (Deutsch)
 
-- [KI Content Marketing Strategie](https://www.codaai.ai/blog/ki-content-marketing-strategie/): Vollständige GEO+SEO-Strategie für Sichtbarkeit in Google und KI-Suchmaschinen wie ChatGPT und Perplexity
-- [ChatGPT SEO & Perplexity Sichtbarkeit](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/): Wie B2B-Unternehmen in KI-Suchantworten sichtbar werden
-- [Content Marketing vs. Google Ads B2B](https://www.codaai.ai/blog/content-marketing-vs-google-ads-b2b/): Strategievergleich für B2B-Unternehmen
-- [Content Marketing Mittelstand KI](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/): KI-gestütztes Content Marketing für den deutschen Mittelstand
-- [KI Blog erstellen](https://www.codaai.ai/blog/ki-blog-erstellen/): Schritt-für-Schritt-Anleitung für einen KI-gestützten Unternehmensblog
-- [Redaktionsplan KI erstellen](https://www.codaai.ai/blog/redaktionsplan-ki-erstellen/): Wie KI den Redaktionsplan automatisiert und optimiert
-- [Marketingkosten senken mit KI](https://www.codaai.ai/blog/marketingkosten-senken-ki-content-b2b/): Kosteneffizienz durch KI-Content im B2B-Marketing
-- [Marketingagentur Alternative KI Mittelstand](https://www.codaai.ai/blog/marketingagentur-alternative-ki-mittelstand/): CodaAI als kosteneffiziente Alternative zur Marketingagentur
-- [B2B Blog als Vertriebskanal](https://www.codaai.ai/blog/b2b-blog-als-vertriebskanal/): Blog-Content für B2B-Leadgenerierung und Neukundengewinnung
-- [Blogartikel schreiben lassen Kosten](https://www.codaai.ai/blog/blogartikel-schreiben-lassen-kosten/): Kostenvergleich: Agentur vs. Freelancer vs. KI
-- [B2B Videomarketing Erklärvideos Mittelstand](https://www.codaai.ai/blog/b2b-videomarketing-erklaervideos-mittelstand/): Video-Content-Strategie für B2B-Unternehmen
-- [AI Content Marketing Strategy](https://www.codaai.ai/blog/ai-content-marketing-strategy/): English-language guide to AI-powered content marketing
+- [GEO-Sichtbarkeit für KI-Suchmaschinen](https://www.codaai.ai/blog/ai-crawler-server-performance-geo/)
+- [KI-Sichtbarkeit in ChatGPT und Google KI](https://www.codaai.ai/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/)
+- [ChatGPT SEO: In KI-Suchen gefunden werden](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/)
+- [KI Content Marketing: Mehr Sichtbarkeit](https://www.codaai.ai/blog/ki-content-marketing-strategie/)
+- [KI Content Marketing im Mittelstand](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/)
+- [B2B-Blog als Vertriebskanal nutzen](https://www.codaai.ai/blog/b2b-blog-als-vertriebskanal/)
+- [Content Marketing vs. Google Ads B2B](https://www.codaai.ai/blog/content-marketing-vs-google-ads-b2b/)
+- [KI statt Agentur: Was 2026 wirklich bringt](https://www.codaai.ai/blog/marketingagentur-alternative-ki-mittelstand/)
+- [Marketingkosten halbieren mit KI-Content](https://www.codaai.ai/blog/marketingkosten-senken-ki-content-b2b/)
+- [Redaktionsplan erstellen mit KI](https://www.codaai.ai/blog/redaktionsplan-ki-erstellen/)
+- [KI Blog erstellen: SEO-Artikel in 30 Min.](https://www.codaai.ai/blog/ki-blog-erstellen/)
+- [Blogartikel schreiben lassen: Kosten](https://www.codaai.ai/blog/blogartikel-schreiben-lassen-kosten/)
+- [B2B-Videomarketing mit Erklärvideos](https://www.codaai.ai/blog/b2b-videomarketing-erklaervideos-mittelstand/)
 
-## Vollständige Inhalte
+## Blog-Artikel (Englisch)
 
-- [llms-full.txt](https://www.codaai.ai/llms-full.txt): Alle Blog-Artikel als Volltext für LLM-Ingestion
+- [GEO Visibility: AI Search Engine Guide](https://www.codaai.ai/en/blog/ai-crawler-server-performance-geo/)
+- [ChatGPT & Perplexity SEO for B2B 2026](https://www.codaai.ai/en/blog/chatgpt-seo-perplexity-visibility/)
+- [AI Content Marketing: Complete Strategy](https://www.codaai.ai/en/blog/ai-content-marketing-strategy/)
+- [AI Content Marketing Strategy Guide](https://www.codaai.ai/en/blog/ai-content-marketing-strategy-guide/)
+- [AI Content Marketing for Mid-Market](https://www.codaai.ai/en/blog/ai-content-marketing-for-smb/)
+- [B2B Blog as Sales Channel: Lead Guide](https://www.codaai.ai/en/blog/b2b-blog-as-sales-channel/)
+- [Content Marketing vs Google Ads: B2B](https://www.codaai.ai/en/blog/content-marketing-vs-google-ads-b2b/)
+- [AI vs Marketing Agency: Mid-Market Guide](https://www.codaai.ai/en/blog/marketing-agency-alternative-ai/)
+- [Reduce Marketing Costs with AI Content](https://www.codaai.ai/en/blog/reduce-marketing-costs-ai-content/)
+- [Editorial Plan with AI: B2B Template](https://www.codaai.ai/en/blog/create-editorial-plan-with-ai/)
+- [Create a Blog with AI: 4 Articles/Month](https://www.codaai.ai/en/blog/create-ai-powered-blog/)
+- [Blog Writing Costs: Agency vs AI 2025](https://www.codaai.ai/en/blog/outsource-blog-writing-costs/)
+- [B2B Explainer Videos for Lead Generation](https://www.codaai.ai/en/blog/b2b-explainer-videos-lead-generation/)
+
+## Rechtliches und Technisches
+
+- [Impressum](https://www.codaai.ai/impressum/) · [Datenschutz](https://www.codaai.ai/datenschutz/) · [AGB](https://www.codaai.ai/agb/)
+- [AGENTS.md](https://www.codaai.ai/AGENTS.md): technischer Aufbau, Zitierregeln und Hinweise für Agenten
+- URLs enden auf einen Schrägstrich. `/preise` wird per 301 auf `/preise/` geleitet.
+
+Stand: 3. August 2026 · Kontakt: hi@codaai.ai
