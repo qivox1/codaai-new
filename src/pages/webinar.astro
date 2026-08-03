@@ -124,12 +124,14 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
       <div class="wfx-aurora" aria-hidden="true"><span class="wfx-blob wb1"></span><span class="wfx-blob wb2"></span><span class="wfx-blob wb3"></span></div>
       <div class="wfx-spot" id="wfx-herospot" aria-hidden="true"></div>
-      <div class="relative z-10 mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
+      <div class="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-4 lg:px-8 lg:pb-14 lg:pt-5">
         <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
 
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_480px] lg:items-center">
-        <div class="max-w-3xl">
-          <p class="mb-6 inline-flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+        {/* Die Kicker-Zeile steht ueber dem Grid, nicht in der linken Spalte:
+            nur so beginnt die linke Spalte mit der H1 — und der Pruefstand
+            rechts kann exakt von der H1-Oberkante bis zur Sprecher-Unterkante
+            laufen (Wunsch Oli, 03.08.2026). */}
+        <p class="mb-6 inline-flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
             <span class="inline-flex items-center gap-2">
               <span class="relative flex h-2 w-2" aria-hidden="true">
                 <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
@@ -141,22 +143,32 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             <span class="text-foreground">Di 08.09.2026 · 11:00 Uhr</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 Minuten</span>
-          </p>
+        </p>
+
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_480px] lg:items-stretch">
+        <div class="max-w-3xl">
           <h1 class="cai-h1 cai-kipp text-foreground">
             <span class="k1 block">Wen die KI nicht nennt,</span>
             <span class="k2 block"><FlipWords words={h1FlipWords} client:idle /></span>
           </h1>
-          <p class="mt-8 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
+          <p class="mt-6 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
 
-          <div class="mt-8 scroll-mt-28" id="anmeldung">
+          <div class="mt-7 scroll-mt-28" id="anmeldung">
             <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" />
-            <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete · kostenlos</p>
+            {/* Die Mikrozeile „Begrenzte Teilnehmerzahl · Aufzeichnung · kostenlos"
+                ist am 03.08.2026 entfallen (Oli: zu viel im Kopfbereich). Der
+                Anmeldungen-Zaehler bleibt — er ist bis 50 Anmeldungen unsichtbar
+                und traegt den Text jetzt selbst, damit ohne ihn keine leere
+                Zeile Platz frisst. */}
+            <p id="w-seats" class="mt-3 text-xs font-semibold text-cta" hidden></p>
           </div>
 
           <!-- Sprecher: Webinare werden ueber Personen gebucht. Diskretionsregel bis 30.10.2026 -> nur Norbert. -->
-          <div class="mt-9 flex items-center gap-4 border-t border-border pt-6">
+          {/* Ohne Trennlinie und dichter am CTA (Oli, 03.08.2026): Der Name
+              traegt den Block, die graue Linie hat ihn nur abgeschnitten. */}
+          <div class="mt-6 flex items-center gap-4">
             <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="52" height="52" loading="lazy" decoding="async"
                  class="shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
             <p class="text-sm leading-relaxed text-muted-foreground">
@@ -170,7 +182,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
              Eigenständiges Werkzeug: Website eingeben, Befund erhalten.
              Der Befund führt in die Anmeldung links und gibt die Domain dorthin
              weiter. Bewusst ohne Quellenangabe.                              -->
-        <aside id="pruefstand" data-mode="idle" aria-label="Live-Prüfung: erscheint Ihre Marke in KI-Antworten?">
+        <aside id="pruefstand" data-mode="idle" class="lg:h-full" aria-label="Live-Prüfung: erscheint Ihre Marke in KI-Antworten?">
 
           <div class="ps-ask rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
             <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
@@ -540,7 +552,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     .then((j) => {
       const el = $('w-seats');
       if (el && j?.ok && Number(j.count) >= 50) {
-        el.textContent = `Bereits ${new Intl.NumberFormat('de-DE').format(j.count)} Anmeldungen · `;
+        el.textContent = `Bereits ${new Intl.NumberFormat('de-DE').format(j.count)} Anmeldungen`;
         el.removeAttribute('hidden');
       }
     })
@@ -806,6 +818,18 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   #pruefstand[data-mode="working"] .ps-work { display: block; position: relative; overflow: hidden; }
   #pruefstand[data-mode="result"] .ps-res { display: block; animation: psin .5s cubic-bezier(.22,1,.36,1) both; }
   @keyframes psin { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+
+  /* Der Kasten laeuft ab lg exakt ueber die Hoehe der linken Spalte —
+     Oberkante H1 bis Unterkante Sprecherzeile (Wunsch Oli, 03.08.2026).
+     Das Grid steht dafuer auf items-stretch, die Kicker-Zeile darueber.
+     `min-height` statt `height`, damit ein langer Befund den Kasten wachsen
+     laesst statt ihn abzuschneiden. Die display:none-Regeln der drei Zustaende
+     sind spezifischer und gewinnen weiterhin. */
+  @media (min-width: 1024px) {
+    #pruefstand { height: 100%; }
+    #pruefstand > div { min-height: 100%; }
+    #pruefstand .ps-ask { display: flex; flex-direction: column; justify-content: center; }
+  }
 
   #pruefstand .ps-h2 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); }
 
