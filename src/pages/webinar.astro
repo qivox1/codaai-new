@@ -171,9 +171,15 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <div class="mt-6 flex items-center gap-4">
             <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="52" height="52" loading="lazy" decoding="async"
                  class="shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
+            {/* Faktenzeile statt Rollenbezeichnung (03.08.2026): „Strategieberater,
+                Autor & Speaker" ist austauschbar — der Haufe-Titel ist nachpruefbar.
+                Es ist geliehene, aber echte Autoritaet: Norbert steht mit auf der
+                Buehne. Eigene Kundenstimmen haben wir vor dem ersten Webinar nicht,
+                und erfundene kommen nicht in Frage. */}
             <p class="text-sm leading-relaxed text-muted-foreground">
               Mit <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
-              Strategieberater, Autor &amp; Speaker
+              Autor des Haufe-Standardwerks „Digitalisierung in Marketing und Vertrieb",
+              zuletzt „KI im B2B" (2026)
             </p>
           </div>
         </div>
@@ -233,13 +239,34 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         </aside>
         </div>
 
-        {/* Studien-Zeile und Kennzahlen-Band (449 · 3.592 · 7.184) am 03.08.2026
-            auf Olis Wunsch aus dem Hero entfernt: „Das Auge ist überfordert."
-            Der Hero traegt jetzt nur noch Versprechen, Anmeldung und die
-            KI-Antwort-Karte. Die Zahlen stehen weiterhin auf /studie und
-            weiter unten auf dieser Seite in der Quellenzeile — der Beleg geht
-            also nicht verloren, er drueckt nur nicht mehr im Einstieg. */}
+        {/* Das grosse Kennzahlen-Band ist am 03.08.2026 aus dem Hero geflogen
+            („Das Auge ist ueberfordert") — die Zahlen selbst nicht. Sie stehen
+            jetzt eine Etage tiefer im Belegband unter dieser Sektion, genau da,
+            wo vergleichbare Landingpages ihre Kundenlogos setzen. */}
 
+      </div>
+    </section>
+
+    <!-- ── Belegband ────────────────────────────────────────────────────────
+         Wir haben vor dem ersten Webinar keine Teilnehmerstimmen und keine
+         Kundenlogos — und erfinden auch keine. Was wir haben, ist die eigene
+         Messung. Deshalb steht hier kein „andere vertrauen uns", sondern
+         „wir haben die Arbeit gemacht, ueber die wir reden".
+         Bewusst eine schmale Zeile statt drei grosser Zahlenkacheln: Der
+         Beleg soll tragen, nicht schreien (Oli, 03.08.2026).                -->
+    <section aria-label="Datengrundlage" class="border-b border-border bg-muted/30">
+      <div class="mx-auto flex max-w-7xl flex-col gap-x-8 gap-y-3 px-6 py-5 lg:flex-row lg:items-baseline lg:px-8">
+        <p class="shrink-0 text-xs font-semibold uppercase tracking-widest text-cta-accessible">
+          Die Grundlage
+        </p>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          Eigene Erhebung, Juni/Juli 2026:
+          <strong class="font-semibold text-foreground">449 Unternehmen</strong> aus 258 Branchen,
+          <strong class="font-semibold text-foreground">3.592 firmenspezifische Einkäuferfragen</strong>,
+          <strong class="font-semibold text-foreground">7.184 dokumentierte KI-Antworten</strong>
+          aus ChatGPT und der Google KI-Übersicht.
+          <a href={`${base}/studie/`} class="whitespace-nowrap font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
+        </p>
       </div>
     </section>
 
