@@ -112,7 +112,7 @@ export const faqPreise: FaqItem[] = [
   },
   {
     q: 'Was ist das Sichtbarkeits-Versprechen?',
-    a: 'Zeigt sich nach 90 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir bis zum Ende der Laufzeit ohne weitere Kosten weiter. Gemessen wird an Ihrem monatlichen Monitoring — denselben Zahlen, die Sie ohnehin von uns bekommen. Es ist ein Versprechen auf unsere Arbeit, keine Zusage auf eine Platzierung: Wir tragen das Risiko, wenn nichts passiert.',
+    a: 'Zeigt sich nach 120 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir bis zum Ende der Laufzeit ohne weitere Kosten weiter. Gemessen wird an Ihrem monatlichen Monitoring — denselben Zahlen, die Sie ohnehin von uns bekommen. Es ist ein Versprechen auf unsere Arbeit, keine Zusage auf eine Platzierung: Wir tragen das Risiko, wenn nichts passiert.',
   },
   {
     q: 'Wie bekomme ich ein verbindliches Angebot?',
