@@ -145,7 +145,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             <span>60 Minuten</span>
         </p>
 
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_480px] lg:items-stretch">
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
         <div class="max-w-3xl">
           <h1 class="cai-h1 cai-kipp text-foreground">
             <span class="k1 block">Wen die KI nicht nennt,</span>
@@ -155,88 +155,53 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
 
-          <div class="mt-7 scroll-mt-28" id="anmeldung">
-            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" />
-            {/* Die Mikrozeile „Begrenzte Teilnehmerzahl · Aufzeichnung · kostenlos"
-                ist am 03.08.2026 entfallen (Oli: zu viel im Kopfbereich). Der
-                Anmeldungen-Zaehler bleibt — er ist bis 50 Anmeldungen unsichtbar
-                und traegt den Text jetzt selbst, damit ohne ihn keine leere
-                Zeile Platz frisst. */}
-            <p id="w-seats" class="mt-3 text-xs font-semibold text-cta" hidden></p>
-          </div>
-
-          <!-- Sprecher: Webinare werden ueber Personen gebucht. Diskretionsregel bis 30.10.2026 -> nur Norbert. -->
-          {/* Ohne Trennlinie und dichter am CTA (Oli, 03.08.2026): Der Name
-              traegt den Block, die graue Linie hat ihn nur abgeschnitten. */}
-          <div class="mt-6 flex items-center gap-4">
-            <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="52" height="52" loading="lazy" decoding="async"
-                 class="shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
-            {/* Faktenzeile statt Rollenbezeichnung (03.08.2026): „Strategieberater,
-                Autor & Speaker" ist austauschbar — der Haufe-Titel ist nachpruefbar.
-                Es ist geliehene, aber echte Autoritaet: Norbert steht mit auf der
-                Buehne. Eigene Kundenstimmen haben wir vor dem ersten Webinar nicht,
-                und erfundene kommen nicht in Frage. */}
-            <p class="text-sm leading-relaxed text-muted-foreground">
-              Mit <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
-              Autor des Haufe-Standardwerks „Digitalisierung in Marketing und Vertrieb",
-              zuletzt „KI im B2B" (2026)
-            </p>
-          </div>
         </div>
 
-        <!-- ── Prüfstand ────────────────────────────────────────────────────
-             Eigenständiges Werkzeug: Website eingeben, Befund erhalten.
-             Der Befund führt in die Anmeldung links und gibt die Domain dorthin
-             weiter. Bewusst ohne Quellenangabe.                              -->
-        <aside id="pruefstand" data-mode="idle" class="lg:h-full" aria-label="Live-Prüfung: erscheint Ihre Marke in KI-Antworten?">
+        <!-- ── Anmeldekarte ─────────────────────────────────────────────────
+             Klassische Webinar-Aufteilung: links das Versprechen, rechts die
+             Anmeldung. Der Live-Check ist am 03.08.2026 aus dem Hero gewandert
+             (Oli: „immer noch sehr voll") — er wirkt weiter unten ohnehin
+             staerker, weil der Leser dann weiss, warum ihn das Ergebnis angeht.
+             Norberts Portraet sitzt im Kopf der Karte als Vertrauensanker,
+             bewusst klein: Die Datei ist 400 x 400 px, ein grosses Teaserbild
+             wuerde auf Retina-Displays weich aussehen.                      -->
+        <aside id="anmeldung" class="scroll-mt-28">
+          <div class="rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
 
-          <div class="ps-ask rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
-            <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
-              <span class="relative flex h-2 w-2" aria-hidden="true">
-                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
-              </span>
-              Live-Check
-            </p>
-            <p class="ps-h2 font-bold leading-tight text-foreground">Prüfen Sie jetzt, ob die KI Ihre Marke kennt.</p>
-            <p class="mt-3 text-base leading-relaxed text-muted-foreground">Website eingeben — die Antwort steht in Sekunden.</p>
-
-            <div class="ps-line mt-6">
-              <input class="ps-in" id="ps-in" type="text" inputmode="url" spellcheck="false" autocomplete="off"
-                     placeholder="ihrefirma.de" aria-label="Ihre Website" />
-              <button type="button" class="ps-go" id="ps-go" aria-label="Marke prüfen">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
+            <div class="flex items-center gap-4">
+              <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="64" height="64" decoding="async"
+                   class="shrink-0 rounded-full object-cover grayscale" style="height:64px;width:64px" />
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                Mit <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
+                Autor des Haufe-Standardwerks „Digitalisierung in Marketing und Vertrieb"
+              </p>
             </div>
-            <p class="ps-err mt-3 text-sm font-medium text-cta-accessible" hidden></p>
-          </div>
 
-          <div class="ps-work rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
-            <p class="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
-              <span class="relative flex h-2 w-2" aria-hidden="true">
-                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
-              </span>
-              <span class="ps-work-lab">Prüfe …</span>
-            </p>
-            <span class="ps-scan" aria-hidden="true"></span>
-            <div class="space-y-3" aria-hidden="true">
-              <span class="ps-bar"></span><span class="ps-bar"></span><span class="ps-bar"></span>
+            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Termin</dt>
+                <dd class="font-semibold text-foreground">Di, 08.09.2026 · 11:00 Uhr</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Dauer</dt>
+                <dd class="font-semibold text-foreground">60 Minuten</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Teilnahme</dt>
+                <dd class="font-semibold text-foreground">kostenlos</dd>
+              </div>
+            </dl>
+
+            <div class="mt-6">
+              <WebinarSignup label="Jetzt Platz sichern" />
+              {/* Anmeldungen-Zaehler: bis 50 Anmeldungen unsichtbar, traegt seinen
+                  Text selbst — ohne ihn frisst keine leere Zeile Platz. */}
+              <p id="w-seats" class="mt-3 text-xs font-semibold text-cta" hidden></p>
             </div>
-          </div>
 
-          <!-- Befund: vollflächig, weiße Schrift auf tiefem Magenta (Weiß hält dort 4,65:1) -->
-          <div class="ps-res rounded-3xl p-7 shadow-xl sm:p-8" aria-live="polite">
-            <p class="ps-res-kicker text-xs font-bold uppercase tracking-[0.2em]">Geprüft</p>
-            <p class="ps-dom mt-2 break-all font-bold leading-none tracking-tight"></p>
-            <p class="ps-head mt-6 font-bold leading-[0.95] tracking-tight"></p>
-            <p class="ps-lead mt-6 text-lg font-semibold leading-snug"></p>
-            <p class="ps-sub mt-3 text-base leading-relaxed"></p>
-            <button type="button" class="ps-cta mt-7" id="ps-cta">Platz im Webinar sichern →</button>
-            <button type="button" class="ps-again mt-4" id="ps-again">Andere Website prüfen</button>
           </div>
-
         </aside>
+
         </div>
 
         {/* Das grosse Kennzahlen-Band ist am 03.08.2026 aus dem Hero geflogen
@@ -313,6 +278,76 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <div class="mt-10">
           <WebinarSignup label="Jetzt zum Webinar anmelden" />
         </div>
+      </section>
+
+      <!-- ── Live-Check als Band ──────────────────────────────────────────
+           Stand bis zum 03.08.2026 im Hero. Dort beantwortete er eine Frage,
+           die der Leser noch nicht gestellt hatte. Hier — nach dem Problem und
+           den drei Antworten — ist die Frage gestellt, und der eigene Befund
+           beantwortet sie; der naechste Abschnitt liefert direkt danach die
+           Aufloesung. Dunkler Grund als Bruch im hellen Lesefluss, gleiches
+           Muster wie „Sechs Dinge, die wir nicht anbieten" auf
+           /digital-visibility.                                              -->
+      <section class="cai-psband" aria-label="Live-Prüfung">
+        <!-- Eigenständiges Werkzeug: Website eingeben, Befund erhalten. Der
+             Befund führt in die Anmeldung im Hero und gibt die Domain dorthin
+             weiter. Bewusst ohne Quellenangabe.                              -->
+        <aside id="pruefstand" data-mode="idle" aria-label="Live-Prüfung: erscheint Ihre Marke in KI-Antworten?">
+
+          <!-- Zwei Spalten ab lg: links die Frage, rechts das Feld. Die
+               Wrapper sind Pflicht — ohne sie landet jedes einzelne Element
+               in einer eigenen Rasterzelle. -->
+          <div class="ps-ask rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <div class="ps-col-text">
+              <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+                <span class="relative flex h-2 w-2" aria-hidden="true">
+                  <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                  <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+                </span>
+                Live-Check
+              </p>
+              <p class="ps-h2 font-bold leading-tight text-foreground">Prüfen Sie jetzt, ob die KI Ihre Marke kennt.</p>
+              <p class="mt-3 text-base leading-relaxed text-muted-foreground">Website eingeben — die Antwort steht in Sekunden.</p>
+            </div>
+
+            <div class="ps-col-line mt-6 lg:mt-0">
+              <div class="ps-line">
+                <input class="ps-in" id="ps-in" type="text" inputmode="url" spellcheck="false" autocomplete="off"
+                       placeholder="ihrefirma.de" aria-label="Ihre Website" />
+                <button type="button" class="ps-go" id="ps-go" aria-label="Marke prüfen">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+              <p class="ps-err mt-3 text-sm font-medium text-cta-accessible" hidden></p>
+            </div>
+          </div>
+
+          <div class="ps-work rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <p class="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              <span class="ps-work-lab">Prüfe …</span>
+            </p>
+            <span class="ps-scan" aria-hidden="true"></span>
+            <div class="space-y-3" aria-hidden="true">
+              <span class="ps-bar"></span><span class="ps-bar"></span><span class="ps-bar"></span>
+            </div>
+          </div>
+
+          <!-- Befund: vollflächig, weiße Schrift auf tiefem Magenta (Weiß hält dort 4,65:1) -->
+          <div class="ps-res rounded-3xl p-7 shadow-xl sm:p-8" aria-live="polite">
+            <p class="ps-res-kicker text-xs font-bold uppercase tracking-[0.2em]">Geprüft</p>
+            <p class="ps-dom mt-2 break-all font-bold leading-none tracking-tight"></p>
+            <p class="ps-head mt-6 font-bold leading-[0.95] tracking-tight"></p>
+            <p class="ps-lead mt-6 text-lg font-semibold leading-snug"></p>
+            <p class="ps-sub mt-3 text-base leading-relaxed"></p>
+            <button type="button" class="ps-cta mt-7" id="ps-cta">Platz im Webinar sichern →</button>
+            <button type="button" class="ps-again mt-4" id="ps-again">Andere Website prüfen</button>
+          </div>
+
+        </aside>
       </section>
 
       <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
@@ -837,8 +872,29 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   @media (max-width: 639px) { .wfx-agrail, .wfx-agdot { display: none; } }
 
 
-  /* ── Prüfstand im Hero ────────────────────────────────────────────────
+  /* ── Live-Check-Band ──────────────────────────────────────────────────
+     Vollbreit trotz begrenztem Textcontainer: Die Sektion sitzt in einem
+     max-w-7xl-Wrapper, deshalb zieht sie sich per 50vw-Trick ueber die ganze
+     Breite. Dunkler Grund als Bruch im hellen Lesefluss.                    */
+  .cai-psband {
+    position: relative;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: clamp(48px, 7vw, 76px) max(1.5rem, calc(50vw - 40rem)) clamp(48px, 7vw, 76px);
+    background: #101014;
+    overflow: hidden;
+  }
+  /* Dezenter Pink-Schimmer, damit der Block nicht als schwarzes Loch wirkt */
+  .cai-psband::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 120% at 15% 0%, rgba(223,65,251,.16), transparent 70%);
+  }
+  .cai-psband > * { position: relative; }
+
+  /* ── Prüfstand ────────────────────────────────────────────────────────
      Drei Zustände über data-mode auf #pruefstand: idle · working · result.
+     Seit 03.08.2026 steht er im dunklen Band zwischen zwei Sektionen, nicht
+     mehr im Hero — die Zustandslogik ist unveraendert.
      Der Befund liegt vollflächig auf #C405E6 — dem pinksten Wert, bei dem
      weiße Schrift noch 4,65:1 hält (siehe CLAUDE.md). Deshalb dort auch
      kein abgetöntes Weiß: Hierarchie kommt aus Größe und Schnitt.        */
@@ -851,19 +907,29 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   #pruefstand[data-mode="result"] .ps-res { display: block; animation: psin .5s cubic-bezier(.22,1,.36,1) both; }
   @keyframes psin { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
-  /* Der Kasten laeuft ab lg exakt ueber die Hoehe der linken Spalte —
-     Oberkante H1 bis Unterkante Sprecherzeile (Wunsch Oli, 03.08.2026).
-     Das Grid steht dafuer auf items-stretch, die Kicker-Zeile darueber.
-     `min-height` statt `height`, damit ein langer Befund den Kasten wachsen
-     laesst statt ihn abzuschneiden. Die display:none-Regeln der drei Zustaende
-     sind spezifischer und gewinnen weiterhin. */
+  /* Im Band liegt die Frage links, das Eingabefeld rechts — quer statt
+     hochkant. Unterhalb von lg stapelt es sich wieder. */
   @media (min-width: 1024px) {
-    #pruefstand { height: 100%; }
-    #pruefstand > div { min-height: 100%; }
-    #pruefstand .ps-ask { display: flex; flex-direction: column; justify-content: center; }
+    #pruefstand .ps-ask {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+      column-gap: 48px; align-items: center;
+    }
+    #pruefstand .ps-ask > .ps-col-text { grid-column: 1; }
+    #pruefstand .ps-ask > .ps-col-line { grid-column: 2; }
   }
 
+  /* Farben im dunklen Band: Der Frage-Zustand hat keinen eigenen Kasten mehr,
+     er sitzt direkt auf dem Grund. Werkzeug- und Befund-Zustand behalten ihre
+     Karte, damit der Wechsel sichtbar bleibt. */
+  .cai-psband .ps-ask { border: 0 !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
+  .cai-psband .ps-ask .ps-h2 { color: #fff; }
+  .cai-psband .ps-ask p { color: rgba(255,255,255,.72); }
+  .cai-psband .ps-ask .text-cta-accessible { color: hsl(var(--cta)) !important; }
+  .cai-psband .ps-work { border-color: hsl(var(--cta)); background: #17171d !important; }
+  .cai-psband .ps-work p { color: #fff; }
+
   #pruefstand .ps-h2 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); }
+  .cai-psband .ps-h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
 
   /* Eingabe */
   #pruefstand .ps-line { display: flex; gap: 10px; }
