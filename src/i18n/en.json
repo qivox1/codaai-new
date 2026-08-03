@@ -276,8 +276,8 @@
     "codaAISavings": "below the DACH market average"
   },
   "footer": {
-    "tagline1": "Premium Content.",
-    "tagline2": "better value.",
+    "tagline1": "AI + HI.",
+    "tagline2": "Amplified.",
     "compliance": "Built for EU compliance.",
     "legal": "Legal",
     "legalNotice": "Legal Notice",
@@ -286,7 +286,9 @@
     "allRightsReserved": "All rights reserved.",
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* All prices are net prices plus 19 % VAT. Our services are exclusively for business customers.",
-    "mission": "Co-Create"
+    "mission": "Co-Create",
+    "taglineNote": "Artificial intelligence that performs. Human experience that steers.",
+    "taglineLinkLabel": "The CoCreate principle"
   },
   "tiers": {
     "eyebrow": "Three tiers",

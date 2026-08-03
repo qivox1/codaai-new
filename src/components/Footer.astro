@@ -87,9 +87,28 @@ const currentYear = new Date().getFullYear();
           </svg>
           <span class="text-xl font-semibold text-foreground">CodaAI</span>
         </a>
-        <div class="mt-3 text-sm text-muted-foreground">
-          <p>{t(lang, "footer.tagline1")}</p>
-          <p class="text-cta">{t(lang, "footer.tagline2")}</p>
+        {/* Marken-Claim, seit 03.08.2026 „AI + HI. Amplified." — der alte
+            Claim „Exzellenter Content. mehr Wert." stammte aus der Zeit als
+            Content-Agentur und beschrieb ein Geschaeftsmodell, das nicht mehr
+            der Schwerpunkt ist. Der Claim verlinkt bewusst auf /co-create:
+            „AI + HI" erklaert sich nicht von selbst, dort steht die Herleitung.
+            Die erklaerende Zeile darunter macht ihn auch ohne Klick lesbar. */}
+        <div class="mt-3">
+          <a
+            href={lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`}
+            class="group inline-block"
+            aria-label={t(lang, "footer.taglineLinkLabel")}
+          >
+            <p class="text-base font-semibold text-foreground transition-colors group-hover:text-cta-accessible">
+              {t(lang, "footer.tagline1")}
+            </p>
+            <p class="text-base font-semibold text-cta">
+              {t(lang, "footer.tagline2")}
+            </p>
+          </a>
+          <p class="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            {t(lang, "footer.taglineNote")}
+          </p>
         </div>
       </div>
 

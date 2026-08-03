@@ -296,8 +296,8 @@
     "codaAISavings": "unter dem DACH-Marktschnitt"
   },
   "footer": {
-    "tagline1": "Exzellenter Content.",
-    "tagline2": "mehr Wert.",
+    "tagline1": "AI + HI.",
+    "tagline2": "Amplified.",
     "compliance": "Entwickelt für EU-Konformität.",
     "legal": "Rechtliches",
     "legalNotice": "Impressum",
@@ -306,7 +306,9 @@
     "allRightsReserved": "Alle Rechte vorbehalten.",
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschließlich an Unternehmenskunden.",
-    "mission": "Co-Create"
+    "mission": "Co-Create",
+    "taglineNote": "Künstliche Intelligenz, die leistet. Menschliche Erfahrung, die lenkt.",
+    "taglineLinkLabel": "Das CoCreate-Prinzip"
   },
   "tiers": {
     "eyebrow": "Drei Stufen",
