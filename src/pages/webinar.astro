@@ -17,8 +17,8 @@ const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtb
 
 // Rotierende Konsequenz-Zeile der H1 (FlipWords-Effekt wie im Startseiten-Hero)
 const h1FlipWords = [
-  { text: 'wird nicht angefragt.', color: '#BBBBBB' },
-  { text: 'fehlt auf der Shortlist.', color: '#BBBBBB' },
+  { text: 'wird nicht angefragt.', color: '#DF41FB' },
+  { text: 'fehlt auf der Shortlist.', color: '#DF41FB' },
   { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
 ];
 
@@ -148,10 +148,20 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       <div class="relative z-10 mx-auto max-w-7xl px-6 pb-16 pt-4 lg:px-8 lg:pb-24 lg:pt-5">
         <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Live-Webinar' }]} class="mb-8" />
 
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center">
         <div class="max-w-3xl">
-          <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
-            Empfohlen oder unsichtbar · Live-Webinar · 60 Minuten
+          <p class="mb-6 inline-flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+            <span class="inline-flex items-center gap-2">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              Live-Webinar
+            </span>
+            <span class="text-border" aria-hidden="true">/</span>
+            <span class="text-foreground">Di 08.09.2026 · 11:00 Uhr</span>
+            <span class="text-border" aria-hidden="true">/</span>
+            <span>60 Minuten</span>
           </p>
           <h1 class="cai-h1 cai-kipp text-foreground">
             <span class="k1 block">Wen die KI nicht nennt,</span>
@@ -160,55 +170,105 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
           <p class="mt-8 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
             Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
           </p>
+
           <div class="mt-8 scroll-mt-28" id="anmeldung">
-            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" />
+            <p class="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Schritt 1 von 3 — <span class="text-foreground">Ihre Website eingeben, wir prüfen sie sofort</span>
+            </p>
+            <WebinarSignup label="Jetzt zum Webinar am 08.09. anmelden" open={true} emit={true} />
             <p class="mt-3 text-xs text-muted-foreground"><span id="w-seats" class="font-semibold text-cta" hidden></span>Begrenzte Teilnehmerzahl · Aufzeichnung für Angemeldete · kostenlos</p>
+          </div>
+
+          <!-- Sprecher: Webinare werden ueber Personen gebucht. Diskretionsregel bis 30.10.2026 -> nur Norbert. -->
+          <div class="mt-9 flex items-center gap-4 border-t border-border pt-6">
+            <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="" width="52" height="52" loading="lazy" decoding="async"
+                 class="h-13 w-13 shrink-0 rounded-full object-cover grayscale" style="height:52px;width:52px" />
+            <p class="text-sm leading-relaxed text-muted-foreground">
+              Mit <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
+              Strategieberater, Autor &amp; Speaker
+            </p>
           </div>
         </div>
 
-        <!-- KI-Antwort-Karte (Hero-Visual): echte Antwort-Situation aus dem Studien-Datensatz, sequenziell animiert -->
-        <aside id="ki-card" aria-label="Beispiel einer dokumentierten KI-Antwort: drei Wettbewerber werden namentlich empfohlen, das betroffene Unternehmen wird nicht genannt">
-          <div class="rounded-3xl border border-border bg-card p-6 shadow-xl sm:p-7">
+        <!-- ── Hero-Visual: Prüfstand ─────────────────────────────────────
+             Ruhezustand = dokumentiertes Beispiel aus dem Studien-Datensatz.
+             Sobald links eine Domain eingegeben wird, prüft die Karte live
+             gegen audit.codaai.ai/ai/mentions und zeigt die echte Zahl.
+             Bewusst OHNE erfundene Wettbewerber für die eingegebene Domain —
+             wer dort steht, ist der Live-Moment am 08.09. -->
+        <aside id="ki-card" data-mode="idle" aria-label="Beispiel einer dokumentierten KI-Antwort; nach Eingabe einer Website wird deren KI-Präsenz live geprüft">
+          <div class="kcard relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-xl sm:p-7">
+            <span class="kscan" aria-hidden="true"></span>
+
             <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               <span class="relative flex h-2 w-2" aria-hidden="true">
                 <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
                 <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
               </span>
-              KI-Antwort · dokumentiert
+              <span class="kstate">KI-Antwort · dokumentiert</span>
             </p>
+
             <p class="kq relative mt-4 rounded-2xl rounded-tl-md bg-foreground px-4 py-3 text-sm font-medium leading-relaxed text-background">
               <span class="kq-ph">„Welche Anbieter sollten wir für unsere Ausschreibung in die engere Wahl nehmen?"</span>
               <span class="kq-typed absolute inset-0 px-4 py-3" aria-hidden="true"><span class="kq-text"></span><span class="kq-caret"></span></span>
             </p>
-            <div class="relative">
-              <div class="kdots" aria-hidden="true"><span></span><span></span><span></span></div>
-              <ol class="mt-4 space-y-2.5" aria-hidden="true">
-                {[
-                  ['Berger Antriebstechnik GmbH', 'namentlich empfohlen · als Quelle zitiert'],
-                  ['Systemtechnik Nord GmbH & Co. KG', 'namentlich empfohlen'],
-                  ['ProTec Industrieanlagen AG', 'namentlich empfohlen'],
-                ].map(([name, sub], i) => (
-                  <li class="kres flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3">
-                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cta/10 text-xs font-bold text-cta-accessible">{i + 1}</span>
-                    <span class="min-w-0">
-                      <span class="block select-none truncate text-sm font-semibold text-foreground blur-[3px]">{name}</span>
-                      <span class="block text-xs text-muted-foreground">{sub}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
+
+            <!-- Ruhezustand: das dokumentierte Beispiel -->
+            <div class="kbody">
+              <div class="relative">
+                <div class="kdots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <ol class="mt-4 space-y-2.5" aria-hidden="true">
+                  {[
+                    ['Berger Antriebstechnik GmbH', 'namentlich empfohlen · als Quelle zitiert'],
+                    ['Systemtechnik Nord GmbH & Co. KG', 'namentlich empfohlen'],
+                    ['ProTec Industrieanlagen AG', 'namentlich empfohlen'],
+                  ].map(([name, sub], i) => (
+                    <li class="kres flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3">
+                      <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cta/10 text-xs font-bold text-cta-accessible">{i + 1}</span>
+                      <span class="min-w-0">
+                        <span class="block select-none truncate text-sm font-semibold text-foreground blur-[3px]">{name}</span>
+                        <span class="block text-xs text-muted-foreground">{sub}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div class="kpunch mt-5 rounded-2xl border border-cta/30 bg-cta/5 px-4 py-3.5">
+                <p class="text-sm font-bold text-foreground">… und Sie?</p>
+                <p class="mt-0.5 text-sm font-semibold text-cta-accessible">In 55&thinsp;% der Einkäuferfragen nicht genannt.</p>
+              </div>
             </div>
-            <div class="kpunch mt-5 rounded-2xl border border-cta/30 bg-cta/5 px-4 py-3.5">
-              <p class="text-sm font-bold text-foreground">… und Sie?</p>
-              <p class="mt-0.5 text-sm font-semibold text-cta-accessible">In 55&thinsp;% der Einkäuferfragen nicht genannt.</p>
+
+            <!-- Live-Befund zur eingegebenen Domain -->
+            <div class="klive" aria-live="polite">
+              <p class="kl-target mt-4 truncate text-xs font-medium text-muted-foreground"></p>
+
+              <div class="kl-working mt-5 space-y-2.5" aria-hidden="true">
+                <span class="kl-bar"></span><span class="kl-bar"></span><span class="kl-bar"></span>
+              </div>
+
+              <div class="kl-result mt-5">
+                <p class="kl-num tabular-nums font-bold leading-none tracking-tight text-foreground"></p>
+                <p class="kl-lab mt-3 text-sm font-semibold leading-relaxed text-foreground"></p>
+                <p class="kl-sub mt-2 text-sm leading-relaxed text-muted-foreground"></p>
+              </div>
+
+              <div class="kl-open mt-5 rounded-2xl border border-dashed border-cta/40 bg-cta/5 px-4 py-3.5">
+                <p class="text-sm font-semibold text-foreground">Und wer wird stattdessen empfohlen?</p>
+                <p class="mt-0.5 text-sm text-muted-foreground">Die Namen sehen Sie am 08.09. live.</p>
+              </div>
             </div>
+
             <div class="kfoot mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4">
-              <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Dokumentiert in</span>
+              <span class="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Geprüft in</span>
               <span class="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">ChatGPT</span>
               <span class="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">Google KI-Übersicht</span>
             </div>
           </div>
-          <p class="kcap mt-3 text-center text-xs text-muted-foreground">Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten.</p>
+          <p class="kcap mt-3 text-center text-xs text-muted-foreground">
+            <span class="kcap-idle">Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten.</span>
+            <span class="kcap-live">Live-Abfrage gegen den CodaAI-Datenbestand · Quelle: SISTRIX AI</span>
+          </p>
         </aside>
         <script is:inline>
           // Animations-Modus nur mit JS + ohne reduced-motion — sonst bleibt die Karte statisch sichtbar
@@ -830,6 +890,73 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   }
   /* Rail/Dots nur ab sm sichtbar; darunter nichts injiziert (JS-Guard) */
   @media (max-width: 639px) { .wfx-agrail, .wfx-agdot { display: none; } }
+
+  /* ── Hero-Prüfstand ───────────────────────────────────────────────────
+     Drei Zustände auf #ki-card, gesteuert über data-mode:
+       idle    – dokumentiertes Beispiel (Ruhezustand, wie bisher)
+       working – Domain eingegeben, Abfrage läuft
+       live    – echter Befund zur eingegebenen Domain
+     Die Höhe wird bewusst nicht animiert; ein springender Hero wirkt billig.
+     Stattdessen blendet der jeweils andere Block weich aus.                */
+
+  #ki-card .klive { display: none; }
+  #ki-card[data-mode="working"] .kbody,
+  #ki-card[data-mode="live"] .kbody { display: none; }
+  #ki-card[data-mode="working"] .klive,
+  #ki-card[data-mode="live"] .klive { display: block; animation: kfade .5s ease both; }
+
+  #ki-card .kcap-live { display: none; }
+  #ki-card[data-mode="live"] .kcap-idle,
+  #ki-card[data-mode="working"] .kcap-idle { display: none; }
+  #ki-card[data-mode="live"] .kcap-live,
+  #ki-card[data-mode="working"] .kcap-live { display: inline; }
+
+  @keyframes kfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* Lichtstrahl, der während der Abfrage über die Karte wandert */
+  #ki-card .kscan {
+    position: absolute; inset: 0; opacity: 0; pointer-events: none; z-index: 2;
+    background: linear-gradient(100deg, transparent 40%, rgba(223, 65, 251, .16) 50%, transparent 60%);
+    background-size: 260% 100%;
+  }
+  #ki-card[data-mode="working"] .kscan { opacity: 1; animation: kscan 1.15s linear infinite; }
+  @keyframes kscan { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+
+  /* Die Karte selbst reagiert: der Rand nimmt während der Prüfung Farbe an */
+  #ki-card .kcard { transition: border-color .45s ease, box-shadow .45s ease; }
+  #ki-card[data-mode="working"] .kcard,
+  #ki-card[data-mode="live"] .kcard {
+    border-color: hsl(var(--cta) / .45);
+    box-shadow: 0 22px 50px -18px hsl(var(--cta) / .3), 0 0 0 1px hsl(var(--cta) / .1);
+  }
+
+  /* Platzhalter-Balken während der Abfrage */
+  #ki-card .kl-working { display: none; }
+  #ki-card[data-mode="working"] .kl-working { display: block; }
+  #ki-card .kl-bar {
+    display: block; height: 44px; border-radius: 12px;
+    background: linear-gradient(90deg, hsl(var(--muted) / .55) 25%, hsl(var(--muted) / .2) 37%, hsl(var(--muted) / .55) 63%);
+    background-size: 400% 100%; animation: kshim 1.4s ease infinite;
+  }
+  #ki-card .kl-bar:nth-child(2) { animation-delay: .12s; opacity: .75; }
+  #ki-card .kl-bar:nth-child(3) { animation-delay: .24s; opacity: .5; }
+  @keyframes kshim { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+  /* Ergebnis */
+  #ki-card .kl-result, #ki-card .kl-open { display: none; }
+  #ki-card[data-mode="live"] .kl-result, #ki-card[data-mode="live"] .kl-open { display: block; }
+  #ki-card .kl-num {
+    font-size: clamp(2.75rem, 6vw, 4rem);
+    animation: knum .55s cubic-bezier(.22, 1, .36, 1) both;
+  }
+  #ki-card[data-tone="zero"] .kl-num { color: hsl(var(--cta)); }
+  @keyframes knum { from { opacity: 0; transform: translateY(10px) scale(.94); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ki-card .kscan { display: none; }
+    #ki-card .kl-bar, #ki-card .kl-num, #ki-card .klive { animation: none !important; }
+  }
+
 </style>
 
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -999,4 +1126,103 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   window.addEventListener('resize', function(){ ScrollTrigger.refresh(); });
   setTimeout(function(){ ScrollTrigger.refresh(); }, 800);
 })();
+
+  /* ── Live-Prüfung der eingegebenen Domain ──────────────────────────────
+     Hört auf das CustomEvent aus WebinarSignup und fragt audit.codaai.ai.
+     Der Endpoint nutzt SISTRIX ai.entity.prompts.count (1 Credit) und ist
+     dort durch Cache, IP-Limit und Tages-Cap abgesichert.
+
+     Bewusste Grenze: Es werden KEINE Wettbewerber-Namen für die eingegebene
+     Domain gezeigt. Die kämen aus ai.entity.competition (96 Credits) und
+     wären auf einer offenen Seite weder bezahlbar noch — bei
+     Namensgleichheit wie 'Mahr' — verlässlich. Wer empfohlen wird, ist der
+     Live-Moment am 08.09.                                                  */
+  (function () {
+    var card = document.getElementById('ki-card');
+    if (!card) return;
+
+    var ENDPOINT = 'https://audit.codaai.ai/ai/mentions';
+    var q = function (s) { return card.querySelector(s); };
+    var elTarget = q('.kl-target'), elNum = q('.kl-num'), elLab = q('.kl-lab'),
+        elSub = q('.kl-sub'), elState = q('.kstate'), elOpen = q('.kl-open');
+    var current = '', done = {}, timer = null;
+
+    var setMode = function (m) { card.setAttribute('data-mode', m); };
+
+    var countUp = function (to) {
+      if (!elNum) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || to > 9999) {
+        elNum.textContent = to.toLocaleString('de-DE'); return;
+      }
+      var t0 = 0, dur = Math.min(900, 260 + to * 8);
+      var step = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var e = 1 - Math.pow(1 - p, 3);
+        elNum.textContent = Math.round(to * e).toLocaleString('de-DE');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    var render = function (dom, data) {
+      var st = data && data.status;
+
+      // Bei Limit oder Störung nicht spekulieren, sondern zurück ins Beispiel.
+      if (st !== 'found' && st !== 'none') { setMode('idle'); return; }
+
+      if (elTarget) elTarget.textContent = 'Geprüft: ' + dom;
+
+      if (st === 'found') {
+        card.setAttribute('data-tone', 'some');
+        countUp(data.count || 0);
+        if (elLab) elLab.textContent = 'KI-Antworten nennen ' + (data.entity || dom) + '.';
+        if (elSub) elSub.textContent = 'Genannt zu werden heißt noch nicht, empfohlen zu werden — '
+          + 'entscheidend ist, an welcher Stelle Ihr Name fällt.';
+        if (elOpen) elOpen.querySelector('p').textContent = 'Und stehen Sie dort vor oder hinter dem Wettbewerb?';
+      } else {
+        card.setAttribute('data-tone', 'zero');
+        if (elNum) elNum.textContent = 'Keine.';
+        if (elLab) elLab.textContent = 'Zu ' + dom + ' findet sich keine einzige erfasste KI-Antwort, die Ihre Marke nennt.';
+        if (elSub) elSub.textContent = 'Wir haben dafür auch den Markennamen Ihrer Website geprüft, nicht nur die Domain.';
+        if (elOpen) elOpen.querySelector('p').textContent = 'Und wer wird stattdessen empfohlen?';
+      }
+      if (elState) elState.textContent = 'Ihre Website · live geprüft';
+      setMode('live');
+    };
+
+    var check = function (dom) {
+      if (!dom || dom === current) return;
+      current = dom;
+      if (done[dom]) { render(dom, done[dom]); return; }
+
+      if (elState) elState.textContent = 'Prüfe ' + dom + ' …';
+      if (elTarget) elTarget.textContent = 'Prüfe ' + dom + ' …';
+      setMode('working');
+
+      var ctrl = null, sig;
+      try { ctrl = new AbortController(); sig = ctrl.signal; } catch (_) {}
+      var bail = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (_) {} }, 9000);
+
+      fetch(ENDPOINT + '?domain=' + encodeURIComponent(dom), { signal: sig })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          clearTimeout(bail);
+          if (!d) { setMode('idle'); return; }
+          done[dom] = d;
+          // Kurz stehen lassen: eine Antwort in 200 ms wirkt wie ein Trick,
+          // nicht wie eine Prüfung.
+          setTimeout(function () { if (current === dom) render(dom, d); }, 550);
+        })
+        .catch(function () { clearTimeout(bail); if (current === dom) setMode('idle'); });
+    };
+
+    document.addEventListener('codaai:domain', function (e) {
+      var dom = e && e.detail && e.detail.domain;
+      if (!dom) return;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () { check(dom); }, e.detail.commit ? 0 : 250);
+    });
+  })();
+
 </script>

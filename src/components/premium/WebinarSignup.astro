@@ -11,10 +11,10 @@
  */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 interface Props { label?: string; align?: 'start' | 'center'; theme?: 'light' | 'dark'; }
-const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light' } = Astro.props;
+const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open = false, emit = false } = Astro.props;
 ---
 
-<div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-state="idle">
+<div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-emit={emit ? '1' : undefined} data-state={open ? 'url' : 'idle'}>
   <div class="wacta-hp" inert>
     <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
   </div>
@@ -179,6 +179,30 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light' } = Ast
       };
       if (nextBtn) nextBtn.addEventListener('click', goContact);
       if (urlIn) urlIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); goContact(); } });
+      // --- Live-Signal an die Hero-Karte (nur wenn diese Instanz es soll) ---
+      var emit = function (dom, commit) {
+        if (root.dataset.emit !== '1') return;
+        try {
+          document.dispatchEvent(new CustomEvent('codaai:domain', { detail: { domain: dom, commit: !!commit } }));
+        } catch (_) {}
+      };
+      if (urlIn) {
+        var tmr = null;
+        urlIn.addEventListener('input', function () {
+          var dom = normalizeDomain(urlIn.value);
+          if (tmr) clearTimeout(tmr);
+          if (!dom || !DOMAIN_RE.test(dom)) return;
+          tmr = setTimeout(function () { emit(dom, false); }, 700);
+        });
+        urlIn.addEventListener('blur', function () {
+          var dom = normalizeDomain(urlIn.value);
+          if (dom && DOMAIN_RE.test(dom)) emit(dom, true);
+        });
+      }
+      if (nextBtn) nextBtn.addEventListener('click', function () {
+        var dom = normalizeDomain(urlIn ? urlIn.value : '');
+        if (dom && DOMAIN_RE.test(dom)) emit(dom, true);
+      });
       var submit = function () {
         clearErr();
         var dom = normalizeDomain(urlIn ? urlIn.value : '');
