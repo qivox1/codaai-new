@@ -1,0 +1,173 @@
+---
+/**
+ * FaqAccordion — ein Frage-Antwort-Block, wie er seit dem /preise-Umbau aussieht.
+ *
+ * Beschluss Oli, 03.08.2026: Die Fragen stehen nicht mehr gesammelt auf einer
+ * Seite, sondern dort, wo sie im Kopf des Lesers auftauchen. Damit alle vier
+ * Orte gleich aussehen und sich gleich verhalten, liegt das Akkordeon hier
+ * statt viermal im Seitenquelltext.
+ *
+ * Verhalten:
+ *   - Immer nur eine Antwort offen.
+ *   - OHNE JavaScript stehen alle Antworten offen da — das Panel wird erst
+ *     zugeklappt, wenn das Skript die Klasse `faqx-js` setzt. Wer das umdreht,
+ *     versteckt Inhalte vor Lesern ohne JS und vor Crawlern, die kein JS
+ *     ausführen.
+ *   - reduced-motion schaltet die Übergänge ab, nicht die Funktion.
+ *
+ * Die Klassen tragen bewusst ein eigenes Präfix (`faqx-`), damit sie sich nicht
+ * mit dem gleichnamigen, seiteneigenen Akkordeon auf /preise (`pr-f…`) beißen.
+ *
+ * Inhalte kommen aus `src/data/faq.ts` — dort steht auch, welche Frage auf
+ * welche Seite gehört.
+ */
+import type { FaqItem } from '../data/faq';
+
+interface Props {
+  items: FaqItem[];
+  title: string;
+  /** Kicker über der Überschrift, optional. */
+  eyebrow?: string;
+  /** Ein Satz unter der Überschrift, optional. */
+  intro?: string;
+  /** Anker der Sektion. Mehrere Blöcke auf einer Seite brauchen verschiedene. */
+  id?: string;
+  /** Eindeutiges Präfix für die Panel-IDs, wenn mehrere Blöcke auf einer Seite stehen. */
+  idPrefix?: string;
+  /** Hintergrund: 'muted' hebt den Block vom Fließtext ab. */
+  tone?: 'plain' | 'muted';
+  /** Überschriftenebene der Fragen — auf Sammelseiten sitzen sie unter einer H2. */
+  level?: 2 | 3;
+}
+
+const {
+  items,
+  title,
+  eyebrow,
+  intro,
+  id = 'faq',
+  idPrefix = 'faqx',
+  tone = 'plain',
+  level = 3,
+} = Astro.props;
+
+const HeadingTag = level === 2 ? 'h2' : 'h3';
+---
+
+<section
+  id={id}
+  aria-label={title}
+  class:list={[
+    'faqx scroll-mt-24 lg:scroll-mt-28',
+    tone === 'muted' ? 'bg-muted/30 py-20 lg:py-24' : 'py-16',
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-6 lg:px-8">
+    {eyebrow && (
+      <p class="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-cta-accessible">
+        {eyebrow}
+      </p>
+    )}
+    <h2 class="cai-h2 text-center text-foreground">{title}</h2>
+    {intro && (
+      <p class="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+        {intro}
+      </p>
+    )}
+
+    <div class="faqx-list mt-10 space-y-3" data-faqx>
+      {items.map((f, i) => (
+        <div class="faqx-item overflow-hidden rounded-xl border border-border bg-card" data-faqx-item>
+          <HeadingTag>
+            <button
+              type="button"
+              class="faqx-head flex w-full items-center gap-4 p-5 text-left"
+              aria-expanded="false"
+              aria-controls={`${idPrefix}-${i}`}
+              data-faqx-head
+            >
+              <span class="flex-1 font-semibold text-foreground">{f.q}</span>
+              <svg
+                class="faqx-chev h-5 w-5 shrink-0 text-muted-foreground"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </HeadingTag>
+          <div id={`${idPrefix}-${i}`} class="faqx-panel" data-faqx-panel>
+            <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <slot name="after" />
+  </div>
+</section>
+
+<style>
+  .faqx-js .faqx-head { cursor: pointer; }
+  .faqx-item { transition: border-color 0.2s ease; }
+  .faqx-js .faqx-item:hover,
+  .faqx-js .faqx-item:focus-within { border-color: hsl(var(--cta) / 0.5); }
+  .faqx-js .faqx-head:hover span,
+  .faqx-js .faqx-head:focus-visible span { color: hsl(var(--cta-accessible)); }
+  .faqx-js .faqx-head:hover .faqx-chev { color: hsl(var(--cta)); }
+  .faqx-chev { transition: transform 0.3s ease, color 0.2s ease; }
+  .faqx-js .faqx-item.is-open .faqx-chev { transform: rotate(180deg); color: hsl(var(--cta)); }
+  .faqx-js .faqx-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* 520px statt 420px wie auf /preise: Die Antworten hier sind teils länger,
+     ein zu knapper Wert schneidet die letzte Zeile ab. */
+  .faqx-js .faqx-item.is-open .faqx-panel { max-height: 520px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faqx-js .faqx-panel,
+    .faqx-chev,
+    .faqx-item { transition: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    /* Läuft für jeden Block auf der Seite einzeln — die Sammelseite /faq hat
+       vier davon, und ein Klick in einer Gruppe darf die anderen nicht zuklappen.
+
+       Die `data-faqx-ready`-Sperre ist Pflicht: Astro gibt diesen Inline-Block
+       EINMAL PRO KOMPONENTEN-INSTANZ aus. Auf /faq stünde er also viermal im
+       Dokument, jeder Durchlauf würde erneut Listener auf dieselben Köpfe
+       hängen — und vier Listener heben sich beim Klick gegenseitig auf
+       (auf, zu, auf, zu = zu). Ohne die Sperre reagiert das Akkordeon dort
+       scheinbar gar nicht. */
+    var lists = document.querySelectorAll('[data-faqx]:not([data-faqx-ready])');
+    Array.prototype.forEach.call(lists, function (list) {
+      list.setAttribute('data-faqx-ready', '');
+      list.classList.add('faqx-js');
+      var items = Array.prototype.slice.call(list.querySelectorAll('[data-faqx-item]'));
+      items.forEach(function (el) {
+        var head = el.querySelector('[data-faqx-head]');
+        if (!head) return;
+        head.addEventListener('click', function () {
+          var open = !el.classList.contains('is-open');
+          items.forEach(function (o) {
+            o.classList.remove('is-open');
+            var h = o.querySelector('[data-faqx-head]');
+            if (h) h.setAttribute('aria-expanded', 'false');
+          });
+          el.classList.toggle('is-open', open);
+          head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+    });
+  })();
+</script>

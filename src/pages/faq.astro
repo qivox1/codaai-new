@@ -1,66 +1,92 @@
 ---
 /*
- * /faq — Sammelseite für alle Fragen & Antworten (AP3, 25.07.2026).
+ * /faq — die Sammelseite.
  *
- * Hintergrund: Beim Startseiten-Umbau (AP5) verlässt die FAQ-Sektion die Startseite.
- * Damit die 14 Einträge und das FAQPage-Schema nicht ersatzlos verschwinden, bekommen
- * sie hier ein eigenes Zuhause — Entscheidung 9 der Reduktions-Analyse: umverteilen,
- * nichts vernichten.
+ * Seit der Neuverteilung am 03.08.2026 ist das nicht mehr der einzige Ort für
+ * Fragen: Jede Frage steht auf der Seite, auf der sie im Kopf des Lesers
+ * auftaucht (Startseite, /digital-visibility, /preise, /webinar). Diese Seite
+ * bleibt, weil sie in der Navigation steht und weil Leute, die „FAQ" klicken,
+ * Antworten erwarten und keine Linkliste — sie zeigt alle vier Gruppen
+ * untereinander und verlinkt jeweils auf die zugehörige Seite.
  *
- * Quelle der Einträge bleibt `i18n/de.json → faq.items`; FAQ.astro wird unverändert
- * wiederverwendet. Die Aufteilung in allgemeine und Preisfragen erfolgt erst mit dem
- * /preise-Umbau (AP7) — dann wandern die fünf Preis-/Vertragsfragen dorthin.
+ * KEIN FAQPage-Schema hier. Das liegt auf den Themenseiten, damit dieselbe
+ * Frage nicht zweimal ausgezeichnet im Index steht. Wer hier eines ergänzt,
+ * erzeugt genau diese Dublette.
+ *
+ * Inhalte: src/data/faq.ts — dort steht auch die Regel, in welche Gruppe eine
+ * neue Frage gehört.
  */
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import FAQ from '../components/FAQ.astro';
-import { getTranslations } from '../i18n/utils';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { faqGroups } from '../data/faq';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const tr = getTranslations(lang);
-
-// FAQPage-Schema wandert von der Startseite hierher (siehe index.astro).
-const faqSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: tr.faq.items.map((item: { question: string; answer: string }) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-});
+const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
 ---
 
 <Layout
   lang={lang}
-  title="Fragen & Antworten – CodaAI | SEO, AEO, GEO und Digital Visibility"
-  description="Antworten zu Digital Visibility: Unterschied zwischen SEO, AEO und GEO, wie KI-Sichtbarkeit gemessen wird, Zusammenarbeit mit Agenturen und Laufzeiten."
-  jsonLd={[faqSchema]}
+  title="Fragen & Antworten – CodaAI | Digital Visibility, Preise, Zusammenarbeit"
+  description="Alle Antworten auf einen Blick: CodaAI und die Zusammenarbeit, wie KI-Sichtbarkeit gemessen wird, Preise und Laufzeiten sowie das Live-Webinar."
 >
   <Navbar lang={lang} />
   <main class="pt-24 lg:pt-28">
-    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-0">
+    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-2">
       <Breadcrumb
         items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Fragen & Antworten' }]}
         class="mb-8"
       />
-      <h1 class="cai-h1 text-foreground">
-        Fragen &amp; Antworten
-      </h1>
+      <h1 class="cai-h1 text-foreground">Fragen &amp; Antworten</h1>
       <p class="mt-5 text-lg text-muted-foreground leading-relaxed">
-        Was Digital Visibility ist, wie wir KI-Sichtbarkeit messen und was das für Ihr Unternehmen
-        bedeutet. Fehlt Ihre Frage?
+        {total} Fragen in vier Bereichen — von der Zusammenarbeit über die Messung der
+        KI-Sichtbarkeit bis zu Preis und Laufzeit. Fehlt Ihre?
         <a href={`${base}/kontakt/`} class="text-cta-accessible hover:text-cta font-medium">Schreiben Sie uns.</a>
       </p>
+
+      <nav aria-label="Bereiche" class="mt-8 flex flex-wrap gap-2">
+        {faqGroups.map((g) => (
+          <a
+            href={`#${g.id}`}
+            class="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-cta/50 hover:text-cta-accessible"
+          >
+            {g.title}
+          </a>
+        ))}
+      </nav>
     </div>
 
-    <FAQ lang={lang} />
+    {faqGroups.map((g) => (
+      <FaqAccordion
+        items={g.items}
+        title={g.title}
+        intro={g.intro}
+        id={g.id}
+        idPrefix={`faq-${g.id}`}
+        level={3}
+      >
+        <p slot="after" class="mt-8 text-center text-sm text-muted-foreground">
+          <a
+            href={`${base}${g.href}`}
+            class="font-semibold text-cta-accessible transition-colors hover:text-cta"
+          >
+            {g.hrefLabel} →
+          </a>
+        </p>
+      </FaqAccordion>
+    ))}
+
+    <section class="mx-auto max-w-3xl px-6 pb-20 pt-4 text-center lg:px-8">
+      <p class="text-base leading-relaxed text-muted-foreground">
+        Am schnellsten beantwortet sich die wichtigste Frage von selbst:
+        <a href={`${base}/#angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">
+          Audit kostenlos anfordern →
+        </a>
+      </p>
+    </section>
   </main>
   <Footer lang={lang} />
 </Layout>

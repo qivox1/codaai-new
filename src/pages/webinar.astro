@@ -5,11 +5,13 @@ import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import WebinarSignup from '../components/premium/WebinarSignup.astro';
 import FlipWords from '../components/react/FlipWords';
+import { faqWebinar } from '../data/faq';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Audit-Scroll-Animation auf /webinar vorerst ausgeblendet (Oli 25.07.2026) —
 // Markup + Styles + JS bleiben erhalten fuer spaetere Wiederverwendung an anderer Stelle.
 const SHOW_AUDIT_PIN = false;
+
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // Apps-Script-Backend (gleiche Web-App wie Buchungs-Widget, Aktionen webinar_code / webinar_register)
@@ -61,32 +63,9 @@ const agenda = [
   { min: '15 Min.', t: 'Offene Fragerunde (Q&A)', d: 'Ihre konkreten Fälle im Dialog mit Norbert Schuster und Oliver Parrizas: die 5 Hebel im Zusammenspiel — von sichtbar werden bis Aufträge gewinnen — und wie es nach dem Webinar weitergeht.' },
 ];
 
-const webinarFaq = [
-  {
-    q: 'Wie erhalte ich den Zugangslink?',
-    a: 'Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail. Den Zoom-Zugangslink senden wir rechtzeitig vor dem Termin an dieselbe Adresse — es gibt keinen Newsletter und keine Werbung.',
-  },
-  {
-    q: 'Wird meine Firma im Webinar öffentlich getestet?',
-    a: 'Nur, wenn Sie das bei der Anmeldung ausdrücklich erlauben — und dann ausschließlich anonym, ohne Nennung Ihres Firmennamens. Ihr persönliches Sichtbarkeits-Audit erhalten grundsätzlich nur Sie selbst.',
-  },
-  {
-    q: 'Was kostet die Teilnahme — und wo ist der Haken?',
-    a: 'Die Teilnahme ist kostenlos — auf Wunsch inklusive Ihres persönlichen Sichtbarkeits-Audits. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 30-Minuten-Gespräch buchen — mehr nicht.',
-  },
-  {
-    q: 'Bei uns ist nur Microsoft Copilot erlaubt — bringt mir das Webinar trotzdem etwas?',
-    a: 'Ja. Copilot nutzt dieselben GPT-Modelle wie ChatGPT — alles, was wir im Webinar zum Selbst-Prüfen zeigen, funktioniert dort genauso. Unsere Studien-Messungen beziehen sich auf ChatGPT und die Google KI-Übersicht; die Mechanik, nach der KI-Assistenten Anbieter empfehlen oder weglassen, ist bei Copilot dieselbe.',
-  },
-  {
-    q: 'Wir ranken bei Google gut — lohnt sich das trotzdem?',
-    a: 'Gerade dann: 35 % der untersuchten Unternehmen mit über 100 Top-10-Rankings bei Google sind in ChatGPT komplett unsichtbar. Klassische SEO-Stärke und KI-Sichtbarkeit sind zwei verschiedene Disziplinen — genau dieses SEO-Paradox zeigen wir live.',
-  },
-  {
-    q: 'Gibt es eine Aufzeichnung?',
-    a: 'Ja, alle Angemeldeten erhalten die Aufzeichnung. Live lohnt sich trotzdem: Der anonyme Live-Check von Teilnehmer-Firmen findet nur im Termin statt.',
-  },
-];
+/* Fragen aus der gemeinsamen Quelle src/data/faq.ts (Neuverteilung 03.08.2026). */
+const webinarFaq = faqWebinar;
+
 
 const faqSchema = JSON.stringify({
   '@context': 'https://schema.org',

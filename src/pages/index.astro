@@ -6,6 +6,8 @@ import PremiumHome from '../components/premium/Home.astro';
 import { getTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import Booking from '../components/Booking.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { faqAllgemein } from '../data/faq';
 
 const language = 'de' as const;
 const tr = getTranslations(language);
@@ -55,6 +57,21 @@ const softwareSchema = JSON.stringify({
   },
 });
 
+/* FAQPage-Schema fuer die allgemeinen Fragen. Es steht bewusst HIER und nicht
+   zusaetzlich auf /faq: Jede Frage soll genau einmal ausgezeichnet im Index
+   stehen, und zwar auf der Seite, auf der sie thematisch beantwortet wird
+   (Beschluss Oli, 03.08.2026). Preis-, Visibility- und Webinarfragen tragen
+   ihr Schema entsprechend auf /preise, /digital-visibility und /webinar. */
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqAllgemein.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+});
+
 // Service schema — Digital-Visibility-Programm mit den drei buchbaren Stufen
 const visibilityServiceSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -76,7 +93,7 @@ const visibilityServiceSchema = JSON.stringify({
     itemListElement: [
       {
         '@type': 'Offer',
-        name: 'Basis',
+        name: 'Stufe 1 · Gefunden',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
           price: '490',
@@ -86,7 +103,7 @@ const visibilityServiceSchema = JSON.stringify({
       },
       {
         '@type': 'Offer',
-        name: 'Aktiv',
+        name: 'Stufe 2 · Empfohlen',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
           price: '990',
@@ -96,7 +113,7 @@ const visibilityServiceSchema = JSON.stringify({
       },
       {
         '@type': 'Offer',
-        name: 'Dominanz',
+        name: 'Stufe 3 · Zitiert',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
           price: '1790',
@@ -114,7 +131,7 @@ const visibilityServiceSchema = JSON.stringify({
   lang={language}
   title="CodaAI – Digital Visibility: sichtbar in ChatGPT & Google"
   description="Einkäufer fragen zuerst die KI. CodaAI macht B2B-Unternehmen dort sichtbar: ChatGPT, Google KI-Übersicht, klassische Suche — SEO, AEO & GEO plus Content."
-  jsonLd={[softwareSchema, visibilityServiceSchema]}
+  jsonLd={[softwareSchema, visibilityServiceSchema, faqSchema]}
 >
   <Navbar lang={language} />
   <main id="main-content">
@@ -137,6 +154,27 @@ const visibilityServiceSchema = JSON.stringify({
         hat jetzt genau einen Hauptausgang (Audit) und einen Nebenausgang (Termin).
         Das FAQPage-Schema liegt entsprechend auf /faq, nicht mehr hier. */}
     <Booking lang={language} />
+
+    {/* ── Fragen zu CodaAI und zur Zusammenarbeit ─────────────────────────────
+        Zurueck auf der Startseite seit 03.08.2026, aber nur die allgemeinen
+        Fragen: Was macht CodaAI, wie faengt man an, wie verhaelt sich das zur
+        eigenen Agentur. Alles zu Preis, Technik und Webinar steht auf der
+        jeweiligen Seite. Position ist Absicht — nach dem Termin-Teaser raeumt
+        der Block die letzten Einwaende aus, bevor der Blog folgt. */}
+    <FaqAccordion
+      items={faqAllgemein}
+      eyebrow="Häufige Fragen"
+      title="Was Interessenten uns vorher fragen"
+      intro="Fragen zu Preis, Laufzeit und Technik beantworten wir auf den jeweiligen Seiten — hier steht, was zu CodaAI selbst und zur Zusammenarbeit immer wieder kommt."
+      id="faq"
+      idPrefix="faq-home"
+      tone="muted"
+    >
+      <p slot="after" class="mt-10 text-center text-sm text-muted-foreground">
+        Ihre Frage steht nicht dabei?
+        <a href="/faq/" class="font-semibold text-cta-accessible transition-colors hover:text-cta">Alle Fragen &amp; Antworten →</a>
+      </p>
+    </FaqAccordion>
 
     {/* ── Neueste Artikel ───────────────────────────────────────────────────── */}
     <section aria-labelledby="blog-section-heading" class="py-20 lg:py-28 bg-background border-t border-border">
