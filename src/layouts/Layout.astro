@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import interLatinFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import CookieBanner from '../components/CookieBanner.astro';
+import { alternatesFor } from '../lib/i18n-routes';
 
 interface ArticleMeta {
   publishedTime?: string;
@@ -100,10 +101,13 @@ const BASE = SITE_ORIGIN;
 // Canonical: Astro.url.pathname already has the full path e.g. /codaai-new/
 const canonicalUrl = `${SITE_ORIGIN}${Astro.url.pathname}`;
 
-// hreflang: strip /codaai-new prefix, normalize /en/ to get bare slug
-const pathNoBase = Astro.url.pathname.replace(/^\/en\//, '/').replace(/\/$/, '') || '/';
-const deUrl = pathNoBase === '/' ? `${BASE}/` : `${BASE}${pathNoBase}/`;
-const enUrl = pathNoBase === '/' ? `${BASE}/en/` : `${BASE}/en${pathNoBase}/`;
+// hreflang: ausschliesslich aus der Sprachpaar-Tabelle in src/lib/i18n-routes.ts.
+// Frueher wurde der deutsche Slug in den /en/-Pfad gespiegelt — das erzeugte
+// erfundene URLs wie /en/preise/ (die englische Seite heisst /en/pricing/).
+// Seiten ohne Gegenstueck bekommen bewusst gar keinen Alternate.
+const alternates = alternatesFor(Astro.url.pathname);
+const deUrl = alternates.de ? `${BASE}${alternates.de}` : undefined;
+const enUrl = alternates.en ? `${BASE}${alternates.en}` : undefined;
 
 /*
  * Content Security Policy
@@ -248,9 +252,9 @@ const csp = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage ?? article?.ogImage ?? 'https://www.codaai.ai/images/og-image.png'} />
-    <link rel="alternate" hreflang="de" href={deUrl} />
-    <link rel="alternate" hreflang="en" href={enUrl} />
-    <link rel="alternate" hreflang="x-default" href={deUrl} />
+    {deUrl && <link rel="alternate" hreflang="de" href={deUrl} />}
+    {enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {deUrl && enUrl && <link rel="alternate" hreflang="x-default" href={deUrl} />}
     {/* Fonts are now self-hosted â no Google Fonts DNS lookup or external request */}
 
     {/* ââ JSON-LD Structured Data âââââââââââââââââââââââââââââââââââââââââââââ */}
