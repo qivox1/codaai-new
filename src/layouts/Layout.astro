@@ -61,7 +61,7 @@ const organizationSchema = {
     '@type': 'Person',
     '@id': `${SITE_URL}/co-create/#anja-miebach`,
     name: 'Anja Miebach',
-    jobTitle: 'GrÃ¼nderin & Inhaberin',
+    jobTitle: 'Gründerin & Inhaberin',
     url: `${SITE_URL}/co-create/`,
     image: `${SITE_URL}/images/team/anja-miebach.webp`,
     knowsAbout: ['KI Content Marketing', 'B2B Strategie', 'GEO', 'SEO', 'Marketing Automation'],
@@ -69,7 +69,7 @@ const organizationSchema = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Langer Weg 7b',
-    addressLocality: 'GÃ¼tersloh',
+    addressLocality: 'Gütersloh',
     postalCode: '33332',
     addressCountry: 'DE',
   },
@@ -126,9 +126,9 @@ const csp = [
   // GTM loader needs googletagmanager.com for gtm.js
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
   // Tailwind/Radix inline styles + React inline style props
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
-  "font-src 'self' https://fonts.gstatic.com",
+  "font-src 'self'",
   // Local images + data: URIs + GA4 measurement pixel
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net",
   // Supabase + GA4 data collection endpoints + GTM
