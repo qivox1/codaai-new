@@ -663,7 +663,7 @@ export default function ContentRequestForm({
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="fixed top-5 right-5 z-10 p-2 hover:bg-muted rounded-full transition-colors"
+        className="fixed top-5 right-5 z-10 p-2 hover:bg-muted rounded-[14px] transition-colors"
         aria-label="Schließen"
       >
         <X className="w-6 h-6 text-foreground" />
@@ -927,7 +927,7 @@ export default function ContentRequestForm({
                               <button
                                 type="button"
                                 onClick={() => removePdf(idx)}
-                                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground hover:bg-background rounded-lg transition-colors flex-shrink-0"
+                                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground hover:bg-background rounded-[14px] transition-colors flex-shrink-0"
                                 aria-label="PDF entfernen"
                               >
                                 <X className="w-4 h-4" />
@@ -946,7 +946,7 @@ export default function ContentRequestForm({
                           onDragOver={handleDragOver}
                           onDragEnter={handleDragOver}
                           onDragLeave={handleDragLeave}
-                          className={`w-full py-4 px-5 rounded-xl border-2 border-dashed transition-all duration-200 group ${
+                          className={`w-full py-4 px-5 rounded-[14px] border-2 border-dashed transition-all duration-200 group ${
                             dragActive
                               ? 'border-cta bg-cta/5 scale-[1.01]'
                               : 'border-border hover:border-cta bg-muted hover:bg-muted/70'
@@ -1028,7 +1028,7 @@ export default function ContentRequestForm({
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="h-12 px-5 rounded-full bg-muted hover:bg-muted/70 text-foreground transition-colors text-sm font-medium whitespace-nowrap border border-border"
+                      className="h-12 px-5 rounded-[14px] bg-muted hover:bg-muted/70 text-foreground transition-colors text-sm font-medium whitespace-nowrap border border-border"
                     >
                       {t.back}
                     </button>
@@ -1094,7 +1094,7 @@ export default function ContentRequestForm({
         <button
           onClick={() => setIsOpen(true)}
           aria-label="Kostenlosen Artikel anfragen"
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-muted/50 rounded-full transition-colors text-muted-foreground hover:text-foreground"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-muted/50 rounded-[14px] transition-colors text-muted-foreground hover:text-foreground"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M5 12h14M12 5l7 7-7 7" />

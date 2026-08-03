@@ -50,7 +50,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
         tabindex={tier.key === 'basis' ? 0 : -1}
         data-tier-tab={tier.key}
         class:list={[
-          'cai-tiertab relative flex min-w-[140px] flex-1 flex-col items-start gap-2 rounded-2xl border-2 bg-card px-5 py-4 text-left transition-colors sm:flex-none',
+          'cai-tiertab relative flex min-w-[140px] flex-1 flex-col items-start gap-2 rounded-[14px] border-2 bg-card px-5 py-4 text-left transition-colors sm:flex-none',
           tier.key === 'basis' ? 'border-cta' : 'border-border',
         ]}
       >

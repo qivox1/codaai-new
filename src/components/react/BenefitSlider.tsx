@@ -173,7 +173,7 @@ export default function BenefitSlider({ lang = "de", base = "" }: BenefitSliderP
           type="button"
           onClick={() => handleNav(-1)}
           aria-label={lang === "de" ? "Vorheriges" : "Previous"}
-          className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-all duration-200"
+          className="w-10 h-10 rounded-[14px] border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-all duration-200"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M15 18l-6-6 6-6" />
@@ -183,7 +183,7 @@ export default function BenefitSlider({ lang = "de", base = "" }: BenefitSliderP
           type="button"
           onClick={() => handleNav(1)}
           aria-label={lang === "de" ? "Nächstes" : "Next"}
-          className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-all duration-200"
+          className="w-10 h-10 rounded-[14px] border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-all duration-200"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M9 18l6-6-6-6" />

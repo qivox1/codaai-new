@@ -11,6 +11,8 @@
 @tailwind utilities;
 
 :root {
+  /* Einheitlicher Eckenradius aller Schaltflaechen (Beschluss Oli, 03.08.2026) */
+  --btn-radius: 14px;
   --coral: 291 96% 62%;
   --coral-light: 291 80% 75%;
   --warm-bg: 0 0% 6%;
@@ -135,7 +137,7 @@
     justify-content: center;
     gap: 0.5rem;
     overflow: hidden;
-    border-radius: 9999px;
+    border-radius: var(--btn-radius);
     background-color: hsl(var(--cta));
     color: white;
     font-weight: 600;
@@ -189,7 +191,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 9999px;
+    border-radius: var(--btn-radius);
     border: 1px solid hsl(var(--border));
     background-color: transparent;
     color: hsl(var(--foreground));

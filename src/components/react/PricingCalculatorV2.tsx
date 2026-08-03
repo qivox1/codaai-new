@@ -359,7 +359,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   }
 
   const segBtn = (active: boolean) =>
-    `flex-1 min-w-[104px] rounded-xl border px-3 py-3 text-sm font-semibold leading-tight transition-colors ${
+    `flex-1 min-w-[104px] rounded-[14px] border px-3 py-3 text-sm font-semibold leading-tight transition-colors ${
       active
         ? 'border-cta bg-cta/10 text-foreground'
         : 'border-border bg-card text-foreground hover:border-cta/50'
@@ -398,7 +398,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                     onClick={() => (done ? goto(i) : undefined)}
                     disabled={!done}
                     aria-current={active ? 'step' : undefined}
-                    className={`flex h-8 items-center justify-center rounded-lg text-[12.5px] font-semibold transition-colors ${
+                    className={`flex h-8 items-center justify-center rounded-[14px] text-[12.5px] font-semibold transition-colors ${
                       active
                         ? 'gap-2 bg-cta px-3 text-white'
                         : done
@@ -500,13 +500,13 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                       <button
                         type="button" onClick={() => setLangs((n) => Math.max(0, n - 1))}
                         aria-label={lang === 'de' ? 'Eine Sprache weniger' : 'One language less'}
-                        className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
+                        className="h-10 w-10 rounded-[14px] border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
                       >−</button>
                       <b className="min-w-[2.2ch] text-center text-2xl font-bold tabular-nums text-foreground">{langs}</b>
                       <button
                         type="button" onClick={() => setLangs((n) => Math.min(MAX_LANGS, n + 1))}
                         aria-label={lang === 'de' ? 'Eine Sprache mehr' : 'One more language'}
-                        className="h-10 w-10 rounded-xl border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
+                        className="h-10 w-10 rounded-[14px] border border-border bg-card text-lg font-semibold text-foreground hover:border-cta hover:text-cta-accessible"
                       >+</button>
                       <span className="text-[13.5px] text-muted-foreground">{t.langUnit}</span>
                     </div>
@@ -577,7 +577,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                 <button
                   type="button"
                   onClick={advance}
-                  className="btn-cta inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white"
+                  className="btn-cta inline-flex items-center gap-2 rounded-[14px] px-5 py-3 text-sm font-semibold text-white"
                 >
                   {t.navNext} →
                 </button>
@@ -649,7 +649,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
               <a
                 href={bookingHref || `${base}/#termin`}
                 onClick={() => pushDL('booking_click', { lang, source: 'pricing', value: total, currency: 'EUR' })}
-                className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-semibold text-white"
+                className="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-[14px] px-6 py-4 text-sm font-semibold text-white"
               >
                 {t.ctaCall}
               </a>
