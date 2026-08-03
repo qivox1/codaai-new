@@ -6,7 +6,7 @@ Disallow: /auth/
 Disallow: /checkout-success
 Disallow: /en/checkout-success
 
-Sitemap: https://codaai.ai/sitemap-index.xml
+Sitemap: https://www.codaai.ai/sitemap-index.xml
 
 # -------------------------------------------------------
 # KI-Crawler & LLM-Bots – explizit erlaubt (GEO)
