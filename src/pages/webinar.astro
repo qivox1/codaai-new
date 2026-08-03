@@ -191,7 +191,6 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
               </button>
             </div>
             <p class="ps-err mt-3 text-sm font-medium text-cta-accessible" hidden></p>
-            <p class="mt-4 text-xs text-muted-foreground">Kostenlos · ohne Anmeldung · dauert einen Augenblick</p>
           </div>
 
           <div class="ps-work rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
@@ -866,10 +865,15 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     flex: 0 0 auto; width: 58px; height: 58px; border-radius: 14px;
     background: hsl(var(--cta)); color: #fff; border: 0; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: transform .16s ease, background .16s ease;
   }
-  #pruefstand .ps-go:hover { background: var(--cta-accessible, hsl(var(--cta))); transform: translateX(2px); }
-  #pruefstand .ps-go:active { transform: scale(.96); }
+  #pruefstand .ps-go {
+    box-shadow: 0 10px 30px -8px hsl(var(--cta) / .55);
+    transition: transform .18s ease, box-shadow .25s ease;
+  }
+  #pruefstand .ps-go:hover { transform: translateY(-2px); box-shadow: 0 16px 38px -10px hsl(var(--cta) / .65); }
+  #pruefstand .ps-go:hover svg { transform: translateX(3px); }
+  #pruefstand .ps-go svg { transition: transform .2s ease; }
+  #pruefstand .ps-go:active { transform: translateY(0) scale(.97); }
 
   /* Prüfung läuft */
   #pruefstand .ps-scan {
