@@ -550,8 +550,15 @@ const beispiele = [
                     <span class="audit-label">{l}</span>
                   ))}
                 </div>
-                <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
-                <p class="audit-caption">Echtes Digital Visibility Audit aus dem Studien-Datensatz (anonymisiert)</p>
+                <!-- Balken und Unterschrift stehen in EINEM Fluss-Container. Vorher
+                     waren beide einzeln absolut positioniert (bottom:48px bzw. 22px);
+                     sobald die Unterschrift umbrach — mobil immer —, lief der Balken
+                     mitten durch die erste Zeile und sah aus wie ein Durchstreichen.
+                     Befund B4 des Mobil-Audits vom 04.08.2026.                     -->
+                <div class="audit-foot">
+                  <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
+                  <p class="audit-caption">Echtes Digital Visibility Audit aus dem Studien-Datensatz (anonymisiert)</p>
+                </div>
               </div>
             </div>
           </section>
@@ -802,7 +809,13 @@ const beispiele = [
 <style>
   /* ── Scroll-Audit-Bühne (identisch zu /webinar, Geometrie aus dem Video-Render) ── */
   .audit-pin { height: 300vh; position: relative; margin-top: 2.5rem; }
-  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: hsl(var(--surface-ink)); border-radius: 24px; }
+  /* 100svh (kleine Viewport-Hoehe) statt 100vh: Auf Mobiltelefonen meint 100vh
+     die Hoehe OHNE Adressleiste — die Buehne war dadurch hoeher als das Sichtfeld,
+     der untere Rand lag hinter der Leiste und jedes Ein- und Ausfahren loeste ein
+     resize samt ScrollTrigger-Neuberechnung aus (das Springen beim Scrollen).
+     100vh bleibt als Rueckfallwert davor stehen.
+     Befund A2 des Mobil-Audits vom 04.08.2026.                                */
+  .audit-scene { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: hsl(var(--surface-ink)); border-radius: 24px; }
   .audit-scene::before {
     content: "";
     position: absolute;
@@ -821,7 +834,11 @@ const beispiele = [
     box-shadow: -40px 70px 90px rgba(0, 0, 0, 0.55);
   }
   .audit-card img { display: block; width: 100%; will-change: transform; }
-  .audit-caption { position: absolute; left: 24px; bottom: 22px; color: rgba(255, 255, 255, 0.65); font-size: 13px; z-index: 2; margin: 0; }
+  .audit-foot {
+    position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 2;
+    display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+  }
+  .audit-caption { color: rgba(255, 255, 255, 0.65); font-size: 13px; margin: 0; }
   .audit-title {
     position: absolute; top: calc(50% + var(--s, 0.5) * -370px); right: 30px; z-index: 2; margin: 0;
     text-align: right; font-size: max(14px, calc(var(--s, 0.5) * 40px)); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
@@ -848,7 +865,7 @@ const beispiele = [
     background: rgba(8, 8, 14, 0.62); padding: 0.18em 0.5em; border-radius: 0.5em;
     -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
   }
-  .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
+  .audit-bar { width: min(180px, 100%); height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; flex: none; }
   .audit-bar i { display: block; height: 100%; width: 0%; background: hsl(var(--cta)); border-radius: 2px; }
   @media (prefers-reduced-motion: reduce) {
     .audit-pin { height: auto; }

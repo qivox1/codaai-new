@@ -173,8 +173,12 @@ const buttonLabel = label ?? copy.defaultLabel;
     transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease;
   }
   .acta-line { display:flex; align-items:stretch; gap:8px; }
+  /* 16px ist Pflicht, kein Geschmack: iOS Safari zoomt die Seite automatisch hinein,
+     sobald ein Eingabefeld mit weniger als 16px den Fokus bekommt — und zoomt danach
+     nicht von selbst zurueck. Bei 15px landete jeder Interessent in einer verschobenen
+     Seite. Befund B1 des Mobil-Audits vom 04.08.2026.                              */
   .acta-in {
-    font:inherit; font-size:15px; color:var(--ink); background:hsl(var(--surface-paper));
+    font:inherit; font-size:16px; color:var(--ink); background:hsl(var(--surface-paper));
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
     outline:none; width:100%; min-width:0;
     transition:border-color .18s ease, box-shadow .18s ease;

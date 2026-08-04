@@ -275,6 +275,14 @@
 
   html {
     scroll-behavior: smooth;
+    /* Die Kopfleiste ist position:fixed und 73px hoch. Ohne diesen Wert landet
+       jede Sprungmarke dahinter — gemessen auf der Startseite: #angebot und
+       #stellen kamen bei top:0 an, die Ueberschrift stand komplett unter der
+       Leiste. Gilt sitewide fuer Menue, Matrix-Spalten, FAQ-Chips und CTA-Sprunge.
+       Achtung: Lenis-Sprunge (Home.astro, webinar.astro) lesen scroll-padding
+       NICHT — dort ist derselbe Versatz als offset gesetzt.
+       Befund B2 des Mobil-Audits vom 04.08.2026.                              */
+    scroll-padding-top: 88px;
   }
 
   @keyframes fade-in {

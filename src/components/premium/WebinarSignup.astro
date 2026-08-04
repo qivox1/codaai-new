@@ -166,7 +166,9 @@ const msgs = isEn
   .wacta-form { max-width:0; opacity:0; overflow:hidden; pointer-events:none;
     transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease; }
   .wacta-line { display:flex; align-items:stretch; gap:8px; }
-  .wacta-in { font:inherit; font-size:15px; color:var(--ink); background:hsl(var(--surface-paper));
+  /* 16px verhindert den iOS-Auto-Zoom beim Fokus — unter 16px zoomt Safari die
+     ganze Seite hinein und nicht wieder heraus. Befund B1, Mobil-Audit 04.08.2026. */
+  .wacta-in { font:inherit; font-size:16px; color:var(--ink); background:hsl(var(--surface-paper));
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
     outline:none; width:100%; min-width:0;
     transition:border-color .18s ease, box-shadow .18s ease; }
