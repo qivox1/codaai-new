@@ -79,6 +79,7 @@ export default {
           abyss: "hsl(var(--surface-abyss))",
         },
         data: "hsl(var(--data))",
+        heading: "hsl(var(--heading))",
         ondark: {
           DEFAULT: "hsl(var(--foreground-on-dark))",
           muted: "hsl(var(--muted-foreground-on-dark))",

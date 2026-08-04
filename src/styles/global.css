@@ -104,6 +104,12 @@
      nicht die Skala.
      Navy-200 und NICHT Navy-300: auf Navy-800 als Karte in Ink läge Navy-300
      bei 6,1:1, und der nächste Verschachtelungsschritt kippt es.            */
+  /* Ueberschriftfarbe. Navy-700, nicht Navy-800: auf Ueberschriftgroesse
+     wirkt der dunklere Ton zu schwer. MUSS ein eigenes Token sein, damit es
+     im invertierten Block mitkippt — mit hart gesetztem Navy-700 stuenden
+     dunkelblaue Ueberschriften auf Ink.                                     */
+  --heading:                  var(--navy-700);
+
   --foreground-on-dark:       0 0% 100%;
   --muted-foreground-on-dark: var(--navy-200);
   --border-on-dark:           var(--navy-600);
@@ -177,6 +183,7 @@
   --ring: 291 96% 62%;
 
   --data: var(--navy-200);              /* 10,0:1 auf Ink */
+  --heading: 0 0% 100%;
   --cta-accessible: var(--cta-on-dark); /* #EA82FC */
 
   --primary: 0 0% 100%;
@@ -552,7 +559,7 @@
    Technisch wird dazu nicht color animiert (mit background-clip unmoeglich),
    sondern -webkit-text-fill-color von Navy-700 auf transparent — der Verlauf
    liegt die ganze Zeit darunter und wird freigelegt.                       */
-.cai-h1, .cai-h2 { color: hsl(var(--navy-700)); }
+.cai-h1, .cai-h2 { color: hsl(var(--heading)); }
 
 .cai-kipp .k2 {
   background-image: linear-gradient(135deg, hsl(var(--navy-600)), hsl(var(--cta)));
