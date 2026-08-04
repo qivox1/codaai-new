@@ -24,7 +24,7 @@ const showStudyTeaser = !isStudiePage && !isWebinarPage;
 const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
 const studyCopy = lang === 'de'
   ? {
-      alt: 'Titelseite der Studie „KI-Blindtest Mittelstand 2026“',
+      mapAlt: 'Punktkarte Deutschlands — 449 untersuchte Unternehmen aus 258 Branchen',
       kicker: 'KI-Blindtest Mittelstand 2026',
       titleA: 'Empfohlen oder ',
       titleB: 'unsichtbar',
@@ -32,7 +32,7 @@ const studyCopy = lang === 'de'
       cta: 'Zur Studie →',
     }
   : {
-      alt: 'Cover of the study “AI Blind Test 2026”',
+      mapAlt: 'Dot map of Germany — 449 companies examined across 258 industries',
       kicker: 'AI Blind Test 2026',
       titleA: 'Recommended or ',
       titleB: 'invisible',
@@ -97,20 +97,32 @@ const currentYear = new Date().getFullYear();
         class="group mb-10 flex flex-col items-center gap-5 rounded-3xl border border-ondark-line p-6 text-ondark transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
         style="background: linear-gradient(135deg, hsl(var(--navy-600)) 0%, hsl(var(--surface-ink)) 62%, hsl(var(--navy-800)) 100%);"
       >
-        {/* ⚠️ OFFEN (F8): studie-teaser-de.webp hat einen SCHWARZEN Hintergrund.
-            Auf dem Verlauf zeichnet sich dadurch ein Rechteck ab. Das Bild
-            braucht einen freigestellten (transparenten) Hintergrund oder einen
-            auf Navy abgestimmten. Steht auf der Bildliste in Schritt 9 —
-            solange bleibt hier ein sichtbarer Kasten. */}
-        <img
-          src={`${base}/images/studie-teaser-de.webp`}
-          alt={studyCopy.alt}
-          width="138"
-          height="180"
-          loading="lazy"
-          decoding="async"
-          class="h-24 w-auto flex-none"
-        />
+        {/* Punktkarte Deutschlands — seit 04.08.2026 in Code gezeichnet.
+
+            Vorher lag hier `studie-teaser-de.webp`: eine Rasterkarte auf
+            SCHWARZEM Grund, mit magenta GLUEHENDEN Punkten und einem Oliv-Stich
+            im Sueden. Auf dem Footer-Verlauf zeichnete sich dadurch ein
+            sichtbares schwarzes Rechteck ab (Befund F8).
+
+            Der Design Guide fuehrt den Studien-Teaser als Motivtyp 2 (Diagramm)
+            und schreibt dafuer „Code, nie eine Datei" vor — scharf in jeder
+            Groesse, fuer Screenreader lesbar. Ausserdem sind Verlaeufe, Schein
+            und Leuchten in Magenta im Bild ausgeschlossen; die alten
+            Leuchtpunkte verstiessen doppelt dagegen.
+
+            Die Karte ist deshalb bewusst STUMM: kein Magenta. In diesem Block
+            traegt das Wort „unsichtbar" das Signal und der Knopf die Handlung —
+            das Budget von zwei Signalen je Screen ist damit voll.
+
+            `currentColor` erbt die Textfarbe, `<use>` haelt die Groesse klein
+            (810 B gzip). Erzeugt von `en-relaunch-2026-08-04/studien-karte/build_map.py`. */}
+        <svg
+          viewBox="0 0 138 180"
+          fill="currentColor"
+          role="img"
+          aria-label={studyCopy.mapAlt}
+          class="h-24 w-auto flex-none text-ondark-muted"
+        ><defs><circle id="d" r="2.35"/></defs><use href="#d" x="38" y="166"/><use href="#d" x="64" y="166"/><use href="#d" x="73" y="166"/><use href="#d" x="81" y="166"/><use href="#d" x="90" y="166"/><use href="#d" x="34" y="159"/><use href="#d" x="43" y="159"/><use href="#d" x="51" y="159"/><use href="#d" x="60" y="159"/><use href="#d" x="68" y="159"/><use href="#d" x="77" y="159"/><use href="#d" x="86" y="159"/><use href="#d" x="94" y="159"/><use href="#d" x="103" y="159"/><use href="#d" x="38" y="151"/><use href="#d" x="47" y="151"/><use href="#d" x="56" y="151"/><use href="#d" x="64" y="151"/><use href="#d" x="73" y="151"/><use href="#d" x="81" y="151"/><use href="#d" x="90" y="151"/><use href="#d" x="98" y="151"/><use href="#d" x="43" y="144"/><use href="#d" x="51" y="144"/><use href="#d" x="60" y="144"/><use href="#d" x="68" y="144"/><use href="#d" x="77" y="144"/><use href="#d" x="86" y="144"/><use href="#d" x="94" y="144"/><use href="#d" x="103" y="144"/><use href="#d" x="111" y="144"/><use href="#d" x="38" y="136"/><use href="#d" x="47" y="136"/><use href="#d" x="56" y="136"/><use href="#d" x="64" y="136"/><use href="#d" x="73" y="136"/><use href="#d" x="81" y="136"/><use href="#d" x="90" y="136"/><use href="#d" x="98" y="136"/><use href="#d" x="107" y="136"/><use href="#d" x="17" y="129"/><use href="#d" x="25" y="129"/><use href="#d" x="34" y="129"/><use href="#d" x="43" y="129"/><use href="#d" x="51" y="129"/><use href="#d" x="60" y="129"/><use href="#d" x="68" y="129"/><use href="#d" x="77" y="129"/><use href="#d" x="86" y="129"/><use href="#d" x="94" y="129"/><use href="#d" x="103" y="129"/><use href="#d" x="21" y="121"/><use href="#d" x="30" y="121"/><use href="#d" x="38" y="121"/><use href="#d" x="47" y="121"/><use href="#d" x="56" y="121"/><use href="#d" x="64" y="121"/><use href="#d" x="73" y="121"/><use href="#d" x="81" y="121"/><use href="#d" x="90" y="121"/><use href="#d" x="17" y="114"/><use href="#d" x="25" y="114"/><use href="#d" x="34" y="114"/><use href="#d" x="43" y="114"/><use href="#d" x="51" y="114"/><use href="#d" x="60" y="114"/><use href="#d" x="68" y="114"/><use href="#d" x="77" y="114"/><use href="#d" x="86" y="114"/><use href="#d" x="94" y="114"/><use href="#d" x="21" y="106"/><use href="#d" x="30" y="106"/><use href="#d" x="38" y="106"/><use href="#d" x="47" y="106"/><use href="#d" x="56" y="106"/><use href="#d" x="64" y="106"/><use href="#d" x="73" y="106"/><use href="#d" x="81" y="106"/><use href="#d" x="90" y="106"/><use href="#d" x="17" y="98"/><use href="#d" x="25" y="98"/><use href="#d" x="34" y="98"/><use href="#d" x="43" y="98"/><use href="#d" x="51" y="98"/><use href="#d" x="60" y="98"/><use href="#d" x="68" y="98"/><use href="#d" x="77" y="98"/><use href="#d" x="86" y="98"/><use href="#d" x="94" y="98"/><use href="#d" x="103" y="98"/><use href="#d" x="111" y="98"/><use href="#d" x="12" y="91"/><use href="#d" x="21" y="91"/><use href="#d" x="30" y="91"/><use href="#d" x="38" y="91"/><use href="#d" x="47" y="91"/><use href="#d" x="56" y="91"/><use href="#d" x="64" y="91"/><use href="#d" x="73" y="91"/><use href="#d" x="81" y="91"/><use href="#d" x="90" y="91"/><use href="#d" x="98" y="91"/><use href="#d" x="107" y="91"/><use href="#d" x="116" y="91"/><use href="#d" x="124" y="91"/><use href="#d" x="17" y="83"/><use href="#d" x="25" y="83"/><use href="#d" x="34" y="83"/><use href="#d" x="43" y="83"/><use href="#d" x="51" y="83"/><use href="#d" x="60" y="83"/><use href="#d" x="68" y="83"/><use href="#d" x="77" y="83"/><use href="#d" x="86" y="83"/><use href="#d" x="94" y="83"/><use href="#d" x="103" y="83"/><use href="#d" x="111" y="83"/><use href="#d" x="120" y="83"/><use href="#d" x="12" y="76"/><use href="#d" x="21" y="76"/><use href="#d" x="30" y="76"/><use href="#d" x="38" y="76"/><use href="#d" x="47" y="76"/><use href="#d" x="56" y="76"/><use href="#d" x="64" y="76"/><use href="#d" x="73" y="76"/><use href="#d" x="81" y="76"/><use href="#d" x="90" y="76"/><use href="#d" x="98" y="76"/><use href="#d" x="107" y="76"/><use href="#d" x="116" y="76"/><use href="#d" x="124" y="76"/><use href="#d" x="17" y="68"/><use href="#d" x="25" y="68"/><use href="#d" x="34" y="68"/><use href="#d" x="43" y="68"/><use href="#d" x="51" y="68"/><use href="#d" x="60" y="68"/><use href="#d" x="68" y="68"/><use href="#d" x="77" y="68"/><use href="#d" x="86" y="68"/><use href="#d" x="94" y="68"/><use href="#d" x="103" y="68"/><use href="#d" x="111" y="68"/><use href="#d" x="120" y="68"/><use href="#d" x="21" y="60"/><use href="#d" x="30" y="60"/><use href="#d" x="38" y="60"/><use href="#d" x="47" y="60"/><use href="#d" x="56" y="60"/><use href="#d" x="64" y="60"/><use href="#d" x="73" y="60"/><use href="#d" x="81" y="60"/><use href="#d" x="90" y="60"/><use href="#d" x="98" y="60"/><use href="#d" x="107" y="60"/><use href="#d" x="116" y="60"/><use href="#d" x="124" y="60"/><use href="#d" x="25" y="53"/><use href="#d" x="34" y="53"/><use href="#d" x="43" y="53"/><use href="#d" x="51" y="53"/><use href="#d" x="60" y="53"/><use href="#d" x="68" y="53"/><use href="#d" x="77" y="53"/><use href="#d" x="86" y="53"/><use href="#d" x="94" y="53"/><use href="#d" x="103" y="53"/><use href="#d" x="111" y="53"/><use href="#d" x="120" y="53"/><use href="#d" x="30" y="45"/><use href="#d" x="38" y="45"/><use href="#d" x="47" y="45"/><use href="#d" x="56" y="45"/><use href="#d" x="64" y="45"/><use href="#d" x="73" y="45"/><use href="#d" x="81" y="45"/><use href="#d" x="90" y="45"/><use href="#d" x="98" y="45"/><use href="#d" x="107" y="45"/><use href="#d" x="116" y="45"/><use href="#d" x="124" y="45"/><use href="#d" x="25" y="38"/><use href="#d" x="34" y="38"/><use href="#d" x="43" y="38"/><use href="#d" x="51" y="38"/><use href="#d" x="60" y="38"/><use href="#d" x="68" y="38"/><use href="#d" x="77" y="38"/><use href="#d" x="86" y="38"/><use href="#d" x="94" y="38"/><use href="#d" x="103" y="38"/><use href="#d" x="111" y="38"/><use href="#d" x="47" y="30"/><use href="#d" x="56" y="30"/><use href="#d" x="64" y="30"/><use href="#d" x="73" y="30"/><use href="#d" x="81" y="30"/><use href="#d" x="90" y="30"/><use href="#d" x="98" y="30"/><use href="#d" x="107" y="30"/><use href="#d" x="116" y="30"/><use href="#d" x="43" y="23"/><use href="#d" x="51" y="23"/><use href="#d" x="60" y="23"/><use href="#d" x="68" y="23"/><use href="#d" x="77" y="23"/><use href="#d" x="86" y="23"/><use href="#d" x="94" y="23"/><use href="#d" x="103" y="23"/><use href="#d" x="47" y="15"/><use href="#d" x="56" y="15"/><use href="#d" x="64" y="15"/><use href="#d" x="51" y="8"/></svg>
         <span class="min-w-0 flex-1 text-center sm:text-left">
           <span class="block text-xs font-semibold uppercase tracking-widest text-ondark-muted">{studyCopy.kicker}</span>
           <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">{studyCopy.titleA}<span class="text-cta-on-dark">{studyCopy.titleB}</span>?</span>
