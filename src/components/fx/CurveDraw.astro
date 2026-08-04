@@ -19,7 +19,7 @@ interface Props {
   class?: string;
 }
 
-const { steepness = 'medium', color = '#DF41FB', delay = 0, height = 100, class: className = '' } = Astro.props;
+const { steepness = 'medium', color = 'hsl(var(--cta))', delay = 0, height = 100, class: className = '' } = Astro.props;
 
 const CURVES: Record<string, string> = {
   flat: 'M10,96 C80,92 160,84 248,68',

@@ -72,7 +72,7 @@ export default function WorldMapSection({ lang = "de" }: Props) {
 
       {/* Map */}
       <div className="px-4 pb-4">
-        <WorldMap dots={dots} lineColor="#df41fb" />
+        <WorldMap dots={dots} lineColor="hsl(var(--cta))" />
       </div>
     </div>
   );

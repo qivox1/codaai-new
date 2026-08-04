@@ -14,7 +14,7 @@ interface MapProps {
 
 export default function WorldMap({
   dots = [],
-  lineColor = "#df41fb",
+  lineColor = "hsl(var(--cta))",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const [svgMap, setSvgMap] = useState<string>("");
@@ -23,7 +23,7 @@ export default function WorldMap({
     const map = new DottedMap({ height: 100, grid: "diagonal" });
     const generated = map.getSVG({
       radius: 0.22,
-      color: "#00000025",
+      color: "#2B3A5C25",
       shape: "circle",
       backgroundColor: "white",
     });

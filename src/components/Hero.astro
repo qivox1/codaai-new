@@ -11,10 +11,11 @@ const { lang } = Astro.props;
 const translations = getTranslations(lang);
 const rawFlipWords: string[] = translations.hero.flipWords;
 
-// Last word gets the CTA purple, all others get the original gray #999999
+// Letztes Wort in Magenta (Signal), die uebrigen in Navy-500.
+// Vorher #BBBBBB: 2,3:1 auf Weiss — durchgefallen. Navy-500 sind 7,8:1.
 const flipWordsData = rawFlipWords.map((text: string, i: number) => ({
   text,
-  color: i === rawFlipWords.length - 1 ? '#DF41FB' : '#BBBBBB',
+  color: i === rawFlipWords.length - 1 ? 'hsl(var(--cta))' : 'hsl(var(--muted-foreground))',
 }));
 
 const avatars = [

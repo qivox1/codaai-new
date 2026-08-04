@@ -24,7 +24,7 @@ const canonical = 'https://www.codaai.ai/digital-visibility/';
   <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
     <p>
       Diese Seite heißt jetzt
-      <a href={target} style="color: #B01FD1; font-weight: 600;">Digital Visibility</a>.
+      <a href={target} style="color: hsl(var(--cta-accessible)); font-weight: 600;">Digital Visibility</a>.
     </p>
     <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
   </body>

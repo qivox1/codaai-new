@@ -67,7 +67,7 @@ export default function FeatureCard({
   features,
   lang,
   ctaLabel,
-  accentColor = '#3B82F6',
+  accentColor = 'hsl(var(--cta))',
 }: FeatureCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const t = translations[lang];

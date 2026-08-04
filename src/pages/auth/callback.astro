@@ -23,8 +23,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         font-family: system-ui, -apple-system, sans-serif;
-        background: #0a0a0a;
-        color: #e5e5e5;
+        background: hsl(var(--surface-abyss));
+        color: hsl(var(--navy-200));
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -52,7 +52,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         width: 40px;
         height: 40px;
         border: 3px solid rgba(223, 65, 251, 0.2);
-        border-top-color: #df41fb;
+        border-top-color: hsl(var(--cta));
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
         margin: 0 auto 1.5rem;
@@ -66,7 +66,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       }
       p {
         font-size: 0.875rem;
-        color: #a1a1aa;
+        color: hsl(var(--navy-300));
         line-height: 1.6;
       }
       .error-box {
@@ -78,14 +78,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         text-align: left;
       }
       .error-box p {
-        color: #fca5a5;
+        color: hsl(var(--error-on-dark));
         font-size: 0.8125rem;
       }
       .back-link {
         display: inline-block;
         margin-top: 1.5rem;
         font-size: 0.8125rem;
-        color: #df41fb;
+        color: hsl(var(--cta));
         text-decoration: none;
       }
       .back-link:hover { text-decoration: underline; }
@@ -98,7 +98,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.5rem;
-        color: #4ade80;
+        color: hsl(var(--confirm-on-dark));
       }
     </style>
   </head>
