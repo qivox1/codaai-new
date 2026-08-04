@@ -111,35 +111,57 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
   <main id="main-content">
 
-    <header class={`relative pb-0 overflow-hidden bg-background ${heroImage ? 'pt-24' : 'pt-32 lg:pt-40'}`}>
+    {/* 04.08.2026: Der Kopfbereich ist jetzt derselbe wie im Deutschen.
+
+        Vorher lag der Textblock absolut positioniert IM Bild, weiß auf zwei
+        dunklen Verläufen. Zwei Fehler auf einmal:
+
+        1. `.cai-h1` setzt seine eigene Farbe (Navy-700) und steht in global.css
+           hinter den Tailwind-Utilities — `text-white` verlor. Auf dem
+           abgedunkelten Bild stand damit dunkle Schrift auf dunklem Grund; die
+           Überschrift war praktisch unlesbar.
+        2. Der umgebende Container hatte feste Höhe und `overflow-hidden`.
+           Ein langer Titel oder ein längeres Summary wurde unten abgeschnitten.
+
+        Die deutsche Vorlage hat beides gelöst, indem der Text unter das Bild
+        wanderte. Wer hier wieder Text über das Bild legt, holt sich beide
+        Fehler zurück. */}
+    <header class={`relative bg-background ${heroImage ? 'pt-24 pb-8' : 'pt-32 lg:pt-40 pb-0'}`}>
       {heroImage ? (
-        <div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
-          <img
-            src={heroImage}
-            alt={heroImageAlt ?? title}
-            width={1584}
-            height={672}
-            class="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-          <div class="absolute inset-0" style="background: linear-gradient(160deg, rgba(223,65,251,0.35) 0%, rgba(140,20,180,0.20) 50%, rgba(0,0,0,0) 100%)" />
-          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.35) 45%, transparent 100%)" />
-          <div class="absolute bottom-0 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-8 pb-10">
+        <Fragment>
+          {/* Bildband: volle Breite, kein Text darüber — das Motiv bleibt
+              erkennbar, die H1 kann nicht mehr gekappt werden. */}
+          <div class="relative w-full overflow-hidden bg-background">
+            <img
+              src={heroImage}
+              alt={heroImageAlt ?? title}
+              width={1600}
+              height={900}
+              class="w-full h-[52vw] min-h-[220px] max-h-[480px] object-cover object-center"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+            {/* dezenter Markenakzent nur an der Unterkante */}
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-28" style="background: linear-gradient(to top, rgba(223,65,251,0.20) 0%, rgba(223,65,251,0.06) 45%, transparent 100%)" />
+          </div>
+
+          {/* Textblock UNTER dem Bild, auf normalem Untergrund */}
+          <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8">
+            <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
             <div class="max-w-3xl">
-              <p class="text-xs font-semibold uppercase tracking-widest text-cta mb-3">{category}</p>
-              <h1 class="cai-h1 text-white">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
+              <h1 class="cai-h1 text-foreground text-balance">
                 {title}
               </h1>
               {summary && (
-                <p class="mt-4 text-lg text-white/80 leading-relaxed" data-speakable>
+                <p class="mt-5 text-lg text-muted-foreground leading-relaxed" data-speakable>
                   {summary}
                 </p>
               )}
             </div>
           </div>
-        </div>
+        </Fragment>
       ) : (
         <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-10">
           <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
@@ -157,11 +179,9 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
         </div>
       )}
 
-      {heroImage && (
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 py-4">
-          <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} />
-        </div>
-      )}
+      {/* Die separate Brotkrume für den Bild-Fall ist entfallen: Sie war nötig,
+          solange der Textblock im Bild lag. Jetzt steht sie im Textblock selbst
+          — sonst erschiene sie zweimal. */}
     </header>
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-6 border-b border-border">

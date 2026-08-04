@@ -41,7 +41,6 @@ const copy = {
     flipSizer: 'Anbieter vergleichen.',
     desc: '94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wer dort nicht empfohlen wird, bekommt die Anfrage nicht — und erfährt nie, dass es sie gab.',
     heroCta: 'Zeigen Sie mir, was die KI über mein Unternehmen sagt',
-    poweredBy: 'Powered by AI · SEO · AEO · GEO',
     kBadge: 'KI-Antwort · dokumentiert',
     kRows: [
       { name: 'Berger Antriebstechnik GmbH', sub: 'namentlich empfohlen · als Quelle zitiert', badge: 'Sichtbarkeit 63 %' },
@@ -229,7 +228,6 @@ const copy = {
     flipSizer: 'award the contract.',
     desc: '94% of B2B buyers use AI in the buying process (Forrester 2026). If it does not recommend you, the enquiry never reaches you — and you never learn that it existed.',
     heroCta: 'Show me what the AI says about my company',
-    poweredBy: 'Powered by AI · SEO · AEO · GEO',
     kBadge: 'AI answer · documented',
     kRows: [
       { name: 'Berger Antriebstechnik GmbH', sub: 'recommended by name · cited as a source', badge: 'Visibility 63%' },
@@ -436,7 +434,6 @@ const copy = {
       <div class="ctas">
         <AuditCTA lang={lang} label={copy.heroCta} />
       </div>
-      <div class="pb"><i>AI</i><span>{copy.poweredBy}</span></div>
     </div>
 
     <div class="kicard-wrap" id="ktilt">
@@ -1345,8 +1342,13 @@ if (document.readyState === 'loading') {
   .flip .sizer{visibility:hidden;white-space:nowrap;color:transparent}
   .hero p.desc{margin-top:22px;max-width:56ch;color:hsl(var(--foreground));line-height:1.65;font-size:1.04rem}
   .hero .ctas{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px}
-  .hero .pb{margin-top:22px;display:flex;align-items:center;gap:10px;color:var(--mut);font-size:.9rem}
-  .hero .pb i{width:20px;height:20px;border-radius:5px;background:var(--magenta-strong);display:inline-grid;place-items:center;color:#fff;font-size:9px;font-weight:800;font-style:normal}
+  /* Hier stand bis 04.08.2026 `.hero .pb` — die magenta „AI"-Kachel mit der
+     Zeile „Powered by AI · SEO · AEO · GEO" unter dem Hero-CTA. Auf Wunsch von
+     Oli entfernt (Markup, Copy-Strings und Stile). Sie beschrieb Werkzeug und
+     Disziplinen, also uns; der Hero soll aber vom Leser handeln. Der Abstand
+     zum nächsten Block kommt jetzt allein aus den CTAs.
+     Nicht zu verwechseln mit dem Siegel „Powered by AI + HI" auf /co-create —
+     das ist der Markenclaim und bleibt. */
 
   /* KI-Karte */
   .kicard-wrap{position:relative;z-index:2;perspective:1200px}
