@@ -153,6 +153,8 @@ const {
   /* Neutrale Status-Zeile (Prüfung läuft / erreichbar).
      „erreichbar" ist eine Bestätigung → Verdigris statt des alten Grüns. */
   .acta-note { margin-top:8px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+  /* display:flex schlaegt sonst das hidden-Attribut, das das Skript setzt. */
+  .acta-note[hidden] { display:none; }
   .acta-note.ok { color:hsl(var(--confirm-text)); }
   .acta-note .acta-dot { width:14px; height:14px; border:2px solid var(--muted); border-top-color:transparent;
     border-radius:50%; animation:acta-rot .7s linear infinite; }
@@ -266,9 +268,12 @@ const {
     const clearNote = () => { if (noteEl) noteEl.hidden = true; };
 
     let checking = false;
-    const advance = () => {
+    // okMsg wird NUR gesetzt, wenn das Backend die Erreichbarkeit ausdruecklich
+    // bestaetigt hat. Im fail-open-Fall (altes Backend, Netzfehler) wissen wir es
+    // nicht — dann bleibt die Zeile leer statt etwas zu behaupten.
+    const advance = (okMsg?: string) => {
       root.classList.remove('is-checking');
-      clearNote();
+      if (okMsg) setNote(okMsg, false, true); else clearNote();
       setState('contact');
       setTimeout(() => firstIn?.focus(), 380);
     };
@@ -298,6 +303,8 @@ const {
             clearNote();
             showErr('Diese Website konnten wir nicht live erreichen. Bitte prüfen Sie die Adresse — oder schreiben Sie uns direkt an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.');
             urlIn?.focus();
+          } else if (res && res.reachable === true) {
+            advance('&#10003;&nbsp;' + dom + ' ist erreichbar.');
           } else {
             advance();
           }
