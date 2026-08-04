@@ -1238,28 +1238,34 @@ import AuditCTA from './AuditCTA.astro';
   .oc-payoff{margin-top:clamp(26px,6vh,52px);text-align:center}
   .oc-payoff .pv{font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.03em;color:var(--magenta);font-variant-numeric:tabular-nums;line-height:1}
   .oc-payoff .pl{display:block;margin:8px auto 0;max-width:34ch;font-size:.9rem;color:var(--mut);line-height:1.4}
-  /* 25.07.2026: Die Pointe blendet auf Magenta statt auf Weiss — der Farbwechsel
-     ist die Aussage. Wichtig: der Verlauf ist in der MITTE tiefer (hsl(var(--cta-accessible))) und
-     nach aussen Marken-Magenta. Grund: dort steht die Schrift. Weiss auf #DF41FB
-     erreicht nur 3,34:1 und faellt fuer Fliesstext durch; auf hsl(var(--cta-accessible)) sind es
-     5,30:1 und der Marken-Ton bleibt am Rand sichtbar. */
-  .oc-punch,.oc-final{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:6vh 8vw;opacity:0;pointer-events:none;background:radial-gradient(95% 75% at 50% 42%,hsl(var(--cta)),hsl(var(--cta-hover)))}
-  /* Zweitoenig auf Magenta: erste Haelfte schwarz, Pointe weiss. Das ist derselbe
-     Griff wie im Angebotsblock (dunkle Schrift auf Magenta) und traegt hier die
-     Aussage — vorher/nachher statt hell/heller. Kontrast auf der Verlaufsmitte
-     hsl(var(--cta-accessible)): Schwarz 3,66:1, Weiss 5,30:1. Die grosse Zeile ist Grosstext
-     (24–48px, weight 800), damit gilt die Schwelle 3,0. */
+  /* 04.08.2026 (Beschluss Oli): Die Pointe blendet auf MIST statt auf Magenta.
+     Vorher trug sie eine vollflaechig magenta Flaeche mit zweitoeniger Schrift
+     (schwarz / weiss). Jetzt liegt sie auf derselben hellen Flaeche wie der
+     Begriffe-Block darueber, und die Wendung uebernimmt der Marken-Verlauf —
+     dieselbe Regel wie beim Kippsatz: Zeile 1 stellt fest, Zeile 2 dreht.
+     Die Angebotsflaeche bleibt die einzige vollflaechig magenta Flaeche der
+     Seite; die Pointe hier war die zweite und hat ihr die Wirkung genommen. */
+  .oc-punch,.oc-final{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:6vh 8vw;opacity:0;pointer-events:none}
+  .oc-punch{background:hsl(var(--surface-mist))}
   /* Der Satz steht in fuenf gesetzten Zeilen statt im freien Umbruch (Oli,
      03.08.2026): jede Zeile traegt eine Sinneinheit, der Umbruch faellt nie
      mitten in eine. Deshalb .l als Blockzeile — kein <br>, damit die Zeilen auf
      schmalen Viewports notfalls doch noch umbrechen duerfen. Trenner ist der
      kurze Gedankenstrich (–), nicht der lange Geviertstrich. */
   .oc-punch .pb{font-size:clamp(1.35rem,3.9vw,2.6rem);font-weight:800;letter-spacing:-.02em;
-    max-width:24ch;line-height:1.18;color:hsl(var(--navy-900));text-wrap:balance}
+    max-width:24ch;line-height:1.18;color:hsl(var(--navy-700));text-wrap:balance}
   .oc-punch .pb .l{display:block}
-  /* Zweiter Teil weiss: der Satz kippt von der Feststellung auf die
-     Einschraenkung — das ist die Pointe. */
-  .oc-punch .pb em{display:block;margin-top:.34em;font-style:normal;color:#fff}
+  /* Zweiter Teil traegt die Wendung. Grundfarbe --cta-accessible (6,9:1), damit
+     der Satz auf jeder Fensterbreite lesbar bleibt. Der Marken-Verlauf kommt
+     erst ab 1025 px dazu: dort erreicht die Zeile ueber 40 px fett, und nur
+     dann ist sein magenta Ende mit 3,34:1 zulaessig (WCAG AA Grosstext 3:1).
+     Darunter faellt die Zeile auf ~22 px und braeuchte 4,5:1. */
+  .oc-punch .pb em{display:block;margin-top:.34em;font-style:normal;color:hsl(var(--cta-accessible))}
+  @media(min-width:1025px){
+    .oc-punch .pb em{
+      background-image:linear-gradient(135deg,hsl(var(--navy-600)),hsl(var(--cta)));
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  }
   .oc-punch .pt{font-size:clamp(1.05rem,2.2vw,1.5rem);font-weight:700;color:hsl(var(--navy-900))}
   /* Schluss der Kette blendet zu Schwarz (Crossfade über oc-punch), Schrift weiß, Pink bleibt */
   .oc-final{background:radial-gradient(110% 85% at 50% 42%,hsl(var(--navy-800)),hsl(var(--navy-900)))}
@@ -1277,9 +1283,12 @@ import AuditCTA from './AuditCTA.astro';
   body:not(.anim) .oc-node{opacity:1}
   body:not(.anim) .oc-conn i{width:100%}
   body:not(.anim) .oc-punch,body:not(.anim) .oc-final{position:static;opacity:1;background:none;margin-top:44px}
-  /* Ohne Animation fehlt der magenta Grund — sonst waere weisse Schrift auf Weiss unsichtbar. */
+  /* Ohne Animation faellt der Mist-Grund weg (background:none oben), die Pointe
+     steht dann auf Weiss. Der Verlauf wird deshalb hier wieder abgeschaltet —
+     -webkit-text-fill-color muss zurueckgesetzt werden, sonst bliebe die Zeile
+     transparent und damit unsichtbar. */
   body:not(.anim) .oc-punch .pb,body:not(.anim) .oc-punch .pt{color:var(--fg)}
-  body:not(.anim) .oc-punch .pb em{color:var(--magenta-ink)}
+  body:not(.anim) .oc-punch .pb em{background-image:none;color:hsl(var(--cta-accessible));-webkit-text-fill-color:hsl(var(--cta-accessible))}
   body:not(.anim) .oc-final{background:hsl(var(--navy-900));padding:44px 8vw;border-radius:18px}
 
   /* ============ VERSPRECHEN ============ */
