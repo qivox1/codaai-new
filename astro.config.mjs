@@ -29,8 +29,21 @@ import { join } from 'node:path';
 
 /** Seiten, deren Substanz in einer Komponente statt in der .astro-Datei liegt. */
 const EXTRA_SOURCES = {
-  'preise': ['src/components/react/PricingCalculatorV2.tsx'],
-  'en/pricing': ['src/components/react/PricingCalculatorV2.tsx'],
+  'preise': ['src/components/react/PricingCalculatorV2.tsx', 'src/data/faq.ts'],
+  'en/pricing': ['src/components/react/PricingCalculatorV2.tsx', 'src/data/faq.en.ts'],
+  // 04.08.2026: Beide Startseiten bestehen fast vollstaendig aus Home.astro.
+  // Ohne diesen Eintrag meldete die Sitemap das Datum von index.astro — einer
+  // Datei, die seit Monaten nur Schema-Bloecke und Importe enthaelt. Jede
+  // Textaenderung an der Startseite blieb fuer Google damit unsichtbar.
+  '': ['src/components/premium/Home.astro', 'src/components/premium/AuditCTA.astro'],
+  'en': ['src/components/premium/Home.astro', 'src/components/premium/AuditCTA.astro'],
+  // Gleiches Muster: die FAQ-Inhalte liegen in der Datenquelle, nicht in der Seite.
+  'faq': ['src/data/faq.ts'],
+  'en/faq': ['src/data/faq.en.ts'],
+  'digital-visibility': ['src/data/faq.ts'],
+  'en/digital-visibility': ['src/data/faq.en.ts'],
+  'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
+  'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */

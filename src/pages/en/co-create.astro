@@ -6,9 +6,9 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import ContentRequestForm from '../../components/react/ContentRequestForm';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-// Kanonische Basis wie auf allen anderen Seiten. Hier stand bis 03.08.2026
-// noch die alte GitHub-Pages-Adresse — sie landete dadurch im Person-/
-// Article-Schema und in der LCP-Preload-URL, die deshalb nie zum <img> passte.
+// Canonical base, same as on every other page. Until 03.08.2026 the old GitHub
+// Pages address was hard-wired here — it ended up in the Person/Article schema
+// and in the LCP preload URL, which therefore never matched the <img>.
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // ── E-E-A-T: Person schema (Anja Miebach) ─────────────────────────────────
@@ -20,7 +20,7 @@ const personSchema = {
   givenName: 'Anja',
   familyName: 'Miebach',
   jobTitle: 'Founder & Owner',
-  description: 'Anja Miebach is the founder and owner of CodaAI. She combines entrepreneurial clarity and strategic thinking with cutting-edge AI technology to create sustainable visibility for B2B companies.',
+  description: 'Anja Miebach is the founder and owner of CodaAI. She combines entrepreneurial clarity and strategic thinking with state-of-the-art AI technology to give B2B companies lasting visibility.',
   image: {
     '@type': 'ImageObject',
     url: `${SITE_URL}/images/team/anja-miebach.webp`,
@@ -65,8 +65,8 @@ const aboutPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   '@id': `${SITE_URL}/en/co-create/#webpage`,
-  name: 'Mission & CoCreate Principle – CodaAI',
-  description: 'CodaAI combines 20+ years of marketing expertise with AI efficiency. Learn about the CoCreate principle and founder Anja Miebach.',
+  name: 'AI + HI. Amplified. – The CodaAI CoCreate Principle',
+  description: 'AI alone is not enough. CodaAI combines artificial and human intelligence – AI + HI. Amplified. The CoCreate principle: experience that guides, AI that delivers.',
   url: `${SITE_URL}/en/co-create/`,
   inLanguage: 'en',
   isPartOf: {
@@ -81,7 +81,7 @@ const aboutPageSchema = {
   ],
   author: { '@id': `${SITE_URL}/co-create/#anja-miebach` },
   datePublished: '2024-01-01',
-  dateModified: '2026-03-01',
+  dateModified: '2026-08-04',
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -95,16 +95,17 @@ const aboutPageSchema = {
 <Layout
   heroImage={`${SITE_URL}/images/team/anja-miebach.webp`}
   lang="en"
-  title="Mission & CoCreate Principle – CodaAI"
-  description="20+ years of marketing expertise meets AI efficiency. Learn about the CodaAI CoCreate principle and founder Anja Miebach."
+  title="AI + HI. Amplified. – The CodaAI CoCreate Principle"
+  description="AI alone isn't enough. CodaAI combines artificial and human intelligence: experience that guides, AI that delivers. The CoCreate principle."
   jsonLd={[JSON.stringify(personSchema), JSON.stringify(aboutPageSchema)]}
 >
   <Navbar lang="en" />
 
-  <main class="overflow-hidden">
+  <main class="overflow-hidden" id="main-content">
 
     {/* ── HERO ─────────────────────────────────────────────────────────── */}
     <section class="relative pt-28 pb-20 lg:pt-36 lg:pb-28">
+      {/* Background gradient */}
       <div class="absolute inset-0 -z-10">
         <div class="absolute inset-0 bg-gradient-to-br from-background via-background to-background"></div>
         <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cta/8 rounded-full blur-[120px] -translate-y-1/2"></div>
@@ -112,37 +113,40 @@ const aboutPageSchema = {
       </div>
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Co-Create' }]} class="mb-8" />
+        <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Co-Create' }]} class="mb-8" />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
+          {/* Left: text */}
+          <div class="reveal-left">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cta/10 border border-cta/20 text-cta text-xs font-medium mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
-              CodaAI CoCreate
+              Co-Create · AI + HI. Amplified.
             </div>
 
             <h1 class="cai-h1 text-foreground mb-6">
-              Where human expertise<br/>
-              <span class="text-gradient">
-                and AI efficiency
-              </span><br/>
-              converge
+              Where human and<br/>
+              {/* Brand gradient instead of flat magenta (F14, 04.08.2026) — the
+                  same treatment as the second line of the tipping headline
+                  sitewide. */}
+              <span class="text-gradient">artificial intelligence</span><br/>
+              reinforce each other
             </h1>
 
             <p class="text-lg text-muted-foreground leading-relaxed mb-8">
-              Human intuition, 20+ years of marketing expertise and relentless AI power:
-              That is CodaAI.
+              Over 20 years of marketing expertise. Tireless AI power. And a team that turns
+              both into more than either side could achieve alone. That is CodaAI CoCreate.
             </p>
 
+            {/* Expertise stats */}
             <div class="grid grid-cols-3 gap-4">
               {[
-                { value: '20+', label: 'Years of\nMarketing Experience' },
-                { value: '94%', label: 'Less expensive than\ntraditional agencies' },
+                { value: '20+', label: 'Years of\nmarketing experience' },
+                { value: '449', label: 'Companies in the\nCodaAI study' },
                 { value: '7,184', label: 'AI answers\nanalysed' },
               ].map(stat => (
-                <div class="p-4 rounded-xl bg-card border border-border text-center">
+                <div class="p-4 rounded-xl bg-card border border-border text-center transition-all duration-300 hover:-translate-y-1 hover:border-cta/30">
                   <div class="text-2xl font-bold text-cta mb-1">{stat.value}</div>
                   <div class="text-xs text-muted-foreground leading-tight whitespace-pre-line">{stat.label}</div>
                 </div>
@@ -150,21 +154,20 @@ const aboutPageSchema = {
             </div>
           </div>
 
-          <div class="flex justify-center lg:justify-end">
+          {/* Right: portrait */}
+          <div class="flex justify-center lg:justify-end reveal-right">
             <div class="relative">
-              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-cta/25 to-pink-500/20 blur-2xl scale-105"></div>
-              <div class="relative rounded-2xl overflow-hidden border border-cta/20 shadow-2xl shadow-cta/20 w-full max-w-sm">
+              <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 w-full max-w-sm">
                 <img
                   src={`${base}/images/team/anja-miebach.webp`}
-                  srcset={`${base}/images/team/anja-miebach.webp 480w, ${base}/images/team/anja-miebach.webp 240w`}
-                  sizes="(max-width: 640px) 240px, 480px"
-                  alt="Anja Miebach – Gründerin & Inhaberin von CodaAI"
+                  alt="Anja Miebach – founder and owner of CodaAI"
                   width="480"
                   height="480"
                   loading="eager"
                   fetchpriority="high"
                   class="w-full h-auto object-cover"
                 />
+                {/* Name overlay */}
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 py-5">
                   <p class="text-white font-semibold text-lg leading-tight">Anja</p>
                   <p class="text-white/80 text-sm">Founder & Owner, CodaAI</p>
@@ -176,43 +179,79 @@ const aboutPageSchema = {
       </div>
     </section>
 
-    {/* ── COCREATE PRINCIPLE ──────────────────────────────────────────────── */}
+    {/* ── CONFLICT / WHY "AI ALONE" IS NOT ENOUGH ─────────────────────────── */}
+    <section class="py-20 lg:py-24">
+      <div class="mx-auto max-w-3xl px-6 lg:px-8">
+        <div class="text-center mb-10 reveal">
+          <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Why “AI alone” is not enough</p>
+          <h2 class="cai-h2 text-foreground">
+            Two comfortable errors –<br/>
+            and why we believe in neither.
+          </h2>
+        </div>
+
+        <div class="space-y-5 text-muted-foreground text-base leading-relaxed reveal">
+          <p>
+            The first error is “AI handles that now”: content at the push of a button, strategy
+            out of a language model. Everyone knows the result – interchangeable, faceless, the
+            same everywhere. An AI text that recommends no one and convinces no one.
+          </p>
+          <p>
+            The second is “only a human can do that”: manual work, expensive, slow, impossible to
+            scale – a model that fewer and fewer mid-sized companies can afford.
+          </p>
+          <p class="text-foreground font-medium">
+            We believe in what sits between them. AI alone is not enough – and the human alone is
+            no longer enough either. The strength appears where computing power meets experience,
+            judgement and business instinct.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ── COCREATE PRINCIPLE · AI + HI. AMPLIFIED. ────────────────────────── */}
     <section class="py-20 lg:py-28 bg-card/30">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto text-center mb-16">
-          <h2 class="cai-h2 text-foreground mb-4">
-            Marketing reimagined:<br/>
-            <span class="text-cta-accessible">
-              The Era of CoCreation
-            </span>
+        <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+          <p class="text-cta text-sm font-medium uppercase tracking-widest mb-4">Marketing reimagined</p>
+          <h2 class="cai-h2 text-foreground mb-5">
+            AI + HI. <span class="text-cta font-extrabold">Amplified.</span>
           </h2>
           <p class="text-muted-foreground text-lg">
-            AI alone is not enough. Real strength emerges where computing power meets human intuition,
-            strategic foresight and deep business understanding.
+            Two kinds of intelligence. The human one: experience, instinct, knowing when a figure
+            is correct and still feels wrong. The artificial one: speed, reach, sifting in seconds
+            through what would take a team weeks. Apart, each is only half an answer – together
+            they add up to more than their sum.
           </p>
+
+          {/* Powered by AI + HI seal */}
+          <div class="mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cta/10 border border-cta/20 text-sm font-medium text-foreground">
+            <svg class="seal-spark" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--cta))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/>
+            </svg>
+            Powered by <span class="text-cta font-semibold">AI + <span class="hi-pop">HI</span></span>
+          </div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {[
             {
               icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>`,
-              title: 'Human Expertise',
-              description: 'The CodaAI team brings years of professional marketing experience to the table: guiding strategy, ensuring quality, and giving every piece of content the human touch that makes it authentic and effective.',
+              title: 'HI · Human Intelligence',
+              description: 'Our team brings more than 20 years of marketing experience. It steers the strategy, checks the quality and gives every result the human touch that makes it authentic and effective.',
               items: ['Strategic direction', 'Quality assurance', 'Industry knowledge', 'Entrepreneurial clarity'],
-              accent: 'violet',
             },
             {
               icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
-              title: 'AI Efficiency',
-              description: 'Our AI handles data-driven analysis, accelerates processes and efficiently generates high-quality content – exponentially expanding your potential.',
+              title: 'AI · Artificial Intelligence',
+              description: 'Our AI takes on data-driven analysis, speeds up processes and generates high-quality content efficiently – so your potential expands exponentially.',
               items: ['Scalable production', 'Data-driven analysis', 'Automated processes', 'Consistently high quality'],
-              accent: 'indigo',
             },
-          ].map(card => (
-            <div class="relative p-8 rounded-2xl bg-card border border-border overflow-hidden group hover:border-cta/30 transition-colors duration-300">
+          ].map((card, i) => (
+            <div class={`relative p-8 rounded-2xl bg-card border border-border overflow-hidden group transition-all duration-300 hover:-translate-y-1.5 hover:border-cta/40 reveal ${i === 1 ? 'reveal-d2' : 'reveal-d1'}`}>
               <div class={`absolute top-0 right-0 w-48 h-48 bg-cta/5 rounded-full blur-2xl group-hover:bg-cta/10 transition-colors duration-500`}></div>
               <div class="relative">
-                <div class={`w-12 h-12 rounded-xl bg-cta/10 border border-cta/20 flex items-center justify-center mb-5`}>
+                <div class={`w-12 h-12 rounded-xl bg-cta/10 border border-cta/20 flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110`}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
                     stroke='hsl(var(--cta))'
                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -244,82 +283,82 @@ const aboutPageSchema = {
     <section class="py-20 lg:py-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="grid lg:grid-cols-5 gap-12 items-start">
-          <div class="lg:col-span-3 space-y-6">
+          {/* Text: 3 cols */}
+          <div class="lg:col-span-3 space-y-6 reveal-left">
             <div>
-              <p class="text-cta text-sm font-medium uppercase tracking-widest mb-3">About the Founder</p>
+              <p class="text-cta text-sm font-medium uppercase tracking-widest mb-3">About the founder</p>
               <h2 class="cai-h2 text-foreground mb-5">
-                Anja –<br/>
-                <span class="text-cta-accessible">
-                  Entrepreneur with Focus
-                </span>
+                Anja – <span class="text-cta">an entrepreneur with focus</span>
               </h2>
             </div>
 
             <p class="text-muted-foreground leading-relaxed text-base">
-              Anja is the founder and owner of CodaAI. As an entrepreneur with a clear focus, she has
+              Anja is the founder and owner of CodaAI. As an entrepreneur with a clear focus she has
               specialised in three things: optimising processes, creating real value and delivering
               measurable results.
             </p>
 
             <p class="text-muted-foreground leading-relaxed text-base">
-              Her expertise lies in entrepreneurial clarity and strategic understanding of the
-              requirements of modern B2B companies. From this perspective she identified a major
-              opportunity: companies, agencies and marketing teams possess enormous knowledge and
-              experience – what they lack is an intelligent system that consistently amplifies and
-              scales these strengths.
+              Her expertise lies in entrepreneurial clarity and a strategic understanding of what
+              modern B2B companies need. From that vantage point she saw a large opportunity:
+              companies, agencies and marketing teams hold enormous knowledge and experience – what
+              they lack is an intelligent system that consistently amplifies and scales those
+              strengths.
             </p>
 
             <p class="text-muted-foreground leading-relaxed text-base">
-              The answer is CodaAI – driven by the CoCreate idea. We combine the best of both worlds.
-              Our AI handles data-driven analysis, accelerates processes and efficiently generates
-              high-quality content. The heart of what we do remains our team: with deep, long-standing
-              marketing expertise we guide strategy, ensure quality and give every piece of
-              content the human touch that makes it authentic and effective.
+              The answer to that is CodaAI – driven by the CoCreate idea. We combine the best of two
+              worlds: AI takes on the data-driven analysis, speeds up processes and generates
+              high-quality content efficiently. The heart of it remains our team: with deep,
+              long-standing marketing experience we steer the strategy, check the quality and give
+              every piece of content the human touch that makes it authentic and effective.
             </p>
 
             <p class="text-muted-foreground leading-relaxed text-base">
               Through this intelligent collaboration between human and machine we offer professional
               content marketing that is up to <strong class="text-foreground font-semibold">94% less expensive</strong> than
               traditional models – with full cost control, maximum reach and the certainty that your
-              company benefits from the most powerful combination the market has to offer:
-              <em class="text-cta not-italic font-medium">Experience that steers, AI that delivers.</em>
+              company benefits from the strongest combination the market has to offer:
+              <em class="text-cta not-italic font-medium">experience that guides, and AI that delivers.</em>
             </p>
 
+            {/* Expertise tags */}
             <div class="flex flex-wrap gap-2 pt-2">
-              {['AI Content Marketing', 'B2B Strategy', 'GEO Optimization', 'SEO', 'Marketing Automation', 'Digital Transformation'].map(tag => (
-                <span class="px-3 py-1 text-xs font-medium rounded-full bg-cta/10 border border-cta/20 text-cta">
+              {['AI Content Marketing', 'B2B Strategy', 'GEO Optimisation', 'SEO', 'Marketing Automation', 'Digital Transformation'].map(tag => (
+                <span class="px-3 py-1 text-xs font-medium rounded-full bg-cta/10 border border-cta/20 text-cta transition-colors duration-200 hover:bg-cta/20">
                   {tag}
                 </span>
               ))}
             </div>
           </div>
 
-          <div class="lg:col-span-2 space-y-4">
-            <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest">Expertise & Experience</h3>
+          {/* Credentials sidebar: 2 cols */}
+          <div class="lg:col-span-2 space-y-4 reveal-right">
+            <h3 class="text-sm font-semibold text-foreground uppercase tracking-widest">Expertise & experience</h3>
 
             {[
               {
                 icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0"/><path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4"/><path d="M5 21l0 -10.15"/><path d="M19 21l0 -10.15"/><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"/>`,
-                title: '20+ Years of Team Marketing Experience',
-                desc: 'The CodaAI team combines deep expertise from B2B and B2C projects for SMEs across the DACH region',
+                title: '20+ years of team marketing experience',
+                desc: 'The CodaAI team pools deep know-how from B2B and B2C projects for mid-sized companies across the German-speaking market',
               },
               {
                 icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>`,
-                title: 'AI & Generative Engine Optimization',
+                title: 'AI & Generative Engine Optimisation',
                 desc: 'Specialised in content strategies for Google, ChatGPT, Perplexity and Google AI Overviews',
               },
               {
                 icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11l3 3l8 -8"/><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"/>`,
-                title: 'Measurable Results',
+                title: 'Measurable results',
                 desc: 'Strategies aligned to KPIs – organic reach, visibility and qualified leads',
               },
               {
-                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 5l0 15"/><path d="M9 11l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 11l-3 -6l-3 6a3 3 0 0 0 6 0"/>`,
-                title: 'EU AI Act & GDPR Compliant',
-                desc: 'All processes and content are aligned with EU data protection, the AI Act and legal requirements',
+                icon: `<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/><path d="M9 12l2 2l4 -4"/>`,
+                title: 'The human stays at the wheel',
+                desc: 'The EU AI Act calls it “human oversight” – we made it the core of the brand. Every output is GDPR-compliant, in line with the EU AI Act and hosted in Germany',
               },
             ].map(item => (
-              <div class="flex gap-4 p-5 rounded-xl bg-card border border-border hover:border-cta/25 transition-colors duration-200 group">
+              <div class="flex gap-4 p-5 rounded-xl bg-card border border-border transition-all duration-200 hover:border-cta/25 hover:-translate-y-0.5 group">
                 <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-cta/10 flex items-center justify-center group-hover:bg-cta/15 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                     stroke="hsl(var(--cta))" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -343,19 +382,18 @@ const aboutPageSchema = {
         <div class="absolute inset-0 bg-gradient-to-r from-cta/5 via-background to-pink-900/5"></div>
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cta/8 rounded-full blur-[100px]"></div>
       </div>
-      <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-        <p class="text-cta text-sm font-medium uppercase tracking-widest mb-6">Our Promise</p>
+      <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center reveal">
+        <p class="text-cta text-sm font-medium uppercase tracking-widest mb-6">Our promise</p>
         <blockquote class="text-2xl lg:text-3xl font-semibold text-foreground leading-relaxed mb-8">
-          "The only meaningful path to the future of marketing is the symbiosis of
-          human strength and AI efficiency:
-          <span class="text-cta-accessible">
-            CodaAI CoCreate.
-          </span>"
+          “The only sensible way into the future of marketing is the symbiosis of
+          human strength and AI efficiency. We amplify both.
+          <span class="text-cta">AI + HI. <span class="font-extrabold">Amplified.</span></span>”
         </blockquote>
         <div class="flex items-center justify-center gap-3">
           <img
             src={`${base}/images/team/anja-miebach.webp`}
-            alt="Anja Miebach, founder of CodaAI, in the team section"
+            srcset={`${base}/images/team/anja-miebach.webp 1x, ${base}/images/team/anja-miebach.webp 2x`}
+            alt="Anja Miebach – founder & owner, CodaAI"
             width="44"
             height="44"
             class="rounded-full w-11 h-11 object-cover border-2 border-cta/30"
@@ -370,13 +408,13 @@ const aboutPageSchema = {
 
     {/* ── CTA ─────────────────────────────────────────────────────────────── */}
     <section class="py-16 lg:py-20 border-t border-border">
-      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center">
+      <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center reveal">
         <h2 class="cai-h2 text-foreground mb-4">
-          Ready to transform your marketing?
+          Ready to turn two intelligences into your head start?
         </h2>
         <p class="text-muted-foreground mb-8">
-          Discover how the CoCreate principle can advance your business –
-          transparent pricing, measurable results, no surprises.
+          See how the CoCreate principle moves your company forward –
+          transparent prices, measurable results, no surprises.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href={`${base}/en/pricing/`} class="inline-flex items-center justify-center gap-2 btn-cta h-14 px-8 text-base">
@@ -392,3 +430,64 @@ const aboutPageSchema = {
 
   <Footer lang="en" />
 </Layout>
+
+<style>
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal { transform: translateY(28px); }
+  .reveal-left { transform: translateX(-32px); }
+  .reveal-right { transform: translateX(32px); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .is-visible { opacity: 1 !important; transform: none !important; }
+
+  .hi-pop {
+    font-weight: 800;
+    color: hsl(var(--cta));
+    text-shadow: 0 0 16px hsl(var(--cta) / 0.55);
+  }
+
+  .seal-spark {
+    transform-origin: center;
+    animation: sealSpark 2.6s ease-in-out infinite;
+  }
+  @keyframes sealSpark {
+    0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.15) rotate(8deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .seal-spark { animation: none !important; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>

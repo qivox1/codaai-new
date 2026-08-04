@@ -10,41 +10,117 @@
  * nicht kollidieren.
  */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-interface Props { label?: string; align?: 'start' | 'center'; theme?: 'light' | 'dark'; }
-const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open = false, emit = false } = Astro.props;
+interface Props {
+  label?: string;
+  align?: 'start' | 'center';
+  theme?: 'light' | 'dark';
+  open?: boolean;
+  emit?: boolean;
+  /** 04.08.2026 (EN-Relaunch): Sichtbare Texte folgen der Seitensprache.
+   *  Klassen, IDs, Datenattribute, Endpoint und Ablauf bleiben identisch. */
+  lang?: 'de' | 'en';
+}
+const { label, align = 'start', theme = 'light', open = false, emit = false, lang = 'de' } = Astro.props;
+const isEn = lang === 'en';
+
+const cta = label ?? (isEn ? 'Register for the webinar' : 'Zum Webinar anmelden');
+const privacyHref = isEn ? `${base}/en/privacy-policy/` : `${base}/datenschutz/`;
+
+const t = isEn
+  ? {
+      hp: 'Website',
+      urlPlaceholder: 'Your website URL — e.g. yourcompany.com',
+      urlAria: 'Website URL',
+      next: 'Continue',
+      hint: 'Your registration — where shall we send the access link?',
+      firstname: 'First name',
+      lastname: 'Last name',
+      email: 'Email address',
+      submit: 'Secure your place →',
+      privacy: 'Privacy Policy',
+      thanks: 'Thank you.',
+    }
+  : {
+      hp: 'Website',
+      urlPlaceholder: 'Ihre Website-URL — z. B. ihrefirma.de',
+      urlAria: 'Website-URL',
+      next: 'Weiter',
+      hint: 'Ihre Anmeldung — wohin dürfen wir den Zugangslink senden?',
+      firstname: 'Vorname',
+      lastname: 'Name',
+      email: 'E-Mail-Adresse',
+      submit: 'Platz sichern →',
+      privacy: 'Datenschutzerklärung',
+      thanks: 'Vielen Dank!',
+    };
+
+/* Die Fehlermeldungen liegen als JSON am Wurzelelement, weil das Inline-Script
+   einmal pro Seite laeuft und alle Instanzen bedient — es kann deshalb keine
+   sprachabhaengigen Konstanten tragen. Fehlt das Attribut, greifen im Script
+   die deutschen Vorgaben.
+
+   Der Platzhalter {MAIL} statt eines fertigen <a>-Tags ist Absicht: Ein
+   Anfuehrungszeichen im JSON beendet das HTML-Attribut vorzeitig, der Rest der
+   Meldung landet als sichtbarer Text mitten auf der Seite. Genau das ist am
+   04.08.2026 passiert — auf der deutschen wie auf der englischen Webinarseite,
+   fuenfmal je Seite, einmal pro Instanz. Wer hier wieder Markup eintraegt,
+   bricht beide Seiten. Den Link setzt das Script ein. */
+const msgs = isEn
+  ? {
+      domain: 'Please enter a valid website address (e.g. yourcompany.com).',
+      domainCheck: 'Please check the website address.',
+      firstname: 'Please enter your first name.',
+      lastname: 'Please enter your last name.',
+      email: 'Please enter a valid email address.',
+      consent: 'Please confirm your consent.',
+      rejected: 'Registration not possible. Please try again — or email us at {MAIL}.',
+      failed: 'Something went wrong. Please try again or write to {MAIL}.',
+    }
+  : {
+      domain: 'Bitte geben Sie eine gültige Website-Adresse ein (z. B. ihrefirma.de).',
+      domainCheck: 'Bitte prüfen Sie die Website-Adresse.',
+      firstname: 'Bitte geben Sie Ihren Vornamen an.',
+      lastname: 'Bitte geben Sie Ihren Namen an.',
+      email: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+      consent: 'Bitte bestätigen Sie die Einwilligung.',
+      rejected: 'Anmeldung nicht möglich. Bitte erneut versuchen — oder per E-Mail an {MAIL}.',
+      failed: 'Da ist etwas schiefgelaufen. Bitte erneut versuchen oder an {MAIL} schreiben.',
+    };
 ---
 
-<div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-emit={emit ? '1' : undefined} data-state={open ? 'url' : 'idle'}>
+<div class={`wacta wacta--${align} ${theme === 'dark' ? 'wacta--dark' : ''}`} data-wacta data-emit={emit ? '1' : undefined} data-state={open ? 'url' : 'idle'} data-msgs={JSON.stringify(msgs)}>
   <div class="wacta-hp" inert>
-    <label>Website<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
+    <label>{t.hp}<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
   </div>
 
   <button type="button" class="wacta-trigger" data-open>
-    <span>{label}</span>
+    <span>{cta}</span>
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
   <form class="wacta-form" novalidate autocomplete="off" data-form>
     <div class="wacta-line wacta-line--url">
       <input class="wacta-in" data-url type="text" inputmode="url" spellcheck="false"
-             placeholder="Ihre Website-URL — z. B. ihrefirma.de" aria-label="Website-URL" />
-      <button type="button" class="wacta-sq" data-next aria-label="Weiter">
+             placeholder={t.urlPlaceholder} aria-label={t.urlAria} />
+      <button type="button" class="wacta-sq" data-next aria-label={t.next}>
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </div>
 
     <div class="wacta-contact" data-contact>
-      <p class="wacta-hint">Ihre Anmeldung — wohin dürfen wir den Zugangslink senden?</p>
+      <p class="wacta-hint">{t.hint}</p>
       <div class="wacta-grid">
-        <input class="wacta-in" data-firstname type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
-        <input class="wacta-in" data-lastname type="text" placeholder="Name" aria-label="Name" autocomplete="family-name" />
+        <input class="wacta-in" data-firstname type="text" placeholder={t.firstname} aria-label={t.firstname} autocomplete="given-name" />
+        <input class="wacta-in" data-lastname type="text" placeholder={t.lastname} aria-label={t.lastname} autocomplete="family-name" />
       </div>
-      <input class="wacta-in" data-email type="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse" autocomplete="email" />
+      <input class="wacta-in" data-email type="email" placeholder={t.email} aria-label={t.email} autocomplete="email" />
       <label class="wacta-consent">
         <input type="checkbox" data-consent />
-        <span>CodaAI darf mich im Zuge der Webinaranmeldung kontaktieren. Hinweise in der <a href={`${base}/datenschutz/`} target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+        {isEn
+          ? <span>CodaAI may contact me in connection with this webinar registration. See the <a href={privacyHref} target="_blank" rel="noopener">{t.privacy}</a> for details.</span>
+          : <span>CodaAI darf mich im Zuge der Webinaranmeldung kontaktieren. Hinweise in der <a href={privacyHref} target="_blank" rel="noopener">{t.privacy}</a>.</span>}
       </label>
-      <button type="button" class="wacta-submit" data-submit>Platz sichern →</button>
+      <button type="button" class="wacta-submit" data-submit>{t.submit}</button>
     </div>
 
     <p class="wacta-err" data-err hidden></p>
@@ -54,7 +130,9 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
     <span class="wacta-check" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>
-    <p><b>Vielen Dank!</b> Ihre Anmeldung zum Webinar am <b>Di, 08.09.2026, 11:00&nbsp;Uhr</b> ist eingegangen — den Zugangslink senden wir rechtzeitig per E-Mail.</p>
+    {isEn
+      ? <p><b>{t.thanks}</b> Your registration for the webinar on <b>Tue, 8 September 2026, 11:00&nbsp;CEST</b> has arrived — we will send the access link by email in good time. The webinar is held in German.</p>
+      : <p><b>{t.thanks}</b> Ihre Anmeldung zum Webinar am <b>Di, 08.09.2026, 11:00&nbsp;Uhr</b> ist eingegangen — den Zugangslink senden wir rechtzeitig per E-Mail.</p>}
   </div>
 </div>
 
@@ -170,9 +248,25 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
     }
     var DOMAIN_RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
     var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    // Deutsche Vorgaben — greifen, wenn eine Instanz kein data-msgs traegt.
+    var FALLBACK = {
+      domain: 'Bitte geben Sie eine gültige Website-Adresse ein (z. B. ihrefirma.de).',
+      domainCheck: 'Bitte prüfen Sie die Website-Adresse.',
+      firstname: 'Bitte geben Sie Ihren Vornamen an.',
+      lastname: 'Bitte geben Sie Ihren Namen an.',
+      email: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+      consent: 'Bitte bestätigen Sie die Einwilligung.',
+      rejected: 'Anmeldung nicht möglich. Bitte erneut versuchen — oder per E-Mail an {MAIL}.',
+      failed: 'Da ist etwas schiefgelaufen. Bitte erneut versuchen oder an {MAIL} schreiben.'
+    };
     function initWacta(root) {
       if (root.dataset.wired === '1') return;
       root.dataset.wired = '1';
+      var M = {};
+      try { M = JSON.parse(root.getAttribute('data-msgs') || '{}'); } catch (_) {}
+      /* {MAIL} wird erst hier zum Link — im Attribut hat Markup nichts zu suchen. */
+      var MAILTO = '<a href="mailto:hi@codaai.ai">hi@codaai.ai</a>';
+      var msg = function (k) { return String(M[k] || FALLBACK[k]).split('{MAIL}').join(MAILTO); };
       var q = function (s) { return root.querySelector(s); };
       var openBtn = q('[data-open]'), nextBtn = q('[data-next]'), submitBtn = q('[data-submit]');
       var urlIn = q('[data-url]'), firstIn = q('[data-firstname]'), lastIn = q('[data-lastname]');
@@ -186,7 +280,7 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
       var goContact = function () {
         clearErr();
         var dom = normalizeDomain(urlIn ? urlIn.value : '');
-        if (!dom || !DOMAIN_RE.test(dom)) { showErr('Bitte geben Sie eine g&uuml;ltige Website-Adresse ein (z. B. ihrefirma.de).'); if (urlIn) urlIn.focus(); return; }
+        if (!dom || !DOMAIN_RE.test(dom)) { showErr(msg('domain')); if (urlIn) urlIn.focus(); return; }
         setState('contact');
         setTimeout(function () { if (firstIn) firstIn.focus(); }, 380);
       };
@@ -222,11 +316,11 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
         var first = (firstIn ? firstIn.value : '').trim();
         var last = (lastIn ? lastIn.value : '').trim();
         var email = (emailIn ? emailIn.value : '').trim();
-        if (!dom || !DOMAIN_RE.test(dom)) { setState('url'); showErr('Bitte pr&uuml;fen Sie die Website-Adresse.'); if (urlIn) urlIn.focus(); return; }
-        if (!first) { showErr('Bitte geben Sie Ihren Vornamen an.'); if (firstIn) firstIn.focus(); return; }
-        if (!last) { showErr('Bitte geben Sie Ihren Namen an.'); if (lastIn) lastIn.focus(); return; }
-        if (!EMAIL_RE.test(email)) { showErr('Bitte geben Sie eine g&uuml;ltige E-Mail-Adresse an.'); if (emailIn) emailIn.focus(); return; }
-        if (!consentIn || !consentIn.checked) { showErr('Bitte best&auml;tigen Sie die Einwilligung.'); return; }
+        if (!dom || !DOMAIN_RE.test(dom)) { setState('url'); showErr(msg('domainCheck')); if (urlIn) urlIn.focus(); return; }
+        if (!first) { showErr(msg('firstname')); if (firstIn) firstIn.focus(); return; }
+        if (!last) { showErr(msg('lastname')); if (lastIn) lastIn.focus(); return; }
+        if (!EMAIL_RE.test(email)) { showErr(msg('email')); if (emailIn) emailIn.focus(); return; }
+        if (!consentIn || !consentIn.checked) { showErr(msg('consent')); return; }
         if (hp && hp.value) { setState('done'); return; }
         setState('sending');
         var lang = 'de';
@@ -246,11 +340,11 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
         })
           .then(function (r) { return r.json(); })
           .then(function (r) {
-            if (r && r.ok === false) { setState('contact'); showErr('Anmeldung nicht m&ouml;glich. Bitte erneut versuchen &mdash; oder per E-Mail an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.'); return; }
+            if (r && r.ok === false) { setState('contact'); showErr(msg('rejected')); return; }
             try { var dl = (window.dataLayer = window.dataLayer || []); dl.push({ event: 'webinar_signup', webinar_slot: SLOT, lang: lang }); } catch (e) {}
             setState('done');
           })
-          .catch(function () { setState('contact'); showErr('Da ist etwas schiefgelaufen. Bitte erneut versuchen oder an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a> schreiben.'); });
+          .catch(function () { setState('contact'); showErr(msg('failed')); });
       };
       if (submitBtn) submitBtn.addEventListener('click', submit);
       if (emailIn) emailIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); if (consentIn) consentIn.focus(); } });

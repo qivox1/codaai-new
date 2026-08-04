@@ -9,12 +9,36 @@ const { lang } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Studien-Teaser: nur auf DE-Seiten, nicht auf /studie selbst (kein Link auf sich selbst)
-// und nicht auf /webinar (Conversion-Seite ohne Exit-Pfade)
+/* Studien-Teaser: nicht auf der Studienseite selbst (kein Link auf sich selbst)
+   und nicht auf der Webinarseite (Conversion-Seite ohne Exit-Pfade).
+
+   04.08.2026 (EN-Relaunch): Die Sperre `lang === 'de'` ist weg. Sie war richtig,
+   solange die Studie nur auf Deutsch existierte — ein Teaser hätte den
+   englischen Leser auf eine deutsche Seite geschickt. Seit es /en/study/ gibt,
+   läuft der Teaser in beiden Sprachen und zeigt auf die jeweils passende URL. */
 const cleanPath = Astro.url.pathname.replace(/\/$/, '');
-const isStudiePage = cleanPath.endsWith('/studie');
+const isStudiePage = cleanPath.endsWith('/studie') || cleanPath.endsWith('/study');
 const isWebinarPage = cleanPath.endsWith('/webinar');
-const showStudyTeaser = lang === 'de' && !isStudiePage && !isWebinarPage;
+const showStudyTeaser = !isStudiePage && !isWebinarPage;
+
+const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
+const studyCopy = lang === 'de'
+  ? {
+      alt: 'Titelseite der Studie „KI-Blindtest Mittelstand 2026“',
+      kicker: 'KI-Blindtest Mittelstand 2026',
+      titleA: 'Empfohlen oder ',
+      titleB: 'unsichtbar',
+      note: '449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.',
+      cta: 'Zur Studie →',
+    }
+  : {
+      alt: 'Cover of the study “AI Blind Test 2026”',
+      kicker: 'AI Blind Test 2026',
+      titleA: 'Recommended or ',
+      titleB: 'invisible',
+      note: '449 companies · 3,592 buyer questions · 7,184 AI answers. The most extensive analysis to date of AI visibility among mid-sized companies in Germany.',
+      cta: 'Read the study →',
+    };
 
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
 const complianceBadges = [
@@ -69,7 +93,7 @@ const currentYear = new Date().getFullYear();
 
     {showStudyTeaser && (
       <a
-        href={`${base}/studie/`}
+        href={studyHref}
         class="group mb-10 flex flex-col items-center gap-5 rounded-3xl border border-ondark-line p-6 text-ondark transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
         style="background: linear-gradient(135deg, hsl(var(--navy-600)) 0%, hsl(var(--surface-ink)) 62%, hsl(var(--navy-800)) 100%);"
       >
@@ -80,7 +104,7 @@ const currentYear = new Date().getFullYear();
             solange bleibt hier ein sichtbarer Kasten. */}
         <img
           src={`${base}/images/studie-teaser-de.webp`}
-          alt="Titelseite der Studie „KI-Blindtest Mittelstand 2026“"
+          alt={studyCopy.alt}
           width="138"
           height="180"
           loading="lazy"
@@ -88,22 +112,26 @@ const currentYear = new Date().getFullYear();
           class="h-24 w-auto flex-none"
         />
         <span class="min-w-0 flex-1 text-center sm:text-left">
-          <span class="block text-xs font-semibold uppercase tracking-widest text-ondark-muted">KI-Blindtest Mittelstand 2026</span>
-          <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">Empfohlen oder <span class="text-cta-on-dark">unsichtbar</span>?</span>
+          <span class="block text-xs font-semibold uppercase tracking-widest text-ondark-muted">{studyCopy.kicker}</span>
+          <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">{studyCopy.titleA}<span class="text-cta-on-dark">{studyCopy.titleB}</span>?</span>
           {/* Vorher opacity-70 — auf dunkler Fläche kippt der Kontrast dabei
               unbemerkt, weil die Deckkraft der Vorfahren nicht in der Farbe
               steht. Jetzt explizit Navy-200: 10,0:1 auf Ink. */}
-          <span class="mt-1 block text-sm text-ondark-muted">449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.</span>
+          <span class="mt-1 block text-sm text-ondark-muted">{studyCopy.note}</span>
         </span>
         <span class="inline-flex flex-none items-center gap-2 rounded-[14px] bg-cta-strong px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
-          Zur Studie →
+          {studyCopy.cta}
         </span>
       </a>
     )}
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
       <div>
-        <a href={`${base}/`} class="flex items-center gap-2" aria-label="CodaAI – zur Startseite">
+        <a
+          href={lang === 'de' ? `${base}/` : `${base}/en/`}
+          class="flex items-center gap-2"
+          aria-label={lang === 'de' ? 'CodaAI – zur Startseite' : 'CodaAI – to the homepage'}
+        >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>

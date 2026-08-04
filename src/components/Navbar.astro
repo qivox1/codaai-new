@@ -1,5 +1,6 @@
 ---
 import { t } from '../i18n/utils';
+import { alternatesFor } from '../lib/i18n-routes';
 
 interface Props {
   lang: 'de' | 'en';
@@ -24,6 +25,12 @@ const home = lang === 'de' ? `${base}/` : `${base}/en/`;
  *              — „Team" entfernt (keine Team-Seite mehr auf der neuen Site)
  *   EN (alt):  unverändert, bis die EN-Premium-Welle kommt (sonst tote #features/#team-Links)
  *
+ * 04.08.2026 — EN-Relaunch: Die englische Version bildet ab jetzt denselben
+ * Arbeitsstand ab wie die deutsche. Die Sonderrolle der EN-Nav entfällt damit;
+ * beide Listen tragen dieselben Punkte, nur auf die englischen Slugs gezeigt.
+ * Die alten Sprungmarken #features und #team gibt es nicht mehr — sie zeigten
+ * auf Sektionen des Content-Agentur-Designs, das mit diesem Relaunch wegfällt.
+ *
  * ⚠️ Deploy-Kopplung: Der DE-Punkt zeigt auf /digital-visibility/. Diese Navbar geht
  *    daher nur GEMEINSAM mit src/pages/digital-visibility.astro live (sonst 404).
  *    28.07.2026: umbenannt von „Leistungen"; /leistungen/ leitet weiter.
@@ -43,18 +50,33 @@ const navItemsDe = [
 ];
 
 const navItemsEn = [
-  { label: t('en', "navbar.how"), href: `${home}#features` },
-  { label: t('en', "navbar.team"), href: `${home}#team` },
+  { label: 'Digital Visibility', href: `${base}/en/digital-visibility/` },
   { label: 'Pricing', href: `${base}/en/pricing/` },
   { label: 'Blog', href: `${base}/en/blog/` },
-  { label: t('en', "navbar.faq"), href: `${home}#faq` },
+  { label: t('en', "navbar.faq"), href: `${base}/en/faq/` },
   // 04.08.2026: removed alongside the German „Kontakt" entry.
 ];
 
 const navItems = lang === 'de' ? navItemsDe : navItemsEn;
 
-// Language toggle: DE â /en/, EN â /
-const langToggleHref = lang === 'de' ? `${base}/en/` : `${base}/`;
+/*
+ * Sprachumschalter — seit 04.08.2026 seitengenau.
+ *
+ * Vorher sprang er IMMER auf die jeweilige Startseite: Wer auf /preise/ stand
+ * und „EN" drückte, landete auf /en/ und musste die Preisseite neu suchen. Das
+ * war vertretbar, solange es drüben ohnehin keine Entsprechung gab — mit dem
+ * EN-Relaunch gibt es sie für jede aktive Seite.
+ *
+ * Quelle ist dieselbe Paartabelle, aus der auch die hreflang-Angaben kommen
+ * (src/lib/i18n-routes.ts). Damit können Umschalter und hreflang nicht
+ * auseinanderlaufen. Seiten ohne Gegenstück fallen auf die Startseite der
+ * anderen Sprache zurück — dort ist ein 404 ausgeschlossen.
+ */
+const navAlternates = alternatesFor(Astro.url.pathname);
+const langToggleTarget = lang === 'de' ? navAlternates.en : navAlternates.de;
+const langToggleHref = langToggleTarget
+  ? `${base}${langToggleTarget}`
+  : (lang === 'de' ? `${base}/en/` : `${base}/`);
 const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
 ---
 

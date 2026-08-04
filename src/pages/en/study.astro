@@ -1,0 +1,870 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+
+const DATENSTAND = 'June/July 2026';
+const VERSION = '1.0';
+// Webinar-Modul erst mit Live-Gang von /en/webinar aktivieren (Olis Entscheidung 14.07.2026)
+const SHOW_WEBINAR = true;
+
+// ── Kennzahlen (Quelle: geo_v2_export, Auswertung 13.07.2026 — vor Go-Live Refresh!) ──
+const K = {
+  unternehmen: 449,
+  fragen: 3592,
+  antworten: 7184,
+  ohneNennung: 54.7,        // % aller Fragen ohne Nennung des Unternehmens
+  ersetzt: 46.8,            // % Firmen: KI empfiehlt Wettbewerber, Firma fehlt mehrheitlich
+  seoParadox: 34.9,         // % der SEO-starken Firmen (≥100 Top-10) in ChatGPT unsichtbar
+  seoStarkN: 361,
+  komplettUnsichtbar: 12.9, // % Firmen: 0 von 8 Fragen
+  kategorieBlind: 25.6,     // % Firmen: bei Marktfrage zum eigenen Kerngeschäft unsichtbar
+  chatgptAvg: 24.9,
+  googleAvg: 39.4,
+  nieChatgpt: 39.6,
+  nieGoogle: 15.1,
+  nieZitiert: 39.0,
+  platz1: 23.8,
+  avgPosition: '1.8',
+  verlustMedian: '47,000',
+};
+
+const reportSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Report',
+  name: 'AI Blind Test 2026 — analysis of AI visibility among mid-sized companies in Germany',
+  alternativeName: 'KI-Blindtest Mittelstand 2026',
+  url: `${SITE_URL}/en/study/`,
+  datePublished: '2026-07-14',
+  dateModified: '2026-07-14',
+  inLanguage: 'en',
+  version: VERSION,
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  description:
+    'Analysis of 7,184 AI answers (ChatGPT and Google AI Overviews) to 3,592 realistic buyer questions about 449 mid-sized companies in Germany: 54.7 % of the questions produce no mention of the company in question; for 46.8 % of the companies the AI recommends competitors by name.',
+  about: [
+    { '@type': 'Thing', name: 'Generative Engine Optimization (GEO)' },
+    { '@type': 'Thing', name: 'AI visibility' },
+    { '@type': 'Thing', name: 'Mid-sized B2B companies' },
+  ],
+});
+
+const datasetSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'AI Blind Test 2026 — raw data aggregate',
+  description:
+    '449 mid-sized companies in Germany × 8 qualified buyer questions, queried on ChatGPT and Google AI Overviews (7,184 documented answers). Collected in June/July 2026. Aggregated metrics are public; company-level data is access-restricted.',
+  url: `${SITE_URL}/en/study/`,
+  creator: { '@id': `${SITE_URL}/#organization` },
+  temporalCoverage: '2026-06/2026-07',
+  spatialCoverage: 'Germany',
+  isAccessibleForFree: true,
+});
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is this analysis representative of mid-sized companies in Germany?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No, and we deliberately do not claim that it is. The 449 companies come from our own audit practice and are B2B-heavy. That said, our research suggests it is the most comprehensive analysis of its kind in the German-speaking market so far — smaller surveys (24 and 150 companies) arrive at similar results independently of us.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How were the buyer questions created?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For each company, 8 qualified German questions were generated across three archetypes (market overview, use case, competitor comparison) — based on an automated analysis of the website, the industry and the competitive landscape, followed by a quality check. The question sets are frozen and can therefore be repeated for tracking over time.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which AI systems were queried?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ChatGPT (model answers without live web search) and Google AI Overviews (German localisation). Both interfaces were queried with identical questions; we recorded the brand mention, the position of that mention, the competitors named and whether the company website is cited as a source.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I have my own company checked?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Using the same methodology we build an individual visibility audit for your company — with your real buyer questions, the actual AI answers and the competitors recommended in your place. Enter your domain at the top of this page.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the study relevant for companies outside Germany?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We measured 449 companies in Germany, in German, on ChatGPT and Google AI Overviews. The mechanism behind it is not country-specific: AI systems answer from the same kinds of sources everywhere. The figures apply to the German market — the pattern travels, the evidence for that is still outstanding.',
+      },
+    },
+  ],
+});
+
+// Anonymisierte Echt-Beispiele aus dem Datensatz (Branche statt Firmenname, Wettbewerber anonymisiert)
+const beispiele = [
+  {
+    branche: 'Manufacturer of emergency and safety lighting',
+    kontext: 'approx. 880 top-10 rankings on Google — organically well visible',
+    frage: 'Which LED emergency luminaires are recommended for commercial escape and rescue routes under the current standard?',
+    ergebnis: 'The company is not mentioned. Instead, across the full question set, the AI systems recommend two direct competitors five times each.',
+  },
+  {
+    branche: 'Mechanical engineering firm for factory automation and conveyor systems',
+    kontext: 'approx. 640 top-10 rankings — AI visibility: 0 out of 8 questions',
+    frage: 'Which manufacturers of aluminium profile systems for factory automation are considered leaders in Europe?',
+    ergebnis: 'No mention in ChatGPT or Google AI Overviews. The most frequently named competitor appears in the answers seven times — a DAX-adjacent corporation dominates the category.',
+  },
+  {
+    branche: 'Provider of electroplating and surface finishing',
+    kontext: 'more than 1,200 top-10 rankings — AI visibility: 0 out of 8 questions',
+    frage: 'Which providers of electroplated metal finishing in Germany are considered particularly reliable?',
+    ergebnis: 'The company appears in no answer at all — even though it ranks on page 1 in classic Google searches on the same topics. Two international groups are recommended instead.',
+  },
+];
+---
+
+<Layout
+  lang="en"
+  title="AI Blind Test 2026: Recommended or Invisible? | CodaAI"
+  description="7,184 AI answers on 449 companies in Germany: in 55% of buyer questions the company is not named — for 47%, the AI recommends competitors."
+  jsonLd={[reportSchema, datasetSchema, faqSchema]}
+>
+  <Navbar lang="en" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+        <Breadcrumb items={[{ label: 'Home', ariaLabel: 'To the homepage', href: `${base}/en/` }, { label: 'AI Blind Test 2026' }]} class="mb-8" />
+
+        <div class="max-w-3xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+            Data analysis · AI Blind Test 2026
+          </p>
+          <h1 class="cai-h1 cai-kipp text-foreground">
+            <span class="k1 block">We asked the AI about 449 companies.</span>
+            <span class="k2 block">Recommended or invisible?</span>
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">
+            We put the questions of real buyers to AI assistants — about 449 mid-sized companies in
+            Germany. The result is, to our knowledge, the most comprehensive analysis of AI visibility
+            among mid-sized companies in the German-speaking market to date. It is not a reassuring one.
+          </p>
+        </div>
+
+        <!-- Kennzahlen-Band -->
+        <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="449">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">companies analysed</span><span class="block">across 258 industries</span></dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count="3592">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">company-specific buyer questions</span><span class="block">on products &amp; services</span></dt>
+          </div>
+          <div class="bg-card px-8 py-8 text-center">
+            <dd class="text-4xl font-bold tabular-nums tracking-tight text-cta lg:text-5xl" data-count="7184">0</dd>
+            <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">documented AI answers</span><span class="block">from ChatGPT &amp; Google AI Overviews</span></dt>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+          <span class="inline-flex items-center gap-1.5">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Data as of: {DATENSTAND}
+          </span>
+          <span>Version {VERSION}</span>
+          <a href="#methodik" class="font-medium text-cta-accessible transition-colors hover:text-cta">Methodology ↓</a>
+          <a href="#limitationen" class="font-medium text-cta-accessible transition-colors hover:text-cta">Limitations ↓</a>
+          <a href="#zitieren" class="font-medium text-cta-accessible transition-colors hover:text-cta">Citation ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Zentrale Befunde (Teaser, Boxen wie /webinar in Studien-Ton) ── -->
+    <section aria-labelledby="h-befunde-teaser" class="border-b border-border bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Key findings</p>
+        <h2 id="h-befunde-teaser" class="cai-h2 text-foreground">Potential buyers ask the AI first — and companies never hear about it.</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            { n: '55 %', t: 'of buyer questions produce no mention', d: 'In more than half of the questions, the company under review appears in no AI answer at all — and nobody notices, because a non-mention shows up in no statistic.' },
+            { n: 'almost 1/2', t: 'are replaced by competitors named outright', d: 'For almost every second company the AI recommends the competition by name, while the company itself is missing from the majority of its core questions on its own products and services.' },
+            { n: '> 1/3', t: 'invisible despite strong Google rankings', d: 'More than a third of the companies with over 100 top-10 rankings are completely invisible in ChatGPT. Classic SEO strength is no protection.' },
+          ].map((b) => (
+            <article class="flex flex-col rounded-2xl border border-border bg-card p-8">
+              <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">{b.n}</span>
+              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{b.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{b.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Inhalt + TOC ─────────────────────────────────────────────────── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
+
+        <!-- TOC (Desktop) -->
+        <aside class="hidden lg:block">
+          <nav aria-label="Table of contents" class="sticky top-28 py-16 text-sm">
+            <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Contents</p>
+            <ol class="space-y-3 border-l border-border">
+              <li><a href="#zusammenfassung" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Summary</a></li>
+              <li><a href="#ergebnisse" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Key results</a></li>
+              <li><a href="#plattformen" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">ChatGPT vs. Google AI</a></li>
+              <li><a href="#beispiele" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Examples</a></li>
+              <li><a href="#domain-check" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Domain check</a></li>
+              <li><a href="#methodik" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Methodology</a></li>
+              <li><a href="#limitationen" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">Limitations</a></li>
+              <li><a href="#faq" class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">FAQ</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="min-w-0">
+
+          <!-- ── Zusammenfassung ──────────────────────────────────────── -->
+          <section id="zusammenfassung" aria-labelledby="h-zusammenfassung" class="scroll-mt-28 py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Abstract</p>
+            <h2 id="h-zusammenfassung" class="cai-h2 text-foreground">Summary</h2>
+            <div class="mt-8 rounded-2xl border-l-4 border-cta bg-muted/30 p-8">
+              <p class="text-lg leading-relaxed text-foreground">
+                B2B buying decisions increasingly start inside AI answers — long before any supplier is contacted.
+                This analysis measures whether mid-sized companies appear there. For each company, eight realistic
+                buyer questions were put to ChatGPT and Google AI Overviews, and the answers were evaluated
+                systematically: is the company mentioned? In which position? Who is recommended instead? Is the
+                company's own website cited as a source?
+              </p>
+              <p class="mt-4 text-lg leading-relaxed text-foreground">
+                The result: in <strong>{K.ohneNennung.toLocaleString('en-GB')} %</strong> of all questions the
+                company in question is not mentioned. For <strong>{K.ersetzt.toLocaleString('en-GB')} %</strong> of
+                the companies, the AI systems recommend competitors by name while the company itself is missing from
+                the majority of its core questions. And even strong Google rankings are no protection:
+                <strong>{K.seoParadox.toLocaleString('en-GB')} %</strong> of the organically well-visible companies
+                are completely invisible in ChatGPT.
+              </p>
+            </div>
+          </section>
+
+          <!-- ── Kernergebnisse ───────────────────────────────────────── -->
+          <section id="ergebnisse" aria-labelledby="h-ergebnisse" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Results</p>
+            <h2 id="h-ergebnisse" class="cai-h2 text-foreground">Four findings that hurt</h2>
+
+            <div class="mt-10 grid gap-6 sm:grid-cols-2">
+
+              <!-- Befund 1 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">55&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">of buyer questions produce no mention</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  In 1,965 of 3,592 questions, the company in question appears in neither of the two
+                  AI answers. The majority of buying journeys therefore happen without the company —
+                  and nobody notices, because a non-mention shows up in no statistic.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="54.7 % of questions produce no mention">
+                  <div class="h-full rounded-full bg-cta" style="width:54.7%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 2 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">47&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">are replaced by competitors</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  For 210 of 449 companies, the AI systems recommend competitors by name while the company
+                  itself is missing from the majority of its questions. {K.komplettUnsichtbar.toLocaleString('en-GB')} %
+                  are replaced entirely: zero mentions across eight questions — the competition stands in every answer.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="46.8 % of companies are replaced by competitors">
+                  <div class="h-full rounded-full bg-cta" style="width:46.8%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 3 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">35&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">The SEO paradox: good rankings are no protection</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {K.seoStarkN} of the companies analysed have more than 100 top-10 rankings on Google.
+                  One in three of them ({K.seoParadox.toLocaleString('en-GB')} %) is still completely invisible
+                  in ChatGPT. Classic SEO strength and AI visibility are two different disciplines.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="34.9 % of SEO-strong companies are invisible in ChatGPT">
+                  <div class="h-full rounded-full bg-cta" style="width:34.9%"></div>
+                </div>
+              </article>
+
+              <!-- Befund 4 -->
+              <article class="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+                <div class="flex items-baseline gap-3">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-cta">26&thinsp;%</span>
+                </div>
+                <h3 class="mt-4 text-lg font-semibold text-foreground">invisible in their own core business</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  Every fourth company is not mentioned even in the market-overview question about its
+                  <em>own</em> category ("Which providers of … are considered leading?").
+                  Whoever is missing here does not exist for the discovery phase of their industry.
+                </p>
+                <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" role="img" aria-label="25.6 % invisible on the question about their own category">
+                  <div class="h-full rounded-full bg-cta" style="width:25.6%"></div>
+                </div>
+              </article>
+            </div>
+
+            <p class="mt-6 text-xs leading-relaxed text-muted-foreground">
+              Additional metrics: where companies are mentioned, they stand at position {K.avgPosition} on average;
+              in {K.platz1.toLocaleString('en-GB')} % of all questions the company reaches first place.
+              For {K.nieZitiert.toLocaleString('en-GB')} % of the companies, their own website is cited as a source
+              in no answer at all — the AI describes these firms exclusively on the basis of third parties.
+              A conservative model calculation puts the median opportunity at around €{K.verlustMedian} per
+              company per year (<a href="#limitationen" class="underline decoration-border underline-offset-2 hover:text-foreground">context</a>).
+            </p>
+          </section>
+
+          <!-- ── Plattform-Vergleich ──────────────────────────────────── -->
+          <section id="plattformen" aria-labelledby="h-plattformen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Platform comparison</p>
+            <h2 id="h-plattformen" class="cai-h2 text-foreground">ChatGPT is considerably blinder than Google AI Overviews</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              The same questions, two systems, two realities: ChatGPT answers mostly from training data —
+              whoever is missing there is missing structurally and can hardly correct that in the short term.
+              Google AI Overviews draws more heavily on the live index.
+            </p>
+
+            <div class="mt-10 space-y-8 rounded-2xl border border-border bg-card p-8">
+              <div>
+                <div class="mb-2 flex items-baseline justify-between gap-4">
+                  <span class="text-sm font-semibold text-foreground">Avg. visibility in ChatGPT</span>
+                  <span class="text-2xl font-bold tabular-nums text-foreground">24.9&thinsp;%</span>
+                </div>
+                <div class="h-3 overflow-hidden rounded-full bg-muted">
+                  <div class="h-full rounded-full bg-cta" style="width:24.9%"></div>
+                </div>
+                <p class="mt-2 text-xs text-muted-foreground">{K.nieChatgpt.toLocaleString('en-GB')} % of the companies are <strong>never</strong> mentioned by ChatGPT.</p>
+              </div>
+              <div>
+                <div class="mb-2 flex items-baseline justify-between gap-4">
+                  <span class="text-sm font-semibold text-foreground">Avg. visibility in Google AI Overviews</span>
+                  <span class="text-2xl font-bold tabular-nums text-foreground">39.4&thinsp;%</span>
+                </div>
+                <div class="h-3 overflow-hidden rounded-full bg-muted">
+                  <div class="h-full rounded-full bg-cta/60" style="width:39.4%"></div>
+                </div>
+                <p class="mt-2 text-xs text-muted-foreground">{K.nieGoogle.toLocaleString('en-GB')} % of the companies appear in no answer here either.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Beispiele ────────────────────────────────────────────── -->
+          <section id="beispiele" aria-labelledby="h-beispiele" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">From the dataset</p>
+            <h2 id="h-beispiele" class="cai-h2 text-foreground">Three real cases — anonymised</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              Original questions from the survey, translated from German. Company and competitor names are
+              anonymised out of fairness — in the individual audits they appear in plain text.
+            </p>
+
+            <div class="mt-10 space-y-4">
+              {beispiele.map((b) => (
+                <details class="group rounded-2xl border border-border bg-card open:border-cta/40 open:shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{b.branche}</p>
+                      <p class="mt-1 text-sm text-muted-foreground">{b.kontext}</p>
+                    </div>
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <div class="border-t border-border px-6 py-6">
+                    <p class="text-sm font-medium text-muted-foreground">Buyer question asked:</p>
+                    <blockquote class="mt-2 rounded-xl bg-muted/40 p-4 text-foreground">"{b.frage}"</blockquote>
+                    <p class="mt-4 text-sm font-medium text-muted-foreground">Result:</p>
+                    <p class="mt-2 leading-relaxed text-foreground">{b.ergebnis}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <!-- ── Domain-Check ─────────────────────────────────────────── -->
+          <section id="domain-check" aria-labelledby="h-domain-check" class="scroll-mt-28 border-t border-border py-16">
+            <!-- data-theme="dark" ist Pflicht, nicht Kosmetik: seit 04.08.2026 setzt
+                 .cai-h2 die Ueberschriftfarbe ueber --heading. Ohne den Schalter bleibt
+                 sie Navy-700 und steht dunkelblau auf dunkelblau. Der Schalter dreht
+                 --background auf Ink und --foreground auf Weiss, deshalb sind die
+                 Utilities im Kasten entsprechend getauscht. -->
+            <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">The test for your company</p>
+              <h2 id="h-domain-check" class="cai-h2">And you — recommended or invisible?</h2>
+              <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">
+                The same methodology, applied to your company: your eight buyer questions, the real
+                AI answers, your competitors. Enter your domain — we will show you what the AI says.
+              </p>
+
+              <form id="domain-check-form" class="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row" novalidate>
+                <label for="domain-input" class="sr-only">Your company domain</label>
+                <input
+                  id="domain-input"
+                  name="domain"
+                  type="text"
+                  inputmode="url"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="your-company.com"
+                  class="w-full flex-1 rounded-xl border border-foreground/20 bg-foreground/10 px-5 py-3.5 text-base text-foreground placeholder:text-foreground/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50"
+                  required
+                />
+                <button
+                  type="submit"
+                  class="rounded-[14px] bg-cta-strong px-7 py-3.5 text-base font-semibold text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-transparent"
+                >
+                  Check visibility
+                </button>
+              </form>
+
+              <!-- Personalisierter Einstieg (per ?d=… aus Nurture-Links, via JS eingeblendet) -->
+              <div id="domain-known" class="mt-6 hidden rounded-xl border border-cta/40 bg-cta/10 p-5">
+                <p class="text-sm leading-relaxed">
+                  A complete visibility analysis already exists for
+                  <strong id="domain-known-name" class="text-cta"></strong>.
+                </p>
+                <a id="domain-known-link" href="#" class="mt-3 inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                  Go to your personal analysis →
+                </a>
+              </div>
+
+              <!-- Antwort für manuelle Eingaben (via JS eingeblendet) -->
+              <div id="domain-response" class="mt-6 hidden rounded-xl border border-foreground/20 bg-foreground/10 p-5">
+                <p class="text-sm leading-relaxed">
+                  Thank you — we will check <strong id="domain-response-name" class="text-cta"></strong> with the
+                  methodology of this analysis. The full audit is free of charge; we go through the results in
+                  30 minutes, with no sales pressure.
+                </p>
+                <div class="mt-3 flex flex-wrap gap-3">
+                  <a id="domain-response-cta" href={`${base}/en/#appointment`} class="inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+                    Request the analysis (30-minute slot) →
+                  </a>
+                </div>
+              </div>
+
+              <p class="mt-6 text-xs text-ondark-muted">
+                Free · no registration for the check · results are never published.
+              </p>
+            </div>
+          </section>
+
+          <!-- ── Webinar-Modul (deaktiviert via SHOW_WEBINAR, bis /en/webinar existiert — danach durch Recording ersetzen) ── -->
+          {SHOW_WEBINAR && (
+          <section id="webinar" aria-labelledby="h-webinar" class="scroll-mt-28 border-t border-border py-16">
+            <div class="grid items-center gap-10 rounded-3xl border border-cta/30 bg-gradient-to-br from-cta/5 to-transparent p-8 sm:p-12 lg:grid-cols-[1fr_auto]">
+              <div>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Live webinar</p>
+                <h2 id="h-webinar" class="cai-h2 text-foreground">
+                  The results live — including a test of attendee companies
+                </h2>
+                <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+                  On <strong class="text-foreground">Tuesday, 8 September 2026, 11:00–12:00 CEST</strong> we present
+                  the analysis together with <strong class="text-foreground">Norbert Schuster</strong> — and test
+                  companies from the audience live. Every attendee receives their own visibility audit afterwards.
+                  <strong class="text-foreground">This webinar is held in German.</strong>
+                </p>
+                <div class="mt-5 flex items-center gap-3">
+                  <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Portrait of Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="h-12 w-12 shrink-0 rounded-full object-cover" />
+                  <p class="text-sm leading-snug"><span class="font-semibold text-foreground">Norbert Schuster</span><span class="block text-cta-accessible">Strategy consultant, author &amp; speaker · among others the Haufe standard reference "Digitalisierung in Marketing und Vertrieb"</span></p>
+                </div>
+              </div>
+              <div class="flex flex-col items-start gap-3 lg:items-end">
+                <a href={`${base}/en/webinar/`} class="inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                  Register for free →
+                </a>
+                <p class="text-xs text-muted-foreground">Limited to 100 seats · recording for registered attendees · held in German</p>
+              </div>
+            </div>
+          </section>
+          )}
+
+          <!-- ── Methodik ─────────────────────────────────────────────── -->
+          <section id="methodik" aria-labelledby="h-methodik" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Transparency</p>
+            <h2 id="h-methodik" class="cai-h2 text-foreground">Methodology</h2>
+
+            <ol class="mt-10 space-y-6">
+              {[
+                {
+                  t: 'Sample',
+                  d: `${K.unternehmen} mid-sized companies from the German-speaking market, predominantly B2B (among others mechanical engineering, electrical engineering, construction suppliers, industrial services). Selected from our own audit practice — not a random sample (see limitations).`,
+                },
+                {
+                  t: 'Question generation',
+                  d: 'Per company, 8 qualified German buyer questions in three archetypes: market overview (2), use case (4), competitor comparison (2). Created on the basis of an automated analysis of the website, the industry and the competitive landscape, with a deterministic quality check. The question sets are frozen and can therefore be repeated exactly for tracking over time.',
+                },
+                {
+                  t: 'Query',
+                  d: 'Every question was put to two interfaces: ChatGPT (model answer without live web search — this measures the structural "knowledge" of the model) and Google AI Overviews (German localisation). Collection period: June/July 2026.',
+                },
+                {
+                  t: 'Evaluation',
+                  d: 'For each answer we recorded: mention of the company (including brand aliases), position of the mention, competitors recommended by name, and whether the company website is cited as a source. Aggregated into visibility metrics per company and across the full dataset.',
+                },
+                {
+                  t: 'Monetary context',
+                  d: 'The opportunity costs quoted are a conservative model calculation based on organic traffic values (SISTRIX data) and discovery assumptions — intended as an order of magnitude, not as a forecast. It is labelled as a model calculation throughout.',
+                },
+              ].map((m, i) => (
+                <li class="flex gap-5 rounded-2xl border border-border bg-card p-6">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+                  <div>
+                    <h3 class="font-semibold text-foreground">{m.t}</h3>
+                    <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <!-- Scroll-Bühne: ein vollständiges Audit aus dem Datensatz läuft durch die 3D-Ebene -->
+            <p class="mt-12 max-w-3xl font-medium text-foreground">This is what a complete audit from the dataset looks like — as you scroll it runs through once, section by section:</p>
+            <div class="audit-pin" id="audit-pin">
+              <div class="audit-scene">
+                <div class="audit-fit" id="audit-fit">
+                  <div class="audit-card">
+                    <img id="audit-img" src={`${base}/images/audit-full.webp`} width="1500" height="5678" alt="Complete CodaAI Digital Visibility Audit of a mid-sized manufacturer (anonymised): company profile, 27 language versions, SEO metrics, keyword development, GEO score and buyer questions" loading="lazy" decoding="async" />
+                  </div>
+                </div>
+                <p class="audit-title" aria-hidden="true"><span class="at-c">CodaAI</span> <span class="at-p">Digital Visibility Audit</span></p>
+                <div class="audit-labels" aria-hidden="true">
+                  {['SISTRIX KPIs', 'Keyword development', 'Ranking distribution', 'Market competition', 'SEO competition', 'AI visibility', 'Questions & answers from the AI', 'Findings & diagnosis'].map((l) => (
+                    <span class="audit-label">{l}</span>
+                  ))}
+                </div>
+                <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
+                <p class="audit-caption">Real Digital Visibility Audit from the study dataset (anonymised)</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Limitationen ─────────────────────────────────────────── -->
+          <section id="limitationen" aria-labelledby="h-limitationen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Honesty before effect</p>
+            <h2 id="h-limitationen" class="cai-h2 text-foreground">Limitations</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">
+              An analysis is only as credible as the limits it names itself.
+            </p>
+            <ul class="mt-8 space-y-4">
+              {[
+                'Not a random sample: the companies come from our audit practice and are B2B-heavy. The statements hold for the 449 companies analysed — not for mid-sized companies in Germany as a whole.',
+                'A snapshot: AI answers are volatile; model updates can shift mentions. The data date is stated; the frozen question sets make tracking over time possible.',
+                'ChatGPT was deliberately queried without live web search in order to measure the structural knowledge of the model. With web search enabled, individual answers can differ.',
+                'The monetary context is a model calculation with conservative assumptions, not a revenue forecast.',
+                'Two smaller, independent third-party surveys (24 and 150 companies, spring 2026) arrive at similar orders of magnitude — that supports the direction of the findings, but does not replace representativeness.',
+                'The study measures the German market in German. AI systems work the same way elsewhere, but we have not measured other markets — so we do not claim them.',
+              ].map((l) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <svg class="mt-0.5 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                  <span>{l}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- ── Zitieren ─────────────────────────────────────────────── -->
+          <section id="zitieren" aria-labelledby="h-zitieren" class="scroll-mt-28 border-t border-border py-16">
+            <h2 id="h-zitieren" class="text-2xl font-semibold tracking-tight text-foreground">Cite this analysis</h2>
+            <p class="mt-3 max-w-2xl text-sm text-muted-foreground">
+              The aggregated metrics may be quoted freely with attribution — in articles, talks and publications.
+              For questions on the methodology: <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible hover:text-cta">hi@codaai.ai</a>
+            </p>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <code id="cite-text" class="block flex-1 rounded-xl border border-border bg-muted/40 px-5 py-4 text-sm text-foreground">
+                CodaAI (2026): AI Blind Test 2026 ("KI-Blindtest Mittelstand 2026") — analysis of 7,184 AI answers on 449 mid-sized companies in Germany. Version {VERSION}, data as of {DATENSTAND}. {SITE_URL}/en/study/
+              </code>
+              <button id="cite-copy" type="button" class="shrink-0 rounded-[14px] border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-cta hover:text-cta">
+                Copy
+              </button>
+            </div>
+          </section>
+
+          <!-- ── FAQ ──────────────────────────────────────────────────── -->
+          <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
+            <h2 id="h-faq" class="cai-h2 text-foreground">Frequently asked questions</h2>
+            <div class="mt-8 space-y-4">
+              {[
+                {
+                  q: 'Is this analysis representative of mid-sized companies in Germany?',
+                  a: 'No, and we deliberately do not claim that it is. The 449 companies come from our own audit practice and are B2B-heavy. That said, our research suggests it is the most comprehensive analysis of its kind in the German-speaking market so far — smaller surveys (24 and 150 companies) arrive at similar results independently of us.',
+                },
+                {
+                  q: 'How were the buyer questions created?',
+                  a: 'For each company, 8 qualified German questions were generated across three archetypes (market overview, use case, competitor comparison) — based on an automated analysis of the website, the industry and the competitive landscape, followed by a quality check. The question sets are frozen and can therefore be repeated for tracking over time.',
+                },
+                {
+                  q: 'Which AI systems were queried?',
+                  a: 'ChatGPT (model answers without live web search) and Google AI Overviews (German localisation). Both interfaces were queried with identical questions; we recorded the brand mention, the position of that mention, the competitors named and whether the company website is cited as a source.',
+                },
+                {
+                  q: 'Can I have my own company checked?',
+                  a: 'Yes. Using the same methodology we build an individual visibility audit for your company — with your real buyer questions, the actual AI answers and the competitors recommended in your place. Enter your domain at the top of this page.',
+                },
+                {
+                  q: 'Is the study relevant for companies outside Germany?',
+                  a: 'We measured 449 companies in Germany, in German, on ChatGPT and Google AI Overviews. The mechanism behind it is not country-specific: AI systems answer from the same kinds of sources everywhere. The figures apply to the German market — the pattern travels, the evidence for that is still outstanding.',
+                },
+              ].map((f) => (
+                <details class="group rounded-2xl border border-border bg-card open:border-cta/40">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <!-- ── Abschluss-CTA ────────────────────────────────────────── -->
+          <section class="border-t border-border py-16">
+            <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
+              <h2 class="cai-h2 text-foreground">
+                30 minutes, one clear finding.
+              </h2>
+              <p class="mx-auto mt-4 max-w-xl text-muted-foreground">
+                Not a sales pitch: we show you your AI visibility based on real buyer questions —
+                and the two or three levers that work fastest for you.
+              </p>
+              <a href={`${base}/en/#appointment`} class="mt-8 inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">
+                Book a free intro call →
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer lang="en" />
+</Layout>
+
+<script>
+  // ── Zähler-Animation im Hero: langsam + nacheinander (wie /webinar) ──────
+  // 449 zählt hoch → 1 s Pause → 3,592 → 1 s Pause → 7,184
+  const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
+  const fmt = new Intl.NumberFormat('en-GB');
+  const animate = (el: HTMLElement) => new Promise<void>((resolve) => {
+    const target = Number(el.dataset.count ?? '0');
+    const dur = 2400;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt.format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick); else resolve();
+    };
+    requestAnimationFrame(tick);
+  });
+  if (counters.length && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver(async (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      for (const c of counters) {
+        await animate(c);
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }, { threshold: 0.4 });
+    io.observe(counters[0]);
+  } else {
+    counters.forEach((c) => (c.textContent = fmt.format(Number(c.dataset.count ?? '0'))));
+  }
+
+  // ── Scroll-Pinning: komplettes Audit läuft durch die 3D-Ebene (wie /webinar) ──
+  const $id = (id: string) => document.getElementById(id);
+  const pinWrap = $id('audit-pin');
+  const pinImg = $id('audit-img') as HTMLImageElement | null;
+  const pinScene = document.querySelector<HTMLElement>('.audit-scene');
+  const pinBar = $id('audit-bar-i');
+  const pinLabels = Array.from(document.querySelectorAll('.audit-label'));
+  const CARD_H = 932;
+  const fitScale = () => {
+    if (!pinScene) return;
+    const w = pinScene.getBoundingClientRect().width || window.innerWidth;
+    const s = Math.min(w / 1600, window.innerHeight / 1000) * 1.04;
+    pinScene.style.setProperty('--s', String(s));
+    requestAnimationFrame(() => {
+      const t = pinScene.querySelector('.audit-title');
+      const l = pinScene.querySelector<HTMLElement>('.audit-labels');
+      if (t && l) {
+        const sr = pinScene.getBoundingClientRect();
+        const tr = t.getBoundingClientRect();
+        l.style.right = `${Math.max(30, Math.round(sr.right - tr.left))}px`;
+      }
+      // Overlap-Schutz (Norbert-Feedback 17.07.): Ragt die gekippte Karte bis unter
+      // Titel/Labels, bekommen beide einen dunklen Chip-Hintergrund — lesbar statt Kollision.
+      const card = pinScene.querySelector('.audit-card');
+      if (t && card) {
+        const cr = card.getBoundingClientRect();
+        const tr2 = t.getBoundingClientRect();
+        pinScene.classList.toggle('labels-clash', cr.right > tr2.left - 12);
+      }
+    });
+  };
+  fitScale();
+  if (document.fonts?.ready) document.fonts.ready.then(fitScale);
+  if (pinWrap && pinImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let pinTicking = false;
+    const pinUpdate = () => {
+      pinTicking = false;
+      const total = pinWrap.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.max(0, Math.min(1, -pinWrap.getBoundingClientRect().top / total));
+      const range = pinImg.offsetHeight - CARD_H;
+      pinImg.style.transform = `translateY(${-p * range}px)`;
+      if (pinBar) pinBar.style.width = `${p * 100}%`;
+      if (pinLabels.length) {
+        const li = Math.min(pinLabels.length - 1, Math.floor(p * pinLabels.length));
+        pinLabels.forEach((el, i) => el.classList.toggle('on', i === li));
+      }
+    };
+    const onPinScroll = () => { if (!pinTicking) { pinTicking = true; requestAnimationFrame(pinUpdate); } };
+    window.addEventListener('scroll', onPinScroll, { passive: true });
+    window.addEventListener('resize', () => { fitScale(); onPinScroll(); });
+    if (pinImg.complete) pinUpdate(); else pinImg.addEventListener('load', pinUpdate);
+  }
+
+  // ── Domain-Check ─────────────────────────────────────────────────────────
+  const normalize = (v: string) =>
+    v.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+
+  const form = document.getElementById('domain-check-form') as HTMLFormElement | null;
+  const input = document.getElementById('domain-input') as HTMLInputElement | null;
+  const known = document.getElementById('domain-known');
+  const knownName = document.getElementById('domain-known-name');
+  const knownLink = document.getElementById('domain-known-link') as HTMLAnchorElement | null;
+  const resp = document.getElementById('domain-response');
+  const respName = document.getElementById('domain-response-name');
+
+  const dl = (name: string, params: Record<string, string> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: name, ...params });
+  };
+
+  // Personalisierter Einstieg aus Nurture-Links: /en/study?d=firma.de
+  const param = new URLSearchParams(location.search).get('d');
+  if (param && known && knownName && knownLink && input) {
+    const dom = normalize(param);
+    if (/^[a-z0-9.-]+\.[a-z]{2,}$/.test(dom)) {
+      input.value = dom;
+      knownName.textContent = dom;
+      knownLink.href = `https://audit.codaai.ai/${dom}`;
+      known.classList.remove('hidden');
+      dl('study_personalized_view', { study_domain: dom });
+    }
+  }
+
+  form?.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    if (!input || !resp || !respName) return;
+    const dom = normalize(input.value);
+    if (!/^[a-z0-9.-]+\.[a-z]{2,}$/.test(dom)) {
+      input.focus();
+      input.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    input.removeAttribute('aria-invalid');
+    known?.classList.add('hidden');
+    respName.textContent = dom;
+    resp.classList.remove('hidden');
+    resp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    dl('study_domain_check', { study_domain: dom });
+  });
+
+  // ── Zitat kopieren ───────────────────────────────────────────────────────
+  const citeBtn = document.getElementById('cite-copy');
+  const citeText = document.getElementById('cite-text');
+  citeBtn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(citeText?.textContent?.trim() ?? '');
+      citeBtn.textContent = 'Copied ✓';
+      setTimeout(() => (citeBtn.textContent = 'Copy'), 2000);
+      dl('study_cite_copy');
+    } catch {
+      /* Clipboard nicht verfügbar — kein Fallback nötig */
+    }
+  });
+</script>
+
+<style>
+  /* ── Scroll-Audit-Bühne (identisch zu /webinar, Geometrie aus dem Video-Render) ── */
+  .audit-pin { height: 300vh; position: relative; margin-top: 2.5rem; }
+  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: hsl(var(--surface-ink)); border-radius: 24px; }
+  .audit-scene::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(42% 46% at 62% 68%, rgba(120, 10, 140, 0.55), transparent 70%),
+      radial-gradient(30% 34% at 78% 30%, rgba(90, 8, 105, 0.4), transparent 70%);
+    filter: blur(60px);
+  }
+  .audit-fit { position: absolute; left: 50%; top: 50%; width: 1600px; height: 1000px; transform: translate(-50%, -50%) scale(var(--s, 0.5)); }
+  .audit-card {
+    position: absolute; left: 0; top: 0; width: 1100px; height: 932px; overflow: hidden;
+    border-radius: 26px; border: 2px solid rgba(255, 255, 255, 0.28); background: #fff;
+    transform-origin: 0 0;
+    transform: matrix3d(0.716517, 0.145607, 0, -0.00010973, -0.36913, 0.48935, 0, -0.00005871, 0, 0, 1, 0, 500, 130, 0, 1);
+    box-shadow: -40px 70px 90px rgba(0, 0, 0, 0.55);
+  }
+  .audit-card img { display: block; width: 100%; will-change: transform; }
+  .audit-caption { position: absolute; left: 24px; bottom: 22px; color: rgba(255, 255, 255, 0.65); font-size: 13px; z-index: 2; margin: 0; }
+  .audit-title {
+    position: absolute; top: calc(50% + var(--s, 0.5) * -370px); right: 30px; z-index: 2; margin: 0;
+    text-align: right; font-size: max(14px, calc(var(--s, 0.5) * 40px)); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
+  }
+  .audit-title .at-c { color: #fff; }
+  .audit-title .at-p { color: hsl(var(--cta-on-dark)); }
+  .audit-labels {
+    position: absolute; z-index: 2; right: 30px; /* wird per JS auf die linke Titelkante gesetzt */
+    bottom: calc(50% + var(--s, 0.5) * -405px);
+    width: min(60%, 700px); text-align: right;
+    font-size: max(14px, calc(var(--s, 0.5) * 40px));
+  }
+  .audit-label {
+    position: absolute; right: 0; bottom: 0;
+    font-weight: 600; letter-spacing: -0.01em; color: #fff; line-height: 1.25;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1);
+  }
+  .audit-label.on { opacity: 1; transform: none; }
+  /* Overlap-Schutz: wenn die Karte bis unter die Texte ragt (schmale Fenster),
+     bekommen Titel + Labels einen dunklen Chip — Overlay statt unlesbarer Kollision. */
+  .labels-clash .audit-title,
+  .labels-clash .audit-label {
+    background: rgba(8, 8, 14, 0.62); padding: 0.18em 0.5em; border-radius: 0.5em;
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  }
+  .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
+  .audit-bar i { display: block; height: 100%; width: 0%; background: hsl(var(--cta)); border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .audit-pin { height: auto; }
+    .audit-scene { position: relative; height: 80vh; }
+  }
+</style>

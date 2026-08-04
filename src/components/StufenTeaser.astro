@@ -9,9 +9,13 @@ interface Props {
   title?: string;
   /** Optionaler CTA-Href-Override (z. B. Rechner-Anker #rechner/#calculator statt /preise/). */
   ctaHref?: string;
+  /** Optionaler Anker-Override. Standard folgt der Anker-Karte des EN-Relaunches
+      (04.08.2026): deutsch `stufen`, englisch `tiers`. */
+  anchorId?: string;
 }
 
-const { lang, title, ctaHref } = Astro.props;
+const { lang, title, ctaHref, anchorId } = Astro.props;
+const sectionId = anchorId ?? (lang === 'en' ? 'tiers' : 'stufen');
 const translations = getTranslations(lang);
 const items = translations.tiers.items;
 // Bullet-Punkte je Stufe stammen aus den bestehenden Programm-Gruppen (program.groups) —
@@ -21,7 +25,7 @@ const groups = translations.program.groups;
 const steepness: ('flat' | 'medium' | 'steep')[] = ['flat', 'medium', 'steep'];
 ---
 
-<section id="stufen" class="py-20 lg:py-28 bg-muted/30 border-t border-border">
+<section id={sectionId} class="py-20 lg:py-28 bg-muted/30 border-t border-border">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <Reveal class="text-center max-w-3xl mx-auto" as="div">
       <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">

@@ -7,6 +7,11 @@
  * Inhalte/Preise unverändert — nur Darstellung. Ohne JS/CSS-Support bleibt "Basis"
  * serverseitig vorausgewählt (data-selected="basis"), die Tabelle/Karten funktionieren
  * unverändert wie zuvor.
+ *
+ * Sprachen (EN-Relaunch 04.08.2026): alle sichtbaren Strings liegen im `copy`-Objekt
+ * nach dem Muster von `Booking.astro`. Die deutschen Zeichenketten sind unverändert
+ * geblieben — `lang` ist optional und steht auf 'de'. Die internen Schlüssel
+ * (basis|aktiv|dominanz), Klassen, IDs und Datenattribute bleiben sprachneutral.
  */
 import CurveDraw from '../fx/CurveDraw.astro';
 
@@ -25,9 +30,49 @@ interface Props {
   tierKeys: string[];
   stufenRows: Row[];
   stufenSpecialRows: Row[];
+  lang?: 'de' | 'en';
 }
 
-const { base, tiers, tierKeys, stufenRows, stufenSpecialRows } = Astro.props;
+const { base, tiers, tierKeys, stufenRows, stufenSpecialRows, lang = 'de' } = Astro.props;
+
+const copy = {
+  de: {
+    tablistLabel: 'Digital-Visibility-Stufe wählen',
+    recommended: 'Empfohlen',
+    tableCaption: 'Leistungen je Digital-Visibility-Stufe im Vergleich',
+    serviceCol: 'Leistung',
+    yourPick: 'Ihre Empfehlung',
+    included: 'Enthalten',
+    notIncluded: 'Nicht enthalten',
+    perMonthLong: ' / Monat',
+    perMonthShort: '/Mon.',
+    minTerm: 'Mindestlaufzeit',
+    commitment: 'Sichtbarkeits-Versprechen',
+    commitmentYes: 'inklusive',
+    footnote:
+      '„Basis" ist unsere Empfehlung für den Einstieg. Alle Preise netto, zusätzlich zum gewählten Content-Paket.',
+    cta: 'Ihren Gesamtpreis im Rechner kalkulieren →',
+    pricingHref: `${base}/preise/`,
+  },
+  en: {
+    tablistLabel: 'Choose your Digital Visibility tier',
+    recommended: 'Recommended',
+    tableCaption: 'Services compared by Digital Visibility tier',
+    serviceCol: 'Service',
+    yourPick: 'Your pick',
+    included: 'Included',
+    notIncluded: 'Not included',
+    perMonthLong: ' / month',
+    perMonthShort: '/mo',
+    minTerm: 'Minimum term',
+    commitment: 'Visibility commitment',
+    commitmentYes: 'included',
+    footnote:
+      '“Tier 1 · Found” is our recommendation to start with. All prices net, on top of the content package you choose.',
+    cta: 'Work out your total price in the calculator →',
+    pricingHref: `${base}/en/pricing/`,
+  },
+}[lang];
 
 const selectableTiers = tiers.filter((t) => t.key !== 'ohne');
 const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
@@ -39,7 +84,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
 
 <div class="cai-tierwrap" data-tier-wrap data-selected="basis">
   {/* ── Umschalter (ARIA-Tablist) ────────────────────────────────────── */}
-  <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Digital-Visibility-Stufe wählen" data-tier-tablist>
+  <div class="mt-8 flex flex-wrap gap-3" role="tablist" aria-label={copy.tablistLabel} data-tier-tablist>
     {selectableTiers.map((tier, i) => (
       <button
         type="button"
@@ -54,7 +99,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
           tier.key === 'basis' ? 'border-cta' : 'border-border',
         ]}
       >
-        <span class="cai-tabrec absolute -top-2.5 right-4 rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">Empfohlen</span>
+        <span class="cai-tabrec absolute -top-2.5 right-4 rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">{copy.recommended}</span>
         <span class="flex w-full items-center justify-between gap-3">
           <span class="font-semibold text-foreground">{tier.name}</span>
           <span class="cai-tabprice text-xs text-muted-foreground">{tier.price}</span>
@@ -68,10 +113,10 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
     {/* Desktop-Tabelle (ab md) */}
     <div class="mt-10 hidden md:block overflow-x-auto">
       <table class="w-full text-left border-collapse">
-        <caption class="sr-only">Leistungen je Digital-Visibility-Stufe im Vergleich</caption>
+        <caption class="sr-only">{copy.tableCaption}</caption>
         <thead>
           <tr class="border-b border-border">
-            <th scope="col" class="py-4 pr-4 text-sm font-semibold text-foreground align-bottom">Leistung</th>
+            <th scope="col" class="py-4 pr-4 text-sm font-semibold text-foreground align-bottom">{copy.serviceCol}</th>
             {tierKeys.map((key: string) => {
               const tier = tiers.find((t: Tier) => t.key === key)!;
               return (
@@ -80,10 +125,10 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
                   data-tiercol={key}
                   class="cai-tiercol py-4 px-4 text-sm font-semibold text-foreground text-center align-bottom rounded-t-xl"
                 >
-                  {key !== 'ohne' && <span class="cai-tierbadge mb-1 inline-block rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white">Ihre Empfehlung</span>}
+                  {key !== 'ohne' && <span class="cai-tierbadge mb-1 inline-block rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white">{copy.yourPick}</span>}
                   <span class="block">{tier.name}</span>
                   {key !== 'ohne' && (
-                    <span class="cai-tierprice block font-normal text-muted-foreground">{tier.price.replace(' / Monat', '/Mon.')}</span>
+                    <span class="cai-tierprice block font-normal text-muted-foreground">{tier.price.replace(copy.perMonthLong, copy.perMonthShort)}</span>
                   )}
                 </th>
               );
@@ -103,12 +148,12 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
                       <svg class="mx-auto size-5 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M5 12l5 5L20 7"></path>
                       </svg>
-                      <span class="sr-only">Enthalten</span>
+                      <span class="sr-only">{copy.included}</span>
                     </>
                   ) : (
                     <>
                       <span aria-hidden="true" class="text-muted-foreground">—</span>
-                      <span class="sr-only">Nicht enthalten</span>
+                      <span class="sr-only">{copy.notIncluded}</span>
                     </>
                   )}
                 </td>
@@ -142,7 +187,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
             ))}
           </ul>
           <p class="mt-4 text-xs text-muted-foreground border-t border-border pt-4">
-            Mindestlaufzeit: {stufenSpecialRows[0][tier.key]} · Sichtbarkeits-Versprechen: {stufenSpecialRows[1][tier.key] ? 'inklusive' : '—'}
+            {copy.minTerm}: {stufenSpecialRows[0][tier.key]} · {copy.commitment}: {stufenSpecialRows[1][tier.key] ? copy.commitmentYes : '—'}
           </p>
         </div>
       ))}
@@ -150,10 +195,10 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
   </div>
 
   <p class="mt-8 text-sm text-muted-foreground">
-    „Basis" ist unsere Empfehlung für den Einstieg. Alle Preise netto, zusätzlich zum gewählten Content-Paket.
+    {copy.footnote}
   </p>
   <div class="mt-6">
-    <a href={`${base}/preise/`} class="btn-cta px-6 py-3 text-sm">Ihren Gesamtpreis im Rechner kalkulieren →</a>
+    <a href={copy.pricingHref} class="btn-cta px-6 py-3 text-sm">{copy.cta}</a>
   </div>
 </div>
 

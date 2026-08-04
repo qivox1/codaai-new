@@ -1,14 +1,14 @@
 ---
 /* ── /en/contact — redirect ───────────────────────────────────────────────────
    The standalone contact page was removed on 04.08.2026 together with its
-   German counterpart /kontakt/. Booking lives in the #termin block on the home
+   German counterpart /kontakt/. Booking lives in the #appointment block on the home
    page, postal address and phone number in the legal notice, the e-mail address
    in both. This file only remains so old links, bookmarks and the search index
    do not hit a dead end. GitHub Pages cannot serve a 301 — hence meta refresh
    plus location.replace, noindex and a canonical pointing at the new target.
    Excluded from the sitemap (filter in astro.config.mjs).                     */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const target = `${base}/en/#termin`;
+const target = `${base}/en/#appointment`;
 const canonical = 'https://www.codaai.ai/en/';
 ---
 

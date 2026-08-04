@@ -1,0 +1,92 @@
+---
+/*
+ * /en/faq — the collected page. Mirror of `src/pages/faq.astro`.
+ *
+ * Since the redistribution on 03.08.2026 this is no longer the only place for
+ * questions: every question sits on the page where it comes up in the reader's
+ * head (homepage, /en/digital-visibility, /en/pricing, /en/webinar). This page
+ * stays because it is in the navigation and because people who click "FAQ"
+ * expect answers, not a list of links — it shows all four groups one below the
+ * other and links to the matching page.
+ *
+ * NO FAQPage schema here. That sits on the topic pages so the same question is
+ * not marked up twice in the index. Anyone adding one here creates exactly that
+ * duplicate.
+ *
+ * Content: src/data/faq.en.ts — that file also states which group a new
+ * question belongs to.
+ */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import { faqGroupsEn } from '../../data/faq.en';
+
+const lang = 'en' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
+---
+
+<Layout
+  lang={lang}
+  title="Questions & Answers – CodaAI | Digital Visibility, Pricing"
+  description="All the answers at a glance: how we work together, how AI visibility is measured, pricing and terms, and the live webinar."
+>
+  <Navbar lang={lang} />
+  <main class="pt-24 lg:pt-28" id="main-content">
+    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-2">
+      <Breadcrumb
+        items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Questions & Answers' }]}
+        class="mb-8"
+      />
+      <h1 class="cai-h1 text-foreground">Questions &amp; Answers</h1>
+      <p class="mt-5 text-lg text-muted-foreground leading-relaxed">
+        {total} questions across four areas — from how we work together and how AI
+        visibility is measured through to price and term. Is yours missing?
+        <a href="mailto:hi@codaai.ai" class="text-cta-accessible hover:text-cta font-medium">Get in touch.</a>
+      </p>
+
+      <nav aria-label="Areas" class="mt-8 flex flex-wrap gap-2">
+        {faqGroupsEn.map((g) => (
+          <a
+            href={`#${g.id}`}
+            class="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-cta/50 hover:text-cta-accessible"
+          >
+            {g.title}
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    {faqGroupsEn.map((g) => (
+      <FaqAccordion
+        items={g.items}
+        title={g.title}
+        intro={g.intro}
+        id={g.id}
+        idPrefix={`faq-${g.id}`}
+        level={3}
+      >
+        <p slot="after" class="mt-8 text-center text-sm text-muted-foreground">
+          <a
+            href={`${base}${g.href}`}
+            class="font-semibold text-cta-accessible transition-colors hover:text-cta"
+          >
+            {g.hrefLabel} →
+          </a>
+        </p>
+      </FaqAccordion>
+    ))}
+
+    <section class="mx-auto max-w-3xl px-6 pb-20 pt-4 text-center lg:px-8">
+      <p class="text-base leading-relaxed text-muted-foreground">
+        The most important question answers itself fastest:
+        <a href={`${base}/en/#offer`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">
+          Request your free audit →
+        </a>
+      </p>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Layout>

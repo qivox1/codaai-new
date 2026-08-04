@@ -156,7 +156,7 @@ const T = {
     articles: 'articles',
     each: 'at',
     artHint: '1,500–4,000 words per article, including 3 images or 1 infographic. Length follows the topic, not your budget.',
-    langUnit: 'languages · €99 per article each',
+    langUnit: 'languages · €99 each per article',
     langHint: 'Any number of languages — each costs the same. The first pass runs through DeepL, primed with your corporate wording and personas so the text sounds like yours.',
     vidNone: 'None',
     vidOne: '1 per article',
@@ -190,7 +190,7 @@ const T = {
     cancel: 'Cancel',
     navBack: 'Back',
     navNext: 'Next',
-    navDone: 'Done — see the offer',
+    navDone: 'Done — see your price',
     stepOf: (a: number, b: number) => `Step ${a} of ${b}`,
     chips: ['Tier', 'Articles', 'Languages', 'Videos', 'Term'],
     q1: 'Which tier fits you?',
@@ -216,6 +216,9 @@ interface Props { lang?: 'de' | 'en'; base?: string; bookingHref?: string }
 export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHref }: Props) {
   const t = T[lang];
   const locale = lang === 'de' ? 'de-DE' : 'en-GB';
+  /* Anker-Karte des EN-Relaunches (04.08.2026): der Rechner sitzt deutsch auf
+     #rechner, englisch auf #calculator. Klassen und Choreografie bleiben gleich. */
+  const anchorId = lang === 'de' ? 'rechner' : 'calculator';
   const eur = (n: number) =>
     new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n);
 
@@ -247,8 +250,11 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   useEffect(() => { pushDL('pricing_view', { lang }); }, [lang]);
 
   /* Stufen-Vorauswahl aus der URL — die Spalten der Matrix und die Stufen-Links
-     auf /digital-visibility zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner.
-     EN-Schreibweisen werden mitgenommen, damit /en/pricing/?tier=active greift. */
+     auf /digital-visibility zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner,
+     englisch auf /en/pricing/?tier=basis|aktiv|dominanz#calculator.
+     Die internen Schlüssel bleiben deutsch; englische Schreibweisen (tier=found,
+     tier=recommended, tier=cited, tier=active …) werden zusätzlich erkannt,
+     damit ältere Links weiter greifen. */
   useEffect(() => {
     try {
       const q = new URLSearchParams(window.location.search);
@@ -371,7 +377,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
 
   return (
     <section
-      id="rechner"
+      id={anchorId}
       data-theme="dark"
       aria-label={t.h2}
       className="bg-background py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28"

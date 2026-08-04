@@ -10,7 +10,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <Layout
   lang="en"
   title="Legal Notice – CodaAI | Provider Information"
-  description="Legal notice of CodaAI: Provider information, contact details, commercial register entry and responsible person pursuant to § 5 TMG (German Telemedia Act)."
+  description="Legal notice of CodaAI (AMP Beratung, owner Anja Miebach): provider information, contact details and responsible person pursuant to § 5 DDG."
 >
   <Navbar lang="en" />
   <main class="pt-24 lg:pt-28" id="main-content">
@@ -20,8 +20,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p class="text-muted-foreground mb-6">
         Information pursuant to § 5 DDG (German Digital Services Act)
       </p>
+
+      {/* Courtesy-translation notice. The legal pages are German law; only the
+          German original is binding. Same block on /en/privacy-policy/ and
+          /en/terms/. */}
+      <p class="mb-8 rounded-xl border border-border bg-card px-5 py-4 text-sm leading-relaxed text-muted-foreground">
+        This is a courtesy translation. Only the German version is legally binding;
+        in case of any discrepancy, the German text prevails.{' '}
+        <a href={`${base}/impressum/`} lang="de" class="font-medium text-cta-accessible hover:text-cta">
+          Zum deutschen Impressum →
+        </a>
+      </p>
+
       <p class="text-sm text-muted-foreground leading-relaxed mb-12">
-        CodaAI is an AI content company headquartered in Gütersloh, Germany. We develop and operate an AI-powered content platform that helps mid-market businesses create and publish high-quality, SEO-optimised content. Our services are directed at B2B companies in the German-speaking region and internationally. For enquiries regarding these legal details, our services, or contractual matters, please contact us by email or phone.
+        CodaAI is a digital visibility company based in Gütersloh, Germany. We make mid-sized B2B companies visible in AI answers — in ChatGPT, in Google AI Overviews and in classic search. Our services are directed at B2B companies in the German-speaking market and beyond. For enquiries regarding these legal details, our services, or contractual matters, please contact us by e-mail or phone.
       </p>
 
       <div class="space-y-10">

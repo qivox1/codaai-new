@@ -1,0 +1,1366 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import WebinarSignup from '../../components/premium/WebinarSignup.astro';
+import FlipWords from '../../components/react/FlipWords';
+import { faqWebinarEn } from '../../data/faq.en';
+
+const lang = 'en' as const;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// Audit-Scroll-Animation auf /webinar vorerst ausgeblendet (Oli 25.07.2026) —
+// Markup + Styles + JS bleiben erhalten fuer spaetere Wiederverwendung an anderer Stelle.
+const SHOW_AUDIT_PIN = false;
+
+const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+
+// Apps-Script-Backend (gleiche Web-App wie Buchungs-Widget, Aktionen webinar_code / webinar_register)
+const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+/* ── Der eine Punkt, an dem die englische Seite bewusst NICHT spiegelt ──────
+   Das Webinar am 08.09.2026 wird auf Deutsch gehalten: beide Sprecher sprechen
+   Deutsch, die Fragerunde laeuft auf Deutsch. Wer das ueberliest, verliert eine
+   Stunde — deshalb steht der Hinweis an drei sichtbaren Stellen (Hero,
+   unmittelbar ueber der Anmeldung, erste FAQ-Frage) und nicht im
+   Kleingedruckten. Nuechtern formuliert, ohne Entschuldigung, und jeweils mit
+   dem Ausweg: Audit und 30-Minuten-Gespraech gibt es jederzeit auf Englisch.  */
+const LANG_NOTE_SHORT = 'Held in German';
+
+// Rotierende Konsequenz-Zeile der H1 (FlipWords-Effekt wie im Startseiten-Hero)
+// Kippsatz: Zeile 1 stellt die Bedingung fest, Zeile 2 dreht sie in die Folge.
+const h1FlipWords = [
+  { text: 'nobody asks.', color: '#DF41FB' },
+  { text: 'you are off the shortlist.', color: '#DF41FB' },
+  { text: 'you lose the deal.', color: '#DF41FB', duration: 10000 },
+];
+
+const slots = [
+  { id: '2026-09-08', day: 'Tuesday', date: '8 September 2026', time: '11:00–12:00 CEST', iso: '2026-09-08T11:00:00+02:00' },
+];
+
+// Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
+const painStats = [
+  { n: '55%', t: 'of buyer questions produce no mention at all', d: 'In more than half of the questions, the company under review appears in no AI answer at all — and nobody notices, because a non-mention shows up in no statistic.' },
+  { n: 'almost 1/2', t: 'are displaced by competitors named outright', d: 'For almost one company in two, the AI recommends the competition by name, while the company itself is missing from the majority of the core questions about its own products and services.' },
+  { n: '> 1/3', t: 'invisible despite strong Google rankings', d: 'More than a third of the companies with over 100 top-10 rankings are completely invisible in ChatGPT. Classic SEO strength is no protection.' },
+];
+const painDaily = [
+  'Your enquiries come through referrals and existing customers — and they are noticeably thinning out.',
+  'You lead your niche, but outside your own network hardly anyone knows you.',
+  'You do not know what ChatGPT answers when buyers ask about what you do — and nobody tells you.',
+  'Your website speaks 20 languages — but what the AI says about you in your export markets has never been checked.',
+];
+
+// Learnings = die Antworten auf die Schmerzpunkte (Problem → Lösung)
+const learnings = [
+  {
+    t: 'Understand where your deals are decided today',
+    d: 'The silent pre-decision, decoded: how buyers research and build their shortlist today, why the decision falls before the first contact — and where your company has to be visible.',
+  },
+  {
+    t: 'See what the AI says about companies like yours',
+    d: 'A live audit in front of you: real mid-sized brands in ChatGPT and Google AI Overviews, checked with the methodology of the 8 buyer questions — on request anonymously, including companies from the audience.',
+  },
+  {
+    t: 'Know how to be recommended instead of missing',
+    d: 'The roadmap out of invisibility: the 5 levers from visibility to the order — what you can do yourself with the resources you already have, and where the limit is.',
+  },
+];
+
+const agenda = [
+  { min: '20 min', t: 'The silent pre-decision — how buying centres research today and why relevance is built long before the first contact', d: 'Norbert Schuster on the dark funnel, the buying centre and the decision-makers you never meet: how B2B buying processes really run today — and why the course is set long before your sales team comes into play. Starts with a short live poll.' },
+  { min: '25 min', t: 'Live audit: recommended or invisible?', d: 'Real mid-sized brands live in ChatGPT and Google AI Overviews, checked with the methodology of the 8 buyer questions and the typical findings from hundreds of audits — plus what you can check yourself with ChatGPT or Copilot, and where the limit is.' },
+  { min: '15 min', t: 'Open Q&A', d: 'Your own cases in conversation with Norbert Schuster and Oliver Parrizas: the 5 levers working together — from becoming visible to winning orders — and what happens after the webinar.' },
+];
+
+/* Fragen aus der gemeinsamen Quelle src/data/faq.en.ts (Neuverteilung 03.08.2026).
+   Die erste Frage ist der Sprachhinweis — sie steht bewusst an erster Stelle. */
+const webinarFaq = faqWebinarEn;
+
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: webinarFaq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+});
+
+const eventSchema = JSON.stringify(slots.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Recommended or invisible? — Why your next orders are decided in ChatGPT and Google AI Overviews',
+  startDate: s.iso,
+  endDate: s.iso.replace('T11:00', 'T12:00'),
+  eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  /* Das Webinar wird auf Deutsch gehalten. Das gehoert auch ins Schema —
+     nicht nur in den sichtbaren Text. */
+  inLanguage: 'de',
+  location: { '@type': 'VirtualLocation', url: `${SITE_URL}/en/webinar/` },
+  organizer: { '@type': 'Organization', name: 'CodaAI', url: SITE_URL },
+  performer: [
+    { '@type': 'Person', name: 'Norbert Schuster' },
+    { '@type': 'Person', name: 'Oliver Parrizas' },
+  ],
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/en/webinar/` },
+  description: 'Free live webinar, held in German: why B2B orders are decided in AI answers today — with live audits of real companies and a personal visibility audit on request.',
+})));
+---
+
+<Layout
+  lang={lang}
+  title="Live webinar: Recommended or invisible? | CodaAI"
+  description="Free live webinar on why B2B orders are decided in ChatGPT and Google AI Overviews. With live audits. Held in German."
+  jsonLd={[eventSchema, faqSchema]}
+  ogImage="https://www.codaai.ai/images/og-webinar.jpg"
+>
+  <Navbar lang={lang} />
+
+  <!-- ── Motion-Layer: Fortschrittsbalken + Grain (additiv, wfx-*) ──────── -->
+  <div class="wfx-progress" aria-hidden="true"><i id="wfx-prog"></i></div>
+  <div class="wfx-grain" aria-hidden="true"></div>
+  <script is:inline>
+    /* Motion-Gate so früh wie möglich setzen (verhindert Reveal-Flash).
+       Ohne JS oder mit reduced-motion bleibt die Seite exakt wie zuvor sichtbar. */
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.body.classList.add('wfx-on');
+    }
+  </script>
+
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+      <div class="wfx-aurora" aria-hidden="true"><span class="wfx-blob wb1"></span><span class="wfx-blob wb2"></span><span class="wfx-blob wb3"></span></div>
+      <div class="wfx-spot" id="wfx-herospot" aria-hidden="true"></div>
+      <div class="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-4 lg:px-8 lg:pb-14 lg:pt-5">
+        <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Live webinar' }]} class="mb-8" />
+
+        {/* Die Kicker-Zeile steht ueber dem Grid, nicht in der linken Spalte:
+            nur so beginnt die linke Spalte mit der H1 — und der Pruefstand
+            rechts kann exakt von der H1-Oberkante bis zur Sprecher-Unterkante
+            laufen (Wunsch Oli, 03.08.2026). */}
+        <p class="mb-6 inline-flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold uppercase tracking-widest text-cta-accessible">
+            <span class="inline-flex items-center gap-2">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              Live webinar
+            </span>
+            <span class="text-border" aria-hidden="true">/</span>
+            <span class="text-foreground">Tue 8 Sept 2026 · 11:00 CEST</span>
+            <span class="text-border" aria-hidden="true">/</span>
+            <span>60 minutes</span>
+            <span class="text-border" aria-hidden="true">/</span>
+            {/* Sprachhinweis 1 von 3 — direkt neben dem Termin, damit ihn
+                niemand uebersieht. Siehe LANG_NOTE_SHORT im Frontmatter. */}
+            <span class="text-foreground">{LANG_NOTE_SHORT}</span>
+        </p>
+
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
+        <div class="max-w-3xl">
+          <h1 class="cai-h1 cai-kipp text-foreground">
+            <span class="k1 block">If the AI does not name you,</span>
+            <span class="k2 block"><FlipWords words={h1FlipWords} client:idle /></span>
+          </h1>
+          <p class="mt-6 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
+            Why your next orders are decided in ChatGPT and Google AI Overviews — before your sales team hears about it.
+          </p>
+
+          {/* Der ausfuehrliche Sprachhinweis mit dem Ausweg. Bewusst im Hero
+              und nicht erst in der FAQ: Wer ihn spaeter liest, hat sich schon
+              angemeldet. */}
+          <p class="mt-5 max-w-2xl rounded-2xl border border-border bg-muted px-5 py-4 text-sm leading-relaxed text-muted-foreground">
+            <strong class="font-semibold text-foreground">This webinar is held in German.</strong>
+            Both speakers present in German and the Q&amp;A runs in German. If you would rather have it
+            in English: the <a href={`${base}/en/digital-visibility/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Digital Visibility Audit</a>
+            and the 30-minute intro call are available in English at any time.
+          </p>
+
+        </div>
+
+        <!-- ── Anmeldekarte ─────────────────────────────────────────────────
+             Klassische Webinar-Aufteilung: links das Versprechen, rechts die
+             Anmeldung. Der Live-Check ist am 03.08.2026 aus dem Hero gewandert
+             (Oli: „immer noch sehr voll") — er wirkt weiter unten ohnehin
+             staerker, weil der Leser dann weiss, warum ihn das Ergebnis angeht.
+             Norberts Portraet sitzt im Kopf der Karte als Vertrauensanker,
+             bewusst klein: Die Datei ist 400 x 400 px, ein grosses Teaserbild
+             wuerde auf Retina-Displays weich aussehen.                      -->
+        <aside id="register" class="scroll-mt-28">
+          <div class="rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+
+            <div class="flex items-center gap-4">
+              {/* Alt-Text statt alt="" (04.08.2026): Das Portraet ist hier der
+                  Vertrauensanker der Anmeldekarte, kein Dekorationsbild — wer
+                  es nicht sieht, verliert sonst die Information, dass ein
+                  namhafter Gast das Webinar mittraegt. */}
+              <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Norbert Schuster" width="64" height="64" decoding="async"
+                   class="shrink-0 rounded-full object-cover grayscale" style="height:64px;width:64px" />
+              <p class="text-sm leading-relaxed text-muted-foreground">
+                With <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="font-semibold text-foreground underline decoration-border underline-offset-2 transition-colors hover:text-cta-accessible">Norbert Schuster</a><br />
+                Author of the Haufe standard reference “Digitalisierung in Marketing und Vertrieb”
+              </p>
+            </div>
+
+            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Date</dt>
+                <dd class="font-semibold text-foreground">Tue, 8 September 2026 · 11:00 CEST</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Duration</dt>
+                <dd class="font-semibold text-foreground">60 minutes</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Attendance</dt>
+                <dd class="font-semibold text-foreground">free of charge</dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Language</dt>
+                <dd class="font-semibold text-foreground">German</dd>
+              </div>
+            </dl>
+
+            <div class="mt-6">
+              {/* Sprachhinweis 2 von 3 — unmittelbar ueber dem Anmeldefeld,
+                  also an der Stelle, an der die Entscheidung faellt. */}
+              <p class="mb-4 rounded-xl bg-muted px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+                <strong class="font-semibold text-foreground">This webinar is held in German.</strong>
+                The audit and the 30-minute intro call are available in English at any time.
+              </p>
+              <WebinarSignup label="Secure your place now" lang={lang} />
+              {/* Anmeldungen-Zaehler: bis 50 Anmeldungen unsichtbar, traegt seinen
+                  Text selbst — ohne ihn frisst keine leere Zeile Platz. */}
+              <p id="w-seats" class="mt-3 text-xs font-semibold text-cta" hidden></p>
+            </div>
+
+          </div>
+        </aside>
+
+        </div>
+
+        {/* Das grosse Kennzahlen-Band ist am 03.08.2026 aus dem Hero geflogen
+            („Das Auge ist ueberfordert") — die Zahlen selbst nicht. Sie stehen
+            jetzt eine Etage tiefer im Belegband unter dieser Sektion, genau da,
+            wo vergleichbare Landingpages ihre Kundenlogos setzen. */}
+
+      </div>
+    </section>
+
+    <!-- ── Belegband ────────────────────────────────────────────────────────
+         Wir haben vor dem ersten Webinar keine Teilnehmerstimmen und keine
+         Kundenlogos — und erfinden auch keine. Was wir haben, ist die eigene
+         Messung. Deshalb steht hier kein „andere vertrauen uns", sondern
+         „wir haben die Arbeit gemacht, ueber die wir reden".
+         Bewusst eine schmale Zeile statt drei grosser Zahlenkacheln: Der
+         Beleg soll tragen, nicht schreien (Oli, 03.08.2026).                -->
+    <!-- Hintergrund: volles --muted (Navy-50) statt bg-muted/30. Dieselbe helle
+         Blaufläche wie die Sektion „Diese Entscheidung fällt an drei Stellen"
+         auf der Startseite (.rooms{background:var(--muted)}) — dezente
+         Hervorhebung ohne eigene Farbe (Oli, 04.08.2026). -->
+    <section aria-label="Evidence base" class="border-b border-border bg-muted">
+      <div class="mx-auto flex max-w-7xl flex-col gap-x-8 gap-y-3 px-6 py-5 lg:flex-row lg:items-baseline lg:px-8">
+        <p class="shrink-0 text-xs font-semibold uppercase tracking-widest text-cta-accessible">
+          The basis of this webinar
+        </p>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          Study run in June and July 2026:
+          <strong class="font-semibold text-foreground">449 companies</strong> across 258 industries,
+          <strong class="font-semibold text-foreground">3,592 company-specific buyer questions</strong>,
+          <strong class="font-semibold text-foreground">7,184 documented AI answers</strong>
+          from ChatGPT and Google AI Overviews.
+          <a href={`${base}/en/study/`} class="whitespace-nowrap font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Read the study&nbsp;→</a>
+        </p>
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+      <!-- ── Das Problem (Schmerzpunkte) ──────────────────────────────── -->
+      <section aria-labelledby="h-problem" class="py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">The problem</p>
+        <h2 id="h-problem" class="cai-h2 wfx-reveal text-foreground">Potential buyers ask the AI first — and you never hear about it.</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {painStats.map((p) => (
+            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
+              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
+              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-8 max-w-3xl font-medium text-foreground">Day to day, it feels like this:</p>
+        <ul class="mt-4 max-w-3xl space-y-3">
+          {painDaily.map((t) => (
+            <li class="wfx-reveal flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">All figures from our analysis of 7,184 AI answers on 449 companies — <a href={`${base}/en/study/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 hover:text-cta">read the study</a>.</p>
+      </section>
+
+      <!-- ── Die Lösung / Das erwartet Sie ────────────────────────────── -->
+      <section aria-labelledby="h-learnings" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">The answer — in the live webinar</p>
+        <h2 id="h-learnings" class="cai-h2 wfx-reveal text-foreground">Three answers you take away from the webinar</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {learnings.map((l, i) => (
+            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+              <h3 class="mt-4 text-lg font-semibold text-foreground">{l.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{l.d}</p>
+            </article>
+          ))}
+        </div>
+        <div class="mt-10">
+          <WebinarSignup label="Register for the webinar" lang={lang} />
+        </div>
+      </section>
+
+      <!-- ── Live-Check als Band ──────────────────────────────────────────
+           Stand bis zum 03.08.2026 im Hero. Dort beantwortete er eine Frage,
+           die der Leser noch nicht gestellt hatte. Hier — nach dem Problem und
+           den drei Antworten — ist die Frage gestellt, und der eigene Befund
+           beantwortet sie; der naechste Abschnitt liefert direkt danach die
+           Aufloesung. Dunkler Grund als Bruch im hellen Lesefluss, gleiches
+           Muster wie „Sechs Dinge, die wir nicht anbieten" auf
+           /digital-visibility.                                              -->
+      <section class="cai-psband" aria-label="Live check">
+        <!-- Eigenständiges Werkzeug: Website eingeben, Befund erhalten. Der
+             Befund führt in die Anmeldung im Hero und gibt die Domain dorthin
+             weiter. Bewusst ohne Quellenangabe.                              -->
+        <aside id="pruefstand" data-mode="idle" aria-label="Live check: does your brand appear in AI answers?">
+
+          <!-- Zwei Spalten ab lg: links die Frage, rechts das Feld. Die
+               Wrapper sind Pflicht — ohne sie landet jedes einzelne Element
+               in einer eigenen Rasterzelle. -->
+          <div class="ps-ask rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <div class="ps-col-text">
+              <p class="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+                <span class="relative flex h-2 w-2" aria-hidden="true">
+                  <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                  <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+                </span>
+                Live check
+              </p>
+              <p class="ps-h2 font-bold leading-tight text-foreground">Check right now whether the AI knows your brand.</p>
+              <p class="mt-3 text-base leading-relaxed text-muted-foreground">Enter your website — the answer is there in seconds.</p>
+            </div>
+
+            <div class="ps-col-line mt-6 lg:mt-0">
+              <div class="ps-line">
+                <input class="ps-in" id="ps-in" type="text" inputmode="url" spellcheck="false" autocomplete="off"
+                       placeholder="yourcompany.com" aria-label="Your website" />
+                <button type="button" class="ps-go" id="ps-go" aria-label="Check brand">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+              <p class="ps-err mt-3 text-sm font-medium text-cta-accessible" hidden></p>
+            </div>
+          </div>
+
+          <div class="ps-work rounded-3xl border-2 border-cta bg-card p-7 shadow-xl sm:p-8">
+            <p class="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              <span class="ps-work-lab">Checking …</span>
+            </p>
+            <span class="ps-scan" aria-hidden="true"></span>
+            <div class="space-y-3" aria-hidden="true">
+              <span class="ps-bar"></span><span class="ps-bar"></span><span class="ps-bar"></span>
+            </div>
+          </div>
+
+          <!-- Befund: vollflächig, weiße Schrift auf tiefem Magenta (Weiß hält dort 4,65:1) -->
+          <div class="ps-res rounded-3xl p-7 shadow-xl sm:p-8" aria-live="polite">
+            <p class="ps-res-kicker text-xs font-bold uppercase tracking-[0.2em]">Checked</p>
+            <p class="ps-dom mt-2 break-all font-bold leading-none tracking-tight"></p>
+            <p class="ps-head mt-6 font-bold leading-[0.95] tracking-tight"></p>
+            <p class="ps-lead mt-6 text-lg font-semibold leading-snug"></p>
+            <p class="ps-sub mt-3 text-base leading-relaxed"></p>
+            <button type="button" class="ps-cta mt-7" id="ps-cta">Secure your place in the webinar →</button>
+            <button type="button" class="ps-again mt-4" id="ps-again">Check another website</button>
+          </div>
+
+        </aside>
+      </section>
+
+      <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
+      <section aria-labelledby="h-outcome" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Your result</p>
+        <h2 id="h-outcome" class="cai-h2 wfx-reveal text-foreground">After 45 minutes you have:</h2>
+        <ul class="wfx-reveal mt-8 max-w-3xl space-y-4">
+          {[
+            ['Clarity on whether ChatGPT and Google AI recommend you', ' — and who it names instead.'],
+            ['The 5 levers, ordered by effect', ' — from becoming visible to winning orders.'],
+            ['The context', ' — what the results from 449 companies across 258 industries mean for a company like yours.'],
+            ['On request: your personal visibility audit', ' — your own dashboard shows where your company currently stands in AI answers. For data protection reasons we send the access details personally by text message.'],
+          ].map(([t, d]) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span><strong class="text-foreground">{t}</strong>{d}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="mt-8">
+          <WebinarSignup label="Register for the webinar" lang={lang} />
+        </div>
+
+        {/* Scroll-Bühne (vorerst ausgeblendet auf /webinar, Oli 25.07.2026 — Code bleibt fuer spaetere Wiederverwendung) */}
+        {SHOW_AUDIT_PIN && (
+        <div class="audit-pin" id="audit-pin">
+          <div class="audit-scene">
+            <div class="audit-fit" id="audit-fit">
+              <div class="audit-card">
+                <img id="audit-img" src={`${base}/images/audit-full.webp`} width="1500" height="5678" alt="Complete CodaAI Digital Visibility Audit of a mid-sized manufacturer (anonymised): company profile, 27 language versions, SEO metrics, keyword development, GEO score and buyer questions" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            <p class="audit-title" aria-hidden="true"><span class="at-c">CodaAI</span> <span class="at-p">Digital Visibility Audit</span></p>
+            <div class="audit-labels" aria-hidden="true">
+              {['SISTRIX KPIs', 'Keyword development', 'Ranking distribution', 'Market competition', 'SEO competition', 'AI visibility', 'Questions & answers from the AI', 'Findings & diagnosis'].map((l) => (
+                <span class="audit-label">{l}</span>
+              ))}
+            </div>
+            <div class="audit-bar" aria-hidden="true"><i id="audit-bar-i"></i></div>
+            <p class="audit-caption">A real Digital Visibility Audit from the study data set (anonymised)</p>
+          </div>
+        </div>
+        )}
+      </section>
+
+      <!-- ── Agenda ───────────────────────────────────────────────────── -->
+      <section aria-labelledby="h-agenda" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Agenda &amp; speakers</p>
+        <h2 id="h-agenda" class="cai-h2 wfx-reveal text-foreground">Webinar agenda</h2>
+        <ol id="wfx-agenda" class="wfx-agenda mt-10 space-y-4">
+          {agenda.map((a) => (
+            <li class="wfx-reveal wfx-agitem flex flex-col gap-2 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-baseline sm:gap-6">
+              <span class="w-20 shrink-0 text-sm font-bold tabular-nums text-cta-accessible">{a.min}</span>
+              <div>
+                <h3 class="font-semibold text-foreground">{a.t}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{a.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <h3 class="wfx-reveal mt-14 text-2xl font-semibold tracking-tight text-foreground">Your hosts — strategy meets execution</h3>
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <article class="wfx-reveal flex gap-5 rounded-2xl border border-border bg-card p-8">
+            <a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" aria-label="Norbert Schuster on LinkedIn (opens in a new window)" class="shrink-0">
+              <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Portrait of Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="wfx-parallax h-20 w-20 rounded-full object-cover" />
+            </a>
+            <div>
+              <h3 class="text-lg font-semibold text-foreground"><a href="https://www.linkedin.com/in/norbertschuster/" target="_blank" rel="noopener" class="transition-colors hover:text-cta">Norbert Schuster</a></h3>
+              <p class="text-sm font-medium text-cta-accessible">Strategy consultant, author &amp; speaker</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Author of the Haufe standard reference “Digitalisierung in Marketing und Vertrieb”
+                and of more than a dozen further books — most recently “KI im B2B — Marketing und
+                Vertrieb neu denken” (2026). Creator of the strike2® framework: systematic lead
+                management along the buyer journey (Schuster-Modell®), presence where buyers go
+                to inform themselves (Wasserloch-Strategie®), and a sales funnel built around what
+                buyers actually need (Empathischer Funnel®). In the webinar he supplies the
+                strategic frame: from the silent pre-decision to a scalable system for revenue from
+                new and existing customers.
+              </p>
+            </div>
+          </article>
+          <article class="wfx-reveal flex gap-5 rounded-2xl border border-border bg-card p-8">
+            <a href="https://www.linkedin.com/in/oliver-parrizas/" target="_blank" rel="noopener" aria-label="Oliver Parrizas on LinkedIn (opens in a new window)" class="shrink-0">
+              <img src={`${base}/images/speaker-oliver-parrizas.webp`} alt="Portrait of Oliver Parrizas" width="160" height="160" loading="lazy" decoding="async" class="wfx-parallax h-20 w-20 rounded-full object-cover" />
+            </a>
+            <div>
+              <h3 class="text-lg font-semibold text-foreground"><a href="https://www.linkedin.com/in/oliver-parrizas/" target="_blank" rel="noopener" class="transition-colors hover:text-cta">Oliver Parrizas</a></h3>
+              <p class="text-sm font-medium text-cta-accessible">Digital &amp; visibility analyst</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Has worked on digital visibility since the early days of Google — more than
+                25 years, from the first rankings through SEO and AEO to GEO in the AI era. His
+                clients are typical mid-sized B2B companies: firms that develop, manufacture and
+                sell technically demanding products worldwide — often the leader in their niche,
+                barely known outside their own industry. That is exactly where it is decided
+                whether an AI system knows a company and recommends it. In the webinar he runs
+                the live audits: real companies, real AI answers, the methodology of the 8 buyer
+                questions — and the figures behind the most extensive analysis so far of AI
+                visibility among mid-sized companies in Germany.
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="mt-12"><WebinarSignup label="Register for the webinar" lang={lang} /></div>
+      </section>
+
+      <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
+      <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Who this webinar is for</p>
+        <h2 id="h-fuerwen" class="cai-h2 wfx-reveal text-foreground">Built for decision-makers in mid-sized B2B companies</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          {[
+            ['Managing directors', 'You want to know whether your company shows up in the most important new channel — before competitors extend their lead.'],
+            ['Heads of marketing', 'You invest in SEO and content — and need to know whether any of it arrives in AI answers.'],
+            ['Heads of sales', 'You can feel enquiries thinning out — and you do not want to leave the silent pre-decision to chance.'],
+          ].map(([t, d]) => (
+            <article class="wfx-reveal wfx-tilt rounded-2xl border border-border bg-card p-8">
+              <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="mt-8 max-w-3xl font-medium text-foreground">You are in the right place if:</p>
+        <ul class="mt-4 max-w-3xl space-y-3">
+          {[
+            'Your business runs on products that need explaining and on longer buying processes.',
+            'Referrals still carry you — but the flow of enquiries is noticeably thinning out.',
+            'You want to know where you stand before you put budget into measures.',
+            'You sell in several markets, but your AI visibility there has never been checked.',
+          ].map((t) => (
+            <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Not the right format for B2C shops — our methodology is built for B2B buying processes.</p>
+      </section>
+
+      <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
+      <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
+        <h2 id="h-faq" class="cai-h2 wfx-reveal text-foreground">Frequently asked questions</h2>
+        <div class="mt-8 space-y-4">
+          {webinarFaq.map((f) => (
+            <details class="wfx-reveal group rounded-2xl border border-border bg-card open:border-cta/40">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── Schluss-CTA ────────────────────────────────────────────── -->
+      <section aria-labelledby="h-schluss" class="border-t border-border py-16">
+        <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
+          <h2 id="h-schluss" class="cai-h2 wfx-reveal text-foreground">60 minutes that show where you stand in AI answers.</h2>
+          <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Free, including your personal audit — all we need is your website, your name and your email. Held in German.</p>
+          <div class="mt-8 flex justify-center">
+            <WebinarSignup label="Secure your place now" align="center" lang={lang} />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>
+
+<script>
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
+
+  const dl = (name: string, params: Record<string, string> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: name, ...params });
+  };
+  dl('webinar_view');
+
+  const $ = (id: string) => document.getElementById(id);
+  const form = $('webinar-form') as HTMLFormElement;
+  const successBox = $('webinar-success');
+  const errBox = $('w-error');
+  const submitBtn = $('w-submit') as HTMLButtonElement;
+
+  const ERR: Record<string, string> = {
+    name_missing: 'Please enter your first and last name.',
+    email_invalid: 'Please check your email address.',
+    consent_missing: 'Please confirm your consent.',
+    network: 'Connection failed. Please try again — or register by email at hi@codaai.ai.',
+  };
+  const msg = (k: string) => ERR[k] || ERR.network;
+
+  const showErr = (box: HTMLElement | null, key: string) => {
+    if (!box) return;
+    box.textContent = msg(key);
+    box.classList.remove('hidden');
+  };
+
+  const post = async (body: Record<string, any>) => {
+    const res = await fetch(ENDPOINT, { method: 'POST', cache: 'reload', body: JSON.stringify(body) });
+    return res.json();
+  };
+
+  form?.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    errBox?.classList.add('hidden');
+    if (($('w-hp') as HTMLInputElement)?.value) return; // Honeypot
+
+    const firstname = ($('w-name') as HTMLInputElement).value.trim();
+    const lastname = ($('w-lastname') as HTMLInputElement).value.trim();
+    const email = ($('w-email') as HTMLInputElement).value.trim();
+    const slot = '2026-09-08';
+    const consent = ($('w-consent') as HTMLInputElement).checked;
+    const livetest = ($('w-livetest') as HTMLInputElement).checked;
+
+    if (!firstname || !lastname) return showErr(errBox, 'name_missing');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showErr(errBox, 'email_invalid');
+    if (!consent) return showErr(errBox, 'consent_missing');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending …';
+    try {
+      const r = await post({ action: 'webinar_register', name: `${firstname} ${lastname}`, email, domain: '', phone: '', position: '', slot, consent, livetest });
+      if (!r.ok) { showErr(errBox, r.error); return; }
+      form.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+      const when = $('w-success-when'); if (when) when.textContent = r.when || '';
+      dl('webinar_signup', { webinar_slot: slot });
+      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch {
+      showErr(errBox, 'network');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send registration →';
+    }
+  });
+
+  // ── Countdown zum nächsten Termin ────────────────────────────────────────
+  // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
+  // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
+  const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
+  const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
+  const cdBox = $('w-countdown');
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const tickCd = () => {
+    const now = Date.now();
+    const next = slotDates.find((d) => d.getTime() > now);
+    if (!next || now < CD_SHOW_FROM) { cdBox?.setAttribute('hidden', ''); return; }
+    cdBox?.removeAttribute('hidden');
+    let rest = Math.floor((next.getTime() - now) / 1000);
+    const dd = Math.floor(rest / 86400); rest -= dd * 86400;
+    const hh = Math.floor(rest / 3600); rest -= hh * 3600;
+    const mm = Math.floor(rest / 60);
+    const ss = rest - mm * 60;
+    const vals = [String(dd), pad(hh), pad(mm), pad(ss)];
+    vals.forEach((v, i) => {
+      const el = $(`cd-${i}`); if (el) el.textContent = v;
+    });
+  };
+  tickCd();
+  setInterval(tickCd, 1000);
+
+  // ── Anmeldungen-Zähler (Social Proof) — erscheint erst ab 50 Anmeldungen ─
+  fetch(`${ENDPOINT}?action=webinar_seats`, { cache: 'reload' })
+    .then((r) => r.json())
+    .then((j) => {
+      const el = $('w-seats');
+      if (el && j?.ok && Number(j.count) >= 50) {
+        el.textContent = `Already ${new Intl.NumberFormat('en-GB').format(j.count)} registrations`;
+        el.removeAttribute('hidden');
+      }
+    })
+    .catch(() => {});
+
+  // ── Scroll-Pinning: komplettes Audit läuft durch die 3D-Ebene ───────────
+  const pinWrap = $('audit-pin');
+  const pinImg = $('audit-img') as HTMLImageElement | null;
+  const pinScene = document.querySelector<HTMLElement>('.audit-scene');
+  const pinBar = $('audit-bar-i');
+  const pinLabels = Array.from(document.querySelectorAll('.audit-label'));
+  const CARD_H = 932;
+  const fitScale = () => {
+    if (!pinScene) return;
+    const s = Math.min(window.innerWidth / 1600, window.innerHeight / 1000) * 1.04;
+    pinScene.style.setProperty('--s', String(s));
+    requestAnimationFrame(() => {
+      const t = pinScene.querySelector('.audit-title');
+      const l = pinScene.querySelector<HTMLElement>('.audit-labels');
+      if (t && l) {
+        const sr = pinScene.getBoundingClientRect();
+        const tr = t.getBoundingClientRect();
+        l.style.right = `${Math.max(30, Math.round(sr.right - tr.left))}px`;
+      }
+      // Overlap-Schutz (Norbert-Feedback 17.07.): Ragt die gekippte Karte bis unter
+      // Titel/Labels, bekommen beide einen dunklen Chip-Hintergrund — lesbar statt Kollision.
+      const card = pinScene.querySelector('.audit-card');
+      if (t && card) {
+        const cr = card.getBoundingClientRect();
+        const tr2 = t.getBoundingClientRect();
+        pinScene.classList.toggle('labels-clash', cr.right > tr2.left - 12);
+      }
+    });
+  };
+  fitScale();
+  if (document.fonts?.ready) document.fonts.ready.then(fitScale);
+  if (pinWrap && pinImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let pinTicking = false;
+    const pinUpdate = () => {
+      pinTicking = false;
+      const total = pinWrap.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      const p = Math.max(0, Math.min(1, -pinWrap.getBoundingClientRect().top / total));
+      const range = pinImg.offsetHeight - CARD_H;
+      pinImg.style.transform = `translateY(${-p * range}px)`;
+      if (pinBar) pinBar.style.width = `${p * 100}%`;
+      if (pinLabels.length) {
+        const li = Math.min(pinLabels.length - 1, Math.floor(p * pinLabels.length));
+        pinLabels.forEach((el, i) => el.classList.toggle('on', i === li));
+      }
+    };
+    const onPinScroll = () => { if (!pinTicking) { pinTicking = true; requestAnimationFrame(pinUpdate); } };
+    window.addEventListener('scroll', onPinScroll, { passive: true });
+    window.addEventListener('resize', () => { fitScale(); onPinScroll(); });
+    if (pinImg.complete) pinUpdate(); else pinImg.addEventListener('load', pinUpdate);
+  }
+
+  // Die Zaehler-Animation fuer das Kennzahlen-Band ist mit dem Band selbst
+  // entfallen (03.08.2026). Wer das Band zurueckholt, braucht sie wieder —
+  // sie steht in der Versionsgeschichte zu diesem Commit.
+
+  // ── KI-Antwort-Karte: Sequenz-Animation (Frame → Frage tippen → KI denkt → Ergebnisse → Punchline) ──
+  const kcard = document.getElementById('ki-card');
+  if (kcard && kcard.classList.contains('kianim')) {
+    const kwait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const ktext = kcard.querySelector<HTMLElement>('.kq-text');
+    const kfull = '“Which providers should we shortlist for our tender?”';
+    (async () => {
+      await kwait(500);
+      kcard.classList.add('k-frame');            // 1) Grundrahmen + Überschrift
+      await kwait(800);
+      kcard.classList.add('k-q');                 // 2) Frage-Bubble erscheint
+      await kwait(450);
+      if (ktext) {                                // 3) Frage wird getippt
+        for (let i = 1; i <= kfull.length; i++) {
+          ktext.textContent = kfull.slice(0, i);
+          await kwait(20 + Math.random() * 24);
+        }
+      }
+      await kwait(400);
+      kcard.classList.add('k-think');             // 4) KI "arbeitet"
+      await kwait(1600);
+      kcard.classList.remove('k-think');
+      for (const r of kcard.querySelectorAll('.kres')) {  // Ergebnisse 1–3
+        r.classList.add('k-in');
+        await kwait(300);
+      }
+      await kwait(500);
+      kcard.querySelector('.kpunch')?.classList.add('k-in');  // 5) Punchline
+      await kwait(500);
+      kcard.querySelector('.kfoot')?.classList.add('k-in');
+      kcard.querySelector('.kcap')?.classList.add('k-in');
+      await kwait(1400);
+      kcard.classList.add('k-done');              // Caret aus
+    })();
+  }
+</script>
+
+<style>
+  /* ── Scroll-Audit-Bühne (Geometrie identisch zum Video-Render) ── */
+  .audit-pin { height: 300vh; position: relative; margin-top: 3.5rem; }
+  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: hsl(var(--surface-ink)); border-radius: 24px; }
+  .audit-scene::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(42% 46% at 62% 68%, rgba(120, 10, 140, 0.55), transparent 70%),
+      radial-gradient(30% 34% at 78% 30%, rgba(90, 8, 105, 0.4), transparent 70%);
+    filter: blur(60px);
+  }
+  .audit-fit { position: absolute; left: 50%; top: 50%; width: 1600px; height: 1000px; transform: translate(-50%, -50%) scale(var(--s, 0.5)); }
+  .audit-card {
+    position: absolute; left: 0; top: 0; width: 1100px; height: 932px; overflow: hidden;
+    border-radius: 26px; border: 2px solid rgba(255, 255, 255, 0.28); background: #fff;
+    transform-origin: 0 0;
+    transform: matrix3d(0.716517, 0.145607, 0, -0.00010973, -0.36913, 0.48935, 0, -0.00005871, 0, 0, 1, 0, 500, 130, 0, 1);
+    box-shadow: -40px 70px 90px rgba(0, 0, 0, 0.55);
+  }
+  .audit-card img { display: block; width: 100%; will-change: transform; }
+  .audit-caption { position: absolute; left: 24px; bottom: 22px; color: rgba(255, 255, 255, 0.65); font-size: 13px; z-index: 2; margin: 0; }
+  /* Titel-Oberkante auf Höhe der Karten-Oberkante (Stage-y 130), Labels entlang der
+     unteren Kartenkante (BL 165/620 → BR 1145/905, Neigung ~16.2°) — Positionen und
+     Schriftgrößen skalieren über --s mit der Grafik mit. */
+  .audit-title {
+    position: absolute; top: calc(50% + var(--s, 0.5) * -370px); right: 30px; z-index: 2; margin: 0;
+    text-align: right; font-size: max(14px, calc(var(--s, 0.5) * 40px)); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
+  }
+  .audit-title .at-c { color: #fff; }
+  .audit-title .at-p { color: hsl(var(--cta-on-dark)); }
+  .audit-labels {
+    position: absolute; z-index: 2; right: 30px; /* wird per JS auf die linke Titelkante gesetzt */
+    bottom: calc(50% + var(--s, 0.5) * -405px);
+    width: min(60%, 700px); text-align: right;
+    font-size: max(14px, calc(var(--s, 0.5) * 40px));
+  }
+  .audit-label {
+    position: absolute; right: 0; bottom: 0;
+    font-weight: 600; letter-spacing: -0.01em; color: #fff; line-height: 1.25;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1);
+  }
+  .audit-label.on { opacity: 1; transform: none; }
+  /* Overlap-Schutz: wenn die Karte bis unter die Texte ragt (schmale Fenster),
+     bekommen Titel + Labels einen dunklen Chip — Overlay statt unlesbarer Kollision. */
+  .labels-clash .audit-title,
+  .labels-clash .audit-label {
+    background: rgba(8, 8, 14, 0.62); padding: 0.18em 0.5em; border-radius: 0.5em;
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  }
+  .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
+  .audit-bar i { display: block; height: 100%; width: 0%; background: hsl(var(--cta)); border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .audit-pin { height: auto; }
+    .audit-scene { position: relative; height: 80vh; }
+  }
+
+  /* ── KI-Antwort-Karte: Sequenz-Animation ──
+     Ohne JS / mit reduced-motion bleibt alles statisch sichtbar (Default).
+     Alle Initialzustände nur via opacity/transform → kein Layout-Shift. */
+  .kq-typed { visibility: hidden; }
+  .kq-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -0.15em; background: currentColor; opacity: 0; }
+  .kdots {
+    position: absolute; top: 1rem; left: 0; z-index: 1;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 12px 16px; border-radius: 14px;
+    border: 1px solid hsl(var(--border)); background: hsl(var(--background));
+    opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s;
+  }
+  .kdots span { width: 6px; height: 6px; border-radius: 50%; background: hsl(var(--muted-foreground)); animation: kdot 1s ease-in-out infinite; }
+  .kdots span:nth-child(2) { animation-delay: .15s; }
+  .kdots span:nth-child(3) { animation-delay: .3s; }
+  @keyframes kdot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-4px); opacity: 1; } }
+  @keyframes kcaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  @keyframes kpulse { 0% { box-shadow: 0 0 0 0 rgba(223, 65, 251, .35); } 70% { box-shadow: 0 0 0 14px rgba(223, 65, 251, 0); } 100% { box-shadow: 0 0 0 0 rgba(223, 65, 251, 0); } }
+
+  /* Anim-Modus (Klasse wird per Inline-Script gesetzt) */
+  .kianim { opacity: 0; transform: translateY(12px) scale(.97); }
+  .kianim.k-frame { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.22, 1, .36, 1); }
+  .kianim .kq { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s cubic-bezier(.22, 1, .36, 1); }
+  .kianim .kq-ph { opacity: 0; }
+  .kianim .kq-typed { visibility: visible; }
+  .kianim.k-q .kq { opacity: 1; transform: none; }
+  .kianim.k-q .kq-caret { animation: kcaret .9s step-end infinite; }
+  .kianim.k-done .kq-caret { animation: none; opacity: 0; }
+  .kianim.k-think .kdots { opacity: 1; visibility: visible; transition: opacity .3s ease, visibility 0s; }
+  .kianim .kres { opacity: 0; transform: translateY(10px); }
+  .kianim .kres.k-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s cubic-bezier(.22, 1, .36, 1); }
+  .kianim .kpunch, .kianim .kfoot, .kianim .kcap { opacity: 0; transform: translateY(8px); }
+  .kianim .kpunch.k-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s cubic-bezier(.22, 1, .36, 1); animation: kpulse 1.5s ease .5s 1; }
+  .kianim .kfoot.k-in, .kianim .kcap.k-in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+</style>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     Motion-Layer (additiv, wfx-*) — GSAP/ScrollTrigger/Lenis-Scrollytelling
+     ON TOP der bestehenden Seite. Alle Verstecke gaten via body.wfx-on, das
+     nur mit JS UND ohne reduced-motion gesetzt wird → ohne JS / reduced-motion
+     bleibt die Seite exakt wie zuvor (voll sichtbar, kein Layout-Shift).
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Fixed chrome: Fortschrittsbalken + Grain ── */
+  .wfx-progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; z-index: 60; background: transparent; pointer-events: none; }
+  .wfx-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, hsl(var(--cta)), hsl(var(--navy-600))); }
+  .wfx-grain {
+    position: fixed; inset: 0; z-index: 59; pointer-events: none; opacity: .028; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @media (prefers-reduced-motion: reduce) { .wfx-grain { display: none; } }
+
+  /* ── Hero: Aurora-Blobs + Cursor-Spotlight ── */
+  .wfx-aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .wfx-blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: .5; }
+  .wfx-blob.wb1 { width: 460px; height: 460px; top: -120px; right: 6%; background: radial-gradient(circle at 30% 30%, rgba(223,65,251,.42), transparent 70%); animation: wfx-float1 15s ease-in-out infinite; }
+  .wfx-blob.wb2 { width: 420px; height: 420px; bottom: -170px; left: 0%; background: radial-gradient(circle at 60% 40%, rgba(124,58,237,.26), transparent 70%); animation: wfx-float2 19s ease-in-out infinite; }
+  .wfx-blob.wb3 { width: 300px; height: 300px; top: 34%; left: 42%; background: radial-gradient(circle, rgba(223,65,251,.18), transparent 70%); animation: wfx-float1 22s ease-in-out infinite reverse; }
+  @keyframes wfx-float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,30px); } }
+  @keyframes wfx-float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,-30px); } }
+  .wfx-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .4s ease;
+    background: radial-gradient(340px circle at var(--mx,50%) var(--my,40%), rgba(223,65,251,.10), transparent 70%); }
+  @media (prefers-reduced-motion: reduce) { .wfx-blob { animation: none; } }
+
+  /* ── KI-Karten-Tilt (Hero) — nur der innere Karten-Container kippt,
+       die bestehende kianim-Sequenz auf #ki-card bleibt unberührt ── */
+  .wfx-ki { perspective: 1200px; }
+  .wfx-ki > .rounded-3xl { transition: transform .25s ease; transform-style: preserve-3d; }
+
+  /* ── Reveals — Ausgangszustand NUR wenn body.wfx-on aktiv ── */
+  body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
+
+  /* ── 3D-Tilt-Karten (Für wen) ── */
+  .wfx-tilt { transition: transform .25s ease; transform-style: preserve-3d; will-change: transform; }
+  .wfx-mag { will-change: transform; }
+
+  /* ── Anmeldung: Fokus-Glow auf aktiven Feldern (additiv) ── */
+  #register input:focus, #register textarea:focus, #register select:focus {
+    box-shadow: 0 0 0 4px rgba(223,65,251,.20), 0 0 26px rgba(223,65,251,.28);
+  }
+
+  /* ── Agenda: selbstzeichnende Timeline (nur mit GSAP aktiv → wfx-gsap) ── */
+  .wfx-agrail { position: absolute; left: .55rem; top: .6rem; bottom: .6rem; width: 2px; border-radius: 2px; background: hsl(var(--border)); overflow: hidden; pointer-events: none; }
+  .wfx-agrail b { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: scaleY(0); transform-origin: top; background: linear-gradient(hsl(var(--cta)), hsl(var(--navy-600))); }
+  .wfx-agdot { position: absolute; left: -1.72rem; top: 1.7rem; width: 12px; height: 12px; border-radius: 50%; background: hsl(var(--border)); border: 2px solid hsl(var(--card)); transition: background .35s ease, box-shadow .35s ease; }
+  .wfx-agdot.wfx-lit { background: hsl(var(--cta)); box-shadow: 0 0 0 4px hsl(var(--cta) / .15); }
+  @media (min-width: 640px) {
+    body.wfx-gsap .wfx-agenda { position: relative; padding-left: 2rem; }
+    body.wfx-gsap .wfx-agitem { position: relative; }
+  }
+  /* Rail/Dots nur ab sm sichtbar; darunter nichts injiziert (JS-Guard) */
+  @media (max-width: 639px) { .wfx-agrail, .wfx-agdot { display: none; } }
+
+
+  /* ── Live-Check-Band ──────────────────────────────────────────────────
+     Vollbreit trotz begrenztem Textcontainer: Die Sektion sitzt in einem
+     max-w-7xl-Wrapper, deshalb zieht sie sich per 50vw-Trick ueber die ganze
+     Breite. Dunkler Grund als Bruch im hellen Lesefluss.                    */
+  .cai-psband {
+    position: relative;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: clamp(48px, 7vw, 76px) max(1.5rem, calc(50vw - 40rem)) clamp(48px, 7vw, 76px);
+    background: hsl(var(--surface-ink));
+    overflow: hidden;
+  }
+  /* Dezenter Pink-Schimmer, damit der Block nicht als schwarzes Loch wirkt */
+  .cai-psband::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 120% at 15% 0%, rgba(223,65,251,.16), transparent 70%);
+  }
+  .cai-psband > * { position: relative; }
+
+  /* ── Prüfstand ────────────────────────────────────────────────────────
+     Drei Zustände über data-mode auf #pruefstand: idle · working · result.
+     Seit 03.08.2026 steht er im dunklen Band zwischen zwei Sektionen, nicht
+     mehr im Hero — die Zustandslogik ist unveraendert.
+     Der Befund liegt vollflächig auf #C405E6 — dem pinksten Wert, bei dem
+     weiße Schrift noch 4,65:1 hält (siehe CLAUDE.md). Deshalb dort auch
+     kein abgetöntes Weiß: Hierarchie kommt aus Größe und Schnitt.        */
+
+  #pruefstand .ps-work,
+  #pruefstand .ps-res { display: none; }
+  #pruefstand[data-mode="working"] .ps-ask,
+  #pruefstand[data-mode="result"] .ps-ask { display: none; }
+  #pruefstand[data-mode="working"] .ps-work { display: block; position: relative; overflow: hidden; }
+  #pruefstand[data-mode="result"] .ps-res { display: block; animation: psin .5s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes psin { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+
+  /* Im Band liegt die Frage links, das Eingabefeld rechts — quer statt
+     hochkant. Unterhalb von lg stapelt es sich wieder. */
+  @media (min-width: 1024px) {
+    #pruefstand .ps-ask {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+      column-gap: 48px; align-items: center;
+    }
+    #pruefstand .ps-ask > .ps-col-text { grid-column: 1; }
+    #pruefstand .ps-ask > .ps-col-line { grid-column: 2; }
+  }
+
+  /* Farben im dunklen Band: Der Frage-Zustand hat keinen eigenen Kasten mehr,
+     er sitzt direkt auf dem Grund. Werkzeug- und Befund-Zustand behalten ihre
+     Karte, damit der Wechsel sichtbar bleibt. */
+  .cai-psband .ps-ask { border: 0 !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
+  .cai-psband .ps-ask .ps-h2 { color: #fff; }
+  .cai-psband .ps-ask p { color: rgba(255,255,255,.72); }
+  .cai-psband .ps-ask .text-cta-accessible { color: hsl(var(--cta)) !important; }
+  .cai-psband .ps-work { border-color: hsl(var(--cta)); background: hsl(var(--navy-800)) !important; }
+  .cai-psband .ps-work p { color: #fff; }
+
+  #pruefstand .ps-h2 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); }
+  .cai-psband .ps-h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+
+  /* Eingabe */
+  #pruefstand .ps-line { display: flex; gap: 10px; }
+  #pruefstand .ps-in {
+    flex: 1; min-width: 0; height: 58px; padding: 0 18px;
+    border: 2px solid hsl(var(--cta)); border-radius: 14px;
+    background: hsl(var(--background)); color: hsl(var(--foreground));
+    font-size: 1.05rem; font-weight: 600; outline: none;
+    transition: box-shadow .2s ease;
+  }
+  #pruefstand .ps-in::placeholder { color: hsl(var(--muted-foreground)); font-weight: 500; }
+  #pruefstand .ps-in:focus { box-shadow: 0 0 0 4px hsl(var(--cta) / .22); }
+  #pruefstand .ps-go {
+    flex: 0 0 auto; width: 58px; height: 58px; border-radius: 14px;
+    /* 04.08.2026 auf --cta-strong: der Pfeil ist ein Icon, aber die Flaeche
+       traegt denselben Kontrastanspruch wie die uebrigen Buttons. */
+    background: hsl(var(--cta-strong)); color: #fff; border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #pruefstand .ps-go {
+    box-shadow: 0 10px 30px -8px hsl(var(--cta) / .55);
+    transition: transform .18s ease, box-shadow .25s ease;
+  }
+  #pruefstand .ps-go:hover { transform: translateY(-2px); box-shadow: 0 16px 38px -10px hsl(var(--cta) / .65); }
+  #pruefstand .ps-go:hover svg { transform: translateX(3px); }
+  #pruefstand .ps-go svg { transition: transform .2s ease; }
+  #pruefstand .ps-go:active { transform: translateY(0) scale(.97); }
+
+  /* Prüfung läuft */
+  #pruefstand .ps-scan {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(100deg, transparent 40%, hsl(var(--cta) / .18) 50%, transparent 60%);
+    background-size: 260% 100%; animation: psscan 1.15s linear infinite;
+  }
+  @keyframes psscan { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+  #pruefstand .ps-bar {
+    display: block; height: 46px; border-radius: 12px;
+    background: linear-gradient(90deg, hsl(var(--muted) / .55) 25%, hsl(var(--muted) / .2) 37%, hsl(var(--muted) / .55) 63%);
+    background-size: 400% 100%; animation: psshim 1.4s ease infinite;
+  }
+  #pruefstand .ps-bar:nth-child(2) { animation-delay: .12s; opacity: .75; }
+  #pruefstand .ps-bar:nth-child(3) { animation-delay: .24s; opacity: .5; }
+  @keyframes psshim { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+  /* Befund — Vollfläche */
+  #pruefstand .ps-res { background: #C405E6; color: #fff; }
+  #pruefstand .ps-res-kicker { color: #fff; }
+  #pruefstand .ps-dom { font-size: clamp(1.6rem, 3.4vw, 2.35rem); color: #fff; }
+  #pruefstand .ps-head {
+    font-size: clamp(2.9rem, 6.4vw, 4.1rem); color: #fff;
+    animation: pshead .5s cubic-bezier(.22,1,.36,1) both .1s;
+  }
+  #pruefstand .ps-head.is-num { font-variant-numeric: tabular-nums; }
+  @keyframes pshead { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  #pruefstand .ps-lead, #pruefstand .ps-sub { color: #fff; }
+
+  #pruefstand .ps-cta {
+    display: inline-block; background: #fff; color: #C405E6;
+    font-size: 1rem; font-weight: 700; padding: 15px 26px; border-radius: 14px;
+    border: 0; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease;
+  }
+  #pruefstand .ps-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -10px rgba(0,0,0,.45); }
+  #pruefstand .ps-again {
+    display: block; background: none; border: 0; cursor: pointer; padding: 0;
+    color: #fff; font-size: .9rem; font-weight: 600;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pruefstand .ps-scan, #pruefstand .ps-bar { animation: none; }
+    #pruefstand .ps-res, #pruefstand .ps-head { animation: none !important; }
+  }
+
+</style>
+
+<!-- Selbst gehostet und mit defer seit 04.08.2026 — siehe Kommentar in
+     components/premium/Home.astro. Die beiden preconnects auf cdnjs und
+     jsdelivr sind damit entfallen. -->
+<script is:inline defer src={`${base}/vendor/gsap-3.12.5.min.js`}></script>
+<script is:inline defer src={`${base}/vendor/ScrollTrigger-3.12.5.min.js`}></script>
+<script is:inline defer src={`${base}/vendor/lenis-1.0.42.min.js`}></script>
+<script is:inline>
+/* Die Motion-Schicht wartet auf DOMContentLoaded, weil die Bibliotheken oben
+   defer tragen. Der Prüfstand weiter unten in diesem Block läuft dagegen
+   sofort — er braucht kein GSAP und soll nicht warten. */
+function wfxMotionInit(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;                       // reduced-motion: Motion-Schicht komplett aus
+
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ---------- Fortschrittsbalken ---------- */
+  var prog = document.getElementById('wfx-prog');
+  function onScrollProg(){
+    if(!prog) return;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? (window.scrollY || window.pageYOffset) / h : 0;
+    prog.style.width = (Math.max(0, Math.min(1, p)) * 100) + '%';
+  }
+  window.addEventListener('scroll', onScrollProg, { passive: true });
+  window.addEventListener('resize', onScrollProg);
+  onScrollProg();
+
+  /* ---------- Reveals (IntersectionObserver, one-shot, mit Geschwister-Stagger) ---------- */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.wfx-reveal'));
+  reveals.forEach(function(el){
+    var sibs = Array.prototype.filter.call(el.parentNode.children, function(c){
+      return c.classList && c.classList.contains('wfx-reveal');
+    });
+    var idx = sibs.indexOf(el);
+    if (idx > 0) el.style.transitionDelay = Math.min(idx * 90, 360) + 'ms';
+  });
+  if (hasIO) {
+    var ioR = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('wfx-in'); ioR.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ ioR.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('wfx-in'); });
+  }
+
+  /* ---------- Count-up NUR für echte Zahlen (.wfx-pnum) ---------- */
+  var fmtN = new Intl.NumberFormat('en-GB');
+  function countUp(el){
+    var raw = (el.textContent || '').trim();
+    var m = raw.match(/^(\d[\d.  ,]*)\s*(.*)$/);
+    if(!m) return;                            // "fast 1/2", "> 1/3" → bleibt unverändert
+    var target = parseInt(m[1].replace(/[^\d]/g, ''), 10);
+    if(!isFinite(target)) return;
+    var suffix = m[2] || '';
+    var dur = 1200, t0 = null;
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtN.format(Math.round(target * e)) + suffix;
+      if(p < 1) requestAnimationFrame(step); else el.textContent = fmtN.format(target) + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var pnums = Array.prototype.slice.call(document.querySelectorAll('.wfx-pnum'));
+  if (pnums.length && hasIO) {
+    var ioC = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ ioC.unobserve(e.target); countUp(e.target); } });
+    }, { threshold: 0.5 });
+    pnums.forEach(function(el){ ioC.observe(el); });
+  }
+
+  /* ---------- Hero: Cursor-Spotlight + KI-Karten-Tilt (innerer Container) ---------- */
+  (function(){
+    var hero = document.querySelector('#main-content > section');
+    var spot = document.getElementById('wfx-herospot');
+    var ki = document.getElementById('ki-card');
+    var kinner = ki ? ki.querySelector('.rounded-3xl') : null;
+    if (ki) ki.classList.add('wfx-ki');
+    if (!hero) return;
+    hero.addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      if (spot){ spot.style.setProperty('--mx', (x*100)+'%'); spot.style.setProperty('--my', (y*100)+'%'); spot.style.opacity = '1'; }
+      if (kinner){ kinner.style.transform = 'rotateY(' + ((x-0.5)*7) + 'deg) rotateX(' + ((0.5-y)*7) + 'deg)'; }
+    });
+    hero.addEventListener('pointerleave', function(){
+      if (spot) spot.style.opacity = '0';
+      if (kinner) kinner.style.transform = '';
+    });
+  })();
+
+  /* ---------- Magnetische CTA-Buttons ---------- */
+  document.querySelectorAll('#main-content a[href="#register"]').forEach(function(b){
+    b.classList.add('wfx-mag');
+    b.addEventListener('pointermove', function(e){
+      var r = b.getBoundingClientRect();
+      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*0.2) + 'px,' + ((e.clientY-r.top-r.height/2)*0.3) + 'px)';
+    });
+    b.addEventListener('pointerleave', function(){ b.style.transform = ''; });
+  });
+
+  /* ---------- 3D-Tilt (Für-wen-Karten) ---------- */
+  document.querySelectorAll('.wfx-tilt').forEach(function(c){
+    c.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect();
+      var x = (e.clientX-r.left)/r.width, y = (e.clientY-r.top)/r.height;
+      c.style.transform = 'perspective(700px) rotateY(' + ((x-0.5)*6) + 'deg) rotateX(' + ((0.5-y)*6) + 'deg) translateY(-2px)';
+    });
+    c.addEventListener('pointerleave', function(){ c.style.transform = ''; });
+  });
+
+  /* ======= Ab hier GSAP/Lenis-abhängig — sonst degradiert alles sauber ======= */
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') return;
+  document.body.classList.add('wfx-gsap');
+  document.documentElement.style.scrollBehavior = 'auto';   // kollidiert sonst mit Lenis/ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis-Smooth-Scroll — scrollt das echte Dokument, native scroll-Events feuern
+     weiter → der bestehende Audit-Pin (native onPinScroll) läuft unverändert. */
+  var lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
+  function lenisRaf(t){ lenis.raf(t); requestAnimationFrame(lenisRaf); }
+  requestAnimationFrame(lenisRaf);
+  lenis.on('scroll', ScrollTrigger.update);
+  lenis.on('scroll', onScrollProg);
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id && id.length > 1 && id.charAt(0) === '#') {
+        var el = document.querySelector(id);
+        if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -90 }); }
+      }
+    });
+  });
+
+  /* ---------- Agenda: selbstzeichnende Timeline + aufleuchtende Dots ---------- */
+  (function(){
+    if (window.matchMedia('(max-width: 639px)').matches) return;   // Timeline nur ab sm
+    var ol = document.getElementById('wfx-agenda'); if(!ol) return;
+    var items = Array.prototype.slice.call(ol.querySelectorAll('.wfx-agitem'));
+    if(!items.length) return;
+    var rail = document.createElement('i'); rail.className = 'wfx-agrail';
+    var fill = document.createElement('b'); rail.appendChild(fill); ol.appendChild(rail);
+    var dots = items.map(function(li){
+      var d = document.createElement('span'); d.className = 'wfx-agdot'; li.appendChild(d); return d;
+    });
+    ScrollTrigger.create({
+      trigger: ol, start: 'top 78%', end: 'bottom 62%', scrub: 0.5,
+      onUpdate: function(self){
+        fill.style.transform = 'scaleY(' + self.progress.toFixed(3) + ')';
+        var lit = Math.round(self.progress * dots.length);
+        dots.forEach(function(d, i){ d.classList.toggle('wfx-lit', i < lit); });
+      }
+    });
+  })();
+
+  /* ---------- Speaker-Porträts: sanfter Scroll-Parallax ---------- */
+  gsap.utils.toArray('.wfx-parallax').forEach(function(img){
+    gsap.fromTo(img, { y: -8 }, {
+      y: 8, ease: 'none',
+      scrollTrigger: { trigger: img.closest('article') || img, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+    });
+  });
+
+  /* ---------- Positionen neu berechnen, wenn Fonts/Bilder das Layout verschieben ---------- */
+  ScrollTrigger.refresh();
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  window.addEventListener('resize', function(){ ScrollTrigger.refresh(); });
+  setTimeout(function(){ ScrollTrigger.refresh(); }, 800);
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', wfxMotionInit);
+} else {
+  wfxMotionInit();
+}
+
+
+  /* ── Prüfstand: Verhalten ──────────────────────────────────────────────
+     Eigenständiges Werkzeug rechts im Hero. Fragt audit.codaai.ai, zeigt den
+     Befund vollflächig und übergibt die Domain an die Anmeldung links.
+     Die Datenquelle wird bewusst nirgends genannt.                        */
+  (function () {
+    var root = document.getElementById('pruefstand');
+    if (!root) return;
+
+    var ENDPOINT = 'https://audit.codaai.ai/ai/mentions';
+    var inp = document.getElementById('ps-in'),
+        go = document.getElementById('ps-go'),
+        again = document.getElementById('ps-again'),
+        cta = document.getElementById('ps-cta'),
+        err = root.querySelector('.ps-err'),
+        lab = root.querySelector('.ps-work-lab'),
+        elDom = root.querySelector('.ps-dom'),
+        elHead = root.querySelector('.ps-head'),
+        elLead = root.querySelector('.ps-lead'),
+        elSub = root.querySelector('.ps-sub');
+
+    var RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
+    var cache = {}, last = '';
+
+    var norm = function (raw) {
+      var s = (raw || '').trim().toLowerCase();
+      s = s.replace(/^https?:\/\//, '').replace(/^www\./, '');
+      return s.split(/[/?#]/)[0].trim();
+    };
+    var setMode = function (m) { root.setAttribute('data-mode', m); };
+    var showErr = function (m) { if (err) { err.textContent = m; err.hidden = false; } };
+    var clearErr = function () { if (err) err.hidden = true; };
+
+    var countUp = function (to) {
+      elHead.classList.add('is-num');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        elHead.textContent = to.toLocaleString('en-GB'); return;
+      }
+      var t0 = 0, dur = 950;
+      var step = function (ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        elHead.textContent = Math.round(to * e).toLocaleString('en-GB');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    var render = function (dom, d) {
+      elDom.textContent = dom;
+      if (d.status === 'found') {
+        elHead.textContent = '';
+        countUp(d.count || 0);
+        elLead.textContent = 'AI answers mention your brand.';
+        // Auch der Treffer muss unbequem enden — sonst liest sich eine hohe
+        // Zahl als Entwarnung, obwohl sie nichts über die Rangfolge sagt.
+        elSub.textContent = 'That number says nothing about where you stand in the answer. '
+          + 'Whether you are recommended or merely mentioned, you will see live on 8 September.';
+      } else {
+        elHead.classList.remove('is-num');
+        elHead.textContent = 'Not found.';
+        elLead.textContent = 'Not a single AI answer mentions your brand.';
+        elSub.textContent = 'Anyone asking about what you do is given other names. '
+          + 'Which ones, we show live on 8 September.';
+      }
+      setMode('result');
+      // Domain an die Anmeldung weitergeben
+      try {
+        document.querySelectorAll('[data-wacta] [data-url]').forEach(function (f) { f.value = dom; });
+      } catch (_) {}
+    };
+
+    var check = function () {
+      var dom = norm(inp ? inp.value : '');
+      if (!dom || !RE.test(dom)) { showErr('Please enter a valid website — e.g. yourcompany.com'); if (inp) inp.focus(); return; }
+      clearErr();
+      last = dom;
+      if (cache[dom]) { render(dom, cache[dom]); return; }
+
+      if (lab) lab.textContent = 'Checking ' + dom + ' …';
+      setMode('working');
+
+      var ctrl = null, sig;
+      try { ctrl = new AbortController(); sig = ctrl.signal; } catch (_) {}
+      var bail = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (_) {} }, 12000);
+      var t0 = Date.now();
+
+      fetch(ENDPOINT + '?domain=' + encodeURIComponent(dom), { signal: sig, cache: 'reload' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          clearTimeout(bail);
+          if (!d || (d.status !== 'found' && d.status !== 'none')) {
+            setMode('idle');
+            showErr(d && d.status === 'ratelimited'
+              ? 'You have checked a lot of websites just now — please try again in an hour.'
+              : 'That did not work. Please try again in a moment.');
+            return;
+          }
+          cache[dom] = d;
+          // Eine Antwort nach 200 ms wirkt wie ein Trick, nicht wie eine Prüfung.
+          var wait = Math.max(0, 1100 - (Date.now() - t0));
+          setTimeout(function () { if (last === dom) render(dom, d); }, wait);
+        })
+        .catch(function () {
+          clearTimeout(bail);
+          setMode('idle');
+          showErr('That did not work. Please try again in a moment.');
+        });
+    };
+
+    if (go) go.addEventListener('click', check);
+    if (inp) inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); check(); }
+    });
+    if (again) again.addEventListener('click', function () {
+      setMode('idle'); clearErr();
+      if (inp) { inp.value = ''; inp.focus(); }
+    });
+    if (cta) cta.addEventListener('click', function () {
+      var box = document.getElementById('register');
+      if (!box) return;
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var w = box.querySelector('[data-wacta]');
+      if (!w) return;
+      // Domain ist bereits bekannt -> direkt zu den Kontaktdaten
+      var f = w.querySelector('[data-url]');
+      if (f && f.value) { w.setAttribute('data-state', 'contact'); }
+      else { var b = w.querySelector('[data-open]'); if (b) b.click(); }
+      setTimeout(function () {
+        var n = w.querySelector('[data-firstname]');
+        if (n) n.focus();
+      }, 600);
+    });
+  })();
+
+</script>

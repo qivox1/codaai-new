@@ -9,8 +9,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <Layout
   lang="en"
-  title="Terms and Conditions for the CodaAI Digital Visibility Programme – CodaAI"
-  description="General Terms and Conditions of CodaAI: contract basis of the Digital Visibility Programme, scope of services, customer cooperation, prices, term and liability."
+  title="Terms & Conditions – CodaAI | Digital Visibility"
+  description="General Terms and Conditions of CodaAI: contract basis of the Digital Visibility Programme, scope of services, prices, term and liability."
 >
   <Navbar lang="en" />
   <main class="pt-24 lg:pt-28" id="main-content">
@@ -19,8 +19,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h1 class="cai-h1 text-foreground mb-2">
         General Terms and Conditions (GTC)
       </h1>
-      <p class="text-muted-foreground mb-12">
+      <p class="text-muted-foreground mb-6">
         Last updated: 27 July 2026
+      </p>
+
+      {/* Courtesy-translation notice. The legal pages are German law; only the
+          German original is binding. Same block on /en/legal-notice/ and
+          /en/privacy-policy/. Note: "Programm(e)" is a contractual term in the
+          GTC and is the ONE place on the site where the word is still used. */}
+      <p class="mb-12 rounded-xl border border-border bg-card px-5 py-4 text-sm leading-relaxed text-muted-foreground">
+        This is a courtesy translation. Only the German version is legally binding;
+        in case of any discrepancy, the German text prevails.{' '}
+        <a href={`${base}/agb/`} lang="de" class="font-medium text-cta-accessible hover:text-cta">
+          Zu den deutschen AGB →
+        </a>
       </p>
 
       <div class="space-y-10">

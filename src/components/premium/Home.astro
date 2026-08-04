@@ -3,8 +3,410 @@
    Global-CSS auf #cai-premium gescopt. GSAP/ScrollTrigger/Lenis liegen seit
    04.08.2026 selbst gehostet in public/vendor/ (vorher cdnjs + jsdelivr) und
    tragen defer — die beiden preconnects dorthin sind damit entfallen.
-   Schriften kommen selbst gehostet aus global.css (kein Google-Fonts-Request). */
+   Schriften kommen selbst gehostet aus global.css (kein Google-Fonts-Request).
+
+   Sprachfähig seit 04.08.2026 (EN-Relaunch). Alle sichtbaren Strings liegen im
+   `copy`-Objekt nach dem Muster von Booking.astro; Klassen, IDs, Datenattribute,
+   Szenenhöhen und die gesamte GSAP-/ScrollTrigger-Logik bleiben unverändert.
+   Die Strings, die erst zur Laufzeit gesetzt werden (Typewriter, Phasen,
+   Zahlformat), reicht `copy.js` als `window.CODA_HOME_COPY` an das Inline-Skript
+   weiter — ein `<script is:inline>` kann keine Astro-Ausdrücke lesen. */
 import AuditCTA from './AuditCTA.astro';
+
+interface Props {
+  lang?: 'de' | 'en';
+}
+const { lang = 'de' } = Astro.props;
+
+/* Haarspatie (U+200A) — steht in den Zahlen vor % und ×. Als eigene Konstante,
+   weil sie im Quelltext sonst nicht von einem gewöhnlichen Leerzeichen zu
+   unterscheiden wäre. */
+const HAIR = ' ';
+
+/* Anker der Angebots-Sektion. Deutsch `#angebot`, englisch `#offer` — andere
+   Seiten verlinken ihn (/en/pricing/, /en/faq/, /en/digital-visibility/), und
+   ein deutscher Anker in einer englischen URL waere genau der halbfertige
+   Zustand, den der EN-Relaunch beseitigt. Die Dot-Nav fuehrt ihren Schluessel
+   `angebot` getrennt davon weiter — siehe Kommentar am ScrollTrigger unten. */
+const offerId = lang === 'de' ? 'angebot' : 'offer';
+
+const copy = {
+  de: {
+    nav: ['Start', 'Das Problem', 'Ein echtes Audit', 'Das Angebot', 'Auftragseingang'],
+
+    /* ── Hero ── */
+    h1a: 'Die KI empfiehlt drei Anbieter.',
+    h1b: 'Sind Sie einer davon?',
+    hl2: 'Dort, wo Ihre Kunden',
+    flipSizer: 'Anbieter vergleichen.',
+    desc: '94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wer dort nicht empfohlen wird, bekommt die Anfrage nicht — und erfährt nie, dass es sie gab.',
+    heroCta: 'Zeigen Sie mir, was die KI über mein Unternehmen sagt',
+    poweredBy: 'Powered by AI · SEO · AEO · GEO',
+    kBadge: 'KI-Antwort · dokumentiert',
+    kRows: [
+      { name: 'Berger Antriebstechnik GmbH', sub: 'namentlich empfohlen · als Quelle zitiert', badge: 'Sichtbarkeit 63 %' },
+      { name: 'Systemtechnik Nord GmbH & Co. KG', sub: 'namentlich empfohlen', badge: 'Position 2' },
+      { name: 'ProTec Industrieanlagen AG', sub: 'namentlich empfohlen', badge: 'häufig zitiert' },
+    ],
+    kEmptyName: 'Ihr Unternehmen',
+    kEmptySub: 'steht hier nicht',
+    kFoot: 'Dokumentiert in',
+    kPillAio: 'Google KI-Übersicht',
+    kCap: 'Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten (CodaAI-Studie 2026).',
+
+    /* ── Problem-Szene ── */
+    pSteps: ['Die Frage', 'Die KI-Antwort', 'Ihre Leerstelle'],
+    pEyebrow: 'Wie Einkäufer heute entscheiden',
+    pPhase1: 'Ein potenzieller Kunde fragt bei google.de.',
+    pStepBadge: 'Schritt 1 / 3',
+    serp: [
+      { u: 'wettbewerber-alpha.de', t: 'Alpha Systems — Marktführer für Industrie-Automation', s: 'Seit 1998 Komplettlösungen für den Mittelstand. Referenzen, Whitepaper, Beratung …' },
+      { u: 'beta-technik.de', t: 'Beta Technik AG — Anlagen & Steuerungen', s: 'Individuelle Lösungen, zertifizierte Qualität, 24/7-Service für Ihre Produktion …' },
+      { u: 'gamma-group.com', t: 'Gamma Group — Ihr Partner für digitale Fertigung', s: 'Vom Sensor bis zur Cloud. Über 400 Projekte europaweit umgesetzt …' },
+    ],
+    serpYouUrl: 'ihr-unternehmen.de',
+    serpYouTitle: 'Ihr Unternehmen — Seite 2, Position 14',
+    serpYouSnippet: '… kaum noch jemand scrollt so weit.',
+    serpLabel: '↓ organische Treffer — unter die Falz geschoben',
+    aiHead: 'KI-Übersicht',
+    chips: ['Alpha Systems', 'Beta Technik AG', 'Gamma Group'],
+    chipGhost: 'Ihr Unternehmen',
+    statLabA: 'weniger Klicks auf Platz 1, sobald Google die KI-Übersicht zeigt —',
+    statLabStrong: '11 statt 27',
+    statLabB: 'von 100 Suchenden.',
+    statSrc: 'SISTRIX 2026',
+    punchNum: `55${HAIR}%`,
+    punchCapA: 'der Einkäuferfragen bleiben ohne Nennung Ihres Unternehmens —',
+    punchCapEm: 'genau diese Interessenten erreichen Sie nie',
+    punchClose: 'Wer in diesen Antworten nicht vorkommt, ist aus dem Relevant Set raus — ohne es zu merken. Diese Nicht-Nennung erscheint in keiner Statistik und keinem Traffic-Report.',
+
+    /* ── Drei Stellen + Begriffe ── */
+    roomsA: 'Diese Entscheidung fällt an drei Stellen: in der klassischen Suche',
+    roomsB: ', in Googles KI-Übersicht ',
+    roomsC: ' und in KI-Assistenten wie ChatGPT ',
+    accBtn: 'Was die drei Begriffe bedeuten',
+    tabsAria: 'SEO, AEO und GEO',
+    panes: [
+      {
+        lv: 'Ebene 1 · Search Engine Optimization',
+        h: 'Gefunden werden, wenn jemand aktiv sucht.',
+        p: 'Ihre Website rankt in Google und Bing. Sucht ein Einkäufer nach Ihrer Leistung, steht Ihre Seite auf Seite 1. Das Fundament — denn auch KI-Systeme bedienen sich aus den Suchindizes.',
+      },
+      {
+        lv: 'Ebene 2 · Answer Engine Optimization',
+        h: 'Zitiert werden in Googles KI-Übersicht.',
+        p: 'Google beantwortet immer mehr Fragen direkt über den Treffern. AEO sorgt dafür, dass Ihre Inhalte in dieser Antwortbox als Quelle erscheinen. Wer dort fehlt, verliert Klicks trotz gutem Ranking.',
+      },
+      {
+        lv: 'Ebene 3 · Generative Engine Optimization',
+        h: 'Namentlich empfohlen in ChatGPT & Co.',
+        p: 'Die Königsdisziplin: Ihr Unternehmen wird in ChatGPT, Gemini, Perplexity und Claude beim Namen genannt, wenn Einkäufer nach Anbietern fragen. GEO entscheidet, ob dort Ihr Name steht — oder der Ihres Wettbewerbers.',
+      },
+    ],
+
+    /* ── Der Spiegel ── */
+    miEyebrow: 'Beispiel-Audit · echte Zahlen, Firmenname entfernt',
+    miH2a: 'Ein echtes Audit zeigt schwarz auf weiß,',
+    miH2b: 'wer statt Ihnen empfohlen wird.',
+    miLead: 'Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles KI-Übersicht gestellt und protokolliert, wer genannt wurde. Name und Logo sind entfernt. Die Befunde nicht.',
+    miCue: 'Klappen Sie eine Frage auf. In Ihrem Audit steht dort Ihre Branche — und der Name, der statt Ihrem genannt wird.',
+    miAnon: 'Firmenname entfernt · Zahlen unverändert',
+    miKpi: [
+      { v: '0 %', l: 'KI-Sichtbarkeit' },
+      { v: '0 von 8', l: 'Fragen mit Nennung' },
+      { v: '100 %', l: 'der Fragen nennen stattdessen Wettbewerber' },
+      { v: '8', l: 'individuell formulierte Käuferfragen' },
+    ],
+    miFlag: 'nicht genannt',
+    miViewAnswer: 'Antwort ansehen',
+    miFinding: 'Befund:',
+    miScanLabel: 'CodaAI liest die Frage.',
+    miAltChatgpt: 'ChatGPT',
+    miAltGoogle: 'Google KI-Übersicht',
+    miQ: [
+      {
+        st: 'Marktübersicht',
+        t: 'Welche deutschen Hersteller von Sanitärarmaturen bieten das beste Preis-Leistungs-Verhältnis für mittlere Projektgrößen?',
+        ans: '„Bei mittleren Projektgrößen gibt es mehrere deutsche Hersteller von Sanitärarmaturen, die ein gutes Preis-Leistungs-Verhältnis bieten:<br>1. <mark>Grohe</mark> … 2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“',
+        v: 'Das untersuchte Unternehmen wird nicht genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber übernehmen die Empfehlung.',
+      },
+      {
+        st: 'Anwendungsfall',
+        t: 'Welche Duschsysteme mit Handbrause empfehlen sich für barrierefreie Bäder in Pflegeeinrichtungen?',
+        ans: `„Für barrierefreie Bäder in Pflegeeinrichtungen empfehlen sich Duschsysteme, die den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen und Sicherheit, Ergonomie und Wartungsfreundlichkeit vereinen. Bewährte Hersteller sind u. a.:<br>1. <mark>Grohe</mark> … 2. <mark>Hansgrohe</mark> … 3. <mark>Hansa</mark> …“`,
+        v: 'Die KI nennt Normen und Anforderungen — und dann Anbieter. Das untersuchte Unternehmen führt passende Produkte im Programm, kommt in der Antwort aber nicht vor.',
+      },
+      {
+        st: 'Wettbewerbsvergleich',
+        t: 'Welche günstigeren Alternativen zu Hansgrohe gibt es bei Duschsystemen für Bauträger?',
+        ans: '„Es gibt mehrere günstigere Alternativen zu Hansgrohe, die dennoch qualitativ hochwertige Duschsysteme anbieten:<br>1. <mark>GROHE</mark> … 2. <mark>Ideal Standard</mark> … 3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“',
+        v: 'Das untersuchte Unternehmen ist die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese Frage wird es nicht genannt.',
+      },
+    ],
+    miFoot: 'Auszug: 3 von 8 individuell formulierten Käuferfragen.',
+    miFootLink: 'Das vollständige Audit ansehen →',
+    miAfter: 'Für Ihr Unternehmen formulieren wir eigene Fragen. Ergebnis in 24 Stunden.',
+    miAfterCta: 'Mein Audit anfordern',
+
+    /* ── Angebot ── */
+    offH: 'CodaAI bringt Ihr Unternehmen in die Antwort.',
+    offL2: 'Ihre Marke in Googles KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.',
+    tiers: [
+      {
+        no: 'Stufe 1 · Gefunden',
+        h: 'Die KI kann Ihr Unternehmen lesen und zitieren.',
+        p: 'Ihre Website wird für KI-Systeme lesbar, Ihre Leistungen stehen als Text statt im PDF, Ihre KI-Nennungen werden monatlich gemessen. In jeder Stufe enthalten.',
+      },
+      {
+        no: 'Stufe 2 · Empfohlen',
+        h: 'Sie stehen dort, wo die KI ihre Belege holt.',
+        p: 'Zusätzlich Präsenz auf den Quellen, aus denen KI-Systeme zitieren: Fachportale, Verzeichnisse, Branchenmedien. Damit die Empfehlung nicht nur von Ihnen selbst kommt.',
+      },
+      {
+        no: 'Stufe 3 · Zitiert',
+        h: 'Ihr Markt beruft sich auf Ihre Zahlen.',
+        p: 'Sie werden zur Quelle, die zitiert wird: eigene Studien, Fachbeiträge und Daten, auf die sich Ihr Markt beruft. Die stärkste Position, die es in KI-Antworten gibt.',
+      },
+    ],
+    offPriceB: 'Der Grundpreis startet bei 1.470 € pro Monat.',
+    offPriceRest: 'Netto, 6 Monate Mindestlaufzeit — im Preisrechner nachrechenbar statt „auf Anfrage".',
+    offLink: 'Alle Leistungen je Stufe und die Preise →',
+    offLinkHref: '/preise/',
+    offCta: 'Audit kostenlos anfordern',
+    offMicro: [
+      'Kostenlos und unverbindlich.',
+      'Kein Verkaufsanruf — Sie erhalten das Audit per E-Mail.',
+      'Auch sinnvoll, wenn Sie eine Agentur haben: sie bekommt die Bausteine.',
+    ],
+
+    /* ── Outcome ── */
+    ocEyebrow: 'Was Nicht-genannt-Werden kostet',
+    ocH2: 'Nicht genannt. Nicht angefragt. Kein Auftrag.',
+    ocLead: 'So entsteht heute ein Auftrag — und so bricht er ab.',
+    ocTag: 'in der KI nicht genannt',
+    ocNodes: [
+      { b: 'Genannt', p: 'in KI-Antworten empfohlen' },
+      { b: 'Vertraut', p: 'durch Quellen & Konsistenz' },
+      { b: 'Angefragt', p: 'qualifizierte Anfrage' },
+      { b: 'Beauftragt', p: 'Auftragseingang' },
+    ],
+    ocValSeo: 'Besucher aus klassischer Suche',
+    ocValAi: 'Besucher aus KI-Antworten',
+    ocNumSeo: `1,0${HAIR}×`,
+    ocNumAi: `0,0${HAIR}×`,
+    ocValSrc: 'So viel häufiger werden aus KI-Besuchern Kunden. Es sind Ihre wertvollsten Besucher. (Semrush 2025)',
+    ocPunch: ['Interessenten vertrauen,', 'fragen an und beauftragen'],
+    ocPunchEm: ['aber nur Unternehmen,', 'die nach der Suchanfrage', 'als Ergebnis angezeigt werden.'],
+
+    js: {
+      offerId,
+      flipWords: ['die KI fragen…', 'Anbieter vergleichen…', 'heute entscheiden…', 'Aufträge vergeben.'],
+      flipPink: 'Aufträge vergeben.',
+      kQuestion: '„Welche Anbieter kommen für unser Projekt in die engere Wahl?“',
+      phases: [
+        'Ein potenzieller Kunde fragt bei google.de.',
+        'Google antwortet mit KI-Übersicht.',
+        'Ihr Unternehmen wird nicht genannt — der Interessent sieht nur Ihre Wettbewerber.',
+      ],
+      stepFmt: 'Schritt {n} / 3',
+      query: 'beste anbieter für industrie-automation mittelstand',
+      aiText: 'Für den industriellen Mittelstand werden am häufigsten Alpha Systems, Beta Technik und Gamma Group empfohlen — starke Referenzen, Komplettlösungen und schneller Service.',
+      pctSuffix: ' %',
+      decimal: ',',
+      miScan: ['CodaAI liest die Frage.', 'CodaAI prüft die Antwort.', 'CodaAI ermittelt den Befund.'],
+      pause: 'Pause',
+      play: 'Abspielen',
+    },
+  },
+
+  en: {
+    nav: ['Start', 'The problem', 'A real audit', 'The offer', 'New business'],
+
+    /* ── Hero ── */
+    h1a: 'The AI recommends three providers.',
+    h1b: 'Are you one of them?',
+    hl2: 'Where your customers',
+    flipSizer: 'award the contract.',
+    desc: '94% of B2B buyers use AI in the buying process (Forrester 2026). If it does not recommend you, the enquiry never reaches you — and you never learn that it existed.',
+    heroCta: 'Show me what the AI says about my company',
+    poweredBy: 'Powered by AI · SEO · AEO · GEO',
+    kBadge: 'AI answer · documented',
+    kRows: [
+      { name: 'Berger Antriebstechnik GmbH', sub: 'recommended by name · cited as a source', badge: 'Visibility 63%' },
+      { name: 'Systemtechnik Nord GmbH & Co. KG', sub: 'recommended by name', badge: 'Position 2' },
+      { name: 'ProTec Industrieanlagen AG', sub: 'recommended by name', badge: 'frequently cited' },
+    ],
+    kEmptyName: 'Your company',
+    kEmptySub: 'is not on this list',
+    kFoot: 'Documented in',
+    kPillAio: 'Google AI Overviews',
+    kCap: 'Anonymised example from 7,184 documented AI answers (CodaAI study 2026).',
+
+    /* ── Problem-Szene ── */
+    pSteps: ['The question', 'The AI answer', 'Your absence'],
+    pEyebrow: 'How buyers decide today',
+    pPhase1: 'A potential customer asks on google.com.',
+    pStepBadge: 'Step 1 of 3',
+    serp: [
+      { u: 'competitor-alpha.com', t: 'Alpha Systems — market leader in industrial automation', s: 'Complete solutions for mid-sized companies since 1998. References, white papers, consulting …' },
+      { u: 'beta-technik.com', t: 'Beta Technik AG — plants & control systems', s: 'Tailored solutions, certified quality, 24/7 service for your production …' },
+      { u: 'gamma-group.com', t: 'Gamma Group — your partner for digital manufacturing', s: 'From the sensor to the cloud. Over 400 projects delivered across Europe …' },
+    ],
+    serpYouUrl: 'your-company.com',
+    serpYouTitle: 'Your company — page 2, position 14',
+    serpYouSnippet: '… hardly anyone scrolls that far.',
+    serpLabel: '↓ organic results — pushed below the fold',
+    aiHead: 'AI Overview',
+    chips: ['Alpha Systems', 'Beta Technik AG', 'Gamma Group'],
+    chipGhost: 'Your company',
+    statLabA: 'fewer clicks on position 1 once Google shows the AI Overview —',
+    statLabStrong: '11 instead of 27',
+    statLabB: 'out of 100 searchers.',
+    statSrc: 'SISTRIX 2026',
+    punchNum: '55%',
+    punchCapA: 'of buyer questions come back with no mention of your company —',
+    punchCapEm: 'and those are the prospects you never reach',
+    punchClose: 'Anyone missing from these answers is out of the relevant set — without noticing. That non-mention shows up in no statistic and in no traffic report.',
+
+    /* ── Drei Stellen + Begriffe ── */
+    roomsA: 'This decision is made in three places: in classic search',
+    roomsB: ', in Google AI Overviews ',
+    roomsC: ' and in AI assistants such as ChatGPT ',
+    accBtn: 'What the three terms mean',
+    tabsAria: 'SEO, AEO and GEO',
+    panes: [
+      {
+        lv: 'Layer 1 · Search Engine Optimization',
+        h: 'Be found when someone is actively searching.',
+        p: 'Your website ranks on Google and Bing. When a buyer searches for your service, your page is on page 1. The foundation — because AI systems draw on the search indexes too.',
+      },
+      {
+        lv: 'Layer 2 · Answer Engine Optimization',
+        h: 'Be cited in Google AI Overviews.',
+        p: 'Google answers more and more questions directly above the results. AEO makes sure your content appears as a source in that answer box. Miss it and you lose clicks despite a good ranking.',
+      },
+      {
+        lv: 'Layer 3 · Generative Engine Optimization',
+        h: 'Recommended by name in ChatGPT & co.',
+        p: 'The hardest discipline: your company is named in ChatGPT, Gemini, Perplexity and Claude when buyers ask for providers. GEO decides whether your name stands there — or your competitor’s.',
+      },
+    ],
+
+    /* ── Der Spiegel ── */
+    miEyebrow: 'Sample audit · real figures, company name removed',
+    miH2a: 'A real audit shows in black and white',
+    miH2b: 'who gets recommended instead of you.',
+    miLead: 'For this company — a mid-sized German manufacturer of sanitary fittings — we wrote 8 questions its buyers really ask: about its products, its market, its competitors. Then we put them to ChatGPT and Google AI Overviews and recorded who was mentioned. Name and logo are removed. The findings are not.',
+    miCue: 'Open one of the questions. In your own audit it shows your industry — and the name that is mentioned instead of yours.',
+    miAnon: 'Company name removed · figures unchanged',
+    miKpi: [
+      { v: '0%', l: 'AI visibility' },
+      { v: '0 of 8', l: 'questions with a mention' },
+      { v: '100%', l: 'of the questions name competitors instead' },
+      { v: '8', l: 'individually written buyer questions' },
+    ],
+    miFlag: 'not mentioned',
+    miViewAnswer: 'View the answer',
+    miFinding: 'Finding:',
+    miScanLabel: 'CodaAI reads the question.',
+    miAltChatgpt: 'ChatGPT',
+    miAltGoogle: 'Google AI Overviews',
+    miQ: [
+      {
+        st: 'Market overview',
+        t: 'Which German manufacturers of sanitary fittings offer the best value for money on mid-sized projects?',
+        ans: '“For mid-sized projects there are several German manufacturers of sanitary fittings that offer good value for money:<br>1. <mark>Grohe</mark> … 2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …”',
+        v: 'The company under review is not mentioned — even though this very price segment is its core business. Five competitors take the recommendation instead.',
+      },
+      {
+        st: 'Use case',
+        t: 'Which shower systems with a hand shower are suitable for accessible bathrooms in care homes?',
+        ans: '“For accessible bathrooms in care homes, we recommend shower systems that meet the German accessibility standard (DIN 18040-2) and combine safety, ergonomics and ease of maintenance. Proven manufacturers include:<br>1. <mark>Grohe</mark> … 2. <mark>Hansgrohe</mark> … 3. <mark>Hansa</mark> …”',
+        v: 'The AI names standards and requirements — and then providers. The company under review carries matching products, but does not appear in the answer.',
+      },
+      {
+        st: 'Competitor comparison',
+        t: 'What cheaper alternatives to Hansgrohe are there in shower systems for property developers?',
+        ans: '“There are several cheaper alternatives to Hansgrohe that still offer high-quality shower systems:<br>1. <mark>GROHE</mark> … 2. <mark>Ideal Standard</mark> … 3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …”',
+        v: 'The company under review is the cheaper alternative — that is its business model. On exactly this question it is not mentioned.',
+      },
+    ],
+    miFoot: 'Excerpt: 3 of 8 individually written buyer questions.',
+    miFootLink: 'View the full audit →',
+    miAfter: 'For your company we write questions of your own. Result within 24 hours.',
+    miAfterCta: 'Request my audit',
+
+    /* ── Angebot ── */
+    offH: 'CodaAI puts your company into the answer.',
+    offL2: 'Your brand in Google AI Overviews, ChatGPT and other AI systems — measurable every month.',
+    tiers: [
+      {
+        no: 'Tier 1 · Found',
+        h: 'The AI can read and cite your company.',
+        p: 'Your website becomes readable for AI systems, your services stand as text instead of inside a PDF, and your AI mentions are measured every month. Included in every tier.',
+      },
+      {
+        no: 'Tier 2 · Recommended',
+        h: 'You are where the AI collects its evidence.',
+        p: 'Plus presence on the sources AI systems cite from: trade portals, directories, industry media. So the recommendation does not come from you alone.',
+      },
+      {
+        no: 'Tier 3 · Cited',
+        h: 'Your market quotes your figures.',
+        p: 'You become the source that gets cited: your own studies, expert articles and data your market relies on. The strongest position there is in AI answers.',
+      },
+    ],
+    offPriceB: 'The base fee starts at €1,470 per month.',
+    offPriceRest: 'Net, six-month minimum term — something you can work out in the calculator instead of asking for a quote.',
+    offLink: 'Every service per tier and the prices →',
+    offLinkHref: '/en/pricing/',
+    offCta: 'Request your free audit',
+    offMicro: [
+      'Free and without obligation.',
+      'No sales call — you receive the audit by email.',
+      'Worth it even if you have an agency: it gets the building blocks.',
+    ],
+
+    /* ── Outcome ── */
+    ocEyebrow: 'What not being mentioned costs',
+    ocH2: 'Not mentioned. Not contacted. No contract.',
+    ocLead: 'This is how an order comes about today — and this is where it breaks.',
+    ocTag: 'not mentioned by the AI',
+    ocNodes: [
+      { b: 'Mentioned', p: 'recommended in AI answers' },
+      { b: 'Trusted', p: 'through sources & consistency' },
+      { b: 'Contacted', p: 'a qualified enquiry' },
+      { b: 'Commissioned', p: 'new business' },
+    ],
+    ocValSeo: 'Visitors from classic search',
+    ocValAi: 'Visitors from AI answers',
+    ocNumSeo: `1.0${HAIR}×`,
+    ocNumAi: `0.0${HAIR}×`,
+    ocValSrc: 'That is how much more often AI visitors turn into customers. They are your most valuable visitors. (Semrush 2025)',
+    ocPunch: ['Prospects trust,', 'enquire and buy'],
+    ocPunchEm: ['but only companies', 'that show up as a result', 'after the search.'],
+
+    js: {
+      offerId,
+      flipWords: ['ask the AI…', 'compare providers…', 'decide today…', 'award the contract.'],
+      flipPink: 'award the contract.',
+      kQuestion: '“Which providers make the shortlist for our project?”',
+      phases: [
+        'A potential customer asks on google.com.',
+        'Google answers with an AI Overview.',
+        'Your company is not mentioned — the prospect sees only your competitors.',
+      ],
+      stepFmt: 'Step {n} of 3',
+      query: 'best providers industrial automation mid-sized companies',
+      aiText: 'For mid-sized industrial companies, Alpha Systems, Beta Technik and Gamma Group are recommended most often — strong references, complete solutions and fast service.',
+      pctSuffix: '%',
+      decimal: '.',
+      miScan: ['CodaAI reads the question.', 'CodaAI checks the answer.', 'CodaAI works out the finding.'],
+      pause: 'Pause',
+      play: 'Play',
+    },
+  },
+}[lang];
 ---
 
 <div id="cai-premium">
@@ -12,11 +414,11 @@ import AuditCTA from './AuditCTA.astro';
 <div class="grain"></div>
 
 <div class="dotnav" id="dotnav">
-  <a href="#hero" data-nav="hero" class="on"><span>Start</span></a>
-  <a href="#problem" data-nav="problem"><span>Das Problem</span></a>
-  <a href="#spiegel" data-nav="spiegel"><span>Ein echtes Audit</span></a>
-  <a href="#angebot" data-nav="angebot"><span>Das Angebot</span></a>
-  <a href="#outcome" data-nav="outcome"><span>Auftragseingang</span></a>
+  <a href="#hero" data-nav="hero" class="on"><span>{copy.nav[0]}</span></a>
+  <a href="#problem" data-nav="problem"><span>{copy.nav[1]}</span></a>
+  <a href="#spiegel" data-nav="spiegel"><span>{copy.nav[2]}</span></a>
+  <a href={`#${offerId}`} data-nav="angebot"><span>{copy.nav[3]}</span></a>
+  <a href="#outcome" data-nav="outcome"><span>{copy.nav[4]}</span></a>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -26,31 +428,31 @@ import AuditCTA from './AuditCTA.astro';
   <div class="wrap hero-grid">
     <div>
       <h1 class="cai-h1 cai-kipp">
-        <span class="l1 k1">Die KI empfiehlt drei Anbieter.</span>
-        <span class="l1b k2">Sind Sie einer davon?</span>
+        <span class="l1 k1">{copy.h1a}</span>
+        <span class="l1b k2">{copy.h1b}</span>
       </h1>
-      <p class="hl2">Dort, wo Ihre Kunden <span class="flip" id="flip" aria-live="polite"><span class="sizer">Anbieter vergleichen.</span></span></p>
-      <p class="desc">94 % der B2B-Einkäufer nutzen KI im Kaufprozess (Forrester 2026). Wer dort nicht empfohlen wird, bekommt die Anfrage nicht — und erfährt nie, dass es sie gab.</p>
+      <p class="hl2">{copy.hl2} <span class="flip" id="flip" aria-live="polite"><span class="sizer">{copy.flipSizer}</span></span></p>
+      <p class="desc">{copy.desc}</p>
       <div class="ctas">
-        <AuditCTA label="Zeigen Sie mir, was die KI über mein Unternehmen sagt" />
+        <AuditCTA lang={lang} label={copy.heroCta} />
       </div>
-      <div class="pb"><i>AI</i><span>Powered by AI · SEO · AEO · GEO</span></div>
+      <div class="pb"><i>AI</i><span>{copy.poweredBy}</span></div>
     </div>
 
     <div class="kicard-wrap" id="ktilt">
       <div class="kicard" id="kicard">
-        <span class="kbadge"><span class="pulse"></span> KI-Antwort · dokumentiert</span>
+        <span class="kbadge"><span class="pulse"></span> {copy.kBadge}</span>
         <div class="kq"><span id="kqtext"></span><span class="kcaret" id="kqcaret"></span></div>
         <div class="kthink" id="kthink"><span></span><span></span><span></span></div>
         <div class="kres" id="kres">
-          <div class="kr" data-kr><span class="n">1</span><span class="m"><b>Berger Antriebstechnik GmbH</b><s>namentlich empfohlen · als Quelle zitiert</s></span><span class="bdg">Sichtbarkeit 63 %</span></div>
-          <div class="kr" data-kr><span class="n">2</span><span class="m"><b>Systemtechnik Nord GmbH &amp; Co. KG</b><s>namentlich empfohlen</s></span><span class="bdg">Position 2</span></div>
-          <div class="kr" data-kr><span class="n">3</span><span class="m"><b>ProTec Industrieanlagen AG</b><s>namentlich empfohlen</s></span><span class="bdg">häufig zitiert</span></div>
-          <div class="kr kr-empty" data-kr><span class="n"></span><span class="m"><b>Ihr Unternehmen</b><s>steht hier nicht</s></span><span class="bdg-empty">— —</span></div>
+          <div class="kr" data-kr><span class="n">1</span><span class="m"><b>{copy.kRows[0].name}</b><s>{copy.kRows[0].sub}</s></span><span class="bdg">{copy.kRows[0].badge}</span></div>
+          <div class="kr" data-kr><span class="n">2</span><span class="m"><b>{copy.kRows[1].name}</b><s>{copy.kRows[1].sub}</s></span><span class="bdg">{copy.kRows[1].badge}</span></div>
+          <div class="kr" data-kr><span class="n">3</span><span class="m"><b>{copy.kRows[2].name}</b><s>{copy.kRows[2].sub}</s></span><span class="bdg">{copy.kRows[2].badge}</span></div>
+          <div class="kr kr-empty" data-kr><span class="n"></span><span class="m"><b>{copy.kEmptyName}</b><s>{copy.kEmptySub}</s></span><span class="bdg-empty">— —</span></div>
         </div>
-        <div class="kfoot" id="kfoot"><em>Dokumentiert in</em><span class="pill">ChatGPT</span><span class="pill">Google KI-Übersicht</span></div>
+        <div class="kfoot" id="kfoot"><em>{copy.kFoot}</em><span class="pill">ChatGPT</span><span class="pill">{copy.kPillAio}</span></div>
       </div>
-      <p class="kcap">Anonymisiertes Beispiel aus 7.184 dokumentierten KI-Antworten (CodaAI-Studie 2026).</p>
+      <p class="kcap">{copy.kCap}</p>
     </div>
   </div>
 </section>
@@ -61,44 +463,44 @@ import AuditCTA from './AuditCTA.astro';
     <div class="p-stage">
       <div class="p-rail"><i id="prail"></i></div>
       <div class="p-steps" id="psteps">
-        <span data-step="0">Die Frage</span><span data-step="1">Die KI-Antwort</span><span data-step="2">Ihre Leerstelle</span>
+        <span data-step="0">{copy.pSteps[0]}</span><span data-step="1">{copy.pSteps[1]}</span><span data-step="2">{copy.pSteps[2]}</span>
       </div>
       <div class="p-phasebar" id="pphasebar">
-        <span class="eyebrow">Wie Einkäufer heute entscheiden</span>
-        <p class="p-phasehl" id="pphase">Ein potenzieller Kunde fragt bei google.de.</p>
+        <span class="eyebrow">{copy.pEyebrow}</span>
+        <p class="p-phasehl" id="pphase">{copy.pPhase1}</p>
       </div>
       <div class="p-inner">
         <div class="browser">
           <div class="bbar"><span class="d"></span><span class="d"></span><span class="d"></span>
             <div class="omni"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span class="q"><span id="qtext"></span><span class="qcaret" id="qcaret"></span></span></div>
-            <span class="p-phasenum" id="pphasenum">Schritt 1 / 3</span>
+            <span class="p-phasenum" id="pphasenum">{copy.pStepBadge}</span>
           </div>
           <div class="vp">
             <div class="serp" id="serp">
-              <div class="res" data-res><div class="u"><b></b>wettbewerber-alpha.de</div><div class="t">Alpha Systems — Marktführer für Industrie-Automation</div><div class="s">Seit 1998 Komplettlösungen für den Mittelstand. Referenzen, Whitepaper, Beratung …</div></div>
-              <div class="res" data-res><div class="u"><b></b>beta-technik.de</div><div class="t">Beta Technik AG — Anlagen &amp; Steuerungen</div><div class="s">Individuelle Lösungen, zertifizierte Qualität, 24/7-Service für Ihre Produktion …</div></div>
-              <div class="res" data-res><div class="u"><b></b>gamma-group.com</div><div class="t">Gamma Group — Ihr Partner für digitale Fertigung</div><div class="s">Vom Sensor bis zur Cloud. Über 400 Projekte europaweit umgesetzt …</div></div>
-              <div class="res" data-res><div class="u"><b></b>ihr-unternehmen.de</div><div class="t" style="color:hsl(var(--muted-foreground))">Ihr Unternehmen — Seite 2, Position 14</div><div class="s">… kaum noch jemand scrollt so weit.</div></div>
-              <div class="serplabel" id="serplabel">↓ organische Treffer — unter die Falz geschoben</div>
+              {copy.serp.map((r) => (
+              <div class="res" data-res><div class="u"><b></b>{r.u}</div><div class="t">{r.t}</div><div class="s">{r.s}</div></div>
+              ))}
+              <div class="res" data-res><div class="u"><b></b>{copy.serpYouUrl}</div><div class="t" style="color:hsl(var(--muted-foreground))">{copy.serpYouTitle}</div><div class="s">{copy.serpYouSnippet}</div></div>
+              <div class="serplabel" id="serplabel">{copy.serpLabel}</div>
             </div>
             <div class="ai" id="ai">
-              <div class="ai-head"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.2L20 10l-5.8 1.8L12 18l-2.2-6.2L4 10l5.8-1.8z"/></svg> KI-Übersicht</div>
+              <div class="ai-head"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.2L20 10l-5.8 1.8L12 18l-2.2-6.2L4 10l5.8-1.8z"/></svg> {copy.aiHead}</div>
               <div class="ai-body" id="aibody"></div>
               <div class="chips" id="chips">
-                <span class="chip" data-chip>Alpha Systems</span><span class="chip" data-chip>Beta Technik AG</span><span class="chip" data-chip>Gamma Group</span><span class="chip ghost" data-ghost>Ihr Unternehmen</span>
+                <span class="chip" data-chip>{copy.chips[0]}</span><span class="chip" data-chip>{copy.chips[1]}</span><span class="chip" data-chip>{copy.chips[2]}</span><span class="chip ghost" data-ghost>{copy.chipGhost}</span>
               </div>
             </div>
           </div>
         </div>
         <aside class="p-stat" id="pstat">
           <div class="big"><em id="statnum">0</em></div>
-          <div class="lab">weniger Klicks auf Platz 1, sobald Google die KI-Übersicht zeigt — <strong style="color:#fff">11 statt 27</strong> von 100 Suchenden.</div>
-          <div class="src">SISTRIX 2026</div>
+          <div class="lab">{copy.statLabA} <strong style="color:#fff">{copy.statLabStrong}</strong> {copy.statLabB}</div>
+          <div class="src">{copy.statSrc}</div>
         </aside>
         <div class="punch" id="punch">
-          <div class="num">55&#8202;%</div>
-          <div class="cap">der Einkäuferfragen bleiben ohne Nennung Ihres Unternehmens — <em>genau diese Interessenten erreichen Sie nie</em>.</div>
-          <p class="close">Wer in diesen Antworten nicht vorkommt, ist aus dem Relevant Set raus — ohne es zu merken. Diese Nicht-Nennung erscheint in keiner Statistik und keinem Traffic-Report.</p>
+          <div class="num">{copy.punchNum}</div>
+          <div class="cap">{copy.punchCapA} <em>{copy.punchCapEm}</em>.</div>
+          <p class="close">{copy.punchClose}</p>
         </div>
       </div>
     </div>
@@ -113,41 +515,37 @@ import AuditCTA from './AuditCTA.astro';
      Begriffswissen reserviert. -->
 <section class="rooms" id="stellen">
   <div class="wrap">
-    <h2 class="cai-h2 sec rooms-lead">Diese Entscheidung fällt an drei Stellen: in der klassischen Suche
-      (<b>SEO</b>), in Googles KI-Übersicht (<b>AEO</b>) und in KI-Assistenten wie ChatGPT (<b>GEO</b>).</h2>
+    <h2 class="cai-h2 sec rooms-lead">{copy.roomsA}
+      (<b>SEO</b>){copy.roomsB}(<b>AEO</b>){copy.roomsC}(<b>GEO</b>).</h2>
 
     <div class="acc">
       <button class="accbtn" id="accbtn" aria-expanded="false" aria-controls="accbody">
-        <span>Was die drei Begriffe bedeuten</span>
+        <span>{copy.accBtn}</span>
         <span class="ar" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
         </span>
       </button>
       <div class="accbody" id="accbody">
-        <div class="tabs" role="tablist" aria-label="SEO, AEO und GEO">
+        <div class="tabs" role="tablist" aria-label={copy.tabsAria}>
           <button class="tab on" data-tab="0" role="tab" aria-selected="true">SEO</button>
           <button class="tab" data-tab="1" role="tab" aria-selected="false">AEO</button>
           <button class="tab" data-tab="2" role="tab" aria-selected="false">GEO</button>
         </div>
         <div class="panes">
           <div class="pane on" data-pane="0">
-            <span class="plv">Ebene 1 · Search Engine Optimization</span>
-            <h3>Gefunden werden, wenn jemand aktiv sucht.</h3>
-            <p>Ihre Website rankt in Google und Bing. Sucht ein Einkäufer nach Ihrer Leistung, steht
-              Ihre Seite auf Seite 1. Das Fundament — denn auch KI-Systeme bedienen sich aus den Suchindizes.</p>
+            <span class="plv">{copy.panes[0].lv}</span>
+            <h3>{copy.panes[0].h}</h3>
+            <p>{copy.panes[0].p}</p>
           </div>
           <div class="pane" data-pane="1">
-            <span class="plv">Ebene 2 · Answer Engine Optimization</span>
-            <h3>Zitiert werden in Googles KI-Übersicht.</h3>
-            <p>Google beantwortet immer mehr Fragen direkt über den Treffern. AEO sorgt dafür, dass Ihre
-              Inhalte in dieser Antwortbox als Quelle erscheinen. Wer dort fehlt, verliert Klicks trotz gutem Ranking.</p>
+            <span class="plv">{copy.panes[1].lv}</span>
+            <h3>{copy.panes[1].h}</h3>
+            <p>{copy.panes[1].p}</p>
           </div>
           <div class="pane" data-pane="2">
-            <span class="plv">Ebene 3 · Generative Engine Optimization</span>
-            <h3>Namentlich empfohlen in ChatGPT &amp; Co.</h3>
-            <p>Die Königsdisziplin: Ihr Unternehmen wird in ChatGPT, Gemini, Perplexity und Claude beim
-              Namen genannt, wenn Einkäufer nach Anbietern fragen. GEO entscheidet, ob dort Ihr Name
-              steht — oder der Ihres Wettbewerbers.</p>
+            <span class="plv">{copy.panes[2].lv}</span>
+            <h3>{copy.panes[2].h}</h3>
+            <p>{copy.panes[2].p}</p>
           </div>
         </div>
       </div>
@@ -163,49 +561,41 @@ import AuditCTA from './AuditCTA.astro';
 <section class="mirror" id="spiegel">
   <div class="wrap">
     <div class="mi-head">
-      <span class="eyebrow">Beispiel-Audit · echte Zahlen, Firmenname entfernt</span>
-      <h2 class="cai-h2 sec">Ein echtes Audit zeigt schwarz auf weiß, <em>wer statt Ihnen empfohlen wird.</em></h2>
-      <p class="lead">Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem
-        Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen
-        Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles
-        KI-Übersicht gestellt und protokolliert, wer genannt wurde. Name und Logo sind entfernt.
-        Die Befunde nicht.</p>
-      <p class="mi-cue"><i aria-hidden="true">↓</i> Klappen Sie eine Frage auf. In Ihrem Audit steht dort
-        Ihre Branche — und der Name, der statt Ihrem genannt wird.</p>
+      <span class="eyebrow">{copy.miEyebrow}</span>
+      <h2 class="cai-h2 sec">{copy.miH2a} <em>{copy.miH2b}</em></h2>
+      <p class="lead">{copy.miLead}</p>
+      <p class="mi-cue"><i aria-hidden="true">↓</i> {copy.miCue}</p>
     </div>
 
     <div class="mi-card" id="mi-card">
       <div class="mi-top">
         <span class="mi-lg">Coda<em>AI</em> Digital Visibility Audit</span>
-        <span class="mi-anon">Firmenname entfernt · Zahlen unverändert</span>
+        <span class="mi-anon">{copy.miAnon}</span>
       </div>
 
       <div class="mi-kpi">
-        <div><b class="bad">0 %</b><span>KI-Sichtbarkeit</span></div>
-        <div><b class="bad">0 von 8</b><span>Fragen mit Nennung</span></div>
-        <div><b class="bad">100 %</b><span>der Fragen nennen stattdessen Wettbewerber</span></div>
-        <div><b>8</b><span>individuell formulierte Käuferfragen</span></div>
+        <div><b class="bad">{copy.miKpi[0].v}</b><span>{copy.miKpi[0].l}</span></div>
+        <div><b class="bad">{copy.miKpi[1].v}</b><span>{copy.miKpi[1].l}</span></div>
+        <div><b class="bad">{copy.miKpi[2].v}</b><span>{copy.miKpi[2].l}</span></div>
+        <div><b>{copy.miKpi[3].v}</b><span>{copy.miKpi[3].l}</span></div>
       </div>
 
       <div class="mi-q">
         <button class="mi-qh" aria-expanded="false">
           <span class="mi-main">
-            <span class="mi-st">Marktübersicht</span>
-            <span class="mi-t">Welche deutschen Hersteller von Sanitärarmaturen bieten das beste
-              Preis-Leistungs-Verhältnis für mittlere Projektgrößen?</span>
+            <span class="mi-st">{copy.miQ[0].st}</span>
+            <span class="mi-t">{copy.miQ[0].t}</span>
           </span>
-          <span class="mi-flag">nicht genannt</span>
-          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+          <span class="mi-flag">{copy.miFlag}</span>
+          <span class="mi-cta"><em>{copy.miViewAnswer}</em><span class="mi-ar" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
         </button>
         <div class="mi-qb"><div class="mi-qi">
-          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-chatgpt.svg" alt="ChatGPT" width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans">„Bei mittleren Projektgrößen gibt es mehrere deutsche Hersteller von
-            Sanitärarmaturen, die ein gutes Preis-Leistungs-Verhältnis bieten:<br>1. <mark>Grohe</mark> …
-            2. <mark>Hansgrohe</mark> … 3. <mark>Kludi</mark> … 4. <mark>Hansa</mark> …“</p></div>
+          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-chatgpt.svg" alt={copy.miAltChatgpt} width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans" set:html={copy.miQ[0].ans} /></div>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
-            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das untersuchte Unternehmen wird nicht genannt — obwohl genau dieses Preissegment sein Kerngeschäft ist. Fünf Wettbewerber übernehmen die Empfehlung.</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">{copy.miScanLabel}</span></span>
+            <span class="mi-vout"><b>{copy.miFinding}</b> <span class="mi-vtyped">{copy.miQ[0].v}</span></span>
           </p>
         </div></div>
       </div>
@@ -213,20 +603,19 @@ import AuditCTA from './AuditCTA.astro';
       <div class="mi-q">
         <button class="mi-qh" aria-expanded="false">
           <span class="mi-main">
-            <span class="mi-st">Anwendungsfall</span>
-            <span class="mi-t">Welche Duschsysteme mit Handbrause empfehlen sich für barrierefreie
-              Bäder in Pflegeeinrichtungen?</span>
+            <span class="mi-st">{copy.miQ[1].st}</span>
+            <span class="mi-t">{copy.miQ[1].t}</span>
           </span>
-          <span class="mi-flag">nicht genannt</span>
-          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+          <span class="mi-flag">{copy.miFlag}</span>
+          <span class="mi-cta"><em>{copy.miViewAnswer}</em><span class="mi-ar" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
         </button>
         <div class="mi-qb"><div class="mi-qi">
-          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-google.svg" alt="Google KI-Übersicht" width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans">„Für barrierefreie Bäder in Pflegeeinrichtungen empfehlen sich Duschsysteme, die den DIN-Normen für barrierefreies Bauen (DIN 18040-2) entsprechen und Sicherheit, Ergonomie und Wartungsfreundlichkeit vereinen. Bewährte Hersteller sind u. a.:<br>1. <mark>Grohe</mark> … 2. <mark>Hansgrohe</mark> … 3. <mark>Hansa</mark> …“</p></div>
+          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-google.svg" alt={copy.miAltGoogle} width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans" set:html={copy.miQ[1].ans} /></div>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
-            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Die KI nennt Normen und Anforderungen — und dann Anbieter. Das untersuchte Unternehmen führt passende Produkte im Programm, kommt in der Antwort aber nicht vor.</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">{copy.miScanLabel}</span></span>
+            <span class="mi-vout"><b>{copy.miFinding}</b> <span class="mi-vtyped">{copy.miQ[1].v}</span></span>
           </p>
         </div></div>
       </div>
@@ -234,34 +623,30 @@ import AuditCTA from './AuditCTA.astro';
       <div class="mi-q">
         <button class="mi-qh" aria-expanded="false">
           <span class="mi-main">
-            <span class="mi-st">Wettbewerbsvergleich</span>
-            <span class="mi-t">Welche günstigeren Alternativen zu Hansgrohe gibt es bei Duschsystemen
-              für Bauträger?</span>
+            <span class="mi-st">{copy.miQ[2].st}</span>
+            <span class="mi-t">{copy.miQ[2].t}</span>
           </span>
-          <span class="mi-flag">nicht genannt</span>
-          <span class="mi-cta"><em>Antwort ansehen</em><span class="mi-ar" aria-hidden="true">
+          <span class="mi-flag">{copy.miFlag}</span>
+          <span class="mi-cta"><em>{copy.miViewAnswer}</em><span class="mi-ar" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg></span></span>
         </button>
         <div class="mi-qb"><div class="mi-qi">
-          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-chatgpt.svg" alt="ChatGPT" width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans">„Es gibt mehrere günstigere Alternativen zu Hansgrohe, die dennoch qualitativ
-            hochwertige Duschsysteme anbieten:<br>1. <mark>GROHE</mark> … 2. <mark>Ideal Standard</mark> …
-            3. <mark>Hansa</mark> … 4. <mark>RAVAK</mark> … 5. <mark>Kludi</mark> …“</p></div>
+          <div class="mi-arow"><span class="mi-logo-wrap"><img class="mi-logo-lg" src="/images/ai-chatgpt.svg" alt={copy.miAltChatgpt} width="56" height="56" loading="lazy" decoding="async" /></span><p class="mi-ans" set:html={copy.miQ[2].ans} /></div>
           <p class="mi-verdict" data-verdict>
             <span class="dot"></span>
-            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">CodaAI liest die Frage.</span></span>
-            <span class="mi-vout"><b>Befund:</b> <span class="mi-vtyped">Das untersuchte Unternehmen ist die günstigere Alternative — das ist sein Geschäftsmodell. Auf genau diese Frage wird es nicht genannt.</span></span>
+            <span class="mi-vscan" aria-hidden="true"><span class="sd"><i></i><i></i><i></i></span><span class="mi-vlabel">{copy.miScanLabel}</span></span>
+            <span class="mi-vout"><b>{copy.miFinding}</b> <span class="mi-vtyped">{copy.miQ[2].v}</span></span>
           </p>
         </div></div>
       </div>
 
-      <p class="mi-foot">Auszug: 3 von 8 individuell formulierten Käuferfragen.
-        <a href="https://audit.codaai.ai/view/musteraudit?unlocked=1" target="_blank" rel="noopener">Das
-        vollständige Audit ansehen →</a></p>
+      <p class="mi-foot">{copy.miFoot}
+        <a href="https://audit.codaai.ai/view/musteraudit?unlocked=1" target="_blank" rel="noopener">{copy.miFootLink}</a></p>
     </div>
 
     <div class="mi-after">
-      <p>Für Ihr Unternehmen formulieren wir eigene Fragen. Ergebnis in 24 Stunden.</p>
-      <AuditCTA label="Mein Audit anfordern" />
+      <p>{copy.miAfter}</p>
+      <AuditCTA lang={lang} label={copy.miAfterCta} />
     </div>
   </div>
 </section>
@@ -274,44 +659,39 @@ import AuditCTA from './AuditCTA.astro';
      dafür liegt der Grund auf dem tieferen #C405E6 statt auf #DF41FB,
      wo Weiß nur 3,34:1 erreicht hätte. Audit-Button dunkel, weil ein pinker
      Button auf pinkem Grund unsichtbar wäre. -->
-<section class="offer" id="angebot">
+<section class="offer" id={offerId}>
   <div class="wrap">
-    <h2 class="cai-h2 sec off-h">CodaAI bringt Ihr Unternehmen in die Antwort.</h2>
-    <h3 class="off-l2">Ihre Marke in Googles KI-Übersicht, ChatGPT und anderen KI-Systemen — monatlich messbar.</h3>
+    <h2 class="cai-h2 sec off-h">{copy.offH}</h2>
+    <h3 class="off-l2">{copy.offL2}</h3>
 
     <div class="tiers">
       <article class="tier">
         <div class="tbars"><i class="hi"></i><i></i><i></i></div>
-        <span class="tno">Stufe 1 · Gefunden</span>
-        <h3>Die KI kann Ihr Unternehmen lesen und zitieren.</h3>
-        <p>Ihre Website wird für KI-Systeme lesbar, Ihre Leistungen stehen als Text statt im PDF,
-          Ihre KI-Nennungen werden monatlich gemessen. In jeder Stufe enthalten.</p>
+        <span class="tno">{copy.tiers[0].no}</span>
+        <h3>{copy.tiers[0].h}</h3>
+        <p>{copy.tiers[0].p}</p>
       </article>
       <article class="tier">
         <div class="tbars"><i class="hi"></i><i class="hi"></i><i></i></div>
-        <span class="tno">Stufe 2 · Empfohlen</span>
-        <h3>Sie stehen dort, wo die KI ihre Belege holt.</h3>
-        <p>Zusätzlich Präsenz auf den Quellen, aus denen KI-Systeme zitieren: Fachportale,
-          Verzeichnisse, Branchenmedien. Damit die Empfehlung nicht nur von Ihnen selbst kommt.</p>
+        <span class="tno">{copy.tiers[1].no}</span>
+        <h3>{copy.tiers[1].h}</h3>
+        <p>{copy.tiers[1].p}</p>
       </article>
       <article class="tier">
         <div class="tbars"><i class="hi"></i><i class="hi"></i><i class="hi"></i></div>
-        <span class="tno">Stufe 3 · Zitiert</span>
-        <h3>Ihr Markt beruft sich auf Ihre Zahlen.</h3>
-        <p>Sie werden zur Quelle, die zitiert wird: eigene Studien, Fachbeiträge und Daten, auf die
-          sich Ihr Markt beruft. Die stärkste Position, die es in KI-Antworten gibt.</p>
+        <span class="tno">{copy.tiers[2].no}</span>
+        <h3>{copy.tiers[2].h}</h3>
+        <p>{copy.tiers[2].p}</p>
       </article>
     </div>
 
-    <p class="off-price"><b>Der Grundpreis startet bei 1.470 € pro Monat.</b> Netto, 6 Monate Mindestlaufzeit —
-      im Preisrechner nachrechenbar statt „auf Anfrage".</p>
+    <p class="off-price"><b>{copy.offPriceB}</b> {copy.offPriceRest}</p>
 
-    <a class="off-link" href="/preise/">Alle Leistungen je Stufe und die Preise →</a>
+    <a class="off-link" href={copy.offLinkHref}>{copy.offLink}</a>
 
     <div class="off-cta">
-      <AuditCTA label="Audit kostenlos anfordern" />
-      <p class="off-micro">Kostenlos und unverbindlich.<s>·</s>Kein Verkaufsanruf — Sie erhalten das
-        Audit per E-Mail.<s>·</s>Auch sinnvoll, wenn Sie eine Agentur haben: sie bekommt die Bausteine.</p>
+      <AuditCTA lang={lang} label={copy.offCta} />
+      <p class="off-micro">{copy.offMicro[0]}<s>·</s>{copy.offMicro[1]}<s>·</s>{copy.offMicro[2]}</p>
     </div>
   </div>
 </section>
@@ -321,44 +701,43 @@ import AuditCTA from './AuditCTA.astro';
   <div class="oc-scene" id="oc-scene">
     <div class="oc-stage">
       <div class="oc-top">
-        <span class="eyebrow">Was Nicht-genannt-Werden kostet</span>
-        <h2 class="cai-h2 sec">Nicht genannt. Nicht angefragt. Kein Auftrag.</h2>
-        <p class="oc-lead">So entsteht heute ein Auftrag — und so bricht er ab.</p>
+        <span class="eyebrow">{copy.ocEyebrow}</span>
+        <h2 class="cai-h2 sec">{copy.ocH2}</h2>
+        <p class="oc-lead">{copy.ocLead}</p>
       </div>
 
       <div class="oc-chain" id="oc-chain">
-        <div class="oc-node" data-node="0"><span class="tag">in der KI nicht genannt</span><div class="nn">1</div><b>Genannt</b><p>in KI-Antworten empfohlen</p></div>
+        <div class="oc-node" data-node="0"><span class="tag">{copy.ocTag}</span><div class="nn">1</div><b>{copy.ocNodes[0].b}</b><p>{copy.ocNodes[0].p}</p></div>
         <div class="oc-conn"><i></i><span class="brk">&#10005;</span></div>
-        <div class="oc-node" data-node="1"><div class="nn">2</div><b>Vertraut</b><p>durch Quellen &amp; Konsistenz</p></div>
+        <div class="oc-node" data-node="1"><div class="nn">2</div><b>{copy.ocNodes[1].b}</b><p>{copy.ocNodes[1].p}</p></div>
         <div class="oc-conn"><i></i></div>
-        <div class="oc-node" data-node="2"><div class="nn">3</div><b>Angefragt</b><p>qualifizierte Anfrage</p></div>
+        <div class="oc-node" data-node="2"><div class="nn">3</div><b>{copy.ocNodes[2].b}</b><p>{copy.ocNodes[2].p}</p></div>
         <div class="oc-conn"><i></i></div>
-        <div class="oc-node" data-node="3"><div class="nn">4</div><b>Beauftragt</b><p>Auftragseingang</p></div>
+        <div class="oc-node" data-node="3"><div class="nn">4</div><b>{copy.ocNodes[3].b}</b><p>{copy.ocNodes[3].p}</p></div>
       </div>
 
       <div class="oc-vals" id="oc-vals">
         <div class="vrow">
-          <span class="vlab">Besucher aus klassischer Suche</span>
+          <span class="vlab">{copy.ocValSeo}</span>
           <span class="vtrack"><i class="vfill" id="v-seo"></i></span>
-          <span class="vnum">1,0&#8202;×</span>
+          <span class="vnum">{copy.ocNumSeo}</span>
         </div>
         <div class="vrow">
-          <span class="vlab">Besucher aus KI-Antworten</span>
+          <span class="vlab">{copy.ocValAi}</span>
           <span class="vtrack"><i class="vfill hi" id="v-ai"></i></span>
-          <span class="vnum hi" id="oc-mult">0,0&#8202;×</span>
+          <span class="vnum hi" id="oc-mult">{copy.ocNumAi}</span>
         </div>
-        <p class="vsrc">So viel häufiger werden aus KI-Besuchern Kunden. Es sind Ihre wertvollsten
-          Besucher. (Semrush 2025)</p>
+        <p class="vsrc">{copy.ocValSrc}</p>
       </div>
 
       <div class="oc-punch" data-punch>
         <p class="pb">
-          <span class="l">Interessenten vertrauen,</span>
-          <span class="l">fragen an und beauftragen&nbsp;&#8211;</span>
+          <span class="l">{copy.ocPunch[0]}</span>
+          <span class="l">{copy.ocPunch[1]}&nbsp;&#8211;</span>
           <em>
-            <span class="l">aber nur Unternehmen,</span>
-            <span class="l">die nach der Suchanfrage</span>
-            <span class="l">als Ergebnis angezeigt werden.</span>
+            <span class="l">{copy.ocPunchEm[0]}</span>
+            <span class="l">{copy.ocPunchEm[1]}</span>
+            <span class="l">{copy.ocPunchEm[2]}</span>
           </em>
         </p>
       </div>
@@ -381,6 +760,10 @@ import AuditCTA from './AuditCTA.astro';
      dem, was die CDNs ausgeliefert haben — geprüft gegen die vorher hier
      stehenden SRI-Hashes. Bei einem Versionswechsel: Datei tauschen,
      Versionsnummer im Dateinamen mitziehen. -->
+{/* Sprachbrücke für das Inline-Skript unten: ein `is:inline`-Block kennt keine
+    Astro-Ausdrücke, deshalb landen die zur Laufzeit gesetzten Texte (Typewriter,
+    Phasen, Zahlformat) hier als globales Objekt. */}
+<script is:inline set:html={`window.CODA_HOME_COPY=${JSON.stringify(copy.js)};`}></script>
 <script is:inline defer src="/vendor/gsap-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/ScrollTrigger-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/lenis-1.0.42.min.js"></script>
@@ -388,12 +771,14 @@ import AuditCTA from './AuditCTA.astro';
 
 function codaHomeInit(){
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Sprachtexte aus der Astro-Komponente (siehe Brücken-Skript oben). */
+  var CD = window.CODA_HOME_COPY;
 
   /* ---------- FlipWords (läuft immer, auch reduced) ----------
-     Zweite Zeile grau; nur „Aufträge vergeben." magenta. Danach 10 s Standstill. */
+     Zweite Zeile grau; nur das letzte Wort magenta. Danach 10 s Standstill. */
   (function(){
-    var words=["die KI fragen…","Anbieter vergleichen…","heute entscheiden…","Aufträge vergeben."];
-    var PINK="Aufträge vergeben.";
+    var words=CD.flipWords;
+    var PINK=CD.flipPink;
     var host=document.getElementById('flip'); if(!host) return;
     function make(txt){var el=document.createElement('span');el.className='w'+(txt===PINK?' pink':'');el.textContent=txt;return el;}
     host.querySelectorAll('.w').forEach(function(n){n.remove();});
@@ -430,7 +815,7 @@ function codaHomeInit(){
   /* ---------- KI-Karte Sequenz (Hero) ---------- */
   (function(){
     var card=document.getElementById('kicard'); if(!card) return;
-    var Q='„Welche Anbieter kommen für unser Projekt in die engere Wahl?“';
+    var Q=CD.kQuestion;
     var qt=document.getElementById('kqtext'), caret=document.getElementById('kqcaret');
     if(reduced){ qt.textContent=Q; caret.style.display='none';
       document.querySelectorAll('[data-kr]').forEach(function(r){r.classList.add('in');});
@@ -524,7 +909,7 @@ function codaHomeInit(){
     sys.__start=function(){ if(started) return; started=true; activate(0); };
     function setPlaying(p){
       playing=p;
-      if(pp){ pp.innerHTML=p?'&#10073;&#10073;':'&#9654;'; pp.setAttribute('aria-label',p?'Pause':'Abspielen'); }
+      if(pp){ pp.innerHTML=p?'&#10073;&#10073;':'&#9654;'; pp.setAttribute('aria-label',p?CD.pause:CD.play); }
       if(p){ activate(idx); }
       else { if(timer){ clearTimeout(timer); timer=null; } var b=tabs[idx].querySelector('.pgr'); var w=getComputedStyle(b).width; b.style.transition='none'; b.style.width=w; }
     }
@@ -561,31 +946,33 @@ function codaHomeInit(){
   ScrollTrigger.create({start:0,end:'max',onUpdate:function(self){
     prog.style.width=(self.progress*100)+'%';
   }});
-  ['hero','problem','spiegel','outcome','angebot'].forEach(function(id){
+  /* Der Schlüssel (data-nav) bleibt in beiden Sprachen 'angebot', die Element-ID
+     wechselt (`angebot` / `offer`). Beides muss getrennt geführt werden, sonst
+     findet der Trigger auf der englischen Seite seine Sektion nicht und der
+     vierte Punkt der Dot-Nav leuchtet nie. */
+  [['hero','hero'],['problem','problem'],['spiegel','spiegel'],
+   ['outcome','outcome'],['angebot',CD.offerId]].forEach(function(pair){
+    var key=pair[0], id=pair[1];
     ScrollTrigger.create({trigger:'#'+id,start:'top center',end:'bottom center',
       onToggle:function(self){ if(self.isActive){
-        document.querySelectorAll('.dotnav a').forEach(function(a){a.classList.toggle('on',a.dataset.nav===id);});
+        document.querySelectorAll('.dotnav a').forEach(function(a){a.classList.toggle('on',a.dataset.nav===key);});
       }}});
   });
 
   /* ---------- PROBLEM: gepinnte Szene ---------- */
   (function(){
-    var QUERY="beste anbieter für industrie-automation mittelstand";
+    var QUERY=CD.query;
     var qEl=document.getElementById('qtext'), aiBody=document.getElementById('aibody');
-    var AI_TEXT="Für den industriellen Mittelstand werden am häufigsten Alpha Systems, Beta Technik und Gamma Group empfohlen — starke Referenzen, Komplettlösungen und schneller Service.";
+    var AI_TEXT=CD.aiText;
     var steps=document.querySelectorAll('#psteps span');
-    var PHASES=[
-      "Ein potenzieller Kunde fragt bei google.de.",
-      "Google antwortet mit KI-Übersicht.",
-      "Ihr Unternehmen wird nicht genannt — der Interessent sieht nur Ihre Wettbewerber."
-    ];
+    var PHASES=CD.phases;
     var pphase=document.getElementById('pphase'), pnum=document.getElementById('pphasenum'), lastStep=-1;
     function setStep(i){
       steps.forEach(function(s){s.classList.toggle('on',+s.dataset.step===i);});
       if(i===lastStep) return;
       lastStep=i;
       pphase.style.opacity=0; pphase.style.transform='translateY(-8px)';
-      setTimeout(function(){ pphase.textContent=PHASES[i]; pnum.textContent='Schritt '+(i+1)+' / 3';
+      setTimeout(function(){ pphase.textContent=PHASES[i]; pnum.textContent=CD.stepFmt.replace('{n}',i+1);
         pphase.style.opacity=1; pphase.style.transform='none'; },180);
     }
     var tl=gsap.timeline({scrollTrigger:{trigger:'#p-scene',start:'top top',end:'bottom bottom',scrub:0.6,
@@ -598,7 +985,7 @@ function codaHomeInit(){
     tl.to('[data-chip]',{opacity:1,y:0,scale:1,stagger:0.35,duration:.9,ease:'back.out(1.6)'},3.9);
     var num={v:0};
     tl.to('#pstat',{opacity:1,x:(window.innerWidth>900?'106%':'0%'),duration:.8},4.2)
-      .to(num,{v:-59,duration:1.4,ease:'power1.out',onUpdate:function(){document.getElementById('statnum').textContent=Math.round(num.v)+' %';}},4.2);
+      .to(num,{v:-59,duration:1.4,ease:'power1.out',onUpdate:function(){document.getElementById('statnum').textContent=Math.round(num.v)+CD.pctSuffix;}},4.2);
     tl.add(function(){document.querySelector('[data-ghost]').classList.add('flag');},5.3)
       .to('[data-ghost]',{opacity:1,y:0,scale:1,duration:.6},5.3);
     // Bei erreichter −59 %: Box schlägt auf Weiß um, Schrift wird anthrazit (Betonung)
@@ -622,7 +1009,7 @@ function codaHomeInit(){
     var tag=nodes[0].querySelector('.tag');
     var mv=document.getElementById('oc-mult');
     var mult={v:0};
-    function setMult(){ mv.textContent=mult.v.toFixed(1).replace('.',',')+' ×'; }
+    function setMult(){ mv.textContent=mult.v.toFixed(1).replace('.',CD.decimal)+' ×'; }
     function num(i){ return nodes[i].querySelector('.nn'); }
     var LIT='rgba(223,65,251,.55)', SHA='0 20px 44px -30px rgba(223,65,251,.6)', OFF='0 0px 0px rgba(12,17,32,0)', LINE='#C9D3E6';
     mult.v=0; setMult();
@@ -747,7 +1134,7 @@ function codaHomeInit(){
       v._done=true; v.style.opacity='1';
       var typed=v.querySelector('.mi-vtyped'), label=v.querySelector('.mi-vlabel');
       v.classList.add('is-scanning');
-      var phases=['CodaAI liest die Frage.','CodaAI prüft die Antwort.','CodaAI ermittelt den Befund.'];
+      var phases=CD.miScan;
       var pi=0;
       var cyc=setInterval(function(){ pi++; if(label&&phases[pi]) label.textContent=phases[pi]; if(pi>=phases.length-1) clearInterval(cyc); },2000);
       setTimeout(function(){
@@ -1063,6 +1450,10 @@ if (document.readyState === 'loading') {
   .chip{border:1px solid hsl(var(--cta) / .4);background:hsl(var(--cta) / .12);color:hsl(var(--foreground-on-dark));border-radius:999px;padding:.4rem .8rem;font-size:.82rem;font-weight:600;opacity:0;transform:translateY(8px) scale(.96)}
   .chip.ghost{border-style:dashed;border-color:var(--d-line2);background:transparent;color:var(--d-mut);position:relative}
   .chip.ghost::after{content:"nicht genannt";position:absolute;left:50%;top:-1.4rem;transform:translateX(-50%);font-size:.62rem;color:var(--d-mut);white-space:nowrap;opacity:0;transition:opacity .4s}
+  /* Einziger Text, der im Stilblock statt im Markup steht. Der Stilblock ist
+     is:global und kennt das `lang`-Prop nicht — deshalb hier eine additive
+     Regel an der Sprache des Dokuments statt einer Variablen (04.08.2026). */
+  html[lang="en"] .chip.ghost::after{content:"not mentioned"}
   .chip.ghost.flag::after{opacity:1}
   .p-stat{position:absolute;right:-14px;top:50%;transform:translate(100%,-50%);z-index:30;width:min(230px,42vw);border:1px solid var(--d-line2);border-radius:16px;background:var(--d-card);padding:1.1rem 1.2rem;opacity:0}
   .p-stat .big{font-size:clamp(2.4rem,5vw,3.4rem);font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}

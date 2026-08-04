@@ -7,6 +7,14 @@ interface Props {
 
 const { lang } = Astro.props;
 
+/* Anker des Termin-Blocks. Bis 04.08.2026 trug die Sektion in beiden Sprachen
+   `id="termin"`. Das war unauffällig, solange es kaum englische Seiten gab —
+   mit dem EN-Relaunch verlinken sechs Seiten hierher, und ein deutscher Anker
+   in einer englischen URL passt nicht zu einer Version, die sonst vollständig
+   übersetzt ist. Wer die Sektion verlinkt, nimmt `#termin` bzw. `#appointment`;
+   einen zusätzlichen Wrapper-<div> braucht es dafür nicht mehr. */
+const sectionId = lang === 'de' ? 'termin' : 'appointment';
+
 const copy = {
   de: {
     eyebrow: 'Kostenloses Erstgespräch',
@@ -18,20 +26,25 @@ const copy = {
       'Direkt einen Slot wählen – kein Formular-Umweg',
     ],
   },
+  /* 04.08.2026 (EN-Relaunch): Die englische Fassung sprach noch von
+     „content production" und „cuts your marketing costs" — das war die
+     Positionierung als Content-Agentur und stand im Widerspruch zur
+     deutschen Seite daneben. Jetzt dieselbe Aussage wie im Deutschen:
+     ein Befund, kein Verkaufsgespräch. */
   en: {
     eyebrow: 'Free intro call',
-    title: '30 minutes – web meeting or phone.',
-    lead: 'In a short call we show you how CodaAI takes over your content production – and what that means for your visibility and your costs. Not a sales pitch, just a clear assessment.',
+    title: '30 minutes — web meeting or phone.',
+    lead: 'In a short call we show you in black and white where your company is visible today in ChatGPT, Google AI Overviews and classic search — and where your competitor is being recommended instead. Not a sales pitch. A clear finding.',
     points: [
-      'Your individual content & visibility status – shown live',
-      'Where CodaAI cuts your marketing costs',
-      'Pick a slot directly – no form detour',
+      'Your AI visibility status — shown live in ChatGPT and Google AI Overviews',
+      'Which buyer questions you are missing from — and what that costs you in enquiries',
+      'Pick a slot directly — no form detour',
     ],
   },
 }[lang];
 ---
 
-<section id="termin" class="py-24 lg:py-32 border-t border-border bg-muted/30">
+<section id={sectionId} class="scroll-mt-24 py-24 lg:scroll-mt-28 lg:py-32 border-t border-border bg-muted/30">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <div>

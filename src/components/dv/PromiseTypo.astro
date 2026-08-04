@@ -6,6 +6,12 @@
  * übergeben und nur um <span data-underline>-Markup für die Unterstrich-Phrasen ergänzt
  * — kein Zeichen am Text selbst verändert.
  *
+ * Sprachen (EN-Relaunch 04.08.2026): Die Komponente enthält KEINEN eigenen Text —
+ * `text` und `highlights` kommen vollständig von der aufrufenden Seite. Sie ist
+ * damit bereits sprachneutral und braucht kein `lang`-Prop. Wer sie englisch
+ * einsetzt, übergibt einfach englische Strings; die Unterstrich-Phrasen müssen
+ * dann wörtlich in `text` vorkommen, sonst greift `splitHighlights` nicht.
+ *
  * Props:
  *   text        – der volle Versprechen-Satz (verbatim)
  *   highlights  – Phrasen aus `text`, in Reihenfolge ihres Auftretens, die einen

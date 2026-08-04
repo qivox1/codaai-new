@@ -25,6 +25,13 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   // -- Statische Seiten ----------------------------------------------------
   ['/', '/en/'],
   ['/preise/', '/en/pricing/'],
+  // 04.08.2026 (EN-Relaunch): Die englische Version bildet ab jetzt denselben
+  // Arbeitsstand ab wie die deutsche. Damit fallen die vier bisherigen
+  // DE-only-Seiten als Paare an.
+  ['/digital-visibility/', '/en/digital-visibility/'],
+  ['/faq/', '/en/faq/'],
+  ['/studie/', '/en/study/'],
+  ['/webinar/', '/en/webinar/'],
   // 04.08.2026: /kontakt/ ↔ /en/contact/ entfernt. Beide Seiten sind seither
   // reine Weiterleitungen mit noindex — ein hreflang-Paar auf noindex-Seiten
   // wäre ein Widerspruch (wir sagen Google „nicht indexieren" und gleichzeitig
@@ -55,10 +62,13 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
  * der Code braucht die Liste nicht, aber sie beantwortet bei der nächsten
  * Durchsicht die Frage „vergessen oder Absicht?".
  *
- *   DE-only : /digital-visibility/  /faq/  /studie/  /webinar/
- *             /leistungen/ (noindex-Weiterleitung)
+ *   DE-only : /leistungen/ (noindex-Weiterleitung)
  *             /blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/
+ *             /checkout-success/ (Stripe abgeschaltet, noindex)
  *   EN-only : /en/blog/ai-content-marketing-strategy-guide/
+ *
+ *   Kein Paar trotz beidseitiger Existenz:
+ *     /kontakt/ ↔ /en/contact/ — beide sind noindex-Weiterleitungen (s. o.)
  */
 
 function normalise(pathname: string): string {

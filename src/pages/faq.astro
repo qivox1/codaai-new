@@ -34,7 +34,9 @@ const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
   description="Alle Antworten auf einen Blick: CodaAI und die Zusammenarbeit, wie KI-Sichtbarkeit gemessen wird, Preise und Laufzeiten sowie das Live-Webinar."
 >
   <Navbar lang={lang} />
-  <main class="pt-24 lg:pt-28">
+  {/* id="main-content" nachgetragen 04.08.2026: Der Sprunglink im Layout zeigt
+      auf dieses Ziel — hier fehlte es, der Link lief also ins Leere. */}
+  <main id="main-content" class="pt-24 lg:pt-28">
     <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-2">
       <Breadcrumb
         items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Fragen & Antworten' }]}

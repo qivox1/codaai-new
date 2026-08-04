@@ -6,96 +6,72 @@ import Booking from '../../components/Booking.astro';
 import PricingCalculatorV2 from '../../components/react/PricingCalculatorV2';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Reveal from '../../components/fx/Reveal.astro';
+import HeroHeadline from '../../components/HeroHeadline.astro';
+import { faqPricingEn } from '../../data/faq.en';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   /en/pricing/ — English mirror of /preise/ (state of 04.08.2026).
+
+   Rebuilt in the EN relaunch of 04.08.2026. The previous English version still
+   carried the old positioning (tiers called Basis/Active/Dominance, a fixed
+   "programme" fee, a promise that the calculator hands out a quote PDF). All of
+   that is gone: the tiers are Found / Recommended / Cited, the fixed monthly
+   amount is the base fee, and the calculator has exactly two exits — the
+   30-minute intro call and the appointment section below it.
+
+   Structure, classes, IDs, animation logic and scripts are taken over 1:1 from
+   the German page. Only visible text is translated.
+   Conventions: en-relaunch-2026-08-04/KONVENTIONEN.md
+   ────────────────────────────────────────────────────────────────────────── */
 
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/* ── The three tiers (decision of 27.07.2026) ─────────────────────────────────
-   Visibility is the product, content is the dosage. "No tier" is gone.
-   The per-article price sits with the tier, every tier has a disjoint window.
-   Concept: umbau-digital-visibility/2026-07-27_Preise-Neukonzept_Beschluss.md   */
-const stufen = [
+/* ── The three tiers ──────────────────────────────────────────────────────────
+   Visibility is the product, content is the dosage. The cards only tease —
+   description, result, base amount, number of building blocks, link. The full
+   building-block lists live on /en/digital-visibility/ and are not repeated
+   here.                                                                       */
+const tiers = [
   {
-    level: 'Tier 1 · Foundation',
-    name: 'Basis',
-    claim: 'Your website becomes readable, findable and quotable for AI systems. The compulsory programme — everything else builds on it.',
+    level: 'Tier 1',
+    name: 'Found',
+    anchor: 'readable',
+    result: 'The AI can read you — and every month you see where you stand',
+    blocks: '6 building blocks',
     from: 'from €1,470',
-    window: '2–3 articles · €490 per article · programme +€490',
     recommended: false,
-    points: [
-      'Monthly report: where you are named in AI answers — and who is named instead of you',
-      'Google <strong>and Bing</strong> optimisation — Bing, because that is where ChatGPT quotes from',
-      'We check whether AI systems can read your website at all — your web team receives the fixes ready to implement',
-      'Expert articles with figures and sources — the format AI systems quote',
-    ],
   },
   {
-    level: 'Tier 2 · Scale',
-    name: 'Active',
-    claim: 'The recommendation no longer comes from you alone. Presence on the sources AI systems quote from.',
+    level: 'Tier 2',
+    name: 'Recommended',
+    anchor: 'sources',
+    result: 'Your name also comes up where the AI collects its evidence',
+    blocks: '10 building blocks',
     from: 'from €2,670',
-    window: '4–7 articles · €420 per article · programme +€990',
+    /* The German card carries the badge "Empfohlen" above a tier also called
+       "Empfohlen". In English that would read as the same word twice, so the
+       badge says "We recommend" — a statement we can stand behind, unlike
+       "most popular", which we have no figures for. */
     recommended: true,
-    points: [
-      '<strong>Everything from Basis</strong>',
-      'Mentions of your brand on trade portals and in industry media — the strongest documented lever',
-      'Placement in "the best providers for …" articles that AI quotes from',
-      'Presence on review platforms',
-      'Your videos findable on YouTube, with transcript',
-    ],
   },
   {
-    level: 'Tier 3 · Market leadership',
-    name: 'Dominance',
-    claim: 'Your market cites your figures. The strongest position there is in AI answers.',
+    level: 'Tier 3',
+    name: 'Cited',
+    anchor: 'become-the-source',
+    result: 'Your market cites your figures',
+    blocks: '14 building blocks',
     from: 'from €4,910',
-    window: '8–12 articles · €390 per article · programme +€1,790',
     recommended: false,
-    points: [
-      '<strong>Everything from Active</strong>',
-      'One study of your own per year — figures others have to quote',
-      'Entry into the knowledge bases AI draws its basic knowledge from',
-      'Visibility for your people on LinkedIn',
-    ],
   },
 ];
 
-/* ── FAQ (pulled onto the new logic; the old entries on volume tiers, the annual-payment discount,
-      48-hour delivery and free articles are gone) ── */
-const faqs = [
-  {
-    q: 'How is my monthly price made up?',
-    a: 'From three items: the number of expert articles multiplied by the per-article price of your tier, the optional extensions (translations, videos) and the fixed programme price of the tier. Example: 4 articles × €420 = €1,680, plus the Active programme at €990 = €2,670 per month. All net, all on one invoice.',
-  },
-  {
-    q: 'Why does an article cost more in Basis than in Dominance?',
-    a: 'Because the volume discount sits with the tier, not with the number of articles: €490 in Basis, €420 in Active, €390 in Dominance. Anyone who needs more content is better off in a higher tier — and gets the stronger levers along with it. One price per tier instead of a discount table.',
-  },
-  {
-    q: 'Can I book articles only, without a programme?',
-    a: 'No. In 2026, content on its own is no longer reliably found — it needs the technical foundation, the measurement and, from tier 2 onwards, the sources outside your own website. That is why every tier is a whole, and why it comes with a minimum amount of content: more reach needs more fuel.',
-  },
-  {
-    q: 'What minimum term applies?',
-    a: 'Six months, billed monthly. Visibility in search and AI answers builds over months — in the German market the first mentions typically appear after 8 to 12 weeks. Commit to twelve months and you pay 10 % less. There is no automatic rollover: you actively decide on renewal.',
-  },
-  {
-    q: 'Can I switch tiers later?',
-    a: 'An upgrade is possible at any time from the next month, and your running minimum term simply continues. A downgrade takes effect at the end of the minimum term. The number of articles within your tier can be adjusted at every renewal date.',
-  },
-  {
-    q: 'What is included in an expert article?',
-    a: 'Research with sources cited, 1,500 to 4,000 words, three matching images or one infographic, optimisation for Google, Bing and AI systems, plus publication on your website. We do not bill by the word — the length follows the topic.',
-  },
-  {
-    q: 'What do you measure each month?',
-    a: 'Three things, against a set of real buyer questions agreed at the start: which AI answers name your company, in which position it appears, and which of your pages are quoted as a source. You get the same figures we work with internally — every month, on the same date.',
-  },
-  {
-    q: 'How do I get a binding quote?',
-    a: 'Straight from the calculator: choose your configuration, click "Request this quote as a PDF" — and you receive your quote by email, ready to forward to management or procurement. Billing is by invoice, no credit card needed.',
-  },
-];
+/* ── FAQ — price, term and contract only.
+      Subject-matter questions sit on /en/digital-visibility/, questions about
+      CodaAI itself on the homepage. Single source: src/data/faq.en.ts. The
+      accordion markup stays page-specific (pr-f…) because it hangs off the
+      scroll choreography of this page. ── */
+const faqs = faqPricingEn;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -110,132 +86,149 @@ const faqSchema = {
 
 <Layout
   lang={lang}
-  title="Pricing – AI visibility from €1,470 per month | CodaAI"
-  description="Transparently calculated instead of &quot;on request&quot;: three visibility tiers from €1,470 per month, with a pricing calculator whose total you can check."
+  title="Pricing – so the next enquiry lands with you | CodaAI"
+  description="Transparently calculated instead of “on request”: three visibility tiers from €1,470 per month, with a price calculator whose total you can check."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
-      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to the homepage', href: `${base}/en/` }, { label: 'Pricing' }]} class="mb-0" />
     </div>
 
-    <!-- ── 1 · Hero ─────────────────────────────────────────────────────── -->
-    <Reveal as="div" class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-16 lg:pb-20">
-      <h1 class="cai-h1 max-w-5xl text-foreground">
-        What does it cost to be recommended in AI answers?
-      </h1>
-      <p class="mt-5 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-        You choose one of three tiers and set how much content is produced each month. That is the whole calculation — one you can check yourself, while the rest of the market writes "on request".
+    <!-- ── 1 · Hero ─────────────────────────────────────────────────────
+         Benefit, not cost: decision-makers are not buying articles, they
+         want the next enquiry. Phrased as a purpose, not as a promise of
+         success — we refuse placement and success guarantees.               -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8 lg:pt-10 pb-16 lg:pb-20">
+      <HeroHeadline
+        line1="So the next enquiry lands with you."
+        line2="Not with a competitor."
+        class="max-w-5xl"
+      />
+      <p class="pr-line mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground" style="--d:2">
+        Before anyone gets in touch, they ask the AI. We make sure your name turns up where that
+        answer is formed — and show you every month whether it does.
       </p>
-      <p class="mt-7 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-cta/40 bg-cta/10 px-5 py-3">
-        <span class="text-2xl font-bold tracking-tight text-foreground">from €1,470</span>
-        <span class="text-sm text-muted-foreground">per month · net · 6-month minimum term</span>
-      </p>
-    </Reveal>
+      <div class="pr-line mt-8" style="--d:3">
+        <a
+          href="#calculator"
+          class="inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+        >
+          Configure your price →
+        </a>
+      </div>
+    </div>
 
-    <!-- ── 2 · The three tiers ──────────────────────────────────────────── -->
-    <section id="tiers" aria-label="The three visibility tiers" class="border-t border-border bg-muted/20 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
+    <!-- ── 2 · The three tiers — details on /en/digital-visibility/ ──────────── -->
+    <section id="tiers" aria-label="The three visibility tiers" class="py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal as="div">
-          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">Three tiers</p>
-          <h2 class="cai-h2 max-w-3xl text-foreground">
-            First your website. Then the sources around it. Then you are the source.
+          <h2 class="cai-h2 max-w-5xl text-foreground">
+            Three tiers. The higher you go, the more places the AI finds you.
           </h2>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Every tier contains everything from the one before — and a minimum amount of content, because more reach needs more fuel.
-          </p>
         </Reveal>
 
-        <div class="mt-12 grid gap-6 lg:grid-cols-3">
-          {stufen.map((s, i) => (
+        <!-- Rail: fills magenta as you scroll and marks the three tiers — the
+             same mechanism as the tier line on /en/digital-visibility/, laid
+             out horizontally here. Purely decorative. -->
+        <div class="pr-rail mt-12 hidden lg:block" aria-hidden="true" data-rail>
+          <span class="pr-rail-fill"></span>
+          <span class="pr-dot" style="--x:16.6%"></span>
+          <span class="pr-dot" style="--x:50%"></span>
+          <span class="pr-dot" style="--x:83.3%"></span>
+        </div>
+
+        <div class="mt-8 grid gap-6 lg:mt-6 lg:grid-cols-3">
+          {tiers.map((s, i) => (
             <Reveal
               as="div"
               delay={i * 110}
-              class={`relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${s.recommended ? 'border-price shadow-[0_10px_40px_hsl(var(--price)/0.18)]' : 'border-border'}`}
+              class={`pr-card relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${['lg:mt-10', 'lg:mt-5', 'lg:mt-0'][i]} ${s.recommended ? 'border-price shadow-[0_10px_40px_hsl(var(--price)/0.18)]' : 'border-border'}`}
             >
               {s.recommended && (
                 <span class="absolute -top-3 left-6 rounded-md bg-price px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-widest text-foreground">
-                  Recommended
+                  We recommend
                 </span>
               )}
               <p class="text-[11.5px] font-bold uppercase tracking-widest text-cta-accessible">{s.level}</p>
               <h3 class="mt-2 text-2xl font-semibold tracking-tight text-foreground">{s.name}</h3>
-              <p class="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-muted-foreground">{s.claim}</p>
+              <p class="mt-3 flex-1 text-[15px] font-semibold leading-snug text-foreground">{s.result}</p>
 
-              <div class="mt-5 border-t border-border pt-5">
-                <p><span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span> <span class="text-sm text-muted-foreground">/ month</span></p>
-                <p class="mt-1.5 text-[12.5px] text-muted-foreground">{s.window}</p>
-              </div>
+              <p class="mt-6">
+                <span class="text-3xl font-bold tracking-tight text-foreground">{s.from}</span>
+                <span class="text-sm text-muted-foreground">/ month</span>
+              </p>
 
-              <ul class="mt-6 flex flex-1 flex-col gap-2.5">
-                {s.points.map((p) => (
-                  <li class="relative pl-6 text-[13.5px] leading-relaxed text-foreground">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute left-0 top-[5px] text-cta-accessible" aria-hidden="true">
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    <span set:html={p} />
-                  </li>
-                ))}
-              </ul>
-
-              <a href="#rechner" class="mt-6 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta">
-                Calculate the price for this tier →
+              <a
+                href={`${base}/en/digital-visibility/#${s.anchor}`}
+                class="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-cta-accessible transition-colors hover:text-cta"
+              >
+                {s.blocks} →
               </a>
             </Reveal>
           ))}
         </div>
+
+        <Reveal as="p" delay={360} class="mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          We write down just as plainly what we deliberately do <strong class="font-semibold text-foreground">not</strong> offer — six points, each with a reason:
+          <a href={`${base}/en/digital-visibility/#not-included`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">read them →</a>
+        </Reveal>
+
+        <!-- Handover to the calculator: one button, and below it the line that
+             draws itself as you scroll. -->
+        <Reveal as="div" delay={420} class="mt-12 flex flex-col items-center">
+          <a
+            href="#calculator"
+            class="inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-6 py-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            Configure your price →
+          </a>
+          <span class="pr-drop mt-6" aria-hidden="true" data-drop><span class="pr-drop-fill"></span></span>
+        </Reveal>
       </div>
     </section>
 
-    <!-- ── 3 · Pricing calculator (contains both exits) ─────────────────── -->
-    <PricingCalculatorV2 lang={lang} base={base} bookingHref={`${base}/en/pricing/#termin`} client:load />
+    <!-- ── 3 · Price calculator (carries both exits) ─────────────────────
+         Section id is `calculator` in English, `rechner` in German — see the
+         anchor map in KONVENTIONEN.md.                                      -->
+    <PricingCalculatorV2 lang={lang} base={base} bookingHref={`${base}/en/pricing/#appointment`} client:load />
 
-    <!-- ── 4 · Booking ──────────────────────────────────────────────────── -->
+    <!-- ── 4 · Appointment ───────────────────────────────────────────────
+         Booking.astro emits `id="appointment"` for English since 04.08.2026,
+         so the anchor comes from the component itself. The wrapper div that
+         used to supply it was removed — it would now duplicate the id.    -->
     <Booking lang={lang} />
 
-    <!-- ── 5 · What we do not promise ──────────────────────────────────── -->
-    <section id="honesty" data-theme="dark" class="cai-dvdark relative overflow-hidden border-t border-border bg-background py-20 lg:py-28">
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <Reveal as="div">
-            <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">From over 25 years of experience</p>
-            <h2 class="cai-h2 max-w-[22ch] text-foreground">
-              What we will not promise you.
-            </h2>
-            <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-muted-foreground">
-              Because trust is the basis of a collaboration designed to run for at least six months. You should know what you are paying for — and what you are not.
-            </p>
-          </Reveal>
-
-          <Reveal as="div" delay={120} class="space-y-7">
-            <div class="border-l-[3px] border-cta pl-6">
-              <h3 class="text-lg font-semibold text-foreground">"Number one in ChatGPT — guaranteed"</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                You will not get that from us. AI answers are not deterministic: the same question can be answered differently today and tomorrow. Anyone who guarantees a mention is selling something that does not technically exist.
-              </p>
-            </div>
-            <div class="border-l-[3px] border-cta pl-6">
-              <h3 class="text-lg font-semibold text-foreground">Technical add-on line items</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-                We do not bill for items that demonstrably do nothing — however good they sound. We do llms.txt and schema markup where they make sense; they do not appear on your invoice as an "AI citation booster".
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 6 · FAQ ──────────────────────────────────────────────────────── -->
-    <section id="faq" aria-label="Frequently asked questions about pricing" class="mx-auto max-w-3xl border-t border-border px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
+    <!-- ── 5 · FAQ ──────────────────────────────────────────────────────── -->
+    <section id="faq" aria-label="Frequently asked questions about pricing" class="mx-auto max-w-3xl px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
       <Reveal as="div">
-        <h2 class="mb-8 text-center text-2xl font-semibold text-foreground">Frequently asked questions about pricing</h2>
+        <h2 class="cai-h2 mb-8 text-center text-foreground">Frequently asked questions about pricing</h2>
       </Reveal>
-      <div class="space-y-6">
+      <!-- Accordion: you see all questions, only one answer is open at a time.
+           Without JavaScript every answer simply stands open. -->
+      <div class="pr-faq space-y-3" data-faq>
         {faqs.map((f, i) => (
           <Reveal as="div" delay={(i % 2) * 40}>
-            <div class="rounded-xl border border-border bg-card p-6">
-              <h3 class="mb-2 font-semibold text-foreground">{f.q}</h3>
-              <p class="text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            {/* data attributes belong on a real element — the Reveal component
+                does not pass unknown props through. */}
+            <div class="pr-fitem overflow-hidden rounded-xl border border-border bg-card" data-fitem>
+            <h3>
+              <button
+                type="button"
+                class="pr-fhead flex w-full items-center gap-4 p-5 text-left"
+                aria-expanded="false"
+                aria-controls={`faq-${i}`}
+                data-fhead
+              >
+                <span class="flex-1 font-semibold text-foreground">{f.q}</span>
+                <svg class="pr-fchev h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} class="pr-fpanel" data-fpanel>
+              <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            </div>
             </div>
           </Reveal>
         ))}
@@ -243,22 +236,177 @@ const faqSchema = {
 
       <p class="mt-10 text-center text-sm text-muted-foreground">
         No figures for your company yet?
-        <a href={`${base}/en/`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Request a free audit →</a>
+        <a href={`${base}/en/#offer`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Request a free audit →</a>
       </p>
     </section>
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
 
+
   <style>
-    /* Honesty block: subtle grid, derived from the foreground token. */
-    .cai-dvdark {
-      background-image:
-        linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
-      background-size: 44px 44px;
+    /* ── Hero: lines run in on load (as on /en/digital-visibility/) ─────── */
+    .pr-line {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: prLineIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--d, 0) * 110ms);
+    }
+    h1.pr-line { --d: 0; }
+    @keyframes prLineIn { to { opacity: 1; transform: none; } }
+
+    /* ── Tier rail ──────────────────────────────────────────────────────── */
+    .pr-rail {
+      position: relative;
+      height: 2px;
+      border-radius: 2px;
+      background: hsl(var(--border));
+    }
+    .pr-rail-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: 2px;
+      background: hsl(var(--cta));
+      transition: width 0.12s linear;
+    }
+    .pr-dot {
+      position: absolute;
+      top: 50%;
+      left: var(--x);
+      height: 10px;
+      width: 10px;
+      margin: -5px 0 0 -5px;
+      border-radius: 999px;
+      border: 2px solid hsl(var(--border));
+      background: hsl(var(--background));
+      transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    }
+    .pr-dot.is-lit {
+      border-color: hsl(var(--cta));
+      background: hsl(var(--cta));
+      transform: scale(1.25);
+    }
+
+    /* ── Cards ──────────────────────────────────────────────────────────── */
+    .pr-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .pr-card:hover {
+      transform: translateY(-4px);
+      border-color: hsl(var(--cta) / 0.6);
+      box-shadow: 0 16px 40px -20px hsl(var(--cta) / 0.55);
+    }
+
+    /* ── FAQ accordion ──────────────────────────────────────────────────
+       Without JS (no .pr-js) every answer stands open. On hover the head
+       shows in magenta that something opens here.                           */
+    .pr-fhead { cursor: default; }
+    .pr-js .pr-fhead { cursor: pointer; }
+    .pr-fitem { transition: border-color 0.2s ease; }
+    .pr-js .pr-fitem:hover,
+    .pr-js .pr-fitem:focus-within { border-color: hsl(var(--cta) / 0.5); }
+    .pr-js .pr-fhead:hover span,
+    .pr-js .pr-fhead:focus-visible span { color: hsl(var(--cta-accessible)); }
+    .pr-js .pr-fhead:hover .pr-fchev { color: hsl(var(--cta)); }
+    .pr-fchev { transition: transform 0.3s ease, color 0.2s ease; }
+    .pr-js .pr-fitem.is-open .pr-fchev { transform: rotate(180deg); color: hsl(var(--cta)); }
+    .pr-js .pr-fpanel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* 520px: the answer on the agency comparison is longer than the others and
+       was cut off in its last line at 420px. */
+    .pr-js .pr-fitem.is-open .pr-fpanel { max-height: 520px; }
+
+    /* ── Handover: the line draws itself into the calculator ────────────── */
+    .pr-drop {
+      display: block;
+      position: relative;
+      width: 2px;
+      height: 72px;
+      border-radius: 2px;
+      background: hsl(var(--border));
+      overflow: hidden;
+    }
+    .pr-drop-fill {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 0;
+      border-radius: 2px;
+      background: hsl(var(--cta));
+      transition: height 0.12s linear;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pr-line { opacity: 1; transform: none; animation: none; }
+      .pr-rail-fill, .pr-drop-fill, .pr-dot, .pr-card { transition: none; }
+      .pr-js .pr-fpanel, .pr-fchev, .pr-fitem { transition: none; }
+      .pr-card:hover { transform: none; }
     }
   </style>
+
+  <script is:inline>
+    (function () {
+      /* Rail and handover line fill depending on scroll position. Both purely
+         decorative — without JS they simply stay grey. */
+      var rail = document.querySelector('[data-rail]');
+      var railFill = rail && rail.querySelector('.pr-rail-fill');
+      var dots = rail ? Array.prototype.slice.call(rail.querySelectorAll('.pr-dot')) : [];
+      var drop = document.querySelector('[data-drop]');
+      var dropFill = drop && drop.querySelector('.pr-drop-fill');
+
+      function pct(el, startAt, endAt) {
+        var r = el.getBoundingClientRect();
+        var h = window.innerHeight;
+        var p = (h * startAt - r.top) / (h * (startAt - endAt) || 1);
+        return p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+
+      function paint() {
+        if (railFill) {
+          var p = pct(rail, 0.9, 0.45);
+          railFill.style.width = (p * 100).toFixed(1) + '%';
+          dots.forEach(function (d, i) {
+            var at = [0.166, 0.5, 0.833][i];
+            d.classList.toggle('is-lit', p >= at);
+          });
+        }
+        if (dropFill) {
+          dropFill.style.height = (pct(drop, 0.95, 0.6) * 100).toFixed(1) + '%';
+        }
+      }
+
+      /* FAQ: only ever one question open. */
+      var faq = document.querySelector('[data-faq]');
+      if (faq) {
+        faq.classList.add('pr-js');
+        var items = Array.prototype.slice.call(faq.querySelectorAll('[data-fitem]'));
+        items.forEach(function (el) {
+          var head = el.querySelector('[data-fhead]');
+          if (!head) return;
+          head.addEventListener('click', function () {
+            var open = !el.classList.contains('is-open');
+            items.forEach(function (o) {
+              o.classList.remove('is-open');
+              var h = o.querySelector('[data-fhead]');
+              if (h) h.setAttribute('aria-expanded', 'false');
+            });
+            el.classList.toggle('is-open', open);
+            head.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        });
+      }
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () { paint(); ticking = false; });
+      }, { passive: true });
+      window.addEventListener('resize', paint);
+      paint();
+    })();
+  </script>
 
   <Footer lang={lang} />
 </Layout>

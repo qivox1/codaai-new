@@ -21,12 +21,20 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 
 ## Hauptseiten (Englisch)
 
-- [Homepage](https://www.codaai.ai/en/)
-- [Pricing](https://www.codaai.ai/en/pricing/)
-- [Co-Create](https://www.codaai.ai/en/co-create/)
-- [Blog](https://www.codaai.ai/en/blog/)
+- [Homepage](https://www.codaai.ai/en/): Why AI recommends three providers — and what decides whether you are one of them
+- [Digital Visibility](https://www.codaai.ai/en/digital-visibility/): The 14 building blocks, ordered by the three tiers Found, Recommended, Cited
+- [Pricing](https://www.codaai.ai/en/pricing/): Three visibility tiers from €1,470 base fee per month, with a calculator you can check yourself
+- [Study „AI Blind Test 2026"](https://www.codaai.ai/en/study/): 449 companies, 3,592 buyer questions, 7,184 AI answers — methodology and findings
+- [Webinar „Recommended or invisible?"](https://www.codaai.ai/en/webinar/): 08.09.2026, with Norbert Schuster (strike2) and Oliver Parrizas — **held in German**
+- [FAQ](https://www.codaai.ai/en/faq/): SEO vs. AEO vs. GEO, measurement, contract terms, working alongside an existing agency
+- [Blog](https://www.codaai.ai/en/blog/): Articles on AI visibility, GEO and B2B content
+- [Legal notice](https://www.codaai.ai/en/legal-notice/): Address, phone and e-mail
+- [Co-Create](https://www.codaai.ai/en/co-create/): The principle behind the work — artificial and human intelligence together
 
-Die englische Fassung deckt bisher nur einen Teil der Seiten ab. Deutsch ist die Leitsprache.
+Seit dem 04.08.2026 bildet die englische Fassung denselben Arbeitsstand ab wie die deutsche.
+Deutsch bleibt die Leitsprache: die Studie misst den deutschen Markt, das Webinar wird auf
+Deutsch gehalten, und Impressum, Datenschutz und AGB sind auf Englisch nur Übersetzungen
+zur Information — verbindlich ist die deutsche Fassung.
 
 ## Kernaussagen der Studie „KI-Blindtest Mittelstand 2026"
 
