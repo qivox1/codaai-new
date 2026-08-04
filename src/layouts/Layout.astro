@@ -124,7 +124,9 @@ const csp = [
   // Astro generates inline <script> blocks (theme init, mobile menu) â unsafe-inline required
   // strict-dynamic is not viable with static generation (no per-request nonces)
   // GTM loader needs googletagmanager.com for gtm.js
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net",
+  // 04.08.2026: cdnjs.cloudflare.com und cdn.jsdelivr.net entfallen — GSAP,
+  // ScrollTrigger und Lenis liegen jetzt selbst gehostet in public/vendor/.
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
   // Tailwind/Radix inline styles + React inline style props
   "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
@@ -150,9 +152,12 @@ const csp = [
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <!-- Preconnect: warm up Google CDN before deferred GTM load -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <!-- 04.08.2026: preconnects auf googletagmanager und google-analytics
+         entfernt. Lighthouse wies sie als ungenutzt aus — und zwar zu Recht:
+         GTM wird erst nach erteilter Einwilligung und nach window.load
+         nachgeladen (siehe Consent-Block unten). Bis dahin ist die vorgewärmte
+         Verbindung längst wieder zu; sie kostet beim Seitenaufbau nur
+         Bandbreite und einen von wenigen parallelen Verbindungsplätzen. -->
     <!--
       Google Consent Mode v2 + GTM (DSGVO-konform)
       ================================================
@@ -217,7 +222,10 @@ const csp = [
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {/* Preconnect to Supabase edge functions â reduces DNS+TLS cold-start when form is submitted */}
-    <link rel="preconnect" href="https://fcauvtwqkluvsbicaojo.supabase.co" crossorigin />
+    {/* 04.08.2026 entfernt: Der Vorteil trägt nur, wenn der Besucher das
+        Formular auch absendet — das tut die grosse Mehrheit nie, und bis dahin
+        ist die vorgewärmte Verbindung wieder zu. Lighthouse führte sie als
+        ungenutzt und warnte zugleich vor mehr als vier preconnects. */}
     {/* Preload Latin variable font — LCP text renders without FOIT/layout shift */}
     <link rel="preload" as="font" type="font/woff2" href={interLatinFont} crossorigin />
     {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}

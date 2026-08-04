@@ -1,12 +1,11 @@
 ---
 /* CodaAI Premium-Startseite — aus prototyp-startseite.html transformiert.
-   Global-CSS auf #cai-premium gescopt; GSAP/ScrollTrigger/Lenis via CDN.
+   Global-CSS auf #cai-premium gescopt. GSAP/ScrollTrigger/Lenis liegen seit
+   04.08.2026 selbst gehostet in public/vendor/ (vorher cdnjs + jsdelivr) und
+   tragen defer — die beiden preconnects dorthin sind damit entfallen.
    Schriften kommen selbst gehostet aus global.css (kein Google-Fonts-Request). */
 import AuditCTA from './AuditCTA.astro';
 ---
-
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
 <div id="cai-premium">
 <div class="progress"><i id="prog"></i></div>
@@ -372,12 +371,22 @@ import AuditCTA from './AuditCTA.astro';
      gehört in den Leistungs-/Preisbereich, wo über Laufzeit & Konditionen gesprochen wird. -->
 </div>
 
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script is:inline src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha384-li4UtcFCH6QeUqR4JyV58/VgTprMuz9aauj+oWtew7V4Y7ZVjnvz5px9Y3UCG0Ea" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Animationsbibliotheken — seit 04.08.2026 selbst gehostet und mit defer.
+     Vorher lagen sie ohne defer auf cdnjs und jsdelivr; Lighthouse wies sie als
+     renderblockierend mit rund 1.090 ms aus, und der LCP-Absatz im Hero wartete
+     2,34 s auf sein Rendering. Selbst ausgeliefert entfallen zusätzlich zwei
+     fremde Verbindungsaufbauten (DNS + TLS), zwei preconnects und zwei
+     CSP-Ausnahmen. Die Dateien in public/vendor/ stammen aus den npm-Paketen
+     gsap@3.12.5 und @studio-freight/lenis@1.0.42 und sind byte-identisch mit
+     dem, was die CDNs ausgeliefert haben — geprüft gegen die vorher hier
+     stehenden SRI-Hashes. Bei einem Versionswechsel: Datei tauschen,
+     Versionsnummer im Dateinamen mitziehen. -->
+<script is:inline defer src="/vendor/gsap-3.12.5.min.js"></script>
+<script is:inline defer src="/vendor/ScrollTrigger-3.12.5.min.js"></script>
+<script is:inline defer src="/vendor/lenis-1.0.42.min.js"></script>
 <script is:inline>
 
-(function(){
+function codaHomeInit(){
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- FlipWords (läuft immer, auch reduced) ----------
@@ -817,7 +826,19 @@ import AuditCTA from './AuditCTA.astro';
   setTimeout(function(){ ScrollTrigger.refresh(); }, 600);
   setTimeout(function(){ ScrollTrigger.refresh(); }, 1600);
   window.addEventListener('resize', function(){ ScrollTrigger.refresh(); });
-})();
+}
+
+/* Startsignal. Die drei Bibliotheken oben tragen defer, laufen also erst nach
+   dem Parsen — aber garantiert VOR DOMContentLoaded. Deshalb hängt der Init
+   hier dran statt sofort zu laufen; sonst wäre gsap zum Aufrufzeitpunkt noch
+   nicht definiert und die Seite fiele in den statischen Zustand
+   (body:not(.anim)) zurück. Der else-Zweig fängt den Fall ab, dass das
+   Dokument bereits fertig geparst ist (bfcache, sehr schnelle Verbindung). */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', codaHomeInit);
+} else {
+  codaHomeInit();
+}
 
 </script>
 
@@ -839,6 +860,10 @@ import AuditCTA from './AuditCTA.astro';
      wuerde die Nachbildung ihre Glaubwuerdigkeit verlieren.                  */
   #cai-premium{
     --magenta:hsl(var(--cta));
+    /* 04.08.2026: Flaechen mit weisser Schrift nehmen --magenta-strong
+       (#C405E6, Weiss 4,65:1). --magenta bleibt fuer alles ohne Text:
+       Punkte, Cursor, Pulse, Fortschrittsbalken. */
+    --magenta-strong:hsl(var(--cta-strong));
     --magenta-ink:hsl(var(--cta-accessible));   /* #9904B4 — 6,9:1 auf weiss */
     --bg:hsl(var(--background));
     --muted:hsl(var(--surface-mist));
@@ -883,18 +908,30 @@ import AuditCTA from './AuditCTA.astro';
   .logo b{color:var(--magenta)}
   .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:12px;font-weight:600;font-size:.95rem;padding:.7rem 1.25rem;
     transition:transform .18s ease,opacity .18s,box-shadow .18s;will-change:transform}
-  .btn.cta{background:var(--magenta);color:#fff;box-shadow:0 10px 30px -12px hsl(var(--cta) / .7)}
+  .btn.cta{background:var(--magenta-strong);color:#fff;box-shadow:0 10px 30px -12px hsl(var(--cta) / .7)}
   .btn.cta:hover{box-shadow:0 14px 36px -10px hsl(var(--cta) / .85)}
   .btn.ghost{border:1px solid var(--line2);color:var(--fg)}
   .mag{display:inline-block}
 
   /* ============ HERO ============ */
   .hero{padding:150px 0 90px;overflow:hidden}
-  .hero-aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55}
+  /* contain:strict nimmt die drei Blobs aus der Layout-Berechnung heraus.
+     Sie sind reine Dekoration, haben feste Masse und duerfen die Seite nichts
+     kosten — vorher meldete Lighthouse fuer .b3 ein CLS von 0,033, den
+     gesamten Wert der Seite. Ursache war die prozentuale Verankerung: sobald
+     die Schrift geladen war und der Hero seine endgueltige Hoehe bekam,
+     wanderte der Blob mit und zaehlte als Layout-Sprung. */
+  .hero-aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;contain:strict}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
+    /* eigene Compositing-Ebene: die Bewegung laeuft dann auf der GPU und
+       nicht ueber den Hauptthread (Lighthouse: „nicht zusammengesetzte
+       Animationen"). */
+    will-change:transform;contain:strict}
   .b1{width:520px;height:520px;top:-120px;right:8%;background:radial-gradient(circle at 30% 30%,hsl(var(--cta) / .5),transparent 70%);animation:float1 14s ease-in-out infinite}
   .b2{width:460px;height:460px;bottom:-160px;left:2%;background:radial-gradient(circle at 60% 40%,hsl(var(--navy-500) / .32),transparent 70%);animation:float2 18s ease-in-out infinite}
-  .b3{width:300px;height:300px;top:30%;left:44%;background:radial-gradient(circle,hsl(var(--cta) / .22),transparent 70%);animation:float1 20s ease-in-out infinite reverse}
+  /* top in px statt 30 %: unabhaengig von der Hero-Hoehe, die sich beim
+     Schriftwechsel noch einmal aendert. */
+  .b3{width:300px;height:300px;top:220px;left:44%;background:radial-gradient(circle,hsl(var(--cta) / .22),transparent 70%);animation:float1 20s ease-in-out infinite reverse}
   @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
   @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
   .hero-spot{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s;
@@ -922,7 +959,7 @@ import AuditCTA from './AuditCTA.astro';
   .hero p.desc{margin-top:22px;max-width:56ch;color:hsl(var(--foreground));line-height:1.65;font-size:1.04rem}
   .hero .ctas{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px}
   .hero .pb{margin-top:22px;display:flex;align-items:center;gap:10px;color:var(--mut);font-size:.9rem}
-  .hero .pb i{width:20px;height:20px;border-radius:5px;background:var(--magenta);display:inline-grid;place-items:center;color:#fff;font-size:9px;font-weight:800;font-style:normal}
+  .hero .pb i{width:20px;height:20px;border-radius:5px;background:var(--magenta-strong);display:inline-grid;place-items:center;color:#fff;font-size:9px;font-weight:800;font-style:normal}
 
   /* KI-Karte */
   .kicard-wrap{position:relative;z-index:2;perspective:1200px}
@@ -1063,12 +1100,12 @@ import AuditCTA from './AuditCTA.astro';
   .sr{border-bottom:1px solid var(--line);padding:12px 0}.sr:last-child{border:0}
   .sr .t{font-size:.98rem;font-weight:600;color:#1A4FD6}.sr .u{font-size:.72rem;color:#0E7A4A;margin:2px 0}.sr .s{font-size:.85rem;color:var(--mut)}
   .sr.you{border:1.5px solid var(--magenta);background:hsl(var(--cta) / .05);border-radius:12px;padding:12px 14px;margin:8px 0}
-  .sr.you .tag{display:inline-block;background:var(--magenta);color:#fff;font-size:.68rem;font-weight:800;border-radius:999px;padding:2px 9px;margin-bottom:6px}
+  .sr.you .tag{display:inline-block;background:var(--magenta-strong);color:#fff;font-size:.68rem;font-weight:800;border-radius:999px;padding:2px 9px;margin-bottom:6px}
   .sr.you .t{color:var(--magenta-ink)}
   .aio{border:1.5px solid hsl(var(--cta) / .25);background:linear-gradient(180deg,hsl(var(--cta) / .04),hsl(var(--cta) / .09));border-radius:16px;padding:18px 20px}
   .aio .h{display:flex;align-items:center;gap:8px;font-weight:800;color:hsl(var(--foreground));font-size:.9rem;margin-bottom:8px}
   .aio p{font-size:.95rem;line-height:1.6;color:hsl(var(--foreground))}.aio strong{color:hsl(var(--foreground))}
-  .miss{margin-top:14px;display:inline-flex;align-items:center;gap:6px;background:var(--magenta);color:#fff;font-size:.75rem;font-weight:800;border-radius:999px;padding:6px 13px}
+  .miss{margin-top:14px;display:inline-flex;align-items:center;gap:6px;background:var(--magenta-strong);color:#fff;font-size:.75rem;font-weight:800;border-radius:999px;padding:6px 13px}
   .missnote{margin-top:10px;font-size:.82rem;color:var(--mut)}
   .gpt{background:var(--fg);color:#fff;border-radius:16px;padding:20px}
   .gpt .u{margin-left:auto;max-width:420px;background:rgba(255,255,255,.15);border-radius:16px 16px 6px 16px;padding:10px 14px;font-size:.9rem;margin-bottom:14px}
@@ -1097,14 +1134,14 @@ import AuditCTA from './AuditCTA.astro';
   .d-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;font-weight:600;color:hsl(var(--foreground))}
   .d-row:last-child{border:0}
   .d-rank{width:22px;height:22px;border-radius:50%;background:var(--muted);color:var(--mut);font-size:.75rem;font-weight:800;display:grid;place-items:center;flex:none}
-  .d-row.you{color:var(--magenta-ink)}.d-row.you .d-rank{background:var(--magenta);color:#fff}
+  .d-row.you{color:var(--magenta-ink)}.d-row.you .d-rank{background:var(--magenta-strong);color:#fff}
   .d-aio{border:1.5px solid hsl(var(--cta) / .25);background:linear-gradient(180deg,hsl(var(--cta) / .04),hsl(var(--cta) / .09));border-radius:14px;padding:16px}
   .d-aio .h{display:flex;align-items:center;gap:6px;font-weight:800;font-size:.85rem;color:hsl(var(--foreground));margin-bottom:8px}
   .d-aio p{font-size:.9rem;line-height:1.55;color:hsl(var(--foreground));margin:0}.d-aio strong{color:hsl(var(--foreground))}
   .d-gpt{background:var(--fg);color:#fff;border-radius:14px;padding:16px}
   .d-gpt .u{margin-left:auto;max-width:82%;background:rgba(255,255,255,.15);border-radius:14px 14px 4px 14px;padding:8px 12px;font-size:.82rem;margin-bottom:12px}
   .d-gpt p{font-size:.86rem;line-height:1.55;color:rgba(255,255,255,.85);margin:0}.d-gpt strong{color:#fff}
-  .d-check{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:#fff;background:var(--magenta);border-radius:999px;padding:5px 11px}
+  .d-check{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:#fff;background:var(--magenta-strong);border-radius:999px;padding:5px 11px}
   .hz-sum{text-align:center;font-weight:700;color:hsl(var(--foreground));max-width:660px;margin:0 auto;padding:14px 20px 72px;font-size:1.08rem}
   .hz-sum b{color:var(--magenta-ink)}
   /* ============ CONCLUSIO — Farbüberblendung + Zitat-Reveal ============ */
@@ -1170,7 +1207,7 @@ import AuditCTA from './AuditCTA.astro';
   .sys-tablist{display:inline-flex;gap:4px;background:hsl(var(--surface-slate));border-radius:999px;padding:5px;max-width:100%;flex-wrap:wrap;justify-content:center}
   .sys-tab{position:relative;overflow:hidden;border:0;background:transparent;cursor:pointer;font-family:inherit;font-weight:700;
     font-size:.95rem;color:hsl(var(--navy-600));padding:10px 22px;border-radius:999px;transition:color .3s,background .3s}
-  .sys-tab.on{background:var(--magenta);color:#fff;box-shadow:0 8px 22px -8px hsl(var(--cta) / .75)}
+  .sys-tab.on{background:var(--magenta-strong);color:#fff;box-shadow:0 8px 22px -8px hsl(var(--cta) / .75)}
   .sys-tab .pgr{position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(12,17,32,.25)}
   .sys-tab.on .pgr{background:rgba(255,255,255,.75)}
   .sys-body{position:relative;margin-top:30px}
@@ -1361,12 +1398,12 @@ import AuditCTA from './AuditCTA.astro';
     text-decoration-thickness:1.5px;text-underline-offset:4px}
   .accbtn:hover .ar,.accbtn:focus-visible .ar{border-color:var(--magenta);color:var(--magenta);
     background:hsl(var(--cta) / .1)}
-  .accbtn[aria-expanded="true"] .ar{background:var(--magenta);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
+  .accbtn[aria-expanded="true"] .ar{background:var(--magenta-strong);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
   .accbody{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);border-bottom:1px solid var(--line2)}
   .tabs{display:flex;gap:8px;padding:4px 0 20px;flex-wrap:wrap}
   .tab{background:var(--card);border:1px solid var(--line2);color:var(--mut);border-radius: var(--btn-radius);
     padding:9px 18px;font:inherit;font-size:.86rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:.25s}
-  .tab.on{background:var(--magenta);border-color:var(--magenta);color:#fff}
+  .tab.on{background:var(--magenta-strong);border-color:var(--magenta);color:#fff}
   .panes{padding-bottom:24px}
   .pane{display:none;max-width:66ch}
   .pane.on{display:block}

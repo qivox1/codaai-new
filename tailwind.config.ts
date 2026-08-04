@@ -106,6 +106,9 @@ export default {
           accessible: "hsl(var(--cta-accessible))",
           "on-dark": "hsl(var(--cta-on-dark))",
           hover: "hsl(var(--cta-hover))",
+          // bg-cta-strong: Signalflaeche unter heller Schrift unter 24 px.
+          // Begruendung und Abgrenzung zu bg-cta: global.css, Abschnitt Signal.
+          strong: "hsl(var(--cta-strong))",
         },
         border: "hsl(var(--border))",
         "border-strong": "hsl(var(--border-strong))",

@@ -95,7 +95,7 @@ const currentYear = new Date().getFullYear();
               steht. Jetzt explizit Navy-200: 10,0:1 auf Ink. */}
           <span class="mt-1 block text-sm text-ondark-muted">449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.</span>
         </span>
-        <span class="inline-flex flex-none items-center gap-2 rounded-[14px] bg-cta px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
+        <span class="inline-flex flex-none items-center gap-2 rounded-[14px] bg-cta-strong px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
           Zur Studie →
         </span>
       </a>
@@ -116,10 +116,16 @@ const currentYear = new Date().getFullYear();
             „AI + HI" erklaert sich nicht von selbst, dort steht die Herleitung.
             Die erklaerende Zeile darunter macht ihn auch ohne Klick lesbar. */}
         <div class="mt-3">
+          {/* Kein aria-label am Link (04.08.2026): Ein Label, das den sichtbaren
+              Text ersetzt, verstoesst gegen WCAG 2.5.3 — Sprachsteuerung kennt
+              dann nur „Das CoCreate-Prinzip", waehrend der Nutzer „AI + HI.
+              Amplified." vorliest. Weil der Footer sitewide steht, zaehlte das
+              47 Mal als Fehler. Der Zusatz haengt jetzt als sr-only HINTER dem
+              sichtbaren Text, der zugaengliche Name enthaelt ihn damit. Gleiche
+              Loesung wie beim Studien-Teaser am 03.08.2026. */}
           <a
             href={lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`}
             class="group inline-block"
-            aria-label={t(lang, "footer.taglineLinkLabel")}
           >
             {/* Eine Zeile, zwei Gewichte (Beschluss Oli 04.08.2026): „AI + HI."
                 traegt den Satz normal, „Amplified." setzt die Pointe — fett und
@@ -128,6 +134,7 @@ const currentYear = new Date().getFullYear();
             <p class="text-base text-ondark transition-colors group-hover:text-cta-on-dark">
               <span class="font-normal">{t(lang, "footer.tagline1")}</span>{' '}
               <span class="font-bold text-cta">{t(lang, "footer.tagline2")}</span>
+              <span class="sr-only"> — {t(lang, "footer.taglineLinkLabel")}</span>
             </p>
           </a>
           {/* Zwei gesetzte Zeilen: Leistung und Lenkung stehen einander gegenueber,

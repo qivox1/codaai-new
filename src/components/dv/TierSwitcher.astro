@@ -54,7 +54,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
           tier.key === 'basis' ? 'border-cta' : 'border-border',
         ]}
       >
-        <span class="cai-tabrec absolute -top-2.5 right-4 rounded-full bg-cta px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">Empfohlen</span>
+        <span class="cai-tabrec absolute -top-2.5 right-4 rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">Empfohlen</span>
         <span class="flex w-full items-center justify-between gap-3">
           <span class="font-semibold text-foreground">{tier.name}</span>
           <span class="cai-tabprice text-xs text-muted-foreground">{tier.price}</span>
@@ -80,7 +80,7 @@ const steepness: Record<string, 'flat' | 'medium' | 'steep'> = {
                   data-tiercol={key}
                   class="cai-tiercol py-4 px-4 text-sm font-semibold text-foreground text-center align-bottom rounded-t-xl"
                 >
-                  {key !== 'ohne' && <span class="cai-tierbadge mb-1 inline-block rounded-full bg-cta px-2.5 py-0.5 text-[11px] font-semibold text-white">Ihre Empfehlung</span>}
+                  {key !== 'ohne' && <span class="cai-tierbadge mb-1 inline-block rounded-full bg-cta-strong px-2.5 py-0.5 text-[11px] font-semibold text-white">Ihre Empfehlung</span>}
                   <span class="block">{tier.name}</span>
                   {key !== 'ohne' && (
                     <span class="cai-tierprice block font-normal text-muted-foreground">{tier.price.replace(' / Monat', '/Mon.')}</span>

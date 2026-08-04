@@ -367,7 +367,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
         onClick={() => { if (done) editStep(nm); }}
         className={`flex w-full items-center gap-3 text-left ${done ? 'cursor-pointer' : 'cursor-default'}`}
       >
-        <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${openStep === nm || done ? 'bg-cta text-cta-foreground' : 'bg-muted text-muted-foreground'}`}>
+        <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${openStep === nm || done ? 'bg-cta-strong text-cta-foreground' : 'bg-muted text-muted-foreground'}`}>
           {done ? <Check className="h-4 w-4" /> : n}
         </span>
         <span className="font-semibold text-foreground">{title}</span>
@@ -419,7 +419,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
         {view === 'fallback' && (
           <div className="py-4">
             <p className="mb-4 text-muted-foreground">{t.fallbackText}</p>
-            <a href={FALLBACK_URL} className="inline-flex items-center justify-center rounded-[14px] bg-cta px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90">
+            <a href={FALLBACK_URL} className="inline-flex items-center justify-center rounded-[14px] bg-cta-strong px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90">
               {t.fallbackBtn}
             </a>
           </div>
@@ -505,7 +505,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                     <div className="mb-3 inline-flex rounded-lg border border-border p-1">
                       {(['am', 'pm'] as const).map((p) => (
                         <button key={p} type="button" onClick={() => setSelPart(p)}
-                          className={`rounded-[14px] px-3 py-1 text-sm font-medium transition-colors ${selPart === p ? 'bg-cta text-cta-foreground' : 'text-muted-foreground hover:text-cta-accessible'}`}>
+                          className={`rounded-[14px] px-3 py-1 text-sm font-medium transition-colors ${selPart === p ? 'bg-cta-strong text-cta-foreground' : 'text-muted-foreground hover:text-cta-accessible'}`}>
                           {p === 'am' ? t.am : t.pm}
                         </button>
                       ))}
@@ -514,7 +514,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                     {slotTimes.map((s) => (
                       <button key={s.iso} type="button" onClick={() => selectSlot(s.iso)}
-                        className={`rounded-[14px] border py-2 text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 ${s.iso === selIso ? 'border-cta bg-cta text-cta-foreground shadow-sm' : 'border-border text-foreground hover:border-cta hover:bg-cta/10'}`}>
+                        className={`rounded-[14px] border py-2 text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 ${s.iso === selIso ? 'border-cta bg-cta-strong text-cta-foreground shadow-sm' : 'border-border text-foreground hover:border-cta hover:bg-cta/10'}`}>
                         {s.hm}
                       </button>
                     ))}
@@ -535,7 +535,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
                   )}
                   <input className={inputCls} type="text" placeholder={t.company} autoComplete="organization" value={company} onChange={(e) => setCompany(e.target.value)} required />
                   <button type="submit" disabled={!contactOk || busy}
-                    className="flex w-full items-center justify-center gap-2 rounded-[14px] bg-cta px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
+                    className="flex w-full items-center justify-center gap-2 rounded-[14px] bg-cta-strong px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
                     {busy ? (<><Loader2 className="h-4 w-4 animate-spin" /> {selType === 'call' ? t.sendingCode : t.booking}</>) : t.book}
                   </button>
                   <p className="text-center text-xs text-muted-foreground">{t.reassureCta}</p>
@@ -557,7 +557,7 @@ export default function BookingWidget({ lang = 'de' }: Props) {
               onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
             />
             <button type="button" disabled={!/^\d{6}$/.test(code) || busy} onClick={() => doBook(true)}
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded-[14px] bg-cta px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-[14px] bg-cta-strong px-5 py-3 font-semibold text-cta-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
               {busy ? (<><Loader2 className="h-4 w-4 animate-spin" /> {t.booking}</>) : t.verifyBook}
             </button>
             <div className="mt-3 flex justify-between text-sm">

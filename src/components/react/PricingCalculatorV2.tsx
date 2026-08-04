@@ -367,7 +367,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
 
   const stepBox = 'py-6 border-b border-border last:border-b-0 first:pt-0 last:pb-0';
   const stepLabel = 'flex items-center gap-3 text-sm font-semibold text-foreground mb-4';
-  const stepNum = 'flex h-5 w-5 flex-none items-center justify-center rounded-full bg-cta text-[11px] font-bold text-white';
+  const stepNum = 'flex h-5 w-5 flex-none items-center justify-center rounded-full bg-cta-strong text-[11px] font-bold text-white';
 
   return (
     <section
@@ -400,7 +400,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                     aria-current={active ? 'step' : undefined}
                     className={`flex h-8 items-center justify-center rounded-[14px] text-[12.5px] font-semibold transition-colors ${
                       active
-                        ? 'gap-2 bg-cta px-3 text-white'
+                        ? 'gap-2 bg-cta-strong px-3 text-white'
                         : done
                           ? 'w-8 bg-cta/10 text-cta-accessible hover:bg-cta/20'
                           : 'w-8 text-muted-foreground'

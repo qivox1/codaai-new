@@ -1,10 +1,39 @@
 /* Selbst gehostete Schriften — kein Google-Fonts-Request.
-   Inter: Fließtext sitewide. Instrument Serif + Playfair Display:
-   nur die Outcome-Szene der Startseite (premium/Home.astro). */
-@import '@fontsource-variable/inter/wght.css';
+   Inter: Fließtext sitewide. Instrument Serif: die Outcome-Szene der
+   Startseite (premium/Home.astro).
+
+   04.08.2026 — Umstellung auf Latein, ausgelöst durch Lighthouse
+   („24 KiB ungenutztes CSS"):
+   • `@fontsource-variable/inter/wght.css` brachte SIEBEN @font-face-Blöcke mit
+     (kyrillisch, kyrillisch-erweitert, griechisch, griechisch-erweitert,
+     vietnamesisch, lateinisch-erweitert, lateinisch). Gebraucht wird genau
+     einer. Die Blöcke werden per `inlineStylesheets: 'always'` in JEDE Seite
+     einkopiert — sie kosten also auf jedem Seitenaufruf Bytes, ohne dass die
+     zugehörigen Dateien je geladen würden. Deshalb steht die eine benötigte
+     Deklaration jetzt hier, wörtlich aus dem Paket übernommen.
+   • Lateinisch-erweitert ist bewusst NICHT dabei: Deutsch und Englisch liegen
+     vollständig im Bereich U+0000-00FF. Fehlt einem Sonderzeichen doch einmal
+     die Glyphe, ersetzt der Browser nur dieses Zeichen aus der Systemschrift.
+   • `@fontsource-variable/playfair-display` ist ganz entfallen. Es deklariert
+     die Familie als „Playfair Display Variable", `.t-mega` in Home.astro fragt
+     aber nach „Playfair Display" — die Schrift kam also nie zur Anwendung, die
+     Szene lief immer schon auf Georgia. Vier weitere tote @font-face-Blöcke.
+     Wer Playfair wirklich will: Paket-Import zurückholen UND in Home.astro den
+     Familiennamen um „ Variable" ergänzen. */
+/* @import muss vor allen anderen Regeln stehen — deshalb zuerst die beiden
+   Instrument-Serif-Dateien (die sind bereits latein-only), dann das
+   handgeschriebene @font-face für Inter. */
 @import '@fontsource/instrument-serif/latin-400.css';
 @import '@fontsource/instrument-serif/latin-400-italic.css';
-@import '@fontsource-variable/playfair-display/wght.css';
+
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
 
 @tailwind base;
 @tailwind components;
@@ -120,6 +149,28 @@
   --cta-accessible: 291 96% 36%; /* #9904B4 — Text auf Hell, 6,9:1 */
   --cta-on-dark: 291 96% 75%;    /* #EA82FC — die Fehlstelle auf Ink / Abyss */
   --cta-hover: 291 96% 54%;      /* gedrückter Zustand — ersetzt #c231e0 */
+
+  /* ── Signalfläche unter heller Schrift (04.08.2026) ──────────────────────
+     #C405E6 — derselbe Farbton wie --cta (H 291, S 96 %), nur tiefer.
+     Anlass: Weiß auf #DF41FB erreicht gemessene 3,34:1. Für Text unter 24 px
+     verlangt WCAG AA 4,5:1 — jeder Button der Website fiel damit durch, und
+     Lighthouse führte sie namentlich auf. Auf #C405E6 hält Weiß 4,65:1.
+     Es ist derselbe Wert, den Oli am 03.08. für den Angebotsblock der
+     Startseite gewählt hat, nachdem er die Zwischenstufe #9A04B4 als „wirkt
+     violett" verworfen hatte — der pinkste Ton, bei dem Weiß noch trägt.
+
+     Wann --cta, wann --cta-strong?
+       --cta         Flächen OHNE Text: Punkte, Regler, Fortschrittsbalken,
+                     Icon-Kacheln — und große fette Schrift ab 24 px.
+       --cta-strong  Jede Fläche, auf der helle Schrift unter 24 px steht:
+                     Buttons, Badges, Chips, Nummernkreise.
+       --cta-accessible  Magenta als SCHRIFT auf hellem Grund (6,9:1).       */
+  --cta-strong: 291 96% 46%;       /* #C405E6 — Weiß darauf: 4,65:1 */
+  --cta-strong-hover: 291 96% 40%; /* Hover geht nach UNTEN, nie nach oben:
+                                      ein aufhellender Hover (oder Deckkraft
+                                      unter 1 auf hellem Grund) würde den
+                                      Kontrast genau im Moment der Interaktion
+                                      wieder unter 4,5:1 drücken. */
 
   /* Platzhaltertext in Eingabefeldern. Navy-400 ist NUR hier zulässig:
      4,8:1 auf Weiß. Auf Mist oder Slate fällt es durch — dort gehören
@@ -263,7 +314,9 @@
     gap: 0.5rem;
     overflow: hidden;
     border-radius: var(--btn-radius);
-    background-color: hsl(var(--cta));
+    /* 04.08.2026: --cta-strong statt --cta. Weiß auf dem hellen Magenta lag
+       gemessen bei 3,34:1 und riss damit auf JEDEM Button die AA-Grenze. */
+    background-color: hsl(var(--cta-strong));
     color: white;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -292,7 +345,7 @@
   }
 
   .btn-cta:hover {
-    background-color: hsl(var(--cta) / 0.92);
+    background-color: hsl(var(--cta-strong-hover));
     box-shadow:
       0 4px 16px hsl(var(--cta) / 0.45),
       0 1px 4px hsl(var(--cta) / 0.25);
