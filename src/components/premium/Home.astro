@@ -1033,11 +1033,15 @@ import AuditCTA from './AuditCTA.astro';
   .p-stat .lab{margin-top:.5rem;font-size:.82rem;color:var(--d-mut);line-height:1.45}
   .p-stat .src{margin-top:.5rem;font-size:.66rem;color:hsl(var(--navy-200))}
   @media(max-width:900px){.p-stat{position:static;transform:none;width:auto;margin-top:1rem}}
-  /* Pointen-Flaeche: liegt ueber der Browser-Karte und traegt exakt dieselbe
-     Flaeche wie die Buehne ringsum — deckend Abyss, nicht durchscheinend.
-     Bei Teildeckung schien die hellere Navy-800-Karte durch und das Feld hob
-     sich als hellerer Kasten ab. Rundung wie die Karte darunter.
-     Entscheidung Oli 04.08.2026 — bitte in der .style.css-Vorlage nachziehen. */
+  /* ⚠️ NICHT auf rgba(10,10,15,…) und auch nicht auf rgba(12,17,32,.955/.995)
+     zuruecksetzen. Beides wurde am 04.08.2026 am Bildschirm geprueft:
+     Schwarz sass kalt neben der Abyss-Buehne, und selbst mit dem richtigen
+     Navy-Ton hob sich das Feld bei 95,5 % Deckkraft noch als HELLERER Kasten
+     ab, weil die Browser-Karte darunter auf Navy-800 liegt und durchschien.
+     Deshalb DECKEND und ohne Weichzeichner — exakt dieselbe Flaeche wie die
+     Buehne ringsum — plus dieselbe Rundung wie die Karte darunter, sonst
+     schaut an den vier Ecken die Buehne unter dem Rechteck hervor.
+     Entscheidung Oli 04.08.2026, zweimal nachgebessert. */
   .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:hsl(var(--surface-abyss));border-radius:16px;opacity:0;pointer-events:none;z-index:50}
   .punch .num{font-size:clamp(3.5rem,12vw,8rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,#fff,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
   .punch .cap{font-size:clamp(1.1rem,2.6vw,1.7rem);font-weight:600;max-width:24ch;line-height:1.3}
@@ -1515,7 +1519,7 @@ import AuditCTA from './AuditCTA.astro';
     font-size:clamp(1.05rem,1.9vw,1.4rem);font-weight:500;line-height:1.42;letter-spacing:-.02em}
   .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
   @media(max-width:900px){.tiers{grid-template-columns:1fr}}
-  .tier{background:#fff;border-radius:18px;padding:22px 22px 24px;box-shadow:0 16px 44px rgba(70,8,84,.22)}
+  .tier{background:#fff;border-radius:18px;padding:22px 22px 24px;box-shadow:0 16px 44px rgba(12,17,32,.28)}
   .tbars{display:flex;gap:5px;align-items:flex-end;height:26px;margin-bottom:15px}
   .tbars i{width:11px;border-radius:3px;background:hsl(var(--navy-200));display:block;height:40%}
   .tbars i:nth-child(2){height:68%}
