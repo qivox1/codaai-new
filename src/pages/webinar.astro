@@ -721,7 +721,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 <style>
   /* ── Scroll-Audit-Bühne (Geometrie identisch zum Video-Render) ── */
   .audit-pin { height: 300vh; position: relative; margin-top: 3.5rem; }
-  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #0d0d10; border-radius: 24px; }
+  .audit-scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: hsl(var(--surface-ink)); border-radius: 24px; }
   .audit-scene::before {
     content: "";
     position: absolute;
@@ -749,7 +749,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     text-align: right; font-size: max(14px, calc(var(--s, 0.5) * 40px)); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;
   }
   .audit-title .at-c { color: #fff; }
-  .audit-title .at-p { color: #DF41FB; }
+  .audit-title .at-p { color: hsl(var(--cta-on-dark)); }
   .audit-labels {
     position: absolute; z-index: 2; right: 30px; /* wird per JS auf die linke Titelkante gesetzt */
     bottom: calc(50% + var(--s, 0.5) * -405px);
@@ -771,7 +771,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
   }
   .audit-bar { position: absolute; left: 24px; bottom: 48px; width: 180px; height: 3px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; z-index: 2; }
-  .audit-bar i { display: block; height: 100%; width: 0%; background: #DF41FB; border-radius: 2px; }
+  .audit-bar i { display: block; height: 100%; width: 0%; background: hsl(var(--cta)); border-radius: 2px; }
   @media (prefers-reduced-motion: reduce) {
     .audit-pin { height: auto; }
     .audit-scene { position: relative; height: 80vh; }
@@ -822,7 +822,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 <style>
   /* ── Fixed chrome: Fortschrittsbalken + Grain ── */
   .wfx-progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; z-index: 60; background: transparent; pointer-events: none; }
-  .wfx-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #DF41FB, #7c3aed); }
+  .wfx-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, hsl(var(--cta)), hsl(var(--navy-600))); }
   .wfx-grain {
     position: fixed; inset: 0; z-index: 59; pointer-events: none; opacity: .028; mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -861,9 +861,9 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
   /* ── Agenda: selbstzeichnende Timeline (nur mit GSAP aktiv → wfx-gsap) ── */
   .wfx-agrail { position: absolute; left: .55rem; top: .6rem; bottom: .6rem; width: 2px; border-radius: 2px; background: hsl(var(--border)); overflow: hidden; pointer-events: none; }
-  .wfx-agrail b { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: scaleY(0); transform-origin: top; background: linear-gradient(#DF41FB, #7c3aed); }
+  .wfx-agrail b { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: scaleY(0); transform-origin: top; background: linear-gradient(hsl(var(--cta)), hsl(var(--navy-600))); }
   .wfx-agdot { position: absolute; left: -1.72rem; top: 1.7rem; width: 12px; height: 12px; border-radius: 50%; background: hsl(var(--border)); border: 2px solid hsl(var(--card)); transition: background .35s ease, box-shadow .35s ease; }
-  .wfx-agdot.wfx-lit { background: #DF41FB; box-shadow: 0 0 0 4px rgba(223,65,251,.15); }
+  .wfx-agdot.wfx-lit { background: hsl(var(--cta)); box-shadow: 0 0 0 4px hsl(var(--cta) / .15); }
   @media (min-width: 640px) {
     body.wfx-gsap .wfx-agenda { position: relative; padding-left: 2rem; }
     body.wfx-gsap .wfx-agitem { position: relative; }
@@ -881,7 +881,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     padding: clamp(48px, 7vw, 76px) max(1.5rem, calc(50vw - 40rem)) clamp(48px, 7vw, 76px);
-    background: #101014;
+    background: hsl(var(--surface-ink));
     overflow: hidden;
   }
   /* Dezenter Pink-Schimmer, damit der Block nicht als schwarzes Loch wirkt */
@@ -925,7 +925,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   .cai-psband .ps-ask .ps-h2 { color: #fff; }
   .cai-psband .ps-ask p { color: rgba(255,255,255,.72); }
   .cai-psband .ps-ask .text-cta-accessible { color: hsl(var(--cta)) !important; }
-  .cai-psband .ps-work { border-color: hsl(var(--cta)); background: #17171d !important; }
+  .cai-psband .ps-work { border-color: hsl(var(--cta)); background: hsl(var(--navy-800)) !important; }
   .cai-psband .ps-work p { color: #fff; }
 
   #pruefstand .ps-h2 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); }
@@ -974,7 +974,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
 
   /* Befund — Vollfläche */
   #pruefstand .ps-res { background: #C405E6; color: #fff; }
-  #pruefstand .ps-res-kicker { color: #fff; opacity: .8; }
+  #pruefstand .ps-res-kicker { color: #fff; }
   #pruefstand .ps-dom { font-size: clamp(1.6rem, 3.4vw, 2.35rem); color: #fff; }
   #pruefstand .ps-head {
     font-size: clamp(2.9rem, 6.4vw, 4.1rem); color: #fff;
