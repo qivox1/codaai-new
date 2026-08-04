@@ -550,7 +550,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   };
 
   const post = async (body: Record<string, any>) => {
-    const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(body) });
+    const res = await fetch(ENDPOINT, { method: 'POST', cache: 'reload', body: JSON.stringify(body) });
     return res.json();
   };
 
@@ -614,7 +614,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   setInterval(tickCd, 1000);
 
   // ── Anmeldungen-Zähler (Social Proof) — erscheint erst ab 50 Anmeldungen ─
-  fetch(`${ENDPOINT}?action=webinar_seats`)
+  fetch(`${ENDPOINT}?action=webinar_seats`, { cache: 'reload' })
     .then((r) => r.json())
     .then((j) => {
       const el = $('w-seats');
@@ -1258,7 +1258,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
       var bail = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (_) {} }, 12000);
       var t0 = Date.now();
 
-      fetch(ENDPOINT + '?domain=' + encodeURIComponent(dom), { signal: sig })
+      fetch(ENDPOINT + '?domain=' + encodeURIComponent(dom), { signal: sig, cache: 'reload' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
           clearTimeout(bail);

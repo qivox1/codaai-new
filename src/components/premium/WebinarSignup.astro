@@ -227,8 +227,16 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
         setState('sending');
         var lang = 'de';
         try { lang = document.documentElement.lang || 'de'; } catch (e) {}
+        // cache:'reload' ist Pflicht, nicht Kosmetik. Die /exec-URL antwortet mit
+        // einer Weiterleitung auf script.googleusercontent.com, deren Schluessel
+        // jeder neue Apps-Script-Deploy entwertet. Ein Browser, der die alte
+        // Weiterleitung gemerkt hat, bekommt eine 404-HTML-Seite; r.json() wirft,
+        // und der Nutzer sieht "Da ist etwas schiefgelaufen", obwohl das Backend
+        // laeuft. Genau das ist am 04.08.2026 passiert. Kein Cache-Buster als
+        // Query-Parameter: den beantwortet Google an /exec selbst mit 404.
         fetch(ENDPOINT, {
           method: 'POST',
+          cache: 'reload',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ action: 'webinar_register', name: first + ' ' + last, email: email, domain: dom, phone: '', position: '', slot: SLOT, consent: true, livetest: false })
         })

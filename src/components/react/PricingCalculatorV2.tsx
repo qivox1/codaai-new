@@ -350,7 +350,7 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
         content_sum: String(content), ext_sum: String(ext), total: String(total),
         config: configLine,
       });
-      const res = await fetch(OFFER_ENDPOINT, { method: 'POST', body });
+      const res = await fetch(OFFER_ENDPOINT, { method: 'POST', cache: 'reload', body });
       const json = await res.json().catch(() => ({ ok: false }));
       setPdfState(json && (json as any).ok ? 'ok' : 'fail');
     } catch (_) {
