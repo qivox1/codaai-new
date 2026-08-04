@@ -1033,7 +1033,10 @@ import AuditCTA from './AuditCTA.astro';
   .p-stat .lab{margin-top:.5rem;font-size:.82rem;color:var(--d-mut);line-height:1.45}
   .p-stat .src{margin-top:.5rem;font-size:.66rem;color:hsl(var(--navy-200))}
   @media(max-width:900px){.p-stat{position:static;transform:none;width:auto;margin-top:1rem}}
-  .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:radial-gradient(80% 60% at 50% 50%,rgba(10,10,15,.955),rgba(10,10,15,.995));backdrop-filter:blur(3px);opacity:0;pointer-events:none;z-index:50}
+  /* Pointen-Flaeche: liegt ueber der Browser-Karte und muss deshalb dieselbe
+     Flaeche tragen wie die Buehne ringsum (Abyss) und dieselbe Rundung wie die
+     Karte darunter — sonst steht dort ein schwarzes Rechteck mit scharfen Ecken. */
+  .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:radial-gradient(80% 60% at 50% 50%,hsl(var(--surface-abyss) / .955),hsl(var(--surface-abyss) / .995));border-radius:16px;backdrop-filter:blur(3px);opacity:0;pointer-events:none;z-index:50}
   .punch .num{font-size:clamp(3.5rem,12vw,8rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,#fff,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
   .punch .cap{font-size:clamp(1.1rem,2.6vw,1.7rem);font-weight:600;max-width:24ch;line-height:1.3}
   .punch .cap em{font-style:normal;color:var(--magenta)}
