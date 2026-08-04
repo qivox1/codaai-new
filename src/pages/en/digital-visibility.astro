@@ -678,6 +678,21 @@ const faqSchema = {
        class .cai-js, set by the script, enables collapsing.                  */
     .cai-head { cursor: default; }
     .cai-js .cai-head { cursor: pointer; }
+
+    /* Light blue surface for the header and the open panel (Oli, 04.08.2026).
+       The same surface as the evidence band on /en/webinar and the section
+       "This decision is made in three places" on the home page: `--muted`,
+       i.e. Navy-50. Not a colour of its own, just one step lighter — which
+       keeps the screen's signal budget free for the number and the button.
+       The change sits on `background-color`, never on `opacity`: tinted
+       opacity would dim the text with it (Guide: "never dim text with
+       opacity"). */
+    .cai-stufe { background: hsl(var(--card)); }
+    .cai-head { transition: background-color 0.22s ease; }
+    .cai-js .cai-head:hover,
+    .cai-js .cai-head:focus-visible { background: hsl(var(--muted)); }
+    .cai-js .cai-stufe.is-open,
+    .cai-js .cai-stufe.is-open .cai-head { background: hsl(var(--muted)); }
     .cai-chev { transition: transform 0.35s ease, color 0.2s ease; }
     .cai-js .cai-stufe:not(.is-open) .cai-chev { transform: rotate(-90deg); }
     .cai-js .cai-head:hover .cai-chev { color: hsl(var(--cta)); }
@@ -686,7 +701,7 @@ const faqSchema = {
        the number filled AND the border went magenta AND the card lifted AND a
        hint appeared — four stimuli at once. What stayed is the number; it sits
        at the start of the line and is signal enough.                          */
-    .cai-stufe { transition: border-color 0.25s ease; }
+    .cai-stufe { transition: border-color 0.25s ease, background-color 0.22s ease; }
 
     /* The number is the signal: on hover and in the open state it fills
        magenta. */
@@ -739,20 +754,20 @@ const faqSchema = {
       /* Deeper magenta instead of #DF41FB (decision Oli, 28.07.2026): white on
          the light pink reaches only ~3:1 contrast, at this depth ~7:1. Same
          colour family, but the card text stays readable.                     */
-      background: hsl(var(--cta-accessible));
-      border-color: hsl(var(--cta-accessible));
-      box-shadow: 0 14px 34px -18px hsl(var(--cta-accessible) / 0.6);
+      background: hsl(var(--surface-ink));
+      border-color: hsl(var(--surface-ink));
+      box-shadow: 0 14px 34px -18px hsl(var(--navy-900) / 0.55);
       transition-delay: 0ms;
     }
     .cai-js .cai-stufe.is-open .cai-item:hover h4,
     .cai-item:hover h4,
     .cai-js .cai-stufe.is-open .cai-item:hover h4 span,
     .cai-item:hover h4 span {
-      color: #fff;
+      color: hsl(var(--foreground-on-dark));
     }
     .cai-js .cai-stufe.is-open .cai-item:hover p,
     .cai-item:hover p {
-      color: rgba(255, 255, 255, 0.92);
+      color: hsl(var(--muted-foreground-on-dark));
     }
 
     /* Pictogram tile */
@@ -763,8 +778,8 @@ const faqSchema = {
     }
     .cai-js .cai-stufe.is-open .cai-item:hover .cai-ico,
     .cai-item:hover .cai-ico {
-      background: rgba(255, 255, 255, 0.22);
-      color: #fff;
+      background: hsl(var(--cta) / 0.18);
+      color: hsl(var(--cta-on-dark));
     }
 
     /* Price line: appears only when the head is hovered, in magenta — the same

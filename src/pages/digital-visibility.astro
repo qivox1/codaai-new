@@ -673,6 +673,21 @@ const faqSchema = {
        Klasse .cai-js, die das Skript setzt, aktiviert das Zuklappen.        */
     .cai-head { cursor: default; }
     .cai-js .cai-head { cursor: pointer; }
+
+    /* ── Helle Blauflaeche fuer Kopf und offenes Panel (Wunsch Oli, 04.08.2026)
+       Dieselbe Flaeche wie das Belegband auf /webinar und die Sektion „Diese
+       Entscheidung faellt an drei Stellen" auf der Startseite: `--muted`,
+       also Navy-50. Keine eigene Farbe, nur eine Stufe heller Grund — damit
+       bleibt das Signal-Budget des Screens fuer Zahl und Knopf frei.
+       Der Wechsel liegt auf `background-color`, nicht auf `opacity`: getoente
+       Deckkraft wuerde den Text mit abdunkeln (Guide: „Text niemals mit
+       opacity abdunkeln"). */
+    .cai-stufe { background: hsl(var(--card)); }
+    .cai-head { transition: background-color 0.22s ease; }
+    .cai-js .cai-head:hover,
+    .cai-js .cai-head:focus-visible { background: hsl(var(--muted)); }
+    .cai-js .cai-stufe.is-open,
+    .cai-js .cai-stufe.is-open .cai-head { background: hsl(var(--muted)); }
     .cai-chev { transition: transform 0.35s ease, color 0.2s ease; }
     .cai-js .cai-stufe:not(.is-open) .cai-chev { transform: rotate(-90deg); }
     .cai-js .cai-head:hover .cai-chev { color: hsl(var(--cta)); }
@@ -681,7 +696,7 @@ const faqSchema = {
        füllte sich die Zahl UND der Rahmen wurde magenta UND die Karte hob sich
        UND ein Hinweistext erschien — vier Reize gleichzeitig. Geblieben ist die
        Zahl; sie sitzt am Blickanfang der Zeile und genügt als Signal.          */
-    .cai-stufe { transition: border-color 0.25s ease; }
+    .cai-stufe { transition: border-color 0.25s ease, background-color 0.22s ease; }
 
     /* Die Zahl ist das Signal: beim Überfahren und im geöffneten Zustand
        füllt sie sich magenta. */
@@ -729,25 +744,40 @@ const faqSchema = {
       transition: background-color 0.22s ease, border-color 0.22s ease,
         box-shadow 0.22s ease, opacity 0.5s ease, transform 0.5s ease;
     }
+    /* ── Karten-Hover: Ink Navy statt Magenta (04.08.2026) ────────────────
+       Vorher fuellte sich die Karte in `--cta-accessible`. Das war im Juli
+       richtig, kollidiert seit dem Design Guide v2.1 aber mit zwei Regeln:
+
+       „Ink Navy ist der Anker, Magenta ist das Signal" und „Magenta wird
+       gezaehlt, nicht gefuehlt — zwei Signale pro Screen". Auf dieser Seite
+       traegt bereits die Stufen-Zahl Magenta und der Knopf je Stufe ebenfalls.
+       Eine dritte magenta Flaeche schwaecht genau den Knopf, um den es geht.
+
+       Ink Navy ist die Ankerfarbe: gleich kraeftig im Auftritt, ohne ein
+       Signal zu verbrauchen — und auf der neuen Navy-50-Flaeche des offenen
+       Panels entsteht damit eine Abstufung in EINER Farbfamilie
+       (Navy-50 Panel -> weisse Karte -> Navy-700 beim Ueberfahren).
+
+       Der Absatz stand vorher auf `rgba(255,255,255,0.92)` — Text mit
+       Deckkraft abgedunkelt, was der Guide ausdruecklich ausschliesst
+       („Drei Kontrastfehler im Bestand kamen genau daher"). Jetzt die
+       vorgesehene Rolle `--muted-foreground-on-dark` (Navy-200, 10,0:1). */
     .cai-js .cai-stufe.is-open .cai-item:hover,
     .cai-item:hover {
-      /* Tieferes Magenta statt #DF41FB (Entscheidung Oli, 28.07.2026): Weiß auf
-         dem hellen Pink erreicht nur ~3:1 Kontrast, auf dieser Tiefe ~7:1.
-         Gleiche Farbfamilie, aber der Kartentext bleibt lesbar.              */
-      background: hsl(var(--cta-accessible));
-      border-color: hsl(var(--cta-accessible));
-      box-shadow: 0 14px 34px -18px hsl(var(--cta-accessible) / 0.6);
+      background: hsl(var(--surface-ink));
+      border-color: hsl(var(--surface-ink));
+      box-shadow: 0 14px 34px -18px hsl(var(--navy-900) / 0.55);
       transition-delay: 0ms;
     }
     .cai-js .cai-stufe.is-open .cai-item:hover h4,
     .cai-item:hover h4,
     .cai-js .cai-stufe.is-open .cai-item:hover h4 span,
     .cai-item:hover h4 span {
-      color: #fff;
+      color: hsl(var(--foreground-on-dark));
     }
     .cai-js .cai-stufe.is-open .cai-item:hover p,
     .cai-item:hover p {
-      color: rgba(255, 255, 255, 0.92);
+      color: hsl(var(--muted-foreground-on-dark));
     }
 
     /* Piktogramm-Kachel */
@@ -756,10 +786,14 @@ const faqSchema = {
       color: hsl(var(--cta-accessible));
       transition: background-color 0.22s ease, transform 0.22s ease;
     }
+    /* Auf der dunklen Karte: Kachel als helle Flaeche, Strich in Magenta —
+       das ist KEIN zusaetzliches Signal, sondern die Markenfarbe auf einem
+       Element, das ohnehin nur beim Ueberfahren sichtbar wird. Die Deckkraft
+       liegt auf der FLAECHE, nicht auf Text. */
     .cai-js .cai-stufe.is-open .cai-item:hover .cai-ico,
     .cai-item:hover .cai-ico {
-      background: rgba(255, 255, 255, 0.22);
-      color: #fff;
+      background: hsl(var(--cta) / 0.18);
+      color: hsl(var(--cta-on-dark));
     }
 
     /* Preiszeile: erscheint erst beim Überfahren des Kopfes, in Magenta —
