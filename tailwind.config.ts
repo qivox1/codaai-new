@@ -5,6 +5,7 @@ import type { Config } from "tailwindcss";
    ───────────────────────────────────────────────────────────────────────────
    ROLLEN sind PFLICHT für alles Bedeutungstragende:
      Text      text-foreground · text-muted-foreground · text-data
+     auf Dunkel  text-ondark · text-ondark-muted · border-ondark-line
      Flächen   bg-background · bg-muted · bg-card · bg-surface-ink · bg-surface-abyss
      Rahmen    border-border · border-input
      Zustände  text-confirm · bg-confirm · text-error · bg-error · text-price · bg-price
@@ -78,6 +79,11 @@ export default {
           abyss: "hsl(var(--surface-abyss))",
         },
         data: "hsl(var(--data))",
+        ondark: {
+          DEFAULT: "hsl(var(--foreground-on-dark))",
+          muted: "hsl(var(--muted-foreground-on-dark))",
+          line: "hsl(var(--border-on-dark))",
+        },
         confirm: {
           DEFAULT: "hsl(var(--confirm))",
           text: "hsl(var(--confirm-text))",

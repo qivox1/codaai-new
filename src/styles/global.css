@@ -97,6 +97,17 @@
      Nie Magenta, außer der einen Zahl, die weh tut.                        */
   --data: var(--navy-600);
 
+  /* ── Text auf dunkler Fläche ──────────────────────────────────────────────
+     Für Bausteine, die IMMER auf Ink oder Abyss liegen und deshalb nicht am
+     Hell-Dunkel-Umschalter hängen — Footer, Beweisflächen, Studien-Teaser.
+     Nutze die Rollen (text-ondark, text-ondark-muted, border-ondark-line),
+     nicht die Skala.
+     Navy-200 und NICHT Navy-300: auf Navy-800 als Karte in Ink läge Navy-300
+     bei 6,1:1, und der nächste Verschachtelungsschritt kippt es.            */
+  --foreground-on-dark:       0 0% 100%;
+  --muted-foreground-on-dark: var(--navy-200);
+  --border-on-dark:           var(--navy-600);
+
   /* ── Signal ─────────────────────────────────────────────────────────────── */
   --cta: 291 96% 62%; /* exact #df41fb */
   --cta-foreground: 0 0% 100%;

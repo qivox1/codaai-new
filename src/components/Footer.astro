@@ -51,13 +51,28 @@ const footerLinks = lang === 'en'
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border bg-background">
-  <div class="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-12">
+{/* Footer auf Abyss (Navy-900), umgestellt 04.08.2026 — Beschluss F10.
+    Vorher bg-background, also weiß. Nach F4 läuft die Seite auf eine magenta
+    Zusagefläche zu; ein weißer Footer danach franst die Komposition aus.
+    Abyss ist die tiefste Fläche und bleibt DEM FOOTER vorbehalten: mitten auf
+    einer Seite liest man sie als Schwarz, am Ende setzt sie den Abschluss.
+    Sie ist außerdem die einzige Fläche, auf der der radiale Magenta-Glow
+    erlaubt ist.
+    Alle Texte hängen an den on-dark-Rollen, nicht an der Navy-Skala. */}
+<footer class="relative overflow-hidden bg-surface-abyss">
+  {/* Der eine erlaubte Glow. Rein dekorativ, kein Kontrastträger. */}
+  <div
+    class="pointer-events-none absolute -top-40 left-1/2 h-96 w-[52rem] -translate-x-1/2"
+    style="background: radial-gradient(ellipse, hsl(var(--cta) / 0.16) 0%, transparent 62%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-12">
 
     {showStudyTeaser && (
       <a
         href={`${base}/studie/`}
-        class="group mb-10 flex flex-col items-center gap-5 rounded-3xl bg-foreground p-6 text-background transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
+        class="group mb-10 flex flex-col items-center gap-5 rounded-3xl bg-surface-ink p-6 text-ondark transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
       >
         <img
           src={`${base}/images/studie-teaser-de.webp`}
@@ -69,9 +84,12 @@ const currentYear = new Date().getFullYear();
           class="h-24 w-auto flex-none"
         />
         <span class="min-w-0 flex-1 text-center sm:text-left">
-          <span class="block text-xs font-semibold uppercase tracking-widest text-cta">KI-Blindtest Mittelstand 2026</span>
-          <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">Empfohlen oder <span class="text-cta">unsichtbar</span>?</span>
-          <span class="mt-1 block text-sm opacity-70">449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.</span>
+          <span class="block text-xs font-semibold uppercase tracking-widest text-ondark-muted">KI-Blindtest Mittelstand 2026</span>
+          <span class="mt-1 block text-lg font-semibold tracking-tight sm:text-xl">Empfohlen oder <span class="text-cta-on-dark">unsichtbar</span>?</span>
+          {/* Vorher opacity-70 — auf dunkler Fläche kippt der Kontrast dabei
+              unbemerkt, weil die Deckkraft der Vorfahren nicht in der Farbe
+              steht. Jetzt explizit Navy-200: 10,0:1 auf Ink. */}
+          <span class="mt-1 block text-sm text-ondark-muted">449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.</span>
         </span>
         <span class="inline-flex flex-none items-center gap-2 rounded-[14px] bg-cta px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
           Zur Studie →
@@ -85,7 +103,7 @@ const currentYear = new Date().getFullYear();
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#DF41FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span class="text-xl font-semibold text-foreground">CodaAI</span>
+          <span class="text-xl font-semibold text-ondark">CodaAI</span>
         </a>
         {/* Marken-Claim, seit 03.08.2026 „AI + HI. Amplified." — der alte
             Claim „Exzellenter Content. mehr Wert." stammte aus der Zeit als
@@ -99,50 +117,54 @@ const currentYear = new Date().getFullYear();
             class="group inline-block"
             aria-label={t(lang, "footer.taglineLinkLabel")}
           >
-            <p class="text-base font-semibold text-foreground transition-colors group-hover:text-cta-accessible">
+            <p class="text-base font-semibold text-ondark transition-colors group-hover:text-cta-on-dark">
               {t(lang, "footer.tagline1")}
             </p>
             <p class="text-base font-semibold text-cta">
               {t(lang, "footer.tagline2")}
             </p>
           </a>
-          <p class="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+          <p class="mt-2 max-w-xs text-sm leading-relaxed text-ondark-muted">
             {t(lang, "footer.taglineNote")}
           </p>
         </div>
       </div>
 
       <div class="flex flex-col items-start">
-        <p class="text-sm text-muted-foreground mb-3">
+        <p class="text-sm text-ondark-muted mb-3">
           {t(lang, "footer.compliance")}
         </p>
+        {/* Compliance-Icons in Verdigris statt Magenta (F7/F10): DSGVO,
+            Hosting-Standort und AI Act sind BESTÄTIGUNGEN, keine Handlungen.
+            In Magenta sagten sie visuell dasselbe wie der CTA daneben.
+            currentColor statt Hex — die Farbe kommt aus der Rolle. */}
         <div class="flex items-end gap-8 md:gap-10">
           {complianceBadges.map((badge) => (
-            <div key={badge.label} class="flex flex-col items-center gap-1.5">
+            <div key={badge.label} class="flex flex-col items-center gap-1.5 text-confirm-on-dark">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#DF41FB"
+                stroke="currentColor"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 set:html={badge.svg}
               />
-              <span class="text-xs text-muted-foreground text-center whitespace-nowrap">{badge.label}</span>
+              <span class="text-xs text-ondark-muted text-center whitespace-nowrap">{badge.label}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div class="text-left md:text-right">
-        <h3 class="text-sm font-semibold text-foreground">{t(lang, "footer.legal")}</h3>
+        <h3 class="text-sm font-semibold text-ondark">{t(lang, "footer.legal")}</h3>
         <ul class="mt-3 space-y-2">
           {footerLinks.map((link) => (
             <li key={link.label}>
-              <a href={link.href} class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href={link.href} class="text-sm text-ondark-muted hover:text-ondark transition-colors">
                 {link.label}
               </a>
             </li>
@@ -151,15 +173,15 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="mt-8 border-t border-border pt-6">
-      <p class="text-xs text-muted-foreground mb-5">
+    <div class="mt-8 border-t border-ondark-line pt-6">
+      <p class="text-xs text-ondark-muted mb-5">
         {t(lang, "footer.vatNote")}
       </p>
       <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
-        <p class="text-sm text-muted-foreground">
+        <p class="text-sm text-ondark-muted">
           © {currentYear} CodaAI. {t(lang, "footer.allRightsReserved")}
         </p>
-        <p class="text-sm text-muted-foreground">
+        <p class="text-sm text-ondark-muted">
           Made with <span class="text-cta" aria-hidden="true">♡</span> in Germany
         </p>
       </div>
