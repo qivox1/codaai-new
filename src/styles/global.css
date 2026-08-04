@@ -124,6 +124,7 @@
   --background: var(--surface-paper);
   --foreground: var(--navy-800);   /* #131A2B — 17,4:1 auf Weiß (F6) */
   --border: var(--navy-200);
+  --border-strong: var(--navy-300);   /* betonter Rahmen, Trennlinien in Karten */
   --input: var(--navy-100);
   --ring: 291 96% 62%;
 
@@ -171,6 +172,7 @@
   --background: var(--surface-ink);
   --foreground: 0 0% 100%;              /* 14,8:1 auf Ink */
   --border: var(--navy-600);
+  --border-strong: var(--navy-500);
   --input: var(--navy-800);
   --ring: 291 96% 62%;
 
