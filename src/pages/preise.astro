@@ -134,10 +134,10 @@ const faqSchema = {
             <Reveal
               as="div"
               delay={i * 110}
-              class={`pr-card relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${['lg:mt-10', 'lg:mt-5', 'lg:mt-0'][i]} ${s.recommended ? 'border-cta shadow-[0_10px_40px_hsl(var(--cta)/0.12)]' : 'border-border'}`}
+              class={`pr-card relative flex flex-col rounded-2xl border bg-card p-6 lg:p-7 ${['lg:mt-10', 'lg:mt-5', 'lg:mt-0'][i]} ${s.recommended ? 'border-price shadow-[0_10px_40px_hsl(var(--price)/0.18)]' : 'border-border'}`}
             >
               {s.recommended && (
-                <span class="absolute -top-3 left-6 rounded-md bg-cta px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-widest text-white">
+                <span class="absolute -top-3 left-6 rounded-md bg-price px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-widest text-foreground">
                   Empfohlen
                 </span>
               )}
