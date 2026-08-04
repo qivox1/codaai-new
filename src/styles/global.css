@@ -496,10 +496,15 @@
    Wer eine H1 anlegt: nur noch `class="cai-h1"` plus Farbe und Abstand, keine
    Utilities fuer Groesse, Gewicht, Zeilenhoehe oder Laufweite mehr.          */
 .cai-h1 {
-  font-size: clamp(1.875rem, 3.1vw, 2.5rem); /* 30 → 40 px */
+  font-size: clamp(2.125rem, 3.9vw, 3rem); /* 34 → 48 px (04.08.2026) */
   font-weight: 700;
-  letter-spacing: -0.022em;
-  line-height: 1.18;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  /* pretty, NICHT balance: balance verteilt eine gebrochene Zeile auf zwei
+     gleich lange Haelften und bricht dadurch schon in Grenzfaellen, in denen
+     der Satz noch in eine Zeile passt. Genau das soll die 48-px-Obergrenze
+     verhindern. pretty raeumt nur Schusterjungen auf.                       */
+  text-wrap: pretty;
 }
 
 /* ── Sitewide H2 (28.07.2026) ──────────────────────────────────────────────
@@ -511,10 +516,11 @@
    Gilt nur fuer Abschnitts-Ueberschriften. Kleine H2 in Karten- und
    Blogteasern (18 bis 24 px) bleiben unberuehrt.                            */
 .cai-h2 {
-  font-size: clamp(1.375rem, 2.1vw, 1.75rem); /* 22 -&gt; 28 px */
+  font-size: clamp(1.5rem, 2.6vw, 2.125rem); /* 24 -&gt; 34 px (04.08.2026) */
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.22;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+  text-wrap: balance;
 }
 
 /* ── Display-Zahl ──────────────────────────────────────────────────────────
@@ -538,7 +544,22 @@
    Zeile 2 direkt in Magenta.
    Kontrast: bei grosser fetter Schrift verlangt WCAG AA nur 3:1, das helle
    Marken-Magenta liegt bei 3,3:1 — hier also zulaessig.                     */
-.cai-kipp .k2 { color: hsl(var(--cta)); }
+/* Zeile 1 liegt auf Navy-700, nicht Navy-800 (Beschluss Oli 04.08.2026):
+   auf Ueberschriftgroesse wirkte Navy-800 zu schwer. 14,8:1 auf Weiss.
+   Zeile 2 traegt den GRADIENT Navy-600 -> Magenta, nicht flaches Magenta
+   (Beschluss Oli 04.08.2026). Der Kippsatz bleibt als Bewegung: Zeile 2
+   erscheint erst in Navy-700 und kippt 380 ms spaeter in den Verlauf.
+   Technisch wird dazu nicht color animiert (mit background-clip unmoeglich),
+   sondern -webkit-text-fill-color von Navy-700 auf transparent — der Verlauf
+   liegt die ganze Zeit darunter und wird freigelegt.                       */
+.cai-h1, .cai-h2 { color: hsl(var(--navy-700)); }
+
+.cai-kipp .k2 {
+  background-image: linear-gradient(135deg, hsl(var(--navy-600)), hsl(var(--cta)));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .cai-kipp .k1,
@@ -549,7 +570,7 @@
   }
   .cai-kipp .k1 { animation-delay: 60ms; }
   .cai-kipp .k2 {
-    color: hsl(var(--foreground));
+    -webkit-text-fill-color: hsl(var(--navy-700));
     animation-delay: 200ms, 580ms;
     animation-name: caiKippIn, caiKippTurn;
     animation-duration: 0.55s, 0.5s;
@@ -562,6 +583,16 @@
   to { opacity: 1; transform: none; }
 }
 @keyframes caiKippTurn {
-  from { color: hsl(var(--foreground)); }
-  to { color: hsl(var(--cta)); }
+  from { -webkit-text-fill-color: hsl(var(--navy-700)); }
+  to   { -webkit-text-fill-color: transparent; }
+}
+
+/* Marken-Gradient als Einzelphrase — Navy-600 -> Magenta, "gemessen -> Signal".
+   Eine Phrase pro Ueberschrift, nie zwei. Nur ab 40 px fett: das magenta Ende
+   des Verlaufs liegt bei 3,34:1 und ist damit auf Grosstext beschraenkt.     */
+.text-gradient {
+  background-image: linear-gradient(135deg, hsl(var(--navy-600)), hsl(var(--cta)));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -1036,7 +1036,8 @@ import AuditCTA from './AuditCTA.astro';
   /* Pointen-Flaeche: liegt ueber der Browser-Karte und traegt exakt dieselbe
      Flaeche wie die Buehne ringsum — deckend Abyss, nicht durchscheinend.
      Bei Teildeckung schien die hellere Navy-800-Karte durch und das Feld hob
-     sich als hellerer Kasten ab. Rundung wie die Karte darunter. */
+     sich als hellerer Kasten ab. Rundung wie die Karte darunter.
+     Entscheidung Oli 04.08.2026 — bitte in der .style.css-Vorlage nachziehen. */
   .punch{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:6vh 8vw;background:hsl(var(--surface-abyss));border-radius:16px;opacity:0;pointer-events:none;z-index:50}
   .punch .num{font-size:clamp(3.5rem,12vw,8rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,#fff,var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
   .punch .cap{font-size:clamp(1.1rem,2.6vw,1.7rem);font-weight:600;max-width:24ch;line-height:1.3}
@@ -1366,15 +1367,20 @@ import AuditCTA from './AuditCTA.astro';
   .mi-head .sec{margin-top:12px}
   /* Pointe in die zweite Zeile: der Satz kippt mit dem Umbruch von der Feststellung
      auf den Einwand — das ist die Wirkung, die den Block traegt. */
-  .mi-head .sec em{display:block;margin-top:4px;font-style:normal;color:var(--magenta)}
+  /* Zweite Zeile traegt den Marken-Gradient Navy-600 -> Magenta statt flachem
+     Magenta (Beschluss Oli 04.08.2026) — dieselbe Regel wie der Kippsatz.
+     Zulaessig, weil h2.sec ab 34 px fett liegt.                            */
+  .mi-head .sec em{display:block;margin-top:4px;font-style:normal;
+    background-image:linear-gradient(135deg,hsl(var(--navy-600)),hsl(var(--cta)));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .mi-head .lead{margin-top:16px}
   .mi-cue{margin-top:16px;display:flex;gap:10px;align-items:flex-start;font-size:.98rem;font-weight:600;line-height:1.5}
-  .mi-cue i{width:24px;height:24px;flex:none;border-radius:50%;background:var(--magenta);color:#fff;
+  .mi-cue i{width:24px;height:24px;flex:none;border-radius:50%;background:var(--data);color:#fff;
     display:grid;place-items:center;font-style:normal;font-size:.78rem}
   .mi-card{margin-top:32px;background:var(--card);border:1px solid var(--line);border-radius:20px;
     overflow:hidden;box-shadow:0 26px 70px -34px rgba(12,17,32,.28)}
   .mi-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 22px;
-    border-bottom:1px solid var(--line);background:linear-gradient(90deg,hsl(var(--cta) / .08),transparent)}
+    border-bottom:1px solid var(--line);background:linear-gradient(90deg,hsl(var(--navy-600) / .06),transparent)}
   .mi-lg{font-weight:800;font-size:.95rem;letter-spacing:-.02em}
   .mi-lg em{font-style:normal;color:var(--magenta)}
   .mi-anon{margin-left:auto;font-size:.72rem;color:var(--mut);border:1px solid var(--line2);padding:5px 11px;border-radius:999px}
@@ -1382,7 +1388,12 @@ import AuditCTA from './AuditCTA.astro';
   .mi-kpi>div{padding:18px 22px;border-right:1px solid var(--line)}
   .mi-kpi>div:last-child{border-right:0}
   .mi-kpi b{display:block;font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:800;letter-spacing:-.03em}
-  .mi-kpi b.bad{color:var(--magenta)}
+  /* 04.08.2026: Es sind MESSWERTE, also --data (Navy-600). Nur die erste
+     Kennzahl — die KI-Sichtbarkeit von 0 % — bleibt Magenta: sie ist die
+     Zahl, die weh tut. Vorher waren alle drei magenta und der Screen trug
+     elf Signale, wo das System zwei erlaubt.                              */
+  .mi-kpi b.bad{color:var(--data)}
+  .mi-kpi>div:first-child b.bad{color:var(--magenta)}
   .mi-kpi span{display:block;margin-top:5px;font-size:.74rem;color:var(--mut);line-height:1.45}
   @media(max-width:760px){.mi-kpi{grid-template-columns:repeat(2,1fr)}.mi-kpi>div{border-bottom:1px solid var(--line)}}
   .mi-q{border-bottom:1px solid var(--line)}
@@ -1397,24 +1408,28 @@ import AuditCTA from './AuditCTA.astro';
      sind — deshalb hellgrauer Grund, magenta Kante links und ein reagierender
      Pfeil. Tastaturbedienung bekommt denselben Zustand über :focus-visible. */
   .mi-qh:hover,.mi-qh:focus-visible{background:var(--muted2);outline:none;
-    box-shadow:inset 3px 0 0 var(--magenta)}
-  .mi-qh:hover .mi-ar,.mi-qh:focus-visible .mi-ar{border-color:var(--magenta);color:var(--magenta);
-    background:hsl(var(--cta) / .08)}
+    box-shadow:inset 3px 0 0 var(--data)}
+  .mi-qh:hover .mi-ar,.mi-qh:focus-visible .mi-ar{border-color:var(--data);color:var(--data);
+    background:hsl(var(--navy-600) / .08)}
   .mi-qh:hover .mi-cta em,.mi-qh:focus-visible .mi-cta em{text-decoration:underline;
     text-decoration-thickness:1.5px;text-underline-offset:3px}
-  .mi-qh[aria-expanded="true"]{background:var(--muted2);box-shadow:inset 3px 0 0 var(--magenta)}
+  .mi-qh[aria-expanded="true"]{background:var(--muted2);box-shadow:inset 3px 0 0 var(--data)}
+  /* Kategorie-Label = Einordnung, kein Signal. Navy-600. */
   .mi-st{display:block;margin-bottom:7px;font-size:.66rem;font-weight:800;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--magenta-ink)}
+    text-transform:uppercase;color:var(--data)}
   .mi-t{display:block;font-size:1rem;font-weight:600;line-height:1.45}
   .mi-res{display:block;margin-top:6px;font-size:.84rem;color:var(--mut);line-height:1.5}
   .mi-res b{color:var(--magenta-ink);font-weight:700}
+  /* „nicht genannt" ist ein FEHLBEFUND, keine Handlung — Oxblood (F7).
+     Als einzige rote Stelle der Sektion ist es jetzt lauter als vorher als
+     eines von elf Magentas.                                               */
   .mi-flag{font-size:.72rem;font-weight:700;white-space:nowrap;padding:5px 11px;border-radius:999px;
-    background:hsl(var(--cta) / .1);color:var(--magenta-ink);border:1px solid hsl(var(--cta) / .35)}
+    background:hsl(var(--error) / .1);color:hsl(var(--error-text));border:1px solid hsl(var(--error) / .35)}
   .mi-cta{display:flex;align-items:center;gap:9px}
   .mi-cta em{font-style:normal;font-size:.8rem;font-weight:700;color:var(--magenta-ink);white-space:nowrap}
   .mi-ar{width:30px;height:30px;flex:none;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:.3s}
   .mi-ar svg{width:15px;height:15px}
-  .mi-qh[aria-expanded="true"] .mi-ar{background:var(--magenta);border-color:var(--magenta);color:#fff;transform:rotate(180deg)}
+  .mi-qh[aria-expanded="true"] .mi-ar{background:var(--data);border-color:var(--data);color:#fff;transform:rotate(180deg)}
   .mi-qh[aria-expanded="true"] .mi-cta em{display:none}
   .mi-q.hint .mi-ar{animation:miPulse 1.9s ease-in-out infinite}
   @keyframes miPulse{0%,100%{box-shadow:0 0 0 0 hsl(var(--cta) / .42)}50%{box-shadow:0 0 0 9px hsl(var(--cta) / 0)}}
@@ -1513,6 +1528,10 @@ import AuditCTA from './AuditCTA.astro';
   .offer .acta-trigger,.offer .acta-sq,.offer .acta--band .acta-trigger,.offer button[type="submit"]{
     background:hsl(var(--navy-900))!important;border-color:hsl(var(--navy-900))!important;color:#fff!important;
     box-shadow:0 8px 26px rgba(12,17,32,.3)!important}
+  .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(12,17,32,.42)!important}
+  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#fff!important}
+  .offer .acta{--pink:hsl(var(--navy-900));--pink-d:hsl(var(--navy-900))}
+
   .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(12,17,32,.42)!important}
   .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#fff!important}
   .offer .acta{--pink:hsl(var(--navy-900));--pink-d:hsl(var(--navy-900))}
