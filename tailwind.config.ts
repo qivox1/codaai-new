@@ -104,6 +104,7 @@ export default {
           foreground: "hsl(var(--cta-foreground))",
           accessible: "hsl(var(--cta-accessible))",
           "on-dark": "hsl(var(--cta-on-dark))",
+          hover: "hsl(var(--cta-hover))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

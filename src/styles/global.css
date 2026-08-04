@@ -113,6 +113,12 @@
   --cta-foreground: 0 0% 100%;
   --cta-accessible: 291 96% 36%; /* #9904B4 — Text auf Hell, 6,9:1 */
   --cta-on-dark: 291 96% 75%;    /* #EA82FC — die Fehlstelle auf Ink / Abyss */
+  --cta-hover: 291 96% 54%;      /* gedrückter Zustand — ersetzt #c231e0 */
+
+  /* Platzhaltertext in Eingabefeldern. Navy-400 ist NUR hier zulässig:
+     4,8:1 auf Weiß. Auf Mist oder Slate fällt es durch — dort gehören
+     Eingabefelder ohnehin auf Paper.                                        */
+  --placeholder: var(--navy-400);
 
   /* ── Semantik (Hell, Standard) ──────────────────────────────────────────── */
   --background: var(--surface-paper);

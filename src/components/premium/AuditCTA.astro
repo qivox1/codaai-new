@@ -88,7 +88,12 @@ const {
 </div>
 
 <style>
-  .acta { --pink:#DF41FB; --pink-d:#c231e0; --ink:#141414; --muted:#6b6b76; --bd:#e4e4ec;
+  .acta {
+    --pink: hsl(var(--cta));
+    --pink-d: hsl(var(--cta-hover));
+    --ink: hsl(var(--foreground));
+    --muted: hsl(var(--muted-foreground));
+    --bd: hsl(var(--border));
     display:inline-block; position:relative; width:100%; max-width:520px; text-align:left; }
   .acta--center { margin-left:auto; margin-right:auto; }
   .acta--start { margin-left:0; margin-right:0; }
@@ -101,10 +106,10 @@ const {
     display:inline-flex; align-items:center; gap:10px; cursor:pointer;
     font:inherit; font-weight:700; font-size:15px; line-height:1;
     color:#fff; background:var(--pink); border:none; border-radius: var(--btn-radius);
-    padding:16px 26px; box-shadow:0 10px 30px -8px rgba(223,65,251,.55);
+    padding:16px 26px; box-shadow:0 10px 30px -8px hsl(var(--cta) / .55);
     transition:transform .18s ease, box-shadow .25s ease, opacity .2s ease;
   }
-  .acta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px rgba(223,65,251,.65); }
+  .acta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px hsl(var(--cta) / .65); }
   .acta-trigger svg { transition:transform .2s ease; }
   .acta-trigger:hover svg { transform:translateX(3px); }
   .acta--band .acta-trigger { background:var(--pink); }
@@ -116,20 +121,20 @@ const {
   }
   .acta-line { display:flex; align-items:stretch; gap:8px; }
   .acta-in {
-    font:inherit; font-size:15px; color:var(--ink); background:#fff;
+    font:inherit; font-size:15px; color:var(--ink); background:hsl(var(--surface-paper));
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
     outline:none; width:100%; min-width:0;
     transition:border-color .18s ease, box-shadow .18s ease;
   }
-  .acta-in::placeholder { color:#9a9aa6; }
-  .acta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(223,65,251,.16); }
+  .acta-in::placeholder { color:hsl(var(--placeholder)); }
+  .acta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px hsl(var(--cta) / .16); }
   .acta-line--url .acta-in { flex:1; }
 
   .acta-sq {
     flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
     width:52px; border:none; border-radius:14px; cursor:pointer;
     color:#fff; background:var(--pink);
-    box-shadow:0 8px 22px -8px rgba(223,65,251,.6);
+    box-shadow:0 8px 22px -8px hsl(var(--cta) / .6);
     transition:background .18s ease, transform .18s ease;
   }
   .acta-sq:hover { background:var(--pink-d); transform:translateY(-1px); }
@@ -145,9 +150,10 @@ const {
   .acta.is-checking [data-next] .acta-ico { display:none; }
   .acta.is-checking [data-next] .acta-spin { display:inline-block; }
 
-  /* Neutrale Status-Zeile (Prüfung läuft / erreichbar) */
+  /* Neutrale Status-Zeile (Prüfung läuft / erreichbar).
+     „erreichbar" ist eine Bestätigung → Verdigris statt des alten Grüns. */
   .acta-note { margin-top:8px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  .acta-note.ok { color:#128a4e; }
+  .acta-note.ok { color:hsl(var(--confirm-text)); }
   .acta-note .acta-dot { width:14px; height:14px; border:2px solid var(--muted); border-top-color:transparent;
     border-radius:50%; animation:acta-rot .7s linear infinite; }
 
@@ -157,24 +163,26 @@ const {
   .acta-hint { font-size:13px; font-weight:600; color:var(--muted); margin:0 0 8px; }
   .acta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
 
-  .acta-err { margin-top:8px; font-size:13px; color:#c0245a; }
-  .acta-err a { color:#c0245a; font-weight:600; text-decoration:underline; }
+  .acta-err { margin-top:8px; font-size:13px; color:hsl(var(--error-text)); }
+  .acta-err a { color:hsl(var(--error-text)); font-weight:600; text-decoration:underline; }
 
-  /* Bestätigung */
+  /* Bestätigung — Verdigris, nicht Magenta (F7). Der Nutzer hat gerade einen
+     magenta Button gedrückt; die Antwort darauf ist eine Bestätigung, und
+     Bestätigungen haben in diesem System eine eigene Farbe. */
   .acta-done { display:none; align-items:center; gap:14px;
-    border:1.5px solid rgba(223,65,251,.32); background:rgba(223,65,251,.06);
+    border:1.5px solid hsl(var(--confirm) / .38); background:hsl(var(--confirm) / .08);
     border-radius:16px; padding:16px 18px; max-width:520px; }
   .acta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
-    width:40px; height:40px; border-radius:999px; background:var(--pink); }
+    width:40px; height:40px; border-radius:999px; background:hsl(var(--confirm)); }
   .acta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
 
   /* Dunkle Variante (invertiertes Band): heller Sekundärtext + Bestätigung,
      Eingabefelder bleiben weiß mit dunklem Text (weiterhin gut lesbar). */
-  .acta.acta--dark { --muted:#b9b9c6; }
-  .acta.acta--dark .acta-done { border-color:rgba(223,65,251,.5); background:rgba(223,65,251,.14); }
-  .acta.acta--dark .acta-done p { color:#f4f4f7; }
-  .acta.acta--dark .acta-err { color:#ff9db6; }
-  .acta.acta--dark .acta-err a { color:#ff9db6; }
+  .acta.acta--dark { --muted:hsl(var(--muted-foreground-on-dark)); }
+  .acta.acta--dark .acta-done { border-color:hsl(var(--confirm-on-dark) / .5); background:hsl(var(--confirm) / .22); }
+  .acta.acta--dark .acta-done p { color:hsl(var(--foreground-on-dark)); }
+  .acta.acta--dark .acta-err { color:hsl(var(--error-on-dark)); }
+  .acta.acta--dark .acta-err a { color:hsl(var(--error-on-dark)); }
 
   /* ---------- State-Schaltung ---------- */
   .acta[data-state="idle"] .acta-form,

@@ -59,7 +59,12 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
 </div>
 
 <style>
-  .wacta { --pink:#DF41FB; --pink-d:#c231e0; --ink:#141414; --muted:#6b6b76; --bd:#e4e4ec;
+  .wacta {
+    --pink: hsl(var(--cta));
+    --pink-d: hsl(var(--cta-hover));
+    --ink: hsl(var(--foreground));
+    --muted: hsl(var(--muted-foreground));
+    --bd: hsl(var(--border));
     display:block; position:relative; width:100%; max-width:520px; text-align:left; }
   .wacta--center { margin-left:auto; margin-right:auto; }
 
@@ -69,27 +74,27 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
     display:inline-flex; align-items:center; gap:10px; cursor:pointer;
     font:inherit; font-weight:700; font-size:15px; line-height:1;
     color:#fff; background:var(--pink); border:none; border-radius: var(--btn-radius);
-    padding:16px 26px; box-shadow:0 10px 30px -8px rgba(223,65,251,.55);
+    padding:16px 26px; box-shadow:0 10px 30px -8px hsl(var(--cta) / .55);
     transition:transform .18s ease, box-shadow .25s ease, opacity .2s ease;
   }
-  .wacta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px rgba(223,65,251,.65); }
+  .wacta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px hsl(var(--cta) / .65); }
   .wacta-trigger svg { transition:transform .2s ease; }
   .wacta-trigger:hover svg { transform:translateX(3px); }
 
   .wacta-form { max-width:0; opacity:0; overflow:hidden; pointer-events:none;
     transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease; }
   .wacta-line { display:flex; align-items:stretch; gap:8px; }
-  .wacta-in { font:inherit; font-size:15px; color:var(--ink); background:#fff;
+  .wacta-in { font:inherit; font-size:15px; color:var(--ink); background:hsl(var(--surface-paper));
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
     outline:none; width:100%; min-width:0;
     transition:border-color .18s ease, box-shadow .18s ease; }
-  .wacta-in::placeholder { color:#9a9aa6; }
-  .wacta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(223,65,251,.16); }
+  .wacta-in::placeholder { color:hsl(var(--placeholder)); }
+  .wacta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px hsl(var(--cta) / .16); }
   .wacta-line--url .wacta-in { flex:1; }
 
   .wacta-sq { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
     width:52px; border:none; border-radius:14px; cursor:pointer;
-    color:#fff; background:var(--pink); box-shadow:0 8px 22px -8px rgba(223,65,251,.6);
+    color:#fff; background:var(--pink); box-shadow:0 8px 22px -8px hsl(var(--cta) / .6);
     transition:background .18s ease, transform .18s ease; }
   .wacta-sq:hover { background:var(--pink-d); transform:translateY(-1px); }
   .wacta-sq svg { transition:transform .2s ease; }
@@ -101,30 +106,34 @@ const { label = 'Zum Webinar anmelden', align = 'start', theme = 'light', open =
   .wacta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
   .wacta-contact .wacta-in[data-email] { margin-bottom:10px; }
 
+  /* Der Datenschutz-Link braucht --cta-accessible, nicht das Marken-Magenta:
+     12,5 px Fließtext auf Weiß verlangt 4,5:1. */
   .wacta-consent { display:flex; align-items:flex-start; gap:9px; font-size:12.5px;
     line-height:1.45; color:var(--muted); cursor:pointer; margin-bottom:12px; }
   .wacta-consent input { margin-top:2px; width:16px; height:16px; flex:0 0 auto; accent-color:var(--pink); cursor:pointer; }
-  .wacta-consent a { color:var(--pink-d); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+  .wacta-consent a { color:hsl(var(--cta-accessible)); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
 
   .wacta-submit { display:inline-flex; align-items:center; justify-content:center; gap:8px;
     width:100%; font:inherit; font-weight:700; font-size:15px; color:#fff;
     background:var(--pink); border:none; border-radius:14px; padding:14px 20px; cursor:pointer;
-    box-shadow:0 10px 26px -10px rgba(223,65,251,.6); transition:background .18s ease, transform .18s ease, opacity .2s ease; }
+    box-shadow:0 10px 26px -10px hsl(var(--cta) / .6); transition:background .18s ease, transform .18s ease, opacity .2s ease; }
   .wacta-submit:hover { background:var(--pink-d); transform:translateY(-1px); }
 
-  .wacta-err { margin-top:8px; font-size:13px; color:#c0245a; }
-  .wacta-err a { color:#c0245a; font-weight:600; text-decoration:underline; }
+  .wacta-err { margin-top:8px; font-size:13px; color:hsl(var(--error-text)); }
+  .wacta-err a { color:hsl(var(--error-text)); font-weight:600; text-decoration:underline; }
 
+  /* Bestätigung — Verdigris, nicht Magenta (F7). Siehe AuditCTA. */
   .wacta-done { display:none; align-items:center; gap:14px;
-    border:1.5px solid rgba(223,65,251,.32); background:rgba(223,65,251,.06);
+    border:1.5px solid hsl(var(--confirm) / .38); background:hsl(var(--confirm) / .08);
     border-radius:16px; padding:16px 18px; max-width:520px; }
   .wacta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
-    width:40px; height:40px; border-radius:999px; background:var(--pink); }
+    width:40px; height:40px; border-radius:999px; background:hsl(var(--confirm)); }
   .wacta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
 
-  .wacta.wacta--dark { --muted:#b9b9c6; }
-  .wacta.wacta--dark .wacta-done p { color:#f4f4f7; }
-  .wacta.wacta--dark .wacta-done { border-color:rgba(223,65,251,.5); background:rgba(223,65,251,.14); }
+  .wacta.wacta--dark { --muted:hsl(var(--muted-foreground-on-dark)); }
+  .wacta.wacta--dark .wacta-done p { color:hsl(var(--foreground-on-dark)); }
+  .wacta.wacta--dark .wacta-done { border-color:hsl(var(--confirm-on-dark) / .5); background:hsl(var(--confirm) / .22); }
+  .wacta.wacta--dark .wacta-consent a { color:hsl(var(--cta-on-dark)); }
 
   .wacta[data-state="idle"] .wacta-form,
   .wacta[data-state="idle"] .wacta-done { display:none; }
