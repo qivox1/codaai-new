@@ -402,7 +402,12 @@ const beispiele = [
 
           <!-- ── Domain-Check ─────────────────────────────────────────── -->
           <section id="domain-check" aria-labelledby="h-domain-check" class="scroll-mt-28 border-t border-border py-16">
-            <div class="rounded-3xl bg-foreground p-8 text-background sm:p-12">
+            <!-- data-theme="dark" ist Pflicht, nicht Kosmetik: seit 04.08.2026 setzt
+                 .cai-h2 die Ueberschriftfarbe ueber --heading. Ohne den Schalter bleibt
+                 sie Navy-700 und steht dunkelblau auf dunkelblau. Der Schalter dreht
+                 --background auf Ink und --foreground auf Weiss, deshalb sind die
+                 Utilities im Kasten entsprechend getauscht. -->
+            <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
               <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Der Test für Ihr Unternehmen</p>
               <h2 id="h-domain-check" class="cai-h2">Und Sie — empfohlen oder unsichtbar?</h2>
               <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">
@@ -420,7 +425,7 @@ const beispiele = [
                   autocomplete="off"
                   spellcheck="false"
                   placeholder="ihre-firma.de"
-                  class="w-full flex-1 rounded-xl border border-background/20 bg-background/10 px-5 py-3.5 text-base text-background placeholder:text-background/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50"
+                  class="w-full flex-1 rounded-xl border border-foreground/20 bg-foreground/10 px-5 py-3.5 text-base text-foreground placeholder:text-foreground/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50"
                   required
                 />
                 <button
@@ -443,7 +448,7 @@ const beispiele = [
               </div>
 
               <!-- Antwort für manuelle Eingaben (via JS eingeblendet) -->
-              <div id="domain-response" class="mt-6 hidden rounded-xl border border-background/20 bg-background/10 p-5">
+              <div id="domain-response" class="mt-6 hidden rounded-xl border border-foreground/20 bg-foreground/10 p-5">
                 <p class="text-sm leading-relaxed">
                   Danke — wir prüfen <strong id="domain-response-name" class="text-cta"></strong> mit der Methodik
                   dieser Auswertung. Das vollständige Audit erstellen wir kostenlos; die Ergebnisse besprechen wir
