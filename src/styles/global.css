@@ -10,79 +10,172 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   INK NAVY — Farbsystem, umgestellt 04.08.2026
+   ───────────────────────────────────────────────────────────────────────────
+   Navy ist der Anker: Flächen, Rahmen, Fließtext, jede gemessene Zahl.
+   Magenta ist das Signal: höchstens ZWEIMAL pro Screen — einmal Handlung
+   (CTA), einmal Fehlstelle ("steht hier nicht").
+   Verdigris / Oxblood / Brass sind die Zustände: Bestätigung / Fehler / Preis.
+
+   REGEL FÜR NEUE ARBEIT (Beschluss F9):
+     Rollen sind PFLICHT — bg-background, text-foreground, border-border,
+     bg-surface-ink, text-data, text-confirm, bg-price …
+     Skalen (navy-50…900, verdigris-*, oxblood-*, brass-*) sind ERLAUBT für
+     Verläufe, Dekorationslinien, Diagramme und GSAP-Animationsziele. GSAP
+     kann hsl(var(--x)) nicht interpolieren und braucht echte Hex-Werte;
+     die stehen deshalb in tailwind.config.ts.
+     Ein harter Hexcode im Seiten- oder Komponentencode ist ein Fehler.
+
+   FLÄCHEN — genau fünf, MAXIMAL EINE DUNKLE PRO VIEWPORT:
+     01 Paper  #FFFFFF   Grundzustand: Hero, Fließtext, Formulare, Blog
+     02 Mist   Navy-50   Abschnittswechsel ohne Trennlinie
+     03 Slate  Navy-100  verschachtelte Ebene: Karte auf Mist, Tabellenkopf
+     04 Ink    Navy-700  die Beweisfläche: KI-Antworten, Audit-Auszüge, KPIs
+     05 Abyss  Navy-900  Footer, Studien-Teaser, der Schluss
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 :root {
   /* Einheitlicher Eckenradius aller Schaltflaechen (Beschluss Oli, 03.08.2026) */
   --btn-radius: 14px;
-  --coral: 291 96% 62%;
-  --coral-light: 291 80% 75%;
-  --warm-bg: 0 0% 6%;
+
+  /* ── Ink Navy — der Anker ────────────────────────────────────────────────
+     50–200 Flächen · 300–400 Metatext auf Dunkel · 500–600 Text und Daten
+     auf Hell · 700–900 die dunklen Flächen. Bewusst entsättigt, nie Royalblau. */
+  --navy-50:  217 50% 97%;
+  --navy-100: 219 41% 93%;
+  --navy-200: 219 37% 85%;
+  --navy-300: 221 31% 68%;
+  --navy-400: 221 31% 50%;
+  --navy-500: 223 36% 38%;
+  --navy-600: 222 36% 26%;
+  --navy-700: 223 38% 18%;
+  --navy-800: 223 39% 12%;
+  --navy-900: 225 45% 9%;
+
+  /* ── Flächen ──────────────────────────────────────────────────────────── */
+  --surface-paper: 0 0% 100%;
+  --surface-mist:  var(--navy-50);
+  --surface-slate: var(--navy-100);
+  --surface-ink:   var(--navy-700);
+  --surface-abyss: var(--navy-900);
+
+  /* ── Zustandsfarben ───────────────────────────────────────────────────────
+     Abgeleitet aus der Achse Navy 222° → Magenta 291°, nicht importiert.
+     Alle drei liegen bei mittlerer Sättigung: sie melden einen Zustand,
+     ohne mit dem Signal zu konkurrieren.
+       Verdigris 176° — Bestätigung. 45° von Navy, dessen kühler Verwandter.
+       Oxblood     8° — Fehler. 77° von Magenta, nie damit zu verwechseln.
+       Brass      42° — Preis. Die einzige warme Note.                      */
+  --verdigris-100: 176 42% 86%;
+  --verdigris-300: 176 45% 62%;   /* auf Ink / Abyss */
+  --verdigris-500: 176 50% 32%;   /* Füllung, trägt weiße Schrift */
+  --verdigris-600: 176 50% 26%;   /* Text auf Hell */
+
+  --oxblood-100: 8 61% 88%;
+  --oxblood-300: 8 62% 72%;       /* auf Ink / Abyss */
+  --oxblood-500: 8 62% 40%;       /* Füllung, trägt weiße Schrift */
+  --oxblood-600: 8 62% 34%;       /* Text auf Hell */
+
+  --brass-100: 42 61% 86%;
+  --brass-300: 42 65% 68%;        /* auf Ink / Abyss */
+  --brass-500: 42 65% 46%;        /* Badge-Füllung, trägt dunkle Schrift */
+  --brass-600: 42 65% 32%;        /* Text auf Hell */
+
+  /* Rollen der Zustände */
+  --confirm:         var(--verdigris-500);
+  --confirm-text:    var(--verdigris-600);
+  --confirm-on-dark: var(--verdigris-300);
+  --error:           var(--oxblood-500);
+  --error-text:      var(--oxblood-600);
+  --error-on-dark:   var(--oxblood-300);
+  --price:           var(--brass-500);
+  --price-text:      var(--brass-600);
+  --price-on-dark:   var(--brass-300);
+
+  /* Daten — jede gemessene Zahl und jeder Tabellenkopf auf Hell.
+     Nie Magenta, außer der einen Zahl, die weh tut.                        */
+  --data: var(--navy-600);
+
+  /* ── Signal ─────────────────────────────────────────────────────────────── */
   --cta: 291 96% 62%; /* exact #df41fb */
   --cta-foreground: 0 0% 100%;
-  --cta-accessible: 291 96% 36%; /* darker CTA for text on light backgrounds — meets WCAG AA 4.5:1 */
+  --cta-accessible: 291 96% 36%; /* #9904B4 — Text auf Hell, 6,9:1 */
+  --cta-on-dark: 291 96% 75%;    /* #EA82FC — die Fehlstelle auf Ink / Abyss */
 
-  --background: 0 0% 100%;
-  --foreground: 0 0% 8%;
-  --border: 0 0% 90%;
-  --input: 0 0% 96%;
+  /* ── Semantik (Hell, Standard) ──────────────────────────────────────────── */
+  --background: var(--surface-paper);
+  --foreground: var(--navy-800);   /* #131A2B — 17,4:1 auf Weiß (F6) */
+  --border: var(--navy-200);
+  --input: var(--navy-100);
   --ring: 291 96% 62%;
 
-  --primary: 0 0% 8%;
+  --primary: var(--navy-800);
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 90%;
-  --secondary-foreground: 0 0% 8%;
-  --destructive: 0 84% 60%;
+  --secondary: var(--navy-200);
+  --secondary-foreground: var(--navy-800);
+  --destructive: var(--oxblood-500);
   --destructive-foreground: 0 0% 100%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 38%;
+  --muted: var(--navy-50);
+  --muted-foreground: var(--navy-500);  /* 7,8:1 auf Weiß, 7,2:1 auf Mist */
   --accent: 291 96% 62%;
   --accent-foreground: 0 0% 100%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 8%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 8%;
+  --popover: var(--surface-paper);
+  --popover-foreground: var(--navy-800);
+  --card: var(--surface-paper);
+  --card-foreground: var(--navy-800);
 
-  --sidebar-background: 0 0% 100%;
-  --sidebar-foreground: 0 0% 8%;
+  --sidebar-background: var(--surface-paper);
+  --sidebar-foreground: var(--navy-800);
   --sidebar-primary: 291 96% 62%;
   --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 291 96% 62%;
   --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-border: 0 0% 90%;
+  --sidebar-border: var(--navy-200);
   --sidebar-ring: 291 96% 62%;
 
   --radius: 0.5rem;
 }
 
+/* ── [data-theme="dark"] ist KEIN Nachtmodus ────────────────────────────────
+   Es gibt keinen Umschalter. Das Attribut wird ABSCHNITTSWEISE gesetzt, um
+   einzelne Sektionen zu invertieren — digital-visibility #nicht-im-angebot,
+   en/pricing #honesty, ein Teil von PricingCalculatorV2. Das sind Beweis- und
+   Ehrlichkeitsabschnitte, also gehören sie nach F4 auf Navy.
+   Dieser Block ist damit das Rezept für die Abyss/Ink-Sektion, nicht für
+   eine dunkle Website.                                                      */
 [data-theme="dark"] {
-  --cta-accessible: 291 96% 75%; /* lighter CTA for text on dark backgrounds */
-  --background: 0 0% 8%;
-  --foreground: 0 0% 100%;
-  --border: 0 0% 20%;
-  --input: 0 0% 15%;
+  --background: var(--surface-abyss);
+  --foreground: 0 0% 100%;              /* 18,8:1 auf Abyss */
+  --border: var(--navy-600);
+  --input: var(--navy-700);
   --ring: 291 96% 62%;
 
+  --data: var(--navy-200);              /* 12,5:1 auf Abyss */
+  --cta-accessible: var(--cta-on-dark); /* #EA82FC */
+
   --primary: 0 0% 100%;
-  --primary-foreground: 0 0% 8%;
-  --secondary: 0 0% 20%;
+  --primary-foreground: var(--navy-900);
+  --secondary: var(--navy-700);
   --secondary-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 65%;
+  --destructive: var(--oxblood-300);    /* Füllung kippt auf Dunkel — Textton */
+  --destructive-foreground: var(--navy-900);
+  --muted: var(--navy-700);
+  --muted-foreground: var(--navy-200);  /* NICHT navy-300: sonst < 4,5:1 */
   --accent: 291 96% 62%;
-  --accent-foreground: 0 0% 8%;
-  --popover: 0 0% 12%;
+  --accent-foreground: 0 0% 100%;
+  --popover: var(--navy-800);
   --popover-foreground: 0 0% 100%;
-  --card: 0 0% 12%;
+  --card: var(--navy-800);
   --card-foreground: 0 0% 100%;
 
-  --sidebar-background: 0 0% 12%;
+  --sidebar-background: var(--surface-abyss);
   --sidebar-foreground: 0 0% 100%;
   --sidebar-primary: 291 96% 62%;
-  --sidebar-primary-foreground: 0 0% 8%;
+  --sidebar-primary-foreground: 0 0% 100%;
   --sidebar-accent: 291 96% 62%;
-  --sidebar-accent-foreground: 0 0% 8%;
-  --sidebar-border: 0 0% 25%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: var(--navy-600);
   --sidebar-ring: 291 96% 62%;
 }
 
@@ -337,12 +430,16 @@
   box-shadow: 0 4px 20px hsl(var(--cta) / 0.1);
 }
 
+/* Die Kennzahl selbst ist eine MESSUNG, also Navy-600 (--data), nicht Magenta.
+   Vorher war jede Zahl in jeder Stat-Karte magenta — in einem Artikel mit vier
+   Karten stand das Signal damit sechzehnmal auf einer Seite. (Umstellung
+   04.08.2026, Regel: Magenta höchstens zweimal pro Screen.) */
 .blog-stat-card .stat-value {
   display: block;
   font-size: 1.85rem;
   font-weight: 700;
   line-height: 1;
-  color: hsl(var(--cta-accessible));
+  color: hsl(var(--data));
   letter-spacing: -0.02em;
   margin: 0 0 0.3rem;
 }
@@ -389,7 +486,7 @@
    Gilt nur fuer Abschnitts-Ueberschriften. Kleine H2 in Karten- und
    Blogteasern (18 bis 24 px) bleiben unberuehrt.                            */
 .cai-h2 {
-  font-size: clamp(1.375rem, 2.1vw, 1.75rem); /* 22 -> 28 px */
+  font-size: clamp(1.375rem, 2.1vw, 1.75rem); /* 22 -&gt; 28 px */
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.22;
@@ -400,7 +497,7 @@
    Gewicht der Scroll-Zahl aus der Verdraengungs-Szene der Startseite
    (die "-59 %"), die Oli als Referenz genannt hat.                          */
 .cai-stat {
-  font-size: clamp(2.4rem, 5vw, 3.4rem); /* 38 -> 54 px */
+  font-size: clamp(2.4rem, 5vw, 3.4rem); /* 38 -&gt; 54 px */
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -408,10 +505,10 @@
 }
 
 /* ── H1-Kippsatz (28.07.2026) ──────────────────────────────────────────────
-   Zeile 1 stellt fest (anthrazit), Zeile 2 dreht (magenta). Die zweite Zeile
+   Zeile 1 stellt fest (Navy-800), Zeile 2 dreht (magenta). Die zweite Zeile
    erscheint zuerst ebenfalls dunkel und kippt 380 ms spaeter in die Farbe —
    die Wendung wird sichtbar, nicht nur gelesen.
-   Markup: h1.cai-h1.cai-kipp > span.k1 + span.k2 (oder die Komponente
+   Markup: h1.cai-h1.cai-kipp &gt; span.k1 + span.k2 (oder die Komponente
    HeroHeadline.astro). Ohne JS und bei reduced-motion steht alles sofort,
    Zeile 2 direkt in Magenta.
    Kontrast: bei grosser fetter Schrift verlangt WCAG AA nur 3:1, das helle
