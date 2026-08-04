@@ -307,7 +307,8 @@
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* Alle Preise sind Nettopreise zzgl. 19 % MwSt. Unsere Leistungen richten sich ausschließlich an Unternehmenskunden.",
     "mission": "Co-Create",
-    "taglineNote": "Künstliche Intelligenz, die leistet. Menschliche Erfahrung, die lenkt.",
+    "taglineNote1": "Künstliche Intelligenz, die leistet.",
+    "taglineNote2": "Menschliche Erfahrung, die lenkt.",
     "taglineLinkLabel": "Das CoCreate-Prinzip"
   },
   "tiers": {

@@ -287,7 +287,8 @@
     "madeIn": "Made with {heart} in Germany",
     "vatNote": "* All prices are net prices plus 19 % VAT. Our services are exclusively for business customers.",
     "mission": "Co-Create",
-    "taglineNote": "Artificial intelligence that performs. Human experience that steers.",
+    "taglineNote1": "Artificial intelligence that performs.",
+    "taglineNote2": "Human experience that steers.",
     "taglineLinkLabel": "The CoCreate principle"
   },
   "tiers": {

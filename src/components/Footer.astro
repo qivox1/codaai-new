@@ -121,15 +121,20 @@ const currentYear = new Date().getFullYear();
             class="group inline-block"
             aria-label={t(lang, "footer.taglineLinkLabel")}
           >
-            <p class="text-base font-semibold text-ondark transition-colors group-hover:text-cta-on-dark">
-              {t(lang, "footer.tagline1")}
-            </p>
-            <p class="text-base font-semibold text-cta">
-              {t(lang, "footer.tagline2")}
+            {/* Eine Zeile, zwei Gewichte (Beschluss Oli 04.08.2026): „AI + HI."
+                traegt den Satz normal, „Amplified." setzt die Pointe — fett und
+                magenta. Vorher standen beide fett und untereinander, dadurch
+                betonte die Zeile zweimal und die Steigerung ging verloren. */}
+            <p class="text-base text-ondark transition-colors group-hover:text-cta-on-dark">
+              <span class="font-normal">{t(lang, "footer.tagline1")}</span>{' '}
+              <span class="font-bold text-cta">{t(lang, "footer.tagline2")}</span>
             </p>
           </a>
+          {/* Zwei gesetzte Zeilen: Leistung und Lenkung stehen einander gegenueber,
+              der Umbruch faellt deshalb nie mitten in eine der beiden Haelften. */}
           <p class="mt-2 max-w-xs text-sm leading-relaxed text-ondark-muted">
-            {t(lang, "footer.taglineNote")}
+            <span class="block">{t(lang, "footer.taglineNote1")}</span>
+            <span class="block">{t(lang, "footer.taglineNote2")}</span>
           </p>
         </div>
       </div>

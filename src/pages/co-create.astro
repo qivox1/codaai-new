@@ -128,7 +128,9 @@ const aboutPageSchema = {
 
             <h1 class="cai-h1 text-foreground mb-6">
               Wenn menschliche und<br/>
-              <span class="text-cta">künstliche Intelligenz</span><br/>
+              {/* Marken-Verlauf statt flachem Magenta (F14, 04.08.2026) — dieselbe
+                  Behandlung wie die zweite Zeile des Kippsatzes sitewide. */}
+              <span class="text-gradient">künstliche Intelligenz</span><br/>
               sich verstärken
             </h1>
 
@@ -407,7 +409,7 @@ const aboutPageSchema = {
     {/* ── CTA ─────────────────────────────────────────────────────────────── */}
     <section class="py-16 lg:py-20 border-t border-border">
       <div class="mx-auto max-w-2xl px-6 lg:px-8 text-center reveal">
-        <h2 class="text-2xl font-bold text-foreground mb-4">
+        <h2 class="cai-h2 text-foreground mb-4">
           Bereit, aus zwei Intelligenzen Ihren Vorsprung zu machen?
         </h2>
         <p class="text-muted-foreground mb-8">
@@ -447,7 +449,7 @@ const aboutPageSchema = {
   .hi-pop {
     font-weight: 800;
     color: hsl(var(--cta));
-    text-shadow: 0 0 16px rgba(223, 65, 251, 0.55);
+    text-shadow: 0 0 16px hsl(var(--cta) / 0.55);
   }
 
   .seal-spark {
