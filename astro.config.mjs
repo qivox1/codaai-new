@@ -112,6 +112,10 @@ export default defineConfig({
         // /leistungen/ ist seit 28.07.2026 nur noch eine Weiterleitung auf
         // /digital-visibility/ und gehoert nicht in die Sitemap.
         !page.endsWith('/leistungen/') &&
+        // /kontakt/ und /en/contact/ sind seit 04.08.2026 ebenfalls nur noch
+        // Weiterleitungen (auf #termin der jeweiligen Startseite).
+        !page.endsWith('/kontakt/') &&
+        !page.endsWith('/en/contact/') &&
         !page.includes('/auth/') &&
         !page.endsWith('/en/404/'),
       serialize(item) {

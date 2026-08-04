@@ -20,8 +20,11 @@ import { Video, Phone, Check, Loader2, ChevronLeft, ChevronRight } from 'lucide-
 
 // ⚠️ Nach dem Apps-Script-Deploy unter hi@codaai.ai hier die /exec-URL eintragen.
 const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
-// Fallback, falls das Backend (noch) nicht erreichbar ist:
-const FALLBACK_URL = '/kontakt';
+// Fallback, falls das Backend (noch) nicht erreichbar ist.
+// Bis 04.08.2026 zeigte er auf /kontakt/ — die Seite gibt es nicht mehr, und
+// eine Weiterleitung als Notausgang wäre absurd. Jetzt direkt die E-Mail: ein
+// Klick statt Seitenwechsel, und der Betreff steht schon drin.
+const FALLBACK_URL = 'mailto:hi@codaai.ai?subject=Terminanfrage';
 
 type Slot = { iso: string; hm: string };
 type Day = { date: string; dayLabel: string; dateLabel: string; times: Slot[] };
@@ -68,7 +71,7 @@ const T = {
     verifyBook: 'Bestätigen & Termin buchen',
     resend: 'Code erneut senden', resending: 'Senden …', changeNum: 'Nummer ändern',
     fallbackText: 'Aktuell können wir keine Termine laden. Schreiben Sie uns kurz – wir melden uns mit einem Terminvorschlag.',
-    fallbackBtn: 'Termin per Kontakt anfragen →',
+    fallbackBtn: 'Termin per E-Mail anfragen →',
     doneTitle: 'Termin bestätigt!',
     meetingLabel: 'Webmeeting', callLabel: 'Telefontermin',
     doneIsBooked: 'ist gebucht:',
@@ -126,7 +129,7 @@ const T = {
     verifyBook: 'Confirm & book',
     resend: 'Resend code', resending: 'Sending …', changeNum: 'Change number',
     fallbackText: 'We can’t load times right now. Drop us a line and we’ll get back with a proposed time.',
-    fallbackBtn: 'Request via contact →',
+    fallbackBtn: 'Request by e-mail →',
     doneTitle: 'Appointment confirmed!',
     meetingLabel: 'web meeting', callLabel: 'phone call',
     doneIsBooked: 'is booked:',

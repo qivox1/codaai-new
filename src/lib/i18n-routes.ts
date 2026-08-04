@@ -25,7 +25,10 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   // -- Statische Seiten ----------------------------------------------------
   ['/', '/en/'],
   ['/preise/', '/en/pricing/'],
-  ['/kontakt/', '/en/contact/'],
+  // 04.08.2026: /kontakt/ ↔ /en/contact/ entfernt. Beide Seiten sind seither
+  // reine Weiterleitungen mit noindex — ein hreflang-Paar auf noindex-Seiten
+  // wäre ein Widerspruch (wir sagen Google „nicht indexieren" und gleichzeitig
+  // „das ist die Sprachversion").
   ['/co-create/', '/en/co-create/'],
   ['/impressum/', '/en/legal-notice/'],
   ['/datenschutz/', '/en/privacy-policy/'],

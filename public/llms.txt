@@ -16,7 +16,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
 - [Fragen & Antworten](https://www.codaai.ai/faq/): Unterschied SEO, AEO und GEO, Messung, Laufzeiten, Zusammenarbeit mit bestehenden Agenturen
 - [Blog](https://www.codaai.ai/blog/): Fachbeiträge zu KI-Sichtbarkeit, GEO und B2B-Content
-- [Kontakt](https://www.codaai.ai/kontakt/): Terminbuchung und Kontaktdaten
+- [Impressum](https://www.codaai.ai/impressum/): Anschrift, Telefon und E-Mail
 - [Co-Create](https://www.codaai.ai/co-create/): Das Prinzip hinter der Arbeit — künstliche und menschliche Intelligenz zusammen
 
 ## Hauptseiten (Englisch)
@@ -24,7 +24,6 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Homepage](https://www.codaai.ai/en/)
 - [Pricing](https://www.codaai.ai/en/pricing/)
 - [Co-Create](https://www.codaai.ai/en/co-create/)
-- [Contact](https://www.codaai.ai/en/contact/)
 - [Blog](https://www.codaai.ai/en/blog/)
 
 Die englische Fassung deckt bisher nur einen Teil der Seiten ab. Deutsch ist die Leitsprache.

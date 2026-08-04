@@ -1,119 +1,33 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
-
+/* ── /en/contact — redirect ───────────────────────────────────────────────────
+   The standalone contact page was removed on 04.08.2026 together with its
+   German counterpart /kontakt/. Booking lives in the #termin block on the home
+   page, postal address and phone number in the legal notice, the e-mail address
+   in both. This file only remains so old links, bookmarks and the search index
+   do not hit a dead end. GitHub Pages cannot serve a 301 — hence meta refresh
+   plus location.replace, noindex and a canonical pointing at the new target.
+   Excluded from the sitemap (filter in astro.config.mjs).                     */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/en/#termin`;
+const canonical = 'https://www.codaai.ai/en/';
 ---
 
-<Layout
-  lang="en"
-  title="Contact – CodaAI | Get in Touch"
-  description="Get in touch with CodaAI. We are happy to help with questions about our AI content platform, pricing, and how to start a free trial."
->
-  <Navbar lang="en" />
-  <main class="pt-24 lg:pt-28">
-    <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Contact' }]} class="mb-8" />
-
-      <h1 class="cai-h1 text-foreground mb-4">Contact</h1>
-      <p class="text-muted-foreground mb-12 text-lg leading-relaxed">
-        Questions about CodaAI, our content packages, or want to start a free trial? We look forward to hearing from you.
-      </p>
-
-      <div class="grid sm:grid-cols-2 gap-6 mb-12">
-        <div class="rounded-2xl border border-border bg-card p-6">
-          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Email</h2>
-          <a href="mailto:hi@codaai.ai" class="text-foreground hover:text-cta transition-colors font-medium">hi@codaai.ai</a>
-          <p class="text-sm text-muted-foreground mt-2">We typically respond within 24 hours.</p>
-        </div>
-
-        <div class="rounded-2xl border border-border bg-card p-6">
-          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Phone</h2>
-          <a href="tel:+4915153406969" class="text-foreground hover:text-cta transition-colors font-medium">+49 151 53406969</a>
-          <p class="text-sm text-muted-foreground mt-2">Monday – Friday, 9 am – 5 pm CET</p>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-border bg-card p-6 mb-8">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Address</h2>
-        <address class="not-italic text-foreground text-sm leading-relaxed">
-          CodaAI<br />
-          Langer Weg 7b<br />
-          33332 Gütersloh<br />
-          Germany
-        </address>
-      </div>
-
-      <div class="rounded-2xl border border-cta/20 bg-cta/5 p-6">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Request a Free Article</h2>
-        <p class="text-sm text-muted-foreground mb-4">
-          Experience the quality of our AI-generated content — no credit card, no commitment required.
-        </p>
-        <a href={`${base}/en/`} class="btn-cta inline-flex items-center gap-2 px-6 py-3 rounded-[14px] text-sm font-semibold">
-          Try for free
-        </a>
-      </div>
-    </div>
-  
-        <!-- What happens next -->
-        <section class="mt-16 pt-16 border-t border-border">
-          <div class="max-w-2xl">
-            <h2 class="text-2xl font-semibold text-foreground mb-6">What happens after you reach out?</h2>
-            <div class="space-y-6 text-muted-foreground">
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">1</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">Personal intro call</p>
-                  <p>We get back to you within 24 hours and schedule a free 30-minute discovery call to understand your goals and content needs.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">2</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">Custom content proposal</p>
-                  <p>Based on your topics, target audience, and publishing cadence, we create a tailored content concept and pricing proposal.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">3</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">First articles within one week</p>
-                  <p>Once you approve the concept, we start production immediately. Your first articles are typically delivered within 5–7 business days.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="mt-16 pt-16 border-t border-border">
-          <div class="max-w-2xl">
-            <h2 class="text-2xl font-semibold text-foreground mb-6">Frequently asked questions</h2>
-            <div class="space-y-4">
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  How quickly will I hear back?
-                </summary>
-                <p class="text-muted-foreground pb-3">We typically respond within 24 business hours. For urgent enquiries you can also reach us by phone.</p>
-              </details>
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  Is there a minimum contract period?
-                </summary>
-                <p class="text-muted-foreground pb-3">No. Our plans are month-to-month with no long-term commitment. We rely on quality, not lock-in.</p>
-              </details>
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  Do you work with small businesses?
-                </summary>
-                <p class="text-muted-foreground pb-3">Yes. Our packages start at just 2 articles per month and are designed to fit the budgets and workflows of SMBs and mid-market companies.</p>
-              </details>
-            </div>
-          </div>
-        </section>
-
-  </main>
-  <Footer lang="en" />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Redirected to booking | CodaAI</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
+    <p>
+      Reach us at <a href="mailto:hi@codaai.ai" style="color: #9904B4; font-weight: 600;">hi@codaai.ai</a>
+      or straight through
+      <a href={target} style="color: #9904B4; font-weight: 600;">our booking form</a>.
+    </p>
+    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
+  </body>
+</html>

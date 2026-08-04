@@ -37,7 +37,9 @@ const navItemsDe = [
   { label: 'Preise', href: `${base}/preise/` },
   { label: 'Blog', href: `${base}/blog/` },
   { label: t('de', "navbar.faq"), href: `${base}/faq/` },
-  { label: 'Kontakt', href: `${base}/kontakt/` },
+  // 04.08.2026 (Entscheidung Oli): „Kontakt" entfernt. Die Seite trug nur, was
+  // Startseite (#termin) und Impressum ohnehin besser tragen. /kontakt/ ist
+  // seither eine Weiterleitungsseite mit noindex.
 ];
 
 const navItemsEn = [
@@ -46,7 +48,7 @@ const navItemsEn = [
   { label: 'Pricing', href: `${base}/en/pricing/` },
   { label: 'Blog', href: `${base}/en/blog/` },
   { label: t('en', "navbar.faq"), href: `${home}#faq` },
-  { label: 'Contact', href: `${base}/en/contact/` },
+  // 04.08.2026: removed alongside the German „Kontakt" entry.
 ];
 
 const navItems = lang === 'de' ? navItemsDe : navItemsEn;

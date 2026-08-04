@@ -1,119 +1,35 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-
+/* ── /kontakt — Weiterleitung ─────────────────────────────────────────────────
+   Die eigene Kontaktseite ist am 04.08.2026 entfallen (Beschluss Oli). Sie trug
+   nichts, was nicht woanders besser steht: die Terminbuchung liegt im Block
+   #termin auf der Startseite, Anschrift und Telefonnummer im Impressum, die
+   E-Mail-Adresse in beidem. Ihre Nebentexte stammten noch aus der
+   Content-Agentur-Zeit („Content-Produktion", „5–7 Werktage").
+   Diese Datei bleibt nur stehen, damit alte Links, Lesezeichen und der
+   Google-Index nicht ins Leere laufen. GitHub Pages kann kein 301 — deshalb
+   Meta-Refresh + location.replace, dazu noindex und ein Canonical auf das
+   neue Ziel. Aus der Sitemap ausgeschlossen (Filter in astro.config.mjs).     */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/#termin`;
+const canonical = 'https://www.codaai.ai/';
 ---
 
-<Layout
-  lang="de"
-  title="Kontakt – CodaAI | So erreichen Sie uns"
-  description="Nehmen Sie Kontakt mit CodaAI auf. Wir beantworten Fragen zum Digital-Visibility-Programm, zu Preisen und Laufzeiten — oder erstellen Ihr kostenloses Audit."
->
-  <Navbar lang="de" />
-  <main class="pt-24 lg:pt-28">
-    <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
-      <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Kontakt' }]} class="mb-8" />
-
-      <h1 class="cai-h1 text-foreground mb-4">Kontakt</h1>
-      <p class="text-muted-foreground mb-12 text-lg leading-relaxed">
-        Haben Sie Fragen zum Digital-Visibility-Programm, zu Preisen oder Laufzeiten — oder möchten Sie Ihr kostenloses Audit anfordern? Wir freuen uns auf Ihre Nachricht.
-      </p>
-
-      <div class="grid sm:grid-cols-2 gap-6 mb-12">
-        <div class="rounded-2xl border border-border bg-card p-6">
-          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">E-Mail</h2>
-          <a href="mailto:hi@codaai.ai" class="text-foreground hover:text-cta transition-colors font-medium">hi@codaai.ai</a>
-          <p class="text-sm text-muted-foreground mt-2">Wir antworten in der Regel innerhalb von 24 Stunden.</p>
-        </div>
-
-        <div class="rounded-2xl border border-border bg-card p-6">
-          <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Telefon</h2>
-          <a href="tel:+4915153406969" class="text-foreground hover:text-cta transition-colors font-medium">+49 151 53406969</a>
-          <p class="text-sm text-muted-foreground mt-2">Montag – Freitag, 9–17 Uhr</p>
-        </div>
-      </div>
-
-      <div class="rounded-2xl border border-border bg-card p-6 mb-8">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Anschrift</h2>
-        <address class="not-italic text-foreground text-sm leading-relaxed">
-          CodaAI<br />
-          Langer Weg 7b<br />
-          33332 Gütersloh<br />
-          Deutschland
-        </address>
-      </div>
-
-      <div class="rounded-2xl border border-cta/20 bg-cta/5 p-6">
-        <h2 class="text-sm font-semibold uppercase tracking-widest text-cta-accessible mb-3">Kostenloses Audit anfordern</h2>
-        <p class="text-sm text-muted-foreground mb-4">
-          Sie sehen schwarz auf weiß, wo Ihr Unternehmen in ChatGPT und der Google KI-Übersicht heute steht — und wer stattdessen empfohlen wird. Ohne Kreditkarte, ohne Verpflichtung.
-        </p>
-        <a href={`${base}/`} class="btn-cta inline-flex items-center gap-2 px-6 py-3 rounded-[14px] text-sm font-semibold">
-          Audit anfordern
-        </a>
-      </div>
-    </div>
-  
-        <!-- Warum CodaAI -->
-        <section class="mt-16 pt-16 border-t border-border">
-          <div class="max-w-2xl">
-            <h2 class="cai-h2 text-foreground mb-6">Was passiert nach Ihrer Anfrage?</h2>
-            <div class="space-y-6 text-muted-foreground">
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">1</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">Persönliches Erstgespräch</p>
-                  <p>Wir melden uns innerhalb von 24 Stunden und vereinbaren ein kostenloses 30-minütiges Erstgespräch, um Ihre Ziele und Anforderungen kennenzulernen.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">2</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">Individuelles Angebot</p>
-                  <p>Basierend auf Ihren Themen, Ihrer Zielgruppe und Ihrem gewünschten Veröffentlichungsrhythmus erstellen wir ein maßgeschneidertes Content-Konzept.</p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cta/10 flex items-center justify-center text-cta-accessible font-semibold text-sm">3</div>
-                <div>
-                  <p class="font-medium text-foreground mb-1">Start innerhalb einer Woche</p>
-                  <p>Nach Freigabe des Konzepts starten wir sofort mit der Content-Produktion. Die ersten Artikel liefern wir typischerweise innerhalb von 5–7 Werktagen.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="mt-16 pt-16 border-t border-border">
-          <div class="max-w-2xl">
-            <h2 class="cai-h2 text-foreground mb-6">Häufige Fragen</h2>
-            <div class="space-y-4">
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  Wie schnell erhalte ich eine Antwort?
-                </summary>
-                <p class="text-muted-foreground pb-3">In der Regel melden wir uns innerhalb von 24 Stunden an Werktagen. Bei dringenden Anfragen können Sie uns auch telefonisch erreichen.</p>
-              </details>
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  Gibt es eine Mindestlaufzeit?
-                </summary>
-                <p class="text-muted-foreground pb-3">Ja: sechs Monate, bei monatlicher Abrechnung. Sichtbarkeit in Suche und KI-Antworten entsteht über Monate — die ersten Erwähnungen erscheinen typischerweise nach 8 bis 12 Wochen. Bei zwölf Monaten Laufzeit zahlen Sie 10 % weniger. Ein automatisches Rollover gibt es nicht.</p>
-              </details>
-              <details class="group">
-                <summary class="flex justify-between items-center cursor-pointer py-3 font-medium text-foreground">
-                  Arbeiten Sie auch mit kleinen Unternehmen?
-                </summary>
-                <p class="text-muted-foreground pb-3">Ja, unsere Pakete starten bereits ab 2 Artikeln pro Monat und sind speziell auf die Anforderungen von KMU und Mittelstandsunternehmen ausgerichtet.</p>
-              </details>
-            </div>
-          </div>
-        </section>
-
-  </main>
-  <Footer lang="de" />
-</Layout>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Weitergeleitet zur Terminbuchung | CodaAI</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
+    <p>
+      Sie erreichen uns per <a href="mailto:hi@codaai.ai" style="color: #9904B4; font-weight: 600;">hi@codaai.ai</a>
+      oder direkt über die
+      <a href={target} style="color: #9904B4; font-weight: 600;">Terminbuchung</a>.
+    </p>
+    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
+  </body>
+</html>
