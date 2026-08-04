@@ -142,25 +142,31 @@
    einzelne Sektionen zu invertieren — digital-visibility #nicht-im-angebot,
    en/pricing #honesty, ein Teil von PricingCalculatorV2. Das sind Beweis- und
    Ehrlichkeitsabschnitte, also gehören sie nach F4 auf Navy.
-   Dieser Block ist damit das Rezept für die Abyss/Ink-Sektion, nicht für
-   eine dunkle Website.                                                      */
+   Dieser Block ist damit das Rezept für die invertierte Sektion, nicht für
+   eine dunkle Website.
+
+   Fläche ist INK (Navy-700), nicht Abyss (04.08.2026, Befund Oli am Local
+   Host): Abyss liest sich mitten auf einer Seite als Schwarz, weil kein
+   hellerer Bezug daneben liegt. Ink ist ohnehin die vorgesehene Beweisfläche.
+   Abyss bleibt dem Footer vorbehalten — dort trägt die Tiefe, weil sie den
+   Abschluss setzt.                                                           */
 [data-theme="dark"] {
-  --background: var(--surface-abyss);
-  --foreground: 0 0% 100%;              /* 18,8:1 auf Abyss */
+  --background: var(--surface-ink);
+  --foreground: 0 0% 100%;              /* 14,8:1 auf Ink */
   --border: var(--navy-600);
-  --input: var(--navy-700);
+  --input: var(--navy-800);
   --ring: 291 96% 62%;
 
-  --data: var(--navy-200);              /* 12,5:1 auf Abyss */
+  --data: var(--navy-200);              /* 10,0:1 auf Ink */
   --cta-accessible: var(--cta-on-dark); /* #EA82FC */
 
   --primary: 0 0% 100%;
   --primary-foreground: var(--navy-900);
-  --secondary: var(--navy-700);
+  --secondary: var(--navy-800);
   --secondary-foreground: 0 0% 100%;
   --destructive: var(--oxblood-300);    /* Füllung kippt auf Dunkel — Textton */
   --destructive-foreground: var(--navy-900);
-  --muted: var(--navy-700);
+  --muted: var(--navy-800);
   --muted-foreground: var(--navy-200);  /* NICHT navy-300: sonst < 4,5:1 */
   --accent: 291 96% 62%;
   --accent-foreground: 0 0% 100%;
@@ -169,7 +175,7 @@
   --card: var(--navy-800);
   --card-foreground: 0 0% 100%;
 
-  --sidebar-background: var(--surface-abyss);
+  --sidebar-background: var(--surface-ink);
   --sidebar-foreground: 0 0% 100%;
   --sidebar-primary: 291 96% 62%;
   --sidebar-primary-foreground: 0 0% 100%;
