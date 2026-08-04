@@ -219,7 +219,11 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
          „wir haben die Arbeit gemacht, ueber die wir reden".
          Bewusst eine schmale Zeile statt drei grosser Zahlenkacheln: Der
          Beleg soll tragen, nicht schreien (Oli, 03.08.2026).                -->
-    <section aria-label="Datengrundlage" class="border-b border-border bg-muted/30">
+    <!-- Hintergrund: volles --muted (Navy-50) statt bg-muted/30. Dieselbe helle
+         Blaufläche wie die Sektion „Diese Entscheidung fällt an drei Stellen"
+         auf der Startseite (.rooms{background:var(--muted)}) — dezente
+         Hervorhebung ohne eigene Farbe (Oli, 04.08.2026). -->
+    <section aria-label="Datengrundlage" class="border-b border-border bg-muted">
       <div class="mx-auto flex max-w-7xl flex-col gap-x-8 gap-y-3 px-6 py-5 lg:flex-row lg:items-baseline lg:px-8">
         <p class="shrink-0 text-xs font-semibold uppercase tracking-widest text-cta-accessible">
           Webinargrundlage
