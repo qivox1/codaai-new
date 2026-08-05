@@ -489,9 +489,15 @@ const faqSchema = {
           <p class="mt-4 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
             Klicken Sie auf eine Spalte — der Preisrechner öffnet sich mit dieser Stufe.
           </p>
+          <!-- Die Tabelle ist 560px breit und passt auf kein Telefon. Ohne diesen Hinweis
+               sieht man dort nur Stufe 1 und einen Rest von Stufe 2 — Stufe 3 findet
+               niemand. Mobil-Audit 04.08.2026, Punkt 3 der Nacharbeit. -->
+          <p class="cai-swipe mt-3 text-[13px] font-semibold text-cta-accessible" aria-hidden="true">
+            Seitlich wischen für Stufe 2 und Stufe 3 →
+          </p>
         </Reveal>
 
-        <Reveal as="div" delay={90} class="mt-8 max-w-4xl overflow-x-auto">
+        <Reveal as="div" delay={90} class="cai-mwrap mt-8 max-w-4xl overflow-x-auto">
           <table class="cai-matrix w-full min-w-[560px] border-collapse text-left" data-matrix>
             <thead>
               <tr>
@@ -883,6 +889,42 @@ const faqSchema = {
       transition: stroke-dashoffset 0.45s ease;
       transition-delay: calc(140ms + var(--c) * 180ms);
     }
+    /* ── Matrix auf dem Telefon ───────────────────────────────────────────
+       Die Tabelle ist 560px breit, ein Telefon bietet rund 342px. Drei Dinge
+       machen sie dort benutzbar:
+       1. Der Wischhinweis steht nur unter 900px — auf dem Desktop gibt es
+          nichts zu wischen.
+       2. Die erste Spalte klebt. Ohne sie verliert man beim Scrollen die
+          Zeilenbeschriftung und die Haken bedeuten nichts mehr.
+       3. Ein Schatten an der rechten Kante zeigt, dass dort weitergeht. Er
+          verschwindet am Ende von selbst: Die beiden Deck-Verlaeufe laufen
+          per background-attachment:local mit dem Inhalt mit, die beiden
+          Schatten stehen per scroll fest — am Anschlag schiebt sich der
+          Deck-Verlauf ueber den Schatten.
+       Mobil-Audit 04.08.2026, Punkt 3 der Nacharbeit.                       */
+    .cai-swipe { display: none; }
+    @media (max-width: 900px) {
+      .cai-swipe { display: block; }
+      .cai-matrix th:first-child,
+      .cai-matrix td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: hsl(var(--background));
+      }
+      .cai-mwrap {
+        background-image:
+          linear-gradient(to right, hsl(var(--background)), transparent),
+          linear-gradient(to left, hsl(var(--background)), transparent),
+          radial-gradient(farthest-side at 0 50%, hsl(var(--navy-900) / 0.28), transparent),
+          radial-gradient(farthest-side at 100% 50%, hsl(var(--navy-900) / 0.28), transparent);
+        background-position: left, right, left, right;
+        background-size: 28px 100%, 28px 100%, 22px 100%, 22px 100%;
+        background-repeat: no-repeat;
+        background-attachment: local, local, scroll, scroll;
+      }
+    }
+
     .cai-matrix td { transition: background-color 0.18s ease; }
     .cai-matrix[data-hl='0'] td:nth-child(2),
     .cai-matrix[data-hl='1'] td:nth-child(3),

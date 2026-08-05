@@ -647,6 +647,59 @@
   }
 }
 
+/* ── Ausnahme: Zeile 2 ist eine React-Insel (FlipWords) ───────────────────
+   Auf /webinar und /en/webinar steht in Zeile 2 keine feste Zeichenkette,
+   sondern die Komponente FlipWords. Deren Text sitzt zwangslaeufig in einem
+   `inline-block` — anders laesst sich der Kipp-Transform nicht anwenden.
+
+   Genau das bricht den Verlauf: `background-clip: text` liegt auf `.k2`, der
+   Text aber in einem atomaren Inline-Element darin. Chrome nimmt solche
+   Nachfahren in den Beschnitt auf, Safari NICHT. Auf dem iPhone endete die
+   Kipp-Animation deshalb bei `-webkit-text-fill-color: transparent`, ohne dass
+   ein Verlauf dahinter lag: durchsichtige Schrift, die ihren Platz behaelt.
+   Die zweite H1-Zeile fehlte komplett und hinterliess eine Luecke
+   (gemeldet von Oli, 05.08.2026, iPhone).
+
+   Loesung bewusst OHNE Transparenz: Die Wendungen tragen ihre eigene Farbe
+   (flaches Marken-Magenta, das Ende des Verlaufs). Damit haengt die Lesbarkeit
+   an keiner Browser-Eigenheit mehr. Die Kipp-Bewegung bleibt — sie entsteht
+   hier ohnehin durch den Wortwechsel, nicht durch den Farbumschlag.
+
+   #DF41FB auf Weiss ergibt 3,34:1; ab 24 px fett verlangt WCAG AA 3:1, die H1
+   liegt bei 34-48 px. Zulaessig.
+
+   ⚠️ Der Nachfahren-Selektor (`* `) ist Pflicht, nicht Kosmetik:
+   `-webkit-text-fill-color` wird VERERBT, und zwar als bereits aufgeloester
+   Farbwert. Steht auf `.k2` nur `currentColor`, rechnet der Browser das dort
+   zu Navy-700 aus und vererbt genau dieses Navy an die Wendung — deren inline
+   gesetztes Magenta waere damit ueberschrieben. Erst wenn jedes Element den
+   Wert selbst bekommt, loest `currentColor` je Element gegen dessen eigene
+   Farbe auf. Ohne das Sternchen stuende die Zeile dunkel statt magenta.     */
+.cai-kipp .k2.k2-flip,
+.cai-kipp .k2.k2-flip * {
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Die Farbregel gilt auch fuer die Nachfahren (siehe Hinweis oben) … */
+  .cai-kipp .k2.k2-flip,
+  .cai-kipp .k2.k2-flip * {
+    -webkit-text-fill-color: currentColor;
+  }
+  /* … die Animation aber NUR fuer die Zeile selbst. Auf den Nachfahren wuerde
+     sie mit der Ein-/Ausblendung der FlipWords kollidieren: die Komponente
+     steuert Deckkraft und Transform der Wendung selbst. */
+  .cai-kipp .k2.k2-flip {
+    /* Nur das Einlaufen behalten, den Farbumschlag (caiKippTurn) abwaehlen. */
+    animation-name: caiKippIn;
+    animation-duration: 0.55s;
+    animation-delay: 200ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: forwards;
+  }
+}
+
 @keyframes caiKippIn {
   to { opacity: 1; transform: none; }
 }

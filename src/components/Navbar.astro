@@ -80,7 +80,7 @@ const langToggleHref = langToggleTarget
 const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
+<header class="cai-nav fixed top-0 left-0 right-0 z-50 border-b border-border/40">
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
     <a href={home} class="flex items-center gap-2" aria-label={lang === 'de' ? 'CodaAI Homepage DE' : 'CodaAI Homepage EN'}>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -140,7 +140,7 @@ const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
   <!-- Mobile menu dropdown -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden border-t border-border/40 bg-background/95 backdrop-blur-md"
+    class="cai-nav-menu hidden lg:hidden border-t border-border/40"
   >
     <div class="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-1">
       {navItems.map((item) => (
@@ -166,6 +166,34 @@ const langToggleLabel = lang === 'de' ? 'EN' : 'DE';
     </div>
   </div>
 </header>
+
+<style>
+  /* Der Blur wird ZUGESCHALTET statt abgeschaltet — Absicht.
+     Die Kopfleiste ist fixiert und beim Scrollen permanent sichtbar; ein
+     backdrop-filter ueber die volle Breite muss deshalb bei JEDEM Frame neu
+     zusammengesetzt werden, ueber 13.500px Scrollweg und zusaetzlich zu acht
+     ScrollTrigger-Instanzen. Auf dem Desktop ist das gratis, auf Mittelklasse-
+     Android kostet es einen spuerbaren Teil des Frame-Budgets.
+
+     Warum nicht einfach `backdrop-filter:none` im @media (hover:none)?
+     Weil Tailwinds `backdrop-blur-md` BEIDE Schreibweisen setzt und der
+     Minifier beim Ueberschreiben nur die unpraefixte behielt — auf iOS Safari
+     vor Version 18 waere die `-webkit-`-Variante aktiv geblieben und der Blur
+     mit ihr. Deshalb tragen die Elemente die Utility gar nicht mehr; der Blur
+     kommt nur dort dazu, wo ein echter Zeiger existiert.
+     Mobil-Audit 04.08.2026, Punkt 2 der Nacharbeit.                          */
+  .cai-nav,
+  .cai-nav-menu {
+    background-color: hsl(var(--background));
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cai-nav {
+      background-color: hsl(var(--background) / 0.8);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+  }
+</style>
 
 <script>
   const btn = document.getElementById('mobile-menu-btn');

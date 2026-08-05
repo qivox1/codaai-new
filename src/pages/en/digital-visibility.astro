@@ -494,9 +494,15 @@ const faqSchema = {
           <p class="mt-4 max-w-[60ch] text-base leading-relaxed text-muted-foreground">
             Click a column — the calculator opens with that tier selected.
           </p>
+          <!-- The table is 560px wide and fits on no phone. Without this hint you only
+               see tier 1 and part of tier 2 there — nobody finds tier 3.
+               Mobile audit 04.08.2026, point 3 of the follow-up. -->
+          <p class="cai-swipe mt-3 text-[13px] font-semibold text-cta-accessible" aria-hidden="true">
+            Swipe sideways for tier 2 and tier 3 →
+          </p>
         </Reveal>
 
-        <Reveal as="div" delay={90} class="mt-8 max-w-4xl overflow-x-auto">
+        <Reveal as="div" delay={90} class="cai-mwrap mt-8 max-w-4xl overflow-x-auto">
           <table class="cai-matrix w-full min-w-[560px] border-collapse text-left" data-matrix>
             <thead>
               <tr>
@@ -869,6 +875,41 @@ const faqSchema = {
       transition: stroke-dashoffset 0.45s ease;
       transition-delay: calc(140ms + var(--c) * 180ms);
     }
+    /* ── Matrix on phones ─────────────────────────────────────────────────
+       The table is 560px wide, a phone offers about 342px. Three things make
+       it usable there:
+       1. The swipe hint only shows below 900px — on desktop there is nothing
+          to swipe.
+       2. The first column sticks. Without it you lose the row label while
+          scrolling and the ticks mean nothing.
+       3. A shadow on the right edge shows that the table continues. It
+          disappears at the end by itself: the two cover gradients travel with
+          the content via background-attachment:local, the two shadows stay
+          put via scroll — at the end the cover slides over the shadow.
+       Mobile audit 04.08.2026, point 3 of the follow-up.                    */
+    .cai-swipe { display: none; }
+    @media (max-width: 900px) {
+      .cai-swipe { display: block; }
+      .cai-matrix th:first-child,
+      .cai-matrix td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: hsl(var(--background));
+      }
+      .cai-mwrap {
+        background-image:
+          linear-gradient(to right, hsl(var(--background)), transparent),
+          linear-gradient(to left, hsl(var(--background)), transparent),
+          radial-gradient(farthest-side at 0 50%, hsl(var(--navy-900) / 0.28), transparent),
+          radial-gradient(farthest-side at 100% 50%, hsl(var(--navy-900) / 0.28), transparent);
+        background-position: left, right, left, right;
+        background-size: 28px 100%, 28px 100%, 22px 100%, 22px 100%;
+        background-repeat: no-repeat;
+        background-attachment: local, local, scroll, scroll;
+      }
+    }
+
     .cai-matrix td { transition: background-color 0.18s ease; }
     .cai-matrix[data-hl='0'] td:nth-child(2),
     .cai-matrix[data-hl='1'] td:nth-child(3),
