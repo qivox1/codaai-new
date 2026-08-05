@@ -38,7 +38,7 @@ const t = isEn
       email: 'Email address',
       submit: 'Secure your place →',
       privacy: 'Privacy Policy',
-      thanks: 'Thank you.',
+      thanks: 'Almost there!',
     }
   : {
       hp: 'Website',
@@ -51,7 +51,7 @@ const t = isEn
       email: 'E-Mail-Adresse',
       submit: 'Platz sichern →',
       privacy: 'Datenschutzerklärung',
-      thanks: 'Vielen Dank!',
+      thanks: 'Fast geschafft!',
     };
 
 /* Die Fehlermeldungen liegen als JSON am Wurzelelement, weil das Inline-Script
@@ -131,8 +131,8 @@ const msgs = isEn
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>
     {isEn
-      ? <p><b>{t.thanks}</b> Your registration for the webinar on <b>Tue, 8 September 2026, 11:00&nbsp;CEST</b> has arrived — we will send the access link by email in good time. The webinar is held in German.</p>
-      : <p><b>{t.thanks}</b> Ihre Anmeldung zum Webinar am <b>Di, 08.09.2026, 11:00&nbsp;Uhr</b> ist eingegangen — den Zugangslink senden wir rechtzeitig per E-Mail.</p>}
+      ? <p><b>{t.thanks}</b> We have just sent you an email — please confirm your registration for the webinar on <b>Tue, 8 September 2026, 11:00&nbsp;CEST</b> there. Right after confirming, you will receive your personal access link and calendar invite. The webinar is held in German.</p>
+      : <p><b>{t.thanks}</b> Wir haben Ihnen soeben eine E-Mail geschickt — bitte bestätigen Sie darin Ihre Anmeldung zum Webinar am <b>Di, 08.09.2026, 11:00&nbsp;Uhr</b>. Direkt nach dem Klick erhalten Sie Ihren persönlichen Zugangslink samt Kalendereintrag.</p>}
   </div>
 </div>
 
