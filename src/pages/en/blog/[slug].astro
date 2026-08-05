@@ -22,7 +22,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 const enSlug = post.id.replace(/^en\//, '');
   const articleUrl = `${SITE_URL}/en/blog/${enSlug}/`;
-const ogImage = heroImage ?? `${SITE_URL}/images/og-image.png`;
+// heroImage is a relative path (/images/blog/x.webp). Open Graph, Twitter Cards
+// and schema.org all require an absolute URL — without this every preview
+// pointed nowhere (found 05.08.2026).
+const ogImage = heroImage ? `${SITE_URL}${heroImage}` : `${SITE_URL}/images/og-image${lang === 'en' ? '-en' : ''}.png`;
 
 const wordCount = (post.body ?? '').split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));

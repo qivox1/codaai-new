@@ -22,7 +22,10 @@ const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 const articleUrl = `${SITE_URL}/blog/${post.id}/`;
-const ogImage = heroImage ?? `${SITE_URL}/images/og-image.png`;
+// heroImage ist ein relativer Pfad (/images/blog/x.webp). Open Graph, Twitter
+// Cards und schema.org verlangen aber eine absolute URL — ohne die Ergaenzung
+// zeigte jede Vorschau ins Leere (gefunden 05.08.2026).
+const ogImage = heroImage ? `${SITE_URL}${heroImage}` : `${SITE_URL}/images/og-image.png`;
 
 // Reading time estimate (~200 words/min)
 const wordCount = (post.body ?? '').split(/\s+/).filter(Boolean).length;

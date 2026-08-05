@@ -129,6 +129,11 @@ export default defineConfig({
         // Weiterleitungen (auf #termin der jeweiligen Startseite).
         !page.endsWith('/kontakt/') &&
         !page.endsWith('/en/contact/') &&
+        // Der Videoartikel wurde am 05.08.2026 auf Digital Visibility umgestellt
+        // und liegt jetzt unter /blog/youtube-ki-sichtbarkeit-b2b/. Die alten
+        // Slugs sind nur noch Weiterleitungen.
+        !page.endsWith('/blog/b2b-videomarketing-erklaervideos-mittelstand/') &&
+        !page.endsWith('/en/blog/b2b-explainer-videos-lead-generation/') &&
         !page.includes('/auth/') &&
         !page.endsWith('/en/404/'),
       serialize(item) {

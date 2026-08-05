@@ -45,7 +45,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   // -- Blogartikel ---------------------------------------------------------
   ['/blog/ai-crawler-server-performance-geo/', '/en/blog/ai-crawler-server-performance-geo/'],
   ['/blog/b2b-blog-als-vertriebskanal/', '/en/blog/b2b-blog-as-sales-channel/'],
-  ['/blog/b2b-videomarketing-erklaervideos-mittelstand/', '/en/blog/b2b-explainer-videos-lead-generation/'],
+  ['/blog/youtube-ki-sichtbarkeit-b2b/', '/en/blog/youtube-ai-visibility-b2b/'],
   ['/blog/blogartikel-schreiben-lassen-kosten/', '/en/blog/outsource-blog-writing-costs/'],
   ['/blog/chatgpt-seo-perplexity-sichtbarkeit/', '/en/blog/chatgpt-seo-perplexity-visibility/'],
   ['/blog/content-marketing-mittelstand-ki/', '/en/blog/ai-content-marketing-for-smb/'],

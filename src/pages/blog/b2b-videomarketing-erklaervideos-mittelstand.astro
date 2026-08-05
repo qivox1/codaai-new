@@ -1,0 +1,29 @@
+---
+// Der Artikel wurde am 05.08.2026 auf Digital Visibility umgestellt: aus dem
+// Kostenvergleich zur Videoproduktion wurde die Frage, welche Videos KI-Systeme
+// als Quelle zitieren. Der alte Slug versprach Erklärvideos und Leadgenerierung
+// und passte nicht mehr zum Inhalt — deshalb der Wechsel auf
+// /blog/youtube-ki-sichtbarkeit-b2b/. Diese Seite hält die alte URL am Leben.
+// Bauart wie /kontakt und /leistungen: noindex, follow · Canonical auf das Ziel.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/blog/youtube-ki-sichtbarkeit-b2b/`;
+const canonical = 'https://www.codaai.ai/blog/youtube-ki-sichtbarkeit-b2b/';
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Weitergeleitet: YouTube im B2B | CodaAI</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
+    <p>
+      Dieser Beitrag steht jetzt unter
+      <a href={target} style="color: #9904B4; font-weight: 600;">YouTube im B2B: Welche Videos KI-Systeme zitieren</a>.
+    </p>
+    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
+  </body>
+</html>

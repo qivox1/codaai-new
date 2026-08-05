@@ -1,0 +1,27 @@
+---
+// See the German counterpart: the article was reframed around Digital Visibility
+// on 05.08.2026 and moved to /en/blog/youtube-ai-visibility-b2b/. The old slug
+// promised explainer videos and lead generation and no longer matched the piece.
+// Same construction as /en/contact: noindex, follow · canonical on the target.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/en/blog/youtube-ai-visibility-b2b/`;
+const canonical = 'https://www.codaai.ai/en/blog/youtube-ai-visibility-b2b/';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Moved: YouTube for B2B | CodaAI</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
+    <p>
+      This article now lives at
+      <a href={target} style="color: #9904B4; font-weight: 600;">YouTube for B2B: Which Videos AI Systems Cite as Sources</a>.
+    </p>
+    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
+  </body>
+</html>
