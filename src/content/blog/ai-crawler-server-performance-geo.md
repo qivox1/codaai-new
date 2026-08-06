@@ -16,7 +16,7 @@ faq:
   - q: "Was ist ein AI Crawler und wie unterscheidet er sich von Googlebot?"
     a: "AI Crawler wie GPTBot (OpenAI), ClaudeBot (Anthropic) oder PerplexityBot sammeln Website-Inhalte entweder zum Training von Sprachmodellen oder für Echtzeit-Antworten bei Nutzeranfragen. Im Unterschied zu Googlebot, der für klassische Suchergebnisse indexiert, entscheiden AI Crawler darüber, ob dein Inhalt in ChatGPT, Claude oder Perplexity als Quelle auftaucht."
   - q: "Welchen TTFB-Wert brauche ich für AI-Crawler-Optimierung?"
-    a: "Der empfohlene Schwellenwert liegt unter 200ms TTFB (Time to First Byte). Studien zeigen, dass Websites mit TTFB unter 200ms eine um 40–60% höhere Zitierrate in KI-Antworten erzielen. Der kritische Grenzwert für Echtzeit-Crawling liegt bei ca. 500ms – darüber riskierst du, dass ChatGPT-User oder Claude-User eine schnellere Quelle bevorzugen."
+    a: "Der empfohlene Schwellenwert liegt unter 200ms TTFB (Time to First Byte). Laut Untersuchungen von Am I Cited erzielen Websites mit TTFB unter 200ms eine um 40–60% höhere Zitierrate in KI-Antworten. Der kritische Grenzwert für Echtzeit-Crawling liegt bei ca. 500ms – darüber riskierst du, dass ChatGPT-User oder Claude-User eine schnellere Quelle bevorzugen."
   - q: "Sollte ich GPTBot und ClaudeBot in der robots.txt blockieren?"
     a: "Das hängt von deiner Strategie ab. Blockierst du GPTBot und ClaudeBot, werden deine Inhalte nicht für Modell-Training genutzt – aber du verlierst auch KI-Sichtbarkeit. Für B2B-Unternehmen, die als Quelle in KI-Antworten erscheinen wollen, ist es sinnvoller, Trainings-Crawler selektiv zu erlauben und Echtzeit-Crawler (ChatGPT-User, Claude-User) explizit zuzulassen."
   - q: "Was ist llms.txt und brauche ich das?"
@@ -29,11 +29,6 @@ Die Hälfte der Deutschen nutzt inzwischen KI-Chats statt der klassischen Suche 
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
-    <span class="stat-value">305%</span>
-    <span class="stat-label">Wachstum des GPTBot-Traffics von Mai 2024 bis Mai 2025</span>
-    <span class="stat-source">Cloudflare Radar, „From Googlebot to GPTBot", 2025</span>
-  </div>
-  <div class="blog-stat-card">
     <span class="stat-value">50%</span>
     <span class="stat-label">der Deutschen nutzen bereits KI-Chats statt klassischer Websuche</span>
     <span class="stat-source">Bitkom, „Internet-Suche im Wandel", 2025</span>
@@ -42,11 +37,6 @@ Die Hälfte der Deutschen nutzt inzwischen KI-Chats statt der klassischen Suche 
     <span class="stat-value">200ms</span>
     <span class="stat-label">TTFB-Schwellenwert für maximale Zitierrate in KI-Antworten</span>
     <span class="stat-source">Am I Cited, „TTFB Under 200ms: AI Crawler Success", 2025</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">18%</span>
-    <span class="stat-label">Gesamtanstieg aller Crawler-Anfragen innerhalb von 12 Monaten</span>
-    <span class="stat-source">Cloudflare Radar, Crawler-Traffic-Analyse, 2025</span>
   </div>
 </div>
 
@@ -66,7 +56,7 @@ Hier wird Servergeschwindigkeit zur harten KI-Ranking-Metrik. Braucht dein Serve
 
 ### Der blinde Fleck der meisten GEO-Strategien
 
-Klassische SEO misst PageSpeed für menschliche Nutzer. AI Crawler verhalten sich aber anders: GPTBot kann laut Vercel-Daten über 30 Anfragen pro Sekunde an verschiedene URLs einer Domain stellen. Das bedeutet, selbst ein Server mit ordentlicher durchschnittlicher Performance kann unter dieser Last ins Stocken geraten – und dann genau bei dem Zeitfenster versagen, in dem ein Echtzeit-Crawler auf Antwort wartet.
+Klassische SEO misst PageSpeed für menschliche Nutzer. AI Crawler verhalten sich aber anders: GPTBot kann über 30 Anfragen pro Sekunde an verschiedene URLs einer Domain stellen. Das bedeutet, selbst ein Server mit ordentlicher durchschnittlicher Performance kann unter dieser Last ins Stocken geraten – und dann genau bei dem Zeitfenster versagen, in dem ein Echtzeit-Crawler auf Antwort wartet.
 
 Hinzu kommt: Selbst wenn der Server schnell genug reagiert, entscheidet erst der Inhalt, ob dein Unternehmen in der KI-Antwort als Quelle zitiert wird. Technische Performance ist die Eintrittskarte – GEO-optimierter Content das eigentliche Ticket. Beides muss stimmen.
 
@@ -150,7 +140,7 @@ Bevor du investierst, musst du wissen, was aktuell passiert. Analysiere die Serv
 - `ClaudeBot` – Anthropic Trainings-Crawler
 - `Claude-User` – Anthropic Echtzeit-Crawler
 - `PerplexityBot` – Perplexity Crawler
-- `Meta-ExternalAgent` – Meta AI Crawler (neu seit 2024, bereits 19% Marktanteil unter AI Crawlern)
+- `Meta-ExternalAgent` – Meta AI Crawler (neu seit 2024, inzwischen regelmäßig in Server-Logs zu sehen)
 
 Wichtige Metriken: Anzahl der Crawl-Anfragen, durchschnittliche Antwortzeit pro Bot, HTTP-Statuscodes (5xx-Fehler sind ein Warnsignal), gecrawlte URLs.
 
@@ -165,17 +155,17 @@ AI-Crawler parsen Seiten schneller und zuverlässiger, wenn semantische Struktur
 
 Kombiniert mit schneller Serverperformance gibt strukturiertes Markup AI Crawlern das vollständige Signal-Paket: „Dieser Inhalt ist zuverlässig, strukturiert und schnell abrufbar."
 
-## Praxisbeispiel: Mittelständisches IT-Unternehmen steigert KI-Sichtbarkeit
+## Das übliche Vorgehen: von der Bestandsaufnahme zur Umsetzung
 
-Ein B2B-Softwareunternehmen mit 120 Mitarbeitenden aus der DACH-Region bemerkte, dass es in ChatGPT-Antworten zu seinen Kernthemen kaum auftauchte – obwohl Google-Rankings solide waren.
+Der typische Ausgangspunkt: Ein B2B-Unternehmen taucht in ChatGPT-Antworten zu seinen Kernthemen kaum auf – obwohl die Google-Rankings solide sind. Das Vorgehen läuft dann in drei Schritten ab.
 
-**Ausgangslage:** TTFB im Schnitt 780ms, kein CDN, robots.txt ohne AI-Crawler-Einträge, keine strukturierten Daten.
+**Bestandsaufnahme:** TTFB messen, prüfen, ob ein CDN aktiv ist, die `robots.txt` auf AI-Crawler-Einträge durchsehen und die Server-Logs nach Bot-User-Agents filtern.
 
-**Maßnahmen:** Cloudflare-Integration (TTFB auf 140ms reduziert), robots.txt-Konfiguration für alle wichtigen AI Crawler, Implementierung von llms.txt mit den 15 wichtigsten Fachartikeln, Article- und FAQ-Schema auf Blogbeiträgen.
+**Maßnahmen:** CDN einbinden und serverseitiges Caching aktivieren, `robots.txt` für die wichtigsten AI Crawler konfigurieren, `llms.txt` mit den relevantesten Fachartikeln anlegen, Article- und FAQ-Schema auf den Blogbeiträgen ergänzen.
 
-**Ergebnis nach 8 Wochen:** In Server-Log-Analysen zeigten sich erstmals regelmäßige ChatGPT-User- und Claude-User-Crawls. Die Anzahl von Brand-Erwähnungen in KI-Monitoring-Tools (wie [AmICited.com](https://www.amicited.com)) stieg messbar an, besonders bei Fachfragen zu ihrem Kernthema.
+**Kontrolle:** Server-Logs erneut auswerten – tauchen jetzt regelmäßige Crawls von ChatGPT-User und Claude-User auf? Ergänzend lässt sich über KI-Monitoring-Tools (wie [AmICited.com](https://www.amicited.com)) verfolgen, ob die Marke in KI-Antworten erwähnt wird.
 
-Das Beispiel verdeutlicht das Zwei-Säulen-Prinzip von GEO: Die technische Infrastruktur ist Voraussetzung dafür, dass AI Crawler überhaupt an den Inhalt herankommen. Aber was sie dann dort vorfinden – ob faktendicht, direkt strukturiert, gut quellenbelegt – entscheidet über die Zitierung. Genau dieser zweite Teil ist der Kern dessen, was [CodaAI Co-Create](https://www.codaai.ai/co-create/) für B2B-Unternehmen übernimmt.
+Dieses Vorgehen verdeutlicht das Zwei-Säulen-Prinzip von GEO: Die technische Infrastruktur ist Voraussetzung dafür, dass AI Crawler überhaupt an den Inhalt herankommen. Aber was sie dann dort vorfinden – ob faktendicht, direkt strukturiert, gut quellenbelegt – entscheidet über die Zitierung. Genau dieser zweite Teil ist der Kern dessen, was [CodaAI Co-Create](https://www.codaai.ai/co-create/) für B2B-Unternehmen übernimmt.
 
 ## So messen Sie Ihre aktuelle AI-Crawler-Performance
 

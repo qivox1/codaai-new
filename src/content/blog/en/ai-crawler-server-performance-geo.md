@@ -16,7 +16,7 @@ faq:
   - q: "What is an AI crawler and how does it differ from Googlebot?"
     a: "AI crawlers like GPTBot (OpenAI), ClaudeBot (Anthropic), or PerplexityBot collect website content either for training language models or for real-time responses to user queries. Unlike Googlebot, which indexes for classic search results, AI crawlers determine whether your content appears as a source in ChatGPT, Claude or Perplexity."
   - q: "What TTFB value do I need for AI crawler optimization?"
-    a: "The recommended threshold is below 200ms TTFB (Time to First Byte). Studies show that websites with TTFB under 200ms achieve 40–60% higher citation rates in AI responses. The critical threshold for real-time crawling is approximately 500ms – beyond that, you risk ChatGPT or Claude users preferring a faster source."
+    a: "The recommended threshold is below 200ms TTFB (Time to First Byte). According to research by Am I Cited, websites with TTFB under 200ms achieve 40–60% higher citation rates in AI responses. The critical threshold for real-time crawling is approximately 500ms – beyond that, you risk ChatGPT or Claude users preferring a faster source."
   - q: "Should I block GPTBot and ClaudeBot in robots.txt?"
     a: "It depends on your strategy. If you block GPTBot and ClaudeBot, your content won't be used for model training – but you'll also lose AI visibility. For B2B companies wanting to appear as a source in AI responses, it's more sensible to selectively allow training crawlers while explicitly enabling real-time crawlers (ChatGPT-User, Claude-User)."
   - q: "What is llms.txt and do I need it?"
@@ -29,11 +29,6 @@ Half of Germans now use AI chats instead of classic search – and while marketi
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
-    <span class="stat-value">305%</span>
-    <span class="stat-label">Growth in GPTBot traffic from May 2024 to May 2025</span>
-    <span class="stat-source">Cloudflare Radar, "From Googlebot to GPTBot", 2025</span>
-  </div>
-  <div class="blog-stat-card">
     <span class="stat-value">50%</span>
     <span class="stat-label">of Germans already use AI chats instead of classic web search</span>
     <span class="stat-source">Bitkom, "Internet Search in Flux", 2025</span>
@@ -42,11 +37,6 @@ Half of Germans now use AI chats instead of classic search – and while marketi
     <span class="stat-value">200ms</span>
     <span class="stat-label">TTFB threshold for maximum citation rate in AI responses</span>
     <span class="stat-source">Am I Cited, "TTFB Under 200ms: AI Crawler Success", 2025</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">18%</span>
-    <span class="stat-label">Overall increase in all crawler requests within 12 months</span>
-    <span class="stat-source">Cloudflare Radar, Crawler Traffic Analysis, 2025</span>
   </div>
 </div>
 
@@ -66,7 +56,7 @@ Here, server speed becomes a hard AI ranking metric. If your server takes longer
 
 ### The Blind Spot of Most GEO Strategies
 
-Classic SEO measures PageSpeed for human users. AI crawlers behave differently: according to Vercel data, GPTBot can make over 30 requests per second to different URLs on a domain. This means even a server with decent average performance can struggle under this load – and fail precisely when a real-time crawler is waiting for a response.
+Classic SEO measures PageSpeed for human users. AI crawlers behave differently: GPTBot can make over 30 requests per second to different URLs on a domain. This means even a server with decent average performance can struggle under this load – and fail precisely when a real-time crawler is waiting for a response.
 
 Moreover: even if the server responds fast enough, content ultimately determines whether your company is cited as a source in the AI response. Technical performance is the entry ticket – GEO-optimized content is the actual ticket. Both must be right.
 
@@ -150,7 +140,7 @@ Before investing, you need to know what's currently happening. Analyze your serv
 - `ClaudeBot` – Anthropic training crawler
 - `Claude-User` – Anthropic real-time crawler
 - `PerplexityBot` – Perplexity crawler
-- `Meta-ExternalAgent` – Meta AI Crawler (new since 2024, already 19% market share among AI crawlers)
+- `Meta-ExternalAgent` – Meta AI crawler (new since 2024, now a regular sight in server logs)
 
 Important metrics: number of crawl requests, average response time per bot, HTTP status codes (5xx errors are a warning sign), crawled URLs.
 
@@ -165,17 +155,17 @@ AI crawlers parse pages faster and more reliably when semantic structure is pres
 
 Combined with fast server performance, structured markup gives AI crawlers the complete signal package: "This content is reliable, well-structured and fast to retrieve."
 
-## Case Study: Mid-Market IT Company Increases AI Visibility
+## The Usual Approach: From Assessment to Implementation
 
-A B2B software company with 120 employees from the DACH region noticed it barely appeared in ChatGPT responses for its core topics – even though Google rankings were solid.
+The typical starting point: a B2B company barely appears in ChatGPT responses for its core topics – even though Google rankings are solid. The work then runs in three steps.
 
-**Starting Situation:** Average TTFB of 780ms, no CDN, robots.txt without AI crawler entries, no structured data.
+**Assessment:** measure TTFB, check whether a CDN is active, review `robots.txt` for AI crawler entries, and filter the server logs for bot user-agents.
 
-**Measures:** Cloudflare integration (reduced TTFB to 140ms), robots.txt configuration for all important AI crawlers, llms.txt implementation with 15 key specialist articles, Article and FAQ schema on blog posts.
+**Measures:** put a CDN in front of the site and enable server-side caching, configure `robots.txt` for the most important AI crawlers, add an `llms.txt` listing the most relevant specialist articles, and add Article and FAQ schema to blog posts.
 
-**Results after 8 weeks:** Server log analysis showed regular ChatGPT-User and Claude-User crawls for the first time. The number of brand mentions in AI monitoring tools (like [AmICited.com](https://www.amicited.com)) increased noticeably, especially for specialist questions related to their core competency.
+**Check:** evaluate the server logs again – are regular ChatGPT-User and Claude-User crawls showing up now? In addition, AI monitoring tools (like [AmICited.com](https://www.amicited.com)) can track whether the brand is being mentioned in AI responses.
 
-The example illustrates GEO's two-pillar principle: technical infrastructure is the prerequisite for AI crawlers to even access your content. But what they find there – whether fact-dense, directly structured, well-sourced – determines citation. This second part is precisely what [CodaAI Co-Create](https://www.codaai.ai/co-create/) handles for B2B companies.
+This approach illustrates GEO's two-pillar principle: technical infrastructure is the prerequisite for AI crawlers to even access your content. But what they find there – whether fact-dense, directly structured, well-sourced – determines citation. This second part is precisely what [CodaAI Co-Create](https://www.codaai.ai/co-create/) handles for B2B companies.
 
 ## How to Measure Your Current AI Crawler Performance
 

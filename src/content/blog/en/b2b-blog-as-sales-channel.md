@@ -39,7 +39,7 @@ faq:
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">20%</span>
-    <span class="stat-label">of all German search queries now show AI answers – GEO-optimized blog articles are preferred as sources</span>
+    <span class="stat-label">of German keywords now show AI answers – GEO-optimized blog articles are preferred as sources</span>
     <span class="stat-source">SISTRIX AI Overviews Analysis Germany, February 2026</span>
   </div>
   <div class="blog-stat-card">
@@ -99,7 +99,7 @@ Every B2B article should follow this pattern:
 
 This structure works for classic SEO and for **GEO (Generative Engine Optimization)** – meaning that AI search engines like ChatGPT, Perplexity and Google AI Overviews cite your article as a source.
 
-GEO is no longer optional future talk in 2026: [SISTRIX documented in February 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) that **20% of all German search queries** already show AI-generated answers, which have reduced organic click-through rates for position 1 from 27% to 11%.
+GEO is no longer optional future talk in 2026: [SISTRIX documented in February 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) that **20% of German keywords** already show AI-generated answers, which have reduced organic click-through rates for position 1 from 27% to 11%.
 
 Whoever gets cited in these AI answers saves and expands their traffic. Whoever doesn't gets cited loses it – without their classic ranking changing at all.
 
@@ -118,26 +118,23 @@ This is content recycling: invest once, use multiple times.
 
 According to the [Content Marketing Institute](https://contentmarketinginstitute.com/b2b-research/b2b-content-marketing-trends-research-2025), B2B companies that systematically distribute content across multiple channels report significantly higher ROI on their content investments.
 
-## Case Study: How a Mid-Market IT Service Provider Turned Their Blog Into a Lead Channel
+## The Usual Approach: How a Blog Becomes a Lead Channel
 
-An IT service provider with 80 employees focused on ERP implementations for mechanical engineering started a systematic blog program in 2024. Before: website without a blog, leads mainly from trade shows and personal referrals.
+The typical starting point: a website without a blog, leads mainly from trade shows and personal referrals. The path from there to an organic lead channel follows a recognizable pattern.
 
-**The Strategy:** 3 articles/month on topics like "ERP migration without production downtime", "Which ERP systems suit serial manufacturing?" and "Cost of an ERP implementation: What mechanical engineering companies need to know".
+**The Strategy:** a fixed number of articles per month on the concrete questions buyers actually search for. For an IT service provider doing ERP implementations in mechanical engineering, those would be topics like "ERP migration without production downtime", "Which ERP systems suit serial manufacturing?" and "Cost of an ERP implementation: What mechanical engineering companies need to know".
 
-**After 6 Months:**
+**The First Months:**
 
-- 8 keywords on Google page 1
-- +73% organic traffic
-- 11 direct inquiries via blog articles (tracked with UTM)
-- Average lead qualification significantly higher than trade show contacts
+- First keywords enter the Google index and become visible in Search Console
+- Organic traffic starts to show up as a separate channel in analytics
+- First direct inquiries can be attributed to individual articles via UTM tracking
 
-**After 12 Months:**
+**Over the First Year:**
 
-- 23 keywords on Google page 1
-- Blog is the second most frequent source for contact inquiries after the website homepage
-- 2 customers won who explicitly said the article had built their trust
-
-Production costs: with CodaAI Co-Create, 45–60 minutes per article, plus 2–3 hours monthly editorial planning by one person on the marketing team.
+- The article inventory grows, internal linking strengthens the strongest topics
+- The blog moves up as a source of contact inquiries alongside the homepage
+- Leads arriving this way tend to be further along: they have read several articles before making contact
 
 ## What Distinguishes B2B Blogs from Average Ones: E-E-A-T
 
@@ -197,9 +194,6 @@ The result: B2B mid-market companies can finally achieve the publication frequen
 - First keywords on page 1 → organic traffic → leads measurable
 - Analyze article performance: which topics rank best?
 - Create pillar articles on top-ranking topics (3,000–5,000 words)
-
-> "The best time to start B2B blogging was two years ago. The second best is today – because every month you wait is a month your competitors are taking ranking positions from you."
-> — Content Marketing Institute, B2B Research 2025
 
 ## Conclusion: The Blog Isn't a Marketing Extra – It's the Foundation
 

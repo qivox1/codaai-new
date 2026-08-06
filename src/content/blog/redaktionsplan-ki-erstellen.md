@@ -17,7 +17,7 @@ faq:
   - q: "Was gehört in einen Redaktionsplan?"
     a: "Ein vollständiger Redaktionsplan enthält: Thema und Arbeitstitel, Primäres Keyword und Suchintention, Zielgruppe und Kaufphase (Awareness/Consideration/Decision), Veröffentlichungsdatum, Content-Format (Artikel, Video, Infografik), verantwortliche Person und Status. Optional: Distribution-Kanäle, interne Verlinkungen, Saisonalität."
   - q: "Wie oft sollte man als Unternehmen bloggen?"
-    a: "Für B2B-Unternehmen sind 2–4 Blogartikel pro Monat ein sinnvoller Einstieg. Laut HubSpot generieren Unternehmen mit 4+ monatlichen Artikeln 3,5x mehr organischen Traffic als solche mit weniger als einem Artikel pro Monat. Kontinuität ist wichtiger als Frequenz: lieber 2 gute Artikel konstant als 8 schlechte sporadisch."
+    a: "Für B2B-Unternehmen sind 2–4 Blogartikel pro Monat ein sinnvoller Einstieg. Kontinuität ist wichtiger als Frequenz: lieber 2 gute Artikel konstant als 8 schlechte sporadisch."
   - q: "Kann KI den gesamten Redaktionsplan erstellen?"
     a: "KI kann Themenvorschläge, Keyword-Zuordnung, Zielgruppenanalyse und Kalenderplanung automatisieren – also 70–80 % der Planungsarbeit. Was KI nicht vollständig ersetzen kann: das strategische Verständnis des eigenen Unternehmens, aktuelle Produkt-News und interne Prioritäten. Die Kombination aus KI-Basis und menschlicher Prüfung liefert die besten Ergebnisse."
   - q: "Wie weit im Voraus sollte ein Redaktionsplan geplant sein?"
@@ -70,9 +70,6 @@ Viele Pläne entstehen in Brainstorming-Sessions ohne Keyword-Recherche. Das Erg
 Wer für welchen Artikel zuständig ist, bleibt unklar. Artikel bleiben im „Geplant"-Status, werden nie fertig. Nach 6 Wochen ist der Plan ein Friedhof halbfertiger Ideen.
 
 KI löst das erste und zweite Problem direkt. Das dritte ist Prozess-Disziplin – aber ein guter Plan macht sie einfacher.
-
-> „76 % der deutschen Unternehmen sagen, Marketing Automation wird künftig wichtiger. Wer Content-Produktion nicht automatisiert, verliert den Anschluss – nicht nur im SEO, sondern auch in KI-Suchmaschinen wie ChatGPT und Perplexity."
-> — Bitkom, Marketing im digitalen Wandel 2026
 
 ## Der KI-Redaktionsplan: Schritt für Schritt
 
@@ -130,7 +127,7 @@ Mit dem Keyword-Cluster weisen Sie nun jedem Artikel ein Primär-Keyword und ein
 </tbody>
 </table>
 
-**Faustregel für die Balance (basierend auf HubSpot-Empfehlungen):**
+**Unsere Faustregel für die Balance:**
 - 50 % Awareness-Content (breite Keywords, edukativ, kein direkter Produktbezug)
 - 30 % Consideration-Content (Vergleiche, Guides, Optionen abwägen)
 - 20 % Decision-Content (Produktnahes, Case Studies, Trial-Angebote)
@@ -229,9 +226,6 @@ Bestandsaufnahme vor dem Start: Welche Artikel existieren bereits? Welche ranken
 Ein Redaktionsplan ist keine einmalige Aufgabe, sondern ein lebendiges Dokument. Der Unterschied zwischen Unternehmen, die systematisch wachsen, und solchen, die sporadisch Content veröffentlichen, liegt nicht am Budget – sondern an der Konsequenz.
 
 Mit KI ist der erste Schritt einfacher als je zuvor. In 10–15 Minuten haben Sie einen datenbasierten Plan, der Ihre nächsten 12 Wochen strukturiert – nicht nach Bauchgefühl, sondern nach realen Keyword-Daten und Wettbewerbsanalyse.
-
-> „Konsistente Content-Produktion ist keine Frage des Budgets. Es ist eine Frage des Prozesses. Mit dem richtigen Prozess ist jede Teamgröße konkurrenzfähig."
-> — Content Marketing Institute, B2B Research 2025
 
 **Möchten Sie Ihren Redaktionsplan automatisch generieren lassen?** CodaAI analysiert Ihre Website und erstellt in wenigen Minuten einen vollständigen, keyword-basierten Redaktionsplan – inklusive erster Artikel-Briefings. Kostenlos testen, kein Setup nötig.
 

@@ -122,7 +122,7 @@ Classic SEO KPIs (rankings, organic traffic) still apply for GEO – but need su
 - **Citation Rate:** Is your content being linked as a source?
 - **Answer Appearance Rate:** Does your content appear in Google AI Overviews?
 
-Measurement tools: Perplexity directly (manually), AIHref (Beta), Search Console for AI Overviews.
+Measurement tools: the AI systems themselves (manual spot checks) and Search Console, which has reported impressions from AI Overviews and AI Mode separately since June 2026.
 
 ## Conclusion: Act Now While Others Wait
 

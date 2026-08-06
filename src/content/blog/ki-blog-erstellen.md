@@ -42,7 +42,7 @@ KI verändert diesen Prozess grundlegend. Nicht weil sie magisch ist, sondern we
   <div class="blog-stat-card">
     <span class="stat-value">75 Min.</span>
     <span class="stat-label">Aufwand pro Artikel mit KI-Workflow – statt 10–16 Stunden manuell</span>
-    <span class="stat-source">CodaAI Praxismessung</span>
+    <span class="stat-source">CodaAI, eigene Messung</span>
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">4,5×</span>
@@ -66,9 +66,6 @@ Das Ressourcenproblem ist fast immer ein Zeitproblem. Ein professioneller 2.000-
 
 Bei einem internen Stundensatz von 80–90 € entspricht das 720–1.260 € realer Kosten – selbst wenn kein externer Dienstleister beauftragt wird. Das ist der eigentliche Grund, warum die meisten Unternehmen zu wenig Content produzieren: Es ist nicht zu teuer – es ist zu zeitaufwendig.
 
-> „51 % der deutschen Unternehmen sagen, generative KI übernimmt bereits erhebliche Teile kreativer Marketingarbeit. 67 % sind überzeugt: Marketing ohne KI wird künftig nicht mehr erfolgreich sein."
-> — Bitkom, Marketing im digitalen Wandel 2026
-
 KI löst genau dieses Problem – nicht vollständig, aber signifikant. [Laut Bitkom-Studie „KI in Deutschland 2026"](https://www.bitkom.org/Presse/Presseinformation/Durchbruch-Kuenstliche-Intelligenz) nutzen bereits **41 % der deutschen Unternehmen** KI im Betrieb – vor einem Jahr waren es erst 17 %. Wer das noch nicht tut, verliert Zeit gegenüber Wettbewerbern, die schon länger effizienter arbeiten.
 
 ## Der KI-Workflow: Schritt für Schritt
@@ -91,7 +88,7 @@ Manuell würden Sie sich durch 10 Artikel kämpfen und Notizen machen. Mit KI ge
 
 *„Analysiere diese drei Artikel. Was sind die wichtigsten Themenbereiche, die alle abdecken? Was fehlt? Welche Fragen beantworten sie nicht? Welche Struktur bevorzugt Google offensichtlich für dieses Keyword?"*
 
-Das Ergebnis: Eine Lückenanalyse in 2 Minuten, die Ihnen zeigt, wie Sie sich differenzieren. In der Praxis zeigt diese Analyse oft, dass die Top-Ergebnisse denselben Fehler machen – z.B. ROI-Berechnungen auslassen oder Preisvergleiche nicht konkret genug aufschlüsseln. Genau dort setzen Sie an.
+Das Ergebnis: Eine Lückenanalyse in 2 Minuten, die Ihnen zeigt, wie Sie sich differenzieren. Wo die Top-Ergebnisse eine Frage offenlassen – etwa eine ROI-Rechnung oder einen konkreten Preisvergleich –, setzen Sie an.
 
 ### Schritt 3: Strukturiertes Briefing erstellen (5 Minuten)
 
@@ -143,7 +140,7 @@ Bevor Sie veröffentlichen, checken Sie:
 - [ ] URL-Slug kurz und keyword-basiert
 - [ ] Schema.org-Markup: `BlogPosting` und `FAQPage` für FAQ-Sektionen
 
-Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % aller deutschen Suchanfragen bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/).
+Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % der Keywords in Deutschland bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/).
 
 ### Schritt 6: Veröffentlichen und distribuieren (5 Minuten)
 
@@ -216,16 +213,13 @@ KI produziert die Rohstruktur. Qualität entsteht durch systematische Prozesse d
 
 ## Von einem Artikel zur Content-Maschine
 
-Der echte Hebel liegt nicht im einzelnen Artikel, sondern in der Systematik. Unternehmen, die monatlich 4–6 Artikel veröffentlichen, sehen laut HubSpot nach 6 Monaten typischerweise:
+Der echte Hebel liegt nicht im einzelnen Artikel, sondern in der Systematik. Unternehmen, die monatlich 4–6 Artikel veröffentlichen, bauen über die Zeit auf:
 
-- **40–60 % mehr organischen Traffic**
-- **3–5 neue Keywords auf Seite 1** bei Google
-- **2–3x mehr Leads** aus organischer Suche
+- mehr organischen Traffic
+- zusätzliche Keywords auf Seite 1 bei Google
+- mehr Leads aus organischer Suche
 
 Der Unterschied zwischen einmaligem Content-Erstellen und dieser Art von Wachstum: ein reproduzierbarer Workflow. KI macht diesen Workflow zugänglich – auch ohne großes Team oder riesiges Budget.
-
-> „Unternehmen, die 16 oder mehr Blogartikel pro Monat veröffentlichen, generieren 4,5-mal mehr Leads als solche, die deutlich weniger publizieren."
-> — HubSpot State of Marketing 2025
 
 Die Frage ist nicht mehr, ob KI-gestützte Content-Produktion funktioniert. Sie tut es nachweislich. Die Frage ist, wann Sie anfangen – und ob Ihre Wettbewerber schneller waren.
 

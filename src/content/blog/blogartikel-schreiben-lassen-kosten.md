@@ -17,16 +17,16 @@ faq:
   - q: "Was kostet ein professioneller Blogartikel?"
     a: "Die Kosten hängen stark vom Anbieter ab: Agenturen berechnen für einen SEO-optimierten Langform-Artikel (2.000+ Wörter) typischerweise 800–4.000 €. Freelancer verlangen 150–800 €, abhängig von Erfahrung und Fachgebiet. KI-Plattformen wie CodaAI liegen monatlich bei 490–1.500 € für unbegrenzte Artikel-Produktion."
   - q: "Lohnt es sich, Blogartikel schreiben zu lassen?"
-    a: "Ja – wenn Sie regelmäßig Content brauchen, lohnt es sich fast immer. Laut HubSpot generieren Unternehmen mit aktivem Blog 126 % mehr Lead-Wachstum als solche ohne Blog. Ein einzelner gut rankender Artikel kann über Jahre organischen Traffic liefern – der Break-even liegt oft nach 3–6 Monaten."
+    a: "Ja – wenn Sie regelmäßig Content brauchen, lohnt es sich fast immer. Ein einzelner gut rankender Artikel kann über Jahre organischen Traffic liefern – der Break-even liegt oft nach 3–6 Monaten."
   - q: "Was ist günstiger: Freelancer oder KI-Plattform?"
     a: "Für einzelne Artikel ist ein Freelancer günstiger. Ab etwa 4–6 Artikeln pro Monat wird eine KI-Plattform kosteneffizienter – und liefert konsistentere Qualität, weil Briefing, SEO-Optimierung und Struktur standardisiert sind."
   - q: "Kann KI-Content wirklich bei Google ranken?"
     a: "Ja. Google bewertet Content nach Qualität, Relevanz und E-E-A-T – nicht nach der Produktionsmethode. KI-generierter Content, der klar strukturiert, faktenbasiert und auf echte Nutzerfragen ausgerichtet ist, rankt genauso wie menschlich geschriebener Content. Entscheidend ist die Qualitätssicherung im Prozess."
   - q: "Wie viele Blogartikel braucht man pro Monat?"
-    a: "HubSpot-Daten zeigen: Unternehmen, die mehr als 16 Artikel pro Monat veröffentlichen, generieren 4,5-mal mehr Leads als inaktivere Konkurrenten. Für den realistischen Einstieg empfehlen sich 2–4 Artikel pro Monat – das reicht aus, um in 6–12 Monaten messbare SEO-Effekte zu erzielen."
+    a: "Für den realistischen Einstieg empfehlen sich 2–4 Artikel pro Monat – das reicht aus, um in 6–12 Monaten messbare SEO-Effekte zu erzielen."
 ---
 
-Ein Blogartikel, der bei Google auf Seite 1 erscheint, bringt über Monate und Jahre organischen Traffic – ohne weitere Kosten. Laut HubSpot generieren Unternehmen mit aktivem Blog **126 % mehr Lead-Wachstum** als solche ohne Blog. Content Marketing produziert dabei laut Demand Metric **dreimal so viele Leads wie Outbound-Marketing** – und kostet 62 % weniger.
+Ein Blogartikel, der bei Google auf Seite 1 erscheint, bringt über Monate und Jahre organischen Traffic – ohne weitere Kosten.
 
 Das macht Content zur besten langfristigen Investition im Online-Marketing. Aber was kostet ein guter Artikel wirklich – und wann lohnt sich welche Option?
 
@@ -60,9 +60,6 @@ Wer nach „Blogartikel schreiben lassen" sucht, findet Angebote zwischen 5 € 
 Ein Artikel für 5 € kommt typischerweise von Content-Plattformen mit Massenproduktion: Texte ohne Recherche, ohne SEO-Optimierung, ohne fachliches Tiefenwissen. Ein Artikel für 4.000 € von einer spezialisierten SEO-Agentur enthält Keyword-Recherche, Wettbewerbsanalyse, interne Verlinkungsstrategie, Lektorat und technische Optimierung.
 
 Für die Mehrheit der Unternehmen liegt die sinnvolle Investition irgendwo dazwischen – aber das „Irgendwo" kostet Sie ohne klare Orientierung bares Geld.
-
-> „Unternehmen, die 16 oder mehr Blogartikel pro Monat veröffentlichen, generieren 4,5-mal mehr Leads als solche, die deutlich weniger publizieren."
-> — HubSpot State of Marketing 2025
 
 ## Kosten im Vergleich: Die drei Optionen
 
@@ -134,9 +131,6 @@ Viele Unternehmen unterschätzen, was ein Blogartikel wirklich kostet – weil s
 | **Gesamtkosten pro Artikel** | **2.000–4.000 €** | **700–1.500 €** | **~200 €** |
 
 *Interne Zeitkosten bei 90 €/h Stundensatz gerechnet.*
-
-> „Content Marketing kostet 62 % weniger als Outbound-Marketing – und generiert dabei dreimal so viele Leads."
-> — Demand Metric / Content Marketing Institute
 
 ## Was der Content Marketing Institute Report 2025 zeigt
 

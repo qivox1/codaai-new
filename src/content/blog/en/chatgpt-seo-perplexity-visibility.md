@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT & Perplexity SEO for B2B 2026"
-description: "2026 SEO is split: 50% classic Google, 20% AI Overviews, 20% ChatGPT/Perplexity, 10% others. A clear B2B visibility strategy for the new search landscape."
+description: "Search has split across classic Google, AI Overviews and AI chats. A clear B2B visibility strategy for the new search landscape."
 pubDate: 2026-02-25
 lang: en
 author: "CodaAI Editorial Team"
@@ -11,10 +11,10 @@ tags: ["SEO", "AI Search", "ChatGPT", "Perplexity", "Google AI Overviews", "GEO"
 featured: false
 heroImage: /images/blog/seo-vs-ai-search.webp
 heroImageAlt: "ChatGPT SEO Perplexity Visibility"
-summary: "The search market split in 2026: 50% Google classic search, 20% AI-powered overviews (Google, Bing), 20% generative AI chats (ChatGPT, Claude, Perplexity), 10% others. B2B companies need a dual strategy: rank on Google AND appear as sources in AI systems. The good news: overlapping optimizations help both."
+summary: "Search visibility no longer happens in one place: classic Google results, AI-powered overviews (Google, Bing) and generative AI chats (ChatGPT, Claude, Perplexity) each send their own traffic. B2B companies need a dual strategy: rank on Google AND appear as sources in AI systems. The good news: overlapping optimizations help both."
 faq:
   - q: "Do I still need Google rankings in 2026?"
-    a: "Absolutely. Google represents ~50% of search traffic. But: growth is stalling. AI chat usage is accelerating – ChatGPT has 200 million weekly users, Perplexity 15 million monthly. For B2B, you need visibility in both systems."
+    a: "Absolutely. Google is still the largest single source of search traffic. But: its growth is stalling while AI chat usage keeps accelerating. For B2B, you need visibility in both systems."
   - q: "How is SEO different for AI search vs Google?"
     a: "Google ranks pages. AI systems cite sources. Both prefer: fast load times, clear structure, authoritative content. Difference: AI also values conciseness and factual density. A short, well-researched article beats a long rambling one."
   - q: "Can one article rank on Google AND be cited by ChatGPT?"
@@ -31,41 +31,18 @@ Google hasn't disappeared. But it's no longer the only game. Decision-makers are
 
 This article shows why B2B companies need visibility in multiple search systems – and how one content strategy can serve both Google and AI chats.
 
-<div class="blog-stat-grid not-prose">
-  <div class="blog-stat-card">
-    <span class="stat-value">50%</span>
-    <span class="stat-label">Search traffic still comes from classic Google in 2026</span>
-    <span class="stat-source">BrightEdge 2026 Search Trends</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">200M</span>
-    <span class="stat-label">Weekly active users on ChatGPT</span>
-    <span class="stat-source">OpenAI, January 2026</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">20%</span>
-    <span class="stat-label">Share of B2B decision-makers already consulting ChatGPT first instead of Google</span>
-    <span class="stat-source">Gartner B2B Buying Behavior Research 2025</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">15M</span>
-    <span class="stat-label">Monthly active users on Perplexity (specialized AI search engine)</span>
-    <span class="stat-source">Perplexity Metrics, February 2026</span>
-  </div>
-</div>
-
 ## The Search Landscape in 2026: No Clear Winner, But Clear Trends
 
 The death of Google has been announced many times – usually wrong. But Google's dominance has fragmented.
 
-**Traffic distribution for B2B websites in 2026:**
+**Where B2B search visibility happens in 2026:**
 
-- **Classic Google Search**: 50%
-- **Google AI Overviews** (Google's own AI answers): 20%
-- **AI Chat Systems** (ChatGPT, Claude, Perplexity): 20%
-- **Direct/Other**: 10%
+- **Classic Google Search** – still the largest single channel
+- **Google AI Overviews** (Google's own AI answers)
+- **AI Chat Systems** (ChatGPT, Claude, Perplexity)
+- **Direct/Other**
 
-This is a moving target – in 2023, Google was 95% of search traffic. The shift is dramatic and accelerating.
+This is a moving target. What matters is the direction, not the exact share in any given month: a few years ago, search visibility meant Google and nothing else. Today it doesn't.
 
 ### Why B2B Companies Can't Ignore AI Search
 
@@ -80,17 +57,17 @@ For B2B companies, this creates a paradox: classic SEO success (ranking on Googl
 
 ### The Three Systems You Need to Understand
 
-**System 1: Google Classic** (50% of traffic)
+**System 1: Google Classic**
 How it works: Pages rank for keywords. Users click on links.
 Optimization: Keywords, backlinks, domain authority, Core Web Vitals.
 Timeline: 8–16 weeks to first rankings.
 
-**System 2: Google AI Overviews** (20% of traffic)
+**System 2: Google AI Overviews**
 How it works: Google generates answer boxes powered by Gemini, citing sources.
 Optimization: Appear in Google's AI training data (which is similar to classic ranking, but with emphasis on conciseness and authority).
 Timeline: 4–12 weeks.
 
-**System 3: Generative AI Systems** (ChatGPT, Perplexity, Claude) (20% of traffic)
+**System 3: Generative AI Systems** (ChatGPT, Perplexity, Claude)
 How it works: Users ask questions; systems retrieve and cite current web sources in real-time.
 Optimization: Be crawlable by AI bots, have fast server response, E-E-A-T signals.
 Timeline: Days to weeks (immediate crawling, fast citation).
@@ -184,27 +161,21 @@ Write 2,500–3,500 word article answering a specific B2B question. Include:
 - AmICited or similar: track AI mentions
 - Server logs: monitor ChatGPT-User, Claude-User crawls
 
-## Case Study: B2B Software Company Increases Visibility in Both Systems
+## The Usual Approach: One Optimization, Both Systems
 
-A CRM software provider (€10M revenue) was strong on Google (page 1 for 60 keywords). But barely appeared in ChatGPT or Perplexity.
+The typical starting point: a B2B company ranks solidly on Google but barely appears in ChatGPT or Perplexity. The diagnosis is usually the same – content that ranks, but is slow to deliver, denser than AI systems prefer, and structured for readers rather than for retrieval.
 
-**Analysis:** Their content ranked on Google but was:
-- Slow (TTFB 650ms, blocked by robots.txt)
-- Dense (6,000-word articles, AI systems prefer 2,500)
-- Lacking clear structure for AI parsing
+**Analysis:** measure TTFB, check whether `robots.txt` lets AI crawlers in at all, and review article length and structure.
 
 **Changes:**
-- Cloudflare CDN: reduced TTFB to 150ms
-- Restructured 20 top articles: removed filler, added FAQ sections
-- Updated robots.txt: allowed ChatGPT-User, Claude-User
-- Added Schema.org: FAQ markup on all articles
+- Put a CDN in front of the site
+- Restructure the top articles: remove filler, add FAQ sections
+- Update robots.txt: allow ChatGPT-User, Claude-User
+- Add Schema.org FAQ markup
 
-**Results after 8 weeks:**
-- Classic Google rankings: unchanged (still 60 keywords on page 1)
-- AI citations: tracked via AmICited – articles now cited 1–3 times per week
-- Traffic: +15% overall (mostly from AI chats)
+**Check:** classic Google rankings should hold – the changes target delivery speed and structure, not keywords. Whether the articles are now being used as sources can be tracked with AI monitoring tools such as AmICited.
 
-The key: they didn't have to choose between Google and AI. One optimization served both.
+The key: you don't have to choose between Google and AI. One optimization serves both.
 
 ## The Practical Priority for Your Business
 

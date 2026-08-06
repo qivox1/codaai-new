@@ -36,7 +36,7 @@ Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grun
   </div>
   <div class="blog-stat-card">
     <span class="stat-value">20%</span>
-    <span class="stat-label">aller Suchanfragen in Deutschland zeigen bereits KI-generierte Antworten (AI Overviews)</span>
+    <span class="stat-label">der Keywords in Deutschland zeigen bereits KI-generierte Antworten (AI Overviews)</span>
     <span class="stat-source">SISTRIX AI Overviews Analyse Deutschland, Februar 2026</span>
   </div>
   <div class="blog-stat-card">
@@ -55,7 +55,7 @@ Dieser Artikel zeigt Ihnen die vollständige Strategie: von der technischen Grun
 
 Noch 2022 bedeutete "online gefunden werden" fast ausschließlich: auf Google auf Seite 1 erscheinen. Das hat sich fundamental geändert.
 
-Laut der [Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) sehen **84 % der deutschen Unternehmen** KI als wichtigsten Marketingtrend – und **67 %** sind überzeugt, dass Marketing ohne KI-Einsatz künftig nicht mehr erfolgreich sein wird. Gleichzeitig zeigt die [SISTRIX-Analyse von Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/): 20 % aller deutschen Suchanfragen liefern bereits KI-generierte AI Overviews, die die Klickrate auf Position 1 von 27 % auf 11 % gesenkt haben. Für B2B-Unternehmen bedeutet das: Einkäufer und Entscheider recherchieren Lösungen zunehmend über KI-Antworten, bevor sie klassische Suchergebnisse aufrufen.
+Laut der [Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) sehen **84 % der deutschen Unternehmen** KI als wichtigsten Marketingtrend – und **67 %** sind überzeugt, dass Marketing ohne KI-Einsatz künftig nicht mehr erfolgreich sein wird. Gleichzeitig zeigt die [SISTRIX-Analyse von Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/): 20 % der Keywords in Deutschland liefern bereits KI-generierte AI Overviews, die die Klickrate auf Position 1 von 27 % auf 11 % gesenkt haben. Für B2B-Unternehmen bedeutet das: Einkäufer und Entscheider recherchieren Lösungen zunehmend über KI-Antworten, bevor sie klassische Suchergebnisse aufrufen.
 
 Das bedeutet: Eine reine SEO-Strategie reicht nicht mehr. Sie brauchen eine Doppelstrategie aus **klassischem SEO + GEO (Generative Engine Optimization)**.
 
@@ -149,7 +149,7 @@ Klassische SEO-KPIs (Rankings, organischer Traffic) gelten auch für GEO – abe
 - **Citation Rate:** Wird Ihr Content als Quelle verlinkt?
 - **Answer Appearance Rate:** Erscheint Ihr Content in Google AI Overviews?
 
-Tools zur Messung: Perplexity selbst (manuell), AIHref (Beta), Search Console für AI Overviews.
+Tools zur Messung: die KI-Systeme selbst (manuelle Stichproben) sowie die Search Console, die seit Juni 2026 Impressionen aus AI Overviews und AI Mode getrennt ausweist.
 
 ## Fazit: Jetzt handeln, während andere warten
 

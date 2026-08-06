@@ -30,29 +30,6 @@ The answer isn't obvious. It depends on how many articles you produce and what r
 
 Here's the transparent cost calculation – so you can decide objectively.
 
-<div class="blog-stat-grid not-prose">
-  <div class="blog-stat-card">
-    <span class="stat-value">€400–800</span>
-    <span class="stat-label">Cost per article written in-house (8–12 hours labor)</span>
-    <span class="stat-source">Mid-market hourly rate €50–100</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">€1,500–3,000</span>
-    <span class="stat-label">Cost per article from German/Austrian freelancer</span>
-    <span class="stat-source">Freelancer market rates for specialist articles</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">€200–400</span>
-    <span class="stat-label">Cost per article with AI writing + human review</span>
-    <span class="stat-source">CodaAI Co-Create + internal review time</span>
-  </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">10–12</span>
-    <span class="stat-label">Breakeven point: articles per year where AI beats freelancers</span>
-    <span class="stat-source">Cost-benefit analysis mid-market companies</span>
-  </div>
-</div>
-
 ## Scenario 1: Low Publication Frequency (1–3 articles/year)
 
 You publish sporadically. Budget for content isn't established. Production is irregular.
@@ -142,25 +119,11 @@ Output: 24–36 articles per year = €1,200–2,500 per article – impossible 
 
 Article costs are irrelevant without revenue context.
 
-Example: A mid-market B2B company (€5M revenue) publishes 1 article/month (12/year).
+The decisive difference to a paid campaign: an article that ranks keeps working. It is a one-off cost against a stream of visitors that runs for as long as the ranking holds – typically years rather than months. A campaign stops the day the budget stops.
 
-One article ranks for a keyword with 300 monthly searches. CTR from Google: 8% = 24 visitors/month. B2B form conversion: 3% = 0.7 leads/month. Sales conversion: 12% = 0.08 customers/month = 1 customer/year from one article.
+That is why cost per article is the wrong yardstick on its own. The right one is the cost of an article set against the value of a single won B2B customer. In most B2B businesses, one closed deal covers a full year of content production several times over – which is why the question is rarely "Can we afford content?" and more often "Can we afford not to produce it?"
 
-With average customer value €25,000 = €25,000 annual revenue from one article.
-
-Over 3 years (typical article value in rankings): €75,000 revenue.
-
-Cost per article: €400 in-house, €2,000 freelancer, €200 with AI.
-
-ROI: €75,000 revenue ÷ €400 cost = **187x ROI** (in-house) or **37x ROI** (freelancer). All break even within the first 2 weeks.
-
-Let's take a concrete calculation example: an article on a B2B keyword with 500 monthly searches ranks #3. Typical click-through rate: about 10%. That's 50 monthly visitors. With 3% conversion rate for B2B forms: 1.5 inquiries per month.
-
-Over 24 months: **36 inquiries – from one article**.
-
-With average B2B order value of €10,000 and 10% close rate = **3 won customers = €30,000 revenue** from a single content investment.
-
-Calculate that for 4 articles per month – and the question isn't "Can we afford content?" but "Can we afford not to produce content?"
+The numbers behind that comparison are specific to your business: your average order value, your close rate, the search volume in your niche. Work them out with your own figures rather than with a model calculation – anyone quoting a universal ROI multiple for content is guessing.
 
 ## Conclusion: The Right Decision Depends on Your Goal
 

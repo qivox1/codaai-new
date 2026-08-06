@@ -12,12 +12,12 @@ tags: ["Marketing Agency", "AI Alternative", "Content Marketing", "In-House Mark
 featured: false
 heroImage: /images/blog/AI-agency-cocreate.webp
 heroImageAlt: "Marketing Agency Alternative AI"
-summary: "Traditional marketing agencies cost €2,000–10,000/month and move slowly. AI platforms cost €500–1,500/month and operate at your pace. For mid-market companies, platforms replacing 70–80% of agency work – with the difference that you own the process and can adjust immediately."
+summary: "Traditional marketing agencies cost €2,000–10,000/month and move slowly. AI platforms cost €500–1,500/month and operate at your pace. For mid-market companies, platforms now cover much of what an agency used to do for content – with the difference that you own the process and can adjust immediately."
 faq:
   - q: "When should I hire an agency vs. use an AI platform?"
     a: "Agency: complex brand strategy, complete market repositioning, designing new business models. AI platform: ongoing content creation, SEO scaling, regular blog production. Most mid-market companies can replace their agency for content with an AI platform and keep the agency for strategy-only work."
   - q: "What can AI platforms do that agencies can't?"
-    a: "Speed: 2-day turnaround vs. 2-week wait. Flexibility: change strategy on Friday, see results Monday. Cost: same investment brings 4–6x volume. Control: no account manager filtering communication. Transparency: direct access to everything."
+    a: "Speed: 2-day turnaround vs. 2-week wait. Flexibility: change strategy on Friday, see results Monday. Cost: the same budget buys noticeably more output. Control: no account manager filtering communication. Transparency: direct access to everything."
   - q: "What still requires an agency?"
     a: "Brand strategy, market positioning, campaign concepts, crisis communication, and complete rebrands. AI excels at execution; agencies excel at strategy. The ideal setup: agency for strategy, AI for execution."
 ---
@@ -28,7 +28,7 @@ AI removes that scarcity.
 
 One person with an AI platform can do what a 3–4 person content team did previously.
 
-The result: agencies lose 70–80% of their content work. Mid-market companies save 60–80% on costs.
+The result: content production is the part of the agency relationship that shifts in-house first – and it is usually the largest line in the retainer.
 
 ---
 
@@ -47,10 +47,10 @@ The result: agencies lose 70–80% of their content work. Mid-market companies s
 
 ## What Replaces Agencies
 
-- Blog content production: 100% replaced
-- Social media content: 80% replaced
-- Video scripting: 80% replaced
-- Email marketing: 70% replaced
+- Blog content production: fully replaceable
+- Social media content: largely replaceable
+- Video scripting: largely replaceable
+- Email marketing: partly replaceable
 
 ## What Doesn't (Yet)
 

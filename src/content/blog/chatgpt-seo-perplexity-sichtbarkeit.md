@@ -19,7 +19,7 @@ faq:
   - q: "Wie wählen KI-Suchmaschinen ihre Quellen aus?"
     a: "KI-Modelle wie Perplexity und ChatGPT (mit Websearch) bevorzugen Quellen mit hoher Domain-Autorität, klarer Struktur und direkten Antworten, aktuellen und zitierbaren Fakten, korrektem Schema.org-Markup sowie nachweisbarer Expertise (Autoren-Bio, Quellenangaben). Perplexity gewichtet besonders Aktualität und Faktendichte."
   - q: "Kann man überprüfen, ob die eigene Website in ChatGPT zitiert wird?"
-    a: "Ja – durch manuelle Abfragen: Stellen Sie in ChatGPT (mit aktivierter Websuche) und Perplexity Fragen zu Ihrem Fachgebiet und prüfen Sie, ob Ihre Domain als Quelle erscheint. Tools wie AIHref und Brand24 beginnen, AI-Mentions automatisch zu tracken. Google Search Console zeigt AI Overview Impressions in der Performance-Ansicht."
+    a: "Ja – durch manuelle Abfragen: Stellen Sie in ChatGPT (mit aktivierter Websuche) und Perplexity Fragen zu Ihrem Fachgebiet und prüfen Sie, ob Ihre Domain als Quelle erscheint. Tools wie Brand24 beginnen, AI-Mentions automatisch zu tracken. Google liefert seit Juni 2026 in der Search Console unter Performance → Search Results einen Bericht mit Filter für AI Overview und AI Mode – er weist allerdings nur Impressionen aus, keine Klicks und keine Suchanfragen."
   - q: "Wie lange dauert es, bis Verbesserungen in KI-Suchen sichtbar werden?"
     a: "Perplexity aktualisiert seinen Index häufig – erste Verbesserungen können nach 4–8 Wochen messbar sein. ChatGPT mit Websuche zieht aktuelle Seiten heran, das Training der Basis-Modelle erfolgt seltener. Google AI Overviews folgen dem regulären Crawl-Rhythmus. Grundsätzlich gilt: schnellere Indexierung als bei klassischem SEO, aber keine Garantien."
 ---
@@ -31,7 +31,7 @@ Das ist die neue SEO-Lücke. Und sie wächst schnell.
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
     <span class="stat-value">20%</span>
-    <span class="stat-label">aller Suchanfragen in Deutschland zeigen bereits KI-generierte AI Overviews – Tendenz stark steigend</span>
+    <span class="stat-label">der Keywords in Deutschland zeigen bereits KI-generierte AI Overviews</span>
     <span class="stat-source">SISTRIX AI Overviews Analyse Deutschland, Februar 2026</span>
   </div>
   <div class="blog-stat-card">
@@ -44,45 +44,37 @@ Das ist die neue SEO-Lücke. Und sie wächst schnell.
     <span class="stat-label">der deutschen Unternehmen sehen KI als wichtigsten Marketingtrend bis 2027</span>
     <span class="stat-source">Bitkom, Marketing im digitalen Wandel 2026</span>
   </div>
-  <div class="blog-stat-card">
-    <span class="stat-value">2–5</span>
-    <span class="stat-label">Quellen wählt eine KI pro Antwort aus – wer nicht dabei ist, ist unsichtbar</span>
-    <span class="stat-source">Perplexity / ChatGPT Quellenanalyse</span>
-  </div>
 </div>
 
 ## Wie groß ist die KI-Such-Welle wirklich – in Deutschland?
 
-Die Zahlen sind konkret: Die SEO-Analysegesellschaft SISTRIX hat im Februar 2026 über **100 Millionen Suchanfragen in Deutschland** ausgewertet – und dokumentiert erstmals das wahre Ausmaß der KI-Suche mit belastbaren Daten.
+Die Zahlen sind konkret: Die SEO-Analysegesellschaft SISTRIX hat im Februar 2026 über **100 Millionen Keywords in Deutschland** ausgewertet – und dokumentiert erstmals das wahre Ausmaß der KI-Suche mit belastbaren Daten.
 
-Das Ergebnis: Bereits **20 % aller Suchanfragen** in Deutschland zeigen KI-generierte AI Overviews. Websites verlieren dadurch monatlich **265 Millionen organische Klicks**. Die Klickrate auf Position 1 ist von 27 % auf 11 % gefallen – ein Rückgang von fast 60 %. Suchen mit AI Overview führen nur noch zu 33 % Klickrate auf organische Ergebnisse, verglichen mit 57 % ohne AI Overview.
+Das Ergebnis: Bereits **20 % der Keywords** in Deutschland zeigen KI-generierte AI Overviews. Websites verlieren dadurch monatlich **265 Millionen organische Klicks**. Die Klickrate auf Position 1 ist von 27 % auf 11 % gefallen – ein Rückgang von fast 60 %. Suchen mit AI Overview führen nur noch zu 33 % Klickrate auf organische Ergebnisse, verglichen mit 57 % ohne AI Overview.
 
 Die Konsequenz für Unternehmen: Klassisches SEO allein reicht nicht mehr. Wer in KI-Antworten zitiert wird, rettet seinen Traffic. Wer nicht zitiert wird, verliert ihn – ohne dass sich sein Google-Ranking verändert hat.
 
 Gleichzeitig steigt die Bedeutung von KI im Marketing rasant: Laut [Bitkom-Studie „Marketing im digitalen Wandel 2026"](https://www.bitkom.org/Presse/Presseinformation/Marketingtrends-Unternehmen-sehen-KI-an-Spitze) sehen **84 % der deutschen Unternehmen** KI als wichtigsten Marketingtrend bis 2027. Und der [BVDW-Trendmonitor 2026](https://www.bvdw.org/news-und-publikationen/marketingtrends-2026/) führt „AI Search" auf Rang 2 der wichtigsten Marketingthemen – gleichauf mit „AI Content Creation" auf Rang 3.
 
-> „20 % aller Suchanfragen in Deutschland zeigen bereits KI-Antworten. Die Klickrate auf Position 1 ist um fast 60 % gefallen. Das ist kein Trend mehr – das ist die neue Realität der Sichtbarkeit."
-> — SISTRIX, AI Overviews Analyse Deutschland, Februar 2026
-
 ## Warum KI-Suche anders funktioniert als Google
 
 Bei klassischem Google konkurrieren Websites um Platz 1–10 auf einer Ergebnisseite. Nutzer wählen selbst, welchen Link sie anklicken. Platz 2 bekommt noch Traffic, Platz 7 auch – weniger, aber nicht null.
 
-Bei ChatGPT, Perplexity und Google AI Overviews ist das anders: Das KI-Modell wählt 2–5 Quellen aus und synthetisiert daraus eine Antwort. Der Nutzer sieht primär die Antwort – nicht alle Quellen gleichzeitig.
+Bei ChatGPT, Perplexity und Google AI Overviews ist das anders: Das KI-Modell wählt eine begrenzte Zahl von Quellen aus und synthetisiert daraus eine Antwort. Der Nutzer sieht primär die Antwort – nicht alle Quellen gleichzeitig.
 
-**Konsequenz:** Wer nicht unter den 2–5 zitierten Quellen ist, ist unsichtbar. Kein Platz 2, kein Platz 7 – einfach nicht vorhanden. Das ist eine fundamentale Verschiebung: Es geht nicht mehr nur um Rankings, sondern um Zitierbarkeit.
+**Konsequenz:** Wer nicht unter den zitierten Quellen ist, ist unsichtbar. Kein Platz 2, kein Platz 7 – einfach nicht vorhanden. Das ist eine fundamentale Verschiebung: Es geht nicht mehr nur um Rankings, sondern um Zitierbarkeit.
 
 Diese neue Disziplin wird als **GEO (Generative Engine Optimization)** bezeichnet – in Anlehnung an SEO, aber mit anderen Optimierungsparametern.
 
 ## Wie KI-Modelle Quellen auswählen
 
-KI-Systeme sind nicht völlig transparent in ihrer Quellenauswahl, aber Forschung und systematische Tests zeigen konsistente Muster. Praxisauswertungen von [SISTRIX (2026)](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) und akademische GEO-Studien zeigen übereinstimmend: Strukturierter, faktendichter Content mit direkten Antworten wird signifikant häufiger zitiert.
+KI-Systeme sind nicht völlig transparent in ihrer Quellenauswahl, aber systematische Tests zeigen wiederkehrende Muster. In der Praxis wird strukturierter, faktendichter Content mit direkten Antworten häufiger zitiert.
 
 ### Faktor 1: Domain-Autorität und Vertrauen
 
 KI-Modelle bevorzugen Domains mit hoher Backlink-Qualität, langer Veröffentlichungsgeschichte und konsistenter Fachausrichtung. Ein klares Themenfeld schlägt breiten Gemischtwarenhandel – auch wenn die Textqualität vergleichbar ist.
 
-**Was das bedeutet:** Generische Content-Agenturen, die über alles schreiben, werden seltener zitiert als spezialisierte Quellen zu einem Thema. Thematische Autorität ist der wichtigste strukturelle Faktor.
+**Was das bedeutet:** Generische Content-Agenturen, die über alles schreiben, werden seltener zitiert als spezialisierte Quellen zu einem Thema. Thematische Autorität ist dabei ein struktureller Faktor.
 
 ### Faktor 2: Strukturierte, direkte Antworten
 
@@ -92,7 +84,7 @@ KI-Modelle extrahieren präferiert Inhalte, die:
 - Nummerierte Listen und strukturierte Vergleiche bieten
 - FAQ-Sektionen mit präzisen Antworten haben
 
-**Konkretes Beispiel:** Ein Artikel, der in den ersten 100 Wörtern die Kernfrage beantwortet und danach vertieft, wird laut Praxisauswertungen von SISTRIX und GEO-Forschern **signifikant häufiger als Quelle zitiert** als einer, der erst am Ende zur Antwort kommt. Diese „Answer-First Structure" ist der wichtigste einzelne Optimierungsschritt für GEO.
+**Konkretes Beispiel:** Ein Artikel, der in den ersten 100 Wörtern die Kernfrage beantwortet und danach vertieft, wird **eher als Quelle zitiert** als einer, der erst am Ende zur Antwort kommt. Diese „Answer-First Structure" ist ein zentraler Optimierungsschritt für GEO.
 
 ### Faktor 3: Faktendichte und Quellenangaben
 
@@ -121,7 +113,7 @@ Klassisches SEO-Writing beginnt oft mit einem Hook oder einer Einleitung. KI-opt
 
 **Nachher:** „Content Marketing bezeichnet die strategische Erstellung und Verbreitung von Inhalten, um eine definierte Zielgruppe zu erreichen und profitable Aktionen zu erzeugen."
 
-Der zweite Satz ist direkt extrahierbar – als Featured Snippet bei Google und als Quellentext bei KI-Modellen. SISTRIX und führende GEO-Forscher bezeichnen dieses Muster als „Answer-First Structure" – es ist der konsistenteste Faktor für höheren Zitier-Score in KI-Antworten.
+Der zweite Satz ist direkt extrahierbar – als Featured Snippet bei Google und als Quellentext bei KI-Modellen. Dieses Muster wird als „Answer-First Structure" bezeichnet.
 
 ### 2. FAQ-Sektionen mit echten Nutzerfragen
 
@@ -193,13 +185,13 @@ Diese manuelle Methode dauert 15–20 Minuten pro Woche und liefert direkte Einb
 
 ### Tool-basiertes Tracking
 
-- **Google Search Console:** AI Overview Impressions unter Performance → Search Type → Web (seit 2024 verfügbar)
+- **Google Search Console:** seit Juni 2026 ein eigener Bericht unter Performance → Search Results mit Filter für AI Overview und AI Mode – er weist nur Impressionen aus, keine Klicks und keine Suchanfragen
 - **Perplexity:** manuelle Abfragen, Quellenangaben direkt sichtbar und anklickbar
 - **[Brand24](https://brand24.com/)** und **[Mention](https://mention.com/):** tracken Markenerwähnungen auch in KI-generierten Inhalten
 
 ### KPIs für KI-Sichtbarkeit
 
-- **AI Citation Rate:** Wie viele Ihrer Test-Abfragen liefern Ihre Domain als Quelle? (Ziel: >20 % nach 6 Monaten)
+- **AI Citation Rate:** Wie viele Ihrer Test-Abfragen liefern Ihre Domain als Quelle?
 - **AI Mention Rate:** Wie oft wird Ihr Markenname in KI-Antworten erwähnt, auch ohne Quellenlink?
 - **AI Overview Impressions:** (Google Search Console) – Wie oft erscheint Ihr Content in Google AI Overviews?
 - **AI Referral Traffic:** Tatsächlicher Traffic von Perplexity und ähnlichen Plattformen (in Google Analytics sichtbar)
@@ -217,15 +209,12 @@ Diese manuelle Methode dauert 15–20 Minuten pro Woche und liefert direkte Einb
 
 **Fazit:** GEO ist keine Revolution von klassischem SEO – es ist eine Erweiterung. Wer gut für Google optimiert, hat bereits **60–70 % der Grundlage** für KI-Sichtbarkeit gelegt. Was fehlt, sind die spezifischen Optimierungsschritte für KI-Extraktion: Antwort-first-Struktur, FAQ-Sektionen, Schema.org-Markup und thematische Tiefe.
 
-> „AI Search ist 2026 auf Rang 2 der wichtigsten Marketing-Trends in Deutschland. Wer GEO jetzt integriert, baut eine Sichtbarkeit auf, die klassisches SEO allein nicht mehr leisten kann."
-> — BVDW Marketingtrends 2026 / Bitkom, Marketing im digitalen Wandel 2026
-
 ## Jetzt handeln: Die nächsten 3 Schritte
 
 **Schritt 1 – Audit:** Prüfen Sie 5 Ihrer wichtigsten Artikel: Beantworten sie die Hauptfrage in den ersten 100 Wörtern? Haben sie eine FAQ-Sektion? Ist Schema.org-Markup implementiert?
 
-**Schritt 2 – Quick Wins:** Fügen Sie bestehenden Top-Artikeln FAQ-Sektionen und Schema.org-Markup hinzu. Das kostet 30–45 Minuten pro Artikel und erhöht die Zitierbarkeit sofort – ohne neue Inhalte erstellen zu müssen.
+**Schritt 2 – Quick Wins:** Fügen Sie bestehenden Top-Artikeln FAQ-Sektionen und Schema.org-Markup hinzu. Das kostet 30–45 Minuten pro Artikel – ohne neue Inhalte erstellen zu müssen.
 
-**Schritt 3 – Prozess:** Integrieren Sie „Antwort-first-Writing", FAQ-Sektionen und strukturierte Daten als Standard in jeden neuen Artikel. In 6 Monaten haben Sie eine KI-optimierte Content-Bibliothek, die Wettbewerber in KI-Suchantworten systematisch aussticht.
+**Schritt 3 – Prozess:** Integrieren Sie „Antwort-first-Writing", FAQ-Sektionen und strukturierte Daten als Standard in jeden neuen Artikel. In 6 Monaten haben Sie eine KI-optimierte Content-Bibliothek.
 
 **Möchten Sie, dass CodaAI Ihre Artikel automatisch für KI-Suchmaschinen optimiert?** Jeder CodaAI-Artikel wird mit korrektem Schema.org-Markup, FAQ-Sektionen und strukturierten Antwort-Blöcken erstellt – GEO-ready von Anfang an. Jetzt kostenlos testen.
