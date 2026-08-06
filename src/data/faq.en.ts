@@ -79,7 +79,7 @@ export const faqVisibilityEn: FaqItem[] = [
   },
   {
     q: 'How do you know which measures work?',
-    a: 'From measurement, not opinion. Brand mentions on third-party sites correlate with AI visibility at r = 0.664; backlinks only at r = 0.218 (Ahrefs, 75,000 brands). That is why the mention comes first with us, not the link. Each of the fourteen building blocks is tied to an observation like that, and which one is stated alongside it.',
+    a: 'From measurement, not opinion. Brand mentions on third-party sites correlate with AI visibility at r = 0.664; backlinks only at r = 0.218 (Ahrefs, 75,000 brands). That is why the mention comes first with us, not the link. Each of the fourteen building blocks is tied to an observation like that, either from published research or from our own study. We set out which one in the intro call.',
   },
   {
     q: 'How long until something shows?',

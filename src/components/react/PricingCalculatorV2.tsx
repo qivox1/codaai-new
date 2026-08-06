@@ -140,7 +140,7 @@ const T = {
     langNone: 'Keine Übersetzung',
     langSome: 'Ja, übersetzen',
     vidWhat:
-      'Für jeden Fachbeitrag erstellen wir kurze Videos (maximal 30 Sekunden) zur Steigerung des Engagements für die Plattformen LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Die Social-Media-Plattformen steigern das Engagement enorm. Nennungen dort hängen stärker mit KI-Sichtbarkeit zusammen als jedes andere Einzelsignal.',
+      'Für jeden Fachbeitrag erstellen wir kurze Videos (maximal 30 Sekunden) für LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Ihre Aufgabe ist Reichweite: Sie greifen eine Aussage aus dem Beitrag auf und führen zurück auf die Seite, die die vollständige Antwort trägt. Zitierfähig für KI-Systeme ist der Beitrag, nicht der Clip.',
     termHint: (m: string, y: string) => `Mit 12 Monaten zahlen Sie ${m} weniger pro Monat — ${y} über die Laufzeit.`,
   },
   en: {
@@ -206,7 +206,7 @@ const T = {
     langNone: 'No translation',
     langSome: 'Yes, translate',
     vidWhat:
-      'For every article we produce short videos (max. 30 seconds) that drive engagement on LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Social platforms lift engagement enormously, and mentions there correlate with AI visibility more strongly than any other single signal.',
+      'For every article we produce short videos (max. 30 seconds) for LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Their job is reach: they pick up one statement from the article and lead back to the page that carries the full answer. What AI systems can cite is the article, not the clip.',
     termHint: (m: string, y: string) => `A 12-month term saves you ${m} per month — ${y} over the term.`,
   },
 };
