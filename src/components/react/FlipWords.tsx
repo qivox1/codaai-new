@@ -12,6 +12,20 @@ interface FlipWordsProps {
   words: Word[];
   displayDuration?: number; // ms, die ein Wort steht
   animDuration?: number;    // ms für das Aus- und Einblenden
+  /**
+   * Marken-Verlauf Navy-600 → Magenta statt flacher Farbe (Design Guide v2.1).
+   *
+   * ⚠️ Der Verlauf liegt bewusst auf dem INNERSTEN Element — dem, das den
+   * Textknoten selbst trägt. `background-clip: text` beschneidet in Safari nur
+   * den eigenen Text, nicht den von Nachfahren; ein Verlauf auf dem `.k2`-Span
+   * ergab auf dem iPhone durchsichtige Schrift ohne Verlauf dahinter, also eine
+   * fehlende H1-Zeile (gemeldet 05.08.2026). Wer den Verlauf hier nach oben
+   * verschiebt, holt genau diesen Fehler zurück.
+   *
+   * `color` bleibt gesetzt und trägt als Rückfall, falls `background-clip: text`
+   * nicht greift.
+   */
+  gradient?: boolean;
 }
 
 /**
@@ -43,6 +57,7 @@ export default function FlipWords({
   words,
   displayDuration = 2800,
   animDuration = 400,
+  gradient = false,
 }: FlipWordsProps) {
   const [index, setIndex] = useState(0);
   const [shown, setShown] = useState(true);
@@ -67,6 +82,16 @@ export default function FlipWords({
 
   const current = words[index];
 
+  const gradientStyle = gradient
+    ? {
+        backgroundImage:
+          'linear-gradient(135deg, hsl(var(--navy-600)), hsl(var(--cta)))',
+        WebkitBackgroundClip: 'text' as const,
+        backgroundClip: 'text' as const,
+        WebkitTextFillColor: 'transparent',
+      }
+    : null;
+
   return (
     <span
       role="status"
@@ -82,6 +107,7 @@ export default function FlipWords({
           transition: `opacity ${animDuration}ms ease, transform ${animDuration}ms cubic-bezier(0.4,0,0.2,1)`,
           opacity: shown ? 1 : 0,
           transform: shown ? 'translateY(0) rotateX(0deg)' : 'translateY(-8px) rotateX(25deg)',
+          ...gradientStyle,
         }}
       >
         {current.text}

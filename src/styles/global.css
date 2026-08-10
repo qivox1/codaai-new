@@ -660,21 +660,28 @@
    Die zweite H1-Zeile fehlte komplett und hinterliess eine Luecke
    (gemeldet von Oli, 05.08.2026, iPhone).
 
-   Loesung bewusst OHNE Transparenz: Die Wendungen tragen ihre eigene Farbe
-   (flaches Marken-Magenta, das Ende des Verlaufs). Damit haengt die Lesbarkeit
-   an keiner Browser-Eigenheit mehr. Die Kipp-Bewegung bleibt — sie entsteht
-   hier ohnehin durch den Wortwechsel, nicht durch den Farbumschlag.
+   Erste Loesung (05.08.2026) war flaches Marken-Magenta ohne Transparenz.
+   Damit fiel /webinar als einzige Seite aus dem Design Guide v2.1, der fuer
+   Zeile 2 den Marken-Verlauf vorschreibt.
 
-   #DF41FB auf Weiss ergibt 3,34:1; ab 24 px fett verlangt WCAG AA 3:1, die H1
-   liegt bei 34-48 px. Zulaessig.
+   Seit 10.08.2026 traegt die Zeile den Verlauf wieder — aber an der richtigen
+   Stelle: NICHT hier auf `.k2`, sondern in `FlipWords.tsx` inline auf dem
+   innersten Span, dem Element, das den Textknoten selbst haelt. Genau dort
+   beschneidet auch Safari korrekt. Diese Regel hier bleibt deshalb stehen und
+   raeumt den Verlauf von den Huell-Elementen weg; der Inline-Stil des Blattes
+   gewinnt gegen sie (Inline schlaegt Stylesheet).
+
+   Der Verlauf endet auf #DF41FB, das auf Weiss 3,34:1 ergibt; ab 24 px fett
+   verlangt WCAG AA 3:1, die H1 liegt bei 34-48 px. Zulaessig. `color` bleibt in
+   der Komponente als Rueckfall gesetzt, falls `background-clip: text` ausfaellt.
 
    ⚠️ Der Nachfahren-Selektor (`* `) ist Pflicht, nicht Kosmetik:
    `-webkit-text-fill-color` wird VERERBT, und zwar als bereits aufgeloester
    Farbwert. Steht auf `.k2` nur `currentColor`, rechnet der Browser das dort
    zu Navy-700 aus und vererbt genau dieses Navy an die Wendung — deren inline
-   gesetztes Magenta waere damit ueberschrieben. Erst wenn jedes Element den
+   gesetzte Farbe waere damit ueberschrieben. Erst wenn jedes Element den
    Wert selbst bekommt, loest `currentColor` je Element gegen dessen eigene
-   Farbe auf. Ohne das Sternchen stuende die Zeile dunkel statt magenta.     */
+   Farbe auf. Ohne das Sternchen stuende die Zeile dunkel statt farbig.      */
 .cai-kipp .k2.k2-flip,
 .cai-kipp .k2.k2-flip * {
   background-image: none;
