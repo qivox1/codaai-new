@@ -124,7 +124,10 @@ export const faqPreise: FaqItem[] = [
 export const faqWebinar: FaqItem[] = [
   {
     q: 'Wie erhalte ich den Zugangslink?',
-    a: 'Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail. Den Zoom-Zugangslink senden wir rechtzeitig vor dem Termin an dieselbe Adresse — es gibt keinen Newsletter und keine Werbung.',
+    /* „Zoom" ist am 10.08.2026 herausgenommen worden: Das Webinar läuft über
+       ein DSGVO-konformes Werkzeug mit EU-Hosting, und die Plattform gehört
+       nicht auf die Landingpage — sie kann sich ändern, das Versprechen nicht. */
+    a: 'Nach der Anmeldung erhalten Sie eine Bestätigung per E-Mail. Den Zugangslink senden wir rechtzeitig vor dem Termin an dieselbe Adresse — es gibt keinen Newsletter und keine Werbung.',
   },
   {
     q: 'Wird meine Firma im Webinar öffentlich getestet?',

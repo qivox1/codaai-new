@@ -134,7 +134,8 @@ export const faqWebinarEn: FaqItem[] = [
   },
   {
     q: 'How do I get the access link?',
-    a: 'After registering you receive a confirmation by email. We send the Zoom access link to the same address in good time before the session — there is no newsletter and no advertising.',
+    /* "Zoom" removed on 10.08.2026 — see the German file for the reasoning. */
+    a: 'After registering you receive a confirmation by email. We send the access link to the same address in good time before the session — there is no newsletter and no advertising.',
   },
   {
     q: 'Will my company be tested publicly during the webinar?',
