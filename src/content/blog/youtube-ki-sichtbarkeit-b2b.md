@@ -1,5 +1,6 @@
 ---
 title: "YouTube im B2B: Welche Videos KI-Systeme zitieren – und wie Sie solche aufbereiten"
+seoTitle: "YouTube im B2B: Welche Videos die KI zitiert"
 description: "YouTube ist im deutschen Google AI Mode die häufigste Quelle. Was das für B2B-Unternehmen bedeutet – und woran sich zitierfähige Videos erkennen lassen."
 pubDate: 2026-03-20
 updatedDate: 2026-08-05

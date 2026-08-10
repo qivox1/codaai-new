@@ -6,6 +6,14 @@ const blog = defineCollection({
   schema: z.object({
     // ── Core ───────────────────────────────────────────────────────────────
     title: z.string(),
+
+    // seoTitle: Kurzfassung für <title> im Suchergebnis. Google schneidet ab
+    // rund 60 Zeichen ab — inklusive des Zusatzes " | CodaAI Blog" (14 Zeichen)
+    // bleiben also etwa 45 für den Titel selbst. Die H1 auf der Seite darf
+    // länger sein und bleibt unberührt: Suchergebnis und Seitenüberschrift
+    // haben unterschiedliche Aufgaben. Ohne Angabe wird `title` verwendet.
+    seoTitle: z.string().max(45).optional(),
+
     description: z.string().max(160),   // ideal meta-description length
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),

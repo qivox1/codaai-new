@@ -19,9 +19,35 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const cleanPath = Astro.url.pathname.replace(/\/$/, '');
 const isStudiePage = cleanPath.endsWith('/studie') || cleanPath.endsWith('/study');
 const isWebinarPage = cleanPath.endsWith('/webinar');
-const showStudyTeaser = !isStudiePage && !isWebinarPage;
+
+/* 10.08.2026 — Zweiter Ausgang: Webinar.
+   Anlass: /webinar hatte genau EINEN eingehenden Link und steht nicht in der
+   Navigation (Befund aus dem Wochen-Report KW 33). Der Teaser liegt sitewide im
+   Footer und ist damit der billigste Weg, von jeder Unterseite dorthin zu kommen.
+
+   Die Karte war bis heute EIN grosser <a> um den gesamten Inhalt. Zwei Buttons
+   darin waeren verschachtelte Links — im HTML nicht erlaubt und fuer
+   Screenreader unbrauchbar. Deshalb ist der Container jetzt ein <div>, und die
+   beiden Ziele sind eigene Links.
+
+   Rangfolge (Beschluss Oli, 10.08.2026): Webinar fuehrt (magenta), Studie folgt
+   als Outline. Zwei gleich starke Flaechen heben sich gegenseitig auf — der
+   Design Guide erlaubt zwei Signale je Screen, und Magenta gehoert der Handlung.
+
+   Der Teaser laeuft jetzt AUCH auf /studie: dort ist der Leser warm, und der
+   Studien-Knopf faellt ohnehin weg (kein Link auf sich selbst). Auf /webinar
+   bleibt er aus — Conversion-Seite ohne Exit-Pfade. */
+const showTeaser = !isWebinarPage;
+const showStudyBtn = !isStudiePage;
+
+/* ⚠️ Der Webinar-Knopf verschwindet nach dem Termin von selbst. Ohne diese
+   Grenze wuerde der Footer sitewide ein vergangenes Datum bewerben — schlimmer
+   als gar kein Link. Naechster Termin: Datum hier hochsetzen. */
+const WEBINAR_DATE = new Date('2026-09-08T12:00:00+02:00');
+const showWebinarBtn = new Date() <= WEBINAR_DATE;
 
 const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
+const webinarHref = lang === 'de' ? `${base}/webinar/` : `${base}/en/webinar/`;
 const studyCopy = lang === 'de'
   ? {
       mapAlt: 'Punktkarte Deutschlands — 449 untersuchte Unternehmen aus 258 Branchen',
@@ -30,6 +56,7 @@ const studyCopy = lang === 'de'
       titleB: 'unsichtbar',
       note: '449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.',
       cta: 'Zur Studie →',
+      ctaWebinar: 'Zum Webinar am 8. September →',
     }
   : {
       mapAlt: 'Dot map of Germany — 449 companies examined across 258 industries',
@@ -38,6 +65,7 @@ const studyCopy = lang === 'de'
       titleB: 'invisible',
       note: '449 companies · 3,592 buyer questions · 7,184 AI answers. The most extensive analysis to date of AI visibility among mid-sized companies in Germany.',
       cta: 'Read the study →',
+      ctaWebinar: 'Webinar, 8 September →',
     };
 
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
@@ -91,10 +119,9 @@ const currentYear = new Date().getFullYear();
 >
   <div class="relative mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-12">
 
-    {showStudyTeaser && (
-      <a
-        href={studyHref}
-        class="group mb-10 flex flex-col items-center gap-5 rounded-3xl border border-ondark-line p-6 text-ondark transition-shadow hover:shadow-lg sm:flex-row sm:gap-7 sm:px-8"
+    {showTeaser && (
+      <div
+        class="mb-10 flex flex-col items-center gap-5 rounded-3xl border border-ondark-line p-6 text-ondark sm:flex-row sm:gap-7 sm:px-8"
         style="background: linear-gradient(135deg, hsl(var(--navy-600)) 0%, hsl(var(--surface-ink)) 62%, hsl(var(--navy-800)) 100%);"
       >
         {/* Punktkarte Deutschlands — seit 04.08.2026 in Code gezeichnet.
@@ -131,10 +158,31 @@ const currentYear = new Date().getFullYear();
               steht. Jetzt explizit Navy-200: 10,0:1 auf Ink. */}
           <span class="mt-1 block text-sm text-ondark-muted">{studyCopy.note}</span>
         </span>
-        <span class="inline-flex flex-none items-center gap-2 rounded-[14px] bg-cta-strong px-6 py-3 text-sm font-semibold text-white transition-opacity group-hover:opacity-90">
-          {studyCopy.cta}
+        {/* Buttons: mobil untereinander und volle Breite, ab sm nebeneinander.
+            `flex-none` verhindert, dass die Spalte den Text zusammendrueckt.
+            Primaer = bg-cta-strong (#C405E6): Weiss haelt dort 4,65:1, auf dem
+            helleren #DF41FB waeren es nur 3,34:1 und damit unter AA.
+            Sekundaer = Outline auf der bestehenden ondark-Linie, Hover legt
+            eine 10-%-Weissflaeche darunter (Flaeche abtoenen, nie den Text). */}
+        <span class="flex w-full flex-none flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          {showWebinarBtn && (
+            <a
+              href={webinarHref}
+              class="inline-flex items-center justify-center gap-2 rounded-[14px] bg-cta-strong px-6 py-3 text-center text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              {studyCopy.ctaWebinar}
+            </a>
+          )}
+          {showStudyBtn && (
+            <a
+              href={studyHref}
+              class="inline-flex items-center justify-center gap-2 rounded-[14px] border border-ondark-line px-6 py-3 text-center text-sm font-semibold text-ondark transition-colors hover:bg-white/10"
+            >
+              {studyCopy.cta}
+            </a>
+          )}
         </span>
-      </a>
+      </div>
     )}
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">

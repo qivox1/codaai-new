@@ -1,5 +1,6 @@
 ---
 title: "YouTube for B2B: Which Videos AI Systems Cite as Sources"
+seoTitle: "YouTube for B2B: Which Videos AI Cites"
 description: "YouTube is the most frequent source in the German Google AI Mode. What that means for B2B companies — and how to tell a citable video from a wasted one."
 pubDate: 2026-03-20
 updatedDate: 2026-08-05
