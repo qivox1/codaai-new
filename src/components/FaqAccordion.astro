@@ -38,6 +38,15 @@ interface Props {
   tone?: 'plain' | 'muted';
   /** Überschriftenebene der Fragen — auf Sammelseiten sitzen sie unter einer H2. */
   level?: 2 | 3;
+  /**
+   * Bringt die Seitenspalte selbst mit (Standard). Auf `false` setzen, wenn der
+   * Block bereits in einem `mx-auto max-w-7xl`-Wrapper steht — sonst liegen zwei
+   * Innenabstände übereinander. Gilt für /webinar, wo alle Sektionen in einem
+   * gemeinsamen Wrapper hängen.
+   */
+  contained?: boolean;
+  /** Zusätzliche Klassen an der Sektion, z. B. `border-t border-border`. */
+  class?: string;
 }
 
 const {
@@ -49,6 +58,8 @@ const {
   idPrefix = 'faqx',
   tone = 'plain',
   level = 3,
+  contained = true,
+  class: className = '',
 } = Astro.props;
 
 const HeadingTag = level === 2 ? 'h2' : 'h3';
@@ -60,6 +71,7 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
   class:list={[
     'faqx scroll-mt-24 lg:scroll-mt-28',
     tone === 'muted' ? 'bg-muted/30 py-20 lg:py-24' : 'py-16',
+    className,
   ]}
 >
   {/* Aussen die Seitenspalte (max-w-7xl wie jede andere Sektion), innen die
@@ -67,7 +79,7 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
       linksbuendig waere die Ueberschrift gegenueber allen anderen Sektionen
       eingerueckt gewesen. Die Fragenliste bleibt bei max-w-3xl, damit die
       Antworten lesbar schmal stehen. */}
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class:list={[contained && 'mx-auto max-w-7xl px-6 lg:px-8']}>
     {/* Linksbündig seit 10.08.2026 (Beschluss Oli). Der Block war der einzige
         zentrierte Teil auf sonst durchgehend linksbündigen Seiten — auf /faq,
         wo vier davon untereinander stehen, fiel es am stärksten auf. Die
@@ -88,11 +100,11 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
 
     <div class="faqx-list mt-10 max-w-3xl space-y-3" data-faqx>
       {items.map((f, i) => (
-        <div class="faqx-item overflow-hidden rounded-xl border border-border bg-card" data-faqx-item>
+        <div class="faqx-item cai-acc overflow-hidden rounded-xl border border-border bg-card" data-faqx-item>
           <HeadingTag>
             <button
               type="button"
-              class="faqx-head flex w-full items-center gap-4 p-5 text-left"
+              class="faqx-head cai-acc-head flex w-full items-center gap-4 p-5 text-left"
               aria-expanded="false"
               aria-controls={`${idPrefix}-${i}`}
               data-faqx-head
@@ -112,8 +124,11 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
               </svg>
             </button>
           </HeadingTag>
+          {/* pt-5 seit 10.08.2026: Seit die geöffnete Fragezeile Navy-200
+              trägt, stiess die Antwort ohne Luft direkt an die Farbkante.
+              Der obere Abstand entspricht jetzt dem unteren. */}
           <div id={`${idPrefix}-${i}`} class="faqx-panel" data-faqx-panel>
-            <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            <p class="px-5 pb-5 pt-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
           </div>
         </div>
       ))}
@@ -132,26 +147,9 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
   .faqx-js .faqx-head:focus-visible span { color: hsl(var(--cta-accessible)); }
   .faqx-js .faqx-head:hover .faqx-chev { color: hsl(var(--cta)); }
 
-  /* Zweistufige Färbung (Beschluss Oli, 10.08.2026, Variante C):
-     Überfahren tönt nur leicht (Navy-50), die geöffnete Frage trägt Navy-200
-     auf der Fragezeile und Navy-50 unter der Antwort. Beides muss sich
-     unterscheiden — sonst sieht eine überfahrene Karte aus wie die offene und
-     man erkennt beim Wandern der Maus nicht mehr, welche Frage gerade offen ist.
-
-     Alles hängt an `.faqx-js`: Ohne JavaScript stehen alle Antworten offen,
-     dann wäre der ganze Block flächig eingefärbt.
-
-     Die offene Zeile gewinnt über den Hover allein durch Spezifität
-     (0,4,0 gegen 0,3,0) — keine !important nötig.
-
-     ⚠️ Navy-200 ist gleichzeitig `--border`. Auf der gefärbten Fragezeile
-     verschwindet die Kartenkante deshalb optisch; das ist gewollt und der
-     Grund, warum die Antwortfläche auf Navy-50 bleibt statt mitzuziehen. */
-  .faqx-js .faqx-head:hover,
-  .faqx-js .faqx-head:focus-visible { background: hsl(var(--navy-50)); }
-  .faqx-js .faqx-item.is-open { background: hsl(var(--navy-50)); }
-  .faqx-js .faqx-item.is-open .faqx-head { background: hsl(var(--navy-200)); }
-  .faqx-head { transition: background-color 0.25s ease; }
+  /* Die zweistufige Färbung steht in global.css unter `.cai-acc` — dieselben
+     Regeln tragen auch die nativen <details> auf /studie. Hier liegen nur noch
+     Verhalten und Geometrie. */
   .faqx-chev { transition: transform 0.3s ease, color 0.2s ease; }
   .faqx-js .faqx-item.is-open .faqx-chev { transform: rotate(180deg); color: hsl(var(--cta)); }
   .faqx-js .faqx-panel {
@@ -159,9 +157,10 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
     overflow: hidden;
     transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* 520px statt 420px wie auf /preise: Die Antworten hier sind teils länger,
-     ein zu knapper Wert schneidet die letzte Zeile ab. */
-  .faqx-js .faqx-item.is-open .faqx-panel { max-height: 520px; }
+  /* 560px: Die Antworten sind teils lang, ein zu knapper Wert schneidet die
+     letzte Zeile ab. Der Wert stand auf 520px und wurde am 10.08.2026 um die
+     20px angehoben, die der neue obere Innenabstand der Antwort kostet. */
+  .faqx-js .faqx-item.is-open .faqx-panel { max-height: 560px; }
 
   @media (prefers-reduced-motion: reduce) {
     .faqx-js .faqx-panel,

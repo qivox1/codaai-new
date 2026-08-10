@@ -715,6 +715,37 @@
   to   { -webkit-text-fill-color: transparent; }
 }
 
+/* ── Akkordeon-Faerbung, eine Quelle fuer die ganze Website (10.08.2026) ───
+   Beschluss Oli: Jedes Akkordeon sieht gleich aus. Zweistufig — Ueberfahren
+   toent die Kopfzeile leicht (Navy-50), der geoeffnete Eintrag traegt Navy-200
+   auf der Kopfzeile und Navy-50 unter der Antwort. Die beiden Stufen muessen
+   sich unterscheiden, sonst sieht ein ueberfahrener Eintrag aus wie der offene.
+
+   Die Regeln stehen hier und nicht in FaqAccordion.astro, weil es zwei Bauarten
+   gibt: das JS-Akkordeon der FAQ (Klasse `is-open` an der Karte) und die
+   nativen `<details>` auf /studie (Attribut `[open]`). Beide bekommen
+   `.cai-acc` an den Container und `.cai-acc-head` an die Kopfzeile; die
+   Selektoren decken beide Zustaende ab. Vor dieser Zusammenfassung lag dasselbe
+   CSS dreimal im Projekt — und blieb prompt an zwei Stellen zurueck.
+
+   ⚠️ Navy-200 ist gleichzeitig `--border`. Auf der gefaerbten Kopfzeile
+   verschwindet die Kartenkante deshalb optisch. Das ist gewollt und der Grund,
+   warum die Antwortflaeche auf Navy-50 bleibt statt mitzuziehen.             */
+.cai-acc { transition: border-color 0.2s ease, background-color 0.25s ease; }
+.cai-acc-head { transition: background-color 0.25s ease; }
+/* Nachfahren-, kein Kind-Selektor: In der FAQ steckt die Kopfzeile in einem
+   <h3>, ist also kein direktes Kind. Bei <details> waere `>` moeglich. */
+.cai-acc:hover .cai-acc-head,
+.cai-acc .cai-acc-head:focus-visible { background: hsl(var(--navy-50)); }
+.cai-acc.is-open,
+.cai-acc[open] { background: hsl(var(--navy-50)); }
+.cai-acc.is-open .cai-acc-head,
+.cai-acc[open] .cai-acc-head { background: hsl(var(--navy-200)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cai-acc, .cai-acc-head { transition: none; }
+}
+
 /* Marken-Gradient als Einzelphrase — Navy-600 -> Magenta, "gemessen -> Signal".
    Eine Phrase pro Ueberschrift, nie zwei. Nur ab 40 px fett: das magenta Ende
    des Verlaufs liegt bei 3,34:1 und ist damit auf Grosstext beschraenkt.     */

@@ -7,6 +7,7 @@ import PricingCalculatorV2 from '../components/react/PricingCalculatorV2';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import Reveal from '../components/fx/Reveal.astro';
 import HeroHeadline from '../components/HeroHeadline.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import { faqPreise } from '../data/faq';
 
 const lang = 'de' as const;
@@ -57,9 +58,9 @@ const stufen = [
       Fachfragen stehen auf /digital-visibility, Fragen zu CodaAI selbst auf der
       Startseite (Neuverteilung 03.08.2026). ── */
 /* Fragen kommen seit 03.08.2026 aus der gemeinsamen Quelle src/data/faq.ts —
-   dort steht auch, welche Frage auf welche Seite gehoert. Das Akkordeon-Markup
-   bleibt seitenspezifisch (pr-f…), weil es an der Scroll-Choreografie dieser
-   Seite haengt. */
+   dort steht auch, welche Frage auf welche Seite gehoert. Seit 10.08.2026 ist
+   auch das Markup gemeinsam (FaqAccordion.astro); die frueher hier gepflegte
+   Kopie haengt an keiner Scroll-Choreografie, das war eine Fehlannahme. */
 const faqs = faqPreise;
 
 
@@ -186,46 +187,24 @@ const faqSchema = {
     <!-- ── 4 · Termin ───────────────────────────────────────────────────── -->
     <Booking lang={lang} />
 
-    <!-- ── 5 · FAQ ──────────────────────────────────────────────────────── -->
-    <section id="faq" aria-label="Häufige Fragen zum Preis" class="mx-auto max-w-3xl px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
-      <Reveal as="div">
-        <h2 class="cai-h2 mb-8 text-center text-foreground">Häufige Fragen zum Preis</h2>
-      </Reveal>
-      <!-- Akkordeon: man sieht die fünf Fragen, geöffnet ist immer nur eine.
-           Ohne JavaScript stehen alle Antworten da. -->
-      <div class="pr-faq space-y-3" data-faq>
-        {faqs.map((f, i) => (
-          <Reveal as="div" delay={(i % 2) * 40}>
-            {/* data-Attribute gehören an ein echtes Element — die Reveal-
-                Komponente reicht unbekannte Props nicht durch. */}
-            <div class="pr-fitem overflow-hidden rounded-xl border border-border bg-card" data-fitem>
-            <h3>
-              <button
-                type="button"
-                class="pr-fhead flex w-full items-center gap-4 p-5 text-left"
-                aria-expanded="false"
-                aria-controls={`faq-${i}`}
-                data-fhead
-              >
-                <span class="flex-1 font-semibold text-foreground">{f.q}</span>
-                <svg class="pr-fchev h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-            </h3>
-            <div id={`faq-${i}`} class="pr-fpanel" data-fpanel>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
-            </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <p class="mt-10 text-center text-sm text-muted-foreground">
+    {/* ── 5 · FAQ ────────────────────────────────────────────────────────
+         Seit 10.08.2026 die gemeinsame Komponente statt eines seiteneigenen
+         Akkordeons (Beschluss Oli: alle Akkordeons sehen gleich aus). Das
+         frühere `pr-f…`-Markup war bis auf den Reveal-Stapel identisch —
+         mitsamt eigener CSS- und JS-Kopie, die bei jeder Änderung mitgepflegt
+         werden musste und beim letzten Durchgang genau deshalb zurückblieb. */}
+    <FaqAccordion
+      items={faqs}
+      title="Häufige Fragen zum Preis"
+      id="faq"
+      idPrefix="faq"
+      level={3}
+    >
+      <p slot="after" class="mt-10 text-sm text-muted-foreground">
         Noch keine Zahlen für Ihr Unternehmen?
         <a href={`${base}/#angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Audit kostenlos anfordern →</a>
       </p>
-    </section>
+    </FaqAccordion>
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
@@ -283,27 +262,8 @@ const faqSchema = {
       box-shadow: 0 16px 40px -20px hsl(var(--cta) / 0.55);
     }
 
-    /* ── FAQ-Akkordeon ──────────────────────────────────────────────────
-       Ohne JS (keine .pr-js) stehen alle Antworten offen. Beim Überfahren
-       zeigt der Kopf magenta, dass sich hier etwas öffnet.                  */
-    .pr-fhead { cursor: default; }
-    .pr-js .pr-fhead { cursor: pointer; }
-    .pr-fitem { transition: border-color 0.2s ease; }
-    .pr-js .pr-fitem:hover,
-    .pr-js .pr-fitem:focus-within { border-color: hsl(var(--cta) / 0.5); }
-    .pr-js .pr-fhead:hover span,
-    .pr-js .pr-fhead:focus-visible span { color: hsl(var(--cta-accessible)); }
-    .pr-js .pr-fhead:hover .pr-fchev { color: hsl(var(--cta)); }
-    .pr-fchev { transition: transform 0.3s ease, color 0.2s ease; }
-    .pr-js .pr-fitem.is-open .pr-fchev { transform: rotate(180deg); color: hsl(var(--cta)); }
-    .pr-js .pr-fpanel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    /* 520px: Die Antwort zum Agenturvergleich ist laenger als die uebrigen und
-       wurde bei 420px in der letzten Zeile abgeschnitten. */
-    .pr-js .pr-fitem.is-open .pr-fpanel { max-height: 520px; }
+    /* Das FAQ-Akkordeon dieser Seite liegt seit 10.08.2026 in
+       components/FaqAccordion.astro — CSS und Skript stehen dort. */
 
     /* ── Übergang: Linie zeichnet sich in den Rechner ───────────────────── */
     .pr-drop {
@@ -327,7 +287,6 @@ const faqSchema = {
     @media (prefers-reduced-motion: reduce) {
       .pr-line { opacity: 1; transform: none; animation: none; }
       .pr-rail-fill, .pr-drop-fill, .pr-dot, .pr-card { transition: none; }
-      .pr-js .pr-fpanel, .pr-fchev, .pr-fitem { transition: none; }
       .pr-card:hover { transform: none; }
     }
   </style>
@@ -363,26 +322,7 @@ const faqSchema = {
         }
       }
 
-      /* FAQ: immer nur eine Frage offen. */
-      var faq = document.querySelector('[data-faq]');
-      if (faq) {
-        faq.classList.add('pr-js');
-        var items = Array.prototype.slice.call(faq.querySelectorAll('[data-fitem]'));
-        items.forEach(function (el) {
-          var head = el.querySelector('[data-fhead]');
-          if (!head) return;
-          head.addEventListener('click', function () {
-            var open = !el.classList.contains('is-open');
-            items.forEach(function (o) {
-              o.classList.remove('is-open');
-              var h = o.querySelector('[data-fhead]');
-              if (h) h.setAttribute('aria-expanded', 'false');
-            });
-            el.classList.toggle('is-open', open);
-            head.setAttribute('aria-expanded', open ? 'true' : 'false');
-          });
-        });
-      }
+      /* Das FAQ-Akkordeon bringt sein eigenes Skript mit (FaqAccordion.astro). */
 
       var ticking = false;
       window.addEventListener('scroll', function () {

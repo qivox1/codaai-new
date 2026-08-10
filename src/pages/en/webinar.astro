@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import WebinarSignup from '../../components/premium/WebinarSignup.astro';
 import FlipWords from '../../components/react/FlipWords';
+import FaqAccordion from '../../components/FaqAccordion.astro';
 import { faqWebinarEn } from '../../data/faq.en';
 
 const lang = 'en' as const;
@@ -539,21 +540,17 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
         <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Not the right format for B2C shops — our methodology is built for B2B buying processes.</p>
       </section>
 
-      <!-- ── FAQ (Einwand-Behandlung) ─────────────────────────────────── -->
-      <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
-        <h2 id="h-faq" class="cai-h2 wfx-reveal text-foreground">Frequently asked questions</h2>
-        <div class="mt-8 space-y-4">
-          {webinarFaq.map((f) => (
-            <details class="wfx-reveal group rounded-2xl border border-border bg-card open:border-cta/40">
-              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-              </summary>
-              <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      {/* ── FAQ ─────────────────────────────────────────────────────────
+           Shared component since 10.08.2026, same as the German page. */}
+      <FaqAccordion
+        items={webinarFaq}
+        title="Frequently asked questions"
+        id="faq"
+        idPrefix="wfaq"
+        level={3}
+        contained={false}
+        class="border-t border-border"
+      />
 
       <!-- ── Schluss-CTA ────────────────────────────────────────────── -->
       <section aria-labelledby="h-schluss" class="border-t border-border py-16">

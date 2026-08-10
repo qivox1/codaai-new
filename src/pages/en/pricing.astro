@@ -7,6 +7,7 @@ import PricingCalculatorV2 from '../../components/react/PricingCalculatorV2';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Reveal from '../../components/fx/Reveal.astro';
 import HeroHeadline from '../../components/HeroHeadline.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
 import { faqPricingEn } from '../../data/faq.en';
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -68,9 +69,8 @@ const tiers = [
 
 /* ── FAQ — price, term and contract only.
       Subject-matter questions sit on /en/digital-visibility/, questions about
-      CodaAI itself on the homepage. Single source: src/data/faq.en.ts. The
-      accordion markup stays page-specific (pr-f…) because it hangs off the
-      scroll choreography of this page. ── */
+      CodaAI itself on the homepage. Single source: src/data/faq.en.ts. Since
+      10.08.2026 the markup is shared too (FaqAccordion.astro). ── */
 const faqs = faqPricingEn;
 
 const faqSchema = {
@@ -199,46 +199,21 @@ const faqSchema = {
          used to supply it was removed — it would now duplicate the id.    -->
     <Booking lang={lang} />
 
-    <!-- ── 5 · FAQ ──────────────────────────────────────────────────────── -->
-    <section id="faq" aria-label="Frequently asked questions about pricing" class="mx-auto max-w-3xl px-6 py-16 lg:px-8 scroll-mt-24 lg:scroll-mt-28">
-      <Reveal as="div">
-        <h2 class="cai-h2 mb-8 text-center text-foreground">Frequently asked questions about pricing</h2>
-      </Reveal>
-      <!-- Accordion: you see all questions, only one answer is open at a time.
-           Without JavaScript every answer simply stands open. -->
-      <div class="pr-faq space-y-3" data-faq>
-        {faqs.map((f, i) => (
-          <Reveal as="div" delay={(i % 2) * 40}>
-            {/* data attributes belong on a real element — the Reveal component
-                does not pass unknown props through. */}
-            <div class="pr-fitem overflow-hidden rounded-xl border border-border bg-card" data-fitem>
-            <h3>
-              <button
-                type="button"
-                class="pr-fhead flex w-full items-center gap-4 p-5 text-left"
-                aria-expanded="false"
-                aria-controls={`faq-${i}`}
-                data-fhead
-              >
-                <span class="flex-1 font-semibold text-foreground">{f.q}</span>
-                <svg class="pr-fchev h-5 w-5 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-            </h3>
-            <div id={`faq-${i}`} class="pr-fpanel" data-fpanel>
-              <p class="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
-            </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-
-      <p class="mt-10 text-center text-sm text-muted-foreground">
+    {/* ── 5 · FAQ ────────────────────────────────────────────────────────
+         Shared component since 10.08.2026 — see preise.astro for the reasoning.
+         The page-specific `pr-f…` copy is gone. */}
+    <FaqAccordion
+      items={faqs}
+      title="Frequently asked questions about pricing"
+      id="faq"
+      idPrefix="faq"
+      level={3}
+    >
+      <p slot="after" class="mt-10 text-sm text-muted-foreground">
         No figures for your company yet?
         <a href={`${base}/en/#offer`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">Request a free audit →</a>
       </p>
-    </section>
+    </FaqAccordion>
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
@@ -296,27 +271,9 @@ const faqSchema = {
       box-shadow: 0 16px 40px -20px hsl(var(--cta) / 0.55);
     }
 
-    /* ── FAQ accordion ──────────────────────────────────────────────────
-       Without JS (no .pr-js) every answer stands open. On hover the head
-       shows in magenta that something opens here.                           */
-    .pr-fhead { cursor: default; }
-    .pr-js .pr-fhead { cursor: pointer; }
-    .pr-fitem { transition: border-color 0.2s ease; }
-    .pr-js .pr-fitem:hover,
-    .pr-js .pr-fitem:focus-within { border-color: hsl(var(--cta) / 0.5); }
-    .pr-js .pr-fhead:hover span,
-    .pr-js .pr-fhead:focus-visible span { color: hsl(var(--cta-accessible)); }
-    .pr-js .pr-fhead:hover .pr-fchev { color: hsl(var(--cta)); }
-    .pr-fchev { transition: transform 0.3s ease, color 0.2s ease; }
-    .pr-js .pr-fitem.is-open .pr-fchev { transform: rotate(180deg); color: hsl(var(--cta)); }
-    .pr-js .pr-fpanel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    /* 520px: the answer on the agency comparison is longer than the others and
-       was cut off in its last line at 420px. */
-    .pr-js .pr-fitem.is-open .pr-fpanel { max-height: 520px; }
+    /* The FAQ accordion lives in components/FaqAccordion.astro since
+       10.08.2026 — its CSS and script sit there. */
+
 
     /* ── Handover: the line draws itself into the calculator ────────────── */
     .pr-drop {
@@ -340,7 +297,6 @@ const faqSchema = {
     @media (prefers-reduced-motion: reduce) {
       .pr-line { opacity: 1; transform: none; animation: none; }
       .pr-rail-fill, .pr-drop-fill, .pr-dot, .pr-card { transition: none; }
-      .pr-js .pr-fpanel, .pr-fchev, .pr-fitem { transition: none; }
       .pr-card:hover { transform: none; }
     }
   </style>
@@ -376,26 +332,7 @@ const faqSchema = {
         }
       }
 
-      /* FAQ: only ever one question open. */
-      var faq = document.querySelector('[data-faq]');
-      if (faq) {
-        faq.classList.add('pr-js');
-        var items = Array.prototype.slice.call(faq.querySelectorAll('[data-fitem]'));
-        items.forEach(function (el) {
-          var head = el.querySelector('[data-fhead]');
-          if (!head) return;
-          head.addEventListener('click', function () {
-            var open = !el.classList.contains('is-open');
-            items.forEach(function (o) {
-              o.classList.remove('is-open');
-              var h = o.querySelector('[data-fhead]');
-              if (h) h.setAttribute('aria-expanded', 'false');
-            });
-            el.classList.toggle('is-open', open);
-            head.setAttribute('aria-expanded', open ? 'true' : 'false');
-          });
-        });
-      }
+      /* The FAQ accordion brings its own script (FaqAccordion.astro). */
 
       var ticking = false;
       window.addEventListener('scroll', function () {

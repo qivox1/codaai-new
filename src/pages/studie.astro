@@ -381,8 +381,8 @@ const beispiele = [
 
             <div class="mt-10 space-y-4">
               {beispiele.map((b) => (
-                <details class="group rounded-2xl border border-border bg-card open:border-cta/40 open:shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
+                <details class="cai-acc group rounded-2xl border border-border bg-card open:border-cta/40 open:shadow-sm">
+                  <summary class="cai-acc-head flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
                     <div>
                       <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{b.branche}</p>
                       <p class="mt-1 text-sm text-muted-foreground">{b.kontext}</p>
@@ -625,8 +625,8 @@ const beispiele = [
                   a: 'Ja. Mit derselben Methodik erstellen wir ein individuelles Sichtbarkeits-Audit für Ihr Unternehmen — mit Ihren realen Einkäuferfragen, den echten KI-Antworten und den Wettbewerbern, die statt Ihnen empfohlen werden. Geben Sie dazu oben auf dieser Seite Ihre Domain ein.',
                 },
               ].map((f) => (
-                <details class="group rounded-2xl border border-border bg-card open:border-cta/40">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                <details class="cai-acc group rounded-2xl border border-border bg-card open:border-cta/40">
+                  <summary class="cai-acc-head flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                     {f.q}
                     <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                   </summary>
