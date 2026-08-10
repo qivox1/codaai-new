@@ -125,12 +125,33 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
 
 <style>
   .faqx-js .faqx-head { cursor: pointer; }
-  .faqx-item { transition: border-color 0.2s ease; }
+  .faqx-item { transition: border-color 0.2s ease, background-color 0.25s ease; }
   .faqx-js .faqx-item:hover,
   .faqx-js .faqx-item:focus-within { border-color: hsl(var(--cta) / 0.5); }
   .faqx-js .faqx-head:hover span,
   .faqx-js .faqx-head:focus-visible span { color: hsl(var(--cta-accessible)); }
   .faqx-js .faqx-head:hover .faqx-chev { color: hsl(var(--cta)); }
+
+  /* Zweistufige Färbung (Beschluss Oli, 10.08.2026, Variante C):
+     Überfahren tönt nur leicht (Navy-50), die geöffnete Frage trägt Navy-200
+     auf der Fragezeile und Navy-50 unter der Antwort. Beides muss sich
+     unterscheiden — sonst sieht eine überfahrene Karte aus wie die offene und
+     man erkennt beim Wandern der Maus nicht mehr, welche Frage gerade offen ist.
+
+     Alles hängt an `.faqx-js`: Ohne JavaScript stehen alle Antworten offen,
+     dann wäre der ganze Block flächig eingefärbt.
+
+     Die offene Zeile gewinnt über den Hover allein durch Spezifität
+     (0,4,0 gegen 0,3,0) — keine !important nötig.
+
+     ⚠️ Navy-200 ist gleichzeitig `--border`. Auf der gefärbten Fragezeile
+     verschwindet die Kartenkante deshalb optisch; das ist gewollt und der
+     Grund, warum die Antwortfläche auf Navy-50 bleibt statt mitzuziehen. */
+  .faqx-js .faqx-head:hover,
+  .faqx-js .faqx-head:focus-visible { background: hsl(var(--navy-50)); }
+  .faqx-js .faqx-item.is-open { background: hsl(var(--navy-50)); }
+  .faqx-js .faqx-item.is-open .faqx-head { background: hsl(var(--navy-200)); }
+  .faqx-head { transition: background-color 0.25s ease; }
   .faqx-chev { transition: transform 0.3s ease, color 0.2s ease; }
   .faqx-js .faqx-item.is-open .faqx-chev { transform: rotate(180deg); color: hsl(var(--cta)); }
   .faqx-js .faqx-panel {
@@ -145,6 +166,7 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
   @media (prefers-reduced-motion: reduce) {
     .faqx-js .faqx-panel,
     .faqx-chev,
+    .faqx-head,
     .faqx-item { transition: none; }
   }
 </style>
