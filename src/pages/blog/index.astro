@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import HeroHeadline from '../../components/HeroHeadline.astro';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -54,13 +55,19 @@ const collectionSchema = JSON.stringify({
     <!-- Hero -->
     <section class="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-background">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="max-w-2xl">
+        <div>
           <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Blog' }]} class="mb-6" />
           <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-4">Blog</p>
-          <h1 class="cai-h1 text-foreground mb-5">
-            KI Content Marketing,<br />SEO & GEO
-          </h1>
-          <p class="text-lg text-muted-foreground">
+          {/* Kippsatz wie auf allen anderen Seiten (Beschluss Oli, 10.08.2026).
+              Vorher stand hier ein Etikett („KI Content Marketing, SEO & GEO"),
+              das die zweite Zeile nicht drehte — der Verlauf haette dort eine
+              Wendung markiert, die es nicht gibt. */}
+          <HeroHeadline
+            line1="Die Regeln der KI-Sichtbarkeit ändern sich."
+            line2="Hier lesen Sie sie zuerst."
+            class="mb-5 max-w-5xl"
+          />
+          <p class="max-w-2xl text-lg text-muted-foreground">
             Expertenwissen, das Ihre Sichtbarkeit in Google <em>und</em> KI-Suchmaschinen steigert.
             Von Strategie bis Praxis – direkt anwendbar.
           </p>

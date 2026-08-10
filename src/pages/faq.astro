@@ -21,6 +21,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import HeroHeadline from '../components/HeroHeadline.astro';
 import { faqGroups } from '../data/faq';
 
 const lang = 'de' as const;
@@ -37,14 +38,22 @@ const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
   {/* id="main-content" nachgetragen 04.08.2026: Der Sprunglink im Layout zeigt
       auf dieses Ziel — hier fehlte es, der Link lief also ins Leere. */}
   <main id="main-content" class="pt-24 lg:pt-28">
-    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-2">
+    {/* Seitenspalte max-w-7xl wie überall sonst — vorher stand hier 3xl, was
+        linksbündig gegen die Fragenblöcke versetzt gewesen wäre und dem
+        Kippsatz bei 48 px zu wenig Raum für eine Zeile gelassen hätte. */}
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-2">
       <Breadcrumb
         items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Fragen & Antworten' }]}
         class="mb-8"
       />
-      <h1 class="cai-h1 text-foreground">Fragen &amp; Antworten</h1>
-      <p class="mt-5 text-lg text-muted-foreground leading-relaxed">
-        {total} Fragen in vier Bereichen — von der Zusammenarbeit über die Messung der
+      {/* Kippsatz statt Etikett (Beschluss Oli, 10.08.2026). Die Zahl kommt aus
+          faq.ts und zieht mit, wenn Fragen dazukommen. */}
+      <HeroHeadline
+        line1={`${total} Fragen hören wir immer wieder.`}
+        line2="Hier stehen Ihre Antworten."
+      />
+      <p class="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+        Vier Bereiche — von der Zusammenarbeit über die Messung der
         KI-Sichtbarkeit bis zu Preis und Laufzeit. Fehlt Ihre?
         <a href="mailto:hi@codaai.ai" class="text-cta-accessible hover:text-cta font-medium">Schreiben Sie uns.</a>
       </p>
@@ -70,7 +79,7 @@ const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
         idPrefix={`faq-${g.id}`}
         level={3}
       >
-        <p slot="after" class="mt-8 text-center text-sm text-muted-foreground">
+        <p slot="after" class="mt-8 text-sm text-muted-foreground">
           <a
             href={`${base}${g.href}`}
             class="font-semibold text-cta-accessible transition-colors hover:text-cta"
@@ -81,8 +90,8 @@ const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
       </FaqAccordion>
     ))}
 
-    <section class="mx-auto max-w-3xl px-6 pb-20 pt-4 text-center lg:px-8">
-      <p class="text-base leading-relaxed text-muted-foreground">
+    <section class="mx-auto max-w-7xl px-6 pb-20 pt-4 lg:px-8">
+      <p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
         Am schnellsten beantwortet sich die wichtigste Frage von selbst:
         <a href={`${base}/#angebot`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">
           Audit kostenlos anfordern →

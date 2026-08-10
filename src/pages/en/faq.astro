@@ -21,6 +21,7 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
+import HeroHeadline from '../../components/HeroHeadline.astro';
 import { faqGroupsEn } from '../../data/faq.en';
 
 const lang = 'en' as const;
@@ -35,14 +36,18 @@ const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
 >
   <Navbar lang={lang} />
   <main class="pt-24 lg:pt-28" id="main-content">
-    <div class="mx-auto max-w-3xl px-6 lg:px-8 pt-4 pb-2">
+    {/* Seitenspalte max-w-7xl wie im Deutschen. */}
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-2">
       <Breadcrumb
         items={[{ label: 'Home', ariaLabel: 'Go to homepage', href: `${base}/en/` }, { label: 'Questions & Answers' }]}
         class="mb-8"
       />
-      <h1 class="cai-h1 text-foreground">Questions &amp; Answers</h1>
-      <p class="mt-5 text-lg text-muted-foreground leading-relaxed">
-        {total} questions across four areas — from how we work together and how AI
+      <HeroHeadline
+        line1={`${total} questions come up again and again.`}
+        line2="Here are your answers."
+      />
+      <p class="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+        Four areas — from how we work together and how AI
         visibility is measured through to price and term. Is yours missing?
         <a href="mailto:hi@codaai.ai" class="text-cta-accessible hover:text-cta font-medium">Get in touch.</a>
       </p>
@@ -68,7 +73,7 @@ const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
         idPrefix={`faq-${g.id}`}
         level={3}
       >
-        <p slot="after" class="mt-8 text-center text-sm text-muted-foreground">
+        <p slot="after" class="mt-8 text-sm text-muted-foreground">
           <a
             href={`${base}${g.href}`}
             class="font-semibold text-cta-accessible transition-colors hover:text-cta"
@@ -79,8 +84,8 @@ const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
       </FaqAccordion>
     ))}
 
-    <section class="mx-auto max-w-3xl px-6 pb-20 pt-4 text-center lg:px-8">
-      <p class="text-base leading-relaxed text-muted-foreground">
+    <section class="mx-auto max-w-7xl px-6 pb-20 pt-4 lg:px-8">
+      <p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
         The most important question answers itself fastest:
         <a href={`${base}/en/#offer`} class="font-semibold text-cta-accessible transition-colors hover:text-cta">
           Request your free audit →

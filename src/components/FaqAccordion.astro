@@ -62,20 +62,31 @@ const HeadingTag = level === 2 ? 'h2' : 'h3';
     tone === 'muted' ? 'bg-muted/30 py-20 lg:py-24' : 'py-16',
   ]}
 >
-  <div class="mx-auto max-w-3xl px-6 lg:px-8">
+  {/* Aussen die Seitenspalte (max-w-7xl wie jede andere Sektion), innen die
+      Lesebreite. Vorher lag beides auf max-w-3xl — zentriert fiel das nicht auf,
+      linksbuendig waere die Ueberschrift gegenueber allen anderen Sektionen
+      eingerueckt gewesen. Die Fragenliste bleibt bei max-w-3xl, damit die
+      Antworten lesbar schmal stehen. */}
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    {/* Linksbündig seit 10.08.2026 (Beschluss Oli). Der Block war der einzige
+        zentrierte Teil auf sonst durchgehend linksbündigen Seiten — auf /faq,
+        wo vier davon untereinander stehen, fiel es am stärksten auf. Die
+        Frage-Karten waren ohnehin linksbündig; zentriert waren nur Kicker,
+        Überschrift und Einleitung. Wer das zurückdreht, tut es auf fünf Seiten
+        in beiden Sprachen gleichzeitig. */}
     {eyebrow && (
-      <p class="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-cta-accessible">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">
         {eyebrow}
       </p>
     )}
-    <h2 class="cai-h2 text-center text-foreground">{title}</h2>
+    <h2 class="cai-h2 text-foreground">{title}</h2>
     {intro && (
-      <p class="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-muted-foreground">
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
         {intro}
       </p>
     )}
 
-    <div class="faqx-list mt-10 space-y-3" data-faqx>
+    <div class="faqx-list mt-10 max-w-3xl space-y-3" data-faqx>
       {items.map((f, i) => (
         <div class="faqx-item overflow-hidden rounded-xl border border-border bg-card" data-faqx-item>
           <HeadingTag>
