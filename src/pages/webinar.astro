@@ -61,7 +61,9 @@ const learnings = [
 const agenda = [
   { min: '20 Min.', t: 'Die stille Vorentscheidung — wie Buying Center heute recherchieren und warum Relevanz lange vor dem Erstkontakt entsteht', d: 'Norbert Schuster über Dark Funnel, Buying Center und die Entscheider, die Sie nie treffen: wie B2B-Kaufprozesse heute wirklich ablaufen — und warum die Weichen fallen, lange bevor Ihr Vertrieb ins Spiel kommt. Start mit einer kurzen Live-Umfrage.' },
   { min: '25 Min.', t: 'Live-Audit: empfohlen oder unsichtbar?', d: 'Echte Mittelstands-Marken live in ChatGPT + Google KI-Übersicht, geprüft mit der Methodik der 8 Einkäuferfragen und den typischen Befunden aus hunderten Audits — plus, was Sie mit ChatGPT oder Copilot selbst prüfen können und wo die Grenze liegt.' },
-  { min: '15 Min.', t: 'Offene Fragerunde (Q&A)', d: 'Ihre konkreten Fälle im Dialog mit Norbert Schuster und Oliver Parrizas: die 5 Hebel im Zusammenspiel — von sichtbar werden bis Aufträge gewinnen — und wie es nach dem Webinar weitergeht.' },
+  /* Zeitangabe beim Q&A bewusst gestrichen (Beschluss 07.08.2026: intern 10 Min. statt 15 —
+     die Agenda soll keine Minutenzahl versprechen, die live variiert). */
+  { min: '', t: 'Offene Fragerunde (Q&A)', d: 'Ihre konkreten Fälle im Dialog mit Norbert Schuster und Oliver Parrizas: die 5 Hebel im Zusammenspiel — von sichtbar werden bis Aufträge gewinnen — und wie es nach dem Webinar weitergeht.' },
 ];
 
 /* Fragen aus der gemeinsamen Quelle src/data/faq.ts (Neuverteilung 03.08.2026). */
@@ -78,12 +80,15 @@ const faqSchema = JSON.stringify({
   })),
 });
 
-const eventSchema = JSON.stringify(slots.map((s) => ({
+/* Einzelnes Event-Objekt statt Array: Layout.astro parst jede jsonLd-Zeichenkette und legt sie
+   als Objekt in den @graph — ein Array wurde dort zu {"0":{…}} und war für Google unwirksam
+   (Befund + Fix 12./13.08.2026). Es gibt genau einen Termin (slots[0]). */
+const eventSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: 'Empfohlen oder unsichtbar? — Warum Ihre nächsten Aufträge in ChatGPT & Co. entschieden werden',
-  startDate: s.iso,
-  endDate: s.iso.replace('T11:00', 'T12:00'),
+  startDate: slots[0].iso,
+  endDate: slots[0].iso.replace('T11:00', 'T12:00'),
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   location: { '@type': 'VirtualLocation', url: `${SITE_URL}/webinar/` },
@@ -95,7 +100,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },
   description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit auf Wunsch.',
-})));
+});
 ---
 
 <Layout
