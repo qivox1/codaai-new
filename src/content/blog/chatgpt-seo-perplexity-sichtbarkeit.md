@@ -21,8 +21,8 @@ faq:
     a: "Weil ChatGPT seine Websuche darüber abwickelt. Seer Interactive verglich über 500 SearchGPT-Zitate mit den Suchergebnissen beider Anbieter: 87 Prozent deckten sich mit Bings organischen Top-Ergebnissen, nur 56 Prozent mit Googles. Bing hat in Deutschland einen kleinen Marktanteil bei menschlichen Nutzern – für die Frage, was ChatGPT als Beleg findet, ist das unerheblich."
   - q: "Wie viele Quellen nutzt eine KI-Antwort?"
     a: "Mehr, als oft behauptet wird. SISTRIX misst für den deutschen Google AI Mode durchschnittlich rund 15 Quellenlinks pro Antwort. Die Zahl der Plätze ist also nicht das Nadelöhr – das Nadelöhr ist, dass nur 42,2 Prozent der Antworten überhaupt eine Marke namentlich nennen."
-  - q: "Wie lange dauert es, bis sich etwas zeigt?"
-    a: "Das lässt sich nicht seriös als Frist angeben. Inhalte müssen gefunden, eingeordnet und von anderen aufgegriffen werden, bevor ein KI-System sie als Beleg verwendet. Verlässlich ist deshalb nur die Aussage über den Verlauf: dieselben Fragen, dieselben Systeme, jeden Monat gemessen."
+  - q: "Wie schnell schlägt ein besseres Bing-Ranking auf ChatGPT durch?"
+    a: "Das lässt sich nicht seriös als Frist angeben. Zwischen einem Platz in Bings Ergebnissen und einer Nennung im Fließtext liegen zwei Schritte, die niemand von außen steuert: Das System muss die Seite als Beleg auswählen, und es muss sie für die konkrete Frage für die beste halten. Verlässlich ist deshalb nur die Aussage über den Verlauf: dieselben Fragen, dieselben Systeme, jeden Monat gemessen."
   - q: "Können wir eine Platzierung in ChatGPT kaufen oder garantieren lassen?"
     a: "Nein. Es gibt kein Programm, über das sich eine Nennung buchen ließe, und dieselbe Frage kann morgen anders beantwortet werden. Wer eine Platzierung in ChatGPT garantiert, verspricht etwas, das technisch nicht existiert."
 ---

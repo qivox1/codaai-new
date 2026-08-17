@@ -151,6 +151,111 @@ if (!existsSync(robots)) {
   } else notes.push('robots.txt: Sitemap-Zeile zeigt auf die kanonische www-Domain.');
 }
 
+/* ------------------------------------------ 5) JSON-LD: Form und @type ------ */
+/*
+ * Am 12.08.2026 fiel auf, dass das Event-Schema auf /webinar/ unwirksam war:
+ * Layout.astro parst jede jsonLd-Zeichenkette und legt das Ergebnis als Objekt in
+ * den @graph. Wer dort ein ARRAY uebergibt, bekommt {"0":{…}} — ein Knoten ohne
+ * @type, den kein Parser als Event erkennt. Der Fix lief am 13.08. nur auf der
+ * deutschen Seite; die englische blieb vier Tage lang kaputt, ohne dass es
+ * jemandem auffiel. Genau das faengt diese Pruefung ab.
+ */
+
+const ldRe = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
+const ldIssues = [];
+let ldNodeCount = 0;
+
+for (const file of htmlFiles) {
+  const html = readFileSync(file, 'utf8');
+  for (const [, raw] of html.matchAll(ldRe)) {
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (err) {
+      ldIssues.push(`${relative(DIST, file)}: JSON-LD laesst sich nicht parsen — ${err.message}`);
+      continue;
+    }
+    const nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    for (const node of nodes) {
+      ldNodeCount++;
+      if (!node || typeof node !== 'object' || Array.isArray(node)) {
+        ldIssues.push(`${relative(DIST, file)}: @graph enthaelt einen Knoten, der kein Objekt ist.`);
+        continue;
+      }
+      if (!node['@type']) {
+        const keys = Object.keys(node);
+        const wrapped = keys.length === 1 && /^\d+$/.test(keys[0]);
+        ldIssues.push(
+          `${relative(DIST, file)}: @graph-Knoten ohne @type` +
+            (wrapped
+              ? ` — Schluessel ist "${keys[0]}", also ein Array im jsonLd-Prop. ` +
+                'Einzelnes Objekt uebergeben statt Array (vgl. src/pages/webinar.astro).'
+              : ` (Schluessel: ${keys.slice(0, 5).join(', ')})`),
+        );
+      }
+    }
+  }
+}
+
+if (ldIssues.length) {
+  errors.push(
+    `JSON-LD: ${ldIssues.length} fehlerhafte(r) Knoten von ${ldNodeCount} geprueften.\n` +
+      ldIssues.slice(0, 10).map((i) => `           ${i}`).join('\n') +
+      (ldIssues.length > 10 ? `\n           … und ${ldIssues.length - 10} weitere` : ''),
+  );
+} else {
+  notes.push(`JSON-LD: ${ldNodeCount} Knoten, alle mit @type und parsebar.`);
+}
+
+/* --------------------------------------------- 6) FAQ-Fragen sind eindeutig - */
+/*
+ * Beschluss vom 03.08.2026: eine Frage steht in GENAU EINER Gruppe, und das
+ * FAQPage-Schema liegt einmal je Frage. Geprueft wurde das bisher nur fuer die
+ * Seiten aus src/data/faq.ts — die FAQ-Bloecke im Frontmatter der Blogartikel
+ * fielen durch das Raster. So stand "Wie lange dauert es, bis sich etwas zeigt?"
+ * gleichzeitig auf /digital-visibility/ und in einem Blogartikel, mit zwei
+ * verschiedenen Antworten (aufgefallen im Wochen-Report KW 34).
+ */
+
+const faqPages = new Map(); // Frage -> Set von Seiten
+for (const file of htmlFiles) {
+  const html = readFileSync(file, 'utf8');
+  for (const [, raw] of html.matchAll(ldRe)) {
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      continue; // bereits unter 5) gemeldet
+    }
+    const nodes = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    for (const node of nodes) {
+      if (!node || node['@type'] !== 'FAQPage') continue;
+      for (const q of node.mainEntity ?? []) {
+        const key = String(q?.name ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+        if (!key) continue;
+        if (!faqPages.has(key)) faqPages.set(key, new Set());
+        faqPages.get(key).add(relative(DIST, file).replace(/\/index\.html$/, '/'));
+      }
+    }
+  }
+}
+
+const faqDupes = [...faqPages.entries()].filter(([, pages]) => pages.size > 1);
+if (faqDupes.length) {
+  errors.push(
+    `FAQ: ${faqDupes.length} Frage(n) stehen in mehr als einem FAQPage-Schema. ` +
+      'Eine Frage gehoert in genau eine Gruppe (Beschluss 03.08.2026) — sonst ' +
+      'konkurrieren zwei Seiten um dasselbe Rich Result, und die Antworten laufen ' +
+      'auseinander.\n' +
+      faqDupes
+        .slice(0, 10)
+        .map(([q, pages]) => `           „${q.slice(0, 70)}“\n             ${[...pages].join('\n             ')}`)
+        .join('\n'),
+  );
+} else {
+  notes.push(`FAQ: ${faqPages.size} Fragen, jede genau einmal ausgeliefert.`);
+}
+
 /* -------------------------------------------------------------- Ausgabe ---- */
 
 console.log('\nSEO-Check');

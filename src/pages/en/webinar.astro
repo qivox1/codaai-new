@@ -90,12 +90,16 @@ const faqSchema = JSON.stringify({
   })),
 });
 
-const eventSchema = JSON.stringify(slots.map((s) => ({
+/* Einzelnes Event-Objekt statt Array: Layout.astro parst jede jsonLd-Zeichenkette und legt sie
+   als Objekt in den @graph — ein Array wurde dort zu {"0":{…}} und war für Google unwirksam.
+   Auf der deutschen Seite am 13.08.2026 behoben (44ce29a), hier am 17.08.2026 nachgezogen.
+   Es gibt genau einen Termin (slots[0]). */
+const eventSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: 'Recommended or invisible? — Why your next orders are decided in ChatGPT and Google AI Overviews',
-  startDate: s.iso,
-  endDate: s.iso.replace('T11:00', 'T12:00'),
+  startDate: slots[0].iso,
+  endDate: slots[0].iso.replace('T11:00', 'T12:00'),
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   /* Das Webinar wird auf Deutsch gehalten. Das gehoert auch ins Schema —
@@ -110,7 +114,7 @@ const eventSchema = JSON.stringify(slots.map((s) => ({
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/en/webinar/` },
   description: 'Free live webinar, held in German: why B2B orders are decided in AI answers today — with live audits of real companies and a personal visibility audit on request.',
-})));
+});
 ---
 
 <Layout
