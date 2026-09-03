@@ -1,0 +1,213 @@
+---
+/*
+ * Übersicht des GEO-Glossars — eine Komponente für beide Sprachen.
+ *
+ * Hub eines Themen-Clusters (seit 03.09.2026, EN seit 03.09.2026 abends):
+ * jeder Begriff hat seine eigene URL darunter, diese Seite listet alle mit
+ * einem Definitionssatz und ordnet sie in sieben Gruppen — in der Reihenfolge,
+ * in der ein Inhalt den Weg in eine KI-Antwort nimmt. Der Definitionssatz
+ * steht hier UND auf der Begriffsseite; das ist gewollt: die Übersicht
+ * beantwortet die kurze Frage, die Begriffsseite die lange.
+ *
+ * Schema: DefinedTermSet mit allen Begriffen als hasDefinedTerm. Das
+ * FAQPage-Schema liegt ausschließlich auf den Begriffsseiten (Regel vom
+ * 03.08.2026: eine Frage in genau einem FAQPage).
+ *
+ * Die Pfade /wissen/ und /en/knowledge/ haben bewusst keine eigene Seite —
+ * sie hätten nichts zu sagen. Der Breadcrumb führt direkt von Start zum Glossar.
+ */
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import HeroHeadline from '../HeroHeadline.astro';
+import AuditCTA from '../premium/AuditCTA.astro';
+import {
+  GLOSSAR_CATEGORIES,
+  GLOSSAR_PATH,
+  GLOSSAR_AUTHOR,
+  termSort,
+  termSlug,
+  type GlossarLang,
+} from '../../data/glossar';
+
+interface Props {
+  lang: GlossarLang;
+}
+const { lang } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+const path = GLOSSAR_PATH[lang];
+const hubUrl = `${SITE_URL}${path}`;
+const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
+
+const copy = {
+  de: {
+    metaTitle: 'GEO-Glossar: Begriffe der KI-Suche erklärt | CodaAI',
+    metaDescription: (n: number) =>
+      `${n} Begriffe der KI-Suche erklärt: Grounding, Query Fan-out, Re-Ranking, Citation Rate, Share of AI Search — je Begriff eine Seite mit Definition und Praxisbezug.`,
+    home: 'Start',
+    homeAria: 'Zur Startseite',
+    crumb: 'GEO-Glossar',
+    kicker: (n: number) => `GEO-Glossar · ${n} Begriffe`,
+    line1: 'Die KI-Suche hat ihre eigene Sprache.',
+    line2: 'Hier verstehen Sie jedes Wort.',
+    intro1:
+      'Generative Engine Optimization (GEO) ist die Arbeit daran, dass ein KI-System wie ChatGPT, Gemini oder die Google KI-Übersicht ein Unternehmen nennt oder als Quelle zitiert. Dieses Glossar erklärt die Begriffe, die dabei fallen — vom Modellwissen über Grounding und Re-Ranking bis zur Messung mit Citation Rate und Share of AI Search.',
+    intro2:
+      'Die Gruppen folgen dem Weg, den ein Inhalt in eine KI-Antwort nimmt. Jeder Begriff hat eine eigene Seite mit Definition, Funktionsweise und dem, was er für Ihre Website bedeutet.',
+    groupsAria: 'Gruppen',
+    groupOf: (i: number, n: number) => `Gruppe ${i} von ${n}`,
+    also: 'auch:',
+    srTerm: ' — Begriff im GEO-Glossar',
+    ctaKicker: 'Vom Begriff zur Zahl',
+    ctaH2: 'Die Begriffe sind erklärt. Die Frage ist, wie Ihr Unternehmen darin abschneidet.',
+    ctaP:
+      'Das Digital Visibility Audit misst Mention Rate, Citation Rate und Share of AI Search für Ihr Unternehmen zu echten Einkäuferfragen — dieselben Kennzahlen, die dieses Glossar erklärt.',
+    setName: 'GEO-Glossar: Begriffe der KI-Suche',
+    setDescription:
+      'Begriffe rund um Generative Engine Optimization (GEO) und die Sichtbarkeit in KI-Antworten — von Grounding über Re-Ranking bis Share of AI Search, erklärt für Entscheider im Mittelstand.',
+  },
+  en: {
+    metaTitle: 'GEO Glossary: AI Search Terms Explained | CodaAI',
+    metaDescription: (n: number) =>
+      `${n} terms of AI search explained: grounding, query fan-out, re-ranking, citation rate, share of AI search — one page per term with definition and practical takeaways.`,
+    home: 'Home',
+    homeAria: 'Go to Homepage',
+    crumb: 'GEO Glossary',
+    kicker: (n: number) => `GEO Glossary · ${n} terms`,
+    // Kippsatz: Zeile 1 stellt fest, Zeile 2 dreht und spricht den Leser an;
+    // Zeile 2 kürzer als Zeile 1.
+    line1: 'AI search speaks its own language.',
+    line2: 'Here you understand every word.',
+    intro1:
+      'Generative Engine Optimization (GEO) is the work of making an AI system such as ChatGPT, Gemini or Google AI Overviews mention a company or cite it as a source. This glossary explains the terms that come up along the way — from model knowledge through grounding and re-ranking to measurement with citation rate and share of AI search.',
+    intro2:
+      'The groups follow the path a piece of content takes into an AI answer. Every term has its own page with a definition, how it works and what it means for your website.',
+    groupsAria: 'Groups',
+    groupOf: (i: number, n: number) => `Group ${i} of ${n}`,
+    also: 'also:',
+    srTerm: ' — term in the GEO Glossary',
+    ctaKicker: 'From the term to the number',
+    ctaH2: 'The terms are explained. The question is how your company scores on them.',
+    ctaP:
+      'The Digital Visibility Audit measures mention rate, citation rate and share of AI search for your company on real buyer questions — the same metrics this glossary explains.',
+    setName: 'GEO Glossary: Terms of AI Search',
+    setDescription:
+      'Terms around Generative Engine Optimization (GEO) and visibility in AI answers — from grounding through re-ranking to share of AI search, explained for decision-makers in mid-sized B2B companies.',
+  },
+}[lang];
+
+const terms = (await getCollection('glossar', ({ data }) => data.lang === lang && !data.noindex)).sort(
+  termSort(lang),
+);
+const total = terms.length;
+
+const groups = GLOSSAR_CATEGORIES[lang]
+  .map((c) => ({ ...c, terms: terms.filter((t) => t.data.category === c.id) }))
+  .filter((g) => g.terms.length > 0);
+
+const latestUpdate = terms
+  .map((t) => t.data.updatedDate ?? t.data.pubDate)
+  .sort((a, b) => b.getTime() - a.getTime())[0];
+
+const termSetSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': `${hubUrl}#glossar`,
+  name: copy.setName,
+  description: copy.setDescription,
+  url: hubUrl,
+  inLanguage: lang,
+  ...(latestUpdate && { dateModified: latestUpdate.toISOString() }),
+  author: { '@type': 'Person', '@id': GLOSSAR_AUTHOR.id, name: GLOSSAR_AUTHOR.name },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  hasDefinedTerm: terms.map((t) => ({
+    '@type': 'DefinedTerm',
+    '@id': `${hubUrl}${termSlug(t.id)}/#begriff`,
+    name: t.data.title,
+    description: t.data.shortDefinition,
+    url: `${hubUrl}${termSlug(t.id)}/`,
+  })),
+});
+
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: copy.home, item: lang === 'de' ? `${SITE_URL}/` : `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: copy.crumb, item: hubUrl },
+  ],
+});
+---
+
+<Layout lang={lang} title={copy.metaTitle} description={copy.metaDescription(total)} jsonLd={[termSetSchema, breadcrumbSchema]}>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-2">
+      <Breadcrumb items={[{ label: copy.home, ariaLabel: copy.homeAria, href: homeHref }, { label: copy.crumb }]} class="mb-8" />
+      <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{copy.kicker(total)}</p>
+      <HeroHeadline line1={copy.line1} line2={copy.line2} />
+      <div class="mt-5 max-w-3xl space-y-4 text-lg text-muted-foreground leading-relaxed">
+        <p data-speakable>{copy.intro1}</p>
+        <p>{copy.intro2}</p>
+      </div>
+
+      <nav aria-label={copy.groupsAria} class="mt-8 flex flex-wrap gap-2">
+        {groups.map((g) => (
+          <a
+            href={`#${g.id}`}
+            class="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-cta/50 hover:text-cta-accessible"
+          >
+            {g.title} <span class="text-muted-foreground">({g.terms.length})</span>
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-10 space-y-16">
+      {groups.map((g, gi) => (
+        <section id={g.id} aria-labelledby={`h-${g.id}`} class="scroll-mt-28">
+          <div class="max-w-3xl">
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">{copy.groupOf(gi + 1, groups.length)}</p>
+            <h2 id={`h-${g.id}`} class="cai-h2">{g.title}</h2>
+            <p class="mt-3 text-muted-foreground leading-relaxed">{g.intro}</p>
+          </div>
+          {/* dl statt Karten-Grid: Begriff und Definition gehören semantisch
+              zusammen, und eine Definitionsliste ist genau das Format, das
+              KI-Systeme als Begriff/Erklärung-Paar extrahieren. */}
+          <dl class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+            {g.terms.map((t) => (
+              <div class="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-cta/40">
+                <dt class="text-base font-semibold text-foreground">
+                  <a href={`${base}${path}${termSlug(t.id)}/`} class="hover:text-cta-accessible transition-colors">
+                    {t.data.title}
+                    <span class="sr-only">{copy.srTerm}</span>
+                  </a>
+                  {t.data.synonyms.length > 0 && (
+                    <span class="block text-xs font-normal text-muted-foreground mt-0.5">{copy.also} {t.data.synonyms.join(', ')}</span>
+                  )}
+                </dt>
+                <dd class="mt-2 text-sm text-muted-foreground leading-relaxed">{t.data.shortDefinition}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))}
+    </div>
+
+    <section class="mx-auto max-w-7xl px-6 lg:px-8 pb-16">
+      <div class="rounded-2xl border border-border bg-muted/20 p-6 lg:p-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">{copy.ctaKicker}</p>
+        <h2 class="cai-h2">{copy.ctaH2}</h2>
+        <p class="mt-4 max-w-3xl text-muted-foreground leading-relaxed">{copy.ctaP}</p>
+        <div class="mt-6">
+          <AuditCTA lang={lang} variant="band" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Layout>

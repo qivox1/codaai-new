@@ -43,3 +43,15 @@ Gebaut wurde im Cloud-Container (frischer Clone, kein EPERM im Vite-Cache), die 
 - **EN-Version** (Welle 2) — dann Sprachpaare in `i18n-routes.ts` und EN-Footer-Link.
 - **Studiendaten je Begriff:** aktuell nur die drei veröffentlichten Kernzahlen; weitere Kennzahlen aus dem Datensatz (z. B. Anteil Drittquellen bei Citations) würden den Information Gain einzelner Begriffe erhöhen.
 - Indexierung in der Search Console beobachten (55 neue URLs, Sitemap-Lesung nach dem Deploy).
+
+## Nachtrag (abends): Englische Fassung LIVE
+
+Auf Olis Wunsch direkt im Anschluss: alle 55 Begriffe plus Hub auf Englisch unter **`/en/knowledge/geo-glossary/`**, als hreflang-Paare mit der deutschen Fassung verknüpft (56 neue Zeilen in `src/lib/i18n-routes.ts`, erzeugt aus dem `de:`-Feld jeder EN-Datei).
+
+**Übersetzung:** fünf parallele Übersetzungsläufe (je 11 Begriffe) gegen ein gemeinsames Briefing, das die Regeln aus `en-relaunch-2026-08-04/KONVENTIONEN.md` trägt — EN-GB, „it" für die KI, Glossar (tier, building block, Google AI Overviews, buyer question, mid-sized B2B companies, base fee, visibility commitment), Verbotsliste, Zahlenformat, Studienname „AI Blind Test 2026" mit „449 companies in Germany". Slug-Karte DE→EN steht im Briefing und in `TERM_ORDER.en` (`src/data/glossar.ts`); übersetzte Slugs u. a. `modellwissen→model-knowledge`, `websuche→web-search`, `kosinus-aehnlichkeit→cosine-similarity`, `entitaet→entity`, `promptset→prompt-set`, `nullmessung→baseline-measurement`, `quellenanalyse→source-analysis`, `logfiles→log-files`, `llm-crawler→llm-crawlers`. Nachkontrolle per Skript: YAML, `lang`/`de`, Related- und Body-Links, FAQ-Eindeutigkeit, keine Umlaute, keine Ausrufezeichen, kein „programme".
+
+**Technik:** Schema um `lang` (Default `de`) und `de` erweitert; EN-Dateien liegen in `src/content/glossar/en/` (Collection-ID `en/<slug>`, `termSlug()` schneidet das Präfix ab). Hub und Begriffsseite sind jetzt **eine Komponente je Typ** (`src/components/glossar/GlossarHub.astro`, `GlossarTerm.astro`) mit `copy`-Objekt je Sprache; die vier Seitendateien unter `src/pages/wissen/geo-glossar/` und `src/pages/en/knowledge/geo-glossary/` sind nur noch Wrapper. `GLOSSAR_CATEGORIES`, `TERM_ORDER`, `STUFE_ANCHOR` (EN-Anker `#readable`/`#sources`/`#become-the-source` laut Konventionen) und Autorin (`Founder & Owner`) je Sprache. EN-Kippsatz: „AI search speaks its own language. / Here you understand every word." Footer-Link „GEO Glossary" (EN), `llms.txt` mit EN-Eintrag und -Abschnitt, `llms-full.txt` gibt beide Sprachen aus, `astro.config.mjs` kennt das EN-lastmod-Mapping.
+
+**Build:** 160 Sitemap-URLs (48 + 56 DE + 56 EN), Wächter grün — 474 hreflang-Verweise, 878 JSON-LD-Knoten, 392 FAQ-Fragen eindeutig. Sprachumschalter springt seitengenau zwischen `/wissen/geo-glossar/<de>/` und `/en/knowledge/geo-glossary/<en>/`.
+
+**Search Console:** Sitemap neu eingereicht und Indexierung für die beiden Hub-Seiten und die wichtigsten Begriffe beantragt (Details im Chat-Protokoll; Tageskontingent für „Indexierung beantragen" liegt bei rund zehn URLs je Property, der Rest läuft über die Sitemap).

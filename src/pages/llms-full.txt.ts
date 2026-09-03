@@ -99,8 +99,8 @@ ${post.body}
   }
 
   // GEO-Glossar (seit 03.09.2026): eine Seite je Begriff unter /wissen/geo-glossar/.
-  const terms = (await getCollection('glossar', ({ data }) => !data.noindex)).sort((a, b) =>
-    a.data.title.localeCompare(b.data.title, 'de'),
+  const terms = (await getCollection('glossar', ({ data }) => data.lang === 'de' && !data.noindex)).sort(
+    (a, b) => a.data.title.localeCompare(b.data.title, 'de'),
   );
   output += `---
 
@@ -125,6 +125,37 @@ Stand: ${modified}${term.data.synonyms.length ? `\nAuch: ${term.data.synonyms.jo
 
 ${term.body}
 ${term.data.faq.length ? `\n**Häufige Fragen**\n\n${term.data.faq.map((f) => `- ${f.q}\n  ${f.a}`).join('\n')}\n` : ''}
+`;
+  }
+
+  // Englische Fassung (seit 03.09.2026 abends): gleiche Begriffe unter
+  // /en/knowledge/geo-glossary/. IDs der EN-Dateien heissen "en/<slug>".
+  const termsEn = (await getCollection('glossar', ({ data }) => data.lang === 'en' && !data.noindex)).sort(
+    (a, b) => a.data.title.localeCompare(b.data.title, 'en'),
+  );
+  output += `---
+
+## GEO Glossary (English)
+
+Overview: ${BASE_URL}/en/knowledge/geo-glossary/
+${termsEn.length} terms around Generative Engine Optimization — definition, how it works, what it means for visibility in AI answers. Author: Anja Miebach. Mirror of the German glossary above.
+
+`;
+  for (const term of termsEn) {
+    const slug = term.id.replace(/^en\//, '');
+    const url = `${BASE_URL}/en/knowledge/geo-glossary/${slug}/`;
+    const modified = new Date(term.data.updatedDate ?? term.data.pubDate).toISOString().split('T')[0];
+    output += `---
+
+### ${term.data.title}
+
+URL: ${url}
+Updated: ${modified}${term.data.synonyms.length ? `\nAlso: ${term.data.synonyms.join(', ')}` : ''}
+
+**Definition:** ${term.data.shortDefinition}
+
+${term.body}
+${term.data.faq.length ? `\n**Frequently asked questions**\n\n${term.data.faq.map((f) => `- ${f.q}\n  ${f.a}`).join('\n')}\n` : ''}
 `;
   }
 

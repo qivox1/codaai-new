@@ -80,6 +80,12 @@ const glossar = defineCollection({
   schema: z.object({
     // Der Begriff, so wie er als H1 steht (z. B. „Grounding").
     title: z.string(),
+    // Sprache. DE-Dateien liegen direkt in src/content/glossar/, EN-Dateien in
+    // src/content/glossar/en/ (id dann "en/<slug>"). Seit 03.09.2026 zweisprachig.
+    lang: z.enum(['de', 'en']).optional().default('de'),
+    // Nur EN: Slug der deutschen Quelldatei. Bildet das Sprachpaar; die
+    // hreflang-Tabelle in src/lib/i18n-routes.ts muss dazu passen.
+    de: z.string().optional(),
     // Kurzfassung für <title>: „<seoTitle> – GEO-Glossar | CodaAI" — Google
     // schneidet um 60 Zeichen ab, es bleiben also rund 32 für den Begriff.
     seoTitle: z.string().max(32).optional(),

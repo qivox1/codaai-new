@@ -47,6 +47,7 @@ const EXTRA_SOURCES = {
   // Die Glossar-Übersicht ändert sich, sobald ein Begriff dazukommt oder
   // umbenannt wird — deshalb hängt ihr lastmod auch an den Gruppendaten.
   'wissen/geo-glossar': ['src/data/glossar.ts'],
+  'en/knowledge/geo-glossary': ['src/data/glossar.ts'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */
@@ -86,6 +87,8 @@ function sourceFilesFor(path) {
     // das Datum des Templates [slug].astro statt das der Markdown-Datei.
     const gl = path.match(/^wissen\/geo-glossar\/(.+)$/);
     if (gl) candidates.push(`src/content/glossar/${gl[1]}.md`);
+    const glEn = path.match(/^en\/knowledge\/geo-glossary\/(.+)$/);
+    if (glEn) candidates.push(`src/content/glossar/en/${glEn[1]}.md`);
   }
   for (const extra of EXTRA_SOURCES[path] ?? []) candidates.push(extra);
   return candidates.filter((f) => existsSync(join(ROOT, f)));

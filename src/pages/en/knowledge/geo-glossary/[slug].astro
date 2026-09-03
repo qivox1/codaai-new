@@ -1,0 +1,15 @@
+---
+/* /en/knowledge/geo-glossary/<slug>/ — one page per term (EN). Die Collection-IDs
+   der englischen Dateien heißen "en/<slug>"; der Slug ist der Teil danach. */
+import { getCollection } from 'astro:content';
+import GlossarTerm from '../../../../components/glossar/GlossarTerm.astro';
+import { termSlug } from '../../../../data/glossar';
+
+export async function getStaticPaths() {
+  const terms = await getCollection('glossar', ({ data }) => data.lang === 'en');
+  return terms.map((term) => ({ params: { slug: termSlug(term.id) }, props: { term } }));
+}
+const { term } = Astro.props;
+---
+
+<GlossarTerm lang="en" term={term} />

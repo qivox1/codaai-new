@@ -16,7 +16,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
 - [Fragen & Antworten](https://www.codaai.ai/faq/): Unterschied SEO, AEO und GEO, Messung, Laufzeiten, Zusammenarbeit mit bestehenden Agenturen
 - [Blog](https://www.codaai.ai/blog/): Fachbeiträge zu KI-Sichtbarkeit, GEO und B2B-Content
-- [GEO-Glossar](https://www.codaai.ai/wissen/geo-glossar/): Begriffe der KI-Suche erklärt — Grounding, Query Fan-out, Re-Ranking, Citation Rate, Share of AI Search u. v. m., je Begriff eine eigene Seite (nur Deutsch)
+- [GEO-Glossar](https://www.codaai.ai/wissen/geo-glossar/): Begriffe der KI-Suche erklärt — Grounding, Query Fan-out, Re-Ranking, Citation Rate, Share of AI Search u. v. m., je Begriff eine eigene Seite
 - [Impressum](https://www.codaai.ai/impressum/): Anschrift, Telefon und E-Mail
 - [Co-Create](https://www.codaai.ai/co-create/): Das Prinzip hinter der Arbeit — künstliche und menschliche Intelligenz zusammen
 
@@ -29,6 +29,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Webinar „Recommended or invisible?"](https://www.codaai.ai/en/webinar/): 08.09.2026, with Norbert Schuster (strike2) and Oliver Parrizas — **held in German**
 - [FAQ](https://www.codaai.ai/en/faq/): SEO vs. AEO vs. GEO, measurement, contract terms, working alongside an existing agency
 - [Blog](https://www.codaai.ai/en/blog/): Articles on AI visibility, GEO and B2B content
+- [GEO Glossary](https://www.codaai.ai/en/knowledge/geo-glossary/): Terms of AI search explained — grounding, query fan-out, re-ranking, citation rate, share of AI search and more, one page per term
 - [Legal notice](https://www.codaai.ai/en/legal-notice/): Address, phone and e-mail
 - [Co-Create](https://www.codaai.ai/en/co-create/): The principle behind the work — artificial and human intelligence together
 
@@ -84,6 +85,13 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 - [Create a Blog with AI: 4 Articles/Month](https://www.codaai.ai/en/blog/create-ai-powered-blog/)
 - [Blog Writing Costs: Agency vs AI 2025](https://www.codaai.ai/en/blog/outsource-blog-writing-costs/)
 - [B2B Explainer Videos for Lead Generation](https://www.codaai.ai/en/blog/b2b-explainer-videos-lead-generation/)
+
+## GEO Glossary (English)
+
+Mirror of the German cluster at https://www.codaai.ai/en/knowledge/geo-glossary/ — one page per
+term, same structure (definition first, how it works, why it matters for AI visibility, what it
+means for your website), same 55 terms, linked as hreflang pairs. Full texts in
+https://www.codaai.ai/llms-full.txt.
 
 ## GEO-Glossar (Deutsch)
 

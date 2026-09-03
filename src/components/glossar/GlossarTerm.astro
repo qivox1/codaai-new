@@ -1,0 +1,376 @@
+---
+/*
+ * Begriffsseite des GEO-Glossars — eine Komponente für beide Sprachen.
+ *
+ * Aufbau (bewusst starr, damit jede Seite dasselbe Extraktionsmuster bietet):
+ *   1. H1 = der Begriff. Einzeilig und dunkel — Glossarseiten sind
+ *      „Einwortseiten" im Sinne der Kippsatz-Regel, kein Farbwechsel ohne Wendung.
+ *   2. Lead = shortDefinition (data-speakable), darunter Synonyme.
+ *   3. Autorin, Datum, Stufe.
+ *   4. Markdown-Body: Definition zuerst, dann H2 im Frageformat.
+ *   5. Verwandte Begriffe (Chips) — die interne Verlinkung des Clusters.
+ *   6. FAQ aus dem Frontmatter, als FAQPage ausgezeichnet.
+ *   7. Audit-CTA im Band.
+ *
+ * Schema je Seite: DefinedTerm (im DefinedTermSet der Übersicht), Article mit
+ * Autorin und dateModified (Freshness), BreadcrumbList, FAQPage.
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import AuditCTA from '../premium/AuditCTA.astro';
+import {
+  GLOSSAR_PATH,
+  GLOSSAR_AUTHOR,
+  STUFE_ANCHOR,
+  categoryTitle,
+  termSlug,
+  type GlossarLang,
+} from '../../data/glossar';
+
+interface Props {
+  lang: GlossarLang;
+  term: CollectionEntry<'glossar'>;
+}
+const { lang, term } = Astro.props;
+const { Content, headings } = await render(term);
+const {
+  title, seoTitle, shortDefinition, synonyms, category, stufe, related,
+  pubDate, updatedDate, faq, noindex,
+} = term.data;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+const path = GLOSSAR_PATH[lang];
+const hubUrl = `${SITE_URL}${path}`;
+const slug = termSlug(term.id);
+const pageUrl = `${hubUrl}${slug}/`;
+const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
+const dvHref = lang === 'de' ? `${base}/digital-visibility/` : `${base}/en/digital-visibility/`;
+const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`;
+
+const copy = {
+  de: {
+    titleSuffix: ' – GEO-Glossar | CodaAI',
+    home: 'Start',
+    homeAria: 'Zur Startseite',
+    crumb: 'GEO-Glossar',
+    also: 'Auch:',
+    stand: 'Stand:',
+    readingTime: (m: number) => `${m} Min. Lesezeit`,
+    toc: 'Auf dieser Seite',
+    tocAria: 'Inhalt',
+    related: 'Verwandte Begriffe',
+    faqH: (t: string) => `Häufige Fragen zu ${t}`,
+    sideOffer: 'Im Angebot',
+    sideOfferStufe: (label: string) =>
+      `Dieser Begriff gehört zu ${label}. Auf der Leistungsseite steht, welche der 14 Bausteine daran arbeiten.`,
+    sideOfferNoStufe:
+      'Auf der Leistungsseite steht, welche der 14 Bausteine an den Faktoren arbeiten, die dieses Glossar erklärt.',
+    sideOfferLink: 'Zu Digital Visibility →',
+    sideAll: 'Alle Begriffe',
+    sideAllP: 'Die Übersicht ordnet alle Begriffe entlang des Wegs, den ein Inhalt in eine KI-Antwort nimmt.',
+    sideAllLink: 'Zum GEO-Glossar →',
+    ctaKicker: 'Vom Begriff zur Zahl',
+    ctaH2: 'Wie steht Ihr Unternehmen bei diesem Faktor da?',
+    ctaP:
+      'Das Digital Visibility Audit misst zu echten Einkäuferfragen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen nennen — und woran es liegt, wenn nicht.',
+    setName: 'GEO-Glossar: Begriffe der KI-Suche',
+    headline: (t: string) => `${t}: Definition und Bedeutung für die KI-Sichtbarkeit`,
+    dateLocale: 'de-DE',
+    tags: ['GEO', 'KI-Sichtbarkeit'],
+  },
+  en: {
+    titleSuffix: ' – GEO Glossary | CodaAI',
+    home: 'Home',
+    homeAria: 'Go to Homepage',
+    crumb: 'GEO Glossary',
+    also: 'Also:',
+    stand: 'Updated:',
+    readingTime: (m: number) => `${m} min read`,
+    toc: 'On this page',
+    tocAria: 'Contents',
+    related: 'Related terms',
+    faqH: (t: string) => `Frequently asked questions about ${t}`,
+    sideOffer: 'In the offer',
+    sideOfferStufe: (label: string) =>
+      `This term belongs to ${label}. The service page shows which of the 14 building blocks work on it.`,
+    sideOfferNoStufe:
+      'The service page shows which of the 14 building blocks work on the factors this glossary explains.',
+    sideOfferLink: 'Go to Digital Visibility →',
+    sideAll: 'All terms',
+    sideAllP: 'The overview orders all terms along the path a piece of content takes into an AI answer.',
+    sideAllLink: 'Go to the GEO Glossary →',
+    ctaKicker: 'From the term to the number',
+    ctaH2: 'How does your company score on this factor?',
+    ctaP:
+      'The Digital Visibility Audit measures, on real buyer questions, whether ChatGPT and Google AI Overviews mention your company — and what is holding it back if they do not.',
+    setName: 'GEO Glossary: Terms of AI Search',
+    headline: (t: string) => `${t}: definition and what it means for AI visibility`,
+    dateLocale: 'en-GB',
+    tags: ['GEO', 'AI visibility'],
+  },
+}[lang];
+
+// Verwandte Begriffe: nur die, die es wirklich gibt — ein Tippfehler im
+// Frontmatter darf keinen toten Link erzeugen.
+const all = await getCollection('glossar', ({ data }) => data.lang === lang);
+const bySlug = new Map(all.map((t) => [termSlug(t.id), t]));
+const relatedTerms = related
+  .map((s) => bySlug.get(s))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t) && !t!.data.noindex);
+
+const wordCount = (term.body ?? '').split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+const fmt = (d: Date) => d.toLocaleDateString(copy.dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
+const modified = updatedDate ?? pubDate;
+
+const stufeInfo = stufe ? STUFE_ANCHOR[lang][stufe] : null;
+const stufeHref = stufeInfo ? `${dvHref}#${stufeInfo.anchor}` : dvHref;
+
+const tocHeadings = headings.filter((h) => h.depth === 2);
+
+// Meta-Description: shortDefinition darf bis 240 Zeichen lang sein (Lead und
+// Schema), Google zeigt aber nur rund 160. Erster Satz, wenn er passt; sonst an
+// der Wortgrenze gekürzt.
+function metaDescription(text: string, max = 158): string {
+  if (text.length <= max) return text;
+  const firstSentence = text.match(/^[^.!?]+[.!?](?=\s|$)/)?.[0];
+  if (firstSentence && firstSentence.length >= 60 && firstSentence.length <= max) return firstSentence;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
+}
+const description = metaDescription(shortDefinition);
+
+// ── JSON-LD ────────────────────────────────────────────────────────────────
+const definedTermSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': `${pageUrl}#begriff`,
+  name: title,
+  ...(synonyms.length > 0 && { alternateName: synonyms }),
+  description: shortDefinition,
+  url: pageUrl,
+  inDefinedTermSet: { '@type': 'DefinedTermSet', '@id': `${hubUrl}#glossar`, name: copy.setName, url: hubUrl },
+});
+
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${pageUrl}#artikel`,
+  headline: copy.headline(title),
+  description: shortDefinition,
+  url: pageUrl,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  about: { '@id': `${pageUrl}#begriff` },
+  datePublished: pubDate.toISOString(),
+  dateModified: modified.toISOString(),
+  inLanguage: lang,
+  wordCount,
+  articleSection: categoryTitle(lang, category),
+  author: {
+    '@type': 'Person',
+    '@id': GLOSSAR_AUTHOR.id,
+    name: GLOSSAR_AUTHOR.name,
+    jobTitle: GLOSSAR_AUTHOR.jobTitle[lang],
+    url: GLOSSAR_AUTHOR.url[lang],
+    worksFor: { '@id': `${SITE_URL}/#organization` },
+  },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  isPartOf: { '@id': `${hubUrl}#glossar` },
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
+});
+
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: copy.home, item: lang === 'de' ? `${SITE_URL}/` : `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: copy.crumb, item: hubUrl },
+    { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
+  ],
+});
+
+const faqSchema = faq.length > 0
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    })
+  : null;
+
+const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+---
+
+<Layout
+  lang={lang}
+  title={`${seoTitle ?? title}${copy.titleSuffix}`}
+  description={description}
+  jsonLd={schemas}
+  article={{
+    publishedTime: pubDate.toISOString(),
+    modifiedTime: modified.toISOString(),
+    author: GLOSSAR_AUTHOR.name,
+    tags: [title, ...synonyms, ...copy.tags],
+    canonicalUrl: pageUrl,
+    noindex,
+  }}
+>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <header class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-8">
+      <Breadcrumb
+        items={[
+          { label: copy.home, ariaLabel: copy.homeAria, href: homeHref },
+          { label: copy.crumb, href: `${base}${path}` },
+          { label: title },
+        ]}
+        class="mb-6"
+      />
+      <div class="max-w-3xl">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">
+          {categoryTitle(lang, category)}
+        </p>
+        <h1 class="cai-h1 text-foreground">{title}</h1>
+        <p class="mt-5 text-lg text-foreground leading-relaxed" data-speakable>{shortDefinition}</p>
+        {synonyms.length > 0 && (
+          <p class="mt-3 text-sm text-muted-foreground">
+            <span class="font-medium text-foreground">{copy.also}</span> {synonyms.join(' · ')}
+          </p>
+        )}
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-5 border-y border-border">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-between">
+        <div class="flex items-center gap-3">
+          <img src={GLOSSAR_AUTHOR.image} alt="" width="40" height="40" class="size-10 rounded-full object-cover flex-shrink-0" loading="lazy" decoding="async" />
+          <div>
+            <p class="text-sm font-semibold text-foreground">
+              <a href={coCreateHref} class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>
+            </p>
+            <p class="text-xs text-muted-foreground">{GLOSSAR_AUTHOR.jobTitle[lang]}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
+          <span>
+            {copy.stand} <time datetime={modified.toISOString()} class="text-foreground font-medium">{fmt(modified)}</time>
+          </span>
+          <span>{copy.readingTime(readingMinutes)}</span>
+          {stufeInfo && (
+            <a href={stufeHref} class="px-2.5 py-0.5 rounded-full bg-cta/10 text-cta-accessible font-medium hover:bg-cta/20 transition-colors">
+              {stufeInfo.label}
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+      <div class="lg:grid lg:grid-cols-[1fr_300px] lg:gap-16 items-start">
+        <div>
+          {tocHeadings.length > 2 && (
+            <nav aria-label={copy.tocAria} class="mb-10 p-5 rounded-xl border border-border bg-muted/30">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{copy.toc}</p>
+              <ol class="space-y-1.5">
+                {tocHeadings.map((h) => (
+                  <li class="text-sm">
+                    <a href={`#${h.slug}`} class="text-muted-foreground hover:text-foreground transition-colors">{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
+
+          <article
+            class="prose prose-slate max-w-none
+              prose-headings:font-semibold prose-headings:tracking-tight
+              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+              prose-p:text-foreground prose-p:leading-relaxed
+              prose-a:text-cta-accessible prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-foreground
+              prose-blockquote:border-l-cta prose-blockquote:bg-muted/30 prose-blockquote:rounded-r-lg prose-blockquote:py-1
+              prose-table:text-sm prose-th:text-foreground prose-td:align-top
+              prose-ul:my-4 prose-li:my-1"
+          >
+            <Content />
+          </article>
+
+          {relatedTerms.length > 0 && (
+            <nav aria-label={copy.related} class="mt-12">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{copy.related}</p>
+              <ul class="flex flex-wrap gap-2">
+                {relatedTerms.map((t) => (
+                  <li>
+                    <a
+                      href={`${base}${path}${termSlug(t.id)}/`}
+                      class="inline-block rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-cta/50 hover:text-cta-accessible"
+                      title={t.data.shortDefinition}
+                    >
+                      {t.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          {faq.length > 0 && (
+            <aside class="mt-12 rounded-2xl border border-border bg-muted/20 p-6" aria-labelledby="faq-h">
+              <h2 id="faq-h" class="text-xl font-semibold text-foreground mb-6">{copy.faqH(title)}</h2>
+              <dl class="space-y-6">
+                {faq.map(({ q, a }) => (
+                  <div>
+                    <dt class="font-semibold text-foreground mb-2">{q}</dt>
+                    <dd class="text-muted-foreground text-sm leading-relaxed">{a}</dd>
+                  </div>
+                ))}
+              </dl>
+            </aside>
+          )}
+        </div>
+
+        <aside class="hidden lg:block">
+          <div class="sticky top-28 space-y-6">
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{copy.sideOffer}</p>
+              <p class="text-sm text-foreground leading-relaxed">
+                {stufeInfo ? copy.sideOfferStufe(stufeInfo.label) : copy.sideOfferNoStufe}
+              </p>
+              <a href={stufeHref} class="mt-4 inline-block text-sm font-medium text-cta-accessible hover:underline">
+                {copy.sideOfferLink}
+              </a>
+            </div>
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{copy.sideAll}</p>
+              <p class="text-sm text-muted-foreground leading-relaxed">{copy.sideAllP}</p>
+              <a href={`${base}${path}`} class="mt-4 inline-block text-sm font-medium text-cta-accessible hover:underline">
+                {copy.sideAllLink}
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="mx-auto max-w-7xl px-6 lg:px-8 pb-16">
+      <div class="rounded-2xl border border-border bg-muted/20 p-6 lg:p-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">{copy.ctaKicker}</p>
+        <h2 class="cai-h2">{copy.ctaH2}</h2>
+        <p class="mt-4 max-w-3xl text-muted-foreground leading-relaxed">{copy.ctaP}</p>
+        <div class="mt-6">
+          <AuditCTA lang={lang} variant="band" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Layout>

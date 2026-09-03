@@ -89,15 +89,16 @@ const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
 const footerLinks = lang === 'en'
   ? [
       { label: t(lang, "footer.mission"), href: `${base}/en/co-create/` },
+      { label: 'GEO Glossary', href: `${base}/en/knowledge/geo-glossary/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/en/legal-notice/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/en/privacy-policy/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/en/terms/` },
     ]
   : [
       { label: t(lang, "footer.mission"), href: `${base}/co-create/` },
-      // 03.09.2026: GEO-Glossar (DE-only). Der Footer ist der einzige sitewide
-      // Einstieg — die Hauptnavigation bleibt bei vier Punkten (Beschluss
-      // 28.07.2026). Kein EN-Gegenstueck, deshalb nur in dieser Liste.
+      // 03.09.2026: GEO-Glossar. Der Footer ist der einzige sitewide Einstieg —
+      // die Hauptnavigation bleibt bei vier Punkten (Beschluss 28.07.2026).
+      // EN-Gegenstueck /en/knowledge/geo-glossary/ in der Liste oben.
       { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/impressum/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz/` },
