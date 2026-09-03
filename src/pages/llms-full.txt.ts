@@ -9,9 +9,9 @@ const STATIC_PAGES = `## Statische Seiten
 URL: ${BASE_URL}/
 Wer heute eine Leistung sucht, fragt zuerst eine KI. Die nennt in der Regel drei Anbieter. CodaAI misst, ob ein Unternehmen dazugehört, und arbeitet daran, dass es dazugehört — in drei Stufen: Gefunden, Empfohlen, Zitiert. Einstieg ist ein Digital Visibility Audit, das die tatsächlichen KI-Antworten zu echten Einkäuferfragen auswertet.
 
-### Digital Visibility – die 14 Leistungsbausteine
+### Digital Visibility – die 15 Leistungsbausteine
 URL: ${BASE_URL}/digital-visibility/
-Drei Fragen entscheiden über eine Nennung: Kann die KI das Unternehmen lesen? Ist es dort, wo die KI ihre Belege holt? Zitiert sie es, weil andere es zitieren? Darauf verteilen sich 14 Bausteine über die Stufen Gefunden (Stufe 1), Empfohlen (Stufe 2) und Zitiert (Stufe 3). Die Seite nennt auch, was CodaAI bewusst nicht anbietet.
+Drei Fragen entscheiden über eine Nennung: Kann die KI das Unternehmen lesen? Ist es dort, wo die KI ihre Belege holt? Zitiert sie es, weil andere es zitieren? Darauf verteilen sich 15 Bausteine über die Stufen Gefunden (Stufe 1), Empfohlen (Stufe 2) und Zitiert (Stufe 3). Die Seite nennt auch, was CodaAI bewusst nicht anbietet.
 
 ### Preise
 URL: ${BASE_URL}/preise/

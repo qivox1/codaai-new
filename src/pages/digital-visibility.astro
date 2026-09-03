@@ -92,8 +92,12 @@ const stufen = [
         // Durchläufe je Frage, vier Systeme, Nennung + Zitierung + Tenor + Korrektheit.
         // Die alte Ankerzahl (Monitoring-Tools 89–499 €) war ein Preisargument und
         // faellt weg; Beleg ist jetzt die eigene Studie.
-        tut: 'Ihr festes Set an Einkäuferfragen — markenneutral und markenspezifisch — jeden Monat mehrfach in ChatGPT, Google AI, Perplexity und Gemini gestellt: wer genannt wird, wer zitiert wird, mit welchem Tenor, und ob stimmt, was die KI über Sie sagt.',
-        beleg: 'KI-Antworten sind nicht deterministisch — belastbar ist der Anteil über viele Durchläufe, nicht ein Einzelwert. Dasselbe Verfahren liegt der Auswertung von 7.184 KI-Antworten im KI-Blindtest zugrunde.',
+        // 03.09.2026, zweite Fassung (Beschluss Oli): Stufe 1 behaelt die
+        // Basis-Messung. Die erweiterte Messung (vier Systeme, markenspezifische
+        // Fragen, Zitierung, Tenor, Korrektheit, mehrere Durchlaeufe) ist Aufwand
+        // und gehoert preislich in Stufe 2 — dort als eigener Baustein.
+        tut: 'Ihre acht Einkäuferfragen aus dem Audit, jeden Monat in ChatGPT und der Google-KI gestellt — Sie sehen, wer genannt wird und wie sich Ihr Anteil entwickelt.',
+        beleg: 'KI-Antworten sind nicht deterministisch — belastbar ist der Verlauf über Monate, nicht ein Einzelwert. Dasselbe Verfahren liegt der Auswertung von 7.184 KI-Antworten im KI-Blindtest zugrunde.',
         quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
       },
     ],
@@ -102,11 +106,11 @@ const stufen = [
     id: 'quellen',
     nr: 2,
     key: 'aktiv',
-    kumuliert: 10,
+    kumuliert: 11,
     kicker: 'Stufe 2',
     name: 'Empfohlen',
     frage: 'Bin ich dort präsent, wo die KI ihre Belege holt?',
-    antwort: 'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Vier Bausteine außerhalb Ihrer Website — zusätzlich zu allem aus Stufe 1.',
+    antwort: 'Die Empfehlung kommt nicht mehr nur von Ihnen selbst. Fünf Bausteine — vier außerhalb Ihrer Website und eine Messung, die alle KI-Systeme abdeckt — zusätzlich zu allem aus Stufe 1.',
     preiszeile: '4–7 Fachbeiträge pro Monat · ab 2.670 € / Monat',
     bausteine: [
       {
@@ -134,13 +138,22 @@ const stufen = [
         beleg: 'YouTube-Nennungen sind das stärkste Einzelsignal für KI-Sichtbarkeit (r ≈ 0,737).',
         quelle: 'Ahrefs 2026 · SISTRIX',
       },
+      {
+        // 03.09.2026 (Beschluss Oli): erweiterte Messung als eigener Baustein in
+        // Stufe 2 — vom Zaehler zum Messverfahren, siehe GEO-Glossar (Promptset,
+        // Mention Rate, Citation Rate, Sentiment). Kostenpflichtig, weil Aufwand.
+        name: 'Erweiterte KI-Messung',
+        tut: 'Ihr Fragenset wächst um markenspezifische Fragen und wird jeden Monat mehrfach in ChatGPT, Google AI, Perplexity und Gemini gestellt: wer genannt wird, wer zitiert wird, mit welchem Tenor — und ob stimmt, was die KI über Sie sagt.',
+        beleg: 'Ein Prompt, zehnmal gestellt, liefert zehn verschiedene Antworten. Erst der Anteil über Durchläufe und Systeme ist eine Kennzahl — und erst die Zitierung zeigt, ob Ihre Inhalte die Antwort prägen.',
+        quelle: 'CodaAI-Messverfahren · SISTRIX Meetup 09/2026',
+      },
     ],
   },
   {
     id: 'quelle-werden',
     nr: 3,
     key: 'dominanz',
-    kumuliert: 14,
+    kumuliert: 15,
     kicker: 'Stufe 3',
     name: 'Zitiert',
     frage: 'Berufen sich andere auf meine Zahlen?',
@@ -208,11 +221,13 @@ const ICON: Record<string, string> = {
     '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/>',
   'LinkedIn Ihrer Führungskräfte':
     '<circle cx="9.5" cy="8" r="3"/><path d="M4 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8"/><path d="M17.5 14.6A5.5 5.5 0 0 1 21 19.8"/>',
+  'Erweiterte KI-Messung':
+    '<path d="M4 19h16"/><path d="M6 15l3.5-4 3 2.5L17 8"/><circle cx="17" cy="8" r="1.6"/><circle cx="6" cy="15" r="1.6"/>',
   'Wettbewerbs-Beobachtung':
     '<path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/>',
 };
 
-/* Matrix: dieselben 14 Bausteine, kumulativ. Spalten führen in den Preisrechner. */
+/* Matrix: dieselben 15 Bausteine, kumulativ. Spalten führen in den Preisrechner. */
 const matrix = stufen.flatMap((g) =>
   g.bausteine.map((b) => ({
     name: b.name,
@@ -284,7 +299,7 @@ const serviceSchema = {
   provider: { '@id': 'https://www.codaai.ai/#organization' },
   areaServed: 'DE',
   description:
-    'Managed Service für Sichtbarkeit in KI-Antworten: 14 Bausteine in drei Stufen — von der technischen Lesbarkeit der Website über Markennennungen auf Drittquellen bis zur eigenen Branchenstudie.',
+    'Managed Service für Sichtbarkeit in KI-Antworten: 15 Bausteine in drei Stufen — von der technischen Lesbarkeit der Website über Markennennungen auf Drittquellen bis zur eigenen Branchenstudie.',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Leistungsbausteine',
@@ -420,11 +435,11 @@ const faqSchema = {
                   <!-- Abdeckung: macht sichtbar, dass die Stufen aufeinander aufbauen. -->
                   <div class="cai-cov mt-5 max-w-sm">
                     <div class="flex items-baseline justify-between text-[12.5px] font-semibold text-foreground">
-                      <span>{g.kumuliert} von 14 Bausteinen</span>
+                      <span>{g.kumuliert} von 15 Bausteinen</span>
                       <span class="font-normal text-muted-foreground">{g.kicker}</span>
                     </div>
                     <div class="cai-cov-track mt-2" aria-hidden="true">
-                      <span class="cai-cov-fill" style={`--w:${Math.round((g.kumuliert / 14) * 100)}%`}></span>
+                      <span class="cai-cov-fill" style={`--w:${Math.round((g.kumuliert / 15) * 100)}%`}></span>
                     </div>
                   </div>
 

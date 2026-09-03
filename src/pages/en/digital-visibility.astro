@@ -83,9 +83,11 @@ const stufen = [
         name: 'Monthly measurement',
         // 03.09.2026 (alignment with the GEO glossary, decision Oli): from a counter to a
         // measurement method — see the German file for the reasoning.
-        tut: 'Your fixed set of buyer questions — brand-neutral and brand-specific — put to ChatGPT, Google AI, Perplexity and Gemini several times every month: who gets mentioned, who gets cited, in what tone, and whether what the AI says about you is correct.',
+        // 03.09.2026, second version (decision Oli): Tier 1 keeps the basic measurement;
+        // the extended measurement is its own building block in Tier 2.
+        tut: 'Your eight buyer questions from the audit, put to ChatGPT and Google’s AI every month — you see who gets mentioned and how your share develops.',
         beleg:
-          'AI answers are not deterministic — what holds is the share across many runs, not a single value. The same method underlies the analysis of 7,184 AI answers in the AI Blind Test.',
+          'AI answers are not deterministic — what holds is the trend over months, not a single value. The same method underlies the analysis of 7,184 AI answers in the AI Blind Test.',
         quelle: 'CodaAI study “AI Blind Test 2026”',
       },
     ],
@@ -94,12 +96,12 @@ const stufen = [
     id: 'sources',
     nr: 2,
     key: 'aktiv',
-    kumuliert: 10,
+    kumuliert: 11,
     kicker: 'Tier 2',
     name: 'Recommended',
     frage: 'Am I present where the AI sources its evidence?',
     antwort:
-      'The recommendation no longer comes from you alone. Four building blocks away from your website — on top of everything in Tier 1.',
+      'The recommendation no longer comes from you alone. Five building blocks — four away from your website and one measurement that covers every AI system — on top of everything in Tier 1.',
     preiszeile: '4–7 expert articles per month · from €2,670 / month',
     bausteine: [
       {
@@ -130,13 +132,21 @@ const stufen = [
           'YouTube mentions are the single strongest signal for AI visibility (r ≈ 0.737).',
         quelle: 'Ahrefs 2026 · SISTRIX',
       },
+      {
+        // 03.09.2026 (decision Oli): extended measurement as its own building block in Tier 2.
+        name: 'Extended AI measurement',
+        tut: 'Your question set grows by brand-specific questions and is put to ChatGPT, Google AI, Perplexity and Gemini several times every month: who gets mentioned, who gets cited, in what tone — and whether what the AI says about you is correct.',
+        beleg:
+          'One prompt, asked ten times, returns ten different answers. Only the share across runs and systems is a metric — and only the citation shows whether your content shapes the answer.',
+        quelle: 'CodaAI measurement method · SISTRIX Meetup 09/2026',
+      },
     ],
   },
   {
     id: 'become-the-source',
     nr: 3,
     key: 'dominanz',
-    kumuliert: 14,
+    kumuliert: 15,
     kicker: 'Tier 3',
     name: 'Cited',
     frage: 'Do others cite my figures?',
@@ -208,11 +218,13 @@ const ICON: Record<string, string> = {
     '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/>',
   'LinkedIn for your leadership':
     '<circle cx="9.5" cy="8" r="3"/><path d="M4 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8"/><path d="M17.5 14.6A5.5 5.5 0 0 1 21 19.8"/>',
+  'Extended AI measurement':
+    '<path d="M4 19h16"/><path d="M6 15l3.5-4 3 2.5L17 8"/><circle cx="17" cy="8" r="1.6"/><circle cx="6" cy="15" r="1.6"/>',
   'Competitor monitoring':
     '<path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/>',
 };
 
-/* Matrix: the same 14 building blocks, cumulative. Columns lead into the calculator. */
+/* Matrix: the same 15 building blocks, cumulative. Columns lead into the calculator. */
 const matrix = stufen.flatMap((g) =>
   g.bausteine.map((b) => ({
     name: b.name,
@@ -284,7 +296,7 @@ const serviceSchema = {
   provider: { '@id': 'https://www.codaai.ai/#organization' },
   areaServed: 'DE',
   description:
-    'Managed service for visibility in AI answers: 14 building blocks across three tiers — from the technical readability of your website through brand mentions on third-party sources to an industry study of your own.',
+    'Managed service for visibility in AI answers: 15 building blocks across three tiers — from the technical readability of your website through brand mentions on third-party sources to an industry study of your own.',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Building blocks',
@@ -423,11 +435,11 @@ const faqSchema = {
                   <!-- Coverage: makes it visible that the tiers build on each other. -->
                   <div class="cai-cov mt-5 max-w-sm">
                     <div class="flex items-baseline justify-between text-[12.5px] font-semibold text-foreground">
-                      <span>{g.kumuliert} of 14 building blocks</span>
+                      <span>{g.kumuliert} of 15 building blocks</span>
                       <span class="font-normal text-muted-foreground">{g.kicker}</span>
                     </div>
                     <div class="cai-cov-track mt-2" aria-hidden="true">
-                      <span class="cai-cov-fill" style={`--w:${Math.round((g.kumuliert / 14) * 100)}%`}></span>
+                      <span class="cai-cov-fill" style={`--w:${Math.round((g.kumuliert / 15) * 100)}%`}></span>
                     </div>
                   </div>
 

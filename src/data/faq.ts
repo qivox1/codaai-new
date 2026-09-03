@@ -76,7 +76,7 @@ export const faqVisibility: FaqItem[] = [
   },
   {
     q: 'Woher wissen Sie, welche Maßnahmen wirken?',
-    a: 'Aus Messungen, nicht aus Meinung. Markennennungen auf Drittseiten korrelieren mit r = 0,664 mit KI-Sichtbarkeit, Backlinks nur mit r = 0,218 (Ahrefs, 75.000 Marken) — deshalb steht bei uns die Erwähnung im Vordergrund und nicht der Link. Jeder der vierzehn Bausteine ist an eine solche Beobachtung geknüpft — aus veröffentlichten Studien oder aus unserer eigenen Erhebung. Welche das jeweils ist, legen wir im Erstgespräch offen.',
+    a: 'Aus Messungen, nicht aus Meinung. Markennennungen auf Drittseiten korrelieren mit r = 0,664 mit KI-Sichtbarkeit, Backlinks nur mit r = 0,218 (Ahrefs, 75.000 Marken) — deshalb steht bei uns die Erwähnung im Vordergrund und nicht der Link. Jeder der fünfzehn Bausteine ist an eine solche Beobachtung geknüpft — aus veröffentlichten Studien oder aus unserer eigenen Erhebung. Welche das jeweils ist, legen wir im Erstgespräch offen.',
   },
   {
     q: 'Wie lange dauert es, bis sich etwas zeigt?',

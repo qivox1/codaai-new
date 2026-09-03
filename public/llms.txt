@@ -10,7 +10,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 ## Hauptseiten (Deutsch)
 
 - [Startseite](https://www.codaai.ai/): Warum die KI drei Anbieter empfiehlt — und was darüber entscheidet, ob Ihr Unternehmen dazugehört
-- [Digital Visibility](https://www.codaai.ai/digital-visibility/): Die 14 Leistungsbausteine, geordnet nach den drei Stufen Gefunden, Empfohlen, Zitiert
+- [Digital Visibility](https://www.codaai.ai/digital-visibility/): Die 15 Leistungsbausteine, geordnet nach den drei Stufen Gefunden, Empfohlen, Zitiert
 - [Preise](https://www.codaai.ai/preise/): Drei Sichtbarkeits-Stufen ab 1.470 € Grundpreis pro Monat, mit nachrechenbarem Preisrechner
 - [Studie „KI-Blindtest Mittelstand 2026"](https://www.codaai.ai/studie/): 449 Unternehmen, 3.592 Einkäuferfragen, 7.184 KI-Antworten — Methodik und Befunde
 - [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
@@ -23,7 +23,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 ## Hauptseiten (Englisch)
 
 - [Homepage](https://www.codaai.ai/en/): Why AI recommends three providers — and what decides whether you are one of them
-- [Digital Visibility](https://www.codaai.ai/en/digital-visibility/): The 14 building blocks, ordered by the three tiers Found, Recommended, Cited
+- [Digital Visibility](https://www.codaai.ai/en/digital-visibility/): The 15 building blocks, ordered by the three tiers Found, Recommended, Cited
 - [Pricing](https://www.codaai.ai/en/pricing/): Three visibility tiers from €1,470 base fee per month, with a calculator you can check yourself
 - [Study „AI Blind Test 2026"](https://www.codaai.ai/en/study/): 449 companies, 3,592 buyer questions, 7,184 AI answers — methodology and findings
 - [Webinar „Recommended or invisible?"](https://www.codaai.ai/en/webinar/): 08.09.2026, with Norbert Schuster (strike2) and Oliver Parrizas — **held in German**
