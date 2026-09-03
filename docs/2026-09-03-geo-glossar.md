@@ -55,3 +55,18 @@ Auf Olis Wunsch direkt im Anschluss: alle 55 Begriffe plus Hub auf Englisch unte
 **Build:** 160 Sitemap-URLs (48 + 56 DE + 56 EN), Wächter grün — 474 hreflang-Verweise, 878 JSON-LD-Knoten, 392 FAQ-Fragen eindeutig. Sprachumschalter springt seitengenau zwischen `/wissen/geo-glossar/<de>/` und `/en/knowledge/geo-glossary/<en>/`.
 
 **Search Console:** Sitemap neu eingereicht und Indexierung für die beiden Hub-Seiten und die wichtigsten Begriffe beantragt (Details im Chat-Protokoll; Tageskontingent für „Indexierung beantragen" liegt bei rund zehn URLs je Property, der Rest läuft über die Sitemap).
+
+## Nachtrag 2: Leistungsumfang `/digital-visibility/` mit dem GEO-Modell abgeglichen
+
+Auf Olis Wunsch vor dem ersten Blogartikel: die 14 Bausteine gegen das Modell aus Vortrag und Glossar geprüft (Abgleich in `umbau-digital-visibility/Leistungsumfang-Abgleich-Glossar-2026-09-03.md`). Ergebnis: alle Ebenen abgedeckt, Lücken in der Tiefe von drei Bausteinen. **Fünf Beschreibungssätze geändert, DE und EN, keine Preise, keine Stufen, keine neuen Bausteine:**
+
+| Baustein | Änderung |
+|---|---|
+| 1 · Maßnahmenplan | benennt jetzt die Fan-out-Fragen als Themenliste (Query Coverage) |
+| 3 · Fachbeiträge | „nach den Extraktionsregeln der KI-Suche: Antwort zuerst, jede Passage für sich zitierfähig, jede Zahl mit Quelle" |
+| 4 · Aktualisierung | „und auf Passagenebene umgebaut — Frage-Überschriften, direkte Antworten, aktuelle Zahlen" |
+| 6 · Monatliche Messung | vom Zähler („acht Fragen, wer genannt wird") zum Messverfahren: Fragenset markenneutral + markenspezifisch, mehrfach je Monat, ChatGPT/Google AI/Perplexity/Gemini, Nennung + Zitierung + Tenor + Korrektheit. **Ankerzahl getauscht:** das Preisargument „Monitoring-Tools 89–499 €" fällt weg, Beleg ist jetzt die Nicht-Determiniertheit + die eigene Studie |
+| 11 · Wissensdatenbanken → **„Wissensdatenbanken und Markenkonsistenz"** | + einheitliche Beschreibung auf allen Profilen, damit die KI das Unternehmen als eine Entität liest (ICON-Schlüssel mitgezogen) |
+| 14 · Wettbewerbs-Beobachtung | + Quellenanalyse: welche Quellen zitiert die KI — die Zielliste für die Offpage-Bausteine |
+
+Die „8 Fragen" bleiben überall dort stehen, wo sie die Studien- und Audit-Methodik beschreiben (Startseite, /studie). `i18n/de.json`/`en.json` führen Baustein 11 weiter unter dem alten Namen — die Blöcke werden von keiner Seite gerendert (CLAUDE.md, Backlog). `Service`-Schema übernimmt die neuen Sätze automatisch (`description: b.tut`).

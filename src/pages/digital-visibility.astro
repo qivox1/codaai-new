@@ -57,7 +57,7 @@ const stufen = [
     bausteine: [
       {
         name: 'Maßnahmenplan aus Ihrem Audit',
-        tut: 'Aus Ihrem kostenlosen Audit wird zum Start ein priorisierter Plan: was zuerst, was danach.',
+        tut: 'Aus Ihrem kostenlosen Audit wird ein priorisierter Plan — samt der Fragen, die KI-Systeme zu Ihrem Thema intern stellen: das ist die Themenliste für alle Inhalte.',
         beleg: 'Grundlage ist die Auswertung von 449 Unternehmen und 7.184 KI-Antworten aus dem eigenen KI-Blindtest.',
         quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
       },
@@ -69,13 +69,13 @@ const stufen = [
       },
       {
         name: 'Fachbeiträge',
-        tut: 'Wir recherchieren, schreiben und veröffentlichen Beiträge, die KI-Systeme als Quelle zitieren können.',
+        tut: 'Wir recherchieren, schreiben und veröffentlichen Beiträge nach den Extraktionsregeln der KI-Suche: Antwort zuerst, jede Passage für sich zitierfähig, jede Zahl mit Quelle.',
         beleg: 'Statistiken, Zitate und Quellenangaben steigern die Sichtbarkeit in KI-Antworten um 30–40 %.',
         quelle: 'Princeton GEO, KDD 2024, 10.000 Abfragen',
       },
       {
         name: 'Aktualisierung der Bestandsseiten',
-        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen aktualisiert, nicht nur neue geschrieben.',
+        tut: 'Ihre vorhandenen Seiten werden in festen Zyklen aktualisiert und auf Passagenebene umgebaut — Frage-Überschriften, direkte Antworten, aktuelle Zahlen.',
         beleg: 'KI-Assistenten zitieren 25,7 % frischere Inhalte als die organische Google-Suche.',
         quelle: 'Ahrefs, 17 Mio. Zitate',
       },
@@ -87,9 +87,14 @@ const stufen = [
       },
       {
         name: 'Monatliche Messung',
-        tut: 'Acht echte Einkäuferfragen, jeden Monat in ChatGPT und der Google-KI gestellt — Sie sehen, wer genannt wird.',
-        beleg: 'Ohne Messung kein beweisbarer Erfolg. Vergleichbare Monitoring-Werkzeuge kosten allein 89–499 € pro Monat.',
-        quelle: 'Marktvergleich GEO-Monitoring DACH, 07/2026',
+        // 03.09.2026 (Abgleich mit dem GEO-Glossar, Beschluss Oli): vom Zähler zum
+        // Messverfahren — Fragenset markenneutral UND markenspezifisch, mehrere
+        // Durchläufe je Frage, vier Systeme, Nennung + Zitierung + Tenor + Korrektheit.
+        // Die alte Ankerzahl (Monitoring-Tools 89–499 €) war ein Preisargument und
+        // faellt weg; Beleg ist jetzt die eigene Studie.
+        tut: 'Ihr festes Set an Einkäuferfragen — markenneutral und markenspezifisch — jeden Monat mehrfach in ChatGPT, Google AI, Perplexity und Gemini gestellt: wer genannt wird, wer zitiert wird, mit welchem Tenor, und ob stimmt, was die KI über Sie sagt.',
+        beleg: 'KI-Antworten sind nicht deterministisch — belastbar ist der Anteil über viele Durchläufe, nicht ein Einzelwert. Dasselbe Verfahren liegt der Auswertung von 7.184 KI-Antworten im KI-Blindtest zugrunde.',
+        quelle: 'CodaAI-Studie „KI-Blindtest Mittelstand 2026"',
       },
     ],
   },
@@ -143,8 +148,8 @@ const stufen = [
     preiszeile: '8–12 Fachbeiträge pro Monat · ab 4.910 € / Monat',
     bausteine: [
       {
-        name: 'Wissensdatenbanken',
-        tut: 'Wikidata-Eintrag, Google-Unternehmensprofil und die Wissensbasen Ihres Branchensegments.',
+        name: 'Wissensdatenbanken und Markenkonsistenz',
+        tut: 'Wikidata-Eintrag, Google-Unternehmensprofil, die Wissensbasen Ihres Branchensegments — und eine einheitliche Beschreibung Ihres Unternehmens auf allen Profilen, damit die KI Sie als eine Entität liest.',
         beleg: 'Wissensdatenbanken sind die meistzitierte Einzelquelle in ChatGPT.',
         quelle: 'Semrush · Profound',
       },
@@ -162,7 +167,7 @@ const stufen = [
       },
       {
         name: 'Wettbewerbs-Beobachtung',
-        tut: 'Monatlicher Vergleich gegen benannte Wettbewerber: Wer wird in Ihren Fragen wie oft empfohlen?',
+        tut: 'Monatlicher Vergleich gegen benannte Wettbewerber: Wer wird in Ihren Fragen wie oft empfohlen — und welche Quellen zitiert die KI dabei? Aus dieser Liste beziehen die Offpage-Bausteine ihre Ziele.',
         beleg: 'Basiert auf demselben eingefrorenen Fragensatz wie Ihre Messung — vergleichbar über die gesamte Laufzeit.',
         quelle: 'CodaAI-Messverfahren',
       },
@@ -199,7 +204,7 @@ const ICON: Record<string, string> = {
     '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.3l4.7 2.7-4.7 2.7z"/>',
   'Eigene Branchenstudie':
     '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 14v3M12 10.5v6.5M15 12.5v4.5"/>',
-  'Wissensdatenbanken':
+  'Wissensdatenbanken und Markenkonsistenz':
     '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/>',
   'LinkedIn Ihrer Führungskräfte':
     '<circle cx="9.5" cy="8" r="3"/><path d="M4 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8"/><path d="M17.5 14.6A5.5 5.5 0 0 1 21 19.8"/>',
