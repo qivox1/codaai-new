@@ -10,6 +10,10 @@ authorBio: "The CodaAI team develops and tests AI-powered content strategies for
 category: "Content Production"
 tags: ["Content Marketing", "Blog Writing", "Writing Costs", "Outsourcing vs In-House", "Content ROI"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/scaling-content.webp
 heroImageAlt: "Outsource Blog Writing Costs"
 summary: "Blog articles cost €400–800 if written in-house (8–12 hours work), €1,500–3,000 from a freelancer, or €200–400 with AI writing support. The breakeven point: 10–12 articles per year. Before that, in-house or AI makes sense. After that, the cost per article drops below freelancer rates."

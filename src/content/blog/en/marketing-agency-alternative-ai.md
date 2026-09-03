@@ -10,6 +10,10 @@ authorBio: "The CodaAI team develops and tests AI-powered content strategies for
 category: "AI Tools & Practice"
 tags: ["Marketing Agency", "AI Alternative", "Content Marketing", "In-House Marketing", "Marketing Tools"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/AI-agency-cocreate.webp
 heroImageAlt: "Marketing Agency Alternative AI"
 summary: "Traditional marketing agencies cost €2,000–10,000/month and move slowly. AI platforms cost €500–1,500/month and operate at your pace. For mid-market companies, platforms now cover much of what an agency used to do for content – with the difference that you own the process and can adjust immediately."

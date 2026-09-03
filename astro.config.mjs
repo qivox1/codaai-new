@@ -145,6 +145,14 @@ export default defineConfig({
         // Slugs sind nur noch Weiterleitungen.
         !page.endsWith('/blog/b2b-videomarketing-erklaervideos-mittelstand/') &&
         !page.endsWith('/en/blog/b2b-explainer-videos-lead-generation/') &&
+        // 03.09.2026 (Beschluss Oli): die drei Kosten-/Agentur-Artikel stehen auf
+        // noindex (Blog-Umbaukonzept, Gruppe C) — DE und EN raus aus der Sitemap.
+        !page.endsWith('/blog/blogartikel-schreiben-lassen-kosten/') &&
+        !page.endsWith('/blog/marketingkosten-senken-ki-content-b2b/') &&
+        !page.endsWith('/blog/marketingagentur-alternative-ki-mittelstand/') &&
+        !page.endsWith('/en/blog/outsource-blog-writing-costs/') &&
+        !page.endsWith('/en/blog/reduce-marketing-costs-ai-content/') &&
+        !page.endsWith('/en/blog/marketing-agency-alternative-ai/') &&
         !page.includes('/auth/') &&
         !page.endsWith('/en/404/'),
       serialize(item) {

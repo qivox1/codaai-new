@@ -63,11 +63,8 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 - [KI Content Marketing im Mittelstand](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/)
 - [B2B-Blog als Vertriebskanal nutzen](https://www.codaai.ai/blog/b2b-blog-als-vertriebskanal/)
 - [Content Marketing vs. Google Ads B2B](https://www.codaai.ai/blog/content-marketing-vs-google-ads-b2b/)
-- [KI statt Agentur: Was 2026 wirklich bringt](https://www.codaai.ai/blog/marketingagentur-alternative-ki-mittelstand/)
-- [Marketingkosten halbieren mit KI-Content](https://www.codaai.ai/blog/marketingkosten-senken-ki-content-b2b/)
 - [Redaktionsplan erstellen mit KI](https://www.codaai.ai/blog/redaktionsplan-ki-erstellen/)
 - [KI Blog erstellen: SEO-Artikel in 30 Min.](https://www.codaai.ai/blog/ki-blog-erstellen/)
-- [Blogartikel schreiben lassen: Kosten](https://www.codaai.ai/blog/blogartikel-schreiben-lassen-kosten/)
 - [B2B-Videomarketing mit Erklärvideos](https://www.codaai.ai/blog/b2b-videomarketing-erklaervideos-mittelstand/)
 
 ## Blog-Artikel (Englisch)
@@ -79,11 +76,8 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 - [AI Content Marketing for Mid-Market](https://www.codaai.ai/en/blog/ai-content-marketing-for-smb/)
 - [B2B Blog as Sales Channel: Lead Guide](https://www.codaai.ai/en/blog/b2b-blog-as-sales-channel/)
 - [Content Marketing vs Google Ads: B2B](https://www.codaai.ai/en/blog/content-marketing-vs-google-ads-b2b/)
-- [AI vs Marketing Agency: Mid-Market Guide](https://www.codaai.ai/en/blog/marketing-agency-alternative-ai/)
-- [Reduce Marketing Costs with AI Content](https://www.codaai.ai/en/blog/reduce-marketing-costs-ai-content/)
 - [Editorial Plan with AI: B2B Template](https://www.codaai.ai/en/blog/create-editorial-plan-with-ai/)
 - [Create a Blog with AI: 4 Articles/Month](https://www.codaai.ai/en/blog/create-ai-powered-blog/)
-- [Blog Writing Costs: Agency vs AI 2025](https://www.codaai.ai/en/blog/outsource-blog-writing-costs/)
 - [B2B Explainer Videos for Lead Generation](https://www.codaai.ai/en/blog/b2b-explainer-videos-lead-generation/)
 
 ## GEO Glossary (English)

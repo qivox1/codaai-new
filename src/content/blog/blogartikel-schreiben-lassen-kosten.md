@@ -10,6 +10,10 @@ authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategi
 category: "Content & Kosten"
 tags: ["Blogartikel schreiben lassen", "Content Kosten", "Content Agentur", "KI Content", "SEO Texte"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/scaling-content.webp
 heroImageAlt: "Blogartikel schreiben lassen Kosten"
 summary: "Ein professioneller Blogartikel kostet bei einer Agentur zwischen 800 und 4.000 €, beim Freelancer 150–800 € und mit KI-Plattformen wie CodaAI ab 490 € monatlich für unbegrenzte Artikel. Dieser Artikel zeigt, was hinter den Preisunterschieden steckt – und wie Sie die richtige Entscheidung für Ihr Unternehmen treffen."

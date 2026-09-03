@@ -10,6 +10,10 @@ authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategi
 category: "KI & Content Marketing"
 tags: ["Marketingagentur Alternative", "KI Marketing Mittelstand", "Content Marketing Agentur", "B2B Marketing 2026", "Marketing Automatisierung"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/AI-agency-cocreate.webp
 heroImageAlt: "Marketingagentur Alternative KI Mittelstand"
 summary: "Für die laufende Content-Produktion geraten klassische Agenturmodelle unter Druck – wegen langer Abstimmungswege und einer Kostenbasis, die auf manuelle Arbeit ausgelegt ist. Für B2B-Mittelständler sind daneben andere Modelle entstanden. Dieser Artikel ordnet ein, wofür sich welches eignet."

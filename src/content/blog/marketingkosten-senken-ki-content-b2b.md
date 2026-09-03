@@ -10,6 +10,10 @@ authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategi
 category: "KI & Content Marketing"
 tags: ["Marketingkosten senken", "KI Content B2B", "Content Marketing Kosten", "B2B Marketing Budget", "Marketing Effizienz"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/cost-reduction.webp
 heroImageAlt: "Marketingkosten senken mit KI Content B2B"
 summary: "B2B-Mittelständler, die KI-gestützte Content-Produktion einsetzen, berichten von 40–60 % Kostenreduktion bei gleichzeitig höherer Produktionsfrequenz. Dieser Artikel zeigt, wie das konkret funktioniert."

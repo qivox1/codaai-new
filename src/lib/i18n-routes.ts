@@ -46,15 +46,17 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/blog/ai-crawler-server-performance-geo/', '/en/blog/ai-crawler-server-performance-geo/'],
   ['/blog/b2b-blog-als-vertriebskanal/', '/en/blog/b2b-blog-as-sales-channel/'],
   ['/blog/youtube-ki-sichtbarkeit-b2b/', '/en/blog/youtube-ai-visibility-b2b/'],
-  ['/blog/blogartikel-schreiben-lassen-kosten/', '/en/blog/outsource-blog-writing-costs/'],
   ['/blog/chatgpt-seo-perplexity-sichtbarkeit/', '/en/blog/chatgpt-seo-perplexity-visibility/'],
   ['/blog/content-marketing-mittelstand-ki/', '/en/blog/ai-content-marketing-for-smb/'],
   ['/blog/content-marketing-vs-google-ads-b2b/', '/en/blog/content-marketing-vs-google-ads-b2b/'],
   ['/blog/ki-blog-erstellen/', '/en/blog/create-ai-powered-blog/'],
   ['/blog/ki-content-marketing-strategie/', '/en/blog/ai-content-marketing-strategy/'],
-  ['/blog/marketingagentur-alternative-ki-mittelstand/', '/en/blog/marketing-agency-alternative-ai/'],
-  ['/blog/marketingkosten-senken-ki-content-b2b/', '/en/blog/reduce-marketing-costs-ai-content/'],
   ['/blog/redaktionsplan-ki-erstellen/', '/en/blog/create-editorial-plan-with-ai/'],
+  // 03.09.2026: drei Paare entfernt (Kosten-/Agentur-Artikel auf noindex, Beschluss
+  // Oli) — ein Sprachpaar zwischen zwei noindex-Seiten waere ein Widerspruch:
+  //   blogartikel-schreiben-lassen-kosten <-> outsource-blog-writing-costs
+  //   marketingkosten-senken-ki-content-b2b <-> reduce-marketing-costs-ai-content
+  //   marketingagentur-alternative-ki-mittelstand <-> marketing-agency-alternative-ai
 
   // -- GEO-Glossar (03.09.2026) ---------------------------------------------
   // Hub + ein Paar je Begriff. Quelle der Zuordnung: das `de:`-Feld im

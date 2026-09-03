@@ -10,6 +10,10 @@ authorBio: "The CodaAI team develops and tests AI-powered content strategies for
 category: "Content Strategy"
 tags: ["Marketing Costs", "Cost Reduction", "AI Content", "Marketing ROI", "B2B Efficiency"]
 featured: false
+# 03.09.2026 (Beschluss Oli): noindex — Preis-/Agentur-Argumentation aus der
+# Content-Agentur-Positionierung (Blog-Umbaukonzept, Gruppe C). Seite bleibt
+# gebaut, faellt aus Blog-Uebersicht, RelatedArticles, Sitemap und hreflang.
+noindex: true
 heroImage: /images/blog/cost-reduction.webp
 heroImageAlt: "Reduce Marketing Costs with AI Content"
 summary: "B2B marketing budgets carry a lot of outsourced work: agency retainers, paid search, external design. With an AI-supported content strategy, most of that moves in-house – and the savings can be reinvested into organic growth instead of paid reach."
