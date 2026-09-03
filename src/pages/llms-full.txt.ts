@@ -37,6 +37,10 @@ AI + HI: künstliche Intelligenz, die leistet, und menschliche Erfahrung, die le
 URL: ${BASE_URL}/blog/
 Fachbeiträge zu KI-Sichtbarkeit, GEO, SEO und B2B-Content für den deutschen Mittelstand.
 
+### GEO-Glossar
+URL: ${BASE_URL}/wissen/geo-glossar/
+Begriffe der KI-Suche — von Grounding über Query Fan-out und Re-Ranking bis Share of AI Search — je Begriff eine eigene Seite mit Definition, Funktionsweise und Bedeutung für die eigene Website. Vollständige Texte weiter unten in dieser Datei.
+
 ---`;
 
 export const GET: APIRoute = async () => {
@@ -91,6 +95,36 @@ Autor: ${post.data.author}${post.data.authorTitle ? ` (${post.data.authorTitle})
 ${post.data.summary ? `\n**Zusammenfassung:** ${post.data.summary}\n` : ''}
 ${post.body}
 
+`;
+  }
+
+  // GEO-Glossar (seit 03.09.2026): eine Seite je Begriff unter /wissen/geo-glossar/.
+  const terms = (await getCollection('glossar', ({ data }) => !data.noindex)).sort((a, b) =>
+    a.data.title.localeCompare(b.data.title, 'de'),
+  );
+  output += `---
+
+## GEO-Glossar: Begriffe der KI-Suche
+
+Übersicht: ${BASE_URL}/wissen/geo-glossar/
+${terms.length} Begriffe rund um Generative Engine Optimization — Definition, Funktionsweise, Bedeutung für die Sichtbarkeit in KI-Antworten. Autorin: Anja Miebach.
+
+`;
+
+  for (const term of terms) {
+    const url = `${BASE_URL}/wissen/geo-glossar/${term.id}/`;
+    const modified = new Date(term.data.updatedDate ?? term.data.pubDate).toISOString().split('T')[0];
+    output += `---
+
+### ${term.data.title}
+
+URL: ${url}
+Stand: ${modified}${term.data.synonyms.length ? `\nAuch: ${term.data.synonyms.join(', ')}` : ''}
+
+**Definition:** ${term.data.shortDefinition}
+
+${term.body}
+${term.data.faq.length ? `\n**Häufige Fragen**\n\n${term.data.faq.map((f) => `- ${f.q}\n  ${f.a}`).join('\n')}\n` : ''}
 `;
   }
 

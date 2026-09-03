@@ -44,6 +44,9 @@ const EXTRA_SOURCES = {
   'en/digital-visibility': ['src/data/faq.en.ts'],
   'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
   'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
+  // Die Glossar-Übersicht ändert sich, sobald ein Begriff dazukommt oder
+  // umbenannt wird — deshalb hängt ihr lastmod auch an den Gruppendaten.
+  'wissen/geo-glossar': ['src/data/glossar.ts'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */
@@ -78,6 +81,11 @@ function sourceFilesFor(path) {
     if (de) candidates.push(`src/content/blog/${de[1]}.md`);
     const en = path.match(/^en\/blog\/(.+)$/);
     if (en) candidates.push(`src/content/blog/en/${en[1]}.md`, `src/content/blog/${en[1]}.md`);
+    // 03.09.2026: GEO-Glossar — der Inhalt liegt in der Content Collection,
+    // nicht in der Seitendatei. Ohne diese Zeile meldete jede Begriffsseite
+    // das Datum des Templates [slug].astro statt das der Markdown-Datei.
+    const gl = path.match(/^wissen\/geo-glossar\/(.+)$/);
+    if (gl) candidates.push(`src/content/glossar/${gl[1]}.md`);
   }
   for (const extra of EXTRA_SOURCES[path] ?? []) candidates.push(extra);
   return candidates.filter((f) => existsSync(join(ROOT, f)));

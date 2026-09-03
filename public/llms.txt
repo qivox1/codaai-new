@@ -16,6 +16,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
 - [Fragen & Antworten](https://www.codaai.ai/faq/): Unterschied SEO, AEO und GEO, Messung, Laufzeiten, Zusammenarbeit mit bestehenden Agenturen
 - [Blog](https://www.codaai.ai/blog/): Fachbeiträge zu KI-Sichtbarkeit, GEO und B2B-Content
+- [GEO-Glossar](https://www.codaai.ai/wissen/geo-glossar/): Begriffe der KI-Suche erklärt — Grounding, Query Fan-out, Re-Ranking, Citation Rate, Share of AI Search u. v. m., je Begriff eine eigene Seite (nur Deutsch)
 - [Impressum](https://www.codaai.ai/impressum/): Anschrift, Telefon und E-Mail
 - [Co-Create](https://www.codaai.ai/co-create/): Das Prinzip hinter der Arbeit — künstliche und menschliche Intelligenz zusammen
 
@@ -84,10 +85,23 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 - [Blog Writing Costs: Agency vs AI 2025](https://www.codaai.ai/en/blog/outsource-blog-writing-costs/)
 - [B2B Explainer Videos for Lead Generation](https://www.codaai.ai/en/blog/b2b-explainer-videos-lead-generation/)
 
+## GEO-Glossar (Deutsch)
+
+Ein Themen-Cluster unter https://www.codaai.ai/wissen/geo-glossar/ — je Begriff eine Seite mit
+Definition („X ist Y" im ersten Satz), Funktionsweise, Bedeutung für die KI-Sichtbarkeit und
+Konsequenz für die eigene Website. Gruppen: Wie Sprachmodelle funktionieren · Websuche und
+Grounding · Vom Ranking zur Zitierung · Content-Faktoren · Technik · Offpage und Marke ·
+Messung und Tracking. Kernbegriffe: Grounding, Grounding Budget, Query Fan-out, Initial
+Retrieval, Re-Ranking, Grounding Snippets, Mention, Citation, Bottom Line Up Front,
+Semantisches Chunking, Entity Echoing, Information Gain, Topical Authority, E-E-A-T,
+Freshness, LLM-Crawler, TTFB, Brand Mentions, Listicles, Promptset, Mention Rate,
+Citation Rate, Share of AI Search, Sentiment, Nullmessung. Vollständige Texte in
+https://www.codaai.ai/llms-full.txt.
+
 ## Rechtliches und Technisches
 
 - [Impressum](https://www.codaai.ai/impressum/) · [Datenschutz](https://www.codaai.ai/datenschutz/) · [AGB](https://www.codaai.ai/agb/)
 - [AGENTS.md](https://www.codaai.ai/AGENTS.md): technischer Aufbau, Zitierregeln und Hinweise für Agenten
 - URLs enden auf einen Schrägstrich. `/preise` wird per 301 auf `/preise/` geleitet.
 
-Stand: 3. August 2026 · Kontakt: hi@codaai.ai
+Stand: 3. September 2026 · Kontakt: hi@codaai.ai

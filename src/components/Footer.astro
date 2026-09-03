@@ -95,6 +95,10 @@ const footerLinks = lang === 'en'
     ]
   : [
       { label: t(lang, "footer.mission"), href: `${base}/co-create/` },
+      // 03.09.2026: GEO-Glossar (DE-only). Der Footer ist der einzige sitewide
+      // Einstieg — die Hauptnavigation bleibt bei vier Punkten (Beschluss
+      // 28.07.2026). Kein EN-Gegenstueck, deshalb nur in dieser Liste.
+      { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/impressum/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/agb/` },
