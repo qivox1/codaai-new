@@ -298,7 +298,9 @@ const csp = [
     {/* Fonts are now self-hosted â no Google Fonts DNS lookup or external request */}
 
     {/* ââ JSON-LD Structured Data âââââââââââââââââââââââââââââââââââââââââââââ */}
-    <script type="application/ld+json" set:html={graphSchema} />
+    {/* Auf noindex-Seiten gar kein JSON-LD: Rich-Schema + noindex ist ein Widerspruch
+        (crawl/schema-noindex-conflict, Audit 04.09.2026) */}
+    {!article?.noindex && <script type="application/ld+json" set:html={graphSchema} />}
   </head>
   <body>
     <!-- GTM noscript entfernt: DSGVO erfordert Einwilligung vor Tracking.
