@@ -2,7 +2,6 @@
 title: "Create a Blog with AI: 4 Articles/Month"
 description: "How to start and maintain a high-performing B2B blog using AI tools — without hiring full-time writers or paying for expensive content agencies."
 pubDate: 2026-01-28
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

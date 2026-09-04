@@ -2,7 +2,6 @@
 title: "Content Marketing vs Google Ads: B2B"
 description: "Content marketing vs Google Ads for B2B companies: full cost comparison, time-to-first-lead analysis, and when each strategy makes sense for growth."
 pubDate: 2026-02-18
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

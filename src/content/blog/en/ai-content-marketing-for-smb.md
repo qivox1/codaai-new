@@ -2,7 +2,6 @@
 title: "AI Content Marketing for Mid-Market"
 description: "Content marketing for mid-market companies: how to compete with larger competitors using AI – at a fraction of the usual production cost."
 pubDate: 2026-01-15
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

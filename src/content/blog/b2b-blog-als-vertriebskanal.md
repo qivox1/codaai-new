@@ -2,7 +2,6 @@
 title: "B2B-Blog als Vertriebskanal nutzen"
 description: "B2B-Blogs generieren mehr Leads als die meisten Mittelständler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist – mit echten Zahlen und konkretem ROI."
 pubDate: 2026-03-05
-updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "KI Content-Strategie Team"

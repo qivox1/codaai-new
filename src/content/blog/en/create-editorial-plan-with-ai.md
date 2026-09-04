@@ -2,7 +2,6 @@
 title: "Editorial Plan with AI: B2B Template"
 description: "How to create a systematic monthly editorial plan using AI – complete with keyword templates, topic clusters, and concrete examples for B2B content teams."
 pubDate: 2026-03-10
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

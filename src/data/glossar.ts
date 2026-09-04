@@ -212,6 +212,9 @@ export const GLOSSAR_AUTHOR = {
   id: 'https://www.codaai.ai/co-create/#anja-miebach',
   name: 'Anja Miebach',
   image: '/images/team/anja-miebach.webp',
+  /** kleine Varianten für den 40-px-Avatar (Audit 04.09.2026: 43 KB für 40 px) */
+  imageSmall: '/images/team/anja-miebach-80.webp',
+  image96: '/images/team/anja-miebach-96.webp',
   jobTitle: {
     de: 'Gründerin & Inhaberin, CodaAI',
     en: 'Founder & Owner, CodaAI',

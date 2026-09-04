@@ -258,7 +258,9 @@ const csp = [
         ungenutzt und warnte zugleich vor mehr als vier preconnects. */}
     {/* Preload Latin variable font — LCP text renders without FOIT/layout shift */}
     <link rel="preload" as="font" type="font/woff2" href={interLatinFont} crossorigin />
-    {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
+    {/* href pfadgleich mit dem <img src> (root-relativ) — mit der absoluten URL erkannte
+        kein Prüfer die Zuordnung (Audit 04.09.2026) */}
+    {heroImage && <link rel="preload" as="image" href={heroImage.replace(SITE_URL, '')} fetchpriority="high" />}
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />

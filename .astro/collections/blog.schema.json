@@ -5,6 +5,10 @@
     "title": {
       "type": "string"
     },
+    "seoTitle": {
+      "type": "string",
+      "maxLength": 45
+    },
     "description": {
       "type": "string",
       "maxLength": 160

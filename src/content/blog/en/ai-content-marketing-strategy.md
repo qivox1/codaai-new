@@ -2,7 +2,6 @@
 title: "AI Content Marketing: Complete Strategy"
 description: "How to rank at the top in Google and AI search engines like ChatGPT and Perplexity using AI-powered content marketing. Strategy, formats and concrete steps."
 pubDate: 2026-01-15
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

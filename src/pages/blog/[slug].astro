@@ -17,6 +17,8 @@ const { Content, headings } = await render(post);
 const { title, seoTitle, description, pubDate, updatedDate, author, authorTitle, authorBio,
         authorImage, category, tags, heroImage, heroImageAlt, summary, faq,
         canonicalUrl, noindex } = post.data;
+// 96-px-Variante fuer den 48-px-Avatar (Audit 04.09.2026); nur fuer Bilder, die eine haben
+const authorImageSmall = authorImage?.replace(/\/team\/anja-miebach\.webp$/, '/team/anja-miebach-96.webp') ?? authorImage;
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -107,7 +109,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
   lang={lang}
   title={`${seoTitle ?? title} | CodaAI Blog`}
   description={description}
-  jsonLd={schemas}
+  jsonLd={noindex ? [] : schemas}
   heroImage={ogImage}
   article={{
     publishedTime: pubDate.toISOString(),
@@ -186,7 +188,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
       <div class="flex flex-wrap items-start gap-6 justify-between">
         <div class="flex items-start gap-4">
           {authorImage ? (
-            <img src={authorImage} alt={author} class="size-12 rounded-full object-cover flex-shrink-0" loading="lazy" />
+            <img src={authorImageSmall} srcset={`${authorImageSmall} 1x, ${authorImage} 2x`} alt={author} width="48" height="48" class="size-12 rounded-full object-cover flex-shrink-0" decoding="async" />
           ) : (
             <div class="size-12 rounded-full bg-cta/15 flex items-center justify-center flex-shrink-0">
               <span class="text-lg font-semibold text-cta">{author.charAt(0)}</span>
@@ -311,7 +313,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
               <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Autor</p>
               <div class="flex items-start gap-3">
                 {authorImage ? (
-                  <img src={authorImage} alt={author} class="size-10 rounded-full object-cover flex-shrink-0" loading="lazy" />
+                  <img src={authorImageSmall} srcset={`${authorImageSmall} 1x, ${authorImage} 2x`} alt={author} width="40" height="40" class="size-10 rounded-full object-cover flex-shrink-0" loading="lazy" decoding="async" />
                 ) : (
                   <div class="size-10 rounded-full bg-cta/15 flex items-center justify-center flex-shrink-0">
                     <span class="text-sm font-semibold text-cta">{author.charAt(0)}</span>

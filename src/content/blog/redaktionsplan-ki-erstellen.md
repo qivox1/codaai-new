@@ -2,7 +2,6 @@
 title: "Redaktionsplan erstellen mit KI"
 description: "Mit KI einen Redaktionsplan für 3 Monate erstellen: Themen, Keywords und Kalender in 10 Minuten – statt 4 Stunden manuell."
 pubDate: 2026-02-05
-updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "KI Content-Strategie Team"

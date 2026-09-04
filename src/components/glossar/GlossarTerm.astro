@@ -47,6 +47,7 @@ const path = GLOSSAR_PATH[lang];
 const hubUrl = `${SITE_URL}${path}`;
 const slug = termSlug(term.id);
 const pageUrl = `${hubUrl}${slug}/`;
+const ogImageUrl = `${SITE_URL}/images/${lang === 'de' ? 'og-image.png' : 'og-image-en.png'}`;
 const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
 const dvHref = lang === 'de' ? `${base}/digital-visibility/` : `${base}/en/digital-visibility/`;
 const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`;
@@ -54,6 +55,9 @@ const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-creat
 const copy = {
   de: {
     titleSuffix: ' – GEO-Glossar | CodaAI',
+    titleDefinition: ': Definition',
+    descSuffix: 'Definition, Bedeutung und Praxisbezug im GEO-Glossar von CodaAI.',
+    descSuffixShort: 'Definition im GEO-Glossar von CodaAI.',
     home: 'Start',
     homeAria: 'Zur Startseite',
     crumb: 'GEO-Glossar',
@@ -84,6 +88,9 @@ const copy = {
   },
   en: {
     titleSuffix: ' – GEO Glossary | CodaAI',
+    titleDefinition: ': definition',
+    descSuffix: 'Definition, meaning and practical relevance in the CodaAI GEO Glossary.',
+    descSuffixShort: 'Definition in the CodaAI GEO Glossary.',
     home: 'Home',
     homeAria: 'Go to Homepage',
     crumb: 'GEO Glossary',
@@ -135,14 +142,37 @@ const tocHeadings = headings.filter((h) => h.depth === 2);
 // Meta-Description: shortDefinition darf bis 240 Zeichen lang sein (Lead und
 // Schema), Google zeigt aber nur rund 160. Erster Satz, wenn er passt; sonst an
 // der Wortgrenze gekürzt.
-function metaDescription(text: string, max = 158): string {
-  if (text.length <= max) return text;
-  const firstSentence = text.match(/^[^.!?]+[.!?](?=\s|$)/)?.[0];
-  if (firstSentence && firstSentence.length >= 60 && firstSentence.length <= max) return firstSentence;
+// Untergrenze 120 Zeichen (squirrelscan core/meta-description, 04.09.2026):
+// zu kurze Definitionen bekommen einen festen Glossar-Zusatz, ein zu kurzer
+// erster Satz wird um den zweiten ergänzt, solange beide zusammen passen.
+function metaDescription(text: string, max = 158, min = 120): string {
+  const pad = (t: string) => {
+    if (t.length >= min) return t;
+    const base = t.replace(/\s+$/, '');
+    for (const suffix of [copy.descSuffix, copy.descSuffixShort]) {
+      const padded = `${base} ${suffix}`;
+      if (padded.length <= max) return padded;
+    }
+    return t;
+  };
+  if (text.length <= max) return pad(text);
+  const sentences = text.match(/[^.!?]+[.!?](?=\s|$)/g) ?? [];
+  const first = sentences[0]?.trim();
+  if (first && first.length >= min && first.length <= max) return first;
+  const two = sentences.slice(0, 2).join(' ').trim();
+  if (first && two.length > first.length && two.length <= max) return two;
+  if (first && first.length >= 60 && first.length <= max) return pad(first);
   const cut = text.slice(0, max - 1);
   return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
 }
 const description = metaDescription(shortDefinition);
+
+// <title> unter 30 Zeichen (z. B. „GEO“, „Token“) bekommt „: Definition“
+// eingeschoben, damit der Titel nicht als zu kurz gewertet wird.
+const baseTitle = seoTitle ?? title;
+const pageTitle = `${baseTitle}${copy.titleSuffix}`.length < 30
+  ? `${baseTitle}${copy.titleDefinition}${copy.titleSuffix}`
+  : `${baseTitle}${copy.titleSuffix}`;
 
 // ── JSON-LD ────────────────────────────────────────────────────────────────
 const definedTermSchema = JSON.stringify({
@@ -178,7 +208,16 @@ const articleSchema = JSON.stringify({
     url: GLOSSAR_AUTHOR.url[lang],
     worksFor: { '@id': `${SITE_URL}/#organization` },
   },
-  publisher: { '@id': `${SITE_URL}/#organization` },
+  // image + ausgeschriebener publisher: Google/Validatoren verlangen beides
+  // direkt am Article, eine reine @id-Referenz reicht nicht (Audit 04.09.2026).
+  image: ogImageUrl,
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
+  },
   isPartOf: { '@id': `${hubUrl}#glossar` },
   speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
 });
@@ -210,7 +249,7 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
 
 <Layout
   lang={lang}
-  title={`${seoTitle ?? title}${copy.titleSuffix}`}
+  title={pageTitle}
   description={description}
   jsonLd={schemas}
   article={{
@@ -251,7 +290,7 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-5 border-y border-border">
       <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-between">
         <div class="flex items-center gap-3">
-          <img src={GLOSSAR_AUTHOR.image} alt="" width="40" height="40" class="size-10 rounded-full object-cover flex-shrink-0" loading="lazy" decoding="async" />
+          <img src={GLOSSAR_AUTHOR.imageSmall} srcset={`${GLOSSAR_AUTHOR.imageSmall} 1x, ${GLOSSAR_AUTHOR.image96} 2x`} alt="" width="40" height="40" class="size-10 rounded-full object-cover flex-shrink-0" decoding="async" />
           <div>
             <p class="text-sm font-semibold text-foreground">
               <a href={coCreateHref} class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>

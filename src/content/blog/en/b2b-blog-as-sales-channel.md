@@ -2,7 +2,6 @@
 title: "B2B Blog as Sales Channel: Lead Guide"
 description: "B2B blogs generate more leads than most mid-market companies realize. Why your blog is the most efficient sales channel – with real numbers and concrete ROI."
 pubDate: 2026-03-05
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"

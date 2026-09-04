@@ -5,6 +5,10 @@ Allow: /
 Disallow: /auth/
 Disallow: /checkout-success
 Disallow: /en/checkout-success
+# Preisrechner-Vorbelegung (?stufe= / ?tier=) ist nur ein Deep-Link auf /preise/
+# bzw. /en/pricing/ — keine eigenen Seiten, Canonical zeigt auf die URL ohne Parameter.
+Disallow: /*?stufe=
+Disallow: /*?tier=
 
 Sitemap: https://www.codaai.ai/sitemap-index.xml
 

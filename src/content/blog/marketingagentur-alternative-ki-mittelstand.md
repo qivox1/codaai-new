@@ -2,7 +2,6 @@
 title: "KI statt Agentur: Was 2026 wirklich bringt"
 description: "Wofür sich eine klassische Agentur weiter lohnt und wofür nicht – und welche Alternativen B2B-Mittelständler 2026 für die Content-Produktion haben."
 pubDate: 2026-03-17
-updatedDate: 2026-03-01
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "KI Content-Strategie Team"

@@ -2,7 +2,6 @@
 title: "Blog Writing Costs: Agency vs AI 2025"
 description: "Blog article writing costs: in-house vs freelance vs AI platforms. Transparent calculation of when in-house writing pays off – and when it doesn't."
 pubDate: 2026-01-08
-updatedDate: 2026-03-01
 lang: en
 author: "CodaAI Editorial Team"
 authorTitle: "AI Content Strategy Team"
