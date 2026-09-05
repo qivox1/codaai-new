@@ -126,7 +126,14 @@ const SITE_BASE = 'https://www.codaai.ai/';
 export default defineConfig({
   site: 'https://www.codaai.ai',
   base: '/',
-  build: { inlineStylesheets: 'always' },
+  /* 04.09.2026: von 'always' auf 'auto'. 'always' kopierte das komplette
+     Tailwind-CSS (85-92 KB) in JEDE der 170 Seiten — eine Glossarseite bestand
+     zu zwei Dritteln aus CSS, das der Browser laengst hatte. Mit 'auto' liegt
+     das grosse Stylesheet als eine gecachte Datei unter _astro/ und kommt als
+     blockierendes <link> in den Head (kein FOUC); kleine Bloecke bleiben inline.
+     Erste Seite gleich schwer, jede weitere deutlich leichter — genau das
+     Nutzungsmuster des Glossars (mehrere Begriffe hintereinander). */
+  build: { inlineStylesheets: 'auto' },
   integrations: [
     react(),
     tailwind({ applyBaseStyles: false }),
