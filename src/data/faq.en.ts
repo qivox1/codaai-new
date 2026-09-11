@@ -123,7 +123,7 @@ export const faqPricingEn: FaqItem[] = [
   },
 ];
 
-/* ── /en/webinar/: the live webinar on 08.09.2026 ────────────────────────
+/* ── /en/webinar/: the live webinar on 29.09.2026 ────────────────────────
    Note the first entry: the webinar is held in GERMAN. That has to be said
    plainly on the English page — on this page, in the hero and above the
    registration form. Anything else sets the reader up for a wasted hour. */

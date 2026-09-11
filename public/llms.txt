@@ -13,7 +13,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Digital Visibility](https://www.codaai.ai/digital-visibility/): Die 15 Leistungsbausteine, geordnet nach den drei Stufen Gefunden, Empfohlen, Zitiert
 - [Preise](https://www.codaai.ai/preise/): Drei Sichtbarkeits-Stufen ab 1.470 € Grundpreis pro Monat, mit nachrechenbarem Preisrechner
 - [Studie „KI-Blindtest Mittelstand 2026"](https://www.codaai.ai/studie/): 449 Unternehmen, 3.592 Einkäuferfragen, 7.184 KI-Antworten — Methodik und Befunde
-- [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 08.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
+- [Webinar „Empfohlen oder unsichtbar?"](https://www.codaai.ai/webinar/): 29.09.2026, mit Norbert Schuster (strike2) und Oliver Parrizas
 - [Fragen & Antworten](https://www.codaai.ai/faq/): Unterschied SEO, AEO und GEO, Messung, Laufzeiten, Zusammenarbeit mit bestehenden Agenturen
 - [Blog](https://www.codaai.ai/blog/): Fachbeiträge zu KI-Sichtbarkeit, GEO und B2B-Content
 - [GEO-Glossar](https://www.codaai.ai/wissen/geo-glossar/): Begriffe der KI-Suche erklärt — Grounding, Query Fan-out, Re-Ranking, Citation Rate, Share of AI Search u. v. m., je Begriff eine eigene Seite
@@ -26,7 +26,7 @@ Erfolgsgarantie; welche Faktoren wirken, ist bekannt, die Formel der KI-Systeme 
 - [Digital Visibility](https://www.codaai.ai/en/digital-visibility/): The 15 building blocks, ordered by the three tiers Found, Recommended, Cited
 - [Pricing](https://www.codaai.ai/en/pricing/): Three visibility tiers from €1,470 base fee per month, with a calculator you can check yourself
 - [Study „AI Blind Test 2026"](https://www.codaai.ai/en/study/): 449 companies, 3,592 buyer questions, 7,184 AI answers — methodology and findings
-- [Webinar „Recommended or invisible?"](https://www.codaai.ai/en/webinar/): 08.09.2026, with Norbert Schuster (strike2) and Oliver Parrizas — **held in German**
+- [Webinar „Recommended or invisible?"](https://www.codaai.ai/en/webinar/): 29.09.2026, with Norbert Schuster (strike2) and Oliver Parrizas — **held in German**
 - [FAQ](https://www.codaai.ai/en/faq/): SEO vs. AEO vs. GEO, measurement, contract terms, working alongside an existing agency
 - [Blog](https://www.codaai.ai/en/blog/): Articles on AI visibility, GEO and B2B content
 - [GEO Glossary](https://www.codaai.ai/en/knowledge/geo-glossary/): Terms of AI search explained — grounding, query fan-out, re-ranking, citation rate, share of AI search and more, one page per term

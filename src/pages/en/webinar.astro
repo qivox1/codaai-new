@@ -20,7 +20,7 @@ const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replac
 const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
 
 /* ── Der eine Punkt, an dem die englische Seite bewusst NICHT spiegelt ──────
-   Das Webinar am 08.09.2026 wird auf Deutsch gehalten: beide Sprecher sprechen
+   Das Webinar am 29.09.2026 wird auf Deutsch gehalten: beide Sprecher sprechen
    Deutsch, die Fragerunde laeuft auf Deutsch. Wer das ueberliest, verliert eine
    Stunde — deshalb steht der Hinweis an drei sichtbaren Stellen (Hero,
    unmittelbar ueber der Anmeldung, erste FAQ-Frage) und nicht im
@@ -37,7 +37,7 @@ const h1FlipWords = [
 ];
 
 const slots = [
-  { id: '2026-09-08', day: 'Tuesday', date: '8 September 2026', time: '11:00–12:00 CEST', iso: '2026-09-08T11:00:00+02:00' },
+  { id: '2026-09-29', day: 'Tuesday', date: '29 September 2026', time: '11:00–12:00 CEST', iso: '2026-09-29T11:00:00+02:00' },
 ];
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
@@ -160,7 +160,7 @@ const eventSchema = JSON.stringify({
               Live webinar
             </span>
             <span class="text-border" aria-hidden="true">/</span>
-            <span class="text-foreground">Tue 8 Sept 2026 · 11:00 CEST</span>
+            <span class="text-foreground">Tue 29 Sept 2026 · 11:00 CEST</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 minutes</span>
             <span class="text-border" aria-hidden="true">/</span>
@@ -218,7 +218,7 @@ const eventSchema = JSON.stringify({
             <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
               <div class="flex items-baseline justify-between gap-4">
                 <dt class="text-muted-foreground">Date</dt>
-                <dd class="font-semibold text-foreground">Tue, 8 September 2026 · 11:00 CEST</dd>
+                <dd class="font-semibold text-foreground">Tue, 29 September 2026 · 11:00 CEST</dd>
               </div>
               <div class="flex items-baseline justify-between gap-4">
                 <dt class="text-muted-foreground">Duration</dt>
@@ -614,7 +614,7 @@ const eventSchema = JSON.stringify({
     const firstname = ($('w-name') as HTMLInputElement).value.trim();
     const lastname = ($('w-lastname') as HTMLInputElement).value.trim();
     const email = ($('w-email') as HTMLInputElement).value.trim();
-    const slot = '2026-09-08';
+    const slot = '2026-09-29';
     const consent = ($('w-consent') as HTMLInputElement).checked;
     const livetest = ($('w-livetest') as HTMLInputElement).checked;
 
@@ -644,7 +644,7 @@ const eventSchema = JSON.stringify({
   // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
   // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
-  const slotDates = ['2026-09-08T11:00:00+02:00'].map((d) => new Date(d));
+  const slotDates = ['2026-09-29T11:00:00+02:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
@@ -1301,13 +1301,13 @@ if (document.readyState === 'loading') {
         // Auch der Treffer muss unbequem enden — sonst liest sich eine hohe
         // Zahl als Entwarnung, obwohl sie nichts über die Rangfolge sagt.
         elSub.textContent = 'That number says nothing about where you stand in the answer. '
-          + 'Whether you are recommended or merely mentioned, you will see live on 8 September.';
+          + 'Whether you are recommended or merely mentioned, you will see live on 29 September.';
       } else {
         elHead.classList.remove('is-num');
         elHead.textContent = 'Not found.';
         elLead.textContent = 'Not a single AI answer mentions your brand.';
         elSub.textContent = 'Anyone asking about what you do is given other names. '
-          + 'Which ones, we show live on 8 September.';
+          + 'Which ones, we show live on 29 September.';
       }
       setMode('result');
       // Domain an die Anmeldung weitergeben

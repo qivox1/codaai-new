@@ -120,7 +120,7 @@ export const faqPreise: FaqItem[] = [
   },
 ];
 
-/* ── /webinar: Teilnahme am Live-Webinar am 08.09.2026 ───────────────────── */
+/* ── /webinar: Teilnahme am Live-Webinar am 29.09.2026 ───────────────────── */
 export const faqWebinar: FaqItem[] = [
   {
     q: 'Wie erhalte ich den Zugangslink?',

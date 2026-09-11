@@ -23,7 +23,7 @@ Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 
 
 ### Webinar „Empfohlen oder unsichtbar?"
 URL: ${BASE_URL}/webinar/
-Kostenloses Webinar am 08.09.2026 mit Norbert Schuster (strike2) und Oliver Parrizas: wie Buying Center heute recherchieren, und ein Live-Audit.
+Kostenloses Webinar am 29.09.2026 mit Norbert Schuster (strike2) und Oliver Parrizas: wie Buying Center heute recherchieren, und ein Live-Audit.
 
 ### Fragen & Antworten
 URL: ${BASE_URL}/faq/
