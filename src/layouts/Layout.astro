@@ -26,6 +26,8 @@ interface Props {
   ogImage?: string;
   /** Hero image URL for LCP preload hint */
   heroImage?: string;
+  /** Pfad der Markdown-Fassung dieser Seite, z. B. /blog/slug.md (seit 14.09.2026) */
+  mdVariant?: string;
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   article,
   ogImage,
   heroImage,
+  mdVariant,
 } = Astro.props;
 
 // ââ Base structured data (present on every page) ââââââââââââââââââââââââââââââ
@@ -267,6 +270,14 @@ const csp = [
 
     {/* Canonical â use article-specific canonical if provided, else current URL */}
     <link rel="canonical" href={article?.canonicalUrl ?? canonicalUrl} />
+
+    {/* Markdown-Fassung derselben Seite (seit 14.09.2026). Agenten, die
+        `Accept: text/markdown` schicken, koennen GitHub Pages nicht umstimmen —
+        statisches Hosting kennt keine Content Negotiation. Der Alternate-Link
+        ist der statische Ersatz: er nennt die Adresse, unter der dieselbe
+        Substanz ohne Navigation, Footer und JSON-LD liegt.
+        Erzeugt von src/lib/md-variant.ts. */}
+    {mdVariant && <link rel="alternate" type="text/markdown" href={mdVariant} title={`${title} (Markdown)`} />}
 
     {/* Robots */}
     {article?.noindex

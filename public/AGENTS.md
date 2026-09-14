@@ -42,6 +42,34 @@ Kontakt: hi@codaai.ai · https://www.codaai.ai/kontakt/
 - **`lastmod` in der Sitemap** kommt aus dem Commit-Datum der jeweiligen
   Quelldatei und ist damit belastbar.
 
+## Markdown statt HTML
+
+Statisches Hosting kennt keine Content Negotiation — ein `Accept: text/markdown`
+kann GitHub Pages nicht beantworten. Stattdessen liegen die Startseite, jeder
+Blogartikel und jede Glossarseite als eigene Datei daneben:
+
+| HTML | Markdown |
+|---|---|
+| `/` · `/en/` | `/index.md` · `/en/index.md` |
+| `/blog/<slug>/` | `/blog/<slug>.md` |
+| `/en/blog/<slug>/` | `/en/blog/<slug>.md` |
+| `/wissen/geo-glossar/<slug>/` | `/wissen/geo-glossar/<slug>.md` |
+| `/en/knowledge/geo-glossary/<slug>/` | `/en/knowledge/geo-glossary/<slug>.md` |
+
+Jede HTML-Seite nennt ihre Fassung im `<head>`:
+`<link rel="alternate" type="text/markdown" href="…">`.
+
+Die Datei beginnt mit Titel, Kurzfassung, Quell-URL, Veröffentlichungs- und
+Änderungsdatum und der Zitierregel; danach folgt der vollständige Text. Wer
+zitiert, nimmt bitte die `Quelle`-Zeile aus dem Kopf, nicht die `.md`-Adresse —
+kanonisch ist die HTML-Seite.
+
+Seiten auf `noindex` haben bewusst keine Markdown-Variante.
+
+Für den Gesamtüberblick bleiben [llms.txt](https://www.codaai.ai/llms.txt)
+(Struktur) und [llms-full.txt](https://www.codaai.ai/llms-full.txt) (Volltexte)
+die erste Anlaufstelle.
+
 ## Crawler
 
 Alle verbreiteten KI-Crawler sind in [robots.txt](https://www.codaai.ai/robots.txt)

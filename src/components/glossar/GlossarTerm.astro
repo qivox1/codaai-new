@@ -47,6 +47,9 @@ const path = GLOSSAR_PATH[lang];
 const hubUrl = `${SITE_URL}${path}`;
 const slug = termSlug(term.id);
 const pageUrl = `${hubUrl}${slug}/`;
+/* Markdown-Fassung derselben Seite — /wissen/geo-glossar/<slug>.md bzw.
+   /en/knowledge/geo-glossary/<slug>.md (siehe src/lib/md-variant.ts). */
+const mdPath = `${path}${slug}.md`;
 const ogImageUrl = `${SITE_URL}/images/${lang === 'de' ? 'og-image.png' : 'og-image-en.png'}`;
 const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
 const dvHref = lang === 'de' ? `${base}/digital-visibility/` : `${base}/en/digital-visibility/`;
@@ -252,6 +255,7 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
   title={pageTitle}
   description={description}
   jsonLd={schemas}
+  mdVariant={noindex ? undefined : mdPath}
   article={{
     publishedTime: pubDate.toISOString(),
     modifiedTime: modified.toISOString(),
@@ -290,7 +294,21 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
     <div class="mx-auto max-w-7xl px-6 lg:px-8 py-5 border-y border-border">
       <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-between">
         <div class="flex items-center gap-3">
-          <img src={GLOSSAR_AUTHOR.imageSmall} srcset={`${GLOSSAR_AUTHOR.imageSmall} 1x, ${GLOSSAR_AUTHOR.image96} 2x`} alt="" width="40" height="40" class="size-10 rounded-full object-cover flex-shrink-0" decoding="async" />
+          {/* 14.09.2026: vom <img> auf einen dekorativen CSS-Hintergrund umgestellt.
+              Das Bild traegt alt="" — es ist Schmuck neben einem Namen, der
+              danebensteht, und gehoert damit ins Stylesheet, nicht ins Markup.
+              Praktischer Grund: als einziges <img> der Seite galt es jedem
+              Pruefer als LCP-Kandidat (perf/lcp-hints auf 112 Glossarseiten),
+              und `loading="lazy"` verschob den Befund nur nach
+              perf/lazy-above-fold — der Kasten steht direkt unter der
+              Ueberschrift und ist damit tatsaechlich im ersten Bild.
+              Als Hintergrund ist es keins von beidem und wird weiter einmal
+              geladen und danach gecacht (1,5 KB). */}
+          <span
+            class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+            style={`background-image:url('${GLOSSAR_AUTHOR.imageSmall}');background-image:-webkit-image-set(url('${GLOSSAR_AUTHOR.imageSmall}') 1x, url('${GLOSSAR_AUTHOR.image96}') 2x);background-image:image-set(url('${GLOSSAR_AUTHOR.imageSmall}') 1x, url('${GLOSSAR_AUTHOR.image96}') 2x)`}
+            aria-hidden="true"
+          ></span>
           <div>
             <p class="text-sm font-semibold text-foreground">
               <a href={coCreateHref} class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>

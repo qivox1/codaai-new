@@ -102,6 +102,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
   description={description}
   jsonLd={noindex ? [] : schemas}
   heroImage={ogImage}
+  mdVariant={noindex ? undefined : `/en/blog/${post.id.replace(/^en\//, '')}.md`}
   article={{
     publishedTime: pubDate.toISOString(),
     modifiedTime: updatedDate?.toISOString(),

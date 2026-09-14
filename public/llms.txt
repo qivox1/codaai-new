@@ -100,10 +100,26 @@ Freshness, LLM-Crawler, TTFB, Brand Mentions, Listicles, Promptset, Mention Rate
 Citation Rate, Share of AI Search, Sentiment, Nullmessung. Vollständige Texte in
 https://www.codaai.ai/llms-full.txt.
 
+## Markdown-Fassungen
+
+Die Startseite, jeder Blogartikel und jede Glossarseite liegen zusätzlich als reine Markdown-Datei
+unter derselben Adresse ohne abschließenden Schrägstrich, mit `.md` am Ende:
+
+- `https://www.codaai.ai/index.md` · `https://www.codaai.ai/en/index.md` (Startseite)
+- `https://www.codaai.ai/blog/<slug>.md` · `https://www.codaai.ai/en/blog/<slug>.md`
+- `https://www.codaai.ai/wissen/geo-glossar/<slug>.md` · `https://www.codaai.ai/en/knowledge/geo-glossary/<slug>.md`
+
+Beispiel: https://www.codaai.ai/wissen/geo-glossar/chunking.md
+
+Diese Dateien enthalten Titel, Kurzdefinition, Quelle, Stand und den vollständigen Text — ohne
+Navigation, Footer und JSON-LD. Jede HTML-Seite verweist im `<head>` per
+`<link rel="alternate" type="text/markdown">` auf ihre Fassung. Seiten auf `noindex` haben bewusst
+keine Markdown-Variante.
+
 ## Rechtliches und Technisches
 
 - [Impressum](https://www.codaai.ai/impressum/) · [Datenschutz](https://www.codaai.ai/datenschutz/) · [AGB](https://www.codaai.ai/agb/)
 - [AGENTS.md](https://www.codaai.ai/AGENTS.md): technischer Aufbau, Zitierregeln und Hinweise für Agenten
 - URLs enden auf einen Schrägstrich. `/preise` wird per 301 auf `/preise/` geleitet.
 
-Stand: 3. September 2026 · Kontakt: hi@codaai.ai
+Stand: 14. September 2026 · Kontakt: hi@codaai.ai
