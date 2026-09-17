@@ -80,6 +80,10 @@ const copy = {
     sideAll: 'Alle Begriffe',
     sideAllP: 'Die Übersicht ordnet alle Begriffe entlang des Wegs, den ein Inhalt in eine KI-Antwort nimmt.',
     sideAllLink: 'Zum GEO-Glossar →',
+    sideAudit: 'Ihre Zahl',
+    sideAuditP:
+      'Wie Ihr Unternehmen bei diesem Faktor abschneidet, steht nicht im Glossar — das misst das Audit an echten Einkäuferfragen.',
+    sideAuditLink: 'Audit anfordern →',
     ctaKicker: 'Vom Begriff zur Zahl',
     ctaH2: 'Wie steht Ihr Unternehmen bei diesem Faktor da?',
     ctaP:
@@ -113,6 +117,10 @@ const copy = {
     sideAll: 'All terms',
     sideAllP: 'The overview orders all terms along the path a piece of content takes into an AI answer.',
     sideAllLink: 'Go to the GEO Glossary →',
+    sideAudit: 'Your number',
+    sideAuditP:
+      'How your company scores on this factor is not in the glossary — the audit measures it against real buyer questions.',
+    sideAuditLink: 'Request the audit →',
     ctaKicker: 'From the term to the number',
     ctaH2: 'How does your company score on this factor?',
     ctaP:
@@ -397,6 +405,16 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
 
         <aside class="hidden lg:block">
           <div class="sticky top-28 space-y-6">
+            {/* Audit zuerst: Der Block unten auf der Seite wird nur von denen
+                gesehen, die bis ans Ende scrollen. Diese Karte steht mit, und
+                springt auf dasselbe Formular — kein Seitenwechsel, kein Verlust. */}
+            <div class="rounded-2xl border border-cta/30 bg-cta/5 p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{copy.sideAudit}</p>
+              <p class="text-sm text-foreground leading-relaxed">{copy.sideAuditP}</p>
+              <a href="#audit" class="mt-4 inline-block text-sm font-semibold text-cta-accessible hover:underline">
+                {copy.sideAuditLink}
+              </a>
+            </div>
             <div class="rounded-2xl border border-border bg-card p-5">
               <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{copy.sideOffer}</p>
               <p class="text-sm text-foreground leading-relaxed">
@@ -418,7 +436,7 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
       </div>
     </div>
 
-    <section class="mx-auto max-w-7xl px-6 lg:px-8 pb-16">
+    <section id="audit" class="mx-auto max-w-7xl px-6 lg:px-8 pb-16 scroll-mt-28">
       <div class="rounded-2xl border border-border bg-muted/20 p-6 lg:p-8">
         <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">{copy.ctaKicker}</p>
         <h2 class="cai-h2">{copy.ctaH2}</h2>

@@ -1,11 +1,12 @@
 ---
 title: "KI-Sichtbarkeit in ChatGPT und Google KI"
-description: "KI-Sichtbarkeit in der Praxis: 7.184 ausgewertete KI-Antworten zeigen, welche Hebel B2B-Unternehmen in ChatGPT und Google KI sichtbar und empfehlbar machen."
+seoTitle: "Sichtbarkeit in ChatGPT: 7.184 Antworten"
+description: "7.184 ausgewertete KI-Antworten zeigen, warum ChatGPT und die Google KI-Übersicht bestimmte B2B-Anbieter nennen – und andere nicht."
 pubDate: 2026-07-26
 lang: de
 author: "CodaAI Redaktion"
-authorTitle: "KI Content-Strategie Team"
-authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategien für B2B-Unternehmen in Deutschland, Österreich und der Schweiz."
+authorTitle: "Digital Visibility Team"
+authorBio: "Das CodaAI-Team misst und verbessert die Sichtbarkeit von B2B-Unternehmen in KI-Antworten – für Unternehmen in Deutschland, Österreich und der Schweiz."
 category: "SEO & GEO"
 tags: ["KI-Sichtbarkeit", "GEO", "ChatGPT", "Google KI-Übersicht", "B2B Mittelstand"]
 featured: false
