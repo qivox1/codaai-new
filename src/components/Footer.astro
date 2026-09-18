@@ -89,6 +89,7 @@ const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
 const footerLinks = lang === 'en'
   ? [
       { label: t(lang, "footer.mission"), href: `${base}/en/co-create/` },
+      { label: 'GEO Optimization', href: `${base}/en/knowledge/geo-optimization/` },
       { label: 'GEO Glossary', href: `${base}/en/knowledge/geo-glossary/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/en/legal-notice/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/en/privacy-policy/` },
@@ -99,6 +100,9 @@ const footerLinks = lang === 'en'
       // 03.09.2026: GEO-Glossar. Der Footer ist der einzige sitewide Einstieg —
       // die Hauptnavigation bleibt bei vier Punkten (Beschluss 28.07.2026).
       // EN-Gegenstueck /en/knowledge/geo-glossary/ in der Liste oben.
+      // 18.09.2026: Pillar-Seite GEO-Optimierung — der Leitfaden, das Glossar
+      // ist die Begriffsebene darunter.
+      { label: 'GEO-Optimierung', href: `${base}/wissen/geo-optimierung/` },
       { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/impressum/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz/` },

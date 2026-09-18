@@ -58,6 +58,9 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   //   marketingkosten-senken-ki-content-b2b <-> reduce-marketing-costs-ai-content
   //   marketingagentur-alternative-ki-mittelstand <-> marketing-agency-alternative-ai
 
+  // -- GEO-Optimierung, Pillar-Seite (18.09.2026) ---------------------------
+  ['/wissen/geo-optimierung/', '/en/knowledge/geo-optimization/'],
+
   // -- GEO-Glossar (03.09.2026) ---------------------------------------------
   // Hub + ein Paar je Begriff. Quelle der Zuordnung: das `de:`-Feld im
   // Frontmatter jeder EN-Datei (src/content/glossar/en/<en-slug>.md). Wer einen

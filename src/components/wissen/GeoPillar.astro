@@ -1,0 +1,614 @@
+---
+/*
+ * Pillar-Seite „GEO-Optimierung" — eine Komponente für beide Sprachen.
+ * Inhalt in src/data/geo-optimierung.ts, Seitendateien sind Wrapper:
+ *   /wissen/geo-optimierung/  ·  /en/knowledge/geo-optimization/
+ *
+ * Aufbau (bewusst wie das Glossar, gleiches Extraktionsmuster):
+ *   1. Kippsatz-H1, Lead (data-speakable), Autorin + Stand + Lesezeit.
+ *   2. „Das Wichtigste in Kürze" — Bottom Line Up Front, fünf Sätze, jeder
+ *      allein zitierfähig.
+ *   3. Sprungmarken (Inhaltsverzeichnis).
+ *   4. Abschnitte: H2 im Frageformat; Tabellen für Vergleiche; zwei
+ *      Diagramme aus Code (Retrieval-Kette, Formel) — Motivtyp 2 des Design
+ *      Guides, kein Bild aus dem Generator, höchstens EIN magenta Element
+ *      je Diagramm, und das markiert die Schwelle bzw. die Multiplikation.
+ *   5. Belegtabelle (das Trust-Element dieser Seite), FAQ, Audit-CTA.
+ *
+ * Schema: Article (Autorin Anja Miebach, dateModified) + BreadcrumbList +
+ * FAQPage. Die FAQ-Fragen sind sitewide eindeutig (Wächter prüft dist/).
+ *
+ * Magenta-Zählung je Screen: Kippsatz-Zeile 2, Kicker, Diagramm-Schwelle und
+ * der Audit-Knopf liegen nie auf demselben Bildschirm. Karten-Hover ist
+ * Ink Navy, nicht Magenta (Beschluss 04.08.2026).
+ */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import HeroHeadline from '../HeroHeadline.astro';
+import AuditCTA from '../premium/AuditCTA.astro';
+import { GLOSSAR_AUTHOR } from '../../data/glossar';
+import { GEO_PAGE, GEO_PUBLISHED, GEO_UPDATED, type GeoLang, type Block } from '../../data/geo-optimierung';
+
+interface Props {
+  lang: GeoLang;
+}
+const { lang } = Astro.props;
+const page = GEO_PAGE[lang];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+const pageUrl = `${SITE_URL}${page.path}`;
+const mdPath = page.path.replace(/\/$/, '.md');
+const ogImageUrl = `${SITE_URL}/images/${lang === 'de' ? 'og-image.png' : 'og-image-en.png'}`;
+const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
+const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`;
+const glossarHref = lang === 'de' ? `${base}/wissen/geo-glossar/` : `${base}/en/knowledge/geo-glossary/`;
+const dvHref = lang === 'de' ? `${base}/digital-visibility/` : `${base}/en/digital-visibility/`;
+
+const ui = {
+  de: {
+    home: 'Start', homeAria: 'Zur Startseite', crumb: 'GEO-Optimierung',
+    stand: 'Stand:', readingTime: (m: number) => `${m} Min. Lesezeit`,
+    tocAria: 'Inhalt', sourcesAria: 'Belege', faqAria: 'Häufige Fragen',
+    swipe: 'Tabelle seitlich wischen →',
+    sideAudit: 'Ihre Zahl',
+    sideAuditP: 'Ob Ihr Unternehmen in KI-Antworten vorkommt, steht nicht in diesem Leitfaden — das misst das Audit an echten Einkäuferfragen.',
+    sideAuditLink: 'Audit anfordern →',
+    sideGlossar: 'Begriffe vertiefen',
+    sideGlossarP: '55 Begriffe der KI-Suche, je einer pro Seite — in der Reihenfolge, in der ein Inhalt in eine KI-Antwort gelangt.',
+    sideGlossarLink: 'Zum GEO-Glossar →',
+    sideOffer: 'Im Angebot',
+    sideOfferP: 'Die drei Ebenen dieses Leitfadens sind die drei Stufen der Leistungsseite: Gefunden, Empfohlen, Zitiert.',
+    sideOfferLink: 'Zu Digital Visibility →',
+    diagramRetrieval: {
+      title: 'Wie eine KI-Antwort entsteht: vier Schritte vom Prompt zur Zitation',
+      desc: 'Flussdiagramm: Eine Nutzerfrage wird in Fan-out-Queries zerlegt, für jede werden rankende Seiten abgerufen, deren Passagen neu bewertet; nur Passagen über der Relevanzschwelle werden als Grounding Snippets in die Antwort übernommen.',
+      steps: [
+        { n: '1', t: 'Query Fan-out', s: 'Frage → Teilfragen' },
+        { n: '2', t: 'Initial Retrieval', s: 'rankende Seiten' },
+        { n: '3', t: 'Re-Ranking', s: 'Passagen bewerten' },
+        { n: '4', t: 'Grounding Snippets', s: 'Auszüge → Antwort' },
+      ],
+      threshold: 'Relevanzschwelle',
+      note: 'Abgerufen ≠ zitiert',
+      seo: 'klassisches SEO',
+      geo: 'GEO',
+    },
+    diagramFormel: {
+      title: 'KI-Sichtbarkeit = (Technik + Content + Offpage) × Prozesse',
+      desc: 'Formel als Diagramm: Drei addierte Ebenen — Technik, Content, Offpage — werden mit Prozessen multipliziert.',
+      terms: [
+        { t: 'Technik', s: 'lesbar sein' },
+        { t: 'Content', s: 'zitierfähig sein' },
+        { t: 'Offpage', s: 'als Kandidat gelten' },
+      ],
+      proc: { t: 'Prozesse', s: 'messen, wiederholen' },
+      result: 'KI-Sichtbarkeit',
+    },
+    dateLocale: 'de-DE',
+  },
+  en: {
+    home: 'Home', homeAria: 'Go to Homepage', crumb: 'GEO Optimization',
+    stand: 'Updated:', readingTime: (m: number) => `${m} min read`,
+    tocAria: 'Contents', sourcesAria: 'Evidence', faqAria: 'Frequently asked questions',
+    swipe: 'Swipe the table sideways →',
+    sideAudit: 'Your number',
+    sideAuditP: 'Whether your company appears in AI answers is not in this guide — the audit measures it on real buyer questions.',
+    sideAuditLink: 'Request the audit →',
+    sideGlossar: 'Go deeper',
+    sideGlossarP: '55 terms of AI search, one page each — in the order in which content makes its way into an AI answer.',
+    sideGlossarLink: 'Go to the GEO Glossary →',
+    sideOffer: 'In the offer',
+    sideOfferP: 'The three levels of this guide are the three tiers of the service page: Found, Recommended, Cited.',
+    sideOfferLink: 'Go to Digital Visibility →',
+    diagramRetrieval: {
+      title: 'How an AI answer is built: four steps from prompt to citation',
+      desc: 'Flow diagram: a user question is split into fan-out queries, ranking pages are retrieved for each, their passages are re-scored; only passages above the relevance threshold are taken into the answer as grounding snippets.',
+      steps: [
+        { n: '1', t: 'Query fan-out', s: 'question → sub-queries' },
+        { n: '2', t: 'Initial retrieval', s: 'ranking pages' },
+        { n: '3', t: 'Re-ranking', s: 'score passages' },
+        { n: '4', t: 'Grounding snippets', s: 'excerpts → answer' },
+      ],
+      threshold: 'relevance threshold',
+      note: 'retrieved ≠ cited',
+      seo: 'classic SEO',
+      geo: 'GEO',
+    },
+    diagramFormel: {
+      title: 'AI visibility = (technology + content + off-page) × processes',
+      desc: 'Formula as a diagram: three added levels — technology, content, off-page — are multiplied by processes.',
+      terms: [
+        { t: 'Technology', s: 'be readable' },
+        { t: 'Content', s: 'be citable' },
+        { t: 'Off-page', s: 'count as a candidate' },
+      ],
+      proc: { t: 'Processes', s: 'measure, repeat' },
+      result: 'AI visibility',
+    },
+    dateLocale: 'en-GB',
+  },
+}[lang];
+
+// Wurzel-relative Links im HTML der Datendatei bekommen die Base davor.
+const withBase = (html: string) => html.replace(/href="\/(?!\/)/g, `href="${base}/`);
+
+const fmt = (d: Date) => d.toLocaleDateString(ui.dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
+
+const plain = (html: string) => html.replace(/<[^>]+>/g, '');
+const wordCount = [
+  page.lead,
+  ...page.brief.items,
+  ...page.sections.flatMap((s) => [s.h2, ...s.blocks.flatMap((b: Block) => {
+    switch (b.type) {
+      case 'p': case 'callout': return [plain(b.html)];
+      case 'h3': return [b.text];
+      case 'ul': case 'ol': return b.items.map(plain);
+      case 'table': return b.rows.flat().map(plain);
+      case 'quote': return [b.text];
+      case 'stats': return b.items.map((i) => i.label);
+      default: return [];
+    }
+  })]),
+  ...page.faq.flatMap((f) => [f.q, f.a]),
+].join(' ').split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// ── JSON-LD ────────────────────────────────────────────────────────────────
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${pageUrl}#artikel`,
+  headline: page.headline,
+  description: page.metaDescription,
+  url: pageUrl,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  about: { '@type': 'Thing', name: lang === 'de' ? 'Generative Engine Optimization (GEO)' : 'Generative Engine Optimization (GEO)' },
+  datePublished: GEO_PUBLISHED.toISOString(),
+  dateModified: GEO_UPDATED.toISOString(),
+  inLanguage: lang,
+  wordCount,
+  author: {
+    '@type': 'Person',
+    '@id': GLOSSAR_AUTHOR.id,
+    name: GLOSSAR_AUTHOR.name,
+    jobTitle: GLOSSAR_AUTHOR.jobTitle[lang],
+    url: GLOSSAR_AUTHOR.url[lang],
+    worksFor: { '@id': `${SITE_URL}/#organization` },
+  },
+  image: ogImageUrl,
+  publisher: {
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: 'CodaAI',
+    url: `${SITE_URL}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
+  },
+  citation: page.sources.filter((s) => s.href && s.href.startsWith('http')).map((s) => s.href),
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
+});
+
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: ui.home, item: lang === 'de' ? `${SITE_URL}/` : `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: ui.crumb, item: pageUrl },
+  ],
+});
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: page.faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+});
+
+const dr = ui.diagramRetrieval;
+const df = ui.diagramFormel;
+---
+
+<Layout
+  lang={lang}
+  title={page.metaTitle}
+  description={page.metaDescription}
+  jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
+  mdVariant={mdPath}
+  article={{
+    publishedTime: GEO_PUBLISHED.toISOString(),
+    modifiedTime: GEO_UPDATED.toISOString(),
+    author: GLOSSAR_AUTHOR.name,
+    tags: page.tags,
+    canonicalUrl: pageUrl,
+  }}
+>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <header class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-8">
+      <Breadcrumb items={[{ label: ui.home, ariaLabel: ui.homeAria, href: homeHref }, { label: ui.crumb }]} class="mb-6" />
+      <div class="max-w-4xl">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{page.kicker}</p>
+        <HeroHeadline line1={page.line1} line2={page.line2} />
+        <p class="mt-6 text-lg text-foreground leading-relaxed" data-speakable>{page.lead}</p>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-5 border-y border-border">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-between">
+        <div class="flex items-center gap-3">
+          <span
+            class="size-10 rounded-full bg-cover bg-center flex-shrink-0"
+            style={`background-image:url('${GLOSSAR_AUTHOR.imageSmall}');background-image:image-set(url('${GLOSSAR_AUTHOR.imageSmall}') 1x, url('${GLOSSAR_AUTHOR.image96}') 2x)`}
+            aria-hidden="true"
+          ></span>
+          <div>
+            <p class="text-sm font-semibold text-foreground">
+              <a href={coCreateHref} class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>
+            </p>
+            <p class="text-xs text-muted-foreground">{GLOSSAR_AUTHOR.jobTitle[lang]}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
+          <span>
+            {ui.stand} <time datetime={GEO_UPDATED.toISOString()} class="text-foreground font-medium">{fmt(GEO_UPDATED)}</time>
+          </span>
+          <span>{ui.readingTime(readingMinutes)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+      <div class="lg:grid lg:grid-cols-[1fr_300px] lg:gap-16 items-start">
+        <div class="min-w-0">
+
+          {/* Bottom Line Up Front — die fünf Sätze, die ein Modell zitieren soll,
+              stehen vor allem anderen. */}
+          <section aria-labelledby="brief-h" class="rounded-2xl border border-border bg-muted/30 p-6 lg:p-7">
+            <h2 id="brief-h" class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-4">{page.brief.title}</h2>
+            <ul class="space-y-3">
+              {page.brief.items.map((item) => (
+                <li class="flex gap-3 text-foreground leading-relaxed">
+                  <span class="mt-2.5 size-1.5 rounded-full bg-cta flex-shrink-0" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <nav aria-label={ui.tocAria} class="mt-8 p-5 rounded-xl border border-border bg-card">
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{page.tocLabel}</p>
+            <ol class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1.5">
+              {page.sections.map((s, i) => (
+                <li class="text-sm">
+                  <a href={`#${s.id}`} class="text-muted-foreground hover:text-foreground transition-colors">
+                    <span class="tabular-nums text-cta-accessible font-semibold mr-2">{i + 1}</span>{s.h2}
+                  </a>
+                </li>
+              ))}
+              <li class="text-sm">
+                <a href="#belege" class="text-muted-foreground hover:text-foreground transition-colors">
+                  <span class="tabular-nums text-cta-accessible font-semibold mr-2">{page.sections.length + 1}</span>{page.sourcesTitle}
+                </a>
+              </li>
+              <li class="text-sm">
+                <a href="#faq" class="text-muted-foreground hover:text-foreground transition-colors">
+                  <span class="tabular-nums text-cta-accessible font-semibold mr-2">{page.sections.length + 2}</span>FAQ
+                </a>
+              </li>
+            </ol>
+          </nav>
+
+          <article class="geo-article mt-12">
+            {page.sections.map((s) => (
+              <section id={s.id} aria-labelledby={`h-${s.id}`} class="scroll-mt-28 mt-14 first:mt-0">
+                <h2 id={`h-${s.id}`} class="cai-h2">{s.h2}</h2>
+                <div class="mt-5 space-y-5">
+                  {s.blocks.map((b: Block) => {
+                    switch (b.type) {
+                      case 'p':
+                        return <p class="text-foreground leading-relaxed" set:html={withBase(b.html)} />;
+                      case 'h3':
+                        return <h3 class="text-xl font-semibold text-foreground mt-9">{b.text}</h3>;
+                      case 'ul':
+                        return (
+                          <ul class="space-y-2.5 pl-1">
+                            {b.items.map((i) => (
+                              <li class="flex gap-3 text-foreground leading-relaxed">
+                                <span class="mt-2.5 size-1.5 rounded-full bg-navy-400 flex-shrink-0" aria-hidden="true"></span>
+                                <span set:html={withBase(i)} />
+                              </li>
+                            ))}
+                          </ul>
+                        );
+                      case 'ol':
+                        return (
+                          <ol class="space-y-3 pl-1">
+                            {b.items.map((i, n) => (
+                              <li class="flex gap-3 text-foreground leading-relaxed">
+                                <span class="mt-0.5 size-6 rounded-full bg-surface-ink text-white text-xs font-bold flex items-center justify-center flex-shrink-0 tabular-nums" aria-hidden="true">{n + 1}</span>
+                                <span set:html={withBase(i)} />
+                              </li>
+                            ))}
+                          </ol>
+                        );
+                      case 'table':
+                        return (
+                          <div class="geo-table-wrap -mx-6 px-6 sm:mx-0 sm:px-0 overflow-x-auto">
+                            <p class="sm:hidden text-xs text-muted-foreground mb-2" aria-hidden="true">{ui.swipe}</p>
+                            <table class="w-full text-sm border-collapse min-w-[560px]">
+                              <caption class="text-left text-xs text-muted-foreground mb-2 caption-top">{b.caption}</caption>
+                              <thead>
+                                <tr>
+                                  {b.head.map((h) => (
+                                    <th scope="col" class="text-left font-semibold text-foreground bg-muted/40 border-b border-border px-3 py-2.5 align-bottom">{h}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {b.rows.map((r) => (
+                                  <tr class="border-b border-border/70 align-top">
+                                    {r.map((c, ci) => (
+                                      ci === 0
+                                        ? <th scope="row" class="text-left font-semibold text-foreground px-3 py-2.5" set:html={withBase(c)} />
+                                        : <td class="px-3 py-2.5 text-foreground" set:html={withBase(c)} />
+                                    ))}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      case 'quote':
+                        return (
+                          <figure class="border-l-4 border-cta bg-muted/30 rounded-r-xl px-5 py-4">
+                            <blockquote class="text-lg font-medium text-foreground leading-snug">„{b.text}“</blockquote>
+                            <figcaption class="mt-3 text-sm text-muted-foreground">
+                              {b.href
+                                ? <a href={b.href} rel="noopener" target="_blank" class="font-semibold text-foreground hover:text-cta-accessible transition-colors">{b.name}</a>
+                                : <span class="font-semibold text-foreground">{b.name}</span>}
+                              <span> · {b.role}</span>
+                            </figcaption>
+                          </figure>
+                        );
+                      case 'stats':
+                        return (
+                          <ul class="grid grid-cols-2 lg:grid-cols-4 gap-4 list-none pl-0">
+                            {b.items.map((st) => (
+                              <li class="rounded-2xl border border-border bg-card p-4">
+                                <p class="cai-stat text-navy-700 !text-[2rem] lg:!text-[2.4rem]">{st.value}</p>
+                                <p class="mt-2 text-sm text-foreground leading-snug">{st.label}</p>
+                                <p class="mt-2 text-xs text-muted-foreground">{st.source}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        );
+                      case 'callout':
+                        return (
+                          <aside class="rounded-2xl bg-surface-ink text-white p-6">
+                            <p class="text-xs font-semibold uppercase tracking-widest text-navy-200 mb-2">{b.title}</p>
+                            <p class="text-lg leading-relaxed [&_strong]:text-white [&_a]:text-white [&_a]:underline" set:html={withBase(b.html)} />
+                          </aside>
+                        );
+                      case 'diagram':
+                        return b.id === 'retrieval' ? (
+                          /* Motivtyp 2 (Diagramm) aus Code. Ein magenta Element:
+                             die Relevanzschwelle — das ist die Fehlstelle, an der
+                             Seiten aus dem Rennen fallen. */
+                          <figure class="rounded-2xl border border-border bg-card p-5 lg:p-6">
+                            <svg viewBox="0 0 920 300" role="img" aria-labelledby="dr-t dr-d" class="w-full h-auto" style="color:hsl(var(--navy-700))">
+                              <title id="dr-t">{dr.title}</title>
+                              <desc id="dr-d">{dr.desc}</desc>
+                              {/* Klammern: SEO-Anteil (Schritt 1–2) und GEO-Anteil (3–4) */}
+                              <g font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(var(--navy-500))">
+                                <line x1="20" y1="34" x2="442" y2="34" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <line x1="20" y1="28" x2="20" y2="40" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <line x1="442" y1="28" x2="442" y2="40" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <text x="231" y="20" text-anchor="middle" font-weight="600">{dr.seo}</text>
+                                <line x1="464" y1="34" x2="886" y2="34" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <line x1="464" y1="28" x2="464" y2="40" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <line x1="886" y1="28" x2="886" y2="40" stroke="hsl(var(--navy-300))" stroke-width="1.5" />
+                                <text x="675" y="20" text-anchor="middle" font-weight="600">{dr.geo}</text>
+                              </g>
+                              {/* Vier Stationen */}
+                              {dr.steps.map((st, i) => {
+                                const x = 20 + i * 222;
+                                return (
+                                  <g font-family="Inter, system-ui, sans-serif">
+                                    <rect x={x} y="60" width="200" height="92" rx="14" fill="hsl(var(--navy-50))" stroke="hsl(var(--navy-200))" stroke-width="1.5" />
+                                    <circle cx={x + 26} cy="86" r="13" fill="hsl(var(--navy-700))" />
+                                    <text x={x + 26} y="90.5" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">{st.n}</text>
+                                    <text x={x + 46} y="90" font-size="14" font-weight="700" fill="hsl(var(--navy-800))">{st.t}</text>
+                                    <text x={x + 24} y="126" font-size="13" fill="hsl(var(--navy-600))">{st.s}</text>
+                                    {i < 3 && (
+                                      <path d={`M ${x + 204} 106 L ${x + 218} 106`} stroke="hsl(var(--navy-400))" stroke-width="2" marker-end="url(#geo-arrow)" />
+                                    )}
+                                  </g>
+                                );
+                              })}
+                              <defs>
+                                <marker id="geo-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                  <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--navy-400))" />
+                                </marker>
+                              </defs>
+                              {/* Trichter unter Schritt 3: viele Passagen rein, wenige raus; Schwelle in Magenta */}
+                              <g font-family="Inter, system-ui, sans-serif">
+                                {[0, 1, 2, 3, 4, 5, 6].map((k) => (
+                                  <rect x={486 + k * 26} y="168" width="18" height="10" rx="2" fill={k < 3 ? 'hsl(var(--navy-500))' : 'hsl(var(--navy-200))'} />
+                                ))}
+                                <path d="M 660 178 L 660 208" stroke="hsl(var(--navy-400))" stroke-width="2" marker-end="url(#geo-arrow)" />
+                                <line x1="476" y1="194" x2="676" y2="194" stroke="hsl(var(--cta))" stroke-width="2.5" stroke-dasharray="6 5" />
+                                {[0, 1, 2].map((k) => (
+                                  <rect x={486 + k * 26} y="212" width="18" height="10" rx="2" fill="hsl(var(--navy-500))" />
+                                ))}
+                                <text x="576" y="248" text-anchor="middle" font-size="12" font-weight="600" fill="hsl(var(--cta-accessible))">{dr.threshold}</text>
+                                <text x="786" y="252" text-anchor="middle" font-size="13" font-weight="600" fill="hsl(var(--navy-700))">{dr.note}</text>
+                              </g>
+                              {/* Antwort-Karte unter Schritt 4 */}
+                              <g font-family="Inter, system-ui, sans-serif">
+                                <rect x="706" y="166" width="160" height="54" rx="10" fill="#fff" stroke="hsl(var(--navy-200))" stroke-width="1.5" />
+                                <rect x="718" y="178" width="118" height="6" rx="3" fill="hsl(var(--navy-200))" />
+                                <rect x="718" y="190" width="136" height="6" rx="3" fill="hsl(var(--navy-200))" />
+                                <rect x="718" y="202" width="92" height="6" rx="3" fill="hsl(var(--navy-500))" />
+                                <rect x="816" y="202" width="38" height="6" rx="3" fill="hsl(var(--navy-500))" />
+                              </g>
+                            </svg>
+                            <figcaption class="mt-3 text-xs text-muted-foreground">{dr.title}</figcaption>
+                          </figure>
+                        ) : (
+                          /* Formel als Diagramm. Ein magenta Element: das Mal-Zeichen —
+                             die Multiplikation ist die Pointe. */
+                          <figure class="rounded-2xl border border-border bg-card p-5 lg:p-6">
+                            <svg viewBox="0 0 960 150" role="img" aria-labelledby="df-t df-d" class="w-full h-auto">
+                              <title id="df-t">{df.title}</title>
+                              <desc id="df-d">{df.desc}</desc>
+                              <g font-family="Inter, system-ui, sans-serif">
+                                <text x="12" y="82" font-size="34" font-weight="300" fill="hsl(var(--navy-400))">(</text>
+                                {df.terms.map((t, i) => {
+                                  const x = 30 + i * 176;
+                                  return (
+                                    <g>
+                                      <rect x={x} y="36" width="150" height="76" rx="14" fill="hsl(var(--navy-50))" stroke="hsl(var(--navy-200))" stroke-width="1.5" />
+                                      <text x={x + 75} y="68" text-anchor="middle" font-size="16" font-weight="700" fill="hsl(var(--navy-800))">{t.t}</text>
+                                      <text x={x + 75} y="92" text-anchor="middle" font-size="12" fill="hsl(var(--navy-600))">{t.s}</text>
+                                      {i < 2 && <text x={x + 163} y="84" text-anchor="middle" font-size="28" font-weight="500" fill="hsl(var(--navy-500))">+</text>}
+                                    </g>
+                                  );
+                                })}
+                                <text x="546" y="82" font-size="34" font-weight="300" fill="hsl(var(--navy-400))">)</text>
+                                <text x="580" y="86" text-anchor="middle" font-size="34" font-weight="700" fill="hsl(var(--cta))">×</text>
+                                <rect x="608" y="36" width="150" height="76" rx="14" fill="hsl(var(--navy-700))" />
+                                <text x="683" y="68" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">{df.proc.t}</text>
+                                <text x="683" y="92" text-anchor="middle" font-size="12" fill="hsl(var(--navy-200))">{df.proc.s}</text>
+                                <text x="792" y="84" font-size="28" font-weight="500" fill="hsl(var(--navy-500))" text-anchor="middle">=</text>
+                                <text x="880" y={df.result.includes(' ') ? 70 : 80} font-size="14" font-weight="700" fill="hsl(var(--navy-800))" text-anchor="middle">{df.result.split(' ')[0]}</text>
+                                {df.result.split(' ')[1] && <text x="880" y="90" font-size="14" font-weight="700" fill="hsl(var(--navy-800))" text-anchor="middle">{df.result.split(' ').slice(1).join(' ')}</text>}
+                              </g>
+                            </svg>
+                            <figcaption class="mt-3 text-xs text-muted-foreground">{df.title}</figcaption>
+                          </figure>
+                        );
+                      default:
+                        return null;
+                    }
+                  })}
+                </div>
+              </section>
+            ))}
+          </article>
+
+          {/* Belege — das Trust-Element dieser Seite: jede Zahl mit Fundstelle. */}
+          <section id="belege" aria-labelledby="belege-h" class="scroll-mt-28 mt-16">
+            <h2 id="belege-h" class="cai-h2">{page.sourcesTitle}</h2>
+            <p class="mt-4 text-muted-foreground leading-relaxed max-w-3xl">{page.sourcesIntro}</p>
+            <div class="geo-table-wrap mt-6 -mx-6 px-6 sm:mx-0 sm:px-0 overflow-x-auto">
+              <p class="sm:hidden text-xs text-muted-foreground mb-2" aria-hidden="true">{ui.swipe}</p>
+              <table class="w-full text-sm border-collapse min-w-[640px]">
+                <caption class="sr-only">{page.sourcesTitle}</caption>
+                <thead>
+                  <tr>
+                    {page.sourcesHead.map((h) => (
+                      <th scope="col" class="text-left font-semibold text-foreground bg-muted/40 border-b border-border px-3 py-2.5">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {page.sources.map((s) => (
+                    <tr class="border-b border-border/70 align-top">
+                      <th scope="row" class="text-left font-medium text-foreground px-3 py-2.5">
+                        {s.href
+                          ? <a href={s.href.startsWith('/') ? `${base}${s.href}` : s.href} rel={s.href.startsWith('/') ? undefined : 'noopener'} target={s.href.startsWith('/') ? undefined : '_blank'} class="hover:text-cta-accessible transition-colors">{s.name}</a>
+                          : s.name}
+                      </th>
+                      <td class="px-3 py-2.5 text-foreground">{s.what}</td>
+                      <td class="px-3 py-2.5 text-muted-foreground whitespace-nowrap">{s.sample}</td>
+                      <td class="px-3 py-2.5 text-muted-foreground whitespace-nowrap">{s.date}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="faq" aria-labelledby="faq-h" class="scroll-mt-28 mt-16 rounded-2xl border border-border bg-muted/20 p-6 lg:p-8">
+            <h2 id="faq-h" class="cai-h2">{page.faqTitle}</h2>
+            <dl class="mt-6 space-y-6">
+              {page.faq.map(({ q, a }) => (
+                <div>
+                  <dt class="font-semibold text-foreground mb-2">{q}</dt>
+                  <dd class="text-muted-foreground leading-relaxed">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        </div>
+
+        <aside class="hidden lg:block">
+          <div class="sticky top-28 space-y-6">
+            <div class="rounded-2xl border border-cta/30 bg-cta/5 p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{ui.sideAudit}</p>
+              <p class="text-sm text-foreground leading-relaxed">{ui.sideAuditP}</p>
+              <a href="#audit" class="mt-4 inline-block text-sm font-semibold text-cta-accessible hover:underline">{ui.sideAuditLink}</a>
+            </div>
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{ui.sideOffer}</p>
+              <p class="text-sm text-foreground leading-relaxed">{ui.sideOfferP}</p>
+              <a href={dvHref} class="mt-4 inline-block text-sm font-medium text-cta-accessible hover:underline">{ui.sideOfferLink}</a>
+            </div>
+            <div class="rounded-2xl border border-border bg-card p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{ui.sideGlossar}</p>
+              <p class="text-sm text-muted-foreground leading-relaxed">{ui.sideGlossarP}</p>
+              <a href={glossarHref} class="mt-4 inline-block text-sm font-medium text-cta-accessible hover:underline">{ui.sideGlossarLink}</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="audit" class="mx-auto max-w-7xl px-6 lg:px-8 pb-16 scroll-mt-28">
+      <div class="rounded-2xl border border-border bg-muted/20 p-6 lg:p-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">{page.cta.kicker}</p>
+        <h2 class="cai-h2">{page.cta.h2}</h2>
+        <p class="mt-4 max-w-3xl text-muted-foreground leading-relaxed">{page.cta.p}</p>
+        <div class="mt-6">
+          <AuditCTA lang={lang} variant="band" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</Layout>
+
+<style>
+  /* Links im Fließtext: gleiche Farbe wie im Glossar (6,9:1), kein Unterstrich
+     bis zum Überfahren. Gilt für set:html-Inhalte, deshalb :global. */
+  .geo-article :global(a) {
+    color: hsl(var(--cta-accessible));
+    text-decoration: none;
+  }
+  .geo-article :global(a:hover),
+  .geo-article :global(a:focus-visible) {
+    text-decoration: underline;
+  }
+  .geo-article :global(code) {
+    font-size: 0.9em;
+    background: hsl(var(--navy-50));
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+  }
+  /* Tabellen unter 640 px: klebende erste Spalte, damit die Zeilenbeschriftung
+     beim Wischen nicht verloren geht (Muster aus der Bausteine-Matrix, 04.08.2026). */
+  @media (max-width: 639px) {
+    .geo-table-wrap th[scope="row"] {
+      position: sticky;
+      left: 0;
+      background: hsl(var(--background));
+      box-shadow: 4px 0 6px -4px hsl(var(--navy-800) / 0.15);
+    }
+  }
+</style>

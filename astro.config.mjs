@@ -48,6 +48,10 @@ const EXTRA_SOURCES = {
   // umbenannt wird — deshalb hängt ihr lastmod auch an den Gruppendaten.
   'wissen/geo-glossar': ['src/data/glossar.ts'],
   'en/knowledge/geo-glossary': ['src/data/glossar.ts'],
+  // 18.09.2026: Pillar-Seite GEO-Optimierung — Text und Belege liegen in der
+  // Datendatei, die Seitendatei ist ein Wrapper.
+  'wissen/geo-optimierung': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
+  'en/knowledge/geo-optimization': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */

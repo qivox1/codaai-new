@@ -58,6 +58,9 @@ const copy = {
       'Generative Engine Optimization (GEO) ist die Arbeit daran, dass ein KI-System wie ChatGPT, Gemini oder die Google KI-Übersicht ein Unternehmen nennt oder als Quelle zitiert. Dieses Glossar erklärt die Begriffe, die dabei fallen — vom Modellwissen über Grounding und Re-Ranking bis zur Messung mit Citation Rate und Share of AI Search.',
     intro2:
       'Die Gruppen folgen dem Weg, den ein Inhalt in eine KI-Antwort nimmt. Jeder Begriff hat eine eigene Seite mit Definition, Funktionsweise und dem, was er für Ihre Website bedeutet.',
+    guideLead: 'Den Zusammenhang erklärt der Leitfaden:',
+    guideLink: 'GEO-Optimierung: was nachweislich wirkt',
+    guideHref: '/wissen/geo-optimierung/',
     groupsAria: 'Gruppen',
     groupOf: (i: number, n: number) => `Gruppe ${i} von ${n}`,
     also: 'auch:',
@@ -86,6 +89,9 @@ const copy = {
       'Generative Engine Optimization (GEO) is the work of making an AI system such as ChatGPT, Gemini or Google AI Overviews mention a company or cite it as a source. This glossary explains the terms that come up along the way — from model knowledge through grounding and re-ranking to measurement with citation rate and share of AI search.',
     intro2:
       'The groups follow the path a piece of content takes into an AI answer. Every term has its own page with a definition, how it works and what it means for your website.',
+    guideLead: 'The guide explains how it all fits together:',
+    guideLink: 'GEO optimization: what demonstrably works',
+    guideHref: '/en/knowledge/geo-optimization/',
     groupsAria: 'Groups',
     groupOf: (i: number, n: number) => `Group ${i} of ${n}`,
     also: 'also:',
@@ -153,6 +159,11 @@ const breadcrumbSchema = JSON.stringify({
       <div class="mt-5 max-w-3xl space-y-4 text-lg text-muted-foreground leading-relaxed">
         <p data-speakable>{copy.intro1}</p>
         <p>{copy.intro2}</p>
+        {/* 18.09.2026: Rückverlinkung zur Pillar-Seite — das Glossar ist die
+            Begriffsebene, der Leitfaden die Argumentationsebene darüber. */}
+        <p class="text-base">
+          {copy.guideLead} <a href={`${base}${copy.guideHref}`} class="font-medium text-cta-accessible hover:underline">{copy.guideLink} →</a>
+        </p>
       </div>
 
       <nav aria-label={copy.groupsAria} class="mt-8 flex flex-wrap gap-2">
