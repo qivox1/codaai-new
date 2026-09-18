@@ -86,27 +86,31 @@ const complianceBadges = [
 
 // EN version uses /en/ sub-paths for all legal pages
 const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
-const footerLinks = lang === 'en'
+// 18.09.2026 (Entscheidung Oli): zwei Spalten statt einer. „Rechtliches" traegt
+// nur noch Impressum, Datenschutz und AGB; die Wissens- und Werkzeugseiten
+// (Check, Leitfaden, Glossar, Co-Create) bekommen eine eigene Spalte links davon.
+// Die Hauptnavigation bleibt bei vier Punkten (Beschluss 28.07.2026) — der
+// Footer ist der sitewide Einstieg in den Wissens-Cluster.
+const knowledgeLinks = lang === 'en'
   ? [
-      { label: t(lang, "footer.mission"), href: `${base}/en/co-create/` },
       { label: 'AI Visibility Check', href: `${base}/en/check/` },
       { label: 'GEO Optimization', href: `${base}/en/knowledge/geo-optimization/` },
       { label: 'GEO Glossary', href: `${base}/en/knowledge/geo-glossary/` },
+      { label: t(lang, "footer.mission"), href: `${base}/en/co-create/` },
+    ]
+  : [
+      { label: 'KI-Sichtbarkeits-Check', href: `${base}/check/` },
+      { label: 'GEO-Optimierung', href: `${base}/wissen/geo-optimierung/` },
+      { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
+      { label: t(lang, "footer.mission"), href: `${base}/co-create/` },
+    ];
+const footerLinks = lang === 'en'
+  ? [
       { label: t(lang, "footer.legalNotice"), href: `${base}/en/legal-notice/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/en/privacy-policy/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/en/terms/` },
     ]
   : [
-      { label: t(lang, "footer.mission"), href: `${base}/co-create/` },
-      // 03.09.2026: GEO-Glossar. Der Footer ist der einzige sitewide Einstieg —
-      // die Hauptnavigation bleibt bei vier Punkten (Beschluss 28.07.2026).
-      // EN-Gegenstueck /en/knowledge/geo-glossary/ in der Liste oben.
-      // 18.09.2026: Pillar-Seite GEO-Optimierung — der Leitfaden, das Glossar
-      // ist die Begriffsebene darunter.
-      // 18.09.2026: Live-Check-Landingpage — Ziel fuer Outbound und LinkedIn.
-      { label: 'KI-Sichtbarkeits-Check', href: `${base}/check/` },
-      { label: 'GEO-Optimierung', href: `${base}/wissen/geo-optimierung/` },
-      { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/impressum/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/agb/` },
@@ -209,7 +213,7 @@ const currentYear = new Date().getFullYear();
       </div>
     )}
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+    <div class="grid grid-cols-1 gap-8 items-start md:grid-cols-2 lg:grid-cols-[1.4fr_1.2fr_1fr_0.8fr]">
       <div>
         <a
           href={lang === 'de' ? `${base}/` : `${base}/en/`}
@@ -287,7 +291,20 @@ const currentYear = new Date().getFullYear();
         </div>
       </div>
 
-      <div class="text-left md:text-right">
+      <div class="text-left">
+        <h3 class="text-sm font-semibold text-ondark">{t(lang, "footer.knowledge")}</h3>
+        <ul class="mt-3 space-y-2">
+          {knowledgeLinks.map((link) => (
+            <li key={link.label}>
+              <a href={link.href} class="text-sm text-ondark-muted hover:text-ondark transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="text-left lg:text-right">
         <h3 class="text-sm font-semibold text-ondark">{t(lang, "footer.legal")}</h3>
         <ul class="mt-3 space-y-2">
           {footerLinks.map((link) => (
