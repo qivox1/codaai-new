@@ -606,6 +606,13 @@ const df = ui.diagramFormel;
   .geo-article :global(a:focus-visible) {
     text-decoration: underline;
   }
+  /* Links in der dunklen Callout-Fläche: Weiß mit Unterstrich — --cta-accessible
+     (6,9:1 auf Weiß) fällt auf Ink Navy unter 2:1. */
+  .geo-article :global(aside a) {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
   .geo-article :global(code) {
     font-size: 0.9em;
     background: hsl(var(--navy-50));
