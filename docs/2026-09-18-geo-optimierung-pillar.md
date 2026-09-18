@@ -1,6 +1,6 @@
 # Pillar-Seite „GEO-Optimierung" — Sessionprotokoll 18.09.2026
 
-**Stand:** gebaut und lokal geprüft, **nicht committet, nicht deployt** (Regel Abschnitt 8).
+**Stand:** live seit 18.09.2026 — Commit `4cb1b18`, Push über den Deploy-Key, GitHub-Pages-Deploy grün, DE/EN/.md je HTTP 200. Nebenbefund: der Blog-Commit `62835ca` (drei Nachfrage-Artikel) lag noch unpusht im Repo und ging mit demselben Push erstmals live.
 **Seiten:** `/wissen/geo-optimierung/` · `/en/knowledge/geo-optimization/` · je eine `.md`-Fassung.
 
 ## Anlass
@@ -95,8 +95,7 @@ Knowledge-Cutoff-Aussage „nur drei Modelle mit 2026-Daten" (nur als Deck-Aussa
 
 ## Offen
 
-- **Nicht committet.** Reihenfolge nach Freigabe: `git add` der Dateien oben → Commit → Push über
-  den Deploy-Key (CLAUDE.md 1a) → Indexierung in GSC für beide URLs beantragen.
+- **Indexierung in GSC** für beide URLs beantragen (Hard Rule: nur auf ausdrückliche Aufforderung).
 - `og:image` ist das Standard-Share-Bild. Ein eigenes Beleg-Motiv (Retrieval-Kette als Bild) wäre
   konsequent, ist aber kein Blocker.
 - Sobald `/wissen/geo-basics/` existiert: Verlinkung aus Abschnitt 7 („Womit fängt man an?").
