@@ -3,6 +3,8 @@ title: "Markennennungen auf Drittseiten: Warum Erwähnungen stärker wirken als 
 seoTitle: "Markennennungen schlagen Backlinks in KI"
 description: "Markennennungen korrelieren mit r = 0,664 mit der Sichtbarkeit in KI-Antworten, Backlinks nur mit 0,218. Was diese Zahl aussagt – und was nicht."
 pubDate: 2026-09-17
+heroImage: "/images/blog/markennennungen-drittseiten.webp"
+heroImageAlt: "Eine Marketingleiterin zeigt einem Kollegen einen Fachbeitrag auf dem Tablet, der Beta Technik ohne Link nennt; auf dem Monitor dahinter die Korrelation mit KI-Sichtbarkeit: Markennennungen 0,664, Backlinks 0,218"
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "Digital Visibility Team"

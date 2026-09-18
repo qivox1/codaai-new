@@ -3,6 +3,8 @@ title: "Was ChatGPT zitiert: Zwei Drittel sind unerreichbar – und die zweitgr�
 seoTitle: "Was ChatGPT zitiert – und was Sie steuern"
 description: "Zwei Drittel der meistzitierten Seiten in ChatGPT sind für Marketing unerreichbar. Die zweitgrößte Kategorie aber gehört Ihnen: Ihre eigene Startseite."
 pubDate: 2026-09-17
+heroImage: "/images/blog/chatgpt-quellen-startseite.webp"
+heroImageAlt: "Quellenliste einer KI-Antwort auf einem Wandbildschirm: Zwei Drittel der Einträge sind für Unternehmen unerreichbar — der eine erreichbare, auf den ein Kollege zeigt, ist die eigene Startseite"
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "Digital Visibility Team"

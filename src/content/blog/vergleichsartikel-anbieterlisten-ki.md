@@ -3,6 +3,8 @@ title: "Vergleichsartikel und Anbieter-Listen: Woher KI-Systeme ihre Empfehlunge
 seoTitle: "Woher KI ihre Anbieter-Empfehlungen nimmt"
 description: "70,8 Prozent der Zitate bei B2B-Kaufprompts führen auf „Beste“-Listen. Was das für Unternehmen bedeutet, die auf keiner dieser Listen stehen."
 pubDate: 2026-09-17
+heroImage: "/images/blog/vergleichsartikel-anbieterlisten.webp"
+heroImageAlt: "Drei Kollegen vor einem Laptop mit der Vergleichsliste „Die 5 besten Anbieter für Fördertechnik 2026“: drei Unternehmen genannt, der vierte Platz ist leer — 70,8 % der KI-Zitate bei Kaufprompts führen auf solche Listen"
 lang: de
 author: "CodaAI Redaktion"
 authorTitle: "Digital Visibility Team"
