@@ -96,8 +96,10 @@ Knowledge-Cutoff-Aussage „nur drei Modelle mit 2026-Daten" (nur als Deck-Aussa
 ## Offen
 
 - **Indexierung in GSC** für beide URLs beantragen (Hard Rule: nur auf ausdrückliche Aufforderung).
-- `og:image` ist das Standard-Share-Bild. Ein eigenes Beleg-Motiv (Retrieval-Kette als Bild) wäre
-  konsequent, ist aber kein Blocker.
+- ~~`og:image` ist das Standard-Share-Bild~~ — **erledigt 18.09.:** eigenes Share-Bild je Sprache
+  (`public/images/og-geo-optimierung.png` / `og-geo-optimization.png`, 1200×630), die Retrieval-Kette
+  aus Code gezeichnet, ein magenta Element (Relevanzschwelle). Generator:
+  `umbau-digital-visibility/preview-geo-optimierung/build_og_geo.py` (braucht Inter-TTFs aus rsms/inter).
 - Sobald `/wissen/geo-basics/` existiert: Verlinkung aus Abschnitt 7 („Womit fängt man an?").
 - Artikel 1 (Redaktionsplan Woche 1) verlinkt auf die Pillar-Seite statt Begriffe zu erklären.
 - Anja bei LinkedIn (`sameAs` im Person-Schema leer) — der Expertenzitat-Block der Seite trägt

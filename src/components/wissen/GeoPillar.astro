@@ -41,7 +41,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = 'https://www.codaai.ai';
 const pageUrl = `${SITE_URL}${page.path}`;
 const mdPath = page.path.replace(/\/$/, '.md');
-const ogImageUrl = `${SITE_URL}/images/${lang === 'de' ? 'og-image.png' : 'og-image-en.png'}`;
+/* Eigenes Share-Bild (18.09.2026): die Retrieval-Kette der Seite als 1200x630,
+   aus Code gezeichnet (og-bild/build_og_geo.py im Sessionordner), ein magenta
+   Element = Relevanzschwelle. Layout.astro setzt og:image:width/height 1200/630. */
+const ogImagePath = lang === 'de' ? '/images/og-geo-optimierung.png' : '/images/og-geo-optimization.png';
+const ogImageUrl = `${SITE_URL}${ogImagePath}`;
 const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
 const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`;
 const glossarHref = lang === 'de' ? `${base}/wissen/geo-glossar/` : `${base}/en/knowledge/geo-glossary/`;
@@ -219,6 +223,7 @@ const df = ui.diagramFormel;
   description={page.metaDescription}
   jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
   mdVariant={mdPath}
+  ogImage={ogImageUrl}
   article={{
     publishedTime: GEO_PUBLISHED.toISOString(),
     modifiedTime: GEO_UPDATED.toISOString(),
