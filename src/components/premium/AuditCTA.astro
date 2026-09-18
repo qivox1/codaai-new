@@ -219,13 +219,17 @@ const leadLabel = label ?? copy.defaultLabel;
   .acta-line { display:flex; align-items:stretch; gap:8px; }
   /* 16px ist Pflicht: iOS Safari zoomt bei Feldern unter 16px hinein und nicht
      zurueck (Befund B1, Mobil-Audit 04.08.2026). */
+  /* Feldtext IMMER Navy-800 und Grund IMMER Weiss — unabhaengig vom Thema.
+     Auf dem dunklen Band (data-theme="dark") steht --foreground auf Weiss;
+     wer den Feldtext daran haengt, bekommt weisse Schrift auf weissem Feld
+     (Befund Oli, 18.09.2026, /check/ unteres Modul). */
   .acta-in {
-    font:inherit; font-size:16px; color:var(--ink); background:hsl(var(--surface-paper));
+    font:inherit; font-size:16px; color:hsl(var(--navy-800)); background:#fff;
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
     outline:none; width:100%; min-width:0;
     transition:border-color .18s ease, box-shadow .18s ease;
   }
-  .acta-in::placeholder { color:hsl(var(--placeholder)); }
+  .acta-in::placeholder { color:hsl(var(--navy-400)); }
   .acta-in:focus { border-color:var(--pink); box-shadow:0 0 0 3px hsl(var(--cta) / .16); }
   .acta-line--url .acta-in { flex:1; }
 
@@ -289,7 +293,9 @@ const leadLabel = label ?? copy.defaultLabel;
   .acta-submit {
     display:inline-flex; align-items:center; justify-content:center; gap:10px; cursor:pointer;
     font:inherit; font-weight:700; font-size:15px; line-height:1;
-    color:hsl(var(--cta-accessible)); background:#fff; border:none; border-radius:14px;
+    /* fest #9904B4 statt des Tokens: unter data-theme="dark" wird --cta-accessible
+       aufgehellt und stuende blass auf dem weissen Knopf. */
+    color:#9904B4; background:#fff; border:none; border-radius:14px;
     padding:16px 22px; margin-top:2px;
     transition:transform .16s ease, box-shadow .16s ease;
   }
@@ -315,7 +321,6 @@ const leadLabel = label ?? copy.defaultLabel;
 
   /* Dunkle Variante (invertiertes Band) */
   .acta.acta--dark { --ink:hsl(var(--foreground-on-dark)); --muted:hsl(var(--muted-foreground-on-dark)); }
-  .acta.acta--dark .acta-in { color:hsl(var(--foreground)); }
   .acta.acta--dark .acta-done { border-color:hsl(var(--confirm-on-dark) / .5); background:hsl(var(--confirm) / .22); }
   .acta.acta--dark .acta-err { color:hsl(var(--error-on-dark)); }
   .acta.acta--dark .acta-err a { color:hsl(var(--error-on-dark)); }
