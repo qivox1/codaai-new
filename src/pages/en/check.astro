@@ -1,0 +1,44 @@
+---
+/* /en/check/ — landing page "AI Visibility Check" (EN, since 18.09.2026).
+   Structure in src/components/check/CheckPage.astro; the module itself is the
+   sitewide AuditCTA ("result first"). German counterpart: /check/. */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import CheckPage from '../../components/check/CheckPage.astro';
+
+const SITE_URL = 'https://www.codaai.ai';
+const pageUrl = `${SITE_URL}/en/check/`;
+const title = 'AI Visibility Check: Does the AI Mention Your Company? | CodaAI';
+const description = 'Enter your website and see in seconds whether AI answers mention your brand — free, no sign-up. Then, if you wish, the full audit with competitors and an action plan.';
+
+const webPageSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': pageUrl,
+  url: pageUrl,
+  name: 'AI Visibility Check',
+  description,
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', url: `${SITE_URL}/`, name: 'CodaAI' },
+  potentialAction: {
+    '@type': 'Action',
+    name: 'Check website',
+    target: `${pageUrl}?d={domain}`,
+  },
+});
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: 'AI Visibility Check', item: pageUrl },
+  ],
+});
+---
+
+<Layout lang="en" title={title} description={description} jsonLd={[webPageSchema, breadcrumbSchema]}>
+  <Navbar lang="en" />
+  <CheckPage lang="en" />
+  <Footer lang="en" />
+</Layout>

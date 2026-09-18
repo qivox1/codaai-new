@@ -1,33 +1,41 @@
 ---
 /**
- * AuditCTA — wiederverwendbarer Lead-CTA „Digital Visibility Audit anfordern".
+ * AuditCTA — wiederverwendbarer Lead-Einstieg „Digital Visibility Audit".
  *
- * Interaktion (Wunsch Oli 21.07.2026): Pill-Button klappt bei Klick nach rechts
- * zu einem URL-Feld auf (pinker quadratischer Pfeil-Button zum Weiter), danach
- * Vorname + Name + E-Mail, dann Bestätigung „Audit wird erstellt und innerhalb
- * von 24 Stunden zugesandt".
+ * Umbau 18.09.2026 (Entscheidung Oli, Interview zum Arbeitsplan): „Ergebnis
+ * zuerst". Vorher: Pill-Button → URL → Erreichbarkeitsprüfung → Name/E-Mail.
+ * Der Abbruch lag am Kontaktschritt (28 Tage: 5 `form_start`, 0 Anfragen) —
+ * der Besucher gab seine Adresse her, ohne vorher etwas bekommen zu haben.
  *
- * Backend: dieselbe Apps-Script-Web-App wie Buchungs-Widget/Webinar, Action
- * `visibility_check` (Vorname/Name seit v8, 21.07.2026 — siehe
- * buchung-backend/Code.gs + domain-check-deploy-anleitung.md). Optimistische UI
- * wie beim HeroDomainCheck: wirft der Fetch nicht, gilt es als abgeschickt;
- * Netzwerkfehler → Fallback-Hinweis mit Kontakt-Link.
+ * Jetzt: URL-Feld steht sofort offen → Live-Check (Erreichbarkeit + KI-Nennungen)
+ * → der Befund liegt vollflächig auf Magenta (Domain, Zahl bzw. „Nicht
+ * gefunden.", Einordnung) → darunter, was das vollständige Audit zusätzlich
+ * zeigt → erst dann Vorname/Name/E-Mail. Der Kontakt ist die Antwort auf ein
+ * Ergebnis, nicht die Bedingung dafür.
  *
- * Mehrfach-Instanz-fähig: das gehostete Script verdrahtet ALLE [data-acta] auf
- * der Seite. Styles sind Astro-scoped und liegen dadurch spezifischer als der
- * globale #cai-premium-Reset (:where(...) = 0 Spezifität).
+ * Datenquellen (beide bewusst nirgends genannt — Nachahmerschutz):
+ *   · Apps-Script-Web-App `?action=check_site` → `reachable`, `title`
+ *   · audit.codaai.ai/ai/mentions → `status` found|none (Cache 7 Tage, IP-Limit,
+ *     Tages-Cap; CLAUDE.md Pipeline 4.24b). Ist der Zweig ausgelastet, fällt der
+ *     Befund auf „Erreichbar." zurück und blockiert den Lead nicht (fail-open).
  *
- * Sprachfähig seit 04.08.2026 (EN-Relaunch). Alle sichtbaren Strings liegen im
- * `copy`-Objekt nach dem Muster von Booking.astro. Die Meldungen des
- * gebündelten Skripts unten können keine Astro-Ausdrücke lesen — dort wird die
- * Sprache einmalig aus `document.documentElement.lang` bestimmt.
+ * Absenden: POST `visibility_check` wie bisher (mode no-cors, optimistische UI),
+ * zusätzlich `source` und der Live-Befund für die Steuerdatei. dataLayer:
+ *   `check_result`            { lang, source, result, count }
+ *   `audit_request_submitted` { lang, source, result }
+ *
+ * Mehrfach-Instanz-fähig: das gehostete Script verdrahtet ALLE [data-acta].
+ * Styles sind Astro-scoped und liegen dadurch spezifischer als der globale
+ * #cai-premium-Reset (:where(...) = 0 Spezifität).
  *
  * Props:
- *   variant  'solid' (magenta Pill, für Hero/Kette) | 'band' (mit Rahmen-Karte
- *            auf hellem Band, für die Zwischen-CTAs). Default 'solid'.
- *   label    Button-Text. Default: sprachabhängig aus `copy`.
+ *   variant  'solid' (Hero/Kette, max. 520 px) | 'band' (Zwischen-CTAs, 640 px)
+ *   label    Zeile über dem Feld. Default: sprachabhängig aus `copy`.
  *   align    'start' | 'center'. Default 'start'.
+ *   theme    'light' | 'dark' (auf dunklem Band). Default 'light'.
  *   lang     'de' | 'en'. Default 'de'.
+ *   source   Herkunft für Steuerdatei + dataLayer, z. B. 'home', 'check',
+ *            'glossar', 'pillar'. Default 'cta'.
  */
 interface Props {
   variant?: 'solid' | 'band';
@@ -35,6 +43,10 @@ interface Props {
   align?: 'start' | 'center';
   theme?: 'light' | 'dark';
   lang?: 'de' | 'en';
+  source?: string;
+  /** Liest `?d=<domain>` aus der URL, füllt das Feld vor und prüft sofort
+      (Nurture-Mails, Outbound-Links). Nur für EINE Instanz je Seite setzen. */
+  presetFromQuery?: boolean;
 }
 const {
   variant = 'solid',
@@ -42,6 +54,8 @@ const {
   align = 'start',
   theme = 'light',
   lang = 'de',
+  source = 'cta',
+  presetFromQuery = false,
 } = Astro.props;
 
 /* Geschütztes Leerzeichen als Escape statt als Literal — im Quelltext sonst
@@ -50,32 +64,56 @@ const NBSP = ' ';
 
 const copy = {
   de: {
-    defaultLabel: 'Digital Visibility Audit kostenlos anfordern',
+    defaultLabel: 'Zeigen Sie mir, was die KI über mein Unternehmen sagt',
     hpLabel: 'Website',
-    urlPlaceholder: 'Ihre Website-URL — z. B. ihrefirma.de',
+    urlPlaceholder: 'Ihre Website — z. B. ihrefirma.de',
     urlAria: 'Website-URL',
-    nextAria: 'Website prüfen und weiter',
+    nextAria: 'Website jetzt prüfen',
+    micro: `Kostenlos${NBSP}· in Sekunden${NBSP}· ohne Anmeldung`,
+    checked: 'Geprüft',
+    moreH: 'Das vollständige Audit zeigt zusätzlich:',
+    more: [
+      'welche Wettbewerber die KI statt Ihnen nennt — Namen, nicht Zahlen',
+      'die Einkäuferfragen Ihrer Branche und wie ChatGPT und Google sie beantworten',
+      'ob KI-Systeme Ihre Website überhaupt lesen und zitieren können',
+      'einen priorisierten Maßnahmenplan — kostenlos, innerhalb von 24 Stunden',
+    ],
     hint: 'Wohin dürfen wir Ihr Audit senden?',
     firstname: 'Vorname',
     lastname: 'Name',
     email: 'E-Mail-Adresse',
-    submitAria: 'Audit anfordern',
+    submit: 'Vollständiges Audit anfordern',
+    submitAria: 'Vollständiges Audit anfordern',
+    resMicro: `Kostenlos${NBSP}· keine Veröffentlichung${NBSP}· kein Verkaufsdruck`,
+    again: 'Andere Website prüfen',
     doneLead: 'Vielen Dank!',
     doneA: ' Das CodaAI-Team erstellt Ihr persönliches Digital Visibility Audit und sendet es Ihnen ',
     doneB: `innerhalb von 24${NBSP}Stunden`,
     doneC: ' zu.',
   },
   en: {
-    defaultLabel: 'Request your free Digital Visibility Audit',
+    defaultLabel: 'Show me what the AI says about my company',
     hpLabel: 'Website',
-    urlPlaceholder: 'Your website URL — e.g. yourcompany.com',
+    urlPlaceholder: 'Your website — e.g. yourcompany.com',
     urlAria: 'Website URL',
-    nextAria: 'Check website and continue',
+    nextAria: 'Check website now',
+    micro: `Free${NBSP}· takes seconds${NBSP}· no sign-up`,
+    checked: 'Checked',
+    moreH: 'The full audit additionally shows:',
+    more: [
+      'which competitors the AI names instead of you — names, not numbers',
+      'the buyer questions of your industry and how ChatGPT and Google answer them',
+      'whether AI systems can read and cite your website at all',
+      'a prioritised action plan — free, within 24 hours',
+    ],
     hint: 'Where should we send your audit?',
     firstname: 'First name',
     lastname: 'Last name',
     email: 'Email address',
-    submitAria: 'Request audit',
+    submit: 'Request the full audit',
+    submitAria: 'Request the full audit',
+    resMicro: `Free${NBSP}· never published${NBSP}· no sales pressure`,
+    again: 'Check another website',
     doneLead: 'Thank you.',
     doneA: ' The CodaAI team is preparing your personal Digital Visibility Audit and will send it to you ',
     doneB: `within 24${NBSP}hours`,
@@ -83,48 +121,71 @@ const copy = {
   },
 }[lang];
 
-const buttonLabel = label ?? copy.defaultLabel;
+const leadLabel = label ?? copy.defaultLabel;
 ---
 
-<div class={`acta acta--${variant} acta--${align} ${theme === 'dark' ? 'acta--dark' : ''}`} data-acta data-state="idle">
+<div class={`acta acta--${variant} acta--${align} ${theme === 'dark' ? 'acta--dark' : ''}`}
+     data-acta data-state="idle" data-source={source} data-preset-query={presetFromQuery ? 'd' : undefined}>
   {/* Honeypot — für Menschen unsichtbar, Bots füllen es aus */}
   <div class="acta-hp" inert>
     <label>{copy.hpLabel}<input type="text" data-hp tabindex="-1" autocomplete="off" /></label>
   </div>
 
-  {/* Idle: der Auslöser-Button */}
-  <button type="button" class="acta-trigger" data-open>
-    <span>{buttonLabel}</span>
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-
-  {/* Aufgeklapptes Formular */}
   <form class="acta-form" novalidate autocomplete="off" data-form>
-    <div class="acta-line acta-line--url">
-      <input class="acta-in" data-url type="text" inputmode="url" spellcheck="false"
-             placeholder={copy.urlPlaceholder} aria-label={copy.urlAria} />
-      <button type="button" class="acta-sq" data-next aria-label={copy.nextAria}>
-        <svg class="acta-ico" viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span class="acta-spin" aria-hidden="true"></span>
-      </button>
-    </div>
-    <p class="acta-note" data-note hidden></p>
-
-    <div class="acta-contact" data-contact>
-      <p class="acta-hint">{copy.hint}</p>
-      <div class="acta-grid">
-        <input class="acta-in" data-firstname type="text" placeholder={copy.firstname} aria-label={copy.firstname} autocomplete="given-name" />
-        <input class="acta-in" data-lastname type="text" placeholder={copy.lastname} aria-label={copy.lastname} autocomplete="family-name" />
-      </div>
-      <div class="acta-line">
-        <input class="acta-in" data-email type="email" placeholder={copy.email} aria-label={copy.email} autocomplete="email" />
-        <button type="button" class="acta-sq" data-submit aria-label={copy.submitAria}>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    {/* Schritt 1: die Website. Steht sofort offen — kein Klick davor. */}
+    <div class="acta-ask" data-ask>
+      <p class="acta-lead">{leadLabel}</p>
+      <div class="acta-line acta-line--url">
+        <input class="acta-in" data-url type="text" inputmode="url" spellcheck="false"
+               placeholder={copy.urlPlaceholder} aria-label={copy.urlAria} />
+        <button type="button" class="acta-sq" data-next aria-label={copy.nextAria}>
+          <svg class="acta-ico" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="acta-spin" aria-hidden="true"></span>
         </button>
       </div>
+      <p class="acta-note" data-note hidden></p>
+      <p class="acta-err" data-err hidden></p>
+      <p class="acta-micro">{copy.micro}</p>
     </div>
 
-    <p class="acta-err" data-err hidden></p>
+    {/* Schritt 2: der Befund — vollflächig auf --cta-strong (Weiß hält dort 4,65:1).
+        Darunter das Mehr des vollständigen Audits, dann erst der Kontakt. */}
+    <div class="acta-res" data-res aria-live="polite">
+      <p class="acta-res-kicker">{copy.checked}</p>
+      <p class="acta-dom" data-dom></p>
+      <p class="acta-head" data-head></p>
+      <p class="acta-rlead" data-rlead></p>
+      <p class="acta-rsub" data-rsub></p>
+
+      <div class="acta-more">
+        <p class="acta-more-h">{copy.moreH}</p>
+        <ul>
+          {copy.more.map((m) => (
+            <li>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>{m}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="acta-contact" data-contact>
+        <p class="acta-hint">{copy.hint}</p>
+        <div class="acta-grid">
+          <input class="acta-in" data-firstname type="text" placeholder={copy.firstname} aria-label={copy.firstname} autocomplete="given-name" />
+          <input class="acta-in" data-lastname type="text" placeholder={copy.lastname} aria-label={copy.lastname} autocomplete="family-name" />
+        </div>
+        <input class="acta-in" data-email type="email" placeholder={copy.email} aria-label={copy.email} autocomplete="email" />
+        <button type="button" class="acta-submit" data-submit aria-label={copy.submitAria}>
+          <span>{copy.submit}</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="acta-err acta-err--res" data-err-res hidden></p>
+        <p class="acta-res-micro">{copy.resMicro}</p>
+      </div>
+
+      <button type="button" class="acta-again" data-again>{copy.again}</button>
+    </div>
   </form>
 
   {/* Bestätigung */}
@@ -138,45 +199,26 @@ const buttonLabel = label ?? copy.defaultLabel;
 
 <style>
   .acta {
-    /* 04.08.2026: --pink traegt weisse Schrift unter 24 px und liegt
-       deshalb auf --cta-strong (#C405E6, 4,65:1) statt auf --cta
-       (#DF41FB, gemessene 3,34:1). Lighthouse hatte genau diesen
-       Button namentlich als Kontrastfehler gemeldet. */
+    /* --pink traegt weisse Schrift unter 24 px und liegt deshalb auf
+       --cta-strong (#C405E6, 4,65:1) statt auf --cta (#DF41FB, 3,34:1). */
     --pink: hsl(var(--cta-strong));
     --pink-d: hsl(var(--cta-strong-hover));
     --ink: hsl(var(--foreground));
     --muted: hsl(var(--muted-foreground));
     --bd: hsl(var(--border));
-    display:inline-block; position:relative; width:100%; max-width:520px; text-align:left; }
+    display:block; position:relative; width:100%; max-width:520px; text-align:left; }
+  .acta--band { max-width:640px; }
   .acta--center { margin-left:auto; margin-right:auto; }
   .acta--start { margin-left:0; margin-right:0; }
 
   /* Honeypot versteckt */
   .acta-hp { position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; }
 
-  /* ---------- Auslöser-Button ---------- */
-  .acta-trigger {
-    display:inline-flex; align-items:center; gap:10px; cursor:pointer;
-    font:inherit; font-weight:700; font-size:15px; line-height:1;
-    color:#fff; background:var(--pink); border:none; border-radius: var(--btn-radius);
-    padding:16px 26px; box-shadow:0 10px 30px -8px hsl(var(--cta) / .55);
-    transition:transform .18s ease, box-shadow .25s ease, opacity .2s ease;
-  }
-  .acta-trigger:hover { transform:translateY(-2px); box-shadow:0 16px 38px -10px hsl(var(--cta) / .65); }
-  .acta-trigger svg { transition:transform .2s ease; }
-  .acta-trigger:hover svg { transform:translateX(3px); }
-  .acta--band .acta-trigger { background:var(--pink); }
-
-  /* ---------- Formular (klappt auf) ---------- */
-  .acta-form {
-    max-width:0; opacity:0; overflow:hidden; pointer-events:none;
-    transition:max-width .5s cubic-bezier(.22,.61,.36,1), opacity .35s ease;
-  }
+  /* ---------- Schritt 1: Website ---------- */
+  .acta-lead { margin:0 0 10px; font-size:15px; font-weight:700; line-height:1.35; color:var(--ink); }
   .acta-line { display:flex; align-items:stretch; gap:8px; }
-  /* 16px ist Pflicht, kein Geschmack: iOS Safari zoomt die Seite automatisch hinein,
-     sobald ein Eingabefeld mit weniger als 16px den Fokus bekommt — und zoomt danach
-     nicht von selbst zurueck. Bei 15px landete jeder Interessent in einer verschobenen
-     Seite. Befund B1 des Mobil-Audits vom 04.08.2026.                              */
+  /* 16px ist Pflicht: iOS Safari zoomt bei Feldern unter 16px hinein und nicht
+     zurueck (Befund B1, Mobil-Audit 04.08.2026). */
   .acta-in {
     font:inherit; font-size:16px; color:var(--ink); background:hsl(var(--surface-paper));
     border:1.5px solid var(--bd); border-radius:14px; padding:14px 16px;
@@ -189,7 +231,7 @@ const buttonLabel = label ?? copy.defaultLabel;
 
   .acta-sq {
     flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
-    width:52px; border:none; border-radius:14px; cursor:pointer;
+    width:54px; border:none; border-radius:14px; cursor:pointer;
     color:#fff; background:var(--pink);
     box-shadow:0 8px 22px -8px hsl(var(--cta) / .6);
     transition:background .18s ease, transform .18s ease;
@@ -199,92 +241,128 @@ const buttonLabel = label ?? copy.defaultLabel;
   .acta-sq svg { transition:transform .2s ease; }
   .acta-sq:hover svg { transform:translateX(2px); }
 
-  /* Lade-Spinner am Pfeil während der Erreichbarkeitsprüfung */
+  /* Lade-Spinner am Pfeil während der Prüfung */
   .acta-spin { display:none; width:18px; height:18px; border-radius:50%;
     border:2px solid rgba(255,255,255,.45); border-top-color:#fff; animation:acta-rot .7s linear infinite; }
   @keyframes acta-rot { to { transform:rotate(360deg); } }
-  .acta.is-checking [data-next] { pointer-events:none; }
-  .acta.is-checking [data-next] .acta-ico { display:none; }
-  .acta.is-checking [data-next] .acta-spin { display:inline-block; }
+  .acta[data-state="checking"] [data-next] { pointer-events:none; }
+  .acta[data-state="checking"] [data-next] .acta-ico { display:none; }
+  .acta[data-state="checking"] [data-next] .acta-spin { display:inline-block; }
 
-  /* Neutrale Status-Zeile (Prüfung läuft / erreichbar).
-     „erreichbar" ist eine Bestätigung → Verdigris statt des alten Grüns. */
-  .acta-note { margin-top:8px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
-  /* display:flex schlaegt sonst das hidden-Attribut, das das Skript setzt. */
+  .acta-note { margin:8px 0 0; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
   .acta-note[hidden] { display:none; }
-  .acta-note.ok { color:hsl(var(--confirm-text)); }
-  .acta-note .acta-dot { width:14px; height:14px; border:2px solid var(--muted); border-top-color:transparent;
-    border-radius:50%; animation:acta-rot .7s linear infinite; }
-
-  /* Kontakt-Block (zweiter Schritt) */
-  .acta-contact { max-height:0; opacity:0; overflow:hidden;
-    transition:max-height .45s ease, opacity .35s ease, margin-top .45s ease; }
-  .acta-hint { font-size:13px; font-weight:600; color:var(--muted); margin:0 0 8px; }
-  .acta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
-
-  .acta-err { margin-top:8px; font-size:13px; color:hsl(var(--error-text)); }
+  .acta-note :global(.acta-dot) { width:14px; height:14px; border:2px solid var(--muted); border-top-color:transparent;
+    border-radius:50%; animation:acta-rot .7s linear infinite; flex:0 0 auto; }
+  .acta-micro { margin:8px 0 0; font-size:12.5px; color:var(--muted); }
+  .acta-err { margin:8px 0 0; font-size:13px; color:hsl(var(--error-text)); }
+  .acta-err[hidden] { display:none; }
   .acta-err a { color:hsl(var(--error-text)); font-weight:600; text-decoration:underline; }
 
-  /* Bestätigung — Verdigris, nicht Magenta (F7). Der Nutzer hat gerade einen
-     magenta Button gedrückt; die Antwort darauf ist eine Bestätigung, und
-     Bestätigungen haben in diesem System eine eigene Farbe. */
+  /* ---------- Schritt 2: Befund ---------- */
+  .acta-res {
+    display:none; background:var(--pink); color:#fff;
+    border-radius:20px; padding:24px 24px 22px;
+    box-shadow:0 22px 48px -18px hsl(var(--cta) / .55);
+  }
+  .acta-res-kicker { margin:0; font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#fff; }
+  .acta-dom { margin:6px 0 0; font-size:clamp(1.25rem, 3vw, 1.6rem); font-weight:700; line-height:1.1; letter-spacing:-.01em; word-break:break-all; color:#fff; }
+  /* :global — die Spanne wird per Script erzeugt und traegt keine Astro-Scope-ID. */
+  .acta-dom :global(.acta-title) { display:block; margin-top:5px; font-size:13px; font-weight:500; line-height:1.35; color:#FBE4FE; word-break:normal; overflow-wrap:anywhere; }
+  .acta-head { margin:18px 0 0; font-size:clamp(2.4rem, 6vw, 3.4rem); font-weight:800; line-height:.95; letter-spacing:-.02em; color:#fff;
+    animation:acta-up .5s cubic-bezier(.22,1,.36,1) both .1s; }
+  .acta-head.is-num { font-variant-numeric:tabular-nums; }
+  @keyframes acta-up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+  .acta-rlead { margin:14px 0 0; font-size:17px; font-weight:700; line-height:1.35; color:#fff; }
+  .acta-rsub { margin:8px 0 0; font-size:14.5px; line-height:1.55; color:#fff; }
+
+  .acta-more { margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.35); }
+  .acta-more-h { margin:0 0 8px; font-size:13px; font-weight:700; letter-spacing:.02em; color:#fff; }
+  .acta-more ul { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+  .acta-more li { display:flex; gap:9px; align-items:flex-start; font-size:14px; line-height:1.45; color:#fff; }
+  .acta-more li svg { flex:0 0 auto; margin-top:3px; color:#fff; }
+
+  .acta-contact { margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.35); display:grid; gap:8px; }
+  .acta-hint { margin:0 0 2px; font-size:13px; font-weight:700; color:#fff; }
+  .acta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .acta-res .acta-in { border-color:transparent; }
+  .acta-res .acta-in:focus { border-color:#fff; box-shadow:0 0 0 3px rgba(255,255,255,.35); }
+  .acta-submit {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px; cursor:pointer;
+    font:inherit; font-weight:700; font-size:15px; line-height:1;
+    color:hsl(var(--cta-accessible)); background:#fff; border:none; border-radius:14px;
+    padding:16px 22px; margin-top:2px;
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .acta-submit:hover { transform:translateY(-2px); box-shadow:0 12px 26px -10px rgba(0,0,0,.45); }
+  .acta-submit svg { transition:transform .2s ease; }
+  .acta-submit:hover svg { transform:translateX(3px); }
+  .acta-err--res { color:#fff; font-weight:600; }
+  .acta-err--res a { color:#fff; }
+  .acta-res-micro { margin:2px 0 0; font-size:12.5px; color:#FBE4FE; }
+  .acta-again {
+    display:block; margin-top:14px; padding:0; background:none; border:0; cursor:pointer;
+    color:#fff; font:inherit; font-size:13.5px; font-weight:600;
+    text-decoration:underline; text-underline-offset:3px;
+  }
+
+  /* ---------- Bestätigung — Verdigris, nicht Magenta (F7) ---------- */
   .acta-done { display:none; align-items:center; gap:14px;
     border:1.5px solid hsl(var(--confirm) / .38); background:hsl(var(--confirm) / .08);
-    border-radius:16px; padding:16px 18px; max-width:520px; }
+    border-radius:16px; padding:16px 18px; }
   .acta-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
     width:40px; height:40px; border-radius:999px; background:hsl(var(--confirm)); }
   .acta-done p { margin:0; font-size:14.5px; line-height:1.5; color:var(--ink); }
 
-  /* Dunkle Variante (invertiertes Band): heller Sekundärtext + Bestätigung,
-     Eingabefelder bleiben weiß mit dunklem Text (weiterhin gut lesbar). */
-  .acta.acta--dark { --muted:hsl(var(--muted-foreground-on-dark)); }
+  /* Dunkle Variante (invertiertes Band) */
+  .acta.acta--dark { --ink:hsl(var(--foreground-on-dark)); --muted:hsl(var(--muted-foreground-on-dark)); }
+  .acta.acta--dark .acta-in { color:hsl(var(--foreground)); }
   .acta.acta--dark .acta-done { border-color:hsl(var(--confirm-on-dark) / .5); background:hsl(var(--confirm) / .22); }
-  .acta.acta--dark .acta-done p { color:hsl(var(--foreground-on-dark)); }
   .acta.acta--dark .acta-err { color:hsl(var(--error-on-dark)); }
   .acta.acta--dark .acta-err a { color:hsl(var(--error-on-dark)); }
+  .acta.acta--dark .acta-err--res, .acta.acta--dark .acta-err--res a { color:#fff; }
 
   /* ---------- State-Schaltung ---------- */
-  .acta[data-state="idle"] .acta-form,
-  .acta[data-state="idle"] .acta-done { display:none; }
-
-  .acta:not([data-state="idle"]):not([data-state="done"]) .acta-trigger { display:none; }
-  .acta[data-state="done"] .acta-trigger,
+  .acta[data-state="result"] .acta-ask,
+  .acta[data-state="sending"] .acta-ask,
+  .acta[data-state="done"] .acta-ask { display:none; }
+  .acta[data-state="result"] .acta-res,
+  .acta[data-state="sending"] .acta-res { display:block; animation:acta-in .45s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes acta-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .acta[data-state="sending"] .acta-submit { opacity:.6; pointer-events:none; }
   .acta[data-state="done"] .acta-form { display:none; }
-
-  .acta[data-state="url"] .acta-form,
-  .acta[data-state="contact"] .acta-form,
-  .acta[data-state="sending"] .acta-form { max-width:520px; opacity:1; pointer-events:auto; }
-
-  .acta[data-state="contact"] .acta-contact,
-  .acta[data-state="sending"] .acta-contact { max-height:220px; opacity:1; margin-top:10px; }
-
-  .acta[data-state="sending"] .acta-sq { opacity:.6; pointer-events:none; }
-
   .acta[data-state="done"] .acta-done { display:flex; }
 
-  @media (max-width:520px) {
-    .acta-trigger { width:100%; justify-content:center; }
+  @media (max-width:480px) {
+    .acta-grid { grid-template-columns:1fr; }
+    .acta-res { padding:20px 18px 18px; }
+    .acta-submit { width:100%; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .acta-form, .acta-contact, .acta-trigger, .acta-sq, .acta-in { transition:none !important; }
+    .acta-res, .acta-head, .acta-sq, .acta-in, .acta-submit { animation:none !important; transition:none !important; }
   }
 </style>
 
 <script>
-  // Digital-Visibility-Audit-CTA — verdrahtet ALLE [data-acta]-Instanzen.
+  // Digital-Visibility-Audit-Einstieg „Ergebnis zuerst" — verdrahtet ALLE [data-acta].
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
-
+  const AI_ENDPOINT = 'https://audit.codaai.ai/ai/mentions';
   /* Meldungen beider Sprachen. Dieses Modul wird gebündelt und kennt daher
-     keine Astro-Ausdrücke — die Sprache kommt aus dem <html lang>-Attribut,
-     das Layout.astro setzt. Alles andere (Beschriftungen, Platzhalter) liegt
-     oben im `copy`-Objekt der Komponente. */
+     keine Astro-Ausdrücke — die Sprache kommt aus dem <html lang>-Attribut. */
   const MSG = {
     de: {
       badDomain: 'Bitte geben Sie eine gültige Website-Adresse ein (z. B. ihrefirma.de).',
-      checking: 'Wir prüfen, ob die Website erreichbar ist …',
+      checking: 'Prüfe ',
       unreachable: 'Diese Website konnten wir nicht live erreichen. Bitte prüfen Sie die Adresse — oder schreiben Sie uns direkt an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.',
-      reachableSuffix: ' ist erreichbar.',
-      checkDomain: 'Bitte prüfen Sie die Website-Adresse.',
+      ratelimited: 'Sie haben gerade viele Websites geprüft — bitte in einer Stunde erneut.',
+      checkFailed: 'Das hat nicht geklappt. Bitte versuchen Sie es gleich noch einmal.',
+      foundLead: 'KI-Antworten nennen Ihre Marke.',
+      foundSub: 'Die Zahl sagt nichts darüber, ob Sie empfohlen werden oder nur vorkommen — und wer neben Ihnen steht. Genau das zeigt das vollständige Audit.',
+      noneHead: 'Nicht gefunden.',
+      noneLead: 'Keine KI-Antwort in unserem Datenbestand nennt Ihre Marke.',
+      noneSub: 'Wer nach Ihrer Leistung fragt, bekommt andere Namen genannt. Welche das sind, zeigt das vollständige Audit.',
+      unknownHead: 'Erreichbar.',
+      unknownLead: 'Ihre Website ist online — die KI-Prüfung ist gerade ausgelastet.',
+      unknownSub: 'Ob KI-Antworten Ihre Marke nennen und wer neben Ihnen steht, liefert das vollständige Audit.',
       needFirst: 'Bitte geben Sie Ihren Vornamen an.',
       needLast: 'Bitte geben Sie Ihren Namen an.',
       needEmail: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
@@ -292,10 +370,18 @@ const buttonLabel = label ?? copy.defaultLabel;
     },
     en: {
       badDomain: 'Please enter a valid website address (e.g. yourcompany.com).',
-      checking: 'We are checking whether the website is reachable …',
+      checking: 'Checking ',
       unreachable: 'We could not reach this website live. Please check the address — or write to us directly at <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.',
-      reachableSuffix: ' is reachable.',
-      checkDomain: 'Please check the website address.',
+      ratelimited: 'You have checked many websites just now — please try again in an hour.',
+      checkFailed: 'That did not work. Please try again in a moment.',
+      foundLead: 'AI answers mention your brand.',
+      foundSub: 'This number says nothing about whether you are recommended or merely mentioned — or who stands next to you. That is exactly what the full audit shows.',
+      noneHead: 'Not found.',
+      noneLead: 'No AI answer in our data set mentions your brand.',
+      noneSub: 'Whoever asks for your service is given other names. The full audit shows which ones.',
+      unknownHead: 'Reachable.',
+      unknownLead: 'Your website is online — the AI check is at capacity right now.',
+      unknownSub: 'Whether AI answers mention your brand and who stands next to you is what the full audit delivers.',
       needFirst: 'Please enter your first name.',
       needLast: 'Please enter your last name.',
       needEmail: 'Please enter a valid email address.',
@@ -304,6 +390,7 @@ const buttonLabel = label ?? copy.defaultLabel;
   };
   const PAGE_LANG = (document.documentElement.lang || 'de').toLowerCase().indexOf('en') === 0 ? 'en' : 'de';
   const T = MSG[PAGE_LANG as 'de' | 'en'];
+  const NUM_LOCALE = PAGE_LANG === 'en' ? 'en-US' : 'de-DE';
 
   function normalizeDomain(raw: string): string {
     let s = (raw || '').trim().toLowerCase();
@@ -313,62 +400,124 @@ const buttonLabel = label ?? copy.defaultLabel;
   }
   const DOMAIN_RE = /^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/;
   const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  type SiteRes = { reachable?: boolean; title?: string } | null;
+  type AiRes = { status?: string; count?: number; entity?: string; via?: string } | null;
+  const cache: Record<string, { site: SiteRes; ai: AiRes }> = {};
+
+  function withTimeout<T>(p: Promise<T>, ms: number): Promise<T | null> {
+    return new Promise((resolve) => {
+      const t = setTimeout(() => resolve(null), ms);
+      p.then((v) => { clearTimeout(t); resolve(v); }, () => { clearTimeout(t); resolve(null); });
+    });
+  }
+
+  function pushDL(payload: Record<string, unknown>) {
+    try {
+      const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+      dl.push(payload);
+    } catch (e) {}
+  }
 
   function initAudit(root: Element) {
-    if ((root as HTMLElement).dataset.wired === '1') return;
-    (root as HTMLElement).dataset.wired = '1';
-
+    const el = root as HTMLElement;
+    if (el.dataset.wired === '1') return;
+    el.dataset.wired = '1';
+    const source = el.dataset.source || 'cta';
     const $ = (s: string) => root.querySelector(s) as HTMLElement | null;
-    const openBtn = $('[data-open]');
     const nextBtn = $('[data-next]');
     const submitBtn = $('[data-submit]');
+    const againBtn = $('[data-again]');
     const urlIn = $('[data-url]') as HTMLInputElement | null;
     const firstIn = $('[data-firstname]') as HTMLInputElement | null;
     const lastIn = $('[data-lastname]') as HTMLInputElement | null;
     const emailIn = $('[data-email]') as HTMLInputElement | null;
     const hp = $('[data-hp]') as HTMLInputElement | null;
-    const err = $('[data-err]') as HTMLElement | null;
-    const noteEl = $('[data-note]') as HTMLElement | null;
+    const err = $('[data-err]');
+    const errRes = $('[data-err-res]');
+    const noteEl = $('[data-note]');
+    const domEl = $('[data-dom]');
+    const headEl = $('[data-head]');
+    const rleadEl = $('[data-rlead]');
+    const rsubEl = $('[data-rsub]');
     const formEl = root.querySelector('[data-form]') as HTMLFormElement | null;
-
-    // Impliziten Submit (z. B. Enter in einem Feld) NIE die Seite neu laden lassen.
+    // Impliziten Submit (Enter in einem Feld) NIE die Seite neu laden lassen.
     formEl?.addEventListener('submit', (e) => e.preventDefault());
 
+    const state = () => root.getAttribute('data-state') || 'idle';
     const setState = (s: string) => root.setAttribute('data-state', s);
     const showErr = (msg: string) => {
-      if (!err) return;
-      err.innerHTML = msg;
-      err.hidden = false;
+      const target = (state() === 'result' || state() === 'sending') ? errRes : err;
+      if (!target) return;
+      target.innerHTML = msg;
+      target.hidden = false;
     };
-    const clearErr = () => { if (err) err.hidden = true; };
-
-    openBtn?.addEventListener('click', () => {
-      setState('url');
-      setTimeout(() => urlIn?.focus(), 420);
-    });
-
-    const setNote = (msg: string, spin: boolean, ok?: boolean) => {
+    const clearErr = () => { if (err) err.hidden = true; if (errRes) errRes.hidden = true; };
+    const setNote = (msg: string, spin: boolean) => {
       if (!noteEl) return;
       noteEl.innerHTML = (spin ? '<span class="acta-dot"></span>' : '') + msg;
-      noteEl.classList.toggle('ok', !!ok);
       noteEl.hidden = false;
     };
     const clearNote = () => { if (noteEl) noteEl.hidden = true; };
 
-    let checking = false;
-    // okMsg wird NUR gesetzt, wenn das Backend die Erreichbarkeit ausdruecklich
-    // bestaetigt hat. Im fail-open-Fall (altes Backend, Netzfehler) wissen wir es
-    // nicht — dann bleibt die Zeile leer statt etwas zu behaupten.
-    const advance = (okMsg?: string) => {
-      root.classList.remove('is-checking');
-      if (okMsg) setNote(okMsg, false, true); else clearNote();
-      setState('contact');
-      setTimeout(() => firstIn?.focus(), 380);
+    let result: { status: string; count: number; title: string; domain: string } | null = null;
+
+    const countUp = (to: number) => {
+      if (!headEl) return;
+      headEl.classList.add('is-num');
+      if (REDUCED) { headEl.textContent = to.toLocaleString(NUM_LOCALE); return; }
+      let t0 = 0; const dur = 950;
+      const step = (ts: number) => {
+        if (!t0) t0 = ts;
+        const p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        headEl.textContent = Math.round(to * e).toLocaleString(NUM_LOCALE);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
     };
 
-    // Klick auf den Pfeil: erst Format prüfen, dann per Backend live prüfen, ob die
-    // Website überhaupt erreichbar ist (existiert das Unternehmen / ist die Seite online?).
-    const goContact = () => {
+    const render = (dom: string, site: SiteRes, ai: AiRes) => {
+      let status = ai && (ai.status === 'found' || ai.status === 'none') ? ai.status : 'unknown';
+      // Schutz vor Zufallstreffern: Ein Treffer über einen ABGELEITETEN Kandidaten
+      // (nicht der Domain-Stamm) mit sehr kurzem Namen („this", „die", „best")
+      // ist ein Wortfragment, keine Marke — dann lieber kein Befund als ein
+      // falscher. Der Stamm selbst zählt immer (er ist die eingegebene Domain).
+      if (status === 'found' && ai && ai.via && ai.via !== 'stem' && String(ai.entity || '').length <= 4) status = 'unknown';
+      const count = status === 'found' ? Number(ai?.count || 0) : 0;
+      const title = (site && typeof site.title === 'string') ? site.title.trim().slice(0, 80) : '';
+      result = { status, count, title, domain: dom };
+      if (domEl) {
+        domEl.textContent = dom;
+        if (title) {
+          const t = document.createElement('span');
+          t.className = 'acta-title';
+          t.textContent = title;
+          domEl.appendChild(t);
+        }
+      }
+      if (headEl) { headEl.classList.remove('is-num'); headEl.textContent = ''; }
+      if (status === 'found') {
+        countUp(count);
+        if (rleadEl) rleadEl.textContent = T.foundLead;
+        if (rsubEl) rsubEl.textContent = T.foundSub;
+      } else if (status === 'none') {
+        if (headEl) headEl.textContent = T.noneHead;
+        if (rleadEl) rleadEl.textContent = T.noneLead;
+        if (rsubEl) rsubEl.textContent = T.noneSub;
+      } else {
+        if (headEl) headEl.textContent = T.unknownHead;
+        if (rleadEl) rleadEl.textContent = T.unknownLead;
+        if (rsubEl) rsubEl.textContent = T.unknownSub;
+      }
+      clearNote();
+      setState('result');
+      pushDL({ event: 'check_result', lang: PAGE_LANG, source, result: status, count, domain: dom });
+      setTimeout(() => firstIn?.focus({ preventScroll: true }), 600);
+    };
+
+    let checking = false;
+    const check = () => {
       if (checking) return;
       clearErr();
       const dom = normalizeDomain(urlIn?.value || '');
@@ -377,31 +526,50 @@ const buttonLabel = label ?? copy.defaultLabel;
         urlIn?.focus();
         return;
       }
+      if (cache[dom]) { render(dom, cache[dom].site, cache[dom].ai); return; }
       checking = true;
-      root.classList.add('is-checking');
-      setNote(T.checking, true);
-      fetch(ENDPOINT + '?action=check_site&domain=' + encodeURIComponent(dom), { method: 'GET', cache: 'reload' })
-        .then((r) => r.json())
-        .then((res) => {
-          checking = false;
-          // reachable === false NUR wenn das Backend das ausdrücklich sagt (v9+).
-          // Fehlt das Feld (altes Backend) oder Netzfehler → fail-open, Lead nicht blockieren.
-          if (res && res.reachable === false) {
-            root.classList.remove('is-checking');
-            clearNote();
-            showErr(T.unreachable);
-            urlIn?.focus();
-          } else if (res && res.reachable === true) {
-            advance('&#10003;&nbsp;' + dom + T.reachableSuffix);
-          } else {
-            advance();
-          }
-        })
-        .catch(() => { checking = false; advance(); });
+      setState('checking');
+      setNote(T.checking + dom + ' …', true);
+      const t0 = Date.now();
+      // Beide Prüfungen parallel; jede für sich mit Zeitlimit. Ein Ausfall
+      // blockiert den Lead nicht (fail-open), nur ein ausdrückliches
+      // reachable === false stoppt.
+      const siteP = withTimeout<SiteRes>(
+        fetch(ENDPOINT + '?action=check_site&domain=' + encodeURIComponent(dom), { method: 'GET', cache: 'reload' })
+          .then((r) => r.json()), 15000);
+      const aiP = withTimeout<AiRes>(
+        fetch(AI_ENDPOINT + '?domain=' + encodeURIComponent(dom), { cache: 'reload' })
+          .then((r) => (r.ok ? r.json() : null)), 12000);
+      Promise.all([siteP, aiP]).then(([site, ai]) => {
+        checking = false;
+        if (site && site.reachable === false) {
+          setState('idle');
+          clearNote();
+          showErr(T.unreachable);
+          urlIn?.focus();
+          return;
+        }
+        if (ai && ai.status === 'ratelimited') {
+          // Klar sagen, nicht spekulieren — und den Weg trotzdem offen lassen.
+          setState('idle');
+          clearNote();
+          showErr(T.ratelimited);
+          return;
+        }
+        cache[dom] = { site, ai };
+        // Eine Antwort nach 200 ms wirkt wie ein Trick, nicht wie eine Prüfung.
+        const wait = Math.max(0, 1100 - (Date.now() - t0));
+        setTimeout(() => render(dom, site, ai), wait);
+      });
     };
-    nextBtn?.addEventListener('click', goContact);
+    nextBtn?.addEventListener('click', check);
     urlIn?.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter') { e.preventDefault(); goContact(); }
+      if ((e as KeyboardEvent).key === 'Enter') { e.preventDefault(); check(); }
+    });
+    againBtn?.addEventListener('click', () => {
+      clearErr();
+      setState('idle');
+      if (urlIn) { urlIn.value = ''; setTimeout(() => urlIn.focus(), 60); }
     });
 
     const submit = () => {
@@ -410,23 +578,17 @@ const buttonLabel = label ?? copy.defaultLabel;
       const first = (firstIn?.value || '').trim();
       const last = (lastIn?.value || '').trim();
       const email = (emailIn?.value || '').trim();
-
-      if (!dom || !DOMAIN_RE.test(dom)) { setState('url'); showErr(T.checkDomain); urlIn?.focus(); return; }
+      if (!dom || !DOMAIN_RE.test(dom)) { setState('idle'); showErr(T.badDomain); urlIn?.focus(); return; }
       if (!first) { showErr(T.needFirst); firstIn?.focus(); return; }
       if (!last) { showErr(T.needLast); lastIn?.focus(); return; }
       if (!EMAIL_RE.test(email)) { showErr(T.needEmail); emailIn?.focus(); return; }
-
       // Honeypot → stiller Erfolg, kein echter Request
       if (hp && hp.value) { setState('done'); return; }
-
       setState('sending');
       let lang = 'de';
       try { lang = document.documentElement.lang || 'de'; } catch (e) {}
-
-      // cache:'reload' auch hier — und hier ist es am wichtigsten: mode:'no-cors'
-      // liefert eine undurchsichtige Antwort, die niemand pruefen kann. Traefe der
-      // Aufruf eine veraltete Weiterleitung, saehe der Nutzer die Bestaetigung,
-      // waehrend der Lead nirgends ankommt. Stiller Verlust statt Fehlermeldung.
+      // mode:'no-cors' liefert eine undurchsichtige Antwort; cache:'reload'
+      // verhindert, dass eine veraltete Weiterleitung den Lead still verschluckt.
       fetch(ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
@@ -436,26 +598,34 @@ const buttonLabel = label ?? copy.defaultLabel;
           action: 'visibility_check',
           domain: dom, email, firstname: first, lastname: last,
           website: hp ? hp.value : '',
+          source,
+          ai_status: result ? result.status : '',
+          ai_count: result ? result.count : '',
+          site_title: result ? result.title : '',
         }),
       })
         .then(() => {
-          try {
-            const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
-            dl.push({ event: 'audit_request_submitted', lang });
-          } catch (e) {}
+          pushDL({ event: 'audit_request_submitted', lang, source, result: result ? result.status : '' });
           setState('done');
         })
         .catch(() => {
-          setState('contact');
+          setState('result');
           showErr(T.failed);
         });
     };
     submitBtn?.addEventListener('click', submit);
-    emailIn?.addEventListener('keydown', (e) => {
+    [firstIn, lastIn, emailIn].forEach((f) => f?.addEventListener('keydown', (e) => {
       if ((e as KeyboardEvent).key === 'Enter') { e.preventDefault(); submit(); }
-    });
-  }
+    }));
 
+    // Domain-Übergabe von außen: data-preset (per Script gesetzt) oder ?d=…
+    // aus der URL (data-preset-query="d"). Dann sofort prüfen.
+    let preset = el.dataset.preset || '';
+    if (!preset && el.dataset.presetQuery) {
+      try { preset = new URLSearchParams(location.search).get(el.dataset.presetQuery) || ''; } catch (e) {}
+    }
+    if (preset && urlIn) { urlIn.value = preset; check(); }
+  }
   function boot() { document.querySelectorAll('[data-acta]').forEach(initAudit); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);

@@ -1,0 +1,269 @@
+---
+/**
+ * CheckPage — Landingpage „KI-Sichtbarkeits-Check" (DE /check/, EN /en/check/).
+ *
+ * Anlass (Arbeitsplan 18.09.2026, P1 #2): Ein eigenständiges Ziel für
+ * Outbound-Sequenzen, den LinkedIn-Featured-Link ab 02.11. und Anzeigen —
+ * eine Adresse, die genau eine Sache tut: Website eingeben, Ergebnis sehen,
+ * vollständiges Audit anfordern. Das Modul selbst ist die sitewide AuditCTA
+ * („Ergebnis zuerst"); diese Seite ist der Rahmen darum.
+ *
+ * Bewusst ohne FAQ-Schema (Wächter: FAQ sitewide eindeutig; die Fragen zum
+ * Audit liegen bereits auf /faq/ und /digital-visibility/) und ohne Nennung
+ * der Datenquellen (Nachahmerschutz, siehe AuditCTA).
+ *
+ * dataLayer: `check_view` einmal pro Seitenaufruf; `check_result` und
+ * `audit_request_submitted{source:'check'}` kommen aus dem Modul.
+ *
+ * Domain-Übergabe: `?d=ihrefirma.de` füllt das Feld vor und prüft sofort —
+ * für Nurture-Mails und Outbound-Links („Ihr Ergebnis liegt schon bereit").
+ */
+import Breadcrumb from '../Breadcrumb.astro';
+import HeroHeadline from '../HeroHeadline.astro';
+import AuditCTA from '../premium/AuditCTA.astro';
+
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const copy = {
+  de: {
+    crumbHome: 'Start', crumbHomeAria: 'Zur Startseite', crumb: 'KI-Sichtbarkeits-Check',
+    kicker: 'Live-Check · kostenlos · in Sekunden',
+    h1a: 'Einkäufer fragen erst die KI.',
+    h1b: 'Kommt Ihr Unternehmen vor?',
+    lead: 'Geben Sie Ihre Website ein. Sie sehen sofort, ob KI-Antworten Ihre Marke nennen — und danach, was das vollständige Audit zusätzlich zeigt. Keine Anmeldung für den Check, keine Veröffentlichung.',
+    ctaLabel: 'Website eingeben — das Ergebnis steht in Sekunden.',
+    whatH: 'Was der Check in Sekunden prüft',
+    what: [
+      { h: 'Erreichbarkeit', p: 'Ist die Website online und für Systeme lesbar, die sie gerade jetzt abrufen wollen?' },
+      { h: 'KI-Nennungen', p: 'Wie viele dokumentierte KI-Antworten nennen Ihre Marke — oder keine einzige?' },
+      { h: 'Einordnung', p: 'Was die Zahl bedeutet: vorkommen ist nicht empfohlen werden. Die Rangfolge klärt erst das Audit.' },
+    ],
+    cmpH: 'Was der Check nicht zeigt — und das Audit schon',
+    cmpLead: 'Der Live-Check ist eine Stichprobe. Das vollständige Audit ist die Auswertung — mit den Fragen, die Einkäufer Ihrer Branche wirklich stellen.',
+    cmpCols: ['', 'Live-Check', 'Vollständiges Audit'],
+    cmp: [
+      ['Nennt die KI Ihre Marke?', true, true],
+      ['Welche Wettbewerber nennt sie stattdessen?', false, true],
+      ['Die Einkäuferfragen Ihrer Branche, wörtlich beantwortet', false, true],
+      ['Empfohlen, nur genannt oder unsichtbar — je Frage', false, true],
+      ['Kann die KI Ihre Website lesen und zitieren?', false, true],
+      ['Ihre Lage bei Google im Wettbewerbsvergleich', false, true],
+      ['Priorisierter Maßnahmenplan', false, true],
+    ],
+    cmpFoot: [['Dauer', 'Sekunden', 'innerhalb von 24 Stunden'], ['Preis', 'kostenlos', 'kostenlos']],
+    howH: 'So läuft es ab',
+    how: [
+      { n: '1', h: 'Website prüfen', p: 'Sie geben Ihre Adresse ein und sehen den Befund. Ohne Anmeldung.' },
+      { n: '2', h: 'Audit anfordern', p: 'Vorname, Name, E-Mail — mehr brauchen wir nicht. Wir formulieren die Einkäuferfragen Ihrer Branche und stellen sie den KI-Systemen.' },
+      { n: '3', h: 'Ergebnis lesen', p: 'Innerhalb von 24 Stunden liegt Ihr Audit vor: Befund, Wettbewerber, Maßnahmen. Ob Sie danach mit uns sprechen, entscheiden Sie.' },
+    ],
+    proofKicker: 'Warum der Check nötig ist',
+    proofH: 'In 55 % der Einkäuferfragen fällt der Firmenname nicht.',
+    proofP: 'Das ist der Befund unserer Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen. Bei 47 % der Fragen empfiehlt die KI stattdessen einen Wettbewerber — meist ohne dass es im Unternehmen jemand bemerkt.',
+    proofLink: 'Zur Studie „KI-Blindtest Mittelstand 2026" →',
+    proofHref: `${base}/studie/`,
+    guideLink: 'Was GEO-Optimierung ist und was nachweislich wirkt →',
+    guideHref: `${base}/wissen/geo-optimierung/`,
+    bottomKicker: 'Noch nicht geprüft?',
+    bottomH: 'Zwei Sekunden. Dann wissen Sie es.',
+    bottomLabel: 'Ihre Website:',
+  },
+  en: {
+    crumbHome: 'Home', crumbHomeAria: 'Go to homepage', crumb: 'AI Visibility Check',
+    kicker: 'Live check · free · takes seconds',
+    h1a: 'Buyers ask the AI first.',
+    h1b: 'Does your company come up?',
+    lead: 'Enter your website. You will see at once whether AI answers mention your brand — and then what the full audit additionally shows. No sign-up for the check, nothing is published.',
+    ctaLabel: 'Enter your website — the result takes seconds.',
+    whatH: 'What the check verifies in seconds',
+    what: [
+      { h: 'Reachability', p: 'Is the website online and readable for systems that want to fetch it right now?' },
+      { h: 'AI mentions', p: 'How many documented AI answers mention your brand — or none at all?' },
+      { h: 'Interpretation', p: 'What the number means: being mentioned is not being recommended. The ranking is what the audit clarifies.' },
+    ],
+    cmpH: 'What the check does not show — and the audit does',
+    cmpLead: 'The live check is a sample. The full audit is the analysis — with the questions buyers in your industry actually ask.',
+    cmpCols: ['', 'Live check', 'Full audit'],
+    cmp: [
+      ['Does the AI mention your brand?', true, true],
+      ['Which competitors does it name instead?', false, true],
+      ['The buyer questions of your industry, answered verbatim', false, true],
+      ['Recommended, merely mentioned or invisible — per question', false, true],
+      ['Can the AI read and cite your website?', false, true],
+      ['Your position on Google compared with competitors', false, true],
+      ['Prioritised action plan', false, true],
+    ],
+    cmpFoot: [['Time', 'seconds', 'within 24 hours'], ['Price', 'free', 'free']],
+    howH: 'How it works',
+    how: [
+      { n: '1', h: 'Check your website', p: 'Enter your address and see the result. No sign-up.' },
+      { n: '2', h: 'Request the audit', p: 'First name, last name, email — that is all we need. We write the buyer questions of your industry and put them to the AI systems.' },
+      { n: '3', h: 'Read the result', p: 'Within 24 hours your audit is ready: findings, competitors, measures. Whether you talk to us afterwards is your decision.' },
+    ],
+    proofKicker: 'Why the check is necessary',
+    proofH: 'In 55 % of buyer questions the company name does not come up.',
+    proofP: 'That is the finding of our analysis of 7,184 AI answers about 449 mid-sized companies. In 47 % of the questions the AI recommends a competitor instead — usually without anyone in the company noticing.',
+    proofLink: 'Read the study “AI Blind Test 2026” →',
+    proofHref: `${base}/en/study/`,
+    guideLink: 'What GEO optimization is and what demonstrably works →',
+    guideHref: `${base}/en/knowledge/geo-optimization/`,
+    bottomKicker: 'Not checked yet?',
+    bottomH: 'Two seconds. Then you know.',
+    bottomLabel: 'Your website:',
+  },
+}[lang];
+
+const homeHref = lang === 'en' ? `${base}/en/` : `${base}/`;
+---
+
+<main id="main-content" class="pt-24 lg:pt-28">
+
+  <!-- ── Hero: Frage + Modul ─────────────────────────────────────────── -->
+  <section class="relative overflow-hidden border-b border-border bg-background">
+    <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+    <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+      <Breadcrumb items={[{ label: copy.crumbHome, ariaLabel: copy.crumbHomeAria, href: homeHref }, { label: copy.crumb }]} class="mb-8" />
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start">
+        <div class="max-w-2xl">
+          <p class="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+            </span>
+            {copy.kicker}
+          </p>
+          <HeroHeadline line1={copy.h1a} line2={copy.h1b} />
+          <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">{copy.lead}</p>
+        </div>
+        <div class="check-module" data-check-module>
+          <AuditCTA lang={lang} variant="band" label={copy.ctaLabel} source="check" presetFromQuery />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Was der Check prüft ─────────────────────────────────────────── -->
+  <section aria-labelledby="h-what" class="border-b border-border bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <h2 id="h-what" class="cai-h2 max-w-3xl">{copy.whatH}</h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {copy.what.map((w, i) => (
+          <article class="rounded-2xl border border-border bg-card p-7">
+            <p class="text-xs font-bold uppercase tracking-widest text-cta-accessible">0{i + 1}</p>
+            <h3 class="mt-3 text-xl font-bold text-foreground">{w.h}</h3>
+            <p class="mt-3 text-base leading-relaxed text-muted-foreground">{w.p}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Check vs. Audit ─────────────────────────────────────────────── -->
+  <section aria-labelledby="h-cmp" class="border-b border-border bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <h2 id="h-cmp" class="cai-h2 max-w-3xl">{copy.cmpH}</h2>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">{copy.cmpLead}</p>
+      <div class="cmp-wrap mt-10 overflow-x-auto rounded-2xl border border-border">
+        <table class="cmp w-full text-left text-sm">
+          <thead>
+            <tr>
+              {copy.cmpCols.map((c, i) => (
+                <th scope="col" class={`px-5 py-4 font-bold ${i === 2 ? 'cmp-audit' : ''}`}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {copy.cmp.map((row) => (
+              <tr>
+                <th scope="row" class="px-5 py-3.5 font-medium text-foreground">{row[0]}</th>
+                <td class="px-5 py-3.5">{row[1] ? <span class="cmp-yes">✓</span> : <span class="cmp-no">—</span>}</td>
+                <td class="cmp-audit px-5 py-3.5"><span class="cmp-yes">✓</span></td>
+              </tr>
+            ))}
+            {copy.cmpFoot.map((row) => (
+              <tr class="cmp-foot">
+                <th scope="row" class="px-5 py-3.5 font-medium text-muted-foreground">{row[0]}</th>
+                <td class="px-5 py-3.5 text-muted-foreground">{row[1]}</td>
+                <td class="cmp-audit px-5 py-3.5 font-semibold">{row[2]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ablauf ──────────────────────────────────────────────────────── -->
+  <section aria-labelledby="h-how" class="border-b border-border bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <h2 id="h-how" class="cai-h2 max-w-3xl">{copy.howH}</h2>
+      <ol class="mt-10 grid gap-6 md:grid-cols-3">
+        {copy.how.map((s) => (
+          <li class="rounded-2xl border border-border bg-card p-7">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cta-strong text-sm font-bold text-white" aria-hidden="true">{s.n}</span>
+            <h3 class="mt-4 text-xl font-bold text-foreground">{s.h}</h3>
+            <p class="mt-3 text-base leading-relaxed text-muted-foreground">{s.p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Beleg + zweites Modul auf Ink ───────────────────────────────── -->
+  <section aria-labelledby="h-proof" class="bg-background">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-start">
+          <div>
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">{copy.proofKicker}</p>
+            <h2 id="h-proof" class="cai-h2">{copy.proofH}</h2>
+            <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">{copy.proofP}</p>
+            <p class="mt-6 flex flex-col gap-2 text-sm font-semibold">
+              <a href={copy.proofHref} class="check-link">{copy.proofLink}</a>
+              <a href={copy.guideHref} class="check-link">{copy.guideLink}</a>
+            </p>
+          </div>
+          <div>
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">{copy.bottomKicker}</p>
+            <p class="mb-5 text-2xl font-bold leading-tight">{copy.bottomH}</p>
+            <AuditCTA lang={lang} variant="band" theme="dark" label={copy.bottomLabel} source="check-bottom" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  .cmp th, .cmp td { border-bottom:1px solid hsl(var(--border)); vertical-align:top; }
+  .cmp thead th { background:hsl(var(--muted) / .35); color:hsl(var(--foreground)); }
+  .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom:0; }
+  .cmp .cmp-audit { background:hsl(var(--cta) / .07); }
+  .cmp thead .cmp-audit { color:hsl(var(--cta-accessible)); }
+  .cmp-yes { font-weight:700; color:hsl(var(--confirm-text)); }
+  .cmp-no { color:hsl(var(--muted-foreground)); }
+  .cmp tbody th { min-width:220px; }
+  .cmp-foot th, .cmp-foot td { background:hsl(var(--muted) / .18); }
+  /* Mobil: drei Spalten muessen ohne Wischen in 390 px passen — schmalere
+     erste Spalte, kleinere Schrift, engere Zellen. */
+  @media (max-width:640px) {
+    .cmp tbody th { min-width:0; }
+    .cmp th, .cmp td { padding:10px 10px; font-size:12.5px; }
+    .cmp thead th { font-size:12px; }
+  }
+  .check-link { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+  .check-link:hover { color:hsl(var(--cta-on-dark)); }
+</style>
+
+<script>
+  // Seitenaufruf-Ereignis. Die Domain-Übergabe per ?d=… macht das Modul selbst
+  // (presetFromQuery), damit die Reihenfolge der gebündelten Skripte egal ist.
+  (function () {
+    try {
+      const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+      dl.push({ event: 'check_view', lang: document.documentElement.lang || 'de' });
+    } catch (e) {}
+  })();
+</script>

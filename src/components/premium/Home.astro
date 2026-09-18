@@ -145,7 +145,7 @@ const copy = {
     miFoot: 'Auszug: 3 von 8 individuell formulierten Käuferfragen.',
     miFootLink: 'Das vollständige Audit ansehen →',
     miAfter: 'Für Ihr Unternehmen formulieren wir eigene Fragen. Ergebnis in 24 Stunden.',
-    miAfterCta: 'Mein Audit anfordern',
+    miAfterCta: 'Und Ihr Unternehmen? Website eingeben, Ergebnis sehen:',
 
     /* ── Angebot ── */
     offH: 'CodaAI bringt Ihr Unternehmen in die Antwort.',
@@ -171,7 +171,7 @@ const copy = {
     offPriceRest: 'Netto, 6 Monate Mindestlaufzeit — im Preisrechner nachrechenbar statt „auf Anfrage".',
     offLink: 'Alle Leistungen je Stufe und die Preise →',
     offLinkHref: '/preise/',
-    offCta: 'Audit kostenlos anfordern',
+    offCta: 'Erst das Ergebnis, dann entscheiden Sie:',
     offMicro: [
       'Kostenlos und unverbindlich.',
       'Kein Verkaufsanruf — Sie erhalten das Audit per E-Mail.',
@@ -332,7 +332,7 @@ const copy = {
     miFoot: 'Excerpt: 3 of 8 individually written buyer questions.',
     miFootLink: 'View the full audit →',
     miAfter: 'For your company we write questions of your own. Result within 24 hours.',
-    miAfterCta: 'Request my audit',
+    miAfterCta: 'And your company? Enter your website, see the result:',
 
     /* ── Angebot ── */
     offH: 'CodaAI puts your company into the answer.',
@@ -358,7 +358,7 @@ const copy = {
     offPriceRest: 'Net, six-month minimum term — something you can work out in the calculator instead of asking for a quote.',
     offLink: 'Every service per tier and the prices →',
     offLinkHref: '/en/pricing/',
-    offCta: 'Request your free audit',
+    offCta: 'See the result first, then decide:',
     offMicro: [
       'Free and without obligation.',
       'No sales call — you receive the audit by email.',
@@ -432,7 +432,7 @@ const copy = {
       <p class="hl2">{copy.hl2} <span class="flip" id="flip" aria-live="polite"><span class="sizer">{copy.flipSizer}</span></span></p>
       <p class="desc">{copy.desc}</p>
       <div class="ctas">
-        <AuditCTA lang={lang} label={copy.heroCta} />
+        <AuditCTA lang={lang} label={copy.heroCta} source="home-hero" />
       </div>
     </div>
 
@@ -643,7 +643,7 @@ const copy = {
 
     <div class="mi-after">
       <p>{copy.miAfter}</p>
-      <AuditCTA lang={lang} label={copy.miAfterCta} />
+      <AuditCTA lang={lang} label={copy.miAfterCta} source="home-audit" />
     </div>
   </div>
 </section>
@@ -687,7 +687,7 @@ const copy = {
     <a class="off-link" href={copy.offLinkHref}>{copy.offLink}</a>
 
     <div class="off-cta">
-      <AuditCTA lang={lang} label={copy.offCta} />
+      <AuditCTA lang={lang} label={copy.offCta} source="home-offer" />
       <p class="off-micro">{copy.offMicro[0]}<s>·</s>{copy.offMicro[1]}<s>·</s>{copy.offMicro[2]}</p>
     </div>
   </div>
@@ -1537,10 +1537,10 @@ const copy = {
     box-shadow:0 8px 26px rgba(12,17,32,.3)!important}
   .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(12,17,32,.42)!important}
   .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#fff!important}
-  .offer .acta{--pink:hsl(var(--navy-900));--pink-d:hsl(var(--navy-900))}
-
-  .offer .acta-trigger:hover,.offer .acta-sq:hover{box-shadow:0 14px 34px rgba(12,17,32,.42)!important}
-  .offer .acta-note,.offer .acta-hint,.offer .acta-legal,.offer .acta-cap{color:#fff!important}
+  /* 18.09.2026 („Ergebnis zuerst"): Zeile ueber dem Feld, Kleingedrucktes und
+     Fehler ebenfalls weiss; der Befund liegt hier auf Ink statt Magenta
+     (--pink ist umgebogen), sonst waere er magenta auf magenta. */
+  .offer .acta-lead,.offer .acta-micro,.offer .acta-err{color:#fff!important}
   .offer .acta{--pink:hsl(var(--navy-900));--pink-d:hsl(var(--navy-900))}
 
 </style>

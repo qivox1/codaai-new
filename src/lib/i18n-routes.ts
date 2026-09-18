@@ -60,6 +60,8 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
 
   // -- GEO-Optimierung, Pillar-Seite (18.09.2026) ---------------------------
   ['/wissen/geo-optimierung/', '/en/knowledge/geo-optimization/'],
+  // 18.09.2026: Landingpage KI-Sichtbarkeits-Check (Ergebnis zuerst).
+  ['/check/', '/en/check/'],
 
   // -- GEO-Glossar (03.09.2026) ---------------------------------------------
   // Hub + ein Paar je Begriff. Quelle der Zuordnung: das `de:`-Feld im

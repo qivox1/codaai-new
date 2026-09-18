@@ -52,6 +52,9 @@ const EXTRA_SOURCES = {
   // Datendatei, die Seitendatei ist ein Wrapper.
   'wissen/geo-optimierung': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
   'en/knowledge/geo-optimization': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
+  // 18.09.2026: /check/ besteht aus CheckPage + AuditCTA.
+  'check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
+  'en/check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */
