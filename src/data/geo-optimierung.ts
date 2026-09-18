@@ -88,18 +88,19 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
   // ═══════════════════════════════════════════════════════════════════════════
   de: {
     path: '/wissen/geo-optimierung/',
-    metaTitle: 'GEO-Optimierung: In KI-Antworten zitiert werden | CodaAI',
+    metaTitle: 'GEO-Optimierung für B2B: In KI-Antworten zitiert werden | CodaAI',
     metaDescription:
-      'GEO-Optimierung erklärt: Wie ChatGPT, Gemini und die Google KI-Übersicht Quellen auswählen, welche Maßnahmen nachweislich wirken, was nicht wirkt und wie man Erfolg misst.',
-    kicker: 'GEO-Optimierung · Leitfaden',
+      'GEO-Optimierung für B2B-Unternehmen: Wie ChatGPT, Gemini und die Google KI-Übersicht Quellen auswählen, was nachweislich wirkt, was nicht — mit Zahlen aus 7.184 KI-Antworten zu 449 Mittelständlern.',
+    kicker: 'GEO-Optimierung · Leitfaden für B2B-Unternehmen',
     line1: 'Ihre Website rankt bei Google.',
     line2: 'In der KI fehlt sie trotzdem.',
     lead:
-      'Generative Engine Optimization (GEO) ist die Arbeit daran, dass KI-Systeme wie ChatGPT, Gemini, Perplexity und die Google KI-Übersicht ein Unternehmen nennen und seine Inhalte als Quelle zitieren. GEO ersetzt SEO nicht, es setzt darauf auf: Ohne Ranking kein Grounding, ohne Grounding keine KI-Sichtbarkeit. Diese Seite erklärt, wie eine KI-Antwort entsteht, welche Maßnahmen nachweislich wirken, was nicht wirkt und wie sich Erfolg messen lässt.',
+      'Generative Engine Optimization (GEO) ist die Arbeit daran, dass KI-Systeme wie ChatGPT, Gemini, Perplexity und die Google KI-Übersicht ein Unternehmen nennen und seine Inhalte als Quelle zitieren. GEO ersetzt SEO nicht, es setzt darauf auf: Ohne Ranking kein Grounding, ohne Grounding keine KI-Sichtbarkeit. Diese Seite erklärt für B2B-Unternehmen, wie eine KI-Antwort entsteht, welche Maßnahmen nachweislich wirken, was nicht wirkt und wie sich Erfolg messen lässt — belegt mit unserer Studie zu 449 mittelständischen Unternehmen.',
     brief: {
       title: 'Das Wichtigste in Kürze',
       items: [
         'GEO-Optimierung macht Inhalte für KI-Antworten zitierfähig. Sie baut auf SEO auf: Eine Seite muss für die Frage und ihre Teilfragen ranken, bevor ein KI-System sie überhaupt als Quelle prüft.',
+        'Im B2B-Mittelstand ist die Lücke groß: In 55 % von 3.592 Einkäuferfragen fiel der Firmenname nicht, und 35 % der Unternehmen mit über 100 Top-10-Rankings bei Google waren in ChatGPT komplett unsichtbar (CodaAI-Studie, 449 Unternehmen).',
         'KI-Systeme zitieren Passagen, nicht Seiten. Google gibt je Anfrage rund 2.000 Wörter Grounding-Budget frei, und die erstplatzierte Quelle bekommt davon 28 %, die fünfte 13 % (dejan.ai, 7.060 Anfragen).',
         'Nachweislich wirken Zitate, Statistiken und Quellenangaben im Text: In der Princeton-Studie (KDD 2024) stieg die Sichtbarkeit damit um 28 bis 41 %, für Seiten auf Rang 5 durch Quellenangaben um 115 %.',
         'Markennennungen auf Drittseiten korrelieren stärker mit KI-Sichtbarkeit (0,664) als Backlinks (0,218) — Ahrefs, 75.000 Marken.',
@@ -172,6 +173,42 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           },
         ],
       },
+      // ── 2b ─────────────────────────────────────────────────────────────────
+      {
+        id: 'studie',
+        h2: 'Was zeigt die Studie für B2B-Unternehmen?',
+        blocks: [
+          {
+            type: 'p',
+            html: `Die Studie zeigt für B2B-Unternehmen, dass klassische Suchmaschinenstärke nicht in KI-Antworten übersetzt wird. Wir haben im Juni und Juli 2026 <a href="/studie/">449 mittelständische Unternehmen aus 258 Branchen</a> untersucht: je acht qualifizierte Einkäuferfragen in drei Archetypen (Marktübersicht, Anwendungsfall, Wettbewerbsvergleich), gestellt an ChatGPT und die Google KI-Übersicht — 3.592 Fragen, 7.184 dokumentierte Antworten. Vier Befunde tragen diesen Leitfaden:`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Das SEO-Paradox.</strong> 361 der untersuchten Unternehmen haben mehr als 100 Top-10-Rankings bei Google. <strong>35 % davon sind in ChatGPT trotzdem komplett unsichtbar</strong> — null Nennungen in acht Fragen. Über ein Drittel der Firmen, die bei Google alles richtig gemacht haben, existiert für die KI nicht. Die Ursache steht im nächsten Abschnitt: ChatGPT antwortet überwiegend aus Trainingsdaten, und wer dort fehlt, fehlt strukturell.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Unsichtbar beim eigenen Kerngeschäft.</strong> <strong>26 % der Unternehmen werden selbst bei der Marktübersichtsfrage zu ihrer eigenen Kategorie nicht genannt</strong> („Welche Anbieter für … gelten als führend?"). Das ist die Frage, mit der ein Einkäufer die Discovery-Phase beginnt. Wer hier fehlt, kommt in die Auswahl gar nicht erst hinein.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Wettbewerber statt Lücke.</strong> Eine KI-Antwort bleibt nicht leer, wenn ein Unternehmen fehlt — sie nennt jemand anderen. <strong>Bei 47 % der Unternehmen empfiehlt die KI mehrheitlich namentlich Wettbewerber.</strong> Wo Unternehmen genannt werden, stehen sie im Schnitt an Position 1,8 — die Antwort ist also kurz, und die ersten zwei Plätze entscheiden.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Zwei Systeme, zwei Realitäten.</strong> Dieselben Fragen ergaben in ChatGPT eine durchschnittliche Sichtbarkeit von <strong>24,9 %</strong>, in der Google KI-Übersicht <strong>39,4 %</strong>. 39,6 % der Unternehmen werden von ChatGPT nie genannt, 15,1 % auch von Google nicht. Die Google KI-Übersicht greift stärker auf den Live-Index zu — dort wirkt <a href="${G}/grounding/">Grounding</a> schneller; in ChatGPT muss die Marke erst ins <a href="${G}/modellwissen/">Modellwissen</a> oder über Drittseiten in den Kandidatenpool.`,
+          },
+          {
+            type: 'callout',
+            title: 'Beispiel aus dem Datensatz',
+            html: `Ein Maschinenbauer für Fabrikautomation und Fördertechnik, rund 640 Top-10-Rankings bei Google. Einkäuferfrage: „Welche Hersteller von Aluminium-Profilsystemen für die Fabrikautomation gelten als führend in Europa?" Ergebnis: <strong>keine Nennung in ChatGPT und Google KI-Übersicht, 0 von 8 Fragen.</strong> Der meistgenannte Wettbewerber erscheint siebenmal — ein DAX-naher Großkonzern besetzt die Kategorie. Das Unternehmen rankt für dieselben Begriffe auf Seite eins; es fehlt nicht an Relevanz, sondern an <a href="${G}/brand-mentions/">Nennungen auf Drittseiten</a>, die die KI als Kandidatenliste liest. Weitere Beispiele und die Methodik stehen in der <a href="/studie/">Studie</a>.`,
+          },
+          {
+            type: 'p',
+            html: `Was daraus für B2B folgt: Die Fremdstudien weiter unten messen große Marken im englischsprachigen Markt. Unsere Zahlen messen deutsche Mittelständler mit Nischenprodukten — und dort ist die Lücke größer, weil das Modellwissen über eine Firma mit 200 Mitarbeitern dünn ist und Grounding der einzige Weg in die Antwort bleibt.`,
+          },
+        ],
+      },
       // ── 3 ──────────────────────────────────────────────────────────────────
       {
         id: 'retrieval',
@@ -179,7 +216,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `Ein Inhalt kommt auf zwei Wegen in eine KI-Antwort: über das <a href="${G}/modellwissen/">Modellwissen</a>, das beim Training aus Quellen wie <a href="${G}/common-crawl/">Common Crawl</a> und Wikipedia entstanden ist, oder über die <a href="${G}/websuche/">Websuche</a>, die das System auslöst, wenn es sich der Antwort aus dem Gedächtnis nicht sicher ist. Das Modellwissen endet am <a href="${G}/knowledge-cutoff/">Knowledge Cutoff</a>; wer sich seitdem umbenannt, neu positioniert oder gegründet hat, existiert dort nicht. Für alles Aktuelle ist die Websuche der einzige Weg, und sie läuft in vier Schritten:`,
+            html: `Ein Inhalt kommt auf zwei Wegen in eine KI-Antwort: über das <a href="${G}/modellwissen/">Modellwissen</a>, das beim Training aus Quellen wie <a href="${G}/common-crawl/">Common Crawl</a> und Wikipedia entstanden ist, oder über die <a href="${G}/websuche/">Websuche</a>, die das System auslöst, wenn es sich der Antwort aus dem Gedächtnis nicht sicher ist. Das Modellwissen endet am <a href="${G}/knowledge-cutoff/">Knowledge Cutoff</a>; wer sich seitdem umbenannt, neu positioniert, ausgegründet oder fusioniert hat, existiert dort nicht — im B2B-Mittelstand ein häufiger Fall, und einer, den die Studie als „SEO-Paradox" sichtbar macht. Für alles Aktuelle ist die Websuche der einzige Weg, und sie läuft in vier Schritten:`,
           },
           { type: 'diagram', id: 'retrieval' },
           {
@@ -265,7 +302,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             items: [
               `<strong>Präsenz in Vergleichslisten:</strong> In einer Auswertung von rund 1.260 B2B-Kaufprompts (Overthink Group, Juli 2026) verwiesen 70,8 % aller Zitate auf Seiten mit „best", „top" oder „leading" im Titel. Wer in den <a href="${G}/listicles/">Listen</a> fehlt, die die KI bereits zitiert, fehlt in der Antwort.`,
               `<strong>Die eigene Startseite:</strong> Unter den 1.000 meistzitierten Seiten in ChatGPT sind 23,8 % Start- und Landingpages (Ahrefs, Oktober 2025) — die zweitgrößte Kategorie nach Wikipedia, und die einzige, die dem Unternehmen vollständig gehört. Eine <a href="${G}/konsistente-markenbeschreibung/">konsistente Markenbeschreibung</a> dort und auf allen Profilen ist die Grundlage.`,
-              `<strong><a href="${G}/review-plattformen/">Bewertungsplattformen</a>, Fachmedien, <a href="${G}/digital-pr/">Digital PR</a>:</strong> Erwähnungen in Quellen, die die KI in der Branche ohnehin zitiert — auch ohne Link. Benannte Fachleute mit Zitat werden häufiger übernommen als anonyme Redaktionen.`,
+              `<strong><a href="${G}/review-plattformen/">Bewertungsplattformen</a>, Fachmedien, <a href="${G}/digital-pr/">Digital PR</a>:</strong> Erwähnungen in Quellen, die die KI in der Branche ohnehin zitiert — auch ohne Link. Im B2B sind das nicht Trustpilot und Google-Rezensionen, sondern Branchenportale, Fachmedien, Verbandsverzeichnisse und Software-Vergleichsplattformen wie Capterra oder G2. Benannte Fachleute mit Zitat werden häufiger übernommen als anonyme Redaktionen.`,
               `<strong><a href="${G}/youtube-praesenz/">Eigene Videos</a> mit Transkript und <a href="${G}/entitaet/">Entitäten</a> in Wissensdatenbanken:</strong> beides Quellen, auf die Modelle trainiert werden und die sie beim Grounding bevorzugen.`,
             ],
           },
@@ -321,10 +358,23 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           {
             type: 'ul',
             items: [
-              `<strong>Prompts entlang der Kaufentscheidung wählen.</strong> Empfehlungs-, Vergleichs- und Vertrauensfragen („Welcher Anbieter …", „X oder Y", „Gibt es Erfahrungen mit …") stehen der Entscheidung am nächsten; allgemeine Recherchefragen sind am wenigsten wert.`,
+              `<strong>Prompts entlang der Kaufentscheidung wählen.</strong> Empfehlungs-, Vergleichs- und Vertrauensfragen stehen der Entscheidung am nächsten; allgemeine Recherchefragen sind am wenigsten wert. Die Tabelle unten zeigt die Kategorien mit B2B-Beispielen.`,
               `<strong>Eine <a href="${G}/nullmessung/">Nullmessung</a> vor der ersten Maßnahme.</strong> Ohne Referenzwert lässt sich acht Wochen später nichts belegen.`,
               `<strong>Modellwissen getrennt abfragen.</strong> Was sagt die KI ohne Websuche über das Unternehmen? Falsche Leistung, alter Standort — dann liegt die Aufgabe bei der Markenbeschreibung, nicht beim Content.`,
               `<strong><a href="${G}/quellenanalyse/">Quellenanalyse</a>:</strong> Welche Drittseiten zitiert die KI bei den eigenen Prompts? Das ist die Liste, auf der man stehen muss.`,
+            ],
+          },
+          {
+            type: 'table',
+            caption: 'Promptkategorien nach Kaufnähe — mit B2B-Beispielen (Einteilung nach Chrissy Kunisch, SISTRIX Meetup 09/2026; Archetypen wie in der CodaAI-Studie)',
+            head: ['Kategorie', 'B2B-Beispiel', 'Einfluss auf die Kaufentscheidung'],
+            rows: [
+              ['Allgemeine Recherche', '„Worauf kommt es bei der Auswahl eines Fördersystems an?"', 'gering — kein Kaufinteresse erkennbar'],
+              ['Problemlösung', '„Wie lassen sich Kühlschmierstoffe in der Zerspanung länger nutzen?"', 'mittel — Problem vorhanden, Anbieter noch offen'],
+              ['Marktübersicht / Empfehlung', '„Welche Hersteller von Aluminium-Profilsystemen gelten als führend in Europa?"', 'hoch — hier entsteht die Kandidatenliste'],
+              ['Vergleich', '„Anbieter A oder Anbieter B für die Oberflächenveredelung von Kleinteilen?"', 'hoch — kurz vor der Entscheidung'],
+              ['Vertrauen / Reputation', '„Gibt es Erfahrungen mit Anbieter A bei Großserien?"', 'hoch — wer hier nicht überzeugt, hat den Einkäufer verloren'],
+              ['Kauf / Abschluss', '„Wo bekomme ich Anbieter A mit Lieferzeit unter vier Wochen?"', 'mittel — Marke steht, Verfügbarkeit zählt'],
             ],
           },
           {
@@ -381,7 +431,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       { name: 'Aimee Jurenka, Search Engine Land — „Schema markup and AI search: no hype"', what: 'Wirkung von Schema-Markup auf KI-Zitierungen, inkl. Search-Atlas-Daten', sample: 'Einordnung', date: 'März 2026', href: 'https://searchengineland.com/schema-markup-ai-search-no-hype-472339' },
       { name: 'Chrissy Kunisch, ONE Beyond Search — „Step into Confidence: AI Search verstehen und richtig messen"', what: 'Retrieval-Kette, Formel, Messlogik', sample: 'Vortrag, SISTRIX Meetup', date: 'September 2026', href: 'https://onebeyondsearch.com/' },
     ],
-    faqTitle: 'Häufige Fragen zur GEO-Optimierung',
+    faqTitle: 'Häufige Fragen zur GEO-Optimierung im B2B',
     faq: [
       {
         q: 'Ersetzt GEO-Optimierung die klassische Suchmaschinenoptimierung?',
@@ -404,6 +454,14 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         a: 'Als Anteil über viele Durchläufe statt als Position. Ein festes Set von Prompts wird regelmäßig mehrfach abgefragt; gemessen werden Mention Rate, Citation Rate und Share of AI Search im Vergleich zu Wettbewerbern, jeweils ausgehend von einer Nullmessung. Ein einzelner Sichtbarkeitswert aus einer einzigen Abfrage misst dagegen Rauschen — SparkToro fand bei 2.961 Durchläufen eine Chance unter 1 : 100, dieselbe Liste zweimal zu erhalten.',
       },
       {
+        q: 'Warum ist ein B2B-Unternehmen bei Google sichtbar, in ChatGPT aber nicht?',
+        a: 'Weil ChatGPT überwiegend aus Trainingsdaten antwortet und die Google KI-Übersicht stärker auf den Live-Index zugreift. In der CodaAI-Studie (449 Unternehmen, 7.184 KI-Antworten) waren 35 % der Unternehmen mit mehr als 100 Top-10-Rankings bei Google in ChatGPT komplett unsichtbar; die durchschnittliche Sichtbarkeit lag in ChatGPT bei 24,9 %, in der Google KI-Übersicht bei 39,4 %. Ein Nischenhersteller mit 200 Mitarbeitern ist im Modellwissen schlicht nicht vorhanden — er kommt nur über Grounding und über Nennungen auf Drittseiten in die Antwort.',
+      },
+      {
+        q: 'Lohnt sich GEO-Optimierung auch für Nischenanbieter im B2B-Mittelstand?',
+        a: 'Gerade dort. In der CodaAI-Studie wurden 26 % der Unternehmen selbst bei der Marktübersichtsfrage zu ihrer eigenen Kategorie nicht genannt, und bei 47 % empfahl die KI stattdessen namentlich Wettbewerber. Je enger die Nische, desto kürzer die Kandidatenliste der KI — und desto größer der Anteil einer einzelnen Nennung. Wo Unternehmen genannt werden, stehen sie im Schnitt an Position 1,8; die Antwort ist kurz, und die ersten beiden Plätze entscheiden.',
+      },
+      {
         q: 'Zählen Markennennungen ohne Link für die KI-Sichtbarkeit?',
         a: 'Ja, und sie zählen stärker als Backlinks. Ahrefs hat für 75.000 Marken gemessen, dass Markennennungen im Web mit 0,664 mit Nennungen in der Google KI-Übersicht korrelieren, Backlinks nur mit 0,218. Der KI ist gleichgültig, ob eine Information von der eigenen Website oder von Drittseiten stammt — entscheidend ist ein konsistentes Markenbild über alle Quellen.',
       },
@@ -413,8 +471,8 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       h2: 'Wo steht Ihr Unternehmen heute in den KI-Antworten Ihrer Branche?',
       p: 'Das Digital Visibility Audit misst zu echten Einkäuferfragen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen nennen, wer stattdessen genannt wird — und an welcher der drei Ebenen es liegt.',
     },
-    headline: 'GEO-Optimierung: Wie Unternehmen in KI-Antworten genannt und zitiert werden',
-    tags: ['GEO-Optimierung', 'Generative Engine Optimization', 'KI-Sichtbarkeit', 'ChatGPT', 'Google KI-Übersicht'],
+    headline: 'GEO-Optimierung für B2B-Unternehmen: Wie Mittelständler in KI-Antworten genannt und zitiert werden',
+    tags: ['GEO-Optimierung', 'Generative Engine Optimization', 'KI-Sichtbarkeit', 'B2B', 'Mittelstand', 'ChatGPT', 'Google KI-Übersicht'],
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -422,18 +480,19 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
     path: '/en/knowledge/geo-optimization/',
-    metaTitle: 'GEO Optimization: Getting Cited in AI Answers | CodaAI',
+    metaTitle: 'GEO Optimization for B2B: Getting Cited in AI Answers | CodaAI',
     metaDescription:
-      'GEO optimization explained: how ChatGPT, Gemini and Google AI Overviews select sources, which measures demonstrably work, what does not work and how to measure success.',
-    kicker: 'GEO optimization · Guide',
+      'GEO optimization for B2B companies: how ChatGPT, Gemini and Google AI Overviews select sources, what demonstrably works, what does not — with figures from 7,184 AI answers on 449 mid-sized companies.',
+    kicker: 'GEO optimization · Guide for B2B companies',
     line1: 'Your website ranks on Google.',
     line2: 'AI answers still leave it out.',
     lead:
-      'Generative Engine Optimization (GEO) is the work of making AI systems such as ChatGPT, Gemini, Perplexity and Google AI Overviews mention a company and cite its content as a source. GEO does not replace SEO, it builds on it: no ranking, no grounding; no grounding, no AI visibility. This page explains how an AI answer is built, which measures demonstrably work, what does not work and how success is measured.',
+      'Generative Engine Optimization (GEO) is the work of making AI systems such as ChatGPT, Gemini, Perplexity and Google AI Overviews mention a company and cite its content as a source. GEO does not replace SEO, it builds on it: no ranking, no grounding; no grounding, no AI visibility. This page explains, for B2B companies, how an AI answer is built, which measures demonstrably work, what does not work and how success is measured — backed by our study of 449 mid-sized companies.',
     brief: {
       title: 'The short version',
       items: [
         'GEO optimization makes content citable in AI answers. It builds on SEO: a page has to rank for the question and its sub-questions before an AI system even considers it as a source.',
+        'In mid-sized B2B the gap is wide: in 55 % of 3,592 buyer questions the company name did not come up, and 35 % of companies with more than 100 top-10 Google rankings were completely invisible in ChatGPT (CodaAI study, 449 companies).',
         'AI systems cite passages, not pages. Google grants roughly 2,000 words of grounding budget per query; the top-ranked source gets 28 % of it, the fifth 13 % (dejan.ai, 7,060 queries).',
         'Quotes, statistics and cited sources in the text demonstrably work: in the Princeton study (KDD 2024) they raised visibility by 28 to 41 %, and citing sources lifted pages ranked fifth by 115 %.',
         'Brand mentions on third-party sites correlate more strongly with AI visibility (0.664) than backlinks (0.218) — Ahrefs, 75,000 brands.',
@@ -505,12 +564,47 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         ],
       },
       {
+        id: 'study',
+        h2: 'What does the study show for B2B companies?',
+        blocks: [
+          {
+            type: 'p',
+            html: `The study shows, for B2B companies, that classic search-engine strength does not translate into AI answers. In June and July 2026 we examined <a href="/en/study/">449 mid-sized German companies from 258 industries</a>: eight qualified buyer questions each in three archetypes (market overview, use case, competitor comparison), put to ChatGPT and Google AI Overviews — 3,592 questions, 7,184 documented answers. Four findings carry this guide:`,
+          },
+          {
+            type: 'p',
+            html: `<strong>The SEO paradox.</strong> 361 of the companies examined have more than 100 top-10 rankings on Google. <strong>35 % of them are nevertheless completely invisible in ChatGPT</strong> — zero mentions across eight questions. More than a third of the firms that did everything right on Google do not exist for the AI. The cause is in the next section: ChatGPT answers mostly from training data, and whoever is missing there is missing structurally.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Invisible in their own core business.</strong> <strong>26 % of companies are not mentioned even for the market-overview question about their own category</strong> (“Which providers of … are considered leaders?”). That is the question a buyer starts the discovery phase with. Whoever is missing here never makes it onto the shortlist.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Competitors instead of a gap.</strong> An AI answer does not stay empty when a company is missing — it names someone else. <strong>For 47 % of companies the AI predominantly recommends competitors by name.</strong> Where companies are mentioned, they sit at position 1.8 on average — the answer is short, and the first two places decide.`,
+          },
+          {
+            type: 'p',
+            html: `<strong>Two systems, two realities.</strong> The same questions yielded an average visibility of <strong>24.9 %</strong> in ChatGPT and <strong>39.4 %</strong> in Google AI Overviews. 39.6 % of companies are never mentioned by ChatGPT, 15.1 % not by Google either. Google AI Overviews draw more on the live index — <a href="${GE}/grounding/">grounding</a> works faster there; in ChatGPT the brand first has to make it into <a href="${GE}/model-knowledge/">model knowledge</a> or into the candidate pool via third-party sites.`,
+          },
+          {
+            type: 'callout',
+            title: 'Example from the data set',
+            html: `A mechanical engineering firm for factory automation and conveyor systems, around 640 top-10 rankings on Google. Buyer question: “Which manufacturers of aluminium profile systems for factory automation are considered leaders in Europe?” Result: <strong>no mention in ChatGPT or Google AI Overviews, 0 out of 8 questions.</strong> The most frequently named competitor appears seven times — a DAX-adjacent corporation occupies the category. The company ranks on page one for the same terms; what it lacks is not relevance but <a href="${GE}/brand-mentions/">mentions on third-party sites</a>, which the AI reads as its candidate list. Further examples and the methodology are in the <a href="/en/study/">study</a>.`,
+          },
+          {
+            type: 'p',
+            html: `What follows for B2B: the third-party studies further down measure large brands in the English-speaking market. Our figures measure German mid-sized companies with niche products — and there the gap is wider, because model knowledge about a firm with 200 employees is thin and grounding remains the only route into the answer.`,
+          },
+        ],
+      },
+      {
         id: 'retrieval',
         h2: 'How does content get into an AI answer?',
         blocks: [
           {
             type: 'p',
-            html: `Content gets into an AI answer in one of two ways: through <a href="${GE}/model-knowledge/">model knowledge</a>, built during training from sources such as <a href="${GE}/common-crawl/">Common Crawl</a> and Wikipedia, or through <a href="${GE}/web-search/">web search</a>, which the system triggers when it is not confident it can answer from memory. Model knowledge ends at the <a href="${GE}/knowledge-cutoff/">knowledge cutoff</a>; a company that has rebranded, repositioned or been founded since then does not exist there. For anything current, web search is the only route, and it runs in four steps:`,
+            html: `Content gets into an AI answer in one of two ways: through <a href="${GE}/model-knowledge/">model knowledge</a>, built during training from sources such as <a href="${GE}/common-crawl/">Common Crawl</a> and Wikipedia, or through <a href="${GE}/web-search/">web search</a>, which the system triggers when it is not confident it can answer from memory. Model knowledge ends at the <a href="${GE}/knowledge-cutoff/">knowledge cutoff</a>; a company that has rebranded, repositioned, spun off or merged since then does not exist there — a frequent case in mid-sized B2B, and the one the study makes visible as the “SEO paradox”. For anything current, web search is the only route, and it runs in four steps:`,
           },
           { type: 'diagram', id: 'retrieval' },
           {
@@ -595,7 +689,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             items: [
               `<strong>Presence in comparison lists:</strong> In an analysis of around 1,260 B2B buying prompts (Overthink Group, July 2026), 70.8 % of all citations pointed to pages with “best”, “top” or “leading” in the title. A company missing from the <a href="${GE}/listicles/">lists</a> the AI already cites is missing from the answer.`,
               `<strong>Your own homepage:</strong> Among the 1,000 most-cited pages in ChatGPT, 23.8 % are home and landing pages (Ahrefs, October 2025) — the second-largest category after Wikipedia, and the only one the company fully owns. A <a href="${GE}/consistent-brand-description/">consistent brand description</a> there and on every profile is the foundation.`,
-              `<strong><a href="${GE}/review-platforms/">Review platforms</a>, trade media, <a href="${GE}/digital-pr/">digital PR</a>:</strong> mentions in sources the AI already cites in your industry — even without a link. Named experts with a quote are picked up more often than anonymous editorial teams.`,
+              `<strong><a href="${GE}/review-platforms/">Review platforms</a>, trade media, <a href="${GE}/digital-pr/">digital PR</a>:</strong> mentions in sources the AI already cites in your industry — even without a link. In B2B that is not Trustpilot or Google reviews but industry portals, trade media, association directories and software comparison platforms such as Capterra or G2. Named experts with a quote are picked up more often than anonymous editorial teams.`,
               `<strong><a href="${GE}/youtube-presence/">Your own videos</a> with transcripts and <a href="${GE}/entity/">entities</a> in knowledge bases:</strong> both are sources models are trained on and prefer during grounding.`,
             ],
           },
@@ -649,10 +743,23 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           {
             type: 'ul',
             items: [
-              `<strong>Choose prompts along the buying decision.</strong> Recommendation, comparison and trust questions (“Which supplier …”, “X or Y”, “Is there any experience with …”) are closest to the decision; general research questions are worth the least.`,
+              `<strong>Choose prompts along the buying decision.</strong> Recommendation, comparison and trust questions are closest to the decision; general research questions are worth the least. The table below shows the categories with B2B examples.`,
               `<strong>A <a href="${GE}/baseline-measurement/">baseline measurement</a> before the first measure.</strong> Without a reference value, nothing can be proven eight weeks later.`,
               `<strong>Query model knowledge separately.</strong> What does the AI say about the company without web search? Wrong service, old location — then the task lies with the brand description, not the content.`,
               `<strong><a href="${GE}/source-analysis/">Source analysis</a>:</strong> Which third-party sites does the AI cite for your prompts? That is the list you need to be on.`,
+            ],
+          },
+          {
+            type: 'table',
+            caption: 'Prompt categories by proximity to purchase — with B2B examples (classification after Chrissy Kunisch, SISTRIX Meetup 09/2026; archetypes as in the CodaAI study)',
+            head: ['Category', 'B2B example', 'Influence on the buying decision'],
+            rows: [
+              ['General research', '“What matters when choosing a conveyor system?”', 'low — no buying intent visible'],
+              ['Problem solving', '“How can cutting fluids be used longer in machining?”', 'medium — problem exists, supplier still open'],
+              ['Market overview / recommendation', '“Which manufacturers of aluminium profile systems are considered leaders in Europe?”', 'high — this is where the shortlist is formed'],
+              ['Comparison', '“Supplier A or supplier B for surface finishing of small parts?”', 'high — just before the decision'],
+              ['Trust / reputation', '“Is there any experience with supplier A on large production runs?”', 'high — whoever fails to convince here has lost the buyer'],
+              ['Purchase / closing', '“Where can I get supplier A with a lead time under four weeks?”', 'medium — brand is set, availability counts'],
             ],
           },
           {
@@ -708,7 +815,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       { name: 'Aimee Jurenka, Search Engine Land — “Schema markup and AI search: no hype”', what: 'Effect of schema markup on AI citations, incl. Search Atlas data', sample: 'Assessment', date: 'March 2026', href: 'https://searchengineland.com/schema-markup-ai-search-no-hype-472339' },
       { name: 'Chrissy Kunisch, ONE Beyond Search — “Step into Confidence: understanding and measuring AI search” (German)', what: 'Retrieval chain, formula, measurement logic', sample: 'Talk, SISTRIX Meetup', date: 'September 2026', href: 'https://onebeyondsearch.com/' },
     ],
-    faqTitle: 'Frequently asked questions about GEO optimization',
+    faqTitle: 'Frequently asked questions about GEO optimization in B2B',
     faq: [
       {
         q: 'Does GEO optimization replace classic search engine optimization?',
@@ -731,6 +838,14 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         a: 'As a share over many runs rather than as a position. A fixed set of prompts is queried repeatedly and regularly; mention rate, citation rate and share of AI search are measured against competitors, each starting from a baseline measurement. A single visibility score from a single query measures noise — SparkToro found, across 2,961 runs, a chance below 1 in 100 of receiving the same list twice.',
       },
       {
+        q: 'Why is a B2B company visible on Google but not in ChatGPT?',
+        a: 'Because ChatGPT answers mostly from training data, while Google AI Overviews draw more on the live index. In the CodaAI study (449 companies, 7,184 AI answers), 35 % of companies with more than 100 top-10 Google rankings were completely invisible in ChatGPT; average visibility was 24.9 % in ChatGPT and 39.4 % in Google AI Overviews. A niche manufacturer with 200 employees simply is not present in model knowledge — it only gets into the answer through grounding and through mentions on third-party sites.',
+      },
+      {
+        q: 'Is GEO optimization worthwhile for niche providers in mid-sized B2B?',
+        a: 'Especially there. In the CodaAI study, 26 % of companies were not mentioned even for the market-overview question about their own category, and for 47 % the AI recommended competitors by name instead. The narrower the niche, the shorter the AI’s candidate list — and the larger the share of a single mention. Where companies are mentioned, they sit at position 1.8 on average; the answer is short, and the first two places decide.',
+      },
+      {
         q: 'Do brand mentions without a link count for AI visibility?',
         a: 'Yes, and they count more than backlinks. Ahrefs measured for 75,000 brands that brand mentions on the web correlate at 0.664 with mentions in Google AI Overviews, backlinks at only 0.218. The AI does not care whether a piece of information comes from your own website or from third-party sites — what matters is a consistent brand picture across all sources.',
       },
@@ -740,8 +855,8 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       h2: 'Where does your company stand today in the AI answers of your industry?',
       p: 'The Digital Visibility Audit measures, on real buyer questions, whether ChatGPT and Google AI Overviews mention your company, who is named instead — and on which of the three levels the cause lies.',
     },
-    headline: 'GEO optimization: how companies get named and cited in AI answers',
-    tags: ['GEO optimization', 'Generative Engine Optimization', 'AI visibility', 'ChatGPT', 'Google AI Overviews'],
+    headline: 'GEO optimization for B2B companies: how mid-sized firms get named and cited in AI answers',
+    tags: ['GEO optimization', 'Generative Engine Optimization', 'AI visibility', 'B2B', 'mid-sized companies', 'ChatGPT', 'Google AI Overviews'],
   },
 };
 

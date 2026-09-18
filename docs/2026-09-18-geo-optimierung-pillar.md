@@ -83,6 +83,27 @@ geprüft, kein Mehrwert), Growth Memo (Paywall — Fundstelle nicht prüfbar), D
 Multiplikatoren aus dem Deck („4× Reddit", „3× Review-Plattformen" — ohne Quelle auf der Folie),
 Knowledge-Cutoff-Aussage „nur drei Modelle mit 2026-Daten" (nur als Deck-Aussage, nicht nachprüfbar).
 
+## Nachtrag 18.09. nachmittags — B2B-Fokus und Studie (Beschluss Oli)
+
+Anlass: Die Belege waren zu 14 von 16 fremde, englischsprachige Studien an großen Marken — die kann
+jede Agentur zitieren. Uniqueness-Kriterium: Das Einzige, wofür ein KI-System nur uns zitieren kann,
+ist die eigene Studie. Umgesetzt (DE + EN, Commit siehe Git):
+
+- **Neuer Abschnitt `#studie` / `#study`** zwischen SEO-vs-GEO und Retrieval-Kette: vier Befunde je
+  ein zitierfähiger Absatz (SEO-Paradox 35 % von 361 · Kategorie-Blindheit 26 % · Wettbewerber statt
+  Lücke 47 %, Ø Position 1,8 · ChatGPT 24,9 % vs. Google 39,4 %, nie genannt 39,6 %/15,1 %) + das
+  Fördertechnik-Beispiel als Callout. **Nur Zahlen im Wortlaut von `/studie/`** (Konstanten `K`), keine
+  neue Auswertung des Datensatzes, Beispiele anonymisiert wie dort.
+- **B2B als Faden:** Titel/Meta/Kicker/Lead/Headline auf „für B2B", BLUF um einen Studien-Satz,
+  Knowledge-Cutoff-Absatz nennt Rebranding/Ausgründung/Fusion, Bewertungsplattformen im B2B
+  (Portale, Fachmedien, Verbände, Capterra/G2 statt Trustpilot).
+- **Promptkategorien-Tabelle** mit B2B-Beispielfragen im Messen-Abschnitt (sechs Kategorien nach
+  Kaufnähe, Einteilung Kunisch, Archetypen der Studie).
+- **Zwei FAQ** je Sprache: „Warum bei Google sichtbar, in ChatGPT nicht?" und „Lohnt sich GEO für
+  Nischenanbieter?" — Wächter: 400 FAQ sitewide eindeutig.
+- Links in der dunklen Callout-Fläche auf Weiß/Unterstrich (magenta Text auf Ink Navy < 2:1).
+- DE jetzt ~4.300 Wörter, EN ~4.700. Build 175/0.
+
 ## Prüfung
 
 - Build in `$HOME/buildcheck` (Symlink-`node_modules`, siehe CLAUDE.md 1a): **175 Seiten, 0 Fehler**;
