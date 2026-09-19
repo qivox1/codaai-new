@@ -111,10 +111,6 @@ export const faqPreise: FaqItem[] = [
     a: 'Ein Wechsel nach oben ist jederzeit zum nächsten Monat möglich, die laufende Mindestlaufzeit läuft dabei weiter. Ein Wechsel nach unten zum Ende der Mindestlaufzeit. Die Artikelzahl innerhalb Ihrer Stufe passen Sie zu jedem Verlängerungszeitpunkt an.',
   },
   {
-    q: 'Was ist das Sichtbarkeits-Versprechen?',
-    a: 'Zeigt sich nach 120 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir bis zum Ende der Laufzeit ohne weitere Kosten weiter. Gemessen wird an Ihrem monatlichen Monitoring — denselben Zahlen, die Sie ohnehin von uns bekommen. Es ist ein Versprechen auf unsere Arbeit, keine Zusage auf eine Platzierung: Wir tragen das Risiko, wenn nichts passiert.',
-  },
-  {
     q: 'Wie bekomme ich ein verbindliches Angebot?',
     a: 'Stellen Sie Ihre Konfiguration im Rechner zusammen und buchen Sie das 30-Minuten-Gespräch. Sie bekommen das Angebot danach schriftlich — zum Weiterleiten an Geschäftsführung oder Einkauf. Abgerechnet wird auf Rechnung, eine Kreditkarte brauchen Sie nicht.',
   },

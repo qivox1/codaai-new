@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import ContentRequestForm from '../../components/react/ContentRequestForm';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
 import RelatedArticles from '../../components/RelatedArticles.astro';
@@ -297,16 +296,16 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
 
             <!-- CTA Card -->
             <div class="rounded-2xl bg-gradient-to-br from-cta/10 to-cta/5 border border-cta/20 p-6 text-center">
-              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">Kostenlos testen</p>
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">Kostenloser Check</p>
               <p class="text-sm font-semibold text-foreground mb-4 leading-snug">
-                Lassen Sie CodaAI Ihren ersten Premium-Artikel erstellen â kostenlos.
+                Nennt die KI Ihr Unternehmen? Sehen Sie es in Sekunden – ohne Anmeldung.
               </p>
-              <ContentRequestForm
-                lang="de"
-                triggerClassName="btn-cta h-14 px-8 text-base w-full justify-center"
-                triggerLabel="Kostenlos testen"
-                client:idle
-              />
+              <a
+                href={`${base}/check/`}
+                class="inline-flex items-center justify-center w-full h-11 rounded-[14px] bg-cta-strong text-white font-semibold text-sm hover:bg-cta-strong/90 transition-colors"
+              >
+                Website prüfen
+              </a>
             </div>
 
             <!-- Author Card -->

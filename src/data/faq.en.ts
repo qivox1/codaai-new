@@ -114,10 +114,6 @@ export const faqPricingEn: FaqItem[] = [
     a: 'Moving up is possible at any time from the following month, with the running minimum term continuing. Moving down takes effect at the end of the minimum term. The number of articles within your tier you can adjust at every renewal date.',
   },
   {
-    q: 'What is the visibility commitment?',
-    a: 'If after 120 days there is no measurable movement in your AI mentions, we keep working until the end of the term at no further cost. It is measured against your monthly monitoring — the same figures you receive from us anyway. It is a commitment on our work, not a promise of a placement: we carry the risk if nothing happens.',
-  },
-  {
     q: 'How do I get a binding quote?',
     a: 'Put your configuration together in the calculator and book the 30-minute call. You receive the quote in writing afterwards — ready to forward to management or procurement. We bill by invoice; you do not need a credit card.',
   },

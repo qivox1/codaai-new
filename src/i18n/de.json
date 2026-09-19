@@ -214,12 +214,8 @@
         "answer": "Wir dokumentieren monatlich, wie oft Ihr Unternehmen in KI-Antworten auf relevante Einkäuferfragen genannt wird (Mention Rate), welche Quellen die KI dafür zitiert und wie Ihr Anteil im Vergleich zum Wettbewerb aussieht (Share of Voice). Wichtig für die Einordnung: KI-Antworten sind nicht deterministisch — dieselbe Frage kann unterschiedlich beantwortet werden. Seriöse Messung zeigt deshalb Trends über Wochen und Monate, keine Tages-„Platzierungen“. Genau so ist unser Monatsreport aufgebaut."
       },
       {
-        "question": "Was ist das Sichtbarkeits-Versprechen?",
-        "answer": "Jede Digital-Visibility-Stufe enthält unser Versprechen: Zeigt sich nach 120 Tagen keine messbare Bewegung in Ihren KI-Nennungen, arbeiten wir das Sichtbarkeits-Programm bis zum Ende der Laufzeit kostenlos weiter. Gemessen wird über Ihr monatliches Monitoring — dieselben Zahlen, die Sie ohnehin von uns bekommen. Es ist ein Versprechen auf unsere Arbeit, keine Platzierungs-Zusage: Wir tragen das Risiko mit, statt es Ihnen allein zu überlassen."
-      },
-      {
         "question": "Warum garantieren Sie keine bestimmte Platzierung in ChatGPT?",
-        "answer": "Weil das niemand seriös kann. KI-Antworten sind nicht deterministisch — dieselbe Frage kann heute anders beantwortet werden als morgen, und es existiert kein Programm, mit dem sich eine Nennung kaufen oder buchen ließe. Anbieter, die „Platz 1 in ChatGPT“ garantieren, versprechen etwas technisch Unmögliches. Wir arbeiten stattdessen an den nachweislich wirksamen Hebeln, messen die Entwicklung transparent — und hinterlegen das mit unserem Sichtbarkeits-Versprechen."
+        "answer": "Weil das niemand seriös kann. KI-Antworten sind nicht deterministisch — dieselbe Frage kann heute anders beantwortet werden als morgen, und es existiert kein Programm, mit dem sich eine Nennung kaufen oder buchen ließe. Anbieter, die „Platz 1 in ChatGPT“ garantieren, versprechen etwas technisch Unmögliches. Wir arbeiten stattdessen an den nachweislich wirksamen Hebeln, messen die Entwicklung transparent."
       },
       {
         "question": "Was unterscheidet CodaAI von KI-Schreibtools und klassischen Agenturen?",
@@ -246,8 +242,8 @@
         "answer": "Sechs Monate, bei monatlicher Abrechnung — Sichtbarkeit in Suche und KI-Antworten braucht diesen Zeitraum, um messbar zu werden; die ersten Erwähnungen erscheinen im deutschen Markt typischerweise nach 8 bis 12 Wochen. Wer sich auf zwölf Monate festlegt, zahlt 10 % weniger. Es gibt kein automatisches Rollover: Sie entscheiden aktiv über die Verlängerung."
       },
       {
-        "question": "Warum sollte ich mindestens 3–6 Monate einplanen?",
-        "answer": "Weil Sichtbarkeit ein Aufbau-Prozess ist, kein Schalter. Neue Inhalte müssen gecrawlt, indexiert und bewertet werden; KI-Systeme greifen auf Quellen zurück, die über Zeit Vertrauen aufgebaut haben. Branchenweit gilt: erste KI-Nennungen nach etwa 8–12 Wochen, belastbare Sichtbarkeit nach 3–6 Monaten (Marktbenchmark DACH 2026). Genau darauf sind unsere Laufzeiten und das 120-Tage-Sichtbarkeits-Versprechen zugeschnitten — ehrliche Zeiträume statt Wunder-Zusagen."
+        "question": "Warum sollte ich mindestens sechs Monate einplanen?",
+        "answer": "Weil Sichtbarkeit ein Aufbau-Prozess ist, kein Schalter. Neue Inhalte müssen gecrawlt, indexiert und bewertet werden; KI-Systeme greifen auf Quellen zurück, die über Zeit Vertrauen aufgebaut haben. Branchenweit gilt: erste KI-Nennungen nach etwa 8–12 Wochen, belastbare Sichtbarkeit nach 3–6 Monaten (Marktbenchmark DACH 2026). Genau darauf ist unsere Mindestlaufzeit von sechs Monaten zugeschnitten — ehrliche Zeiträume statt Wunder-Zusagen."
       },
       {
         "question": "Was passiert nach der Kündigung?",

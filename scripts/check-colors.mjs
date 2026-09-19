@@ -61,7 +61,6 @@ const SCOPED_ALLOW = {
     'src/components/BlogCard.astro',
     'src/components/StufenTeaser.astro',
     'src/pages/index.astro',
-    'src/pages/auth/callback.astro',
     'src/components/react/BookingWidget.tsx',
     // GSAP-Animationsziele: hsl(var(--x)) ist nicht interpolierbar.
     'src/components/premium/Home.astro',
