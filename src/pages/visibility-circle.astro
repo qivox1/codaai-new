@@ -126,6 +126,21 @@ const lang = 'de' as const;
     targets.forEach((el) => io.observe(el));
     }
 
+
+    // Experten-Slider: Pfeile scrollen um eine Karte, Maus-Ziehen auf Desktop
+    const slider = root.querySelector<HTMLElement>('.vc-slider');
+    if (slider) {
+      root.querySelectorAll<HTMLButtonElement>('.vc-sbtn').forEach((b) => b.addEventListener('click', () => {
+        const card = slider.querySelector<HTMLElement>('.vc-expert');
+        const step = card ? card.offsetWidth + 20 : 320;
+        slider.scrollBy({ left: step * Number(b.dataset.dir), behavior: reduce ? 'auto' : 'smooth' });
+      }));
+      slider.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') slider.scrollBy({ left: 300, behavior: 'smooth' });
+        if (e.key === 'ArrowLeft') slider.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+    }
+
     // Anfrageformular → fertige E-Mail
     const form = root.querySelector<HTMLFormElement>('#vc-apply');
     form?.addEventListener('submit', (e) => {
@@ -428,6 +443,24 @@ const lang = 'de' as const;
   .vc-linkedin:hover { border-color: hsl(var(--cta) / .5); background: hsl(var(--cta) / .06); }
   .vc-linkedin svg { width: 1.1rem; height: 1.1rem; color: #0A66C2; }
   .vc-about { align-items: start; }
+
+
+  /* Experten-Slider */
+  .vc-slider-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+  .vc-slider-nav { display: flex; gap: .6rem; }
+  .vc-sbtn { width: 3rem; height: 3rem; border-radius: 99px; border: 1px solid hsl(var(--border-strong)); background: #fff; color: hsl(var(--heading)); font-size: 1.1rem; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .vc-sbtn:hover { background: hsl(var(--cta-strong)); border-color: transparent; color: #fff; }
+  .vc-slider { margin-top: 2.5rem; display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: max(1.5rem, calc((100vw - 80rem) / 2 + 2rem)); padding: .5rem max(1.5rem, calc((100vw - 80rem) / 2 + 2rem)) 1.5rem; scrollbar-width: none; }
+  .vc-slider::-webkit-scrollbar { display: none; }
+  .vc-slider:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: -2px; }
+  .vc-expert { flex: 0 0 min(19rem, 80vw); scroll-snap-align: start; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 20px; padding: 1.6rem; display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .vc-expert:hover { transform: translateY(-4px); box-shadow: 0 16px 36px hsl(var(--navy-700) / .1); border-color: hsl(var(--cta) / .35); }
+  .vc-expert img { width: 6.5rem; height: 6.5rem; border-radius: 99px; object-fit: cover; margin-bottom: 1.25rem; box-shadow: 0 0 0 4px #fff, 0 0 0 6px hsl(var(--cta) / .35); }
+  .vc-expert h3 { font-size: 1.2rem; font-weight: 700; color: hsl(var(--heading)); }
+  .vc-expert-head { margin-top: .6rem; font-size: .9rem; line-height: 1.55; color: hsl(var(--muted-foreground)); flex: 1; }
+  .vc-expert-li { margin-top: 1.25rem; display: inline-flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 600; color: hsl(var(--cta-accessible)); text-decoration: none; }
+  .vc-expert-li:hover { text-decoration: underline; }
+  .vc-expert-li svg { width: 1rem; height: 1rem; color: #0A66C2; }
 
   @media (prefers-reduced-motion: reduce) {
     .vc-orbit-spin, .vc-track, .vc-dot { animation: none !important; }
