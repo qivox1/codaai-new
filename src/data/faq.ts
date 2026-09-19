@@ -92,7 +92,7 @@ export const faqVisibility: FaqItem[] = [
 export const faqPreise: FaqItem[] = [
   {
     q: 'Wie setzt sich mein Monatspreis zusammen?',
-    a: 'Aus drei Posten: der Anzahl Fachbeiträge multipliziert mit dem Stückpreis Ihrer Stufe, den optionalen Erweiterungen (Übersetzungen, Videos) und dem festen Grundpreis Ihrer Stufe. Beispiel: 4 Artikel × 420 € = 1.680 €, plus Grundpreis der Stufe Empfohlen 990 € = 2.670 € pro Monat. Alles netto, alles auf einer Rechnung.',
+    a: 'Aus drei Posten: der Anzahl Fachbeiträge multipliziert mit dem Stückpreis Ihrer Stufe, den optionalen Erweiterungen (Übersetzungen, Videos) und dem festen Grundpreis Ihrer Stufe. Beispiel: 4 Artikel × 420 € = 1.680 €, plus Grundpreis der Stufe Empfohlen 2.790 € = 4.470 € pro Monat. Alles netto, alles auf einer Rechnung.',
   },
   {
     q: 'Warum kostet ein Artikel in Stufe 1 mehr als in Stufe 3?',
@@ -100,7 +100,7 @@ export const faqPreise: FaqItem[] = [
   },
   {
     q: 'Wie ordnet sich das gegenüber einer Agentur ein?',
-    a: 'Ein vergleichbarer Agentur-Retainer liegt im deutschsprachigen Raum im Schnitt bei rund 3.800 € pro Monat, das Band für den Mittelstand bei 1.500 bis 5.000 € (Marktbenchmark DACH 2026). Bei uns beginnt der Grundpreis bei 1.470 € pro Monat — und Sie können ihn im Rechner nachrechnen, statt ihn anzufragen. Der Unterschied entsteht durch die Arbeitsteilung: Menschen entscheiden und prüfen, KI erledigt das Wiederkehrende.',
+    a: 'Ein vergleichbarer Agentur-Retainer liegt im deutschsprachigen Raum im Schnitt bei rund 3.800 € pro Monat, das Band für den Mittelstand bei 1.500 bis 5.000 € (Marktbenchmark DACH 2026). Bei uns beginnt der Monatspreis bei 1.970 € — und Sie können ihn im Rechner nachrechnen, statt ihn anzufragen. Der Unterschied entsteht durch die Arbeitsteilung: Menschen entscheiden und prüfen, KI erledigt das Wiederkehrende.',
   },
   {
     q: 'Welche Mindestlaufzeit gilt — und was passiert danach?',

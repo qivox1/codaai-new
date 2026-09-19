@@ -95,7 +95,7 @@ export const faqVisibilityEn: FaqItem[] = [
 export const faqPricingEn: FaqItem[] = [
   {
     q: 'How is my monthly price put together?',
-    a: 'From three items: the number of articles multiplied by the unit price of your tier, the optional add-ons (translations, videos), and the fixed base fee of your tier. Example: 4 articles × €420 = €1,680, plus the €990 base fee of Tier 2 · Recommended = €2,670 per month. All net, all on one invoice.',
+    a: 'From three items: the number of articles multiplied by the unit price of your tier, the optional add-ons (translations, videos), and the fixed base fee of your tier. Example: 4 articles × €420 = €1,680, plus the €2,790 base fee of Tier 2 · Recommended = €4,470 per month. All net, all on one invoice.',
   },
   {
     q: 'Why does an article cost more in Tier 1 than in Tier 3?',
@@ -103,7 +103,7 @@ export const faqPricingEn: FaqItem[] = [
   },
   {
     q: 'How does this compare with an agency?',
-    a: 'A comparable agency retainer in the German-speaking market averages around €3,800 per month, with the mid-market band running from €1,500 to €5,000 (DACH market benchmark 2026). With us the base fee starts at €1,470 per month — and you can work it out in the calculator instead of requesting it. The difference comes from the division of labour: people decide and verify, AI handles what repeats.',
+    a: 'A comparable agency retainer in the German-speaking market averages around €3,800 per month, with the mid-market band running from €1,500 to €5,000 (DACH market benchmark 2026). With us the monthly price starts at €1,970 — and you can work it out in the calculator instead of requesting it. The difference comes from the division of labour: people decide and verify, AI handles what repeats.',
   },
   {
     q: 'What is the minimum term — and what happens afterwards?',

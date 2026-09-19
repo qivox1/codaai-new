@@ -15,7 +15,7 @@ Drei Fragen entscheiden über eine Nennung: Kann die KI das Unternehmen lesen? I
 
 ### Preise
 URL: ${BASE_URL}/preise/
-Drei Sichtbarkeits-Stufen mit einem monatlichen Grundpreis ab 1.470 €, dazu ein Preisrechner, dessen Summe sich nachrechnen lässt. Abgerechnet wird per Rechnung. Es gibt keine Platzierungs- oder Erfolgsgarantie.
+Drei Sichtbarkeits-Stufen ab 1.970 € pro Monat, dazu ein Preisrechner, dessen Summe sich nachrechnen lässt. Abgerechnet wird per Rechnung. Es gibt keine Platzierungs- oder Erfolgsgarantie.
 
 ### Studie „KI-Blindtest Mittelstand 2026"
 URL: ${BASE_URL}/studie/

@@ -203,7 +203,7 @@
       },
       {
         "question": "Wie viel kann ich tatsächlich sparen?",
-        "answer": "Ein vergleichbarer Agentur-Retainer liegt im DACH-Raum im Schnitt bei rund 3.800 € pro Monat (Marktbenchmark DACH 2026), das KMU-Band bei 1.500–5.000 €. Bei CodaAI starten die Sichtbarkeits-Stufen bei 1.470 € pro Monat und sind im Preisrechner nachrechenbar, statt „auf Anfrage“ zu kosten. Möglich wird das durch das Co-Creation-Modell: menschliche Expertise für Strategie und fachliche Prüfung, KI-Skalierung für die Produktion."
+        "answer": "Ein vergleichbarer Agentur-Retainer liegt im DACH-Raum im Schnitt bei rund 3.800 € pro Monat (Marktbenchmark DACH 2026), das KMU-Band bei 1.500–5.000 €. Bei CodaAI starten die Sichtbarkeits-Stufen bei 1.970 € pro Monat und sind im Preisrechner nachrechenbar, statt „auf Anfrage“ zu kosten. Möglich wird das durch das Co-Creation-Modell: menschliche Expertise für Strategie und fachliche Prüfung, KI-Skalierung für die Produktion."
       },
       {
         "question": "Wie funktioniert es? Was brauche ich zum Starten?",
@@ -263,7 +263,7 @@
     "totalHours": "/ 36,5 Stunden",
     "totalDescription": "Alles inklusive: SEO-Artikel, Grafiken, Videos und Veröffentlichung.",
     "withCodaAI": "Mit CodaAI",
-    "codaAIPrice": "ab 1.470 €*",
+    "codaAIPrice": "ab 1.970 €*",
     "codaAIPer": "statt ~3.800 € Marktschnitt.",
     "freeTrial": "Kostenlos testen",
     "costBreakdown": [
@@ -320,22 +320,22 @@
       {
         "name": "Basis",
         "badge": "",
-        "price": "ab 1.470 € / Monat",
-        "priceNote": "2–3 Artikel · 490 € je Artikel · Programm +490 €",
+        "price": "ab 1.970 € / Monat",
+        "priceNote": "2–3 Artikel · 490 € je Artikel · Grundpreis +990 €",
         "text": "Das Pflichtprogramm für messbare KI-Sichtbarkeit: Audit, monatliches KI-Monitoring, SEO inklusive Bing, technische KI-Zugänglichkeit und laufende Aktualisierung Ihrer Bestandsseiten."
       },
       {
         "name": "Aktiv",
         "badge": "Empfohlen",
-        "price": "ab 2.670 € / Monat",
-        "priceNote": "4–7 Artikel · 420 € je Artikel · Programm +990 €",
+        "price": "ab 4.470 € / Monat",
+        "priceNote": "4–6 Artikel · 420 € je Artikel · Grundpreis +2.790 €",
         "text": "Alles aus Basis plus die stärksten externen Hebel: Digital-PR und Markennennungen, Bewertungsplattformen, Platzierung in Vergleichsartikeln und YouTube-Ausrichtung Ihrer Videos."
       },
       {
         "name": "Dominanz",
         "badge": "",
-        "price": "ab 4.910 € / Monat",
-        "priceNote": "8–12 Artikel · 390 € je Artikel · Programm +1.790 €",
+        "price": "ab 5.990 € / Monat",
+        "priceNote": "6–10 Artikel · 390 € je Artikel · Grundpreis +3.650 €",
         "text": "Für den Anspruch, die Referenz Ihrer Branche zu werden: eigene Studien und Daten-Assets, Wissensdatenbanken, LinkedIn-Thought-Leadership und laufende Wettbewerbs-Beobachtung."
       }
     ],

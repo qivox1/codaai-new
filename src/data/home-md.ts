@@ -50,7 +50,7 @@ Einkäuferfragen misst — nicht Rankings, sondern Nennungen. Daraus ergibt sich
 15 Leistungsbausteine gearbeitet wird.
 
 Leistungsumfang: https://www.codaai.ai/digital-visibility/
-Preise (Grundpreis ab 1.470 € pro Monat, mit nachrechenbarem Rechner): https://www.codaai.ai/preise/
+Preise (ab 1.970 € pro Monat, mit nachrechenbarem Rechner): https://www.codaai.ai/preise/
 
 **CodaAI gibt keine Platzierungs- oder Erfolgsgarantie.** Welche Faktoren wirken, ist bekannt;
 die Formel der KI-Systeme kennt niemand. Geschuldet ist fachgerechtes Tätigwerden.
@@ -99,7 +99,7 @@ buyer questions — mentions, not rankings. That determines which of the 15 serv
 blocks the work focuses on.
 
 Scope of work: https://www.codaai.ai/en/digital-visibility/
-Pricing (base fee from €1,470 per month, with a calculator): https://www.codaai.ai/en/pricing/
+Pricing (from €1,970 per month, with a calculator): https://www.codaai.ai/en/pricing/
 
 **CodaAI gives no placement or success guarantee.** The factors that matter are known; nobody
 knows the formula the AI systems use. What is owed is professional work, not a ranking.

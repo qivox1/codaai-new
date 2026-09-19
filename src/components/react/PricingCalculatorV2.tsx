@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from 'react';
    Modellwechsel gegenüber V1:
    · Sichtbarkeit ist das Produkt, Content die Dosierung → "Ohne Stufe" entfällt
    · Stückpreis hängt an der STUFE, nicht an der Menge (490 / 420 / 390 €)
-   · Je Stufe ein disjunktes Artikelfenster (2–3 / 4–7 / 8–12)
+   · Je Stufe ein Artikelfenster (2–3 / 4–6 / 6–10)
+   · Grundpreise seit 19.09.2026: 990 / 2.790 / 3.650 € (vorher 490 / 990 / 1.790 €)
    · Übersetzungen flat 99 € je Sprache und Artikel (keine degressive Formel)
    · Videos flat 120 €, gekoppelt an den Artikel (0 / 1 / 2 je Artikel)
    · Laufzeit: 6 Monate Standard · 12 Monate −10 % auf die Gesamtsumme
@@ -24,9 +25,9 @@ const pushDL = (event: string, params: Record<string, unknown> = {}) => {
 type TierKey = 'basis' | 'aktiv' | 'dominanz';
 
 const TIERS: Record<TierKey, { unit: number; min: number; max: number; prog: number }> = {
-  basis:    { unit: 490, min: 2,  max: 3,  prog: 490 },
-  aktiv:    { unit: 420, min: 4,  max: 7,  prog: 990 },
-  dominanz: { unit: 390, min: 8,  max: 12, prog: 1790 },
+  basis:    { unit: 490, min: 2,  max: 3,  prog: 990 },
+  aktiv:    { unit: 420, min: 4,  max: 6,  prog: 2790 },
+  dominanz: { unit: 390, min: 6,  max: 10, prog: 3650 },
 };
 
 const LANG_PRICE = 99;

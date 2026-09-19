@@ -207,7 +207,7 @@
       },
       {
         "question": "How much can I actually save?",
-        "answer": "A comparable agency retainer in the DACH region averages around €3,800 per month (DACH market benchmark 2026), with the SME band at €1,500–5,000. CodaAI's visibility tiers start at €1,470 per month and can be calculated in the pricing calculator instead of costing “on request”. This is possible through the Co-Creation model: human expertise for strategy and factual review, AI scale for production."
+        "answer": "A comparable agency retainer in the DACH region averages around €3,800 per month (DACH market benchmark 2026), with the SME band at €1,500–5,000. CodaAI's visibility tiers start at €1,970 per month and can be calculated in the pricing calculator instead of costing “on request”. This is possible through the Co-Creation model: human expertise for strategy and factual review, AI scale for production."
       },
       {
         "question": "How does it work? What do I need to get started?",
@@ -243,7 +243,7 @@
     "totalHours": "/ 36.5 hours",
     "totalDescription": "Complete Premium Blog Article including long-form SEO article (up to 4,000 words), persona-driven writing, customer journey mapping, graphics, videos & promotion",
     "withCodaAI": "With CodaAI",
-    "codaAIPrice": "from €1,470*",
+    "codaAIPrice": "from €1,970*",
     "codaAIPer": "instead of the ~€3,800 market average.",
     "freeTrial": "Free Trial",
     "costBreakdown": [
@@ -300,22 +300,22 @@
       {
         "name": "Basic",
         "badge": "",
-        "price": "from €1,470 / month",
-        "priceNote": "2–3 articles · €490 each · programme +€490",
+        "price": "from €1,970 / month",
+        "priceNote": "2–3 articles · €490 each · base fee +€990",
         "text": "The must-have for measurable AI visibility: audit, monthly AI monitoring, SEO including Bing, technical AI accessibility, and ongoing updates to your existing pages."
       },
       {
         "name": "Active",
         "badge": "Recommended",
-        "price": "from €2,670 / month",
-        "priceNote": "4–7 articles · €420 each · programme +€990",
+        "price": "from €4,470 / month",
+        "priceNote": "4–6 articles · €420 each · base fee +€2,790",
         "text": "Everything in Basic plus the strongest external levers: digital PR and brand mentions, review platforms, placement in comparison articles, and YouTube alignment for your videos."
       },
       {
         "name": "Dominance",
         "badge": "",
-        "price": "from €4,910 / month",
-        "priceNote": "8–12 articles · €390 each · programme +€1,790",
+        "price": "from €5,990 / month",
+        "priceNote": "6–10 articles · €390 each · base fee +€3,650",
         "text": "For the ambition to become the reference in your industry: proprietary studies and data assets, knowledge bases, LinkedIn thought leadership, and ongoing competitive monitoring."
       }
     ],

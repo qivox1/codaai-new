@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /* ── Die drei Stufen (Beschluss 27.07.2026) ───────────────────────────────────
    Sichtbarkeit ist das Produkt, Content die Dosierung. "Ohne Stufe" entfällt.
-   Stückpreis hängt an der Stufe, jede Stufe hat ein disjunktes Artikelfenster.
+   Stückpreis hängt an der Stufe, jede Stufe hat ein eigenes Artikelfenster.
 
    Reduktion 27.07.2026 (Entscheidung Oli, nach dem Launch der Leistungsseite):
    Die Karten teasern nur noch — Beschreibung, Umfang, Preis, Link. Die
@@ -31,7 +31,7 @@ const stufen = [
     anchor: 'lesbar',
     ergebnis: 'Die KI kann Sie lesen — und Sie sehen monatlich, wo Sie stehen',
     bausteine: '6 Bausteine',
-    from: 'ab 1.470 €',
+    from: 'ab 1.970 €',
     recommended: false,
   },
   {
@@ -40,7 +40,7 @@ const stufen = [
     anchor: 'quellen',
     ergebnis: 'Ihr Name fällt auch dort, wo die KI ihre Belege holt',
     bausteine: '11 Bausteine',
-    from: 'ab 2.670 €',
+    from: 'ab 4.470 €',
     recommended: true,
   },
   {
@@ -49,7 +49,7 @@ const stufen = [
     anchor: 'quelle-werden',
     ergebnis: 'Ihr Markt beruft sich auf Ihre Zahlen',
     bausteine: '15 Bausteine',
-    from: 'ab 4.910 €',
+    from: 'ab 5.990 €',
     recommended: false,
   },
 ];
@@ -78,7 +78,7 @@ const faqSchema = {
 <Layout
   lang={lang}
   title="Preise – damit die nächste Anfrage bei Ihnen landet | CodaAI"
-  description="Transparent kalkuliert statt „auf Anfrage&quot;: drei Sichtbarkeits-Stufen ab 1.470 € pro Monat, mit einem Preisrechner, dessen Summe Sie nachrechnen können."
+  description="Transparent kalkuliert statt „auf Anfrage&quot;: drei Sichtbarkeits-Stufen ab 1.970 € pro Monat, mit einem Preisrechner, dessen Summe Sie nachrechnen können."
 >
   <Navbar lang={lang} />
   <main class="pt-0">
