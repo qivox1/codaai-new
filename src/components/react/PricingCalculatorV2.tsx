@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
    · Grundpreise seit 19.09.2026: 990 / 2.790 / 3.650 € (vorher 490 / 990 / 1.790 €)
    · Übersetzungen flat 99 € je Sprache und Artikel (keine degressive Formel)
    · Videos flat 120 €, gekoppelt an den Artikel (0 / 1 / 2 je Artikel)
+     1 = Hochformat (Instagram, Facebook, TikTok) · 2 = zusätzlich Querformat (LinkedIn, YouTube)
    · Laufzeit: 6 Monate Standard · 12 Monate −10 % auf die Gesamtsumme
    · Kein Stripe-Checkout mehr → Termin (primär) + Angebots-PDF (sekundär)
    ────────────────────────────────────────────────────────────────────────── */
@@ -93,9 +94,11 @@ const T = {
     langUnit: 'Sprachen · je 99 € pro Artikel',
     langHint: 'Beliebig viele Sprachen — jede kostet dasselbe. Der erste Durchgang läuft über DeepL, hinterlegt mit Ihrem Corporate Wording und Ihren Personas, damit der Text klingt wie Ihrer.',
     vidNone: 'Keine',
-    vidOne: '1 je Artikel',
-    vidTwo: '2 je Artikel',
-    vidHint: 'Kurzvideos für Ihre Fachbeiträge — für Reels, Shorts, TikTok und LinkedIn.',
+    vidOne: 'Hochformat',
+    vidTwo: 'Hoch- und Querformat',
+    vidOneFor: 'Instagram · Facebook · TikTok',
+    vidTwoFor: 'zusätzlich LinkedIn · YouTube',
+    vidHint: 'Kurzvideos für Ihre Fachbeiträge — im Hochformat für Instagram, Facebook und TikTok, im Querformat für LinkedIn und YouTube.',
     term6: '6 Monate', term6sub: 'Standardpreis',
     term12: '12 Monate', term12sub: '−10 %',
     extensions: 'Erweiterungen',
@@ -134,14 +137,14 @@ const T = {
     q2sub: 'Der wichtigste Hebel: Jeder Beitrag ist eine Seite, die KI-Systeme zitieren können.',
     q3: 'Brauchen Sie Übersetzungen?',
     q3sub: 'Für Unternehmen, die im Ausland gefunden werden wollen.',
-    q4: 'Sollen Ihre Fachbeiträge mehr Reichweite bekommen?',
+    q4: 'Sollen Ihre Fachbeiträge durch Videos mehr Reichweite bekommen?',
     q4sub: 'Kurzvideos für Ihre Fachbeiträge tragen sie dorthin, wo Ihre Zielgruppe scrollt.',
     q5: 'Wie lange soll die Laufzeit sein?',
     q5sub: 'Sichtbarkeit entsteht über Monate. Wer sich länger festlegt, zahlt weniger.',
     langNone: 'Keine Übersetzung',
     langSome: 'Ja, übersetzen',
     vidWhat:
-      'Für jeden Fachbeitrag erstellen wir kurze Videos (maximal 30 Sekunden) für LinkedIn, Facebook, Instagram, TikTok oder YouTube — dort, wo niemand lange Texte liest. Ihre Aufgabe ist Reichweite: Sie greifen eine Aussage aus dem Beitrag auf und führen zurück auf die Seite, die die vollständige Antwort trägt. Zitierfähig für KI-Systeme ist der Beitrag, nicht der Clip.',
+      'Zu jedem Fachbeitrag entsteht ein kurzes Video (maximal 30 Sekunden) — im Hochformat für Instagram, Facebook und TikTok, auf Wunsch zusätzlich im Querformat für LinkedIn und YouTube. Also dort, wo niemand lange Texte liest. Ihre Aufgabe ist Reichweite: Sie greifen eine Aussage aus dem Beitrag auf und führen zurück auf die Seite, die die vollständige Antwort trägt. Zitierfähig für KI-Systeme ist der Beitrag, nicht der Clip.',
     termHint: (m: string, y: string) => `Mit 12 Monaten zahlen Sie ${m} weniger pro Monat — ${y} über die Laufzeit.`,
   },
   en: {
@@ -160,9 +163,11 @@ const T = {
     langUnit: 'languages · €99 each per article',
     langHint: 'Any number of languages — each costs the same. The first pass runs through DeepL, primed with your corporate wording and personas so the text sounds like yours.',
     vidNone: 'None',
-    vidOne: '1 per article',
-    vidTwo: '2 per article',
-    vidHint: 'Short videos for your articles — for Reels, Shorts, TikTok and LinkedIn.',
+    vidOne: 'Portrait',
+    vidTwo: 'Portrait and landscape',
+    vidOneFor: 'Instagram · Facebook · TikTok',
+    vidTwoFor: 'plus LinkedIn · YouTube',
+    vidHint: 'Short videos for your articles — portrait for Instagram, Facebook and TikTok, landscape for LinkedIn and YouTube.',
     term6: '6 months', term6sub: 'standard price',
     term12: '12 months', term12sub: '−10 %',
     extensions: 'Extensions',
@@ -200,14 +205,14 @@ const T = {
     q2sub: 'The strongest lever: every article is a page AI systems can cite.',
     q3: 'Do you need translations?',
     q3sub: 'For companies that want to be found abroad.',
-    q4: 'Should your articles reach further?',
+    q4: 'Should videos give your articles more reach?',
     q4sub: 'Short videos for your articles carry them to where your audience scrolls.',
     q5: 'How long should the term be?',
     q5sub: 'Visibility builds over months. A longer commitment costs less.',
     langNone: 'No translation',
     langSome: 'Yes, translate',
     vidWhat:
-      'For every article we produce short videos (max. 30 seconds) for LinkedIn, Facebook, Instagram, TikTok and YouTube — where nobody reads long text. Their job is reach: they pick up one statement from the article and lead back to the page that carries the full answer. What AI systems can cite is the article, not the clip.',
+      'For every article we produce a short video (max. 30 seconds) — in portrait for Instagram, Facebook and TikTok, and on request also in landscape for LinkedIn and YouTube. That is where nobody reads long text. Their job is reach: they pick up one statement from the article and lead back to the page that carries the full answer. What AI systems can cite is the article, not the clip.',
     termHint: (m: string, y: string) => `A 12-month term saves you ${m} per month — ${y} over the term.`,
   },
 };
@@ -533,6 +538,11 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
                         aria-pressed={videos === v} className={segBtn(videos === v)}
                       >
                         {v === 0 ? t.vidNone : v === 1 ? t.vidOne : t.vidTwo}
+                        {v > 0 && (
+                          <small className="mt-1 block text-[11.5px] font-medium text-muted-foreground">
+                            {v === 1 ? t.vidOneFor : t.vidTwoFor}
+                          </small>
+                        )}
                         {v > 0 && (
                           <small className={`mt-1 block text-[11.5px] font-medium ${videos === v ? 'text-cta-accessible' : 'text-muted-foreground'}`}>
                             {eur(v * VIDEO_PRICE)} {t.perArticle}
