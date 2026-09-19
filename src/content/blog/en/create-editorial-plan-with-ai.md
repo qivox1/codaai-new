@@ -92,7 +92,7 @@ An editorial plan transforms content from random publishing to strategic positio
 
 With AI, planning becomes a competitive advantage – not a burden.
 
-**Use CodaAI's built-in planning tools** to create your first editorial plan in under 2 hours.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

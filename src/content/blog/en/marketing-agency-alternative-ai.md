@@ -1,6 +1,6 @@
 ---
 title: "AI vs Marketing Agency: Mid-Market Guide"
-description: "Why AI content platforms like CodaAI are becoming viable alternatives to marketing agencies – and when you should still hire an agency."
+description: "Why AI content platforms are becoming viable alternatives to marketing agencies – and when you should still hire an agency."
 pubDate: 2026-03-08
 lang: en
 author: "CodaAI Editorial Team"
@@ -80,7 +80,7 @@ Agencies still matter for strategy. For execution, AI is game-changing.
 
 The future: smaller agencies focused on thinking, AI platforms handling doing.
 
-**Try CodaAI** – replace your content agency in 30 days.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

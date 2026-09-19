@@ -149,31 +149,19 @@ For B2B blogs, this means concretely:
 
 **Trustworthiness:** No exaggerated promises, clear source attribution, verifiable figures, transparent impressum and privacy policy.
 
-## CodaAI Co-Create: From Topic to Finished B2B Article in 45 Minutes
+## How CodaAI works
 
-The argument mid-market companies most often make against a blog: "We don't have capacity." That was still understandable in 2020. Today, it's a question of the right workflow.
+At CodaAI, expert articles are not sold as a stand-alone service but as part of the [Digital Visibility programme](https://www.codaai.ai/en/digital-visibility/): we handle research, structure, writing and SEO/GEO optimisation. Your expertise comes in through the topic briefing and the subject-matter sign-off – without it, no article becomes citable. Technical work, measurement of your AI visibility and presence in third-party sources are part of the programme too.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) is an AI platform that automates the entire content production process – from keyword research through competitor analysis to the finished, SEO-optimized article.
+The monthly fee consists of a base fee per tier plus a price per expert article and starts at €1,970 (tier Found with two expert articles). The minimum term is six months; a twelve-month term comes with a 10% discount. Full details are on the [pricing page](https://www.codaai.ai/en/pricing/).
 
-The remaining human task: provide the topic (5 minutes) and fact-check the article (15–20 minutes).
-
-What CodaAI Co-Create automatically delivers:
-
-- Keyword analysis and competitor research
-- Structured article brief
-- Complete first draft (2,000–4,000 words) with H2/H3 structure
-- FAQ sections for SEO and GEO optimization
-- Meta description and Schema.org markup
-- LinkedIn post and newsletter snippet for distribution
-
-The result: B2B mid-market companies can finally achieve the publication frequency needed for measurable rankings – 4–6 articles per month – without agency budgets and without a full-time content role.
 
 ## The Entry Plan: From First Article to Content Machine
 
 **Month 1 – Laying the Foundation:**
 
 - Collect 10 customer questions (from sales, support, personal conversations)
-- Keyword research for all 10 topics (with CodaAI Co-Create: 30 minutes)
+- Keyword research for all 10 topics (with AI support: around 30 minutes)
 - Publish your first article on the topic with the best ratio of search volume to ranking potential
 
 **Months 2–3 – Building Rhythm:**
@@ -200,8 +188,8 @@ For B2B mid-market companies wanting to acquire more qualified leads at lower co
 
 The numbers are clear: 55% more website visitors, 126% more leads, significantly higher trust before the first sales conversation.
 
-And with AI platforms like CodaAI Co-Create, the effort is finally at a level achievable without a dedicated content team.
+And with AI-assisted production, the effort is finally at a level achievable without a dedicated content team.
 
 The question isn't whether your company needs a blog. It's when you'll start – and how many leads your competitors will have gained through organic content in the meantime.
 
-**Want to see what a first B2B article for your field looks like?** CodaAI Co-Create creates a demo article for your most important keyword – in 30 minutes, SEO-optimized and publication-ready. Try it free.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).

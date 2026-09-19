@@ -20,7 +20,7 @@ faq:
   - q: "Kann KI den gesamten Redaktionsplan erstellen?"
     a: "KI kann Themenvorschläge, Keyword-Zuordnung, Zielgruppenanalyse und Kalenderplanung automatisieren – also 70–80 % der Planungsarbeit. Was KI nicht vollständig ersetzen kann: das strategische Verständnis des eigenen Unternehmens, aktuelle Produkt-News und interne Prioritäten. Die Kombination aus KI-Basis und menschlicher Prüfung liefert die besten Ergebnisse."
   - q: "Wie weit im Voraus sollte ein Redaktionsplan geplant sein?"
-    a: "Ein rollierender 3-Monats-Plan hat sich bewährt: Monat 1 ist konkret ausgearbeitet, Monat 2–3 sind als Themenliste geplant. Das gibt Flexibilität bei aktuellen Themen (Newsjacking), hält aber die Kontinuität aufrecht. KI-Plattformen wie CodaAI aktualisieren den Plan automatisch basierend auf SEO-Performance-Daten."
+    a: "Ein rollierender 3-Monats-Plan hat sich bewährt: Monat 1 ist konkret ausgearbeitet, Monat 2–3 sind als Themenliste geplant. Das gibt Flexibilität bei aktuellen Themen (Newsjacking), hält aber die Kontinuität aufrecht. KI-Plattformen aktualisieren den Plan automatisch basierend auf SEO-Performance-Daten."
 ---
 
 „Wir sollten eigentlich mehr bloggen." Diesen Satz hat fast jedes Marketing-Team schon gesagt – und dann nichts getan. Nicht aus fehlendem Willen, sondern weil der erste Schritt – der Redaktionsplan – bereits zu viel Zeit kostet.
@@ -168,7 +168,7 @@ Ein statischer Plan veraltet in 4 Wochen. Damit er lebendig bleibt:
 
 **Quartalliche Aktualisierung:** Neuen Keyword-Cluster für das nächste Quartal erstellen, bestehende Artikel auf neue Daten prüfen.
 
-KI-Plattformen wie CodaAI automatisieren diesen Review-Prozess: Das System analysiert die Performance der veröffentlichten Artikel und schlägt automatisch Folge-Themen vor – basierend auf Rankingdaten, nicht auf Bauchgefühl.
+KI-Plattformen automatisieren diesen Review-Prozess: Das System analysiert die Performance der veröffentlichten Artikel und schlägt automatisch Folge-Themen vor – basierend auf Rankingdaten, nicht auf Bauchgefühl.
 
 ## Redaktionsplan-Vorlage: Das Mindest-Setup
 
@@ -226,7 +226,7 @@ Ein Redaktionsplan ist keine einmalige Aufgabe, sondern ein lebendiges Dokument.
 
 Mit KI ist der erste Schritt einfacher als je zuvor. In 10–15 Minuten haben Sie einen datenbasierten Plan, der Ihre nächsten 12 Wochen strukturiert – nicht nach Bauchgefühl, sondern nach realen Keyword-Daten und Wettbewerbsanalyse.
 
-**Möchten Sie Ihren Redaktionsplan automatisch generieren lassen?** CodaAI analysiert Ihre Website und erstellt in wenigen Minuten einen vollständigen, keyword-basierten Redaktionsplan – inklusive erster Artikel-Briefings. Kostenlos testen, kein Setup nötig.
+**Möchten Sie wissen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen heute schon nennen?** Der [kostenlose KI-Sichtbarkeits-Check](https://www.codaai.ai/check/) zeigt es in Sekunden, ohne Anmeldung. Was ein laufendes Programm mit Fachbeiträgen kostet, steht transparent auf der [Preisseite](https://www.codaai.ai/preise/).
 
 ## Weiterführende Artikel
 

@@ -18,9 +18,9 @@ heroImageAlt: "Marketingkosten senken mit KI Content B2B"
 summary: "B2B-Mittelständler, die KI-gestützte Content-Produktion einsetzen, berichten von 40–60 % Kostenreduktion bei gleichzeitig höherer Produktionsfrequenz. Dieser Artikel zeigt, wie das konkret funktioniert."
 faq:
   - q: "Wie viel sollte ein Mittelständler für B2B-Content Marketing ausgeben?"
-    a: "Als Orientierung: 3–5 % des Jahresumsatzes für digitales Marketing insgesamt, davon 40–60 % für Content im B2B-Bereich. Bei 10 Mio. € Umsatz wären das 120.000–300.000 € gesamt, davon 48.000–180.000 € für Content. Mit KI-gestützten Plattformen wie CodaAI sinken die Kosten pro Artikel um 60–70 % gegenüber klassischen Agentur- oder Freelancer-Modellen."
+    a: "Als Orientierung: 3–5 % des Jahresumsatzes für digitales Marketing insgesamt, davon 40–60 % für Content im B2B-Bereich. Bei 10 Mio. € Umsatz wären das 120.000–300.000 € gesamt, davon 48.000–180.000 € für Content. Mit KI-gestützten Plattformen sinken die Kosten pro Artikel um 60–70 % gegenüber klassischen Agentur- oder Freelancer-Modellen."
   - q: "Was kostet ein B2B-Blogartikel bei einer Agentur vs. mit KI?"
-    a: "Ein qualitativ hochwertiger B2B-Artikel (2.000–3.000 Wörter) kostet bei einer spezialisierten Agentur 800–2.000 €. Bei erfahrenen Freelancern 400–900 €. Mit KI-Plattformen wie CodaAI: 80–150 € Plattformkosten plus 45–60 Minuten interne Prüfzeit. Bei 4 Artikeln/Monat ergibt sich eine Jahresersparnis von 25.000–75.000 € gegenüber Agenturlösungen."
+    a: "Ein qualitativ hochwertiger B2B-Artikel (2.000–3.000 Wörter) kostet bei einer spezialisierten Agentur 800–2.000 €. Bei erfahrenen Freelancern 400–900 €. Mit KI-Plattformen: 80–150 € Plattformkosten plus 45–60 Minuten interne Prüfzeit. Bei 4 Artikeln/Monat ergibt sich eine Jahresersparnis von 25.000–75.000 € gegenüber Agenturlösungen."
   - q: "Leidet die Qualität wenn KI schreibt?"
     a: "Nicht bei richtig orchestriertem KI-Workflow. Google bewertet Qualität, Relevanz und E-E-A-T – nicht die Produktionsmethode. KI-generierte Artikel mit klarem Briefing, Faktencheck und menschlicher Prüfung ranken genauso gut wie manuell erstellte – oft besser, weil Struktur und Keyword-Integration konsistenter sind."
   - q: "Was sind die versteckten Kosten klassischer Content-Marketing-Ansätze?"
@@ -99,7 +99,7 @@ KI ändert die Kostenstruktur der Content-Produktion grundlegend – nicht weil 
 
 ## Die Kostenrechnung: Klassisch vs. KI-gestützt
 
-| | Klassisch (Agentur) | Klassisch (Freelancer) | KI-gestützt (CodaAI) |
+| | Klassisch (Agentur) | Klassisch (Freelancer) | KI-gestützt |
 |---|---|---|---|
 | Kosten pro Artikel (extern) | 800–2.000 € | 400–800 € | 80–150 € |
 | Interne Zeit pro Artikel | 7–10 h | 5–8 h | 30–45 min |
@@ -142,21 +142,11 @@ Das Modell ist klar: KI übernimmt die Struktur, die Recherche und den Erstdraft
 
 [Laut Ahrefs Content Research](https://ahrefs.com/blog/content-marketing-statistics/) haben 90,63 % aller Webseiten keinen organischen Traffic – fast immer wegen mangelnder SEO-Struktur und zu niedrigem Produktionsvolumen. Beides sind Probleme, die KI direkt löst.
 
-## CodaAI Co-Create: Das KI-System für B2B-Content-Marketing
+## So arbeitet CodaAI
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) wurde speziell für B2B-Mittelständler entwickelt, die professionellen Content in Agenturqualität benötigen – ohne Agenturbudget und ohne dedizierte Content-Stelle.
+Bei CodaAI entstehen Fachbeiträge nicht als Einzelleistung, sondern als Teil des [Digital-Visibility-Programms](https://www.codaai.ai/digital-visibility/): Recherche, Struktur, Texterstellung sowie SEO- und GEO-Optimierung übernehmen wir. Ihr Fachwissen fließt über das Themengespräch und die fachliche Freigabe ein – denn ohne Ihre Expertise wird kein Beitrag zitierfähig. Dazu kommen Technik, die Messung Ihrer KI-Sichtbarkeit und die Präsenz in Drittquellen.
 
-Die Plattform deckt den vollständigen Workflow ab:
-
-**Strategische Ebene:** Automatischer Redaktionsplan auf Basis von Keyword-Daten – nicht nach Bauchgefühl, sondern nach realen Suchvolumen und Wettbewerbsdaten. Für 3 Monate Content-Planung in 15 Minuten.
-
-**Produktionsebene:** Vollständige Artikel mit SEO-Optimierung, Schema.org-Markup, internen Verlinkungsvorschlägen und FAQ-Sektionen. GEO-ready für ChatGPT, Perplexity und Google AI Overviews.
-
-**Distributions-Ebene:** LinkedIn-Posts, Newsletter-Snippets und Social-Media-Grafiken entstehen automatisch aus jedem Artikel. Konsistente Botschaft über alle Kanäle.
-
-**Analyse-Ebene:** Performance-Tracking der veröffentlichten Artikel mit automatischen Optimierungsvorschlägen – welche Artikel aktualisieren, welche Themen als Folge-Artikel sinnvoll sind.
-
-Das Ergebnis: Mittelständische B2B-Unternehmen können erstmals 6–8 Artikel pro Monat veröffentlichen – den Schwellenwert, ab dem organischer Traffic messbar wächst – ohne dass sich die Ressourcenkosten verdoppeln.
+Der Monatspreis setzt sich aus einem Grundpreis je Stufe und einem Stückpreis je Fachbeitrag zusammen und startet bei 1.970 € (Stufe Gefunden mit zwei Fachbeiträgen). Die Mindestlaufzeit beträgt sechs Monate, bei zwölf Monaten gilt 10 % Rabatt. Alle Details stehen auf der [Preisseite](https://www.codaai.ai/preise/).
 
 ## Der erste Schritt: Eine Bestandsaufnahme
 
@@ -177,4 +167,4 @@ Die Kostenreduktion im Content Marketing durch KI ist keine Kompromisslösung. S
 
 Wer sein Content-Budget effizienter einsetzt – nicht durch weniger Qualität, sondern durch klügere Prozesse – gewinnt einen strukturellen Wettbewerbsvorteil, der sich über Monate und Jahre aufbaut.
 
-**Möchten Sie Ihre aktuellen Content-Produktionskosten analysieren und das Einsparpotenzial durch KI ermitteln?** Fordern Sie eine kostenlose Demo von CodaAI Co-Create an – wir zeigen Ihnen konkret, was Ihr Unternehmen produzieren könnte und was es kosten würde.
+**Möchten Sie wissen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen heute schon nennen?** Der [kostenlose KI-Sichtbarkeits-Check](https://www.codaai.ai/check/) zeigt es in Sekunden, ohne Anmeldung. Was ein laufendes Programm mit Fachbeiträgen kostet, steht transparent auf der [Preisseite](https://www.codaai.ai/preise/).

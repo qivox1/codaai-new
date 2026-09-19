@@ -135,7 +135,7 @@ Viele Unternehmen scheitern nicht an der Strategie, sondern an der Umsetzungsges
 
 Mit KI-gestützten Workflows lässt sich dieser Prozess auf:
 - **1–2 Tage** Produktionszeit
-- **400–600 €** Kosten (bei Plattformlösungen wie CodaAI)
+- **400–600 €** Kosten (bei Plattformlösungen)
 
 verkürzen – ohne Qualitätsverlust bei faktenbasiertem, informativem Content.
 
@@ -156,4 +156,4 @@ Die meisten Unternehmen optimieren noch ausschließlich für klassisches SEO. Da
 
 Die gute Nachricht: GEO und SEO ergänzen sich. Jeder gut strukturierte, faktenbasierte Artikel, den Sie heute veröffentlichen, verbessert gleichzeitig Ihre Sichtbarkeit in Google **und** in KI-Suchmaschinen.
 
-**Möchten Sie wissen, wie CodaAI Ihnen hilft, diesen Content systematisch und kosteneffizient zu produzieren?** Fordern Sie Ihr kostenloses Digital Visibility Audit an — Sie sehen schwarz auf weiß, in welchen KI-Antworten Ihr Unternehmen heute fehlt.
+**Möchten Sie wissen, wo Ihr Unternehmen in KI-Antworten heute steht?** Fordern Sie Ihr [kostenloses Digital Visibility Audit](https://www.codaai.ai/check/) an — Sie sehen schwarz auf weiß, in welchen KI-Antworten Ihr Unternehmen heute fehlt.

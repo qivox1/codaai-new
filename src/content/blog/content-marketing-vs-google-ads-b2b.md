@@ -20,7 +20,7 @@ faq:
   - q: "Wie lange dauert es, bis Content Marketing Ergebnisse bringt?"
     a: "SEO-Ergebnisse beginnen typischerweise nach 3–6 Monaten. Erste Rankings entstehen früher, aber nachhaltiger Traffic baut sich über 6–18 Monate auf. Der entscheidende Unterschied: Nach 18 Monaten arbeitet der Content ohne weitere Investition weiter – Google Ads erfordern monatlich Budget."
   - q: "Wie viel Budget sollte ein Mittelständler für Content Marketing einplanen?"
-    a: "Als Orientierung: 3–5 % des Jahresumsatzes für digitales Marketing insgesamt. Davon sollte Content Marketing im B2B-Bereich 40–60 % ausmachen. Bei einem Umsatz von 10 Mio. € wären das 120.000–300.000 € für digitales Marketing, wovon 48.000–180.000 € in Content fließen sollten. Mit KI-Plattformen wie CodaAI sinkt der notwendige Budgetanteil erheblich."
+    a: "Als Orientierung: 3–5 % des Jahresumsatzes für digitales Marketing insgesamt. Davon sollte Content Marketing im B2B-Bereich 40–60 % ausmachen. Bei einem Umsatz von 10 Mio. € wären das 120.000–300.000 € für digitales Marketing, wovon 48.000–180.000 € in Content fließen sollten. Mit KI-gestützter Produktion sinkt der notwendige Budgetanteil erheblich."
 ---
 
 Jedes Marketing-Meeting im Mittelstand endet früher oder später bei derselben Frage: Google Ads hochfahren oder mehr in Content investieren? Beides kostet Zeit und Geld. Beides verspricht Leads. Und fast niemand hat ein Budget, das beides großzügig erlaubt.
@@ -142,15 +142,11 @@ Die beste B2B-Strategie ist keine Wahl zwischen Content und Ads – sie ist eine
 
 Diese Verteilung maximiert den ROI, weil der Content die Grundlage für alles andere legt: bessere Retargeting-Audiences, mehr organischen Traffic, qualifiziertere Leads.
 
-## Wie CodaAI Co-Create die Content-Lücke schließt
+## Wie CodaAI die Content-Lücke schließt
 
-Das größte Hindernis für B2B-Mittelständler beim Content Marketing ist nicht der Wille – es ist die Kapazität. Wer hat im Marketingteam mit 2–3 Personen Zeit für 8 hochwertige Artikel pro Monat?
+Bei CodaAI entstehen Fachbeiträge nicht als Einzelleistung, sondern als Teil des [Digital-Visibility-Programms](https://www.codaai.ai/digital-visibility/): Recherche, Struktur, Texterstellung sowie SEO- und GEO-Optimierung übernehmen wir. Ihr Fachwissen fließt über das Themengespräch und die fachliche Freigabe ein – denn ohne Ihre Expertise wird kein Beitrag zitierfähig. Dazu kommen Technik, die Messung Ihrer KI-Sichtbarkeit und die Präsenz in Drittquellen.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) löst genau dieses Problem: Die Plattform übernimmt Keyword-Recherche, Wettbewerbsanalyse, Strukturierung und Texterstellung automatisch. Ein Artikel, der sonst 10–16 Stunden Aufwand bedeutet, entsteht in 30–45 Minuten aktiver Arbeitszeit.
-
-Konkret: Sie geben das Thema vor – CodaAI Co-Create analysiert die Top-Rankings, erstellt das Briefing, generiert einen vollständig SEO-optimierten Artikel mit korrekter H2/H3-Struktur, FAQ-Sektionen und Meta-Daten, und produziert gleichzeitig den LinkedIn-Post und Newsletter-Snippet zur Distribution.
-
-Das Ergebnis: B2B-Mittelständler können erstmals die Veröffentlichungsfrequenz erreichen, die für nachhaltige SEO-Rankings notwendig ist – ohne Agenturbudget und ohne dedizierte Content-Stelle.
+Der Monatspreis setzt sich aus einem Grundpreis je Stufe und einem Stückpreis je Fachbeitrag zusammen und startet bei 1.970 € (Stufe Gefunden mit zwei Fachbeiträgen). Die Mindestlaufzeit beträgt sechs Monate, bei zwölf Monaten gilt 10 % Rabatt. Alle Details stehen auf der [Preisseite](https://www.codaai.ai/preise/).
 
 ## Was das für Ihr Marketingbudget konkret bedeutet
 
@@ -159,7 +155,7 @@ Angenommen, Ihr Unternehmen hat 8 Mio. € Jahresumsatz. Die empfohlenen 3–5 %
 Selbst mit diesem reduzierten Budget lohnt sich die Verschiebung hin zu Content deutlich:
 
 Bei 80.000 € Jahresbudget und 70/20/10-Verteilung:
-- **56.000 € Content Marketing** (KI-gestützt, mit CodaAI Co-Create: realistisch 8–12 Artikel/Monat plus Distribution)
+- **56.000 € Content Marketing** (KI-gestützt produzierte Fachbeiträge plus Distribution)
 - **16.000 € Retargeting**
 - **8.000 € spezifische Transaktions-Ads**
 
@@ -173,4 +169,4 @@ Content Marketing baut einen Vermögenswert auf, der über Jahre Bestand hat. Es
 
 Die Frage ist nicht ob – sondern wann und wie. Wer jetzt anfängt, hat in 18 Monaten einen Vorsprung, den Wettbewerber nur noch schwer aufholen können.
 
-**Möchten Sie wissen, welche Keywords in Ihrer Branche realistisches Ranking-Potenzial haben?** CodaAI Co-Create analysiert Ihr Themenfeld und liefert einen datenbasierten Redaktionsplan – in weniger als 15 Minuten. Kostenlos testen, kein Setup erforderlich.
+**Möchten Sie wissen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen heute schon nennen?** Der [kostenlose KI-Sichtbarkeits-Check](https://www.codaai.ai/check/) zeigt es in Sekunden, ohne Anmeldung. Was ein laufendes Programm mit Fachbeiträgen kostet, steht transparent auf der [Preisseite](https://www.codaai.ai/preise/).

@@ -122,27 +122,17 @@ Google und KI-Suchmaschinen bewerten Inhalte nach E-E-A-T: Experience, Expertise
 
 **Trustworthiness:** Keine übertriebenen Versprechen, klare Quellenangaben, nachprüfbare Zahlen, transparentes Impressum und Datenschutz.
 
-## CodaAI Co-Create: Vom Thema zum fertigen B2B-Artikel in 45 Minuten
+## So arbeitet CodaAI
 
-Das Argument, das Mittelständler am häufigsten gegen einen Blog bringen: „Wir haben keine Kapazität." Das war 2020 noch verständlich. Heute ist es eine Frage des richtigen Workflows.
+Bei CodaAI entstehen Fachbeiträge nicht als Einzelleistung, sondern als Teil des [Digital-Visibility-Programms](https://www.codaai.ai/digital-visibility/): Recherche, Struktur, Texterstellung sowie SEO- und GEO-Optimierung übernehmen wir. Ihr Fachwissen fließt über das Themengespräch und die fachliche Freigabe ein – denn ohne Ihre Expertise wird kein Beitrag zitierfähig. Dazu kommen Technik, die Messung Ihrer KI-Sichtbarkeit und die Präsenz in Drittquellen.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) ist eine KI-Plattform, die den gesamten Content-Produktionsprozess automatisiert – von der Keyword-Recherche über die Wettbewerbsanalyse bis zum fertigen, SEO-optimierten Artikel. Die verbleibende menschliche Aufgabe: das Thema vorgeben (5 Minuten) und den Artikel fachlich prüfen (15–20 Minuten).
-
-Was CodaAI Co-Create automatisch liefert:
-- Keyword-Analyse und Wettbewerbsrecherche
-- Strukturiertes Artikel-Briefing
-- Vollständiger Erstdraft (2.000–4.000 Wörter) mit H2/H3-Struktur
-- FAQ-Sektionen für SEO und GEO-Optimierung
-- Meta-Description und Schema.org-Markup
-- LinkedIn-Post und Newsletter-Snippet zur Distribution
-
-Das Ergebnis: B2B-Mittelständler können erstmals die Veröffentlichungsfrequenz erreichen, die für messbare Rankings notwendig ist – 4–6 Artikel pro Monat – ohne Agenturbudget und ohne Content-Vollzeitstelle.
+Der Monatspreis setzt sich aus einem Grundpreis je Stufe und einem Stückpreis je Fachbeitrag zusammen und startet bei 1.970 € (Stufe Gefunden mit zwei Fachbeiträgen). Die Mindestlaufzeit beträgt sechs Monate, bei zwölf Monaten gilt 10 % Rabatt. Alle Details stehen auf der [Preisseite](https://www.codaai.ai/preise/).
 
 ## Der Einstiegsplan: Vom ersten Artikel zur Content-Maschine
 
 **Monat 1 – Grundlage legen:**
 - 10 Kundenfragen sammeln (aus Vertrieb, Support, persönlichen Gesprächen)
-- Keyword-Recherche für alle 10 Themen (mit CodaAI Co-Create: 30 Minuten)
+- Keyword-Recherche für alle 10 Themen (mit KI-Unterstützung: rund 30 Minuten)
 - Ersten Artikel zu dem Thema mit dem besten Verhältnis aus Suchvolumen und Ranking-Chance veröffentlichen
 
 **Monat 2–3 – Rhythmus aufbauen:**
@@ -164,8 +154,8 @@ Das Ergebnis: B2B-Mittelständler können erstmals die Veröffentlichungsfrequen
 
 Für B2B-Mittelständler, die langfristig mehr qualifizierte Leads zu geringeren Kosten gewinnen wollen, ist der regelmäßig bepublizierende Blog keine Option – er ist das Fundament.
 
-Die Zahlen sind eindeutig: 55 % mehr Website-Besucher, 126 % mehr Leads, deutlich höheres Vertrauen vor dem ersten Vertriebsgespräch. Und mit KI-Plattformen wie CodaAI Co-Create ist der Aufwand erstmals in einem Rahmen, der auch ohne dediziertes Content-Team realisierbar ist.
+Die Zahlen sind eindeutig: 55 % mehr Website-Besucher, 126 % mehr Leads, deutlich höheres Vertrauen vor dem ersten Vertriebsgespräch. Und mit KI-gestützter Produktion ist der Aufwand erstmals in einem Rahmen, der auch ohne dediziertes Content-Team realisierbar ist.
 
 Die Frage ist nicht, ob Ihr Unternehmen einen Blog braucht. Sie ist, wann Sie anfangen – und wie viele Leads Ihre Wettbewerber bis dahin über organischen Content gewonnen haben.
 
-**Möchten Sie sehen, wie ein erster B2B-Artikel für Ihr Themenfeld aussieht?** CodaAI Co-Create erstellt einen Demo-Artikel für Ihr wichtigstes Keyword – in 30 Minuten, SEO-optimiert und veröffentlichungsbereit. Kostenlos testen.
+**Möchten Sie wissen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen heute schon nennen?** Der [kostenlose KI-Sichtbarkeits-Check](https://www.codaai.ai/check/) zeigt es in Sekunden, ohne Anmeldung. Was ein laufendes Programm mit Fachbeiträgen kostet, steht transparent auf der [Preisseite](https://www.codaai.ai/preise/).

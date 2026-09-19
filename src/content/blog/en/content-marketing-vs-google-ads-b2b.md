@@ -73,7 +73,7 @@ Content marketing pays for itself in lead value after 6–12 months and continue
 
 For most B2B companies: start with Google Ads for pipeline while building content marketing for long-term dominance.
 
-**Try CodaAI** – build your content foundation while running ads.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

@@ -206,7 +206,7 @@ The advantage: optimizations that help one system usually help all three. You're
 
 And the answer is: same foundation, with slight adjustments for each system.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) automatically optimizes for both Google and AI systems – one article, structured for all three. Try it free.
+[CodaAI](https://www.codaai.ai/en/digital-visibility/) builds expert articles for both Google and AI systems – one article, structured for all three. Start with the [free AI visibility check](https://www.codaai.ai/en/check/).
 
 
 ## Sources

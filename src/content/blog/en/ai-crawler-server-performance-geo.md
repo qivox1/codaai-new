@@ -165,7 +165,7 @@ The typical starting point: a B2B company barely appears in ChatGPT responses fo
 
 **Check:** evaluate the server logs again – are regular ChatGPT-User and Claude-User crawls showing up now? In addition, AI monitoring tools (like [AmICited.com](https://www.amicited.com)) can track whether the brand is being mentioned in AI responses.
 
-This approach illustrates GEO's two-pillar principle: technical infrastructure is the prerequisite for AI crawlers to even access your content. But what they find there – whether fact-dense, directly structured, well-sourced – determines citation. This second part is precisely what [CodaAI Co-Create](https://www.codaai.ai/co-create/) handles for B2B companies.
+This approach illustrates GEO's two-pillar principle: technical infrastructure is the prerequisite for AI crawlers to even access your content. But what they find there – whether fact-dense, directly structured, well-sourced – determines citation. This second part is precisely what [CodaAI](https://www.codaai.ai/en/digital-visibility/) handles for B2B companies.
 
 ## How to Measure Your Current AI Crawler Performance
 
@@ -234,7 +234,7 @@ Use this quick check before undertaking larger measures:
 - [ ] `llms.txt` in root directory, present or planned
 - [ ] Specialist articles begin with direct answer sentences, not general introductions
 - [ ] External, reliable sources linked (professional associations, studies, authorities)
-- [ ] GEO-optimized content process established – or partner like [CodaAI Co-Create](https://www.codaai.ai/co-create/) engaged
+- [ ] GEO-optimized content process established – or partner like [CodaAI](https://www.codaai.ai/en/digital-visibility/) engaged
 
 **Monitoring:**
 - [ ] Process for regular log analysis established (monthly)
@@ -248,8 +248,8 @@ The measures described in this article – CDN, TTFB under 200ms, correct robots
 
 This is where most B2B companies hit a stumbling block: producing GEO-optimized content requires a different editorial approach than classic SEO writing. Each section must begin with a direct answer. Statistics must be verifiable. The `summary` field must be worded so ChatGPT can use it verbatim as a response. FAQ structures must answer real user questions, not marketing phrases.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) covers precisely this second part – and is thus the natural next step once the technical foundation is in place. Specialist articles are backed by verified German sources, built in the right structure for AI visibility, and delivered directly in the format your Astro, WordPress or any other CMS can use immediately. No agency briefing, no weeks-long editorial process.
+[CodaAI](https://www.codaai.ai/en/digital-visibility/) covers precisely this second part – and is thus the natural next step once the technical foundation is in place. Specialist articles are backed by verified German sources, built in the right structure for AI visibility, and delivered directly in the format your Astro, WordPress or any other CMS can use immediately. No agency briefing, no weeks-long editorial process.
 
 **Technical Foundation + GEO-Optimized Content = AI Visibility.** Whoever approaches both systematically is already one decisive step ahead of the majority of German B2B websites today.
 
-[Free trial.](https://www.codaai.ai/co-create/)
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).

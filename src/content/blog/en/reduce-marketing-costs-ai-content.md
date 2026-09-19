@@ -65,7 +65,7 @@ Cost reduction shouldn't mean fewer leads. AI makes both possible simultaneously
 
 **Start with one lever** – replace content agency – and reinvest savings into organic growth.
 
-**Try CodaAI free** for 30 days and see the immediate cost impact.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

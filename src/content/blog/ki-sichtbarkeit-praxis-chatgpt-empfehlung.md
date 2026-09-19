@@ -222,7 +222,7 @@ Die folgenden Fälle stammen aus der Erhebung. Unternehmens- und Wettbewerbernam
 
 **Fall 3 — Anbieter von Galvanotechnik und Oberflächenveredelung, über 1.200 Top-10-Rankings.** Frage: „Welche Anbieter für galvanische Metallveredelung in Deutschland gelten als besonders zuverlässig?" Ergebnis: keine Nennung — obwohl das Unternehmen bei klassischen Google-Suchen zu denselben Themen auf Seite 1 rankt. Empfohlen werden zwei internationale Gruppen.
 
-Das Muster ist in allen drei Fällen identisch: Die technische und die klassische SEO-Hausaufgabe ist gemacht. Was fehlt, ist die inhaltliche Ebene — erklärende, faktendichte, extern zitierfähige Inhalte, die den Firmennamen dauerhaft mit der eigenen Kategorie verknüpfen. Genau diesen Teil übernimmt [CodaAI Co-Create](https://www.codaai.ai/co-create/): Fachbeiträge im GEO-Format, mit verifizierten Quellen belegt, direkt ausspielbar im vorhandenen CMS.
+Das Muster ist in allen drei Fällen identisch: Die technische und die klassische SEO-Hausaufgabe ist gemacht. Was fehlt, ist die inhaltliche Ebene — erklärende, faktendichte, extern zitierfähige Inhalte, die den Firmennamen dauerhaft mit der eigenen Kategorie verknüpfen. Genau diesen Teil übernimmt [CodaAI](https://www.codaai.ai/digital-visibility/): Fachbeiträge im GEO-Format, mit verifizierten Quellen belegt, direkt ausspielbar im vorhandenen CMS.
 
 ## Checkliste: KI-Sichtbarkeit in 30 Minuten selbst prüfen
 
@@ -249,7 +249,7 @@ Bevor Sie Budget einplanen, verschaffen Sie sich einen Ausgangswert. Die folgend
 - [ ] Prüfen: Welche Wettbewerber tauchen wiederholt auf — und wo im Web wird über sie gesprochen, wo über Sie nicht?
 - [ ] `robots.txt` **und** Firewall-/CDN-Regeln auf Freigabe für GPTBot, ClaudeBot, PerplexityBot, ChatGPT-User, OAI-SearchBot prüfen
 - [ ] Startseite testen: Beantwortet sie in den ersten 60 Wörtern, was das Unternehmen für wen tut?
-- [ ] GEO-optimierten Content-Prozess etabliert — oder Partner wie [CodaAI Co-Create](https://www.codaai.ai/co-create/) eingebunden
+- [ ] GEO-optimierten Content-Prozess etabliert — oder Partner wie [CodaAI](https://www.codaai.ai/digital-visibility/) eingebunden
 
 Wer nach dieser halben Stunde bei einer Sichtbarkeitsquote unter 25 % landet, liegt im Bereich des Durchschnitts der untersuchten Unternehmen — was kein Trost ist, sondern der Normalzustand, den ein aktiver Wettbewerber gerade verlässt.
 
@@ -259,8 +259,8 @@ Der Ist-Zustand ist schnell ermittelt. Die schwierigere Aufgabe beginnt danach: 
 
 Denn die technischen Punkte — Crawler-Freigabe, Antwortzeiten, Schema-Markup — sind in ein bis zwei Wochen abgearbeitet und danach erledigt. Was bleibt, ist die Daueraufgabe: kontinuierlich Inhalte zu produzieren, die faktendicht genug sind, um zitiert zu werden, klar genug strukturiert, um extrahiert zu werden, und thematisch so gebaut, dass sie den Firmennamen mit der eigenen Kategorie verknüpfen — auf der eigenen Website und in Formaten, die Dritte veröffentlichen. In der Praxis scheitert genau daran die Mehrheit: nicht am Wollen, sondern an Redaktionskapazität.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) deckt diesen zweiten Teil ab: Fachbeiträge, die nach den GEO-Kriterien der Princeton-Arbeit aufgebaut sind, mit verifizierten Quellen belegt und im Format ausgegeben, das Ihr CMS direkt übernehmen kann. Kein Agentur-Briefing, kein mehrwöchiger Abstimmungsprozess. Der Anspruch ist derselbe wie bei diesem Artikel: Jede Zahl belegt, jede Quelle nachprüfbar, jede Aussage zitierfähig — und wo Sekundärquellen von der Primärquelle abweichen, gewinnt die Primärquelle.
+[CodaAI](https://www.codaai.ai/digital-visibility/) deckt diesen zweiten Teil ab: Fachbeiträge, die nach den GEO-Kriterien der Princeton-Arbeit aufgebaut sind, mit verifizierten Quellen belegt und im Format ausgegeben, das Ihr CMS direkt übernehmen kann. Kein Agentur-Briefing, kein mehrwöchiger Abstimmungsprozess. Der Anspruch ist derselbe wie bei diesem Artikel: Jede Zahl belegt, jede Quelle nachprüfbar, jede Aussage zitierfähig — und wo Sekundärquellen von der Primärquelle abweichen, gewinnt die Primärquelle.
 
 **Technische Basis + zitierfähiger Content + Präsenz in Drittquellen + regelmäßige Messung = KI-Sichtbarkeit.** Wer alle vier Bausteine systematisch angeht, ist der Mehrheit der deutschen B2B-Websites heute schon einen Schritt voraus — und zwar in genau dem Moment der Kaufanbahnung, den er sonst nie zu sehen bekommt.
 
-**Möchten Sie wissen, was die KI zu Ihrem Unternehmen antwortet?** Dieselbe Methodik wie im KI-Blindtest, angewendet auf Ihre acht Einkäuferfragen, Ihre echten KI-Antworten und Ihre Wettbewerber: [zur Sichtbarkeitsprüfung](https://www.codaai.ai/studie/). Oder lassen Sie CodaAI Ihren ersten GEO-optimierten Fachbeitrag erstellen — [kostenlos testen](https://www.codaai.ai/co-create/).
+**Möchten Sie wissen, was die KI zu Ihrem Unternehmen antwortet?** Dieselbe Methodik wie im KI-Blindtest, angewendet auf Ihre acht Einkäuferfragen, Ihre echten KI-Antworten und Ihre Wettbewerber: [zur Sichtbarkeitsprüfung](https://www.codaai.ai/studie/). Oder starten Sie mit dem [kostenlosen KI-Sichtbarkeits-Check](https://www.codaai.ai/check/).

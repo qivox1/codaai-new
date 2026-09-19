@@ -134,9 +134,9 @@ There's no universally correct answer – only the right answer for your situati
 
 But the numbers speak clearly: whoever publishes regularly wins more visibility, more leads and more customers. Whoever avoids the cost loses ground to competitors investing more consistently.
 
-**The good news:** With AI platforms like CodaAI, the financial entry point is lower than ever. And quality – with correct use and human review – is comparable to expensive agency content.
+**The good news:** With AI support, the financial entry point is lower than ever. And quality – with correct use and human review – is comparable to expensive agency content.
 
-**Want to see how CodaAI produces your first article?** Try it free – no credit card, no contract.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

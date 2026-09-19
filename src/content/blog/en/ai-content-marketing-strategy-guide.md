@@ -78,7 +78,7 @@ AI content strategy is less about individual article quality and more about syst
 
 With the right framework, one person can execute what previously required a team.
 
-**Build your AI content strategy** with CodaAI's strategic planning tools.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

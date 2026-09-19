@@ -165,7 +165,7 @@ Der typische Ausgangspunkt: Ein B2B-Unternehmen taucht in ChatGPT-Antworten zu s
 
 **Kontrolle:** Server-Logs erneut auswerten – tauchen jetzt regelmäßige Crawls von ChatGPT-User und Claude-User auf? Ergänzend lässt sich über KI-Monitoring-Tools (wie [AmICited.com](https://www.amicited.com)) verfolgen, ob die Marke in KI-Antworten erwähnt wird.
 
-Dieses Vorgehen verdeutlicht das Zwei-Säulen-Prinzip von GEO: Die technische Infrastruktur ist Voraussetzung dafür, dass AI Crawler überhaupt an den Inhalt herankommen. Aber was sie dann dort vorfinden – ob faktendicht, direkt strukturiert, gut quellenbelegt – entscheidet über die Zitierung. Genau dieser zweite Teil ist der Kern dessen, was [CodaAI Co-Create](https://www.codaai.ai/co-create/) für B2B-Unternehmen übernimmt.
+Dieses Vorgehen verdeutlicht das Zwei-Säulen-Prinzip von GEO: Die technische Infrastruktur ist Voraussetzung dafür, dass AI Crawler überhaupt an den Inhalt herankommen. Aber was sie dann dort vorfinden – ob faktendicht, direkt strukturiert, gut quellenbelegt – entscheidet über die Zitierung. Genau dieser zweite Teil ist der Kern dessen, was [CodaAI](https://www.codaai.ai/digital-visibility/) für B2B-Unternehmen übernimmt.
 
 ## So messen Sie Ihre aktuelle AI-Crawler-Performance
 
@@ -234,7 +234,7 @@ Nutzen Sie diese Kurzprüfung, bevor Sie größere Maßnahmen einleiten:
 - [ ] `llms.txt` im Root-Verzeichnis vorhanden oder in Planung
 - [ ] Fachbeiträge beginnen mit direkten Antwort-Sätzen, nicht mit allgemeinen Einleitungen
 - [ ] Externe, verlässliche Quellen sind verlinkt (Fachverbände, Studien, Behörden)
-- [ ] GEO-optimierten Content-Prozess etabliert – oder Partner wie [CodaAI Co-Create](https://www.codaai.ai/co-create/) eingebunden
+- [ ] GEO-optimierten Content-Prozess etabliert – oder Partner wie [CodaAI](https://www.codaai.ai/digital-visibility/) eingebunden
 
 **Monitoring:**
 - [ ] Prozess zur regelmäßigen Log-Analyse etabliert (monatlich)
@@ -248,8 +248,8 @@ Die in diesem Artikel beschriebenen Maßnahmen – CDN, TTFB unter 200ms, korrek
 
 Das ist der Punkt, an dem die meisten B2B-Unternehmen ins Stocken geraten: GEO-optimierten Content zu produzieren erfordert ein anderes Redaktionskonzept als klassisches SEO-Schreiben. Jeder Abschnitt muss mit einer Direktantwort beginnen. Statistiken müssen belegbar sein. Das `summary`-Feld muss so formuliert sein, dass ChatGPT es verbatim als Antwort verwenden kann. FAQ-Strukturen müssen echte Nutzerfragen beantworten, nicht Marketingphrasen.
 
-[CodaAI Co-Create](https://www.codaai.ai/co-create/) deckt genau diesen zweiten Teil ab – und ist damit der natürliche nächste Schritt, nachdem die technische Grundlage steht. Fachbeiträge werden mit verifizierten deutschen Quellen belegt, in der richtigen Struktur für KI-Sichtbarkeit aufgebaut und direkt im Format ausgegeben, das Astro, WordPress oder jedes andere CMS sofort verwenden kann. Kein Briefing an eine Agentur, kein wochenlanger Redaktionsprozess.
+[CodaAI](https://www.codaai.ai/digital-visibility/) deckt genau diesen zweiten Teil ab – und ist damit der natürliche nächste Schritt, nachdem die technische Grundlage steht. Fachbeiträge werden mit verifizierten deutschen Quellen belegt, in der richtigen Struktur für KI-Sichtbarkeit aufgebaut und direkt im Format ausgegeben, das Astro, WordPress oder jedes andere CMS sofort verwenden kann. Kein Briefing an eine Agentur, kein wochenlanger Redaktionsprozess.
 
 **Technische Basis + GEO-optimierter Content = KI-Sichtbarkeit.** Wer beides systematisch angeht, ist der Mehrheit der deutschen B2B-Websites heute schon einen entscheidenden Schritt voraus.
 
-[Kostenlos testen.](https://www.codaai.ai/co-create/)
+**Möchten Sie wissen, ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen heute schon nennen?** Der [kostenlose KI-Sichtbarkeits-Check](https://www.codaai.ai/check/) zeigt es in Sekunden, ohne Anmeldung. Was ein laufendes Programm mit Fachbeiträgen kostet, steht transparent auf der [Preisseite](https://www.codaai.ai/preise/).

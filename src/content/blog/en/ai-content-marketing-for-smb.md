@@ -78,7 +78,7 @@ Content marketing isn't expensive anymore – fragmented production is.
 
 With AI platforms, mid-market companies can finally compete on content volume and quality with agencies that cost 10x more.
 
-**Try CodaAI free** – unlimited articles, AI-optimized for Google and AI search engines, ready to publish.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources

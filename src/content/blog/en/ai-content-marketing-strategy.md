@@ -107,7 +107,7 @@ Structured data helps AI models and search engines equally:
 Many companies don't fail at strategy – they fail at execution speed. A professional content package (article + graphics + distribution) costs **€3,500–5,000 per piece** at traditional agencies – and takes 2–4 weeks. With AI-powered workflows, this process can be compressed to:
 
 - **1–2 days** production time
-- **€400–600** cost (with platform solutions like CodaAI)
+- **€400–600** cost (with platform solutions)
 
 ...without any quality loss for factual, informative content.
 
@@ -129,7 +129,7 @@ Most companies are still optimising exclusively for classic SEO. That's an oppor
 
 The good news: GEO and SEO complement each other. Every well-structured, factual article you publish today simultaneously improves your visibility in Google **and** in AI search engines.
 
-**Want to know how CodaAI helps you produce this content systematically and cost-efficiently?** Request your free article now.
+**Want to know whether ChatGPT and Google AI Overviews already mention your company?** The [free AI visibility check](https://www.codaai.ai/en/check/) shows you in seconds, no sign-up required. What an ongoing programme with expert articles costs is listed transparently on our [pricing page](https://www.codaai.ai/en/pricing/).
 
 
 ## Sources
