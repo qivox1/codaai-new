@@ -264,13 +264,13 @@ const lang = 'de' as const;
   @keyframes vcPulse { 0% { box-shadow: 0 0 0 0 hsl(var(--confirm) / .45); } 70% { box-shadow: 0 0 0 .6rem hsl(var(--confirm) / 0); } 100% { box-shadow: 0 0 0 0 hsl(var(--confirm) / 0); } }
 
   /* Hero-Emblem: Rosette aus gleich großen Kreisen um einen gemeinsamen Mittelpunkt */
-  .vc-emblem { max-width: 23rem; width: 100%; margin: 0 auto; text-align: center; }
-  .vc-emblem svg { width: 100%; height: auto; overflow: visible; }
+  .vc-emblem { max-width: 30rem; width: 100%; margin: 0 auto; text-align: center; }
+  .vc-emblem svg { max-width: 23rem; margin: 0 auto; display: block; width: 100%; height: auto; overflow: visible; }
   .vc-ring { fill: hsl(var(--cta) / .035); stroke: url(#vcg); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; animation: vcRing 1.6s cubic-bezier(.65,0,.35,1) forwards; animation-delay: calc(250ms + var(--k) * 160ms); }
   .vc-rose { transform-origin: 160px 160px; animation: vcBreathe 9s ease-in-out 2.4s infinite; }
   .vc-halo { opacity: 0; transform-origin: 160px 160px; animation: vcHalo 1.2s ease 1.6s forwards, vcGlow 4.5s ease-in-out 2.8s infinite; }
   .vc-core { fill: hsl(var(--cta)); opacity: 0; transform-origin: 160px 160px; animation: vcCore .6s cubic-bezier(.34,1.56,.64,1) 1.7s forwards; }
-  .vc-emblem figcaption { margin-top: 1.25rem; display: flex; justify-content: center; flex-wrap: wrap; gap: .4rem 1.1rem; font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+  .vc-emblem figcaption { margin-top: 1.25rem; display: flex; justify-content: center; flex-wrap: wrap; gap: .4rem 1rem; font-size: .75rem; white-space: nowrap; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
   .vc-emblem figcaption span { opacity: 0; animation: vcFade .6s ease forwards; }
   .vc-emblem figcaption span:nth-child(1) { animation-delay: 2.1s; }
   .vc-emblem figcaption span:nth-child(2) { animation-delay: 2.35s; color: hsl(var(--cta-accessible)); }
