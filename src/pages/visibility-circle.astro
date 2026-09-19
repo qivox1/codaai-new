@@ -422,6 +422,13 @@ const lang = 'de' as const;
   .vc-fact-num { white-space: nowrap; }
   @media (max-width: 520px) { .vc-fact-num { font-size: 1.6rem; } .vc-orbit { max-width: 15rem; } }
 
+  .vc-name { color: hsl(var(--heading)); font-weight: 700; }
+  .vc-about .vc-intro + .vc-intro { margin-top: 1rem; }
+  .vc-linkedin { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; font-size: .9375rem; color: hsl(var(--cta-accessible)); text-decoration: none; border: 1px solid hsl(var(--border-strong)); border-radius: 12px; padding: .6rem .95rem; transition: border-color .2s, background .2s; }
+  .vc-linkedin:hover { border-color: hsl(var(--cta) / .5); background: hsl(var(--cta) / .06); }
+  .vc-linkedin svg { width: 1.1rem; height: 1.1rem; color: #0A66C2; }
+  .vc-about { align-items: start; }
+
   @media (prefers-reduced-motion: reduce) {
     .vc-orbit-spin, .vc-track, .vc-dot { animation: none !important; }
     .vc-node { opacity: 1; animation: none; }
