@@ -123,11 +123,17 @@ const lang = 'de' as const;
     input?.focus();
   }
 
+  // Link mit Passwort, während die Seite schon offen ist
+  window.addEventListener('hashchange', () => {
+    if (location.hash.startsWith('#zugang=')) init();
+  });
+
   init();
 </script>
 
 <style is:global>
   .vc-main { padding-top: 5rem; }
+  .vc-gate[hidden], #vc-content[hidden] { display: none !important; }
   /* Gate */
   .vc-gate { min-height: 62vh; display: flex; align-items: center; padding: 3rem 1.5rem 5rem; }
   .vc-gate-box { max-width: 40rem; margin: 0 auto; width: 100%; }
