@@ -413,6 +413,15 @@ const lang = 'de' as const;
   .vc-ink .vc-apply p.vc-apply-note { font-size: .8125rem; color: hsl(var(--muted-foreground)); margin: 0; }
   .vc-ink .vc-apply p.vc-apply-done { font-size: .9375rem; color: hsl(var(--confirm-text)); font-weight: 600; margin: 0; }
 
+
+  /* Nachbesserungen 19.09.2026 */
+  .vc-card.vc-row { flex-wrap: nowrap; }
+  .vc-row > div { flex: 1; min-width: 0; }
+  .vc-ink .vc-small a { color: hsl(var(--cta-on-dark)); }
+  .vc-price { align-self: start; }
+  .vc-fact-num { white-space: nowrap; }
+  @media (max-width: 520px) { .vc-fact-num { font-size: 1.6rem; } .vc-orbit { max-width: 15rem; } }
+
   @media (prefers-reduced-motion: reduce) {
     .vc-orbit-spin, .vc-track, .vc-dot { animation: none !important; }
     .vc-node { opacity: 1; animation: none; }
