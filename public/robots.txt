@@ -5,6 +5,8 @@ Allow: /
 Disallow: /auth/
 Disallow: /checkout-success
 Disallow: /en/checkout-success
+# Visibility Circle: nur fuer eingeladene Unternehmen (noindex, Inhalt verschluesselt)
+Disallow: /visibility-circle/
 # Preisrechner-Vorbelegung (?stufe= / ?tier=) ist nur ein Deep-Link auf /preise/
 # bzw. /en/pricing/ — keine eigenen Seiten, Canonical zeigt auf die URL ohne Parameter.
 Disallow: /*?stufe=

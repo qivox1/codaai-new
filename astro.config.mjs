@@ -167,6 +167,8 @@ export default defineConfig({
         !page.endsWith('/en/blog/outsource-blog-writing-costs/') &&
         !page.endsWith('/en/blog/reduce-marketing-costs-ai-content/') &&
         !page.endsWith('/en/blog/marketing-agency-alternative-ai/') &&
+        // 19.09.2026: Visibility Circle ist nur fuer eingeladene Unternehmen.
+        !page.includes('/visibility-circle') &&
         !page.includes('/auth/') &&
         !page.endsWith('/en/404/'),
       serialize(item) {

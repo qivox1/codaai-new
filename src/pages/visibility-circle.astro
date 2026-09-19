@@ -1,0 +1,232 @@
+---
+/* ── /visibility-circle — geschützte Landingpage (19.09.2026, Auftrag Oli) ──────
+   Nur für eingeladene Unternehmen: keine Verlinkung in Navigation, Footer,
+   Sitemap oder llms.txt; noindex.
+   GitHub Pages kann keinen Server-Passwortschutz. Deshalb liegt der Inhalt
+   hier NUR VERSCHLÜSSELT (AES-256-GCM, Schlüssel per PBKDF2 aus dem Passwort)
+   in src/data/visibility-circle.enc.json und wird erst im Browser nach
+   richtiger Passworteingabe entschlüsselt. Klartext (inhalt.html), Passwort
+   (passwort.txt) und das Skript verschluesseln.mjs liegen außerhalb des
+   öffentlichen Repos im Ordner CodaAI-Website/visibility-circle/.
+   Inhalt ändern: inhalt.html bearbeiten → node verschluesseln.mjs → bauen.
+   Link mit Passwort zum Verschicken: /visibility-circle/#zugang=<Passwort>
+   (der Teil hinter # wird nie an einen Server übertragen).                   */
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import enc from '../data/visibility-circle.enc.json';
+
+const lang = 'de' as const;
+---
+
+<Layout
+  lang={lang}
+  title="Visibility Circle | CodaAI"
+  description="Der Visibility Circle: eine kleine Runde von Marketing-Teams aus dem Mittelstand, die jeden Monat an ihrer Sichtbarkeit in KI-Antworten arbeiten. Zugang nur mit Einladung."
+  article={{ noindex: true }}
+>
+  <Navbar lang={lang} />
+  <main class="vc-main">
+    <section class="vc-gate" id="vc-gate">
+      <div class="vc-gate-box">
+        <p class="vc-eyebrow">Visibility Circle</p>
+        <h1 class="cai-h1 vc-gate-h">Diese Seite ist nur für eingeladene Unternehmen.</h1>
+        <p class="vc-gate-lead">Sie haben das Passwort mit Ihrer Einladung bekommen. Falls nicht, schreiben Sie uns an <a href="mailto:hi@codaai.ai">hi@codaai.ai</a>.</p>
+        <form id="vc-form" class="vc-form" autocomplete="off">
+          <label for="vc-pw" class="vc-label">Passwort</label>
+          <div class="vc-row">
+            <input id="vc-pw" name="pw" type="password" required class="vc-input" autocomplete="current-password" />
+            <button type="submit" class="vc-btn" id="vc-submit">Öffnen</button>
+          </div>
+          <p id="vc-err" class="vc-err" role="alert" hidden>Das Passwort passt nicht. Bitte prüfen Sie die Schreibweise.</p>
+        </form>
+      </div>
+    </section>
+    <div id="vc-content" hidden></div>
+  </main>
+  <Footer lang={lang} />
+  <script type="application/json" id="vc-data" set:html={JSON.stringify(enc)} />
+</Layout>
+
+<script>
+  const KEY = 'codaai-vc-pw';
+  const b64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+
+  async function decrypt(pw: string): Promise<string | null> {
+    const raw = document.getElementById('vc-data')?.textContent;
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    try {
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+      const key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64(d.salt), iterations: d.iter, hash: 'SHA-256' },
+        base,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['decrypt'],
+      );
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(d.iv) }, key, b64(d.data));
+      return new TextDecoder().decode(plain);
+    } catch {
+      return null;
+    }
+  }
+
+  function show(html: string) {
+    const gate = document.getElementById('vc-gate');
+    const box = document.getElementById('vc-content');
+    if (!gate || !box) return;
+    box.innerHTML = html;
+    gate.hidden = true;
+    box.hidden = false;
+    const target = location.hash && !location.hash.startsWith('#zugang=') ? document.querySelector(location.hash) : null;
+    if (target) target.scrollIntoView();
+    (window as any).dataLayer?.push({ event: 'circle_unlock' });
+  }
+
+  async function tryOpen(pw: string, remember: boolean): Promise<boolean> {
+    const html = await decrypt(pw);
+    if (!html) return false;
+    if (remember) {
+      try { localStorage.setItem(KEY, pw); } catch {}
+    }
+    show(html);
+    return true;
+  }
+
+  async function init() {
+    // 1) Link mit Passwort: /visibility-circle/#zugang=…  (Hash sofort aus der Adresszeile nehmen)
+    if (location.hash.startsWith('#zugang=')) {
+      const pw = decodeURIComponent(location.hash.slice(8));
+      history.replaceState(null, '', location.pathname + location.search);
+      if (await tryOpen(pw, true)) return;
+    }
+    // 2) Schon einmal geöffnet
+    let saved: string | null = null;
+    try { saved = localStorage.getItem(KEY); } catch {}
+    if (saved && (await tryOpen(saved, false))) return;
+    if (saved) { try { localStorage.removeItem(KEY); } catch {} }
+
+    // 3) Eingabe
+    const form = document.getElementById('vc-form') as HTMLFormElement | null;
+    const input = document.getElementById('vc-pw') as HTMLInputElement | null;
+    const err = document.getElementById('vc-err');
+    const btn = document.getElementById('vc-submit') as HTMLButtonElement | null;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!input) return;
+      if (btn) btn.disabled = true;
+      const ok = await tryOpen(input.value.trim(), true);
+      if (btn) btn.disabled = false;
+      if (!ok && err) { err.hidden = false; input.select(); }
+    });
+    input?.focus();
+  }
+
+  init();
+</script>
+
+<style is:global>
+  .vc-main { padding-top: 5rem; }
+  /* Gate */
+  .vc-gate { min-height: 62vh; display: flex; align-items: center; padding: 3rem 1.5rem 5rem; }
+  .vc-gate-box { max-width: 40rem; margin: 0 auto; width: 100%; }
+  .vc-gate-h { margin-top: .75rem; }
+  .vc-gate-lead { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+  .vc-gate-lead a { color: hsl(var(--cta-accessible)); font-weight: 600; }
+  .vc-form { margin-top: 2rem; }
+  .vc-label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: .5rem; color: hsl(var(--foreground)); }
+  .vc-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .vc-input { flex: 1 1 14rem; min-width: 0; border: 1px solid hsl(var(--border-strong)); border-radius: 14px; padding: .8rem 1rem; font-size: 1rem; background: #fff; color: hsl(var(--foreground)); }
+  .vc-input:focus { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+  .vc-err { margin-top: .75rem; color: hsl(var(--error-text)); font-size: .9375rem; }
+
+  /* Bausteine */
+  .vc-wrap { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; }
+  @media (min-width: 1024px) { .vc-wrap { padding: 0 2rem; } }
+  .vc-narrow { max-width: 52rem; }
+  .vc-center { text-align: center; justify-content: center; }
+  .vc-sec { padding: 5rem 0; }
+  @media (min-width: 1024px) { .vc-sec { padding: 6.5rem 0; } }
+  .vc-mist { background: hsl(var(--surface-mist)); }
+  .vc-ink { background: hsl(var(--surface-ink)); color: #fff; }
+  .vc-ink .cai-h2 { color: #fff; }
+  .vc-ink .vc-intro, .vc-ink .vc-small { color: hsl(var(--muted-foreground-on-dark)); }
+  .vc-ink .vc-small a { color: #fff; }
+  .vc-ink .vc-link { color: hsl(var(--cta-on-dark)); }
+  .vc-eyebrow { font-size: .8125rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: hsl(var(--cta-accessible)); }
+  .vc-kicker { display: block; font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: hsl(var(--cta-accessible)); margin-bottom: .5rem; }
+  .vc-intro { margin-top: 1.25rem; max-width: 46rem; font-size: 1.125rem; line-height: 1.65; color: hsl(var(--muted-foreground)); }
+  .vc-center .vc-intro { margin-left: auto; margin-right: auto; }
+  .vc-small { margin-top: 1.5rem; font-size: .875rem; color: hsl(var(--muted-foreground)); }
+  .vc-mt { margin-top: 2.5rem; }
+  .vc-h3 { margin-top: 3rem; margin-bottom: 1.25rem; font-size: 1.25rem; font-weight: 700; color: hsl(var(--heading)); }
+
+  .vc-hero { padding: 3rem 0 5rem; }
+  @media (min-width: 1024px) { .vc-hero { padding: 4rem 0 6rem; } }
+  .vc-h1 { margin-top: 1rem; max-width: 60rem; }
+  .vc-h1 .k1, .vc-h1 .k2 { display: block; }
+  .vc-lead { margin-top: 1.5rem; max-width: 44rem; font-size: 1.1875rem; line-height: 1.65; color: hsl(var(--muted-foreground)); }
+  .vc-facts { margin-top: 2.5rem; display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 60rem; }
+  @media (min-width: 900px) { .vc-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .vc-fact { border: 1px solid hsl(var(--border)); border-radius: 16px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: .35rem; font-size: .9375rem; color: hsl(var(--muted-foreground)); background: hsl(var(--card)); }
+  .vc-fact-num { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; color: hsl(var(--heading)); font-variant-numeric: tabular-nums; }
+  .vc-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+  .vc-btn { display: inline-flex; align-items: center; gap: .5rem; border-radius: 14px; background: hsl(var(--cta-strong)); color: #fff; padding: .8rem 1.3rem; font-size: .9375rem; font-weight: 600; border: 0; cursor: pointer; text-decoration: none; transition: background .15s; }
+  .vc-btn:hover { background: hsl(var(--cta-strong-hover)); }
+  .vc-btn:disabled { opacity: .6; cursor: wait; }
+  .vc-link { font-weight: 600; font-size: .9375rem; color: hsl(var(--cta-accessible)); text-decoration: none; }
+  .vc-link:hover { text-decoration: underline; }
+
+  .vc-grid { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  @media (min-width: 720px) { .vc-g2, .vc-g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .vc-g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .vc-card, .vc-principle, .vc-step { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 18px; padding: 1.5rem 1.6rem; }
+  .vc-mist .vc-card, .vc-mist .vc-step { border-color: hsl(var(--border)); }
+  .vc-card h3, .vc-principle h3, .vc-step h3 { font-size: 1.125rem; font-weight: 700; line-height: 1.35; color: hsl(var(--heading)); }
+  .vc-card p, .vc-principle p, .vc-step p { margin-top: .6rem; font-size: 1rem; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+  .vc-card .vc-kicker + p { margin-top: 0; color: hsl(var(--foreground)); }
+  .vc-principle { border: 0; border-top: 3px solid hsl(var(--cta)); border-radius: 0; background: transparent; padding: 1.25rem 0 0; }
+  .vc-principle .vc-kicker { color: hsl(var(--muted-foreground)); }
+  .vc-num { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 10px; background: hsl(var(--surface-ink)); color: #fff; font-weight: 700; font-size: .9375rem; margin-bottom: 1rem; }
+
+  .vc-year { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 0 2.5rem; }
+  @media (min-width: 900px) { .vc-year { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .vc-year li { display: flex; gap: 1.1rem; padding: 1.1rem 0; border-top: 1px solid hsl(var(--border)); }
+  .vc-year strong { display: block; font-size: 1.0625rem; color: hsl(var(--heading)); }
+  .vc-year p { margin-top: .25rem; color: hsl(var(--muted-foreground)); line-height: 1.5; }
+  .vc-m { flex: none; width: 2.5rem; font-weight: 800; font-size: 1.125rem; color: hsl(var(--cta-accessible)); font-variant-numeric: tabular-nums; }
+
+  .vc-split { display: grid; gap: 2.5rem; align-items: start; }
+  @media (min-width: 1024px) { .vc-split { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .vc-check, .vc-cross { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: .7rem; }
+  .vc-check li, .vc-cross li { position: relative; padding-left: 1.9rem; line-height: 1.55; color: hsl(var(--foreground)); }
+  .vc-check li::before, .vc-cross li::before { position: absolute; left: 0; top: .05rem; width: 1.3rem; height: 1.3rem; border-radius: 999px; font-size: .8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .vc-check li::before { content: '✓'; background: hsl(var(--confirm) / .14); color: hsl(var(--confirm-text)); }
+  .vc-cross li::before { content: '–'; background: hsl(var(--navy-100)); color: hsl(var(--muted-foreground)); }
+  .vc-split > .vc-check { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 18px; padding: 1.6rem; margin: 0; }
+
+  .vc-price-row { display: grid; gap: 1.25rem; }
+  @media (min-width: 1024px) { .vc-price-row { grid-template-columns: 1.15fr 1fr; } }
+  .vc-price { border: 2px solid hsl(var(--price)); border-radius: 20px; padding: 2rem; box-shadow: 0 10px 40px hsl(var(--price) / .16); background: hsl(var(--card)); }
+  .vc-price-num { font-size: clamp(2.4rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -.02em; color: hsl(var(--heading)); line-height: 1.1; }
+  .vc-price-num span { display: block; font-size: 1rem; font-weight: 500; letter-spacing: 0; color: hsl(var(--muted-foreground)); margin-top: .35rem; }
+  .vc-price .vc-check { margin: 1.5rem 0 2rem; }
+  .vc-price-side { display: grid; gap: 1.25rem; align-content: start; }
+
+  .vc-about { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 900px) { .vc-about { grid-template-columns: 220px 1fr; gap: 3rem; } }
+  .vc-photo { width: 180px; height: 180px; border-radius: 24px; object-fit: cover; }
+  @media (min-width: 900px) { .vc-photo { width: 220px; height: 220px; } }
+  .vc-logos { margin-top: 3rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; align-items: center; }
+  @media (min-width: 720px) { .vc-logos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .vc-logos img { width: 100%; height: auto; max-height: 44px; object-fit: contain; filter: grayscale(1); opacity: .55; }
+
+  .vc-faq details { border-top: 1px solid hsl(var(--border)); padding: 1.1rem 0; }
+  .vc-faq details:last-child { border-bottom: 1px solid hsl(var(--border)); }
+  .vc-faq summary { cursor: pointer; font-weight: 600; font-size: 1.0625rem; color: hsl(var(--heading)); list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .vc-faq summary::-webkit-details-marker { display: none; }
+  .vc-faq summary::after { content: '+'; font-weight: 700; color: hsl(var(--cta-accessible)); }
+  .vc-faq details[open] summary::after { content: '–'; }
+  .vc-faq p { margin-top: .7rem; line-height: 1.65; color: hsl(var(--muted-foreground)); }
+</style>
