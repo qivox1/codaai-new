@@ -263,17 +263,23 @@ const lang = 'de' as const;
   .vc-dot { width: .6rem; height: .6rem; border-radius: 99px; background: hsl(var(--confirm)); flex: none; box-shadow: 0 0 0 0 hsl(var(--confirm) / .5); animation: vcPulse 2.2s infinite; }
   @keyframes vcPulse { 0% { box-shadow: 0 0 0 0 hsl(var(--confirm) / .45); } 70% { box-shadow: 0 0 0 .6rem hsl(var(--confirm) / 0); } 100% { box-shadow: 0 0 0 0 hsl(var(--confirm) / 0); } }
 
-  .vc-orbit { max-width: 22rem; width: 100%; margin: 0 auto; }
-  .vc-orbit svg { width: 100%; height: auto; overflow: visible; }
-  .vc-orbit-ring { fill: none; stroke: hsl(var(--border-strong)); stroke-width: 1.5; stroke-dasharray: 4 7; }
-  .vc-orbit-inner { fill: hsl(var(--cta) / .06); stroke: hsl(var(--cta) / .25); stroke-width: 1.5; }
-  .vc-orbit-spin { transform-origin: 160px 160px; animation: vcSpin 60s linear infinite; }
-  .vc-node { fill: #fff; stroke: hsl(var(--navy-400)); stroke-width: 2; opacity: 0; animation: vcNode .5s ease forwards; animation-delay: calc(300ms + var(--k) * 90ms); }
-  .vc-node-on { fill: hsl(var(--cta)); stroke: hsl(var(--cta)); filter: drop-shadow(0 0 10px hsl(var(--cta) / .55)); }
-  .vc-orbit-num { font-size: 64px; font-weight: 800; fill: hsl(var(--heading)); letter-spacing: -.03em; }
-  .vc-orbit-lbl { font-size: 14px; font-weight: 600; fill: hsl(var(--muted-foreground)); letter-spacing: .02em; }
-  @keyframes vcSpin { to { transform: rotate(360deg); } }
-  @keyframes vcNode { from { opacity: 0; } to { opacity: 1; } }
+  /* Hero-Emblem: Rosette aus gleich großen Kreisen um einen gemeinsamen Mittelpunkt */
+  .vc-emblem { max-width: 23rem; width: 100%; margin: 0 auto; text-align: center; }
+  .vc-emblem svg { width: 100%; height: auto; overflow: visible; }
+  .vc-ring { fill: hsl(var(--cta) / .035); stroke: url(#vcg); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; animation: vcRing 1.6s cubic-bezier(.65,0,.35,1) forwards; animation-delay: calc(250ms + var(--k) * 160ms); }
+  .vc-rose { transform-origin: 160px 160px; animation: vcBreathe 9s ease-in-out 2.4s infinite; }
+  .vc-halo { opacity: 0; transform-origin: 160px 160px; animation: vcHalo 1.2s ease 1.6s forwards, vcGlow 4.5s ease-in-out 2.8s infinite; }
+  .vc-core { fill: hsl(var(--cta)); opacity: 0; transform-origin: 160px 160px; animation: vcCore .6s cubic-bezier(.34,1.56,.64,1) 1.7s forwards; }
+  .vc-emblem figcaption { margin-top: 1.25rem; display: flex; justify-content: center; flex-wrap: wrap; gap: .4rem 1.1rem; font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+  .vc-emblem figcaption span { opacity: 0; animation: vcFade .6s ease forwards; }
+  .vc-emblem figcaption span:nth-child(1) { animation-delay: 2.1s; }
+  .vc-emblem figcaption span:nth-child(2) { animation-delay: 2.35s; color: hsl(var(--cta-accessible)); }
+  .vc-emblem figcaption span:nth-child(3) { animation-delay: 2.6s; }
+  @keyframes vcRing { to { stroke-dashoffset: 0; } }
+  @keyframes vcBreathe { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(8deg) scale(1.015); } }
+  @keyframes vcHalo { to { opacity: 1; } }
+  @keyframes vcGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+  @keyframes vcCore { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
 
   .vc-facts { margin-top: 3rem; display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @media (min-width: 900px) { .vc-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -435,7 +441,7 @@ const lang = 'de' as const;
   .vc-ink .vc-small a { color: hsl(var(--cta-on-dark)); }
   .vc-price { align-self: start; }
   .vc-fact-num { white-space: nowrap; }
-  @media (max-width: 520px) { .vc-fact-num { font-size: 1.6rem; } .vc-orbit { max-width: 15rem; } }
+  @media (max-width: 520px) { .vc-fact-num { font-size: 1.6rem; } .vc-emblem { max-width: 16rem; } }
 
   .vc-name { color: hsl(var(--heading)); font-weight: 700; }
   .vc-about .vc-intro + .vc-intro { margin-top: 1rem; }
@@ -463,8 +469,9 @@ const lang = 'de' as const;
   .vc-expert-li svg { width: 1rem; height: 1rem; color: #0A66C2; }
 
   @media (prefers-reduced-motion: reduce) {
-    .vc-orbit-spin, .vc-track, .vc-dot { animation: none !important; }
-    .vc-node { opacity: 1; animation: none; }
+    .vc-rose, .vc-halo, .vc-track, .vc-dot, .vc-ring, .vc-core, .vc-emblem figcaption span { animation: none !important; }
+    .vc-ring { stroke-dashoffset: 0; }
+    .vc-halo, .vc-core, .vc-emblem figcaption span { opacity: 1; }
     .vc-track { flex-wrap: wrap; width: auto; justify-content: center; gap: 2rem 3rem; }
     .vc-track img[aria-hidden] { display: none; }
   }
