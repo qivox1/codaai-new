@@ -10,7 +10,12 @@
    öffentlichen Repos im Ordner CodaAI-Website/visibility-circle/.
    Inhalt ändern: inhalt.html bearbeiten → node verschluesseln.mjs → bauen.
    Link mit Passwort zum Verschicken: /visibility-circle/#zugang=<Passwort>
-   (der Teil hinter # wird nie an einen Server übertragen).                   */
+   (der Teil hinter # wird nie an einen Server übertragen).
+   Seit 20.09.2026 (Format v2) persönliche Zugänge: Passwort VC-<ID>-XXXX-XXXX.
+   Der Inhalt ist mit einem Zufallsschlüssel verschlüsselt, der je Zugang mit
+   dessen Passwort verpackt in enc.keys[<ID>] liegt. Verwaltung und SMS-Versand:
+   CodaAI-Website/visibility-circle/zugang.mjs. GTM: circle_unlock und
+   circle_request tragen circle_member = <ID> (pseudonym, ohne Namen).       */
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -50,29 +55,41 @@ const lang = 'de' as const;
 
 <script>
   const KEY = 'codaai-vc-pw';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
   const b64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 
-  async function decrypt(pw: string): Promise<string | null> {
+  let member = '';
+  // Persönliche Passwörter (VC-…) sind unabhängig von Groß-/Kleinschreibung.
+  const norm = (pw: string) => (/^vc-/i.test(pw.trim()) ? pw.trim().toUpperCase() : pw.trim());
+
+  async function decrypt(pwRaw: string): Promise<string | null> {
     const raw = document.getElementById('vc-data')?.textContent;
     if (!raw) return null;
     const d = JSON.parse(raw);
+    const pw = norm(pwRaw);
+    const id = /^VC-/.test(pw) ? pw.split('-')[1] || '' : 'ALLG';
+    const k = d.keys?.[id];
+    if (!k) return null;
     try {
       const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
-      const key = await crypto.subtle.deriveKey(
-        { name: 'PBKDF2', salt: b64(d.salt), iterations: d.iter, hash: 'SHA-256' },
+      const kek = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: b64(k.salt), iterations: d.iter, hash: 'SHA-256' },
         base,
         { name: 'AES-GCM', length: 256 },
         false,
         ['decrypt'],
       );
+      const rawKey = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(k.iv) }, kek, b64(k.wk));
+      const key = await crypto.subtle.importKey('raw', rawKey, 'AES-GCM', false, ['decrypt']);
       const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(d.iv) }, key, b64(d.data));
+      member = id;
       return new TextDecoder().decode(plain);
     } catch {
       return null;
     }
   }
 
-  function show(html: string) {
+  function show(html: string, method: string) {
     const gate = document.getElementById('vc-gate');
     const box = document.getElementById('vc-content');
     if (!gate || !box) return;
@@ -81,7 +98,7 @@ const lang = 'de' as const;
     box.hidden = false;
     const target = location.hash && !location.hash.startsWith('#zugang=') ? document.querySelector(location.hash) : null;
     if (target) target.scrollIntoView();
-    (window as any).dataLayer?.push({ event: 'circle_unlock' });
+    (window as any).dataLayer?.push({ event: 'circle_unlock', circle_member: member, circle_method: method });
     initFx(box);
   }
 
@@ -141,31 +158,65 @@ const lang = 'de' as const;
       });
     }
 
-    // Anfrageformular → fertige E-Mail
+    // Anfrageformular → Formular-Skript der Website (Apps Script, action circle_request).
+    // Antwortet das Skript nicht mit ok, öffnet sich wie bisher die fertige E-Mail.
     const form = root.querySelector<HTMLFormElement>('#vc-apply');
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = new FormData(form);
       const v = (k: string) => String(f.get(k) || '').trim();
+      const btn = form.querySelector<HTMLButtonElement>('button[type=submit]');
+      const errEl = form.querySelector<HTMLElement>('.vc-apply-err');
+      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.textContent = 'Wird gesendet …'; }
+      if (errEl) errEl.hidden = true;
+      let ok = false;
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 15000);
+        const r = await fetch(ENDPOINT, {
+          method: 'POST', cache: 'reload', signal: ctrl.signal,
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'circle_request', name: v('name'), funktion: v('funktion'), firma: v('firma'),
+            email: v('email'), mobil: v('mobil'), nachricht: v('nachricht'), website: v('website'), member,
+          }),
+        });
+        clearTimeout(t);
+        const j = await r.json();
+        if (j && j.ok) ok = true;
+        else if (j && (j.error === 'email_invalid' || j.error === 'phone_invalid')) {
+          if (errEl) { errEl.textContent = j.error === 'email_invalid' ? 'Bitte prüfen Sie die E-Mail-Adresse.' : 'Bitte prüfen Sie die Mobilnummer.'; errEl.hidden = false; }
+          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || ''; }
+          return;
+        }
+      } catch { ok = false; }
+      (window as any).dataLayer?.push({ event: 'circle_request', circle_member: member, circle_channel: ok ? 'formular' : 'mail' });
+      if (ok) {
+        form.querySelectorAll('label, button, .vc-apply-note').forEach((el) => ((el as HTMLElement).hidden = true));
+        const done = form.querySelector<HTMLElement>('.vc-apply-done');
+        if (done) { done.textContent = 'Danke. Ihre Anfrage ist bei uns angekommen. Sie hören innerhalb von zwei Werktagen von uns, mit drei Terminvorschlägen.'; done.hidden = false; }
+        return;
+      }
       const body = [
         'Guten Tag,', '', 'ich möchte ein Aufnahmegespräch für den Visibility Circle anfragen.', '',
-        'Name: ' + v('name'), 'Funktion: ' + v('funktion'), 'Unternehmen: ' + v('firma'), 'E-Mail: ' + v('email'), '',
+        'Name: ' + v('name'), 'Funktion: ' + v('funktion'), 'Unternehmen: ' + v('firma'), 'E-Mail: ' + v('email'),
+        'Mobilnummer: ' + (v('mobil') || '–'), '',
         'Was mich zum Circle führt:', v('nachricht') || '–',
       ].join('\n');
       const subject = 'Visibility Circle – Aufnahmegespräch ' + v('firma');
-      (window as any).dataLayer?.push({ event: 'circle_request' });
       location.href = 'mailto:hi@codaai.ai?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || ''; }
       form.querySelector('.vc-apply-done')?.removeAttribute('hidden');
     });
   }
 
-  async function tryOpen(pw: string, remember: boolean): Promise<boolean> {
+  async function tryOpen(pw: string, remember: boolean, method: string): Promise<boolean> {
     const html = await decrypt(pw);
     if (!html) return false;
     if (remember) {
-      try { localStorage.setItem(KEY, pw); } catch {}
+      try { localStorage.setItem(KEY, norm(pw)); } catch {}
     }
-    show(html);
+    show(html, method);
     return true;
   }
 
@@ -174,12 +225,12 @@ const lang = 'de' as const;
     if (location.hash.startsWith('#zugang=')) {
       const pw = decodeURIComponent(location.hash.slice(8));
       history.replaceState(null, '', location.pathname + location.search);
-      if (await tryOpen(pw, true)) return;
+      if (await tryOpen(pw, true, 'link')) return;
     }
     // 2) Schon einmal geöffnet
     let saved: string | null = null;
     try { saved = localStorage.getItem(KEY); } catch {}
-    if (saved && (await tryOpen(saved, false))) return;
+    if (saved && (await tryOpen(saved, false, 'gespeichert'))) return;
     if (saved) { try { localStorage.removeItem(KEY); } catch {} }
 
     // 3) Eingabe
@@ -191,7 +242,7 @@ const lang = 'de' as const;
       e.preventDefault();
       if (!input) return;
       if (btn) btn.disabled = true;
-      const ok = await tryOpen(input.value.trim(), true);
+      const ok = await tryOpen(input.value.trim(), true, 'eingabe');
       if (btn) btn.disabled = false;
       if (!ok && err) { err.hidden = false; input.select(); }
     });
@@ -395,7 +446,7 @@ const lang = 'de' as const;
   .vc-price-row { display: grid; gap: 1.25rem; }
   @media (min-width: 1024px) { .vc-price-row { grid-template-columns: 1.1fr 1fr; } }
   .vc-price { border: 2px solid hsl(var(--price)); border-radius: 22px; padding: 2.1rem; box-shadow: 0 16px 50px hsl(var(--price) / .18); background: hsl(var(--card)); position: relative; }
-  .vc-price::before { content: 'Gründungsrunde · Start Januar 2027'; position: absolute; top: -.85rem; left: 1.75rem; background: hsl(var(--price)); color: #fff; font-size: .75rem; font-weight: 700; letter-spacing: .04em; padding: .3rem .75rem; border-radius: 99px; }
+  .vc-price::before { content: 'Gründungsrunde · Start Oktober 2026'; position: absolute; top: -.85rem; left: 1.75rem; background: hsl(var(--price)); color: #fff; font-size: .75rem; font-weight: 700; letter-spacing: .04em; padding: .3rem .75rem; border-radius: 99px; }
   .vc-price-num { font-size: clamp(2.6rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -.02em; color: hsl(var(--heading)); line-height: 1.1; }
   .vc-price-num span { display: block; font-size: 1rem; font-weight: 500; letter-spacing: 0; color: hsl(var(--muted-foreground)); margin-top: .35rem; }
   .vc-price .vc-check { margin: 1.5rem 0 2rem; }
@@ -432,6 +483,9 @@ const lang = 'de' as const;
   .vc-apply input:focus, .vc-apply textarea:focus { outline: 2px solid hsl(var(--ring)); outline-offset: 1px; }
   .vc-apply .vc-btn { width: 100%; margin-top: .25rem; }
   .vc-ink .vc-apply p.vc-apply-note { font-size: .8125rem; color: hsl(var(--muted-foreground)); margin: 0; }
+  .vc-ink .vc-apply p.vc-apply-err { font-size: .875rem; color: hsl(var(--destructive, 0 72% 45%)); font-weight: 600; margin: 0; }
+  .vc-apply .vc-opt { font-weight: 400; color: hsl(var(--muted-foreground)); }
+  .vc-apply .vc-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .vc-ink .vc-apply p.vc-apply-done { font-size: .9375rem; color: hsl(var(--confirm-text)); font-weight: 600; margin: 0; }
 
 
