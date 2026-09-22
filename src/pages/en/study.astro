@@ -2,69 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import { K as KD, DATENSTAND as DATENSTAND_ALL, STUDIE_VERSION, STUDIE_PUBLISHED, STUDIE_UPDATED, STUDIE_MD, STUDIE_CSV, METHODIK, LIMITATIONEN, kernaussagen, kurzbeleg, zitierformate, studieSchemas } from '../../data/studie';
+import { AUTOR } from '../../data/autor';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
-const DATENSTAND = 'June/July 2026';
-const VERSION = '1.0';
-// Webinar-Modul erst mit Live-Gang von /en/webinar aktivieren (Olis Entscheidung 14.07.2026)
+// 22.09.2026 (Maßnahme 5): Kennzahlen, Kernaussagen, Zitierformate und Schema
+// kommen aus src/data/studie.ts — eine Quelle für Seite, .md-Fassung und CSV.
+const DATENSTAND = DATENSTAND_ALL.en;
+const VERSION = STUDIE_VERSION;
 const SHOW_WEBINAR = true;
-
-// ── Kennzahlen (Quelle: geo_v2_export, Auswertung 13.07.2026 — vor Go-Live Refresh!) ──
 const K = {
-  unternehmen: 449,
-  fragen: 3592,
-  antworten: 7184,
-  ohneNennung: 54.7,        // % aller Fragen ohne Nennung des Unternehmens
-  ersetzt: 46.8,            // % Firmen: KI empfiehlt Wettbewerber, Firma fehlt mehrheitlich
-  seoParadox: 34.9,         // % der SEO-starken Firmen (≥100 Top-10) in ChatGPT unsichtbar
-  seoStarkN: 361,
-  komplettUnsichtbar: 12.9, // % Firmen: 0 von 8 Fragen
-  kategorieBlind: 25.6,     // % Firmen: bei Marktfrage zum eigenen Kerngeschäft unsichtbar
-  chatgptAvg: 24.9,
-  googleAvg: 39.4,
-  nieChatgpt: 39.6,
-  nieGoogle: 15.1,
-  nieZitiert: 39.0,
-  platz1: 23.8,
-  avgPosition: '1.8',
-  verlustMedian: '47,000',
+  ...KD,
+  avgPosition: KD.avgPosition.toLocaleString('en-GB'),
+  verlustMedian: KD.verlustMedian.toLocaleString('en-GB'),
 };
-
-const reportSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Report',
-  name: 'AI Blind Test 2026 — analysis of AI visibility among mid-sized companies in Germany',
-  alternativeName: 'KI-Blindtest Mittelstand 2026',
-  url: `${SITE_URL}/en/study/`,
-  datePublished: '2026-07-14',
-  dateModified: '2026-07-14',
-  inLanguage: 'en',
-  version: VERSION,
-  publisher: { '@id': `${SITE_URL}/#organization` },
-  description:
-    'Analysis of 7,184 AI answers (ChatGPT and Google AI Overviews) to 3,592 realistic buyer questions about 449 mid-sized companies in Germany: 54.7 % of the questions produce no mention of the company in question; for 46.8 % of the companies the AI recommends competitors by name.',
-  about: [
-    { '@type': 'Thing', name: 'Generative Engine Optimization (GEO)' },
-    { '@type': 'Thing', name: 'AI visibility' },
-    { '@type': 'Thing', name: 'Mid-sized B2B companies' },
-  ],
-});
-
-const datasetSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Dataset',
-  name: 'AI Blind Test 2026 — raw data aggregate',
-  description:
-    '449 mid-sized companies in Germany × 8 qualified buyer questions, queried on ChatGPT and Google AI Overviews (7,184 documented answers). Collected in June/July 2026. Aggregated metrics are public; company-level data is access-restricted.',
-  url: `${SITE_URL}/en/study/`,
-  creator: { '@id': `${SITE_URL}/#organization` },
-  temporalCoverage: '2026-06/2026-07',
-  spatialCoverage: 'Germany',
-  isAccessibleForFree: true,
-});
+const [reportSchema, datasetSchema] = studieSchemas('en', 'Analysis of 7,184 AI answers (ChatGPT and Google AI Overviews) to 3,592 realistic buyer questions about 449 mid-sized companies in Germany: 54.7 % of the questions produce no mention of the company in question; for 46.8 % of the companies the AI recommends competitors by name.');
+const fmtDate = (d: Date) => d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+const KERN = kernaussagen('en');
+const ZITATE = zitierformate('en');
 
 const faqSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -141,6 +99,7 @@ const beispiele = [
   title="AI Blind Test 2026: Recommended or Invisible? | CodaAI"
   description="7,184 AI answers on 449 companies in Germany: in 55% of buyer questions the company is not named — for 47%, the AI recommends competitors."
   jsonLd={[reportSchema, datasetSchema, faqSchema]}
+  mdVariant={STUDIE_MD.en}
 >
   <Navbar lang="en" />
   <main id="main-content" class="pt-24 lg:pt-28">
@@ -188,6 +147,8 @@ const beispiele = [
             Data as of: {DATENSTAND}
           </span>
           <span>Version {VERSION}</span>
+          <span>Author: <a href={`${base}${AUTOR.url.en.replace('https://www.codaai.ai', '')}`} rel="author" class="font-medium text-foreground hover:text-cta">{AUTOR.name}</a></span>
+          <span>Published <time datetime={STUDIE_PUBLISHED.toISOString()}>{fmtDate(STUDIE_PUBLISHED)}</time> · Updated <time datetime={STUDIE_UPDATED.toISOString()}>{fmtDate(STUDIE_UPDATED)}</time></span>
           <a href="#methodik" class="font-medium text-cta-accessible transition-colors hover:text-cta">Methodology ↓</a>
           <a href="#limitationen" class="font-medium text-cta-accessible transition-colors hover:text-cta">Limitations ↓</a>
           <a href="#zitieren" class="font-medium text-cta-accessible transition-colors hover:text-cta">Citation ↓</a>
@@ -511,28 +472,7 @@ const beispiele = [
             <h2 id="h-methodik" class="cai-h2 text-foreground">Methodology</h2>
 
             <ol class="mt-10 space-y-6">
-              {[
-                {
-                  t: 'Sample',
-                  d: `${K.unternehmen} mid-sized companies from the German-speaking market, predominantly B2B (among others mechanical engineering, electrical engineering, construction suppliers, industrial services). Selected from our own audit practice — not a random sample (see limitations).`,
-                },
-                {
-                  t: 'Question generation',
-                  d: 'Per company, 8 qualified German buyer questions in three archetypes: market overview (2), use case (4), competitor comparison (2). Created on the basis of an automated analysis of the website, the industry and the competitive landscape, with a deterministic quality check. The question sets are frozen and can therefore be repeated exactly for tracking over time.',
-                },
-                {
-                  t: 'Query',
-                  d: 'Every question was put to two interfaces: ChatGPT (model answer without live web search — this measures the structural "knowledge" of the model) and Google AI Overviews (German localisation). Collection period: June/July 2026.',
-                },
-                {
-                  t: 'Evaluation',
-                  d: 'For each answer we recorded: mention of the company (including brand aliases), position of the mention, competitors recommended by name, and whether the company website is cited as a source. Aggregated into visibility metrics per company and across the full dataset.',
-                },
-                {
-                  t: 'Monetary context',
-                  d: 'The opportunity costs quoted are a conservative model calculation based on organic traffic values (SISTRIX data) and discovery assumptions — intended as an order of magnitude, not as a forecast. It is labelled as a model calculation throughout.',
-                },
-              ].map((m, i) => (
+              {METHODIK.en.map((m, i) => (
                 <li class="flex gap-5 rounded-2xl border border-border bg-card p-6">
                   <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
                   <div>
@@ -579,14 +519,7 @@ const beispiele = [
               An analysis is only as credible as the limits it names itself.
             </p>
             <ul class="mt-8 space-y-4">
-              {[
-                'Not a random sample: the companies come from our audit practice and are B2B-heavy. The statements hold for the 449 companies analysed — not for mid-sized companies in Germany as a whole.',
-                'A snapshot: AI answers are volatile; model updates can shift mentions. The data date is stated; the frozen question sets make tracking over time possible.',
-                'ChatGPT was deliberately queried without live web search in order to measure the structural knowledge of the model. With web search enabled, individual answers can differ.',
-                'The monetary context is a model calculation with conservative assumptions, not a revenue forecast.',
-                'Two smaller, independent third-party surveys (24 and 150 companies, spring 2026) arrive at similar orders of magnitude — that supports the direction of the findings, but does not replace representativeness.',
-                'The study measures the German market in German. AI systems work the same way elsewhere, but we have not measured other markets — so we do not claim them.',
-              ].map((l) => (
+              {LIMITATIONEN.en.map((l) => (
                 <li class="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
                   <svg class="mt-0.5 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
                   <span>{l}</span>
@@ -597,20 +530,55 @@ const beispiele = [
 
           <!-- ── Zitieren ─────────────────────────────────────────────── -->
           <section id="zitieren" aria-labelledby="h-zitieren" class="scroll-mt-28 border-t border-border py-16">
-            <h2 id="h-zitieren" class="text-2xl font-semibold tracking-tight text-foreground">Cite this analysis</h2>
-            <p class="mt-3 max-w-2xl text-sm text-muted-foreground">
-              The aggregated metrics may be quoted freely with attribution — in articles, talks and publications.
-              For questions on the methodology: <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible hover:text-cta">hi@codaai.ai</a>.
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Citation</p>
+            <h2 id="h-zitieren" class="cai-h2 text-foreground">Cite this analysis</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">The aggregated figures may be quoted freely with attribution — in articles, talks, studies and presentations. Please always state the base (share of <em>questions</em> or share of <em>companies</em>) and note that this is not a random sample.</p>
+
+            <h3 id="kernaussagen" class="mt-10 scroll-mt-28 text-lg font-semibold text-foreground">Key findings to quote</h3>
+            <p class="mt-1 text-sm text-muted-foreground">Each statement stands on its own and has its own link (the # symbol).</p>
+            <ol class="mt-5 space-y-3">
+              {KERN.map((k, i) => (
+                <li id={k.id} class="scroll-mt-28 flex gap-4 rounded-2xl border border-border bg-card p-5 target:border-cta">
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+                  <div class="min-w-0 flex-1">
+                    <p class="leading-relaxed text-foreground" data-speakable>{k.text}</p>
+                    <p class="mt-1.5 text-xs text-muted-foreground">
+                      {kurzbeleg('en')}
+                      <a href={`#${k.id}`} class="ml-2 font-semibold text-cta-accessible hover:text-cta" aria-label={`Link to this statement ${i + 1}`}>#</a>
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <h3 class="mt-12 text-lg font-semibold text-foreground">Suggested citation</h3>
+            <div class="mt-5 space-y-4">
+              {ZITATE.map((z) => (
+                <div class="rounded-2xl border border-border bg-card p-5">
+                  <div class="flex items-center justify-between gap-4">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{z.label}</p>
+                    <button type="button" data-copy={`cite-${z.id}`} class="cite-copy shrink-0 rounded-[14px] border border-border bg-background px-4 py-1.5 text-xs font-semibold text-foreground transition-colors hover:border-cta hover:text-cta">Copy</button>
+                  </div>
+                  <pre id={`cite-${z.id}`} class="mt-3 whitespace-pre-wrap break-words font-mono text-sm leading-relaxed text-foreground">{z.text}</pre>
+                </div>
+              ))}
+            </div>
+
+            <h3 class="mt-12 text-lg font-semibold text-foreground">Data and formats</h3>
+            <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+              <li class="rounded-2xl border border-border bg-card p-5">
+                <a href={`${base}${STUDIE_CSV.en}`} download class="font-semibold text-foreground hover:text-cta-accessible">Key figures as CSV ↓</a>
+                <p class="mt-1 text-sm text-muted-foreground">all aggregated values with units — to check the maths and build your own charts</p>
+              </li>
+              <li class="rounded-2xl border border-border bg-card p-5">
+                <a href={`${base}${STUDIE_MD.en}`} class="font-semibold text-foreground hover:text-cta-accessible">Text version (Markdown) →</a>
+                <p class="mt-1 text-sm text-muted-foreground">the full analysis as plain text, also for AI assistants</p>
+              </li>
+            </ul>
+            <p class="mt-6 max-w-2xl text-sm text-muted-foreground">
+              Questions on the methodology: <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible hover:text-cta">hi@codaai.ai</a>.
               Publisher details for reference lists: <a href={`${base}/en/facts/`} class="font-medium text-cta-accessible hover:text-cta">Facts about CodaAI</a>.
             </p>
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <code id="cite-text" class="block flex-1 rounded-xl border border-border bg-muted/40 px-5 py-4 text-sm text-foreground">
-                CodaAI (2026): AI Blind Test 2026 ("KI-Blindtest Mittelstand 2026") — analysis of 7,184 AI answers on 449 mid-sized companies in Germany. Version {VERSION}, data as of {DATENSTAND}. {SITE_URL}/en/study/
-              </code>
-              <button id="cite-copy" type="button" class="shrink-0 rounded-[14px] border border-border bg-card px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-cta hover:text-cta">
-                Copy
-              </button>
-            </div>
           </section>
 
           <!-- ── FAQ ──────────────────────────────────────────────────── -->
@@ -806,17 +774,18 @@ const beispiele = [
   });
 
   // ── Zitat kopieren ───────────────────────────────────────────────────────
-  const citeBtn = document.getElementById('cite-copy');
-  const citeText = document.getElementById('cite-text');
-  citeBtn?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(citeText?.textContent?.trim() ?? '');
-      citeBtn.textContent = 'Copied ✓';
-      setTimeout(() => (citeBtn.textContent = 'Copy'), 2000);
-      dl('study_cite_copy');
-    } catch {
-      /* Clipboard nicht verfügbar — kein Fallback nötig */
-    }
+  document.querySelectorAll<HTMLButtonElement>('.cite-copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const el = document.getElementById(btn.dataset.copy ?? '');
+      try {
+        await navigator.clipboard.writeText(el?.textContent?.trim() ?? '');
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => (btn.textContent = 'Copy'), 2000);
+        dl('study_cite_copy');
+      } catch {
+        /* Clipboard nicht verfügbar — Text bleibt markierbar */
+      }
+    });
   });
 </script>
 

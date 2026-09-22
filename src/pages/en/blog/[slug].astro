@@ -47,7 +47,7 @@ const articleSchema = JSON.stringify({
   description,
   url: articleUrl,
   datePublished: pubDate.toISOString(),
-  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
   image: ogImage,
   author: isAutor ? autorSchemaRef('en') : {
     '@type': 'Person',

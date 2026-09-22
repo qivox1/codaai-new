@@ -5,6 +5,7 @@ synonyms: ["Erwähnungsrate", "Brand Mention Rate", "Nennungsquote"]
 category: messung
 related: ["mention", "promptset", "sentiment", "citation-rate", "share-of-ai-search", "llm-visibility-tracking"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 faq:
   - q: "Was ist eine gute Mention Rate?"
     a: "Es gibt keinen absoluten Wert; die Rate hängt von Branche, Fragen und System ab. Aussagekräftig ist der Vergleich mit Wettbewerbern zu denselben Prompts und die Entwicklung über die Zeit. Als Einordnung: In der Studie „KI-Blindtest Mittelstand 2026“ fällt in 55 % der Einkäuferfragen der Name des untersuchten Unternehmens nicht."
@@ -20,7 +21,7 @@ Drei Schritte gehen voraus. Erstens: typische Fragemuster identifizieren — bei
 
 ## Warum ist die Mention Rate für die KI-Sichtbarkeit wichtig?
 
-Weil sie die Frage beantwortet, die über Anfragen entscheidet: Kommt mein Unternehmen vor, wenn jemand nach meiner Leistung fragt? Die Studie „KI-Blindtest Mittelstand 2026" von CodaAI hat 7.184 KI-Antworten zu 449 mittelständischen Unternehmen ausgewertet: In 55 % der Einkäuferfragen fällt der Name des untersuchten Unternehmens nicht, bei 47 % empfiehlt die KI stattdessen Wettbewerber. Ohne Mention Rate bleibt dieser Zustand unsichtbar, weil er in keiner Website-Statistik auftaucht.
+Weil sie die Frage beantwortet, die über Anfragen entscheidet: Kommt mein Unternehmen vor, wenn jemand nach meiner Leistung fragt? Die Studie „KI-Blindtest Mittelstand 2026" von CodaAI hat 7.184 KI-Antworten zu 449 mittelständischen Unternehmen ausgewertet: In 55 % der Einkäuferfragen fällt der Name des untersuchten Unternehmens nicht, bei 47 % der Unternehmen empfiehlt die KI namentlich Wettbewerber. Ohne Mention Rate bleibt dieser Zustand unsichtbar, weil er in keiner Website-Statistik auftaucht.
 
 ## Was bedeutet das für Ihre Website?
 

@@ -6,6 +6,7 @@ synonyms: ["Markenkonsistenz", "Einheitliches Markenbild", "Brand Consistency"]
 category: offpage
 related: ["grounding-page", "entitaet", "brand-mentions", "sentiment", "review-plattformen", "modellwissen"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 stufe: 2
 faq:
   - q: "Welche Angaben gehören zu einer konsistenten Markenbeschreibung?"

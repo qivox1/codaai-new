@@ -6,6 +6,7 @@ synonyms: ["Generative Engine Optimization", "KI-Suchoptimierung", "AI Search Op
 category: grundlagen
 related: ["grounding", "mention", "citation", "share-of-ai-search", "llm"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 faq:
   - q: "Ist GEO dasselbe wie SEO?"
     a: "Nein, aber GEO baut auf SEO auf. Ohne Ranking in der klassischen Suche gibt es kein Grounding, ohne Grounding keine Zitierung. GEO verschiebt die Gewichtung: Passagen statt Seiten, Marke statt Website, Erwähnungen statt Klicks."
@@ -23,7 +24,7 @@ Eine brauchbare Formel dafür lautet: **AI-Sichtbarkeit = (Technik + Content + O
 
 ## Warum ist GEO für Unternehmen wichtig?
 
-Wer heute eine Leistung sucht, fragt zunehmend zuerst eine KI. Die nennt in der Regel wenige Anbieter, und wer nicht darunter ist, kommt in der Entscheidung nicht vor. In der Studie „KI-Blindtest Mittelstand 2026" von CodaAI, die 7.184 KI-Antworten zu 449 mittelständischen Unternehmen auswertet, fällt in 55 % der Einkäuferfragen der Name des untersuchten Unternehmens nicht; bei 47 % der Fragen empfiehlt die KI stattdessen Wettbewerber. Der Traffic auf der eigenen Website zeigt davon nichts, weil die Entscheidung vor dem Klick fällt.
+Wer heute eine Leistung sucht, fragt zunehmend zuerst eine KI. Die nennt in der Regel wenige Anbieter, und wer nicht darunter ist, kommt in der Entscheidung nicht vor. In der Studie „KI-Blindtest Mittelstand 2026" von CodaAI, die 7.184 KI-Antworten zu 449 mittelständischen Unternehmen auswertet, fällt in 55 % der Einkäuferfragen der Name des untersuchten Unternehmens nicht; bei 47 % der Unternehmen empfiehlt die KI namentlich Wettbewerber. Der Traffic auf der eigenen Website zeigt davon nichts, weil die Entscheidung vor dem Klick fällt.
 
 ## Was bedeutet GEO für Ihre Website?
 

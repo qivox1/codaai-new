@@ -24,7 +24,7 @@ Drei Sichtbarkeits-Stufen ab 1.970 € pro Monat, dazu ein Preisrechner, dessen 
 
 ### Studie „KI-Blindtest Mittelstand 2026"
 URL: ${BASE_URL}/studie/
-Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen, erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht. In 55 % der Fragen fällt der Firmenname nicht, bei 47 % empfiehlt die KI stattdessen Wettbewerber. Keine Zufallsstichprobe.
+Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen, erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht. In 55 % der Fragen fällt der Firmenname nicht, bei 47 % der Unternehmen empfiehlt die KI namentlich Wettbewerber. Keine Zufallsstichprobe.
 
 ### Webinar „Empfohlen oder unsichtbar?"
 URL: ${BASE_URL}/webinar/

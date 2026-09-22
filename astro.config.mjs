@@ -2,10 +2,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
 
 /**
  * lastmod fuer die Sitemap — aus der Git-Historie, nicht hartkodiert.
@@ -27,92 +23,9 @@ import { join } from 'node:path';
  * `git log` nichts.
  */
 
-/** Seiten, deren Substanz in einer Komponente statt in der .astro-Datei liegt. */
-const EXTRA_SOURCES = {
-  'preise': ['src/components/react/PricingCalculatorV2.tsx', 'src/data/faq.ts'],
-  'en/pricing': ['src/components/react/PricingCalculatorV2.tsx', 'src/data/faq.en.ts'],
-  // 04.08.2026: Beide Startseiten bestehen fast vollstaendig aus Home.astro.
-  // Ohne diesen Eintrag meldete die Sitemap das Datum von index.astro — einer
-  // Datei, die seit Monaten nur Schema-Bloecke und Importe enthaelt. Jede
-  // Textaenderung an der Startseite blieb fuer Google damit unsichtbar.
-  '': ['src/components/premium/Home.astro', 'src/components/premium/AuditCTA.astro'],
-  'en': ['src/components/premium/Home.astro', 'src/components/premium/AuditCTA.astro'],
-  // Gleiches Muster: die FAQ-Inhalte liegen in der Datenquelle, nicht in der Seite.
-  'faq': ['src/data/faq.ts'],
-  'en/faq': ['src/data/faq.en.ts'],
-  'digital-visibility': ['src/data/faq.ts'],
-  'en/digital-visibility': ['src/data/faq.en.ts'],
-  'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
-  'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
-  // Die Glossar-Übersicht ändert sich, sobald ein Begriff dazukommt oder
-  // umbenannt wird — deshalb hängt ihr lastmod auch an den Gruppendaten.
-  'wissen/geo-glossar': ['src/data/glossar.ts'],
-  'en/knowledge/geo-glossary': ['src/data/glossar.ts'],
-  // 18.09.2026: Pillar-Seite GEO-Optimierung — Text und Belege liegen in der
-  // Datendatei, die Seitendatei ist ein Wrapper.
-  'wissen/geo-optimierung': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
-  'en/knowledge/geo-optimization': ['src/data/geo-optimierung.ts', 'src/components/wissen/GeoPillar.astro'],
-  // 18.09.2026: /check/ besteht aus CheckPage + AuditCTA.
-  'check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
-  'en/check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
-  // 22.09.2026: Faktenseite — Inhalt in der Datendatei, Seite ist ein Wrapper.
-  'fakten': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
-  'en/facts': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
-  'autor/oliver-parrizas': ['src/data/autor.ts', 'src/components/wissen/AutorSeite.astro'],
-  'en/author/oliver-parrizas': ['src/data/autor.ts', 'src/components/wissen/AutorSeite.astro'],
-};
-
-/** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */
-const ROOT = fileURLToPath(new URL('.', import.meta.url));
-const _gitDateCache = new Map();
-
-function gitLastModified(file) {
-  if (_gitDateCache.has(file)) return _gitDateCache.get(file);
-  let iso = null;
-  try {
-    const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], {
-      cwd: ROOT,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    }).trim();
-    if (out) iso = out;
-  } catch {
-    iso = null;
-  }
-  _gitDateCache.set(file, iso);
-  return iso;
-}
-
-/** URL-Pfad (ohne fuehrenden/abschliessenden Slash) -> Quelldateien im Repo. */
-function sourceFilesFor(path) {
-  const candidates = [];
-  if (path === '') {
-    candidates.push('src/pages/index.astro');
-  } else {
-    candidates.push(`src/pages/${path}.astro`, `src/pages/${path}/index.astro`);
-    const de = path.match(/^blog\/(.+)$/);
-    if (de) candidates.push(`src/content/blog/${de[1]}.md`);
-    const en = path.match(/^en\/blog\/(.+)$/);
-    if (en) candidates.push(`src/content/blog/en/${en[1]}.md`, `src/content/blog/${en[1]}.md`);
-    // 03.09.2026: GEO-Glossar — der Inhalt liegt in der Content Collection,
-    // nicht in der Seitendatei. Ohne diese Zeile meldete jede Begriffsseite
-    // das Datum des Templates [slug].astro statt das der Markdown-Datei.
-    const gl = path.match(/^wissen\/geo-glossar\/(.+)$/);
-    if (gl) candidates.push(`src/content/glossar/${gl[1]}.md`);
-    const glEn = path.match(/^en\/knowledge\/geo-glossary\/(.+)$/);
-    if (glEn) candidates.push(`src/content/glossar/en/${glEn[1]}.md`);
-  }
-  for (const extra of EXTRA_SOURCES[path] ?? []) candidates.push(extra);
-  return candidates.filter((f) => existsSync(join(ROOT, f)));
-}
-
-function lastmodFor(path) {
-  const dates = sourceFilesFor(path)
-    .map(gitLastModified)
-    .filter(Boolean)
-    .sort();
-  return dates.length ? dates[dates.length - 1] : null;
-}
+// 22.09.2026: Logik nach src/lib/lastmod.mjs verschoben — dieselbe Quelle
+// speist jetzt auch dateModified (Layout) und die Footer-Zeile.
+import { lastmodFor } from './src/lib/lastmod.mjs';
 
 /** Rehype plugin: add aria-label to GFM task-list checkboxes */
 function rehypeTaskListAriaLabel() {

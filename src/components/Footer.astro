@@ -1,5 +1,6 @@
 ---
 import { t } from '../i18n/utils';
+import { lastmodFor } from '../lib/lastmod.mjs';
 
 interface Props {
   lang: 'de' | 'en';
@@ -124,6 +125,14 @@ const footerLinks = lang === 'en'
     ];
 
 const currentYear = new Date().getFullYear();
+
+/* 22.09.2026 (Maßnahme 4): sichtbares Aktualisierungsdatum auf jeder Seite —
+   dieselbe Quelle wie Sitemap-lastmod und Schema-dateModified (src/lib/lastmod.mjs). */
+const pageModifiedIso = lastmodFor(Astro.url.pathname);
+const pageModified = pageModifiedIso ? new Date(pageModifiedIso) : null;
+const pageModifiedLabel = pageModified
+  ? pageModified.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Europe/Berlin' })
+  : null;
 ---
 
 {/* Footer auf Abyss (Navy-900), umgestellt 04.08.2026 — Beschluss F10.
@@ -339,6 +348,12 @@ const currentYear = new Date().getFullYear();
       <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
         <p class="text-sm text-ondark-muted">
           © {currentYear} CodaAI. {t(lang, "footer.allRightsReserved")}
+          {pageModified && (
+            <span class="block md:inline md:ml-3">
+              {lang === 'de' ? 'Seite zuletzt aktualisiert:' : 'Page last updated:'}{' '}
+              <time datetime={pageModifiedIso}>{pageModifiedLabel}</time>
+            </span>
+          )}
         </p>
         <p class="text-sm text-ondark-muted">
           Made with <span class="text-cta" aria-hidden="true">♡</span> in Germany

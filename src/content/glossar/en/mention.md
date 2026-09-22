@@ -7,12 +7,13 @@ synonyms: ["Brand mention in AI", "AI mention", "Named mention"]
 category: pipeline
 related: ["citation", "mention-rate", "sentiment", "brand-mentions", "share-of-ai-search"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 stufe: 2
 faq:
   - q: "Is a mention in an AI answer the same as a recommendation?"
     a: "No. Mentioned is not recommended. A brand can be named as an example, as a contrast or with reservations. That is why evaluating mentions always includes sentiment: is the brand mentioned positively, neutrally or critically?"
   - q: "How often are mid-sized B2B companies mentioned in AI answers?"
-    a: "The study ‘AI Blind Test 2026’ by CodaAI evaluated 7,184 AI answers about 449 mid-sized B2B companies in Germany: in 55% of buyer questions the name of the company examined does not come up, and in 47% the AI recommends competitors instead. Not a random sample, but a clear picture."
+    a: "The study ‘AI Blind Test 2026’ by CodaAI evaluated 7,184 AI answers about 449 mid-sized B2B companies in Germany: in 55% of buyer questions the name of the company examined does not come up, and for 47% of companies the AI recommends competitors by name. Not a random sample, but a clear picture."
 ---
 
 A mention is the naming of a brand, a product or a company in the text of an AI answer. It is independent of a source reference: a brand can be named without any page being cited, and a page can be cited without the brand appearing in the answer text. Mentions are the metric for the question "Does my company appear in the answer?".
@@ -23,7 +24,7 @@ In two ways. First, from [model knowledge](/en/knowledge/geo-glossary/model-know
 
 ## Why do mentions matter for AI visibility?
 
-Because the user's decision hinges on the name. Someone looking for a service is given a few providers by the AI and continues working with that list. The study "AI Blind Test 2026" shows the scale: in 55% of buyer questions the name of the company examined does not come up, and in 47% of questions the AI recommends competitors instead. A company that is not mentioned loses the enquiry before it arises, and sees nothing of it in its website figures.
+Because the user's decision hinges on the name. Someone looking for a service is given a few providers by the AI and continues working with that list. The study "AI Blind Test 2026" shows the scale: in 55% of buyer questions the name of the company examined does not come up, and for 47% of companies the AI recommends competitors by name. A company that is not mentioned loses the enquiry before it arises, and sees nothing of it in its website figures.
 
 ## What does this mean for your website?
 

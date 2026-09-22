@@ -8,6 +8,7 @@ synonyms: ["Generative Engine Optimization", "AI search optimisation", "LLM opti
 category: grundlagen
 related: ["grounding", "mention", "citation", "share-of-ai-search", "llm"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 faq:
   - q: "Is GEO the same as SEO?"
     a: "No, but GEO builds on SEO. Without a ranking in classic search there is no grounding, and without grounding there is no citation. GEO shifts the weighting: passages instead of pages, brand instead of website, mentions instead of clicks."
@@ -25,7 +26,7 @@ A workable formula for this: **AI visibility = (technology + content + off-page)
 
 ## Why does GEO matter for companies?
 
-Anyone looking for a service today increasingly asks an AI first. It usually names a few providers, and whoever is not among them does not feature in the decision. In the CodaAI study "AI Blind Test 2026", which evaluates 7,184 AI answers about 449 mid-sized B2B companies in Germany, the name of the company under review does not come up in 55% of buyer questions; in 47% of questions the AI recommends competitors instead. Traffic on your own website shows none of this, because the decision is made before the click.
+Anyone looking for a service today increasingly asks an AI first. It usually names a few providers, and whoever is not among them does not feature in the decision. In the CodaAI study "AI Blind Test 2026", which evaluates 7,184 AI answers about 449 mid-sized B2B companies in Germany, the name of the company under review does not come up in 55% of buyer questions; for 47% of companies the AI recommends competitors by name. Traffic on your own website shows none of this, because the decision is made before the click.
 
 ## What does GEO mean for your website?
 

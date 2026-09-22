@@ -7,6 +7,7 @@ synonyms: ["Brand consistency", "Uniform brand image", "Entity consistency"]
 category: offpage
 related: ["grounding-page", "entity", "brand-mentions", "sentiment", "review-platforms", "model-knowledge"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 stufe: 2
 faq:
   - q: "Which details belong to a consistent brand description?"

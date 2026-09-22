@@ -3,6 +3,7 @@ import '../styles/global.css';
 import interLatinFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import CookieBanner from '../components/CookieBanner.astro';
 import { alternatesFor } from '../lib/i18n-routes';
+import { lastmodFor } from '../lib/lastmod.mjs';
 
 interface ArticleMeta {
   publishedTime?: string;
@@ -94,6 +95,27 @@ const webSiteSchema = {
   inLanguage: [lang === 'en' ? 'en' : 'de', lang === 'en' ? 'de' : 'en'],
 };
 
+// 22.09.2026 (Maßnahme 4, Aktualität): Jede Seite bekommt einen WebPage-Knoten
+// mit dateModified — aus derselben Quelle wie Sitemap-lastmod und die Footer-Zeile
+// (src/lib/lastmod.mjs). Seiten, die selbst einen `#webpage`-Knoten liefern
+// (Faktenseite, Autorenseite), behalten ihren eigenen.
+const pageUrlForSchema = `${SITE_URL}${Astro.url.pathname}`;
+const pageModified = lastmodFor(Astro.url.pathname);
+const hasOwnWebPage = jsonLd.some((j) => j.includes(`${pageUrlForSchema}#webpage`));
+const webPageSchema = pageModified && !hasOwnWebPage
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${pageUrlForSchema}#webpage`,
+      url: pageUrlForSchema,
+      name: title,
+      inLanguage: lang,
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      dateModified: pageModified,
+    }
+  : null;
+
 type SchemaObj = Record<string, unknown>;
 const stripCtx = ({ '@context': _, ...rest }: SchemaObj): SchemaObj => rest;
 const graphSchema = JSON.stringify({
@@ -101,6 +123,7 @@ const graphSchema = JSON.stringify({
   '@graph': [
     stripCtx(organizationSchema),
     stripCtx(webSiteSchema),
+    ...(webPageSchema ? [stripCtx(webPageSchema)] : []),
     ...jsonLd.map((j) => stripCtx(JSON.parse(j) as SchemaObj)),
   ],
 });

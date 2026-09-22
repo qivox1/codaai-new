@@ -7,6 +7,7 @@ synonyms: ["Brand Mention Rate", "Mention frequency", "Brand mention share"]
 category: messung
 related: ["mention", "prompt-set", "sentiment", "citation-rate", "share-of-ai-search", "llm-visibility-tracking"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 faq:
   - q: "What is a good Mention Rate?"
     a: "There is no absolute value; the rate depends on industry, questions and system. What is meaningful is the comparison with competitors on the same prompts and the development over time. For orientation: in the study ‘AI Blind Test 2026’, the name of the company under review does not appear in 55% of buyer questions."
@@ -22,7 +23,7 @@ Three steps come first. First: identify typical question patterns. For which pro
 
 ## Why does the Mention Rate matter for AI visibility?
 
-Because it answers the question that decides over enquiries: does my company appear when someone asks about my service? The study "AI Blind Test 2026" by CodaAI analysed 7,184 AI answers on 449 mid-sized B2B companies in Germany: in 55% of buyer questions the name of the company under review does not appear, and in 47% the AI recommends competitors instead. Without the Mention Rate, this state remains invisible because it shows up in no website statistic.
+Because it answers the question that decides over enquiries: does my company appear when someone asks about my service? The study "AI Blind Test 2026" by CodaAI analysed 7,184 AI answers on 449 mid-sized B2B companies in Germany: in 55% of buyer questions the name of the company under review does not appear, and for 47% of companies the AI recommends competitors by name. Without the Mention Rate, this state remains invisible because it shows up in no website statistic.
 
 ## What does this mean for your website?
 

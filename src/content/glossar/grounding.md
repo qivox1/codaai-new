@@ -5,6 +5,7 @@ synonyms: ["Search Grounding", "Grounded Response", "Quellenverankerung"]
 category: grounding
 related: ["grounding-page", "websuche", "grounding-snippets", "grounded-response-generation", "grounding-budget", "citation", "document-relevance"]
 pubDate: 2026-09-03
+updatedDate: 2026-09-22
 stufe: 3
 faq:
   - q: "Warum ist Grounding der Hebel für klassisches SEO in KI-Antworten?"

@@ -55,9 +55,12 @@ Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 
 erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht.
 **Keine Zufallsstichprobe** — das gehört bei jeder Weitergabe der Zahlen dazu.
 
-- In 55 % der Einkäuferfragen fällt der Name des untersuchten Unternehmens nicht.
-- Bei 47 % der Fragen empfiehlt die KI stattdessen Wettbewerber.
-- Klassische Rankings und Erwähnungen in KI-Antworten hängen nur schwach zusammen — gute SEO-Sichtbarkeit garantiert keine Nennung.
+- In 54,7 % der 3.592 Einkäuferfragen nennen weder ChatGPT noch die Google KI-Übersicht das untersuchte Unternehmen.
+- Bei 46,8 % der 449 Unternehmen empfehlen die KI-Systeme namentlich Wettbewerber, während das Unternehmen selbst bei der Mehrheit seiner Fragen fehlt.
+- 34,9 % der 361 Unternehmen mit mehr als 100 Top-10-Rankings bei Google sind in ChatGPT komplett unsichtbar.
+- 25,6 % der Unternehmen werden selbst bei der Marktübersichts-Frage zu ihrer eigenen Kategorie nicht genannt.
+- Bezugsgröße immer mitnennen (Anteil der Fragen bzw. der Unternehmen). Autor: Oliver Parrizas; Herausgeber: CodaAI (AMP Beratung). Version 1.0, Datenstand Juni/Juli 2026.
+- Alle acht Kernaussagen mit Ankern und Zitierformaten (APA, BibTeX): https://www.codaai.ai/studie/#zitieren · Textfassung: https://www.codaai.ai/studie.md · Kennzahlen als CSV: https://www.codaai.ai/studie/kennzahlen.csv
 
 ## Was CodaAI ausdrücklich nicht anbietet
 

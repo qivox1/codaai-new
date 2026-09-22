@@ -76,3 +76,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # 22.09.2026 (Maßnahme 4): Nach jedem Deploy geänderte Seiten per IndexNow
+  # melden (Bing, Copilot, ChatGPT-Suche u. a.). Grundlage ist das lastmod der
+  # Live-Sitemap, siehe scripts/indexnow-changed.mjs.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: IndexNow
+        run: |
+          sleep 45
+          node scripts/indexnow-changed.mjs
