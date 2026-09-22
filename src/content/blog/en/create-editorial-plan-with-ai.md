@@ -3,6 +3,7 @@ title: "Editorial Plan with AI: B2B Template"
 description: "How to create a systematic monthly editorial plan using AI – complete with keyword templates, topic clusters, and concrete examples for B2B content teams."
 pubDate: 2026-03-10
 lang: en
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."

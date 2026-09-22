@@ -3,6 +3,7 @@ title: "AI Content Marketing for Mid-Market"
 description: "Content marketing for mid-market companies: how to compete with larger competitors using AI – at a fraction of the usual production cost."
 pubDate: 2026-01-15
 lang: en
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."

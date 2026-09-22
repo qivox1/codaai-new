@@ -3,6 +3,7 @@ title: "Content Marketing vs. Google Ads B2B"
 description: "Content Marketing oder Google Ads: Was lohnt sich für B2B-Mittelständler? Ehrlicher Vergleich mit Zahlen, ROI-Rechnung und klaren Empfehlungen."
 pubDate: 2026-02-26
 lang: de
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."

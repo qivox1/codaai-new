@@ -3,6 +3,7 @@ title: "Redaktionsplan erstellen mit KI"
 description: "Mit KI einen Redaktionsplan für 3 Monate erstellen: Themen, Keywords und Kalender in 10 Minuten – statt 4 Stunden manuell."
 pubDate: 2026-02-05
 lang: de
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."

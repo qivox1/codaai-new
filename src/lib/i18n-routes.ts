@@ -46,7 +46,6 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
 
   // -- Blogartikel ---------------------------------------------------------
   ['/blog/ai-crawler-server-performance-geo/', '/en/blog/ai-crawler-server-performance-geo/'],
-  ['/blog/b2b-blog-als-vertriebskanal/', '/en/blog/b2b-blog-as-sales-channel/'],
   ['/blog/youtube-ki-sichtbarkeit-b2b/', '/en/blog/youtube-ai-visibility-b2b/'],
   ['/blog/in-chatgpt-als-anbieter-empfohlen-werden/', '/en/blog/get-recommended-by-chatgpt-as-a-supplier/'],
   ['/blog/markennennungen-drittseiten-ki/', '/en/blog/brand-mentions-third-party-sites-ai/'],
@@ -57,7 +56,6 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/blog/content-marketing-mittelstand-ki/', '/en/blog/ai-content-marketing-for-smb/'],
   ['/blog/content-marketing-vs-google-ads-b2b/', '/en/blog/content-marketing-vs-google-ads-b2b/'],
   ['/blog/ki-blog-erstellen/', '/en/blog/create-ai-powered-blog/'],
-  ['/blog/ki-content-marketing-strategie/', '/en/blog/ai-content-marketing-strategy/'],
   ['/blog/redaktionsplan-ki-erstellen/', '/en/blog/create-editorial-plan-with-ai/'],
   // 03.09.2026: drei Paare entfernt (Kosten-/Agentur-Artikel auf noindex, Beschluss
   // Oli) — ein Sprachpaar zwischen zwei noindex-Seiten waere ein Widerspruch:
@@ -146,7 +144,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
  *   DE-only : /leistungen/ (noindex-Weiterleitung)
  *             (ki-sichtbarkeit-praxis hat seit 22.09.2026 eine EN-Fassung)
  *             /checkout-success/ (Stripe abgeschaltet, noindex)
- *   EN-only : /en/blog/ai-content-marketing-strategy-guide/
+ *   EN-only : – (ai-content-marketing-strategy-guide seit 22.09.2026 Weiterleitung)
  *
  *   Kein Paar trotz beidseitiger Existenz:
  *     /kontakt/ ↔ /en/contact/ — beide sind noindex-Weiterleitungen (s. o.)

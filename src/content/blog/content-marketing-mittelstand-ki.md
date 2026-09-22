@@ -3,6 +3,7 @@ title: "KI Content Marketing im Mittelstand"
 description: "Mittelständische Unternehmen produzieren zu wenig Content – obwohl sie die Expertise haben. KI schließt die Content-Lücke."
 pubDate: 2026-02-19
 lang: de
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."

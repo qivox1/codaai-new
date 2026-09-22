@@ -86,6 +86,12 @@ export default defineConfig({
         !page.endsWith('/en/blog/outsource-blog-writing-costs/') &&
         !page.endsWith('/en/blog/reduce-marketing-costs-ai-content/') &&
         !page.endsWith('/en/blog/marketing-agency-alternative-ai/') &&
+        // 22.09.2026: aufgelöste Artikel, nur noch Weiterleitungen (Redaktionsplan 2026/27)
+        !page.endsWith('/blog/b2b-blog-als-vertriebskanal/') &&
+        !page.endsWith('/blog/ki-content-marketing-strategie/') &&
+        !page.endsWith('/en/blog/b2b-blog-as-sales-channel/') &&
+        !page.endsWith('/en/blog/ai-content-marketing-strategy/') &&
+        !page.endsWith('/en/blog/ai-content-marketing-strategy-guide/') &&
         // 19.09.2026: Visibility Circle ist nur fuer eingeladene Unternehmen.
         !page.includes('/visibility-circle') &&
         !page.includes('/auth/') &&

@@ -15,7 +15,7 @@ const tr = getTranslations(language);
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
 
 // Neueste 3 DE-Artikel für die Homepage-Sektion
-const allDePosts = await getCollection('blog', ({ data }) => data.lang === 'de' && !data.noindex);
+const allDePosts = await getCollection('blog', ({ data }) => data.lang === 'de' && !data.noindex && data.inUebersicht !== false);
 const recentPosts = allDePosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);

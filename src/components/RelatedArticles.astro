@@ -15,7 +15,7 @@ const all = await getCollection('blog', ({ data }) => data.lang === lang);
 
 // Score by relevance: same category = 2pts, each matching tag = 1pt
 const scored = all
-  .filter((p) => p.id !== currentSlug && !(p.data as any).noindex)
+  .filter((p) => p.id !== currentSlug && !(p.data as any).noindex && (p.data as any).inUebersicht !== false)
   .map((p) => {
     let score = 0;
     if ((p.data as any).category === category) score += 2;

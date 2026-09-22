@@ -107,6 +107,8 @@ Immer: `titel`, `quelle`, `alt` (ein Satz Befund). Höchstens **ein** markiertes
 | `content-marketing-vs-google-ads-b2b` | Umbau → „Die Entscheidung fällt vor dem ersten Klick" | Messung | W7 · 16.11. |
 | 3 noindex-Artikel (Kosten/Agentur) | bleiben draußen; Weiterleitungsseite (noindex, Canonical, Meta-Refresh — GitHub Pages kann kein echtes 301) | – | W1 |
 
+**Nachtrag 22.09.2026 (Beschluss Oli):** Die zwei Auflösungen (`b2b-blog-als-vertriebskanal`, `ki-content-marketing-strategie` samt EN-Zwillingen und `en/ai-content-marketing-strategy-guide`) sind **sofort** umgesetzt — Weiterleitung auf die Pillar-Seite (Abschnitt Content bzw. Start). Die 5 Umbau-Kandidaten (DE + EN) tragen bis zu ihrem Umbau `inUebersicht: false`: erreichbar und indexiert, aber nicht auf Blog-Übersicht, Startseite, „Verwandte Artikel“ und in `llms-full.txt`. Beim Umbau die Zeile entfernen.
+
 Weiterleitungen nach dem Muster von `/kontakt/` bzw. `src/pages/blog/b2b-videomarketing-erklaervideos-mittelstand.astro`, aus der Sitemap filtern (`astro.config.mjs`).
 Die 6 Artikel auf Linie (YouTube, ChatGPT/Bing, Praxis-Studie, Markennennungen, Vergleichslisten, Startseiten-Zitate) wurden am 22.09. auf die neue Vorlage umgestellt; fehlende EN-Fassungen der drei Artikel vom 17.09. und des Startseiten-Artikels werden nachgezogen.
 

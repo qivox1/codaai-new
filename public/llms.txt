@@ -70,29 +70,25 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 
 ## Blog-Artikel (Deutsch)
 
-- [GEO-Sichtbarkeit für KI-Suchmaschinen](https://www.codaai.ai/blog/ai-crawler-server-performance-geo/)
-- [KI-Sichtbarkeit in ChatGPT und Google KI](https://www.codaai.ai/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/)
-- [ChatGPT SEO: In KI-Suchen gefunden werden](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/)
-- [KI Content Marketing: Mehr Sichtbarkeit](https://www.codaai.ai/blog/ki-content-marketing-strategie/)
-- [KI Content Marketing im Mittelstand](https://www.codaai.ai/blog/content-marketing-mittelstand-ki/)
-- [B2B-Blog als Vertriebskanal nutzen](https://www.codaai.ai/blog/b2b-blog-als-vertriebskanal/)
-- [Content Marketing vs. Google Ads B2B](https://www.codaai.ai/blog/content-marketing-vs-google-ads-b2b/)
-- [Redaktionsplan erstellen mit KI](https://www.codaai.ai/blog/redaktionsplan-ki-erstellen/)
-- [KI Blog erstellen: SEO-Artikel in 30 Min.](https://www.codaai.ai/blog/ki-blog-erstellen/)
-- [B2B-Videomarketing mit Erklärvideos](https://www.codaai.ai/blog/b2b-videomarketing-erklaervideos-mittelstand/)
+Vier Themenreihen: Lesbar für KI · Zitierfähige Inhalte · Erwähnt werden · Messen & steuern.
+
+- [In ChatGPT als Anbieter empfohlen werden: Was nachweislich wirkt](https://www.codaai.ai/blog/in-chatgpt-als-anbieter-empfohlen-werden/)
+- [Markennennungen auf Drittseiten: Warum Erwähnungen stärker wirken als Backlinks](https://www.codaai.ai/blog/markennennungen-drittseiten-ki/)
+- [Vergleichsartikel und Anbieter-Listen: Woher KI-Systeme ihre Empfehlungen nehmen](https://www.codaai.ai/blog/vergleichsartikel-anbieterlisten-ki/)
+- [Was ChatGPT zitiert: Zwei Drittel sind unerreichbar – und die zweitgrößte Kategorie gehört Ihnen](https://www.codaai.ai/blog/chatgpt-quellen-startseite-markenkonsistenz/)
+- [KI-Sichtbarkeit in ChatGPT und Google KI: 7.184 ausgewertete Antworten](https://www.codaai.ai/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/)
+- [YouTube im B2B: Welche Videos KI-Systeme zitieren](https://www.codaai.ai/blog/youtube-ki-sichtbarkeit-b2b/)
+- [ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/)
 
 ## Blog-Artikel (Englisch)
 
-- [GEO Visibility: AI Search Engine Guide](https://www.codaai.ai/en/blog/ai-crawler-server-performance-geo/)
-- [ChatGPT & Perplexity SEO for B2B 2026](https://www.codaai.ai/en/blog/chatgpt-seo-perplexity-visibility/)
-- [AI Content Marketing: Complete Strategy](https://www.codaai.ai/en/blog/ai-content-marketing-strategy/)
-- [AI Content Marketing Strategy Guide](https://www.codaai.ai/en/blog/ai-content-marketing-strategy-guide/)
-- [AI Content Marketing for Mid-Market](https://www.codaai.ai/en/blog/ai-content-marketing-for-smb/)
-- [B2B Blog as Sales Channel: Lead Guide](https://www.codaai.ai/en/blog/b2b-blog-as-sales-channel/)
-- [Content Marketing vs Google Ads: B2B](https://www.codaai.ai/en/blog/content-marketing-vs-google-ads-b2b/)
-- [Editorial Plan with AI: B2B Template](https://www.codaai.ai/en/blog/create-editorial-plan-with-ai/)
-- [Create a Blog with AI: 4 Articles/Month](https://www.codaai.ai/en/blog/create-ai-powered-blog/)
-- [B2B Explainer Videos for Lead Generation](https://www.codaai.ai/en/blog/b2b-explainer-videos-lead-generation/)
+- [Getting Recommended by ChatGPT as a Supplier](https://www.codaai.ai/en/blog/get-recommended-by-chatgpt-as-a-supplier/)
+- [Brand Mentions on Third-Party Sites](https://www.codaai.ai/en/blog/brand-mentions-third-party-sites-ai/)
+- [Comparison Articles and Vendor Lists](https://www.codaai.ai/en/blog/comparison-articles-vendor-lists-ai/)
+- [What ChatGPT Cites: Home Pages and Brand Consistency](https://www.codaai.ai/en/blog/chatgpt-sources-homepage-brand-consistency/)
+- [AI Visibility in Practice: 7,184 AI Answers Analysed](https://www.codaai.ai/en/blog/ai-visibility-chatgpt-recommendation-practice/)
+- [YouTube for B2B: Which Videos AI Systems Cite](https://www.codaai.ai/en/blog/youtube-ai-visibility-b2b/)
+- [ChatGPT SEO: Where AI Systems Get Their Sources](https://www.codaai.ai/en/blog/chatgpt-seo-perplexity-visibility/)
 
 ## GEO Glossary (English)
 

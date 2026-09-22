@@ -33,6 +33,11 @@ const blog = defineCollection({
     // für jeden neuen oder umgebauten Artikel.
     reihe: z.enum(['technik', 'content', 'offpage', 'messung']).optional(),
     tags: z.array(z.string()),
+    // inUebersicht: false = Artikel bleibt unter seiner Adresse erreichbar und
+    // indexiert, erscheint aber nicht auf der Blog-Übersicht, der Startseite,
+    // in „Verwandte Artikel" und in llms-full.txt. Für Altartikel bis zu ihrem
+    // Umbau (Beschluss Oli, 22.09.2026, Redaktionsplan Abschnitt 6).
+    inUebersicht: z.boolean().optional().default(true),
     featured: z.boolean().optional().default(false),
 
     // ── Visuals ───────────────────────────────────────────────────────────

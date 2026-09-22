@@ -3,6 +3,7 @@ title: "KI Blog erstellen: SEO-Artikel in 30 Min."
 description: "Mit KI einen SEO-Artikel erstellen: vom Keyword bis zur Veröffentlichung in 30 Minuten. Konkreter Schritt-für-Schritt-Workflow mit echten Zeitdaten."
 pubDate: 2026-01-29
 lang: de
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."

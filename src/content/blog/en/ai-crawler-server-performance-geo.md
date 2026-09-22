@@ -3,6 +3,7 @@ title: "GEO Visibility: AI Search Engine Guide"
 description: "With the right server performance and GEO-optimized content from CodaAI, AI crawlers like GPTBot and ClaudeBot will reliably cite your website."
 pubDate: 2026-03-22
 lang: en
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."

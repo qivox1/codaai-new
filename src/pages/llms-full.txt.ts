@@ -49,7 +49,7 @@ Begriffe der KI-Suche — von Grounding über Query Fan-out und Re-Ranking bis S
 ---`;
 
 export const GET: APIRoute = async () => {
-  const allPosts = await getCollection('blog', ({ data }) => !data.noindex);
+  const allPosts = await getCollection('blog', ({ data }) => !data.noindex && data.inUebersicht !== false);
 
   // Neueste zuerst
   allPosts.sort(

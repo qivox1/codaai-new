@@ -3,6 +3,7 @@ title: "GEO-Sichtbarkeit für KI-Suchmaschinen"
 description: "Mit der richtigen Server-Performance und GEO-optimiertem Content von CodaAI werden AI Crawler wie GPTBot und ClaudeBot deine Website zuverlässig zitieren."
 pubDate: 2026-03-22
 lang: de
+inUebersicht: false
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
