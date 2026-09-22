@@ -100,6 +100,62 @@ const lang = 'de' as const;
     if (target) target.scrollIntoView();
     (window as any).dataLayer?.push({ event: 'circle_unlock', circle_member: member, circle_method: method });
     initFx(box);
+    initTracking(box);
+  }
+
+  /* ── Verhaltens-Tracking je Zugang (22.09.2026, Auftrag Oli) ──────────────
+     Alle Ereignisse tragen circle_member = Zugangs-ID (pseudonym).
+     circle_section  – Abschnitt zum ersten Mal zur Hälfte sichtbar (circle_section = Name)
+     circle_scroll   – Scrolltiefe 25/50/75/100 % (circle_depth)
+     circle_click    – Klick auf Link/Knopf im Inhalt (circle_target = Beschriftung)
+     circle_time     – aktive Lesezeit in Sekunden seit der letzten Meldung
+                       (circle_seconds), gemeldet beim Verlassen/Tab-Wechsel;
+                       in GA4 aufsummieren = Gesamtlesezeit.                 */
+  function initTracking(root: HTMLElement) {
+    const dl = (window as any).dataLayer;
+    if (!dl) return;
+    const push = (event: string, p: Record<string, unknown>) => dl.push({ event, circle_member: member, ...p });
+    const slug = (t: string) => t.replace(/\s+/g, ' ').trim().slice(0, 60);
+    // Abschnitte
+    const secs = Array.from(root.querySelectorAll<HTMLElement>('section'));
+    const name = (el: HTMLElement, i: number) => {
+      const h = el.querySelector('h1, h2');
+      return slug(h?.textContent || el.id || 'Abschnitt ' + (i + 1));
+    };
+    if ('IntersectionObserver' in window) {
+      const seen = new Set<Element>();
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting || seen.has(e.target)) return;
+        seen.add(e.target); io.unobserve(e.target);
+        const i = secs.indexOf(e.target as HTMLElement);
+        push('circle_section', { circle_section: String(i + 1).padStart(2, '0') + ' ' + name(e.target as HTMLElement, i) });
+      }), { threshold: 0.5 });
+      secs.forEach((el) => io.observe(el));
+    }
+    // Scrolltiefe
+    const marks = [25, 50, 75, 100]; const done = new Set<number>();
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = h > 0 ? (window.scrollY / h) * 100 : 100;
+      marks.forEach((m) => { if (pct >= m - 1 && !done.has(m)) { done.add(m); push('circle_scroll', { circle_depth: m }); } });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    // Klicks
+    root.addEventListener('click', (ev) => {
+      const a = (ev.target as HTMLElement).closest('a, button');
+      if (a) push('circle_click', { circle_target: slug(a.textContent || a.getAttribute('aria-label') || a.getAttribute('href') || '') });
+    });
+    // Aktive Lesezeit
+    let since = document.visibilityState === 'visible' ? Date.now() : 0; let acc = 0;
+    const flush = () => {
+      if (since) { acc += Date.now() - since; since = 0; }
+      const sec = Math.round(acc / 1000);
+      if (sec >= 1) { push('circle_time', { circle_seconds: sec }); acc = 0; }
+    };
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flush(); else since = Date.now();
+    });
+    window.addEventListener('pagehide', flush);
   }
 
 
@@ -415,6 +471,41 @@ const lang = 'de' as const;
   .vc-q-mess { margin-top: .6rem; display: flex; align-items: center; gap: .6rem; font-size: .875rem; font-weight: 600; color: hsl(var(--heading)); background: hsl(var(--cta) / .07); border-radius: 12px; padding: .55rem .7rem; }
   .vc-q-mess .vc-ico { width: 2rem; height: 2rem; margin: 0; border-radius: 9px; }
   .vc-q-mess .vc-ico svg { width: 1.1rem; height: 1.1rem; }
+  /* Jahresplan (22.09.2026): Quartale als Zeilen, drei Monate nebeneinander, Eigenständigkeit als Leiste */
+  .vc-year { display: grid; gap: 1.25rem; }
+  .vc-yq { border: 1px solid hsl(var(--border)); border-radius: 18px; padding: 1.4rem; background: hsl(var(--card)); display: grid; gap: 1rem; }
+  @media (min-width: 1024px) { .vc-yq { grid-template-columns: 12.5rem minmax(0, 1fr); column-gap: 2rem; padding: 1.6rem 1.75rem; } .vc-yq .vc-q-mess { grid-column: 2; } }
+  .vc-yq-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; align-content: start; }
+  @media (min-width: 1024px) { .vc-yq-head { flex-direction: column; align-items: flex-start; } }
+  .vc-yq-stufe { font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: hsl(var(--cta-accessible)); }
+  .vc-meter { display: inline-flex; gap: 4px; }
+  .vc-meter i { width: 1.35rem; height: 6px; border-radius: 99px; background: hsl(var(--border-strong)); }
+  .vc-meter i.on { background: linear-gradient(90deg, hsl(var(--navy-500)), hsl(var(--cta))); }
+  .vc-yq ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+  @media (min-width: 720px) { .vc-yq ol { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
+  .vc-yq li { display: flex; gap: .75rem; }
+  .vc-yq strong { display: block; font-size: 1rem; color: hsl(var(--heading)); line-height: 1.35; }
+  .vc-yq li p { margin-top: .3rem; font-size: .9375rem; color: hsl(var(--muted-foreground)); line-height: 1.5; }
+  .vc-yq li p.vc-can { margin-top: .55rem; font-size: .875rem; font-weight: 600; color: hsl(var(--heading)); }
+  .vc-yq .vc-q-mess { margin-top: 0; }
+  .vc-yend { margin-top: 1.5rem; display: grid; gap: 1.5rem; align-items: center; background: hsl(var(--surface-ink)); color: #fff; border-radius: 22px; padding: 2rem; }
+  @media (min-width: 1024px) { .vc-yend { grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; padding: 2.25rem 2.5rem; } }
+  .vc-yend .vc-kicker { color: hsl(var(--cta-on-dark)); }
+  .vc-yend h3 { font-size: clamp(1.2rem, 2.2vw, 1.5rem); font-weight: 700; line-height: 1.3; color: #fff; max-width: 44rem; }
+  .vc-yend p:not(.vc-kicker) { margin-top: .75rem; color: hsl(var(--muted-foreground-on-dark)); line-height: 1.6; max-width: 44rem; }
+  .vc-reassure { margin-top: 1rem; font-size: .875rem; color: hsl(var(--muted-foreground)); }
+  /* Vergleich Coaching / Circle / Betreuung */
+  .vc-cmp { display: grid; gap: 1.25rem; }
+  @media (min-width: 900px) { .vc-cmp { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; } }
+  .vc-cmp-card { border: 1px solid hsl(var(--border)); border-radius: 18px; padding: 1.6rem; background: hsl(var(--card)); position: relative; }
+  .vc-cmp-card h3 { font-size: 1.25rem; font-weight: 700; color: hsl(var(--heading)); }
+  .vc-cmp-card > p:not(.vc-kicker) { margin-top: .5rem; color: hsl(var(--muted-foreground)); line-height: 1.55; }
+  .vc-cmp-card .vc-kicker { color: hsl(var(--muted-foreground)); }
+  .vc-cmp-card dl { margin: 1.25rem 0 0; display: grid; grid-template-columns: auto 1fr; gap: .55rem 1rem; font-size: .9375rem; }
+  .vc-cmp-card dt { color: hsl(var(--muted-foreground)); }
+  .vc-cmp-card dd { margin: 0; color: hsl(var(--heading)); font-weight: 600; }
+  .vc-cmp-hi { border: 2px solid hsl(var(--cta)); box-shadow: 0 16px 44px hsl(var(--cta) / .16); }
+  .vc-cmp-hi .vc-kicker { color: hsl(var(--cta-accessible)); }
 
   .vc-split { display: grid; gap: 2.5rem; align-items: start; }
   @media (min-width: 1024px) { .vc-split { grid-template-columns: 1fr 1fr; gap: 4.5rem; } }
