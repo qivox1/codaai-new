@@ -8,7 +8,7 @@ const { lang, reihe } = Astro.props;
 const de = lang === 'de';
 const zweit = reihe ? REIHE_BY_ID[reihe].zweit[lang] : (de ? { href: '/digital-visibility/', label: 'Was das Komplett-Audit zusätzlich liefert' } : { href: '/en/digital-visibility/', label: 'What the full audit adds' });
 ---
-<section class="mt-12 rounded-2xl bg-surface-ink text-white p-6 lg:p-8" aria-label={de ? 'Nächster Schritt' : 'Next step'}>
+<section class="mt-12 rounded-2xl bg-surface-ink text-white p-6 lg:p-8" aria-label={de ? 'Nächster Schritt' : 'Next step'} data-blog-cta-root data-reihe={reihe ?? ''}>
   <p class="text-xs font-semibold uppercase tracking-widest text-navy-200 mb-2">{de ? 'Kostenloser Check' : 'Free check'}</p>
   <p class="text-xl lg:text-2xl font-semibold leading-snug mb-2">
     {de ? 'Nennt ChatGPT Ihr Unternehmen?' : 'Does ChatGPT name your company?'}
@@ -26,3 +26,21 @@ const zweit = reihe ? REIHE_BY_ID[reihe].zweit[lang] : (de ? { href: '/digital-v
     <a href={zweit.href} data-cta="blog-end-second" class="text-white underline underline-offset-4 hover:text-navy-100">{zweit.label}</a>
   </p>
 </section>
+
+<script is:inline>
+/* GA4 über GTM (22.09.2026): jeder Klick auf einen Blog-CTA — Abschluss-Box
+   (blog-end-check, blog-end-second) und Seitenleiste (blog-sidebar-check).
+   Event `blog_cta_click` mit blog_cta, blog_reihe, blog_article, lang.
+   GTM: Name in der Regex von `CE - Funnel Events` (CLAUDE.md, Abschnitt 6). */
+(function () {
+  if (window.__blogCtaBound) return; window.__blogCtaBound = true;
+  var root = document.querySelector('[data-blog-cta-root]');
+  var reihe = root ? root.getAttribute('data-reihe') : '';
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-cta^="blog-"]');
+    if (!a) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'blog_cta_click', blog_cta: a.getAttribute('data-cta'), blog_reihe: reihe || '', blog_article: location.pathname, lang: document.documentElement.lang || 'de' });
+  });
+})();
+</script>

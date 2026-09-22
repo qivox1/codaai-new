@@ -153,8 +153,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
               decoding="async"
               fetchpriority="high"
             />
-            {/* dezenter Markenakzent nur an der Unterkante – blendet das Bild in die Seite ein */}
-            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-28" style="background: linear-gradient(to top, rgba(223,65,251,0.20) 0%, rgba(223,65,251,0.06) 45%, transparent 100%)" />
+            {/* 22.09.2026: magenta Verlauf an der Bildunterkante entfernt — Design Guide v2.2, 11b (kein magenta Schein im Bild; das eine Magenta trägt die Befund-Karte). */}
           </div>
 
           {/* Textblock UNTER dem Bild, auf normalem Untergrund */}
@@ -314,7 +313,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
                 Nennt die KI Ihr Unternehmen? Sehen Sie es in Sekunden – ohne Anmeldung.
               </p>
               <a
-                href={`${base}/check/`}
+                href={`${base}/check/`} data-cta="blog-sidebar-check"
                 class="inline-flex items-center justify-center w-full h-11 rounded-[14px] bg-cta-strong text-white font-semibold text-sm hover:bg-cta-strong/90 transition-colors"
               >
                 Website prüfen
