@@ -39,3 +39,11 @@ Maßnahmen 4 und 5 der GEO-Maßnahmenliste.
 - DOI über Zenodo vergeben (braucht Olis Konto) → dauerhafte, wissenschaftlich zitierbare Kennung.
 - Lizenz für die Kennzahlen festlegen (z. B. CC BY 4.0) — rechtliche Entscheidung Oli.
 - Alte Blogartikel (Jan–März 2026) inhaltlich überarbeiten und `updatedDate` setzen.
+
+## Fixiert als Arbeitsregel (22.09.2026, abends)
+
+- Regel-Abschnitt „🔒 PFLICHT bei jeder Inhaltsänderung“ oben in `CodaAI-Website/CLAUDE.md`.
+- Git-Hook `.githooks/pre-commit` → `scripts/hooks/pre-commit.mjs`: setzt `updatedDate` bei
+  Textänderungen in Blog/Glossar automatisch, erinnert an `*_UPDATED`-Konstanten, bricht bei
+  fehlendem `pubDate` ab. Aktiviert über `core.hooksPath` (npm `prepare`).
+- `npm run indexnow -- --dry` zeigt, was nach dem Deploy gemeldet wird.

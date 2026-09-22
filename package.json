@@ -10,7 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postbuild": "node scripts/check-seo-invariants.mjs",
     "seo:check": "node scripts/check-seo-invariants.mjs",
-    "check:colors": "node scripts/check-colors.mjs"
+    "check:colors": "node scripts/check-colors.mjs",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "indexnow": "node scripts/indexnow-changed.mjs"
   },
   "keywords": [],
   "author": "",
