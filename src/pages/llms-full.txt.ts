@@ -112,7 +112,7 @@ ${post.body}
 ## GEO-Glossar: Begriffe der KI-Suche
 
 Übersicht: ${BASE_URL}/wissen/geo-glossar/
-${terms.length} Begriffe rund um Generative Engine Optimization — Definition, Funktionsweise, Bedeutung für die Sichtbarkeit in KI-Antworten. Autorin: Anja Miebach.
+${terms.length} Begriffe rund um Generative Engine Optimization — Definition, Funktionsweise, Bedeutung für die Sichtbarkeit in KI-Antworten. Autor: Oliver Parrizas (https://www.codaai.ai/autor/oliver-parrizas/).
 
 `;
 
@@ -143,7 +143,7 @@ ${term.data.faq.length ? `\n**Häufige Fragen**\n\n${term.data.faq.map((f) => `-
 ## GEO Glossary (English)
 
 Overview: ${BASE_URL}/en/knowledge/geo-glossary/
-${termsEn.length} terms around Generative Engine Optimization — definition, how it works, what it means for visibility in AI answers. Author: Anja Miebach. Mirror of the German glossary above.
+${termsEn.length} terms around Generative Engine Optimization — definition, how it works, what it means for visibility in AI answers. Author: Oliver Parrizas (https://www.codaai.ai/en/author/oliver-parrizas/). Mirror of the German glossary above.
 
 `;
   for (const term of termsEn) {

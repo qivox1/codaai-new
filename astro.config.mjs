@@ -58,6 +58,8 @@ const EXTRA_SOURCES = {
   // 22.09.2026: Faktenseite — Inhalt in der Datendatei, Seite ist ein Wrapper.
   'fakten': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
   'en/facts': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
+  'autor/oliver-parrizas': ['src/data/autor.ts', 'src/components/wissen/AutorSeite.astro'],
+  'en/author/oliver-parrizas': ['src/data/autor.ts', 'src/components/wissen/AutorSeite.astro'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */

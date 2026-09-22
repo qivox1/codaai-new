@@ -93,12 +93,14 @@ const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
 // Footer ist der sitewide Einstieg in den Wissens-Cluster.
 // 22.09.2026: Faktenseite (/fakten/, /en/facts/) als letzter Punkt der Spalte —
 // sitewide verlinkt, damit Crawler die Stammdaten von jeder Seite aus finden.
+// 22.09.2026: Autorenseite davor (E-E-A-T: Autor sitewide auffindbar).
 const knowledgeLinks = lang === 'en'
   ? [
       { label: 'AI Visibility Check', href: `${base}/en/check/` },
       { label: 'GEO Optimization', href: `${base}/en/knowledge/geo-optimization/` },
       { label: 'GEO Glossary', href: `${base}/en/knowledge/geo-glossary/` },
       { label: t(lang, "footer.mission"), href: `${base}/en/co-create/` },
+      { label: 'Author: Oliver Parrizas', href: `${base}/en/author/oliver-parrizas/` },
       { label: 'Facts about CodaAI', href: `${base}/en/facts/` },
     ]
   : [
@@ -106,6 +108,7 @@ const knowledgeLinks = lang === 'en'
       { label: 'GEO-Optimierung', href: `${base}/wissen/geo-optimierung/` },
       { label: 'GEO-Glossar', href: `${base}/wissen/geo-glossar/` },
       { label: t(lang, "footer.mission"), href: `${base}/co-create/` },
+      { label: 'Autor: Oliver Parrizas', href: `${base}/autor/oliver-parrizas/` },
       { label: 'Fakten zu CodaAI', href: `${base}/fakten/` },
     ];
 const footerLinks = lang === 'en'

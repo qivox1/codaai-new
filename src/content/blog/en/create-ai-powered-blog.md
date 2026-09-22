@@ -3,9 +3,10 @@ title: "Create a Blog with AI: 4 Articles/Month"
 description: "How to start and maintain a high-performing B2B blog using AI tools — without hiring full-time writers or paying for expensive content agencies."
 pubDate: 2026-01-28
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "AI Tools & Practice"
 tags: ["AI Blog", "Blog Creation", "Content Automation", "Blog Strategy", "KI Content Tools"]
 featured: false

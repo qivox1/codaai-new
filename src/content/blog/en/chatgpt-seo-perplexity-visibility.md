@@ -3,9 +3,10 @@ title: "ChatGPT & Perplexity SEO for B2B 2026"
 description: "Search has split across classic Google, AI Overviews and AI chats. A clear B2B visibility strategy for the new search landscape."
 pubDate: 2026-02-25
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "SEO Strategy"
 tags: ["SEO", "AI Search", "ChatGPT", "Perplexity", "Google AI Overviews", "GEO", "Search Visibility"]
 featured: false

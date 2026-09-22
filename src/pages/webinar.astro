@@ -98,7 +98,7 @@ const eventSchema = JSON.stringify({
   organizer: { '@type': 'Organization', name: 'CodaAI', url: SITE_URL },
   performer: [
     { '@type': 'Person', name: 'Norbert Schuster' },
-    { '@type': 'Person', name: 'Oliver Parrizas' },
+    { '@type': 'Person', '@id': 'https://www.codaai.ai/autor/oliver-parrizas/#person', name: 'Oliver Parrizas', url: `${SITE_URL}/autor/oliver-parrizas/`, sameAs: ['https://www.linkedin.com/in/oliver-parrizas/'] },
   ],
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },

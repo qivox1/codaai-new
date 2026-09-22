@@ -5,9 +5,10 @@ description: "ChatGPT holt seine Belege überwiegend aus Bings Top-Ergebnissen. 
 pubDate: 2026-02-12
 updatedDate: 2026-08-05
 lang: de
-author: "CodaAI Redaktion"
-authorTitle: "Digital Visibility Team"
-authorBio: "Das CodaAI-Team misst und verbessert die Sichtbarkeit von B2B-Unternehmen in KI-Antworten – für Unternehmen in Deutschland, Österreich und der Schweiz."
+author: "Oliver Parrizas"
+authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
+authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "SEO & GEO"
 tags: ["ChatGPT SEO", "GEO", "KI-Sichtbarkeit", "Bing", "B2B Sichtbarkeit"]
 featured: false

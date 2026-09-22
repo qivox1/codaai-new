@@ -3,9 +3,10 @@ title: "Blog Writing Costs: Agency vs AI 2025"
 description: "Blog article writing costs: in-house vs freelance vs AI platforms. Transparent calculation of when in-house writing pays off – and when it doesn't."
 pubDate: 2026-01-08
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "Content Production"
 tags: ["Content Marketing", "Blog Writing", "Writing Costs", "Outsourcing vs In-House", "Content ROI"]
 featured: false

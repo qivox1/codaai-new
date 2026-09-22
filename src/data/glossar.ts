@@ -11,6 +11,7 @@
  * den `de:`-Feldern der EN-Dateien erzeugt). Wer einen Begriff ergänzt, trägt
  * dort das Paar nach — der Build-Wächter erkennt ein fehlendes Paar nicht.
  */
+import { AUTOR, AUTOR_PATH } from './autor';
 
 export type GlossarLang = 'de' | 'en';
 
@@ -203,24 +204,22 @@ export const STUFE_ANCHOR: Record<GlossarLang, Record<1 | 2 | 3, { anchor: strin
 };
 
 /**
- * Autorin aller Glossarseiten. Dieselbe Person wie im Organization-Schema
- * (Layout.astro) und auf /co-create/ — deshalb die @id, damit Google und
- * KI-Systeme beides als eine Entität lesen. Named Experts werden häufiger
- * zitiert als anonyme Redaktionen.
+ * Autor aller Glossarseiten und des GEO-Leitfadens (seit 22.09.2026 Oliver
+ * Parrizas, Beschluss 18.09.2026; vorher Anja Miebach, die Herausgeberin
+ * bleibt). Quelle ist src/data/autor.ts — dieselbe @id wie auf der
+ * Autorenseite, im Blog und auf der Faktenseite, damit Google und KI-Systeme
+ * alles als eine Entität lesen. Named Experts werden häufiger zitiert als
+ * anonyme Redaktionen.
  */
 export const GLOSSAR_AUTHOR = {
-  id: 'https://www.codaai.ai/co-create/#anja-miebach',
-  name: 'Anja Miebach',
-  image: '/images/team/anja-miebach.webp',
-  /** kleine Varianten für den 40-px-Avatar (Audit 04.09.2026: 43 KB für 40 px) */
-  imageSmall: '/images/team/anja-miebach-80.webp',
-  image96: '/images/team/anja-miebach-96.webp',
-  jobTitle: {
-    de: 'Gründerin & Inhaberin, CodaAI',
-    en: 'Founder & Owner, CodaAI',
-  } as Record<GlossarLang, string>,
-  url: {
-    de: 'https://www.codaai.ai/co-create/',
-    en: 'https://www.codaai.ai/en/co-create/',
-  } as Record<GlossarLang, string>,
+  id: AUTOR.id,
+  name: AUTOR.name,
+  image: AUTOR.image,
+  imageSmall: AUTOR.imageSmall,
+  image96: AUTOR.image96,
+  jobTitle: AUTOR.jobTitle as Record<GlossarLang, string>,
+  role: AUTOR.role as Record<GlossarLang, string>,
+  url: AUTOR.url as Record<GlossarLang, string>,
+  sameAs: AUTOR.sameAs,
+  path: AUTOR_PATH as Record<GlossarLang, string>,
 };

@@ -6,9 +6,10 @@ pubDate: 2026-09-17
 heroImage: "/images/blog/chatgpt-quellen-startseite.webp"
 heroImageAlt: "Quellenliste einer KI-Antwort auf einem Wandbildschirm: Zwei Drittel der Einträge sind für Unternehmen unerreichbar — der eine erreichbare, auf den ein Kollege zeigt, ist die eigene Startseite"
 lang: de
-author: "CodaAI Redaktion"
-authorTitle: "Digital Visibility Team"
-authorBio: "Das CodaAI-Team misst und verbessert die Sichtbarkeit von B2B-Unternehmen in KI-Antworten – für Unternehmen in Deutschland, Österreich und der Schweiz."
+author: "Oliver Parrizas"
+authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
+authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "SEO & GEO"
 tags: ["ChatGPT", "KI-Sichtbarkeit", "Markenkonsistenz", "GEO", "Wissensdatenbanken"]
 featured: false

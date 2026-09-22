@@ -3,9 +3,10 @@ title: "Reduce Marketing Costs with AI Content"
 description: "Concrete measures to reduce marketing costs using AI while increasing lead volume – the five levers that matter most for B2B companies."
 pubDate: 2026-02-25
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "Content Strategy"
 tags: ["Marketing Costs", "Cost Reduction", "AI Content", "Marketing ROI", "B2B Efficiency"]
 featured: false

@@ -41,6 +41,8 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/datenschutz/', '/en/privacy-policy/'],
   ['/agb/', '/en/terms/'],
   ['/blog/', '/en/blog/'],
+  // 22.09.2026: Autorenseite Oliver Parrizas (src/data/autor.ts)
+  ['/autor/oliver-parrizas/', '/en/author/oliver-parrizas/'],
 
   // -- Blogartikel ---------------------------------------------------------
   ['/blog/ai-crawler-server-performance-geo/', '/en/blog/ai-crawler-server-performance-geo/'],

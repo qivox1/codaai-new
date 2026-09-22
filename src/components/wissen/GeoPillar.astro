@@ -21,7 +21,7 @@
  * B2B-Beispielen; Titel/Meta auf „für B2B". Uniqueness ist das Zitierargument:
  * die Fremdstudien kann jeder zitieren, die eigene nur wir.
  *
- * Schema: Article (Autorin Anja Miebach, dateModified) + BreadcrumbList +
+ * Schema: Article (Autor Oliver Parrizas, src/data/autor.ts; dateModified) + BreadcrumbList +
  * FAQPage. Die FAQ-Fragen sind sitewide eindeutig (Wächter prüft dist/).
  *
  * Magenta-Zählung je Screen: Kippsatz-Zeile 2, Kicker, Diagramm-Schwelle und
@@ -53,7 +53,7 @@ const mdPath = page.path.replace(/\/$/, '.md');
 const ogImagePath = lang === 'de' ? '/images/og-geo-optimierung.png' : '/images/og-geo-optimization.png';
 const ogImageUrl = `${SITE_URL}${ogImagePath}`;
 const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
-const coCreateHref = lang === 'de' ? `${base}/co-create/` : `${base}/en/co-create/`;
+const authorHref = `${base}${GLOSSAR_AUTHOR.path[lang]}`;
 const glossarHref = lang === 'de' ? `${base}/wissen/geo-glossar/` : `${base}/en/knowledge/geo-glossary/`;
 const dvHref = lang === 'de' ? `${base}/digital-visibility/` : `${base}/en/digital-visibility/`;
 
@@ -184,8 +184,10 @@ const articleSchema = JSON.stringify({
     '@type': 'Person',
     '@id': GLOSSAR_AUTHOR.id,
     name: GLOSSAR_AUTHOR.name,
-    jobTitle: GLOSSAR_AUTHOR.jobTitle[lang],
+    jobTitle: GLOSSAR_AUTHOR.role[lang],
     url: GLOSSAR_AUTHOR.url[lang],
+    image: `${SITE_URL}${GLOSSAR_AUTHOR.image}`,
+    sameAs: GLOSSAR_AUTHOR.sameAs,
     worksFor: { '@id': `${SITE_URL}/#organization` },
   },
   image: ogImageUrl,
@@ -260,7 +262,7 @@ const df = ui.diagramFormel;
           ></span>
           <div>
             <p class="text-sm font-semibold text-foreground">
-              <a href={coCreateHref} class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>
+              <a href={authorHref} rel="author" class="hover:text-cta-accessible transition-colors">{GLOSSAR_AUTHOR.name}</a>
             </p>
             <p class="text-xs text-muted-foreground">{GLOSSAR_AUTHOR.jobTitle[lang]}</p>
           </div>

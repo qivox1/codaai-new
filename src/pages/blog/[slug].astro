@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
+import { AUTOR, AUTOR_PATH, autorSchemaRef } from '../../data/autor';
 import RelatedArticles from '../../components/RelatedArticles.astro';
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'de');
@@ -17,7 +18,10 @@ const { title, seoTitle, description, pubDate, updatedDate, author, authorTitle,
         authorImage, category, tags, heroImage, heroImageAlt, summary, faq,
         canonicalUrl, noindex } = post.data;
 // 96-px-Variante fuer den 48-px-Avatar (Audit 04.09.2026); nur fuer Bilder, die eine haben
-const authorImageSmall = authorImage?.replace(/\/team\/anja-miebach\.webp$/, '/team/anja-miebach-96.webp') ?? authorImage;
+const authorImageSmall = authorImage === AUTOR.image ? AUTOR.image96 : (authorImage?.replace(/\/team\/anja-miebach\.webp$/, '/team/anja-miebach-96.webp') ?? authorImage);
+// 22.09.2026: Autor Oliver Parrizas -> Autorenseite + Person-@id (src/data/autor.ts)
+const isAutor = author === AUTOR.name;
+const authorHref = isAutor ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}${AUTOR_PATH.de}` : undefined;
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -48,7 +52,7 @@ const articleSchema = JSON.stringify({
   datePublished: pubDate.toISOString(),
   ...(updatedDate && { dateModified: updatedDate.toISOString() }),
   image: ogImage,
-  author: {
+  author: isAutor ? autorSchemaRef('de') : {
     '@type': 'Person',
     name: author,
     ...(authorTitle && { jobTitle: authorTitle }),
@@ -195,7 +199,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             </div>
           )}
           <div>
-            <p class="font-semibold text-foreground text-sm">{author}</p>
+            <p class="font-semibold text-foreground text-sm">{authorHref ? <a href={authorHref} rel="author" class="hover:text-cta-accessible transition-colors">{author}</a> : author}</p>
             {authorTitle && <p class="text-xs text-muted-foreground">{authorTitle}</p>}
             {authorBio && <p class="text-xs text-muted-foreground mt-1 max-w-sm">{authorBio}</p>}
           </div>
@@ -320,7 +324,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
                   </div>
                 )}
                 <div>
-                  <p class="text-sm font-semibold text-foreground">{author}</p>
+                  <p class="text-sm font-semibold text-foreground">{authorHref ? <a href={authorHref} rel="author" class="hover:text-cta-accessible transition-colors">{author}</a> : author}</p>
                   {authorTitle && <p class="text-xs text-muted-foreground mt-0.5">{authorTitle}</p>}
                   {authorBio && <p class="text-xs text-muted-foreground mt-2 leading-relaxed">{authorBio}</p>}
                 </div>

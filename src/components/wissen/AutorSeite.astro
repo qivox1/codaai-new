@@ -1,0 +1,156 @@
+---
+/*
+ * Autorenseite Oliver Parrizas — eine Komponente für beide Sprachen.
+ * Inhalt in src/data/autor.ts, Seitendateien sind Wrapper:
+ *   /autor/oliver-parrizas/  ·  /en/author/oliver-parrizas/  (+ .md-Fassungen)
+ *
+ * Schema: ProfilePage (mainEntity = Person) + vollständige Person mit
+ * sameAs LinkedIn + BreadcrumbList. Die Person-@id ist dieselbe wie im
+ * author jedes Artikels (Glossar, Leitfaden, Blog) — so lesen Google und
+ * KI-Systeme Autorenzeile, Autorenseite und LinkedIn als eine Entität.
+ */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import { AUTOR, AUTOR_PAGE, AUTOR_PUBLISHED, AUTOR_UPDATED, type AutorLang } from '../../data/autor';
+
+interface Props { lang: AutorLang }
+const { lang } = Astro.props;
+const p = AUTOR_PAGE[lang];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+const pageUrl = `${SITE_URL}${p.path}`;
+const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
+const withBase = (html: string) => html.replace(/href="\/(?!\/)/g, `href="${base}/`);
+const fmt = (d: Date) => d.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': AUTOR.id,
+  name: AUTOR.name,
+  givenName: AUTOR.givenName,
+  familyName: AUTOR.familyName,
+  jobTitle: AUTOR.role[lang],
+  description: p.lead,
+  url: pageUrl,
+  image: `${SITE_URL}${AUTOR.image}`,
+  worksFor: { '@id': `${SITE_URL}/#organization` },
+  knowsAbout: AUTOR.knowsAbout,
+  knowsLanguage: ['de', 'en'],
+  sameAs: AUTOR.sameAs,
+  mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
+});
+
+const profileSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': `${pageUrl}#webpage`,
+  name: p.metaTitle,
+  description: p.metaDescription,
+  url: pageUrl,
+  inLanguage: lang,
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': AUTOR.id },
+  mainEntity: { '@id': AUTOR.id },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  dateCreated: AUTOR_PUBLISHED.toISOString(),
+  dateModified: AUTOR_UPDATED.toISOString(),
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
+});
+
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: p.home, item: lang === 'de' ? `${SITE_URL}/` : `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: p.crumb, item: pageUrl },
+  ],
+});
+---
+
+<Layout
+  lang={lang}
+  title={p.metaTitle}
+  description={p.metaDescription}
+  jsonLd={[profileSchema, personSchema, breadcrumbSchema]}
+  mdVariant={p.mdPath}
+>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <header class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-8">
+      <Breadcrumb items={[{ label: p.home, ariaLabel: p.homeAria, href: homeHref }, { label: p.crumb }]} class="mb-6" />
+      <div class="max-w-4xl flex flex-col sm:flex-row gap-6 sm:gap-8 sm:items-start">
+        <img src={`${base}${AUTOR.image}`} alt={lang === 'de' ? `Porträt ${AUTOR.name}` : `Portrait of ${AUTOR.name}`} width="160" height="160" decoding="async" fetchpriority="high" class="size-28 sm:size-36 rounded-full object-cover flex-shrink-0" />
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{p.kicker}</p>
+          <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-foreground">{AUTOR.name}</h1>
+          <p class="mt-2 text-base font-medium text-cta-accessible">{AUTOR.jobTitle[lang]}</p>
+          <p class="mt-5 text-lg text-foreground leading-relaxed" data-speakable>{p.lead}</p>
+          <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+            <span>{p.stand} <time datetime={AUTOR_UPDATED.toISOString()} class="text-foreground font-medium">{fmt(AUTOR_UPDATED)}</time></span>
+            <a href={AUTOR.linkedin} rel="me noopener" target="_blank" class="font-semibold text-cta-accessible underline underline-offset-2">{p.linkedinLabel}</a>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-20">
+     <div class="max-w-4xl">
+
+      <section id="ueberblick" aria-labelledby="facts-h" class="scroll-mt-28">
+        <h2 id="facts-h" class="cai-h2">{p.factsTitle}</h2>
+        <div class="mt-5 overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <tbody>
+              {p.rows.map((r) => (
+                <tr class="border-b border-border/70 align-top">
+                  <th scope="row" class="text-left font-semibold text-foreground pr-4 py-3 w-[34%] sm:w-[28%]">{r.k}</th>
+                  <td class="py-3 text-foreground [&_a]:text-cta-accessible [&_a]:underline [&_a]:underline-offset-2" set:html={withBase(r.v)} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {p.sections.map((s) => (
+        <section id={s.id} aria-labelledby={`h-${s.id}`} class="mt-14 scroll-mt-28">
+          <h2 id={`h-${s.id}`} class="cai-h2">{s.h2}</h2>
+          <div class="mt-5 space-y-4">
+            {s.paras.map((para) => (
+              <p class="text-foreground leading-relaxed [&_a]:text-cta-accessible [&_a]:underline [&_a]:underline-offset-2" set:html={withBase(para)} />
+            ))}
+            {s.list && (
+              <ul class="space-y-2.5 pl-1">
+                {s.list.map((li) => (
+                  <li class="flex gap-3 text-foreground leading-relaxed">
+                    <span class="mt-2.5 size-1.5 rounded-full bg-navy-400 flex-shrink-0" aria-hidden="true"></span>
+                    <span>{li}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+      ))}
+
+      <section id="veroeffentlichungen" aria-labelledby="h-works" class="mt-14 scroll-mt-28">
+        <h2 id="h-works" class="cai-h2">{p.worksTitle}</h2>
+        <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+          {p.works.map((w) => (
+            <li class="rounded-2xl border border-border bg-card p-5">
+              <a href={`${base}${w.href}`} class="font-semibold text-foreground hover:text-cta-accessible transition-colors">{w.label}</a>
+              <p class="mt-1 text-sm text-muted-foreground">{w.note}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+     </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

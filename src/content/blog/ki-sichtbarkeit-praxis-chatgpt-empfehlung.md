@@ -4,9 +4,10 @@ seoTitle: "Sichtbarkeit in ChatGPT: 7.184 Antworten"
 description: "7.184 ausgewertete KI-Antworten zeigen, warum ChatGPT und die Google KI-Übersicht bestimmte B2B-Anbieter nennen – und andere nicht."
 pubDate: 2026-07-26
 lang: de
-author: "CodaAI Redaktion"
-authorTitle: "Digital Visibility Team"
-authorBio: "Das CodaAI-Team misst und verbessert die Sichtbarkeit von B2B-Unternehmen in KI-Antworten – für Unternehmen in Deutschland, Österreich und der Schweiz."
+author: "Oliver Parrizas"
+authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
+authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "SEO & GEO"
 tags: ["KI-Sichtbarkeit", "GEO", "ChatGPT", "Google KI-Übersicht", "B2B Mittelstand"]
 featured: false

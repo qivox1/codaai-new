@@ -12,7 +12,7 @@
  *   5. Abgrenzung zu „Coda AI" (coda.io) — Verwechslungsrisiko in KI-Antworten.
  *
  * Schema: AboutPage + vollständige Organization (gleiche @id wie sitewide, mit
- * disambiguatingDescription) + Person Oliver Parrizas + BreadcrumbList.
+ * disambiguatingDescription) + Person Oliver Parrizas (@id = Autorenseite) + BreadcrumbList.
  * Bewusst KEIN FAQPage: die Fragen hier sind Stammdaten, keine Beratungs-FAQ,
  * und der Wächter verlangt sitewide eindeutige FAQ-Fragen.
  */
@@ -74,6 +74,7 @@ const personSchema = JSON.stringify({
   givenName: 'Oliver',
   familyName: 'Parrizas',
   jobTitle: lang === 'de' ? 'Digital- & Sichtbarkeits-Analyst' : 'Digital & visibility analyst',
+  url: OLIVER.url[lang],
   image: `${SITE_URL}${OLIVER.image}`,
   affiliation: { '@id': FAKTEN_IDS.org },
   knowsAbout: ['Generative Engine Optimization (GEO)', 'Answer Engine Optimization (AEO)', 'SEO', 'KI-Sichtbarkeit'],

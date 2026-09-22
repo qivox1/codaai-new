@@ -3,9 +3,10 @@ title: "AI vs Marketing Agency: Mid-Market Guide"
 description: "Why AI content platforms are becoming viable alternatives to marketing agencies – and when you should still hire an agency."
 pubDate: 2026-03-08
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "AI Tools & Practice"
 tags: ["Marketing Agency", "AI Alternative", "Content Marketing", "In-House Marketing", "Marketing Tools"]
 featured: false

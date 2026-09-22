@@ -128,7 +128,7 @@ const termSetSchema = JSON.stringify({
   url: hubUrl,
   inLanguage: lang,
   ...(latestUpdate && { dateModified: latestUpdate.toISOString() }),
-  author: { '@type': 'Person', '@id': GLOSSAR_AUTHOR.id, name: GLOSSAR_AUTHOR.name },
+  author: { '@type': 'Person', '@id': GLOSSAR_AUTHOR.id, name: GLOSSAR_AUTHOR.name, url: GLOSSAR_AUTHOR.url[lang], sameAs: GLOSSAR_AUTHOR.sameAs },
   publisher: { '@id': `${SITE_URL}/#organization` },
   hasDefinedTerm: terms.map((t) => ({
     '@type': 'DefinedTerm',

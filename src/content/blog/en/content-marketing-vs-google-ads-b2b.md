@@ -3,9 +3,10 @@ title: "Content Marketing vs Google Ads: B2B"
 description: "Content marketing vs Google Ads for B2B companies: full cost comparison, time-to-first-lead analysis, and when each strategy makes sense for growth."
 pubDate: 2026-02-18
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "Content Strategy"
 tags: ["Content Marketing B2B", "Google Ads", "Lead Generation", "Marketing ROI", "Inbound vs Outbound"]
 featured: false

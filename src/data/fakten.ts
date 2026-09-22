@@ -18,10 +18,11 @@
  *  - Beide Sprachen im selben Zug.
  *
  * Oliver Parrizas steht hier mit seiner Rolle aus /webinar/ („Digital- &
- * Sichtbarkeits-Analyst"). Die Autorenumstellung des Wissens-Clusters
- * (Beschluss 18.09.2026) ist ein eigener Schritt; bis dahin behauptet diese
- * Seite keine Autorenschaft, damit sie den Artikelseiten nicht widerspricht.
+ * Sichtbarkeits-Analyst") und als Autor des Wissens-Clusters (Beschluss
+ * 18.09.2026, umgesetzt 22.09.2026; Stammdaten in src/data/autor.ts).
  */
+
+import { AUTOR } from './autor';
 
 export type FaktenLang = 'de' | 'en';
 
@@ -32,13 +33,14 @@ export const FAKTEN_UPDATED = new Date('2026-09-22T08:00:00+02:00');
 export const FAKTEN_IDS = {
   org: 'https://www.codaai.ai/#organization',
   anja: 'https://www.codaai.ai/co-create/#anja-miebach',
-  oliver: 'https://www.codaai.ai/#oliver-parrizas',
+  oliver: AUTOR.id,
 };
 
 export const OLIVER = {
-  name: 'Oliver Parrizas',
-  linkedin: 'https://www.linkedin.com/in/oliver-parrizas/',
-  image: '/images/speaker-oliver-parrizas.webp',
+  name: AUTOR.name,
+  linkedin: AUTOR.linkedin,
+  image: AUTOR.image,
+  url: AUTOR.url,
 };
 
 export interface FactRow { k: string; v: string }
@@ -113,7 +115,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
       { k: 'Preise', v: '<a href="/preise/">Ab 1.970 €, 4.470 € bzw. 5.990 € pro Monat</a>, jeweils netto zzgl. 19 % MwSt.; nur für Unternehmenskunden' },
       { k: 'Laufzeit', v: 'Mindestens sechs Monate bei monatlicher Abrechnung; bei zwölf Monaten 10 % Nachlass; keine automatische Verlängerung' },
       { k: 'Eigene Studie', v: '<a href="/studie/">KI-Blindtest Mittelstand 2026</a>: 449 Unternehmen aus 258 Branchen, 3.592 Einkäuferfragen, 7.184 KI-Antworten (Juni–Juli 2026)' },
-      { k: 'Personen', v: 'Anja Miebach (Gründerin und Inhaberin) · Oliver Parrizas (Digital- & Sichtbarkeits-Analyst)' },
+      { k: 'Personen', v: 'Anja Miebach (Gründerin, Inhaberin und Herausgeberin) · <a href="/autor/oliver-parrizas/">Oliver Parrizas</a> (Digital- & Sichtbarkeits-Analyst, Autor der Wissensinhalte)' },
       { k: 'Sprachen', v: 'Deutsch und Englisch' },
       { k: 'Nicht zu verwechseln mit', v: '„Coda AI“, der KI-Funktion des Dokumenten-Werkzeugs Coda (coda.io); es besteht keine Verbindung' },
     ],
@@ -159,7 +161,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
         h2: 'Wer steht hinter CodaAI?',
         paras: [
           'Hinter CodaAI steht Anja Miebach, Gründerin und Inhaberin der AMP Beratung in Gütersloh; sie ist Herausgeberin der Inhalte auf codaai.ai. Mehr zu ihr und zum Arbeitsprinzip steht auf der Seite <a href="/co-create/">Co-Create</a>.',
-          'Oliver Parrizas ist Digital- & Sichtbarkeits-Analyst bei CodaAI und beschäftigt sich seit über 25 Jahren mit digitaler Sichtbarkeit, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zu GEO. Er führt die Audits durch und verantwortet die Auswertung der Studie. Profil: <a href="https://www.linkedin.com/in/oliver-parrizas/" rel="noopener" target="_blank">LinkedIn</a>.',
+          'Oliver Parrizas ist Digital- & Sichtbarkeits-Analyst bei CodaAI und beschäftigt sich seit über 25 Jahren mit digitaler Sichtbarkeit, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zu GEO. Er führt die Audits durch, verantwortet die Auswertung der Studie und ist Autor von GEO-Glossar, GEO-Leitfaden und Blog. Profil: <a href="/autor/oliver-parrizas/">Autorenseite</a> · <a href="https://www.linkedin.com/in/oliver-parrizas/" rel="noopener" target="_blank">LinkedIn</a>.',
         ],
       },
       {
@@ -230,7 +232,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
       { k: 'Pricing', v: '<a href="/en/pricing/">From €1,970, €4,470 and €5,990 per month</a>, net plus 19 % German VAT; business customers only' },
       { k: 'Term', v: 'Minimum six months, billed monthly; 10 % discount for twelve months; no automatic renewal' },
       { k: 'Own study', v: '<a href="/en/study/">AI Blind Test 2026</a>: 449 companies from 258 industries, 3,592 buyer questions, 7,184 AI answers (June–July 2026)' },
-      { k: 'People', v: 'Anja Miebach (founder and owner) · Oliver Parrizas (digital & visibility analyst)' },
+      { k: 'People', v: 'Anja Miebach (founder, owner and publisher) · <a href="/en/author/oliver-parrizas/">Oliver Parrizas</a> (digital & visibility analyst, author of the knowledge content)' },
       { k: 'Languages', v: 'German and English' },
       { k: 'Not to be confused with', v: '“Coda AI”, the AI feature of the document tool Coda (coda.io); there is no connection' },
     ],
@@ -276,7 +278,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
         h2: 'Who is behind CodaAI?',
         paras: [
           'CodaAI is run by Anja Miebach, founder and owner of AMP Beratung in Gütersloh; she is the publisher of the content on codaai.ai. More about her and the working principle is on the <a href="/en/co-create/">Co-Create</a> page.',
-          'Oliver Parrizas is CodaAI’s digital & visibility analyst and has worked on digital visibility for more than 25 years, from the first search engine rankings through SEO and AEO to GEO. He conducts the audits and is responsible for the analysis of the study. Profile: <a href="https://www.linkedin.com/in/oliver-parrizas/" rel="noopener" target="_blank">LinkedIn</a>.',
+          'Oliver Parrizas is CodaAI’s digital & visibility analyst and has worked on digital visibility for more than 25 years, from the first search engine rankings through SEO and AEO to GEO. He conducts the audits, is responsible for the analysis of the study and is the author of the GEO glossary, the GEO guide and the blog. Profile: <a href="/en/author/oliver-parrizas/">author page</a> · <a href="https://www.linkedin.com/in/oliver-parrizas/" rel="noopener" target="_blank">LinkedIn</a>.',
         ],
       },
       {

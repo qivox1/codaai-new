@@ -3,9 +3,10 @@ title: "AI Content Marketing: Complete Strategy"
 description: "How to rank at the top in Google and AI search engines like ChatGPT and Perplexity using AI-powered content marketing. Strategy, formats and concrete steps."
 pubDate: 2026-01-15
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "AI Content Strategy Team"
-authorBio: "The CodaAI team develops and tests AI-powered content strategies for B2B companies across Europe."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "AI & Content Marketing"
 tags: ["AI Content Marketing", "GEO", "SEO 2025", "ChatGPT SEO", "Perplexity SEO", "Content Strategy"]
 featured: true

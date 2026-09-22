@@ -3,9 +3,10 @@ title: "B2B-Blog als Vertriebskanal nutzen"
 description: "B2B-Blogs generieren mehr Leads als die meisten Mittelständler ahnen. Warum Ihr Blog der effizienteste Vertriebskanal ist – mit echten Zahlen und konkretem ROI."
 pubDate: 2026-03-05
 lang: de
-author: "CodaAI Redaktion"
-authorTitle: "KI Content-Strategie Team"
-authorBio: "Das CodaAI-Team entwickelt und testet KI-gestützte Content-Strategien für B2B-Unternehmen in Deutschland, Österreich und der Schweiz."
+author: "Oliver Parrizas"
+authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
+authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "Content-Strategie"
 tags: ["B2B Blog", "Unternehmensblog", "B2B Lead Generierung", "Corporate Blog", "Content Marketing B2B"]
 featured: false

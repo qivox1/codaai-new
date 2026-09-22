@@ -5,9 +5,10 @@ description: "YouTube is the most frequent source in the German Google AI Mode. 
 pubDate: 2026-03-20
 updatedDate: 2026-08-05
 lang: en
-author: "CodaAI Editorial Team"
-authorTitle: "Digital Visibility Team"
-authorBio: "The CodaAI team measures and improves the visibility of mid-sized B2B companies in AI answers, working with clients in Germany, Austria and Switzerland."
+author: "Oliver Parrizas"
+authorTitle: "Digital & Visibility Analyst, CodaAI"
+authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
+authorImage: /images/speaker-oliver-parrizas.webp
 category: "SEO & GEO"
 tags: ["YouTube B2B", "AI visibility", "Google AI Mode", "GEO", "B2B video marketing"]
 featured: false
