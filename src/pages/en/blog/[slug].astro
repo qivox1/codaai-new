@@ -7,6 +7,9 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 
 import { AUTOR, AUTOR_PATH, autorSchemaRef } from '../../../data/autor';
 import RelatedArticles from '../../../components/RelatedArticles.astro';
+import BlogReihe from '../../../components/BlogReihe.astro';
+import BlogAbschlussCta from '../../../components/BlogAbschlussCta.astro';
+import { REIHE_BY_ID } from '../../../data/reihen';
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'en');
   return posts.map((post) => ({ params: { slug: post.id.replace(/^en\//, '') }, props: { post } }));
@@ -16,7 +19,9 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const { title, seoTitle, description, pubDate, updatedDate, author, authorTitle, authorBio,
         authorImage, category, tags, heroImage, heroImageAlt, summary, faq,
-        canonicalUrl, noindex } = post.data;
+        canonicalUrl, noindex, reihe } = post.data;
+// 22.09.2026: Themenreihe ersetzt die alte Kategorie in der Anzeige
+const categoryLabel = reihe ? REIHE_BY_ID[reihe].name['en'] : category;
 // 96-px-Variante fuer den 48-px-Avatar (Audit 04.09.2026); nur fuer Bilder, die eine haben
 const authorImageSmall = authorImage === AUTOR.image ? AUTOR.image96 : (authorImage?.replace(/\/team\/anja-miebach\.webp$/, '/team/anja-miebach-96.webp') ?? authorImage);
 // 22.09.2026: Autor Oliver Parrizas -> Autorenseite + Person-@id (src/data/autor.ts)
@@ -64,7 +69,7 @@ const articleSchema = JSON.stringify({
   mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   inLanguage: 'en',
   keywords: tags.join(', '),
-  articleSection: category,
+  articleSection: categoryLabel,
   wordCount,
   ...(summary && {
     speakable: {
@@ -160,7 +165,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
           <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-8">
             <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
             <div class="max-w-3xl">
-              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
+              <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{categoryLabel}</p>
               <h1 class="cai-h1 text-foreground text-balance">
                 {title}
               </h1>
@@ -176,7 +181,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
         <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-10">
           <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'Blog', href: `${base}/en/blog/` }, { label: title }]} class="mb-6" />
           <div class="max-w-3xl">
-            <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{category}</p>
+            <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{categoryLabel}</p>
             <h1 class="cai-h1 text-foreground">
               {title}
             </h1>
@@ -228,7 +233,7 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             </svg>
             {readingTime}
           </span>
-          <span class="px-2 py-0.5 rounded-full bg-cta/10 text-cta-accessible font-medium">{category}</span>
+          <span class="px-2 py-0.5 rounded-full bg-cta/10 text-cta-accessible font-medium">{categoryLabel}</span>
         </div>
       </div>
       <div class="flex flex-wrap gap-2 mt-4">
@@ -276,6 +281,8 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
             <Content />
           </article>
 
+          {reihe && <BlogReihe lang={lang} reihe={reihe} stand={updatedDate ?? pubDate} />}
+
           {faq && faq.length > 0 && (
             <aside class="mt-12 rounded-2xl border border-border bg-muted/20 p-6" aria-label="Frequently Asked Questions">
               <h2 class="text-xl font-semibold text-foreground mb-6">Frequently Asked Questions</h2>
@@ -289,6 +296,8 @@ const tocHeadings = headings.filter((h) => h.depth <= 3);
               </dl>
             </aside>
           )}
+
+          <BlogAbschlussCta lang={lang} reihe={reihe} />
         </div>
 
         <aside class="hidden lg:block">

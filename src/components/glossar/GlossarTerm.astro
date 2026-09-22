@@ -140,6 +140,17 @@ const relatedTerms = related
   .map((s) => bySlug.get(s))
   .filter((t): t is NonNullable<typeof t> => Boolean(t) && !t!.data.noindex);
 
+// 22.09.2026 (Regel „interne Verlinkung", Blog-Redaktionsplan 2026/27):
+// Jeder Begriff zeigt automatisch die Blogartikel, die auf ihn verlinken.
+// So bekommt jeder Glossarbegriff seinen Rückverweis, ohne dass jemand bei
+// jeder Veröffentlichung 55 Dateien anfassen muss.
+const blogNeedle = `${path}${slug}/`;
+const vertieftIn = (await getCollection('blog', ({ data }) => data.lang === lang && !data.noindex))
+  .filter((p) => (p.body ?? '').includes(blogNeedle))
+  .sort((a, b) => (b.data.updatedDate ?? b.data.pubDate).valueOf() - (a.data.updatedDate ?? a.data.pubDate).valueOf())
+  .slice(0, 4)
+  .map((p) => ({ title: p.data.title, href: lang === 'de' ? `${base}/blog/${p.id}/` : `${base}/en/blog/${p.id.replace(/^en\//, '')}/` }));
+
 const wordCount = (term.body ?? '').split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 const fmt = (d: Date) => d.toLocaleDateString(copy.dateLocale, { year: 'numeric', month: 'long', day: 'numeric' });
@@ -385,6 +396,17 @@ const schemas = [definedTermSchema, articleSchema, breadcrumbSchema, ...(faqSche
                       {t.data.title}
                     </a>
                   </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          {vertieftIn.length > 0 && (
+            <nav aria-label={lang === 'de' ? 'Im Blog vertieft' : 'Explored further on the blog'} class="mt-10">
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{lang === 'de' ? 'Im Blog vertieft' : 'Explored further on the blog'}</p>
+              <ul class="space-y-2">
+                {vertieftIn.map((v) => (
+                  <li><a href={v.href} class="text-sm font-medium text-cta-accessible hover:underline">{v.title}</a></li>
                 ))}
               </ul>
             </nav>

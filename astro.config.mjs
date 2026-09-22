@@ -26,6 +26,7 @@ import sitemap from '@astrojs/sitemap';
 // 22.09.2026: Logik nach src/lib/lastmod.mjs verschoben — dieselbe Quelle
 // speist jetzt auch dateModified (Layout) und die Footer-Zeile.
 import { lastmodFor } from './src/lib/lastmod.mjs';
+import remarkGrafik from './src/lib/remark-grafik.mjs';
 
 /** Rehype plugin: add aria-label to GFM task-list checkboxes */
 function rehypeTaskListAriaLabel() {
@@ -105,6 +106,8 @@ export default defineConfig({
   },
   output: 'static',
   markdown: {
+    // 22.09.2026: ```grafik-Bloecke im Blog -> HTML-Grafiken (src/lib/remark-grafik.mjs)
+    remarkPlugins: [remarkGrafik],
     rehypePlugins: [rehypeTaskListAriaLabel],
   },
 });

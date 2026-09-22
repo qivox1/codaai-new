@@ -1,215 +1,195 @@
 ---
-title: "ChatGPT & Perplexity SEO for B2B 2026"
-description: "Search has split across classic Google, AI Overviews and AI chats. A clear B2B visibility strategy for the new search landscape."
-pubDate: 2026-02-25
+title: "ChatGPT SEO: Where AI Systems Get Their Sources — and How to Get There"
+seoTitle: "ChatGPT SEO: Visible in AI Answers"
+description: "ChatGPT draws most of its evidence from Bing's top results. What that means for the visibility of B2B companies in AI answers."
+pubDate: 2026-02-12
+updatedDate: 2026-09-22
 lang: en
+heroImage: "/images/blog/chatgpt-bing-en.webp"
+heroImageAlt: "Engineer at a desktop workstation; overlaid finding: 87% of SearchGPT citations match Bing’s top results (Seer Interactive)"
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO Strategy"
-tags: ["SEO", "AI Search", "ChatGPT", "Perplexity", "Google AI Overviews", "GEO", "Search Visibility"]
+category: "Readable for AI"
+reihe: technik
+tags: ["ChatGPT SEO", "GEO", "AI visibility", "Bing", "B2B visibility"]
 featured: false
-heroImage: /images/blog/seo-vs-ai-search.webp
-heroImageAlt: "ChatGPT SEO Perplexity Visibility"
-summary: "Search visibility no longer happens in one place: classic Google results, AI-powered overviews (Google, Bing) and generative AI chats (ChatGPT, Claude, Perplexity) each send their own traffic. B2B companies need a dual strategy: rank on Google AND appear as sources in AI systems. The good news: overlapping optimizations help both."
+summary: "AI systems do not answer questions out of thin air, but from sources they have selected beforehand. For SearchGPT, 87% of citations matched Bing's organic top results, for Google only 56% (Seer Interactive, February 2025). If you want to appear in AI answers, you therefore have to rank where each system gets its evidence — and that is not Google everywhere."
 faq:
-  - q: "Do I still need Google rankings in 2026?"
-    a: "Absolutely. Google is still the largest single source of search traffic. But: its growth is stalling while AI chat usage keeps accelerating. For B2B, you need visibility in both systems."
-  - q: "How is SEO different for AI search vs Google?"
-    a: "Google ranks pages. AI systems cite sources. Both prefer: fast load times, clear structure, authoritative content. Difference: AI also values conciseness and factual density. A short, well-researched article beats a long rambling one."
-  - q: "Can one article rank on Google AND be cited by ChatGPT?"
-    a: "Yes. Same article, optimized for both. The overlapping factors (E-E-A-T, technical performance, clarity, structure) help both systems. Content optimized for AI tends to rank better on Google too."
-  - q: "What's the cost of being visible in AI search?"
-    a: "No direct cost. You don't pay for AI citations like Google Ads. But: requires consistent content production (4–8 articles/month), technical optimization (CDN, fast TTFB, proper robots.txt) and B2B-specific content strategy. Investment level: similar to Google SEO, but execution is different."
+  - q: "Is ChatGPT SEO different from normal SEO?"
+    a: "It builds on it. AI systems choose their sources from what search engines have indexed — in ChatGPT's case, mainly from Bing. If you do not rank there, you cannot be cited either. The difference lies in the selection that follows: a search engine lists ten results, an AI system names a handful of names in running text. A ranking turns into a mention — or into nothing at all."
+  - q: "Why does Bing matter for visibility in ChatGPT?"
+    a: "Because ChatGPT runs its web search through it. Seer Interactive compared more than 500 SearchGPT citations with the search results of both providers: 87% matched Bing's organic top results, only 56% matched Google's. Bing has a small market share among human users in Germany — for the question of what ChatGPT finds as evidence, that is irrelevant."
+  - q: "How many sources does an AI answer cite?"
+    a: "More than is often claimed. SISTRIX measures an average of around 15 source links per answer for the German Google AI Mode. The number of slots is therefore not the bottleneck — the bottleneck is that only 42.2% of answers name a brand at all."
+  - q: "How quickly does a better Bing ranking feed through to ChatGPT?"
+    a: "No reputable timeframe can be given for that. Between a position in Bing's results and a mention in running text lie two steps that nobody controls from the outside: the system has to select the page as evidence, and it has to consider it the best one for the specific question. The only reliable statement is therefore one about the trend: the same questions, the same systems, measured every month."
+  - q: "Can we buy a placement in ChatGPT or have one guaranteed?"
+    a: "No. There is no mechanism through which a mention could be booked, and the same question may be answered differently tomorrow. Anyone guaranteeing a placement in ChatGPT is promising something that does not exist technically."
 ---
 
-The question every B2B marketing director is asking: "Where do we invest in search visibility in 2026?"
+A buyer is looking for a supplier and asks ChatGPT. He gets three names, a paragraph of reasoning and a handful of sources. He clicks on none of them — after all, he has an answer. Whether your company appears at that moment is decided long before, and in a place most marketing departments do not have on their radar: in Bing's index.
 
-The answer: Everywhere. But with a split strategy.
+Because AI systems do not invent their evidence. They draw on what search engines have indexed — and, depending on the system, on a different index.
 
-Google hasn't disappeared. But it's no longer the only game. Decision-makers are asking ChatGPT and Perplexity increasingly often – and that traffic counts for visibility.
+<div class="blog-stat-grid not-prose">
+  <div class="blog-stat-card">
+    <span class="stat-value">87%</span>
+    <span class="stat-label">of SearchGPT citations matched Bing's organic top results — for Google it was 56%</span>
+    <span class="stat-source">Seer Interactive, February 2025, 500+ citations from 100 questions</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">~15</span>
+    <span class="stat-label">source links are contained in an answer in the German Google AI Mode on average</span>
+    <span class="stat-source">SISTRIX, Top sources in AI Mode Germany, 27.10.2025</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">42.2%</span>
+    <span class="stat-label">of AI Mode answers contain any brand reference at all</span>
+    <span class="stat-source">SISTRIX AI Insights, retrieved August 2026</span>
+  </div>
+  <div class="blog-stat-card">
+    <span class="stat-value">75%</span>
+    <span class="stat-label">of pages cited by AI were updated in the past year — only 42% were published in the past year</span>
+    <span class="stat-source">Seer Interactive, July 2026, 7,683 pages with 47,097 citations</span>
+  </div>
+</div>
 
-This article shows why B2B companies need visibility in multiple search systems – and how one content strategy can serve both Google and AI chats.
+```grafik
+typ: kennzahl_vergleich
+titel: ChatGPT cites what ranks at the top of Bing
+werte:
+  - { label: "Match with Bing's organic top results", wert: 87, anzeige: "87%", markiert: true }
+  - { label: "Match with Google's organic top results", wert: 56, anzeige: "56%" }
+max: 100
+quelle: "Seer Interactive, February 2025 – more than 500 SearchGPT citations from 100 questions, US market"
+alt: "87 percent of SearchGPT citations were found in Bing's organic top results, only 56 percent in Google's."
+```
 
-## The Search Landscape in 2026: No Clear Winner, But Clear Trends
+## Why Bing has a say in your visibility in ChatGPT
 
-The death of Google has been announced many times – usually wrong. But Google's dominance has fragmented.
+The selection of sources is not a mystery, it is a search query. Before an AI system answers, it searches — and what it finds depends on which index it asks.
 
-**Where B2B search visibility happens in 2026:**
+Seer Interactive has measured this. For the study [“87% of SearchGPT Citations Match Bing's Top Results”](https://www.seerinteractive.com/insights/87-percent-of-searchgpt-citations-match-bings-top-results), more than **500 citations from 100 questions** were compared with the organic results of both providers. The result: **87%** of the cited pages were found in Bing's top results, but only **56%** in Google's — and there with a median rank of 17, well beyond the first page.
 
-- **Classic Google Search** – still the largest single channel
-- **Google AI Overviews** (Google's own AI answers)
-- **AI Chat Systems** (ChatGPT, Claude, Perplexity)
-- **Direct/Other**
+Two caveats belong with this, so that the figure holds up: the study dates from **February 2025** and covers the English-language US market. And it measures a match, not a cause — Seer checks whether the same pages appear, not why.
 
-This is a moving target. What matters is the direction, not the exact share in any given month: a few years ago, search visibility meant Google and nothing else. Today it doesn't.
+For practical purposes the finding is uncomfortable all the same. Many German B2B companies do SEO with Google exclusively in mind. Bing is regarded as marginal because its market share among human users is small. For the question of what ChatGPT finds as evidence, however, that market share is irrelevant.
 
-### Why B2B Companies Can't Ignore AI Search
+**What follows from this is unspectacular and still rarely done:** set up Bing Webmaster Tools, submit your sitemap there, read the index coverage report. Bing indexes independently and more slowly than Google; pages that have long been listed on Google are sometimes missing there entirely. That is not optimisation, it is a stocktake — and it takes an afternoon.
 
-When a B2B decision-maker asks "What's the best ERP for mechanical engineering?" in ChatGPT, they're not doing a Google search. They're doing it because:
 
-1. **Speed**: One answer, no clicking through 10 blue links
-2. **Synthesis**: ChatGPT reads and summarizes multiple sources
-3. **Context**: It understands industry jargon and specificity
-4. **Convenience**: They're already in the chat interface
+```grafik
+typ: kette
+titel: Why the Bing index has a say in visibility in ChatGPT
+schritte:
+  - { t: "Buyer question", s: "ChatGPT is not sure of the answer" }
+  - { t: "Web search", s: "The question is translated into search queries" }
+  - { t: "Search index", s: "Mainly Bing supplies the candidates" }
+  - { t: "Reading pages", s: "Passages from the top results are evaluated" }
+  - { t: "Answer with citations", s: "The pages used appear as sources" }
+schwelle:
+  nach: 3
+  text: "Pages Bing does not know drop out here"
+quelle: "Own illustration based on Seer Interactive (2025) and the GEO optimization guide"
+alt: "Process: buyer question, web search, search index (mainly Bing), reading pages, answer with citations. Pages that are not in the Bing index drop out at the search index."
+```
 
-For B2B companies, this creates a paradox: classic SEO success (ranking on Google) doesn't guarantee visibility in AI search – and vice versa.
+## The number of slots is not the problem
 
-### The Three Systems You Need to Understand
+There is a widespread notion that an AI answer relies on two to five sources, so it is all about a few hard-fought slots. That figure does not stand up to measurement.
 
-**System 1: Google Classic**
-How it works: Pages rank for keywords. Users click on links.
-Optimization: Keywords, backlinks, domain authority, Core Web Vitals.
-Timeline: 8–16 weeks to first rankings.
+[SISTRIX analysed many millions of answers for the German Google AI Mode](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/): an answer contains **around 15 source links** on average. Space as such is not scarce.
 
-**System 2: Google AI Overviews**
-How it works: Google generates answer boxes powered by Gemini, citing sources.
-Optimization: Appear in Google's AI training data (which is similar to classic ranking, but with emphasis on conciseness and authority).
-Timeline: 4–12 weeks.
+What is scarce is something else. According to [SISTRIX measurements](https://www.sistrix.de/ai-insights/ai-overviews), only **42.2%** of all AI Mode answers contain any brand reference at all. In the majority of answers not a single company name comes up — things are explained, not recommended. The real question is therefore not “How do I get into the top five sources?”, but: is my category one of those in which AI systems name names at all? And if so — whose?
 
-**System 3: Generative AI Systems** (ChatGPT, Perplexity, Claude)
-How it works: Users ask questions; systems retrieve and cite current web sources in real-time.
-Optimization: Be crawlable by AI bots, have fast server response, E-E-A-T signals.
-Timeline: Days to weeks (immediate crawling, fast citation).
+That is also why measurement comes at the start and not at the end. Whether names come up in your buyer questions can be found out in an hour. Without that answer, you are optimising in the dark.
 
-## What Works for All Three Systems: The Overlapping Optimization
+## What sets the systems apart
 
-Good news: The optimizations for classic Google also help AI systems. The fundamentals haven't changed – they've just expanded.
+“AI search” is not a single thing. The systems draw on different indexes and cite differently.
 
-**Universal ranking factors (work for Google, Google AI, and generative AI):**
+| System | Where the evidence comes from | What follows from it |
+|---|---|---|
+| **ChatGPT** | Web search via Bing | Check the Bing index, not just Google |
+| **Google AI Overviews / AI Mode** | Google's own index | Classic Google SEO remains the foundation |
+| **Perplexity** | Its own crawler plus search indexes | Technical accessibility is particularly important |
 
-1. **E-E-A-T**: Experience, Expertise, Authoritativeness, Trustworthiness
-   - Google values this heavily. AI systems read pages to assess credibility.
-   - Implementation: Author bios, verifiable sources, citation of authorities, no hype.
+This separation has a practical consequence that runs counter to intuition: there is no “AI optimisation” that works the same everywhere. Ahrefs [compared 76.7 million AI Overviews with almost a million ChatGPT and Perplexity answers](https://ahrefs.com/blog/top-mentioned-sources-are-not-shared-across-ai-assistants/) — of the 50 most-mentioned websites in each, only **seven** appear in all three systems. If you want broad visibility, you work on several fronts; if you know where your buyers search, you can skip two of them.
 
-2. **Technical Performance**: TTFB (Time to First Byte) and Core Web Vitals
-   - Google ranks fast pages. AI crawlers (like ChatGPT-User) timeout and move to faster sources.
-   - Implementation: CDN, caching, optimized images. Goal: TTFB under 200ms.
+## Why freshness counts for more than publishing frequency
 
-3. **Content Structure**: Clear H2/H3 headings, FAQ sections, bullet points
-   - Google prefers logical structure. AI systems use it to understand and excerpt content.
-   - Implementation: No walls of text. Clear question-answer pattern in every article.
+A finding from the same research series clears up a widespread misconception. For the study [“Content Recency's Impact on AI Visibility in 2026”](https://www.seerinteractive.com/insights/study-content-recencys-impact-on-ai-visibility-in-2026), Seer Interactive analysed **7,683 pages with 47,097 citations** from ChatGPT, Gemini and Perplexity.
 
-4. **Factual Density**: Concrete numbers, verified sources, citations
-   - Both systems prefer content with data. Fluff is ignored.
-   - Implementation: Every claim backed by a source. Avoid vague statements like "many companies say."
+**75%** of the cited pages had been **updated** in the past year — but only **42%** had been **published** in the past year. The freshness AI systems prefer therefore comes mainly from revision, not from new production.
 
-5. **Freshness**: Updated content, new publication dates
-   - Google: newer content ranks better for trending topics. AI systems: prefer recent sources.
-   - Implementation: Regular updates, visible publication/update dates in metadata.
+The second finding is even clearer: pages cited **every month** are, on average, less often freshly revised than those that turn up only once (68 versus 86% updated in the past year). Lasting visibility is therefore not a question of publishing pace.
 
-## What's DIFFERENT for AI vs Google
+For a marketing team with limited time, that is good news. Revising the ten pages that answer your most important questions on a fixed cycle is more effective — and cheaper — than producing a new text every month that is then left to gather dust.
 
-Despite overlap, three things are unique to AI systems:
+## What is shifting right now: ranking alone is less and less enough
 
-### 1. Speed Matters More for AI Than Google
+A finding from spring 2026 changes the calculation. Ahrefs [matched 863,000 keyword SERPs against four million cited AI Overview URLs](https://ahrefs.com/blog/ai-overview-citations-top-10/): in July 2025, **76%** of citations still came from the Google top 10 — in February 2026 it was **38%**.
 
-When ChatGPT queries your website in real-time (ChatGPT-User bot), it has a 5–10 second timeout to retrieve your entire page. If your server takes 2 seconds to respond, ChatGPT has already moved on.
+Half of the evidence now comes from pages that are not on page 1 for the same question. A good ranking remains the ticket of entry, but it is less and less often the sole deciding factor.
 
-For Google: Average time to first rank is 8–16 weeks. Speed matters, but it's not immediate.
+That matches an observation many marketing managers know from their own experience: companies with more than a hundred top-10 rankings still do not appear in AI answers. Classic search engines evaluate pages. AI systems evaluate evidence — and evidence is stronger when it does not come from the party in question.
 
-For AI: Speed matters immediately. A fast website gets cited; a slow one doesn't – even if content is better.
+In practice this means two things. First, looking at the ranking list underestimates the problem, because it does not even ask the question that counts. Second, the work does not stop at your own domain boundary. If you want to appear in the answers, you also have to appear where others write about your category — on trade portals, in comparison lists, on review platforms.
 
-**Action:** TTFB under 200ms is the hard minimum for AI visibility. Implement CDN (Cloudflare, AWS). Use caching.
+That is not an argument against SEO. It is an argument for not confusing SEO with AI visibility.
 
-### 2. AI Prefers Short, Structured Answers to Long Articles
+## What you can do on your own pages
 
-Google will rank a 3,000-word essay against a 500-word answer – whoever has better authority wins.
+Four things can be influenced. None of them is a trick; all four are a matter of craft.
 
-AI systems cite the shortest, clearest answer. A 500-word article with 5 concrete facts outperforms a 3,000-word rambling article on the same topic – even if both rank on Google.
+### 1. The answer comes first
 
-**Action:** Structure every article with:
-- Hook (first 100 words): clear answer to the question
-- Stat box: 3–4 key numbers
-- Subheadings every 200 words
-- FAQ section with direct Q&A
+AI systems extract statements, not narrative arcs. A section that starts with the answer and then gives the reasons can be lifted out as evidence. One that builds up to it over three paragraphs cannot.
 
-### 3. robots.txt and crawl permissions matter now
+In practice this means: every subheading asks a question someone actually asks, and the first sentence beneath it answers it. What follows is the reasoning.
 
-In the past, robots.txt was "please don't index me" for SEO purposes. For AI, it's become a legal and strategic signal.
+### 2. Every statement carries its evidence
 
-EU AI Act (August 2025): AI companies must legally respect robots.txt opt-outs.
+A statement with a named source can be verified; one without cannot. That applies to figures, standards and dates. Writing “studies show” delivers nothing citable — writing who measured what, when and with which sample does.
 
-**Action:** You can now legally block ChatGPT/GPTBot while allowing classic Google (Googlebot). Strategic choice:
-- Block training crawlers (GPTBot, ClaudeBot) if you want to protect proprietary content
-- Allow real-time crawlers (ChatGPT-User, Claude-User) to ensure citation in AI responses
+It is also the best self-test for a text: if a claim cannot be written down together with its origin, it usually does not belong in it.
 
-## The Unified Content Strategy: One Article, Multiple Systems
+### 3. The page must be machine-readable
 
-Here's how one article serves all three systems:
+What a crawler cannot load, no system can cite. This concerns accessibility for AI crawlers and whether content sits in the delivered HTML or only appears later via JavaScript. We have written this up in a [separate article on technical AI accessibility](https://www.codaai.ai/en/blog/ai-crawler-server-performance-geo/).
 
-### Step 1: Content Production
-Write 2,500–3,500 word article answering a specific B2B question. Include:
-- Direct answer in opening (for AI systems)
-- 4 key stats (for Google AI Overviews)
-- FAQ section (for all systems)
-- Authoritative sources (for E-E-A-T)
+### 4. Existing pages come before new pages
 
-### Step 2: Technical Optimization
-- Host on CDN (Cloudflare minimum)
-- TTFB target: under 200ms
-- Add Schema.org markup (Article, FAQ)
-- Update robots.txt to allow ChatGPT-User, Claude-User, PerplexityBot
+See above: the update cycle beats publishing frequency. A realistic rhythm is to go through your most important pages twice a year — check the figures, update the sources, add sections that are now missing.
 
-### Step 3: Promotion
-- Post on LinkedIn (works for both search and professional network)
-- Email to customers and prospects (creates backlinks organically)
-- Add to internal knowledge base (more indexed pages = more citation opportunities)
+## What you cannot influence
 
-### Step 4: Monitoring
-- Google Search Console: track classic keyword rankings
-- AmICited or similar: track AI mentions
-- Server logs: monitor ChatGPT-User, Claude-User crawls
+The honest part. **There is no bookable placement in an AI system.** No provider sells mentions, and the same question may be answered differently tomorrow. Anyone guaranteeing a placement is promising something that does not exist technically.
 
-## The Usual Approach: One Optimization, Both Systems
+The impact is also more limited than the excitement suggests. The loss of clicks caused by AI Overviews is real, but unevenly distributed: [SISTRIX puts it](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) at an average of **6.6%** of all organic clicks, ranging from 1% for recipes to 24% for parenting portals. And AI Overviews currently appear in Germany for around **17% of search queries** — with a stagnating, not a rising, trend.
 
-The typical starting point: a B2B company ranks solidly on Google but barely appears in ChatGPT or Perplexity. The diagnosis is usually the same – content that ranks, but is slow to deliver, denser than AI systems prefer, and structured for readers rather than for retrieval.
+The honest argument is therefore not visitor volume. It is the preliminary decision: if you do not appear in the answer, you are not on any list that gets checked afterwards. That affects few searches — but it affects them at the point where the selection is made.
 
-**Analysis:** measure TTFB, check whether `robots.txt` lets AI crawlers in at all, and review article length and structure.
+And one finding marks the limit of your own website: according to the Seer analysis, only around **2%** of the pages cited in connection with a brand belong to that brand itself. The remaining 98% are third-party pages. Optimising your own pages is therefore necessary, but not sufficient on its own — if you want to be named, you also need mentions where others write about you.
 
-**Changes:**
-- Put a CDN in front of the site
-- Restructure the top articles: remove filler, add FAQ sections
-- Update robots.txt: allow ChatGPT-User, Claude-User
-- Add Schema.org FAQ markup
+## How this can be measured
 
-**Check:** classic Google rankings should hold – the changes target delivery speed and structure, not keywords. Whether the articles are now being used as sources can be tracked with AI monitoring tools such as AmICited.
+Without measurement, any statement about impact is an assertion. Three things can be established without additional tools:
 
-The key: you don't have to choose between Google and AI. One optimization serves both.
+1. **The same questions, the same wording, every month.** Take eight questions your sales team actually hears and put them to ChatGPT and to Google search with AI Overviews. Note which providers are named and which sources the systems cite. Different wording produces different answers and makes the comparison worthless.
+2. **Check the Bing index.** In Bing Webmaster Tools you can see which of your pages are known there at all. That is the precondition for everything else in ChatGPT. What comes next, so that ChatGPT does not just find you but names you as a supplier, is set out in the article [Getting recommended by ChatGPT as a supplier](/en/blog/get-recommended-by-chatgpt-as-a-supplier/).
+3. **Read Search Console.** Since June 2026, Google has shown a filter for AI Overview and AI Mode under *Performance → Search results*. It shows **impressions only** — no clicks, no search queries, no click-through rate. That is not much, but it is the only official figure there is.
 
-## The Practical Priority for Your Business
+An important point of context: AI answers are not deterministic. The same question may be answered differently today than tomorrow. What is defensible is therefore a statement about the trend, not about a single day — even when the line stays flat.
 
-Don't panic – you don't have to optimize for three systems equally. Here's the hierarchy:
+## Where this fits in the bigger picture
 
-**If you have <20 articles:**
-1. Focus on Google classic first (slower but larger traffic)
-2. Add technical optimization (CDN) for AI
-3. Monitor AI mentions (nice-to-have)
+Google and Bing optimisation is a building block in its own right for us and belongs to the **[first visibility tier, “Found”](https://www.codaai.ai/en/digital-visibility/#readable)** — the tier that answers the question: can AI read and cite my company at all? It sits there not out of tradition, but because it is the precondition. What is in no index cannot turn up in any answer.
 
-**If you have 20–50 articles:**
-1. Google + AI together (overlapping optimizations)
-2. Add FAQ sections and restructure for AI parsing
-3. Set up AmICited monitoring for AI citations
+The second tier takes care of what this work cannot achieve on its own: the mentions outside your website that make up the 98%.
 
-**If you have 50+ articles:**
-1. Dedicated person for Google optimization
-2. Dedicated person for AI optimization
-3. Real-time monitoring of both systems
+**Would you like to see what AI systems currently say about your company?** We put eight real buyer questions from your sector to ChatGPT and Google AI Overviews and show you which of them leave your name out — and which competitor is recommended instead. [Request your free audit](https://www.codaai.ai/en/#offer).
 
-## Conclusion: SEO is Not Dead – It's Diversified
-
-Google isn't disappearing. But decision-makers are asking ChatGPT. Traffic is splitting. The B2B search landscape is now three markets in one.
-
-The advantage: optimizations that help one system usually help all three. You're not building three separate strategies – you're diversifying one strategy.
-
-**The question isn't "Should we focus on Google or AI?" It's "How do we get visible in both?"**
-
-And the answer is: same foundation, with slight adjustments for each system.
-
-[CodaAI](https://www.codaai.ai/en/digital-visibility/) builds expert articles for both Google and AI systems – one article, structured for all three. Start with the [free AI visibility check](https://www.codaai.ai/en/check/).
-
-
-## Sources
-
-SparkToro and Similarweb track how many searches still send a click. Their [2026 zero-click study](https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/) found that 68.01% of US Google searches ended without a click in the first four months of 2026 — up from 60.45% in the [2024 study](https://sparktoro.com/blog/2024-zero-click-search-study-for-every-1000-us-google-searches-only-374-clicks-go-to-the-open-web-in-the-eu-its-360/). That is the whole argument for this article: if two thirds of searches never reach your site, being cited inside the answer matters more than ranking below it.
+The terms behind this are in the [GEO glossary](/en/knowledge/geo-glossary/): [web search](/en/knowledge/geo-glossary/web-search/), [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/), [freshness](/en/knowledge/geo-glossary/freshness/), [index management](/en/knowledge/geo-glossary/index-management/). Which pages ChatGPT cites most often is covered in [what ChatGPT cites](/en/blog/chatgpt-sources-homepage-brand-consistency/); how to measure your own mentions in the [analysis of 7,184 AI answers](/en/blog/ai-visibility-chatgpt-recommendation-practice/).

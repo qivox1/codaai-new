@@ -48,6 +48,11 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/blog/ai-crawler-server-performance-geo/', '/en/blog/ai-crawler-server-performance-geo/'],
   ['/blog/b2b-blog-als-vertriebskanal/', '/en/blog/b2b-blog-as-sales-channel/'],
   ['/blog/youtube-ki-sichtbarkeit-b2b/', '/en/blog/youtube-ai-visibility-b2b/'],
+  ['/blog/in-chatgpt-als-anbieter-empfohlen-werden/', '/en/blog/get-recommended-by-chatgpt-as-a-supplier/'],
+  ['/blog/markennennungen-drittseiten-ki/', '/en/blog/brand-mentions-third-party-sites-ai/'],
+  ['/blog/vergleichsartikel-anbieterlisten-ki/', '/en/blog/comparison-articles-vendor-lists-ai/'],
+  ['/blog/chatgpt-quellen-startseite-markenkonsistenz/', '/en/blog/chatgpt-sources-homepage-brand-consistency/'],
+  ['/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/', '/en/blog/ai-visibility-chatgpt-recommendation-practice/'],
   ['/blog/chatgpt-seo-perplexity-sichtbarkeit/', '/en/blog/chatgpt-seo-perplexity-visibility/'],
   ['/blog/content-marketing-mittelstand-ki/', '/en/blog/ai-content-marketing-for-smb/'],
   ['/blog/content-marketing-vs-google-ads-b2b/', '/en/blog/content-marketing-vs-google-ads-b2b/'],
@@ -139,7 +144,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
  * Durchsicht die Frage „vergessen oder Absicht?".
  *
  *   DE-only : /leistungen/ (noindex-Weiterleitung)
- *             /blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/
+ *             (ki-sichtbarkeit-praxis hat seit 22.09.2026 eine EN-Fassung)
  *             /checkout-success/ (Stripe abgeschaltet, noindex)
  *   EN-only : /en/blog/ai-content-marketing-strategy-guide/
  *

@@ -3,14 +3,16 @@ title: "Was ChatGPT zitiert: Zwei Drittel sind unerreichbar – und die zweitgr�
 seoTitle: "Was ChatGPT zitiert – und was Sie steuern"
 description: "Zwei Drittel der meistzitierten Seiten in ChatGPT sind für Marketing unerreichbar. Die zweitgrößte Kategorie aber gehört Ihnen: Ihre eigene Startseite."
 pubDate: 2026-09-17
-heroImage: "/images/blog/chatgpt-quellen-startseite.webp"
-heroImageAlt: "Quellenliste einer KI-Antwort auf einem Wandbildschirm: Zwei Drittel der Einträge sind für Unternehmen unerreichbar — der eine erreichbare, auf den ein Kollege zeigt, ist die eigene Startseite"
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/chatgpt-startseite-de.webp"
+heroImageAlt: "Laptop mit einer Präsentation im Büro; eingeblendeter Befund: 23,8 % der meistzitierten Seiten in ChatGPT sind Start- und Landingpages (Ahrefs)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Zitierfähige Inhalte"
+reihe: content
 tags: ["ChatGPT", "KI-Sichtbarkeit", "Markenkonsistenz", "GEO", "Wissensdatenbanken"]
 featured: false
 summary: "Von den 1.000 meistzitierten Seiten in ChatGPT entfallen 29,7 Prozent auf Wikipedia, 23,8 Prozent auf Start- und Landingpages und 6,6 Prozent auf App-Stores – zusammen rund zwei Drittel, die klassische Öffentlichkeitsarbeit nicht erreicht (Ahrefs, Oktober 2025). Übersehen wird dabei, dass die zweitgrößte dieser Kategorien die eigene Startseite ist. Sie ist die einzige Zitatquelle, über die ein Unternehmen vollständig selbst bestimmt."
@@ -53,6 +55,17 @@ Die Zahl stimmt. Die Resignation ist trotzdem falsch, und zwar wegen eines Detai
     <span class="stat-source">dieselbe Untersuchung</span>
   </div>
 </div>
+
+```grafik
+typ: kennzahl_vergleich
+titel: Die zweitgrößte Quelle in ChatGPT gehört den Unternehmen selbst
+werte:
+  - { label: "Wikipedia-Artikel", wert: 29.7, anzeige: "29,7 %", stark: true }
+  - { label: "Start- und Landingpages", wert: 23.8, anzeige: "23,8 %", markiert: true }
+max: 100
+quelle: "Ahrefs, die 1.000 meistzitierten Seiten in ChatGPT, 28.10.2025"
+alt: "Unter den 1.000 meistzitierten Seiten in ChatGPT sind 29,7 Prozent Wikipedia-Artikel und 23,8 Prozent Start- und Landingpages."
+```
 
 Dieser Baustein gehört zur dritten Visibility-Stufe – **[Stufe 3 · Zitiert](/digital-visibility/#quelle-werden)**. Dort geht es nicht mehr darum, gefunden oder empfohlen zu werden, sondern darum, selbst die Quelle zu sein, auf die sich eine Antwort beruft.
 
@@ -102,6 +115,16 @@ Für einen Menschen funktioniert das. Er hat den Kontext im Kopf, er sieht die B
 
 Was auf eine verwertbare Startseite gehört, lässt sich in einem Satz sagen: **was Sie herstellen oder leisten, für welche Branche, in welchem Markt, mit welcher belegbaren Besonderheit** – in eben dieser Klarheit, ohne dass ein Leser es sich erschließen muss.
 
+
+```grafik
+typ: vorher_nachher
+titel: Der Fünf-Minuten-Test für die Startseite
+vorher: { label: "Stimmung", text: "Ihr Partner für anspruchsvolle Lösungen. Qualität seit 1978. Wir denken Kundennähe neu.", hinweis: "Jeder Satz gilt auch für einen Wettbewerber – nichts, woraus ein Modell eine Aussage bilden kann" }
+nachher: { label: "Aussage", text: "Beta Technik fertigt Prüfstände für Antriebsstränge für Automobilzulieferer in Europa – seit 1978, mit 240 Mitarbeitenden an zwei Standorten.", hinweis: "Was, für wen, wo, seit wann und wie groß – in einem Satz" }
+quelle: "Eigene Darstellung; Beta Technik ist ein Beispielname"
+alt: "Eine Startseite mit Sätzen wie „Ihr Partner für anspruchsvolle Lösungen“ liefert keine Aussage; ein Satz, der Leistung, Branche, Markt, Gründungsjahr und Größe nennt, schon."
+```
+
 ### Sechs Angaben, die auf der Startseite stehen sollten
 
 Aus der Arbeit an Audits hat sich eine kurze Liste ergeben. Sie ist unspektakulär, und genau das ist der Punkt – es geht nicht um Formulierungskunst, sondern darum, dass die Angaben überhaupt in Textform vorliegen.
@@ -147,7 +170,7 @@ Der Redlichkeit halber die Grenzen, und sie sind nicht klein.
 
 Dieser Baustein liegt in der [Stufe 3 · Zitiert](/digital-visibility/#quelle-werden) und setzt die beiden darunter voraus. Die Arbeit an der eigenen Startseite gehört technisch zur [Stufe 1](/digital-visibility/#lesbar) – wenn ein KI-Crawler die Seite nicht lesen kann, ist ihr Text gleichgültig. Die Konsistenz über fremde Quellen hinweg berührt direkt die [Markennennungen auf Drittseiten](/blog/markennennungen-drittseiten-ki/): Dieselbe Firma unter drei Bezeichnungen erzeugt drei schwache Entitäten statt einer starken.
 
-Und die 32,3 Prozent, die Ahrefs als beeinflussbar bezeichnet, sind fast deckungsgleich mit dem, was die [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/) beschreiben – die Erklärseiten, Bewertungen und Fachbeiträge Dritter.
+Und die 32,3 Prozent, die Ahrefs als beeinflussbar bezeichnet, sind fast deckungsgleich mit dem, was die [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/) beschreiben – die Erklärseiten, Bewertungen und Fachbeiträge Dritter. Wie diese Bausteine gemeinsam darüber entscheiden, ob ChatGPT ein Unternehmen als Anbieter nennt, fasst der Artikel [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/) zusammen.
 
 Begriffe dazu im [GEO-Glossar](/wissen/geo-glossar/): [Konsistente Markenbeschreibung](/wissen/geo-glossar/konsistente-markenbeschreibung/), [Modellwissen](/wissen/geo-glossar/modellwissen/) und [Citation](/wissen/geo-glossar/citation/).
 
@@ -158,3 +181,5 @@ Die Nachricht dieser Untersuchung ist nicht, dass alles unerreichbar wäre. Sie 
 Keines von beiden ist neu. Beides wird selten getan, weil es unspektakulär ist und niemandem Applaus einbringt. Nach den vorliegenden Daten ist es der Teil mit der besten Aussicht.
 
 Ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen bei den Fragen Ihrer Einkäufer heute nennen – und welche Quellen sie stattdessen heranziehen –, misst das Digital Visibility Audit an echten Fragen aus Ihrer Branche.
+
+Wie ChatGPT seine Quellen überhaupt auswählt, beschreibt der Artikel [Warum Bing mitentscheidet](/blog/chatgpt-seo-perplexity-sichtbarkeit/); eine weitere eigene Quelle neben der Startseite ist [YouTube](/blog/youtube-ki-sichtbarkeit-b2b/).

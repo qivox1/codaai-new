@@ -20,7 +20,35 @@
  * soll, soll auch nicht ueber einen zweiten Weg wieder hinein.
  */
 
+import YAML from 'yaml';
+
 const SITE = 'https://www.codaai.ai';
+
+/*
+ * ```grafik-Bloecke (src/lib/remark-grafik.mjs) in der Markdown-Fassung als
+ * Text ausgeben: Titel, Befund (alt), die Werte als Liste und die Quelle.
+ * Ein Agent soll den Inhalt der Grafik bekommen, nicht ihren Quelltext.
+ */
+export function grafikAlsText(md: string, lang: 'de' | 'en' = 'de'): string {
+  let nr = 0;
+  return md.replace(/```grafik\n([\s\S]*?)```/g, (_m, body: string) => {
+    nr += 1;
+    let g: any;
+    try { g = YAML.parse(body); } catch { return ''; }
+    const abb = lang === 'en' ? 'Figure' : 'Abbildung';
+    const quelle = lang === 'en' ? 'Source' : 'Quelle';
+    const out: string[] = [`**${abb} ${nr}: ${g.titel ?? ''}**`];
+    if (g.alt) out.push('', g.alt);
+    const list: string[] = [];
+    (g.werte ?? []).forEach((w: any) => list.push(`- ${w.label}: ${w.anzeige ?? w.wert}`));
+    (g.schritte ?? []).forEach((st: any, i: number) => list.push(`${i + 1}. ${st.t}${st.s ? ` – ${st.s}` : ''}`));
+    (g.punkte ?? []).forEach((x: any) => list.push(`- ${x.frage} ${x.antwort ?? ''}${x.text ? ` – ${x.text}` : ''}`));
+    if (g.vorher) list.push(`- ${g.vorher.label}: ${g.vorher.text}`, `- ${g.nachher?.label}: ${g.nachher?.text}`);
+    if (list.length) out.push('', ...list);
+    if (g.quelle) out.push('', `${quelle}: ${g.quelle}`);
+    return out.join('\n');
+  });
+}
 
 export interface MdSource {
   title: string;
@@ -74,7 +102,7 @@ export function renderMarkdown(src: MdSource): string {
     '',
     '---',
     '',
-    absolutiseLinks(src.body.trim()),
+    absolutiseLinks(grafikAlsText(src.body.trim(), src.lang ?? 'de')),
     '',
   ].join('\n');
 }

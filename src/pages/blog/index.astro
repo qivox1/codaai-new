@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import BlogReihenFilter from '../../components/BlogReihenFilter.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import HeroHeadline from '../../components/HeroHeadline.astro';
 
@@ -22,8 +23,8 @@ const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replac
 const collectionSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'CodaAI Blog – KI Content Marketing & SEO',
-  description: 'Expertenwissen zu KI-Content, SEO, GEO und Content Marketing. Praktische Strategien für mehr Sichtbarkeit in Google und KI-Suchmaschinen.',
+  name: 'CodaAI Blog – KI-Sichtbarkeit für den B2B-Mittelstand',
+  description: 'Belegte Artikel dazu, wie B2B-Unternehmen in ChatGPT, Google KI-Übersicht und Perplexity genannt werden – in vier Reihen: Lesbar für KI, Zitierfähige Inhalte, Erwähnt werden, Messen & steuern.',
   url: `${SITE_URL}/blog/`,
   publisher: {
     '@type': 'Organization',
@@ -45,8 +46,8 @@ const collectionSchema = JSON.stringify({
 <Layout
   heroImage={featured?.data.heroImage}
   lang={lang}
-  title="Blog – KI Content Marketing, SEO & GEO | CodaAI"
-  description="Expertenwissen zu KI-Content, SEO und GEO. Praktische Strategien für mehr Sichtbarkeit in Google und KI-Suchmaschinen wie ChatGPT und Perplexity."
+  title="Blog – KI-Sichtbarkeit, GEO & SEO für B2B | CodaAI"
+  description="Wie B2B-Unternehmen in ChatGPT, Google KI-Übersicht und Perplexity genannt werden: belegte Artikel in vier Reihen, jede Zahl im Volltext der Quelle geprüft."
   jsonLd={[collectionSchema]}
 >
   <Navbar lang={lang} />
@@ -68,8 +69,8 @@ const collectionSchema = JSON.stringify({
             class="mb-5 max-w-5xl"
           />
           <p class="max-w-2xl text-lg text-muted-foreground">
-            Expertenwissen, das Ihre Sichtbarkeit in Google <em>und</em> KI-Suchmaschinen steigert.
-            Von Strategie bis Praxis – direkt anwendbar.
+            Wie B2B-Unternehmen in KI-Antworten genannt werden – in vier Reihen, von der Technik bis zur Messung.
+            Jede Zahl im Volltext ihrer Quelle geprüft.
           </p>
         </div>
       </div>
@@ -85,6 +86,8 @@ const collectionSchema = JSON.stringify({
           </p>
         )}
 
+        <BlogReihenFilter lang={lang} />
+
         {posts.length > 0 && (
           <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {featured && (
@@ -93,6 +96,7 @@ const collectionSchema = JSON.stringify({
                 description={featured.data.description}
                 pubDate={featured.data.pubDate}
                 category={featured.data.category}
+                reihe={featured.data.reihe}
                 tags={featured.data.tags}
                 heroImage={featured.data.heroImage}
                 heroImageAlt={featured.data.heroImageAlt}
@@ -109,6 +113,7 @@ const collectionSchema = JSON.stringify({
                 description={post.data.description}
                 pubDate={post.data.pubDate}
                 category={post.data.category}
+                reihe={post.data.reihe}
                 tags={post.data.tags}
                 heroImage={post.data.heroImage}
                 heroImageAlt={post.data.heroImageAlt}

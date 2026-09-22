@@ -1,0 +1,39 @@
+---
+/* Bildnachweise je URL — im Impressum (DE/EN). Quelle: src/data/bildnachweise.ts */
+import { BILDNACHWEISE, BEARBEITUNG_STANDARD } from '../data/bildnachweise';
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const prefix = de ? (p: string) => !p.startsWith('/en/') : (p: string) => p.startsWith('/en/');
+const bySeite = new Map<string, typeof BILDNACHWEISE>();
+for (const b of BILDNACHWEISE) for (const s of b.seiten.filter(prefix)) {
+  bySeite.set(s, [...(bySeite.get(s) ?? []), b]);
+}
+const seiten = [...bySeite.keys()].sort();
+---
+<section id={de ? 'bildnachweise' : 'image-credits'}>
+  <h2 class="text-lg font-semibold text-foreground mb-4 pb-2 border-b border-border">{de ? 'Bildnachweise' : 'Image credits'}</h2>
+  <p class="text-muted-foreground mb-4">
+    {de
+      ? 'Grafiken, Diagramme und Belege auf dieser Website sind eigene Darstellungen von CodaAI. Fotos stammen aus freien Bilddatenbanken und sind nicht KI-generiert; sie sind hier je Seite mit Herkunft und Lizenz aufgeführt.'
+      : 'Graphics, diagrams and evidence images on this website are CodaAI’s own work. Photos come from free image libraries and are not AI-generated; they are listed here per page with origin and licence.'}
+  </p>
+  {seiten.length === 0 ? (
+    <p class="text-muted-foreground">{de ? 'Derzeit werden keine Fotos aus Bilddatenbanken verwendet.' : 'No photos from image libraries are currently in use.'}</p>
+  ) : (
+    <dl class="space-y-4 text-sm">
+      {seiten.map((s) => (
+        <div>
+          <dt class="font-medium text-foreground"><a href={s} class="hover:text-cta-accessible">{s}</a></dt>
+          {bySeite.get(s)!.map((b) => (
+            <dd class="text-muted-foreground mt-1">
+              {de ? 'Foto' : 'Photo'}: {b.fotograf} / <a href={b.quelle} rel="nofollow noopener" class="underline underline-offset-2">{b.plattform}</a>
+              {' · '}<a href={b.lizenzUrl} rel="nofollow noopener" class="underline underline-offset-2">{b.lizenz}</a>
+              {' · '}{b.bearbeitung ?? BEARBEITUNG_STANDARD[lang]}
+            </dd>
+          ))}
+        </div>
+      ))}
+    </dl>
+  )}
+</section>

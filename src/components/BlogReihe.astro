@@ -1,0 +1,32 @@
+---
+/* Kasten „Teil der Reihe …" unter jedem Blogartikel mit `reihe` (22.09.2026).
+   Verlinkt den passenden Abschnitt der Pillar-Seite und nennt den Prüfstand.
+   Das Datum ist dasselbe wie „Aktualisiert" (updatedDate ?? pubDate) — eine
+   Datumsquelle, siehe CLAUDE.md „PFLICHT bei jeder Inhaltsänderung". */
+import { REIHE_BY_ID, REIHEN, type ReiheId } from '../data/reihen';
+interface Props { lang: 'de' | 'en'; reihe: ReiheId; stand: Date }
+const { lang, reihe, stand } = Astro.props;
+const r = REIHE_BY_ID[reihe];
+const de = lang === 'de';
+const blog = de ? '/blog/' : '/en/blog/';
+const standText = stand.toLocaleDateString(de ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<aside class="blog-reihe" aria-label={de ? 'Themenreihe' : 'Series'}>
+  <p class="br-k">{de ? 'Teil der Reihe' : 'Part of the series'} · {r.fach[lang]}</p>
+  <p class="text-lg font-semibold text-foreground m-0">
+    <a href={`${blog}?reihe=${r.id}`} class="hover:text-cta-accessible">{r.name[lang]}</a>
+  </p>
+  <p class="text-sm text-muted-foreground mt-1 mb-3">{r.worum[lang]}</p>
+  <p class="text-sm m-0">
+    <a href={r.pillar[lang]} class="font-semibold text-cta-accessible underline underline-offset-4">
+      {de ? `Grundlagen im Leitfaden GEO-Optimierung: ${r.fach.de}` : `The basics in the GEO optimization guide: ${r.fach.en}`}
+    </a>
+  </p>
+  <p class="text-xs text-muted-foreground mt-3 mb-0">
+    {de ? 'Alle Zahlen im Volltext der Quellen geprüft am ' : 'All figures checked against the full source text on '}{standText}.
+    {' '}{de ? 'Die vier Reihen:' : 'The four series:'}{' '}
+    {REIHEN.map((x, i) => (
+      <Fragment>{i > 0 && ' · '}<a href={`${blog}?reihe=${x.id}`} class="underline underline-offset-2 hover:text-foreground">{x.name[lang]}</a></Fragment>
+    ))}
+  </p>
+</aside>

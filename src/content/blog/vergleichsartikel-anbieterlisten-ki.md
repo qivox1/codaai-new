@@ -3,14 +3,16 @@ title: "Vergleichsartikel und Anbieter-Listen: Woher KI-Systeme ihre Empfehlunge
 seoTitle: "Woher KI ihre Anbieter-Empfehlungen nimmt"
 description: "70,8 Prozent der Zitate bei B2B-Kaufprompts führen auf „Beste“-Listen. Was das für Unternehmen bedeutet, die auf keiner dieser Listen stehen."
 pubDate: 2026-09-17
-heroImage: "/images/blog/vergleichsartikel-anbieterlisten.webp"
-heroImageAlt: "Drei Kollegen vor einem Laptop mit der Vergleichsliste „Die 5 besten Anbieter für Fördertechnik 2026“: drei Unternehmen genannt, der vierte Platz ist leer — 70,8 % der KI-Zitate bei Kaufprompts führen auf solche Listen"
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/vergleichslisten-de.webp"
+heroImageAlt: "Technische Zeichnung auf einem Bildschirm; eingeblendeter Befund: 70,8 % der Zitate bei B2B-Kaufprompts führen auf „Beste“-Listen (Overthink Group)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Erwähnt werden"
+reihe: offpage
 tags: ["Vergleichsartikel", "KI-Sichtbarkeit", "B2B Kaufentscheidung", "GEO", "Anbieterlisten"]
 featured: false
 summary: "Wenn ein Einkäufer eine KI nach Anbietern fragt, stammen 70,8 Prozent der Zitate aus Artikeln, die „beste“ oder „top“ im Titel tragen (Overthink Group, rund 1.260 Prompts, Juli 2026). Bekannte Bewertungsportale wie Gartner, G2 und Capterra machen zusammen nur 8,6 Prozent aus. Die Konsequenz für B2B-Unternehmen: Es zählt weniger, wo man gelistet ist, als ob man in den Listen überhaupt vorkommt, die diese Systeme gerade heranziehen."
@@ -53,6 +55,18 @@ Die Frage, die dieser Artikel beantwortet, lautet: Woher nimmt das System die f�
     <span class="stat-source">dieselbe Untersuchung</span>
   </div>
 </div>
+
+```grafik
+typ: kennzahl_vergleich
+titel: Bei Kaufprompts zitiert die KI Listen – nicht Bewertungsportale, nicht Foren
+werte:
+  - { label: "Seiten mit „beste“, „top“, „führend“ oder „beliebt“ im Titel", wert: 70.8, anzeige: "70,8 %", markiert: true }
+  - { label: "Alle bekannten Bewertungsportale zusammen (Gartner, G2, Capterra, TrustRadius)", wert: 8.6, anzeige: "8,6 %" }
+  - { label: "Reddit", wert: 1.4, anzeige: "1,4 %" }
+max: 100
+quelle: "Overthink Group mit Amadora, rund 1.260 B2B-Kaufprompts, 14.07.2026 – US-Markt, B2B-Software"
+alt: "70,8 Prozent der Zitate bei B2B-Kaufprompts führen auf Seiten mit Superlativ im Titel, 8,6 Prozent auf alle Bewertungsportale zusammen, 1,4 Prozent auf Reddit."
+```
 
 Dieser Baustein gehört bei uns zur zweiten Visibility-Stufe – **[Stufe 2 · Empfohlen](/digital-visibility/#quellen)**. Die erste Stufe sorgt dafür, dass ein KI-System Ihre Inhalte überhaupt lesen kann. Die zweite sorgt dafür, dass es Sie nennt, weil andere Sie nennen. Vergleichsartikel und Anbieter-Listen sind dort der Baustein mit der direktesten Verbindung zur Kaufentscheidung.
 
@@ -140,6 +154,20 @@ Eine eigene Vergleichsseite ist der Teil, den Sie kontrollieren – und genau de
 
 Die Reihenfolge ist deshalb: erst wissen, welche fremden Listen zitiert werden und ob Sie darin vorkommen. Dann die eigene Seite. Wer umgekehrt beginnt, hat eine gut gemachte Seite und weiß immer noch nicht, warum er in den Antworten fehlt.
 
+
+```grafik
+typ: entscheidung
+titel: Fünf Eigenschaften einer Vergleichsseite, die zitiert werden kann
+punkte:
+  - { frage: "Die Kriterien stehen vor den Namen", antwort: Pflicht, text: "Erst der Maßstab, dann die Rangfolge." }
+  - { frage: "Jeder Eintrag beantwortet dieselben Fragen", antwort: Pflicht, text: "Einheitliche Angaben lassen sich maschinell vergleichen." }
+  - { frage: "Es gibt einen Fall, in dem jemand anders gewinnt", antwort: Pflicht, text: "Der Unterschied zwischen einem Vergleich und einer Anzeige.", markiert: true }
+  - { frage: "Das Datum stimmt und ist sichtbar", antwort: Pflicht, text: "51,6 % der zitierten Seiten tragen die Jahreszahl im Titel." }
+  - { frage: "Jeder Abschnitt steht für sich", antwort: Pflicht, text: "Die KI zitiert Passagen, nicht Seiten." }
+quelle: "Eigene Ableitung aus der Overthink-Group-Untersuchung (2026) und der Arbeitsweise der Systeme"
+alt: "Fünf Eigenschaften einer zitierfähigen Vergleichsseite: Kriterien vor den Namen, einheitliche Einträge, ein Fall, in dem ein anderer gewinnt, sichtbares Datum, eigenständige Abschnitte."
+```
+
 ## Was dieser Befund nicht bedeutet
 
 Drei Einschränkungen gehören dazu, und wir nennen sie lieber selbst.
@@ -154,7 +182,7 @@ Was bleibt, ist der strukturelle Teil: Kaufentscheidungen werden zunehmend über
 
 ## Wie das mit den übrigen Bausteinen zusammenhängt
 
-Vergleichsartikel stehen nicht allein. Sie sind der zweite von fünf Bausteinen der [Stufe 2 · Empfohlen](/digital-visibility/#quellen), und sie wirken erst, wenn die erste Stufe steht: Wenn ein KI-System Ihre Seiten technisch nicht lesen kann, hilft es wenig, in einer fremden Liste zu stehen – dann fehlt die Bestätigung, die das System sucht, wenn es Ihren Namen prüft.
+Vergleichsartikel stehen nicht allein. Sie sind der zweite von fünf Bausteinen der [Stufe 2 · Empfohlen](/digital-visibility/#quellen), und sie wirken erst, wenn die erste Stufe steht: Wenn ein KI-System Ihre Seiten technisch nicht lesen kann, hilft es wenig, in einer fremden Liste zu stehen – dann fehlt die Bestätigung, die das System sucht, wenn es Ihren Namen prüft. Den Gesamtzusammenhang – vom Modellwissen über die Websuche bis zur Auswahl der Namen – beschreibt der Artikel [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
 
 Eng verwandt ist der Baustein davor, die [Markennennungen auf Drittseiten](/blog/markennennungen-drittseiten-ki/). Beide beschreiben dasselbe Grundprinzip aus zwei Richtungen: Ihre Sichtbarkeit in KI-Antworten entsteht überwiegend außerhalb Ihrer eigenen Website. Der Unterschied liegt im Anlass – eine Markennennung kann in jedem Zusammenhang stehen, ein Vergleichsartikel steht genau dort, wo jemand kurz vor einer Entscheidung steht.
 
@@ -165,3 +193,5 @@ Wer die Begriffe dahinter nachschlagen möchte: Das [GEO-Glossar](/wissen/geo-gl
 Es gibt keine Garantie, auf einer Liste zu erscheinen, und wir geben keine. Was sich planen lässt, ist die Vorarbeit: wissen, welche Listen in Ihrer Kategorie tatsächlich zitiert werden, die Einträge korrigieren, die falsch sind, und den Redaktionen liefern, was sie brauchen.
 
 Was sich messen lässt, ist der Ausgangspunkt. Wenn Sie wissen möchten, welche Quellen ChatGPT und die Google KI-Übersicht bei den Fragen Ihrer Einkäufer heranziehen – und ob Ihr Unternehmen darin vorkommt –, ist das genau das, was das Digital Visibility Audit misst.
+
+Weitere Begriffe im Glossar: [Listicles](/wissen/geo-glossar/listicles/). Neben Listen ist [YouTube](/blog/youtube-ki-sichtbarkeit-b2b/) eine Quelle, die Unternehmen selbst füllen können; wie sich die Wirkung messen lässt, zeigt die [Auswertung von 7.184 KI-Antworten](/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/).

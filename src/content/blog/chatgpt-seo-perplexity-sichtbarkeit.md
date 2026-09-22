@@ -3,17 +3,18 @@ title: "ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen – und wie Sie dort h
 seoTitle: "ChatGPT-SEO: sichtbar in KI-Antworten"
 description: "ChatGPT holt seine Belege überwiegend aus Bings Top-Ergebnissen. Was das für die Sichtbarkeit von B2B-Unternehmen in KI-Antworten bedeutet."
 pubDate: 2026-02-12
-updatedDate: 2026-08-05
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/chatgpt-bing-de.webp"
+heroImageAlt: "Ingenieur am Bildschirmarbeitsplatz; eingeblendeter Befund: 87 % der SearchGPT-Zitate decken sich mit Bings Top-Ergebnissen (Seer Interactive)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Lesbar für KI"
+reihe: technik
 tags: ["ChatGPT SEO", "GEO", "KI-Sichtbarkeit", "Bing", "B2B Sichtbarkeit"]
 featured: false
-heroImage: /images/blog/chatgpt-quellen.webp
-heroImageAlt: "Eine KI-Antwort mit ihrer Quellenliste: drei Anbieterseiten werden zitiert, das eigene Unternehmen ist nicht darunter."
 summary: "KI-Systeme beantworten Fragen nicht aus dem Nichts, sondern aus Quellen, die sie vorher ausgewählt haben. Bei SearchGPT deckten sich 87 Prozent der Zitate mit Bings organischen Top-Ergebnissen, bei Google nur 56 Prozent (Seer Interactive, Februar 2025). Wer in KI-Antworten vorkommen will, muss deshalb dort ranken, wo das jeweilige System seine Belege holt – und das ist nicht überall Google."
 faq:
   - q: "Ist ChatGPT SEO etwas anderes als normales SEO?"
@@ -55,6 +56,17 @@ Denn KI-Systeme erfinden ihre Belege nicht. Sie greifen auf das zu, was Suchmasc
   </div>
 </div>
 
+```grafik
+typ: kennzahl_vergleich
+titel: ChatGPT zitiert, was bei Bing oben steht
+werte:
+  - { label: "Übereinstimmung mit Bings organischen Top-Ergebnissen", wert: 87, anzeige: "87 %", markiert: true }
+  - { label: "Übereinstimmung mit Googles organischen Top-Ergebnissen", wert: 56, anzeige: "56 %" }
+max: 100
+quelle: "Seer Interactive, Februar 2025 – über 500 SearchGPT-Zitate aus 100 Fragen, US-Markt"
+alt: "87 Prozent der SearchGPT-Zitate fanden sich in Bings organischen Top-Ergebnissen, nur 56 Prozent in Googles."
+```
+
 ## Warum Bing über Ihre Sichtbarkeit in ChatGPT mitentscheidet
 
 Die Auswahl der Quellen ist kein Rätsel, sondern eine Suchanfrage. Bevor ein KI-System antwortet, sucht es – und was es findet, hängt davon ab, welchen Index es fragt.
@@ -66,6 +78,23 @@ Zwei Einschränkungen gehören dazu, damit die Zahl trägt: Die Untersuchung sta
 Für die Praxis bleibt der Befund trotzdem unbequem. Viele deutsche B2B-Unternehmen betreiben SEO ausschließlich mit Blick auf Google. Bing gilt als Randerscheinung, weil sein Marktanteil bei menschlichen Nutzern klein ist. Für die Frage, was ChatGPT als Beleg findet, ist dieser Marktanteil aber irrelevant.
 
 **Was daraus folgt, ist unspektakulär und wird trotzdem selten gemacht:** Bing Webmaster Tools einrichten, die Sitemap dort einreichen, den Index-Abdeckungsbericht lesen. Bing indexiert eigenständig und langsamer als Google; Seiten, die bei Google längst stehen, fehlen dort mitunter ganz. Das ist keine Optimierung, das ist eine Bestandsaufnahme – und sie kostet einen Nachmittag.
+
+
+```grafik
+typ: kette
+titel: Warum der Bing-Index über die Sichtbarkeit in ChatGPT mitentscheidet
+schritte:
+  - { t: "Einkäuferfrage", s: "ChatGPT ist sich der Antwort nicht sicher" }
+  - { t: "Websuche", s: "Die Frage wird in Suchanfragen übersetzt" }
+  - { t: "Suchindex", s: "Überwiegend Bing liefert die Kandidaten" }
+  - { t: "Seiten lesen", s: "Passagen aus den Top-Ergebnissen werden ausgewertet" }
+  - { t: "Antwort mit Zitaten", s: "Die verwendeten Seiten erscheinen als Quellen" }
+schwelle:
+  nach: 3
+  text: "Seiten, die Bing nicht kennt, fallen hier heraus"
+quelle: "Eigene Darstellung nach Seer Interactive (2025) und dem Leitfaden GEO-Optimierung"
+alt: "Ablauf: Einkäuferfrage, Websuche, Suchindex (überwiegend Bing), Seiten lesen, Antwort mit Zitaten. Seiten, die nicht im Bing-Index stehen, fallen beim Suchindex heraus."
+```
 
 ## Die Zahl der Plätze ist nicht das Problem
 
@@ -150,7 +179,7 @@ Und ein Befund markiert die Grenze der eigenen Website: Nach der Seer-Auswertung
 Ohne Messung ist jede Aussage über Wirkung eine Behauptung. Drei Dinge lassen sich ohne zusätzliche Werkzeuge feststellen:
 
 1. **Dieselben Fragen, derselbe Wortlaut, monatlich.** Nehmen Sie acht Fragen, die Ihr Vertrieb tatsächlich hört, und stellen Sie sie in ChatGPT und in der Google-Suche mit KI-Übersicht. Notieren Sie, welche Anbieter genannt werden und welche Quellen die Systeme anführen. Abweichende Formulierungen liefern abweichende Antworten und machen den Vergleich wertlos.
-2. **Bing-Index prüfen.** In den Bing Webmaster Tools sehen Sie, welche Ihrer Seiten dort überhaupt bekannt sind. Das ist die Vorbedingung für alles Weitere bei ChatGPT.
+2. **Bing-Index prüfen.** In den Bing Webmaster Tools sehen Sie, welche Ihrer Seiten dort überhaupt bekannt sind. Das ist die Vorbedingung für alles Weitere bei ChatGPT. Was danach kommt, damit ChatGPT Sie nicht nur findet, sondern als Anbieter nennt, steht im Artikel [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
 3. **Search Console lesen.** Google weist seit Juni 2026 unter *Leistung → Suchergebnisse* einen Filter für AI Overview und AI Mode aus. Er zeigt **nur Impressionen** – keine Klicks, keine Suchanfragen, keine Klickrate. Das ist wenig, aber es ist die einzige offizielle Zahl, die es gibt.
 
 Wichtig zur Einordnung: KI-Antworten sind nicht deterministisch. Dieselbe Frage kann heute anders beantwortet werden als morgen. Seriös ist deshalb die Aussage über den Verlauf, nicht über einen einzelnen Tag – auch dann, wenn die Kurve flach bleibt.
@@ -162,3 +191,5 @@ Google- und Bing-Optimierung ist bei uns ein eigener Baustein und gehört zur **
 Die zweite Stufe kümmert sich um das, was diese Arbeit allein nicht leisten kann: die Erwähnungen außerhalb Ihrer Website, aus denen die 98 Prozent bestehen.
 
 **Möchten Sie sehen, was KI-Systeme heute über Ihr Unternehmen sagen?** Wir stellen acht echte Einkäuferfragen aus Ihrer Branche in ChatGPT und der Google KI-Übersicht und zeigen Ihnen, in welchen davon Ihr Name fehlt – und welcher Wettbewerber stattdessen empfohlen wird. [Audit kostenlos anfordern](https://www.codaai.ai/#angebot).
+
+Die Begriffe dahinter stehen im [GEO-Glossar](/wissen/geo-glossar/): [Websuche](/wissen/geo-glossar/websuche/), [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/), [Freshness](/wissen/geo-glossar/freshness/), [Index-Management](/wissen/geo-glossar/index-management/). Welche Seiten ChatGPT am häufigsten zitiert, beschreibt der Artikel [Was ChatGPT zitiert](/blog/chatgpt-quellen-startseite-markenkonsistenz/); wie sich die eigene Nennung messen lässt, die [Auswertung von 7.184 KI-Antworten](/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/).

@@ -3,17 +3,18 @@ title: "YouTube im B2B: Welche Videos KI-Systeme zitieren – und wie Sie solche
 seoTitle: "YouTube im B2B: Welche Videos die KI zitiert"
 description: "YouTube ist im deutschen Google AI Mode die häufigste Quelle. Was das für B2B-Unternehmen bedeutet – und woran sich zitierfähige Videos erkennen lassen."
 pubDate: 2026-03-20
-updatedDate: 2026-08-05
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/youtube-b2b-de.webp"
+heroImageAlt: "Videokamera bei einer Aufnahme; eingeblendeter Befund: rund 40 % der Antworten im deutschen Google AI Mode verlinken ein YouTube-Video (SISTRIX)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Erwähnt werden"
+reihe: offpage
 tags: ["YouTube B2B", "KI-Sichtbarkeit", "Google AI Mode", "GEO", "B2B Videomarketing"]
 featured: false
-heroImage: /images/blog/youtube-ki-quellen-de.webp
-heroImageAlt: "KI-Antwort mit ihrer Quellenliste: youtube.com und zwei Herstellerseiten werden zitiert, das eigene Unternehmen ist nicht darunter."
 summary: "In rund 40 Prozent aller Antworten des deutschen Google AI Mode steht ein Link zu einem YouTube-Video – damit ist YouTube dort die häufigste Quelle (SISTRIX, Oktober 2025). In einer Ahrefs-Untersuchung über 75.000 Marken korreliert die Erwähnung auf YouTube stärker mit der Nennung in KI-Antworten als jeder andere untersuchte Faktor. Entscheidend ist dabei nicht die Kanalgröße, sondern ob ein Video eine konkrete Frage vollständig beantwortet und maschinenlesbar aufbereitet ist."
 faq:
   - q: "Lohnt sich YouTube für ein B2B-Unternehmen ohne Abonnenten?"
@@ -56,6 +57,18 @@ In rund **40 Prozent** aller Antworten des deutschen Google AI Mode steht ein Li
     <span class="stat-source">SISTRIX AI Insights, Abruf August 2026</span>
   </div>
 </div>
+
+```grafik
+typ: anteil
+titel: YouTube ist die häufigste Einzelquelle im deutschen Google AI Mode
+wert: 40
+anzeige: "~40 %"
+label: "der Antworten im deutschen Google AI Mode enthalten einen Link zu einem YouTube-Video."
+label_kurz: "Antwort mit YouTube-Link"
+rest_label: "Antwort ohne YouTube-Link"
+quelle: "SISTRIX, Top-Quellen im AI Mode Deutschland, 27.10.2025"
+alt: "Rund 40 Prozent der Antworten im deutschen Google AI Mode enthalten einen Link zu einem YouTube-Video – YouTube ist dort die häufigste Einzelquelle."
+```
 
 ## Was KI-Systeme auf YouTube finden, das sie auf Ihrer Website nicht finden
 
@@ -182,6 +195,16 @@ Praktisch heißt das: eine Kapitelmarke je Teilfrage, benannt wie eine Zwischen�
 
 Nicht: „Intro", „Teil 1", „Teil 2". Diese Bezeichnungen tragen keine Information, die sich zitieren ließe.
 
+
+```grafik
+typ: vorher_nachher
+titel: Kapitelmarken, die sich zitieren lassen
+vorher: { label: "Nicht verwertbar", text: "00:00 Intro · 02:10 Teil 1 · 06:45 Teil 2 · 11:30 Fazit", hinweis: "Keine Marke trägt eine Aussage, die sich zitieren ließe" }
+nachher: { label: "Verwertbar", text: "00:00 Worum es geht · 01:24 Kettenförderer: Aufbau und Grenzen · 04:10 Rollenbahn: Aufbau und Grenzen · 07:35 Wann sich welches System rechnet", hinweis: "Jede Marke beantwortet eine Teilfrage. 78 % der Videos mit Zeitmarken wurden mehrfach zitiert." }
+quelle: "OtterlyAI, YouTube Citation Study 2026"
+alt: "Kapitelmarken wie Intro, Teil 1 und Teil 2 tragen keine zitierfähige Aussage; Kapitelmarken, die je eine Teilfrage benennen, erlauben Zitate auf Abschnittsebene – 78 Prozent der Videos mit Zeitmarken wurden mehrfach zitiert."
+```
+
 ### 4. Beschreibung und Transkript
 
 Die Beschreibungslänge ist der einzige Metadaten-Faktor mit nennenswerter Korrelation (r = 0,31). Das ist kein Aufruf zu Textwüsten, sondern zu Vollständigkeit: worum es geht, für wen, welche Frage beantwortet wird, wer spricht – und der Firmenname ausgeschrieben, nicht als Kürzel.
@@ -192,7 +215,7 @@ Belegbar ist nur der Umweg: Die Metrik, die Transkript-Erwähnungen einschließt
 
 ## Wie daraus ein Baustein wird statt einer Einzelmaßnahme
 
-Ein Video, das produziert und nicht verwertbar veröffentlicht wird, hat für die KI-Sichtbarkeit den Wert null. Deshalb ist die YouTube-Veröffentlichung bei uns ein eigener Baustein und kein Nebensatz in der Produktion.
+Ein Video, das produziert und nicht verwertbar veröffentlicht wird, hat für die KI-Sichtbarkeit den Wert null. Deshalb ist die YouTube-Veröffentlichung bei uns ein eigener Baustein und kein Nebensatz in der Produktion. Welche Rolle Video neben Lesbarkeit, Markennennungen und Vergleichslisten spielt, zeigt der Überblick [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
 
 Sie gehört zur **[zweiten Visibility-Stufe „Empfohlen"](https://www.codaai.ai/digital-visibility/#quellen)** – jener Stufe, die die Frage beantwortet: Bin ich dort präsent, wo die KI ihre Belege holt? Die erste Stufe klärt vorher, ob KI-Systeme Ihre Website überhaupt lesen können. Diese Reihenfolge ist nicht verhandelbar: Wer nicht gelesen werden kann, wird auch nicht zitiert.
 
@@ -227,3 +250,5 @@ Gleichzeitig ist YouTube nur eine Quelle unter vielen: rund 1,8 Prozent aller ge
 Der erste Schritt ist deshalb nicht die Kamera. Er ist die Frage, ob Ihr Unternehmen in den Antworten heute überhaupt vorkommt – und wer stattdessen genannt wird.
 
 **Möchten Sie sehen, was KI-Systeme heute über Ihr Unternehmen sagen?** Wir stellen acht echte Einkäuferfragen aus Ihrer Branche in ChatGPT und der Google KI-Übersicht und zeigen Ihnen, in welchen davon Ihr Name fehlt – und welcher Wettbewerber stattdessen empfohlen wird. [Audit kostenlos anfordern](https://www.codaai.ai/#angebot).
+
+Die Begriffe dahinter stehen im [GEO-Glossar](/wissen/geo-glossar/): [YouTube-Präsenz](/wissen/geo-glossar/youtube-praesenz/), [Grounding](/wissen/geo-glossar/grounding/), [Entität](/wissen/geo-glossar/entitaet/), [Mention](/wissen/geo-glossar/mention/). Wie Video mit Markennennungen und Vergleichslisten zusammenspielt, zeigen die Artikel [Markennennungen auf Drittseiten](/blog/markennennungen-drittseiten-ki/) und [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/).

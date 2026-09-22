@@ -1,0 +1,45 @@
+---
+/* Filter der Blog-Übersicht nach den vier Themenreihen (22.09.2026).
+   Ohne JavaScript bleiben alle Artikel sichtbar; mit ?reihe=<id> blendet das
+   kleine Skript die übrigen Karten aus. Links statt Knöpfe, damit jede Reihe
+   eine teilbare Adresse hat. */
+import { REIHEN } from '../data/reihen';
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const blog = de ? '/blog/' : '/en/blog/';
+---
+<nav aria-label={de ? 'Themenreihen' : 'Series'} class="mb-10" data-reihen-filter>
+  <p class="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{de ? 'Vier Themenreihen' : 'Four series'}</p>
+  <ul class="flex flex-wrap gap-2">
+    <li><a href={blog} data-reihe-chip="" class="reihe-chip">{de ? 'Alle Artikel' : 'All articles'}</a></li>
+    {REIHEN.map((r) => (
+      <li>
+        <a href={`${blog}?reihe=${r.id}`} data-reihe-chip={r.id} class="reihe-chip" title={r.worum[lang]}>
+          {r.name[lang]}<span class="reihe-chip-fach">{r.fach[lang]}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {REIHEN.map((r) => (
+    <p data-reihe-worum={r.id} hidden class="mt-4 text-sm text-muted-foreground max-w-2xl">
+      {r.worum[lang]} <a href={r.pillar[lang]} class="text-cta-accessible underline underline-offset-4">{de ? 'Grundlagen im Leitfaden' : 'The basics in the guide'}</a>
+    </p>
+  ))}
+</nav>
+<script is:inline>
+(function () {
+  var id = new URLSearchParams(location.search).get('reihe') || '';
+  var valid = ['technik', 'content', 'offpage', 'messung'];
+  if (id && valid.indexOf(id) < 0) id = '';
+  document.querySelectorAll('[data-reihe-chip]').forEach(function (a) {
+    if (a.getAttribute('data-reihe-chip') === id) a.setAttribute('aria-current', 'true');
+  });
+  if (!id) return;
+  var w = document.querySelector('[data-reihe-worum="' + id + '"]'); if (w) w.hidden = false;
+  document.querySelectorAll('article[data-reihe], article[data-reihe-none]').forEach(function (el) {
+    if (el.getAttribute('data-reihe') !== id) el.style.display = 'none';
+    el.classList.remove('md:col-span-2', 'md:flex-row');
+  });
+})();
+</script>

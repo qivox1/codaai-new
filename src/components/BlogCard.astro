@@ -12,6 +12,7 @@ interface Props {
   author: string;
   featured?: boolean;
   loading?: "lazy" | "eager";
+  reihe?: string;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   author,
   featured = false,
   loading = "lazy",
+  reihe,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -45,6 +47,8 @@ const formattedDate = pubDate.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-G
     featured && "md:col-span-2 md:flex-row",
   ]}
   aria-label={title}
+  data-reihe={reihe}
+  data-reihe-none={reihe ? undefined : ''}
 >
   {heroImage && (
     <div class:list={["overflow-hidden bg-muted", featured ? "md:w-1/2 h-56 md:h-auto" : "h-48"]}>

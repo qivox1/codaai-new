@@ -31,7 +31,7 @@ export type GeoLang = 'de' | 'en';
 
 export type Block =
   | { type: 'p'; html: string }
-  | { type: 'h3'; text: string }
+  | { type: 'h3'; text: string; id?: string }
   | { type: 'ul'; items: string[] }
   | { type: 'ol'; items: string[] }
   | { type: 'table'; caption: string; head: string[]; rows: string[][] }
@@ -77,7 +77,7 @@ export interface GeoPage {
 }
 
 export const GEO_PUBLISHED = new Date('2026-09-18T08:00:00+02:00');
-export const GEO_UPDATED = new Date('2026-09-18T08:00:00+02:00');
+export const GEO_UPDATED = new Date('2026-09-22T14:00:00+02:00');
 
 const G = '/wissen/geo-glossar';
 const GE = '/en/knowledge/geo-glossary';
@@ -138,7 +138,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `SEO allein reicht nicht mehr, weil ein gutes Google-Ranking nicht mehr bedeutet, dass ein potenzieller Kunde die Seite zu sehen bekommt. Wer ChatGPT oder die Google KI-Übersicht nach Anbietern fragt, erhält eine Antwort mit drei bis fünf Namen — und nur diese Unternehmen bekommen die Anfrage. In unserer <a href="/studie/">Studie mit 449 Unternehmen aus 258 Branchen</a> (3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten) blieben <strong>55 % der Einkäuferfragen ohne Nennung</strong> des untersuchten Unternehmens, in <strong>47 %</strong> nannte die KI stattdessen einen Wettbewerber. Gute Rankings schützten davor nicht.`,
+            html: `SEO allein reicht nicht mehr, weil ein gutes Google-Ranking nicht mehr bedeutet, dass ein potenzieller Kunde die Seite zu sehen bekommt. Wer ChatGPT oder die Google KI-Übersicht nach Anbietern fragt, erhält eine Antwort mit drei bis fünf Namen — und nur diese Unternehmen bekommen die Anfrage. In unserer <a href="/studie/">Studie mit 449 Unternehmen aus 258 Branchen</a> (3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten) blieben <strong>55 % der Einkäuferfragen ohne Nennung</strong> des untersuchten Unternehmens, und bei <strong>47 % der Unternehmen</strong> nannte die KI stattdessen namentlich Wettbewerber. Gute Rankings schützten davor nicht.`,
           },
           {
             type: 'stats',
@@ -249,10 +249,10 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             html: `Die Zitierwahrscheinlichkeit steigt auf drei Ebenen, die sich nicht ersetzen, sondern multiplizieren. Chrissy Kunisch (ONE Beyond Search) hat sie beim SISTRIX Meetup im September 2026 auf eine Formel gebracht: <strong>KI-Sichtbarkeit = (Technik + Content + Offpage) × Prozesse</strong>. Die Technik bringt eine Seite ins Rennen, der Content entscheidet über die Zitierung, das Umfeld auf Drittseiten darüber, ob die Marke überhaupt als Kandidat gilt — und ohne Messung bleibt jede Maßnahme eine Einmalaktion.`,
           },
           { type: 'diagram', id: 'formel' },
-          { type: 'h3', text: 'Technik: das Eintrittsticket' },
+          { type: 'h3', text: 'Technik: das Eintrittsticket', id: 'technik' },
           {
             type: 'p',
-            html: `Technik entscheidet, ob ein KI-System die Seite überhaupt lesen kann. Der wichtigste Unterschied zu Google: <strong>Kein Crawler von OpenAI, Anthropic, Perplexity, Meta oder ByteDance führt JavaScript aus</strong> (Vercel und MERJ, Dezember 2024). ClaudeBot lädt in 23,8 % der Abrufe JavaScript-Dateien, GPTBot in 11,5 % — ausgeführt wird keine davon. Inhalte, die erst im Browser entstehen, sind für diese Systeme unsichtbar. Gemini und Applebot rendern dagegen.`,
+            html: `Technik entscheidet, ob ein KI-System die Seite überhaupt lesen kann. Der wichtigste Unterschied zu Google: <strong>Kein Crawler von OpenAI, Anthropic, Perplexity, Meta oder ByteDance führt JavaScript aus</strong> (Vercel und MERJ, Dezember 2024). ClaudeBot lädt in 23,8 % der Abrufe JavaScript-Dateien, GPTBot in 11,5 % — ausgeführt wird keine davon. Inhalte, die erst im Browser entstehen, sind für diese Systeme unsichtbar. Gemini und Applebot rendern dagegen. Warum für ChatGPT zusätzlich der Bing-Index zählt, erklärt der Artikel <a href="/blog/chatgpt-seo-perplexity-sichtbarkeit/">ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen</a>.`,
           },
           {
             type: 'ul',
@@ -263,7 +263,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
               `Interne Verlinkung als echte HTML-Links, damit <a href="${G}/url-discovery/">URL Discovery</a> und <a href="${G}/crawl-budget/">Crawl-Budget</a> auf den Seiten landen, die zählen.`,
             ],
           },
-          { type: 'h3', text: 'Content: entscheidet über die Zitierung' },
+          { type: 'h3', text: 'Content: entscheidet über die Zitierung', id: 'content' },
           {
             type: 'p',
             html: `Content wird zitiert, wenn er faktendicht, klar strukturiert und ohne Kontext verständlich ist. Die bislang gründlichste Messung dazu stammt aus Princeton: Aggarwal et al. haben für die KDD 2024 an 10.000 Anfragen (GEO-bench) neun Textmaßnahmen getestet. Die wirksamsten drei fügen dem Text etwas hinzu, das ein Modell nicht selbst erzeugen kann:`,
@@ -292,19 +292,23 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             type: 'p',
             html: `<a href="${G}/freshness/">Aktualität</a> zählt messbar: KI-Assistenten zitieren im Schnitt 25,7 % frischere Inhalte als die organische Google-Suche (Ahrefs, 16,975 Millionen zitierte URLs, Juli 2025). Die Google KI-Übersicht ist die Ausnahme — sie zitiert sogar 16 Tage ältere Inhalte als die organische Suche. Sichtbares Datum, aktualisierte Zahlen und ein gepflegtes <code>dateModified</code> im Schema gehören deshalb zur Routine, nicht zum Relaunch.`,
           },
-          { type: 'h3', text: 'Offpage: entscheidet, ob die Marke als Kandidat gilt' },
+          { type: 'h3', text: 'Offpage: entscheidet, ob die Marke als Kandidat gilt', id: 'offpage' },
           {
             type: 'p',
-            html: `Offpage-Signale wiegen bei KI-Systemen schwerer als bei Google, weil der KI gleichgültig ist, ob eine Information von der eigenen Website oder von Drittseiten stammt — es zählt das konsistente Markenbild. Ahrefs hat für 75.000 Marken gemessen, welche Faktoren mit Nennungen in der Google KI-Übersicht zusammenhängen: <strong><a href="${G}/brand-mentions/">Markennennungen im Web</a> korrelieren mit 0,664, Backlinks nur mit 0,218</strong> (Spearman). 26 % der untersuchten Marken hatten keine einzige Nennung. Korrelation ist keine Kausalität, und die Studie betrachtet große Marken — die Rangfolge der Faktoren ist trotzdem eindeutig.`,
+            html: `Offpage-Signale wiegen bei KI-Systemen schwerer als bei Google, weil der KI gleichgültig ist, ob eine Information von der eigenen Website oder von Drittseiten stammt — es zählt das konsistente Markenbild. Ahrefs hat für 75.000 Marken gemessen, welche Faktoren mit Nennungen in der Google KI-Übersicht zusammenhängen: <strong><a href="${G}/brand-mentions/">Markennennungen im Web</a> korrelieren mit 0,664, Backlinks nur mit 0,218</strong> (Spearman). 26 % der untersuchten Marken hatten keine einzige Nennung. Korrelation ist keine Kausalität, und die Studie betrachtet große Marken — die Rangfolge der Faktoren ist trotzdem eindeutig (Einordnung im Artikel <a href="/blog/markennennungen-drittseiten-ki/">Markennennungen auf Drittseiten</a>).`,
           },
           {
             type: 'ul',
             items: [
-              `<strong>Präsenz in Vergleichslisten:</strong> In einer Auswertung von rund 1.260 B2B-Kaufprompts (Overthink Group, Juli 2026) verwiesen 70,8 % aller Zitate auf Seiten mit „best", „top" oder „leading" im Titel. Wer in den <a href="${G}/listicles/">Listen</a> fehlt, die die KI bereits zitiert, fehlt in der Antwort.`,
-              `<strong>Die eigene Startseite:</strong> Unter den 1.000 meistzitierten Seiten in ChatGPT sind 23,8 % Start- und Landingpages (Ahrefs, Oktober 2025) — die zweitgrößte Kategorie nach Wikipedia, und die einzige, die dem Unternehmen vollständig gehört. Eine <a href="${G}/konsistente-markenbeschreibung/">konsistente Markenbeschreibung</a> dort und auf allen Profilen ist die Grundlage.`,
+              `<strong>Präsenz in Vergleichslisten:</strong> In einer Auswertung von rund 1.260 B2B-Kaufprompts (Overthink Group, Juli 2026) verwiesen 70,8 % aller Zitate auf Seiten mit „best", „top" oder „leading" im Titel. Wer in den <a href="${G}/listicles/">Listen</a> fehlt, die die KI bereits zitiert, fehlt in der Antwort (<a href="/blog/vergleichsartikel-anbieterlisten-ki/">mehr dazu</a>).`,
+              `<strong>Die eigene Startseite:</strong> Unter den 1.000 meistzitierten Seiten in ChatGPT sind 23,8 % Start- und Landingpages (Ahrefs, Oktober 2025) — die zweitgrößte Kategorie nach Wikipedia, und die einzige, die dem Unternehmen vollständig gehört. Eine <a href="${G}/konsistente-markenbeschreibung/">konsistente Markenbeschreibung</a> dort und auf allen Profilen ist die Grundlage (<a href="/blog/chatgpt-quellen-startseite-markenkonsistenz/">mehr dazu</a>).`,
               `<strong><a href="${G}/review-plattformen/">Bewertungsplattformen</a>, Fachmedien, <a href="${G}/digital-pr/">Digital PR</a>:</strong> Erwähnungen in Quellen, die die KI in der Branche ohnehin zitiert — auch ohne Link. Im B2B sind das nicht Trustpilot und Google-Rezensionen, sondern Branchenportale, Fachmedien, Verbandsverzeichnisse und Software-Vergleichsplattformen wie Capterra oder G2. Benannte Fachleute mit Zitat werden häufiger übernommen als anonyme Redaktionen.`,
-              `<strong><a href="${G}/youtube-praesenz/">Eigene Videos</a> mit Transkript und <a href="${G}/entitaet/">Entitäten</a> in Wissensdatenbanken:</strong> beides Quellen, auf die Modelle trainiert werden und die sie beim Grounding bevorzugen.`,
+              `<strong><a href="${G}/youtube-praesenz/">Eigene Videos</a> mit Transkript und <a href="${G}/entitaet/">Entitäten</a> in Wissensdatenbanken:</strong> beides Quellen, auf die Modelle trainiert werden und die sie beim Grounding bevorzugen (<a href="/blog/youtube-ki-sichtbarkeit-b2b/">YouTube im B2B</a>).`,
             ],
+          },
+          {
+            type: 'p',
+            html: `Wie diese Offpage-Signale mit Lesbarkeit und zitierfähigen Inhalten zusammenspielen, wenn ein Einkäufer ChatGPT nach Anbietern fragt, beschreibt der Artikel <a href="/blog/in-chatgpt-als-anbieter-empfohlen-werden/">In ChatGPT als Anbieter empfohlen werden</a>.`,
           },
         ],
       },
@@ -379,7 +383,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           },
           {
             type: 'p',
-            html: `So misst auch unser <a href="/digital-visibility/">Digital Visibility Audit</a>: an echten Einkäuferfragen, in ChatGPT und der Google KI-Übersicht, als Anteil über Durchläufe — mit den Wettbewerbern daneben, die stattdessen genannt werden.`,
+            html: `So misst auch unser <a href="/digital-visibility/">Digital Visibility Audit</a>: an echten Einkäuferfragen, in ChatGPT und der Google KI-Übersicht, als Anteil über Durchläufe — mit den Wettbewerbern daneben, die stattdessen genannt werden. Wie so eine Auswertung in der Praxis aussieht, zeigt der Artikel <a href="/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/">7.184 KI-Antworten ausgewertet</a>.`,
           },
         ],
       },
@@ -528,7 +532,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `SEO alone is no longer enough because a good Google ranking no longer means a potential customer gets to see the page. Someone who asks ChatGPT or Google AI Overviews for suppliers receives an answer with three to five names — and only those companies get the enquiry. In our <a href="/en/study/">study of 449 German companies from 258 industries</a> (3,592 buyer questions, 7,184 documented AI answers), <strong>55 % of buyer questions went without a mention</strong> of the company examined, and in <strong>47 %</strong> the AI named a competitor instead. Good rankings did not protect against it.`,
+            html: `SEO alone is no longer enough because a good Google ranking no longer means a potential customer gets to see the page. Someone who asks ChatGPT or Google AI Overviews for suppliers receives an answer with three to five names — and only those companies get the enquiry. In our <a href="/en/study/">study of 449 German companies from 258 industries</a> (3,592 buyer questions, 7,184 documented AI answers), <strong>55 % of buyer questions went without a mention</strong> of the company examined, and for <strong>47 % of the companies</strong> the AI named competitors instead. Good rankings did not protect against it.`,
           },
           {
             type: 'stats',
@@ -636,10 +640,10 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             html: `The probability of being cited rises on three levels that do not substitute for each other but multiply. Chrissy Kunisch (ONE Beyond Search) put it into a formula at the SISTRIX Meetup in September 2026: <strong>AI visibility = (technology + content + off-page) × processes</strong>. Technology gets a page into the race, content decides whether it is cited, the environment on third-party sites decides whether the brand counts as a candidate at all — and without measurement every measure remains a one-off.`,
           },
           { type: 'diagram', id: 'formel' },
-          { type: 'h3', text: 'Technology: the entry ticket' },
+          { type: 'h3', text: 'Technology: the entry ticket', id: 'technology' },
           {
             type: 'p',
-            html: `Technology decides whether an AI system can read the page at all. The most important difference from Google: <strong>no crawler from OpenAI, Anthropic, Perplexity, Meta or ByteDance executes JavaScript</strong> (Vercel and MERJ, December 2024). ClaudeBot loads JavaScript files in 23.8 % of its requests, GPTBot in 11.5 % — none of it is executed. Content that only appears in the browser is invisible to these systems. Gemini and Applebot, by contrast, do render.`,
+            html: `Technology decides whether an AI system can read the page at all. The most important difference from Google: <strong>no crawler from OpenAI, Anthropic, Perplexity, Meta or ByteDance executes JavaScript</strong> (Vercel and MERJ, December 2024). ClaudeBot loads JavaScript files in 23.8 % of its requests, GPTBot in 11.5 % — none of it is executed. Content that only appears in the browser is invisible to these systems. Gemini and Applebot, by contrast, do render. Why the Bing index also matters for ChatGPT is explained in <a href="/en/blog/chatgpt-seo-perplexity-visibility/">ChatGPT SEO: where AI systems get their sources</a>.`,
           },
           {
             type: 'ul',
@@ -650,7 +654,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
               `Internal linking as real HTML links, so that <a href="${GE}/url-discovery/">URL discovery</a> and <a href="${GE}/crawl-budget/">crawl budget</a> land on the pages that matter.`,
             ],
           },
-          { type: 'h3', text: 'Content: decides whether you are cited' },
+          { type: 'h3', text: 'Content: decides whether you are cited', id: 'content' },
           {
             type: 'p',
             html: `Content gets cited when it is dense with facts, clearly structured and understandable without context. The most thorough measurement to date comes from Princeton: for KDD 2024, Aggarwal et al. tested nine text measures on 10,000 queries (GEO-bench). The three most effective add something to the text that a model cannot generate itself:`,
@@ -679,19 +683,23 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
             type: 'p',
             html: `<a href="${GE}/freshness/">Freshness</a> counts measurably: AI assistants cite content that is on average 25.7 % fresher than organic Google search (Ahrefs, 16.975 million cited URLs, July 2025). Google AI Overviews are the exception — they cite content that is actually 16 days older than organic search. A visible date, updated figures and a maintained <code>dateModified</code> in the schema therefore belong to routine, not to a relaunch.`,
           },
-          { type: 'h3', text: 'Off-page: decides whether the brand counts as a candidate' },
+          { type: 'h3', text: 'Off-page: decides whether the brand counts as a candidate', id: 'off-page' },
           {
             type: 'p',
-            html: `Off-page signals weigh more heavily with AI systems than with Google, because the AI does not care whether a piece of information comes from your own website or from third-party sites — what counts is a consistent brand picture. Ahrefs measured for 75,000 brands which factors correlate with mentions in Google AI Overviews: <strong><a href="${GE}/brand-mentions/">brand mentions on the web</a> correlate at 0.664, backlinks at only 0.218</strong> (Spearman). 26 % of the brands examined had not a single mention. Correlation is not causation, and the study looks at large brands — the order of the factors is nevertheless unambiguous.`,
+            html: `Off-page signals weigh more heavily with AI systems than with Google, because the AI does not care whether a piece of information comes from your own website or from third-party sites — what counts is a consistent brand picture. Ahrefs measured for 75,000 brands which factors correlate with mentions in Google AI Overviews: <strong><a href="${GE}/brand-mentions/">brand mentions on the web</a> correlate at 0.664, backlinks at only 0.218</strong> (Spearman). 26 % of the brands examined had not a single mention. Correlation is not causation, and the study looks at large brands — the order of the factors is nevertheless unambiguous (see <a href="/en/blog/brand-mentions-third-party-sites-ai/">brand mentions on third-party sites</a>).`,
           },
           {
             type: 'ul',
             items: [
-              `<strong>Presence in comparison lists:</strong> In an analysis of around 1,260 B2B buying prompts (Overthink Group, July 2026), 70.8 % of all citations pointed to pages with “best”, “top” or “leading” in the title. A company missing from the <a href="${GE}/listicles/">lists</a> the AI already cites is missing from the answer.`,
-              `<strong>Your own homepage:</strong> Among the 1,000 most-cited pages in ChatGPT, 23.8 % are home and landing pages (Ahrefs, October 2025) — the second-largest category after Wikipedia, and the only one the company fully owns. A <a href="${GE}/consistent-brand-description/">consistent brand description</a> there and on every profile is the foundation.`,
+              `<strong>Presence in comparison lists:</strong> In an analysis of around 1,260 B2B buying prompts (Overthink Group, July 2026), 70.8 % of all citations pointed to pages with “best”, “top” or “leading” in the title. A company missing from the <a href="${GE}/listicles/">lists</a> the AI already cites is missing from the answer (<a href="/en/blog/comparison-articles-vendor-lists-ai/">more on this</a>).`,
+              `<strong>Your own homepage:</strong> Among the 1,000 most-cited pages in ChatGPT, 23.8 % are home and landing pages (Ahrefs, October 2025) — the second-largest category after Wikipedia, and the only one the company fully owns. A <a href="${GE}/consistent-brand-description/">consistent brand description</a> there and on every profile is the foundation (<a href="/en/blog/chatgpt-sources-homepage-brand-consistency/">more on this</a>).`,
               `<strong><a href="${GE}/review-platforms/">Review platforms</a>, trade media, <a href="${GE}/digital-pr/">digital PR</a>:</strong> mentions in sources the AI already cites in your industry — even without a link. In B2B that is not Trustpilot or Google reviews but industry portals, trade media, association directories and software comparison platforms such as Capterra or G2. Named experts with a quote are picked up more often than anonymous editorial teams.`,
-              `<strong><a href="${GE}/youtube-presence/">Your own videos</a> with transcripts and <a href="${GE}/entity/">entities</a> in knowledge bases:</strong> both are sources models are trained on and prefer during grounding.`,
+              `<strong><a href="${GE}/youtube-presence/">Your own videos</a> with transcripts and <a href="${GE}/entity/">entities</a> in knowledge bases:</strong> both are sources models are trained on and prefer during grounding (<a href="/en/blog/youtube-ai-visibility-b2b/">YouTube for B2B</a>).`,
             ],
+          },
+          {
+            type: 'p',
+            html: `How these off-page signals combine with readability and citable content when a buyer asks ChatGPT for suppliers is covered in <a href="/en/blog/get-recommended-by-chatgpt-as-a-supplier/">Getting recommended by ChatGPT as a supplier</a>.`,
           },
         ],
       },
@@ -764,7 +772,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           },
           {
             type: 'p',
-            html: `This is also how our <a href="/en/digital-visibility/">Digital Visibility Audit</a> measures: on real buyer questions, in ChatGPT and Google AI Overviews, as a share over runs — with the competitors named instead shown alongside.`,
+            html: `This is also how our <a href="/en/digital-visibility/">Digital Visibility Audit</a> measures: on real buyer questions, in ChatGPT and Google AI Overviews, as a share over runs — with the competitors named instead shown alongside. What such an analysis looks like in practice is shown in <a href="/en/blog/ai-visibility-chatgpt-recommendation-practice/">7,184 AI answers analysed</a>.`,
           },
         ],
       },

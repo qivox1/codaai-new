@@ -3,16 +3,18 @@ title: "KI-Sichtbarkeit in ChatGPT und Google KI"
 seoTitle: "Sichtbarkeit in ChatGPT: 7.184 Antworten"
 description: "7.184 ausgewertete KI-Antworten zeigen, warum ChatGPT und die Google KI-Übersicht bestimmte B2B-Anbieter nennen – und andere nicht."
 pubDate: 2026-07-26
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/ki-sichtbarkeit-praxis-messung-de.webp"
+heroImageAlt: "Zwei Kollegen arbeiten im Büro an Unterlagen; eingeblendeter Befund: 34,9 % der Unternehmen mit über 100 Top-10-Rankings fehlen in ChatGPT (KI-Blindtest Mittelstand 2026)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Messen & steuern"
+reihe: messung
 tags: ["KI-Sichtbarkeit", "GEO", "ChatGPT", "Google KI-Übersicht", "B2B Mittelstand"]
 featured: false
-heroImage: "/images/blog/ki-sichtbarkeit-praxis.webp"
-heroImageAlt: "Vier junge Kolleginnen und Kollegen in einem hellen Loft-Büro stehen lachend um einen Bildschirm, auf dem eine steigende Kurve und eine Liste eingehender Kundenanfragen zu sehen ist"
 summary: "KI-Sichtbarkeit beschreibt, ob ein Unternehmen in den Antworten von ChatGPT, der Google KI-Übersicht und ähnlichen Systemen genannt wird, wenn potenzielle Kunden nach Lösungen fragen. Eine Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen zeigt: In 54,7 % der Einkäuferfragen fehlt das Unternehmen, bei 46,8 % empfiehlt die KI stattdessen namentlich Wettbewerber. Fünf Hebel wirken nachweislich: Entitäts-Klarheit, Präsenz in Drittquellen, technische Abrufbarkeit, faktendichter Content und regelmäßige Messung. Die stärkste extern belegte Einzelerkenntnis: Marken-Erwähnungen im Web korrelieren rund dreimal stärker mit KI-Nennungen als Backlinks."
 faq:
   - q: "Was bedeutet KI-Sichtbarkeit konkret?"
@@ -50,11 +52,22 @@ Ein potenzieller Kunde tippt heute eine Frage in ChatGPT, bekommt drei Anbieter 
     <span class="stat-source">Ahrefs, „AI Overview Brand Visibility Factors", 75.000 Marken</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">+40 %</span>
-    <span class="stat-label">mehr Sichtbarkeit in generativen Antworten durch Statistiken, Zitate und Quellenangaben</span>
+    <span class="stat-value">+28–41 %</span>
+    <span class="stat-label">mehr Sichtbarkeit in generativen Antworten durch Quellenangaben (+28 %), Statistiken (+34 %) und Zitate (+41 %)</span>
     <span class="stat-source">Aggarwal et al., „GEO: Generative Engine Optimization", KDD 2024</span>
   </div>
 </div>
+
+```grafik
+typ: kennzahl_vergleich
+titel: Dieselben Fragen, zwei Systeme – zwei verschiedene Ergebnisse
+werte:
+  - { label: "Durchschnittliche Sichtbarkeit in ChatGPT", wert: 24.9, anzeige: "24,9 %", markiert: true }
+  - { label: "Durchschnittliche Sichtbarkeit in der Google KI-Übersicht", wert: 39.4, anzeige: "39,4 %", stark: true }
+max: 100
+quelle: "CodaAI, KI-Blindtest Mittelstand 2026 – 449 Unternehmen, 3.592 Fragen, Juni/Juli 2026"
+alt: "Dieselben Einkäuferfragen ergaben in ChatGPT eine durchschnittliche Sichtbarkeit von 24,9 Prozent, in der Google KI-Übersicht von 39,4 Prozent."
+```
 
 ## Was KI-Sichtbarkeit in der Praxis wirklich bedeutet
 
@@ -148,7 +161,7 @@ Diese Verschiebung ist strategisch relevant: KI-Systeme verhalten sich zunehmend
 
 ## Fünf Hebel, die KI-Sichtbarkeit in der Praxis erzeugen
 
-Es gibt keinen einzelnen Schalter für KI-Sichtbarkeit. Was in den Audits durchgängig funktioniert und sich zugleich durch externe Forschung stützen lässt, sind fünf Hebel — geordnet nach Wirkung pro Aufwand.
+Es gibt keinen einzelnen Schalter für KI-Sichtbarkeit. Was in den Audits durchgängig funktioniert und sich zugleich durch externe Forschung stützen lässt, sind fünf Hebel — geordnet nach Wirkung pro Aufwand. Eine kompakte, nach Belegen sortierte Fassung für die Frage, wie man in ChatGPT als Anbieter genannt wird, steht im Artikel [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
 
 ### 1. Entitäts-Klarheit: Sagen, was Sie tun — in den Worten Ihres Marktes
 
@@ -254,6 +267,21 @@ Bevor Sie Budget einplanen, verschaffen Sie sich einen Ausgangswert. Die folgend
 
 Wer nach dieser halben Stunde bei einer Sichtbarkeitsquote unter 25 % landet, liegt im Bereich des Durchschnitts der untersuchten Unternehmen — was kein Trost ist, sondern der Normalzustand, den ein aktiver Wettbewerber gerade verlässt.
 
+
+```grafik
+typ: kette
+titel: Die Kurzprüfung in 30 Minuten
+schritte:
+  - { t: "Fragen formulieren", s: "10 Min. · zwei Marktübersicht, vier Anwendungsfall, zwei Vergleich – ohne eigenen Firmennamen" }
+  - { t: "Abfragen", s: "15 Min. · alle acht Fragen in ChatGPT und in der Google KI-Übersicht" }
+  - { t: "Einordnen", s: "5 Min. · Nennungen ÷ 16 Antworten = Sichtbarkeitsquote" }
+schwelle:
+  nach: 3
+  text: "Unter 25 %: Durchschnitt der Studie – der Normalzustand, den ein aktiver Wettbewerber gerade verlässt"
+quelle: "Eigene Darstellung nach der Methodik des KI-Blindtests Mittelstand 2026"
+alt: "Kurzprüfung in drei Schritten: acht Fragen formulieren, in ChatGPT und der Google KI-Übersicht abfragen, Nennungen durch 16 Antworten teilen. Unter 25 Prozent liegt man im Durchschnitt der Studie."
+```
+
 ## Die Messung steht – jetzt kommt der Content
 
 Der Ist-Zustand ist schnell ermittelt. Die schwierigere Aufgabe beginnt danach: Aus dem Befund „Wir werden bei sechs von acht Fragen nicht genannt" muss ein Prozess werden, der das ändert. Und dieser Prozess ist zu einem großen Teil ein Content-Prozess.
@@ -265,3 +293,5 @@ Denn die technischen Punkte — Crawler-Freigabe, Antwortzeiten, Schema-Markup �
 **Technische Basis + zitierfähiger Content + Präsenz in Drittquellen + regelmäßige Messung = KI-Sichtbarkeit.** Wer alle vier Bausteine systematisch angeht, ist der Mehrheit der deutschen B2B-Websites heute schon einen Schritt voraus — und zwar in genau dem Moment der Kaufanbahnung, den er sonst nie zu sehen bekommt.
 
 **Möchten Sie wissen, was die KI zu Ihrem Unternehmen antwortet?** Dieselbe Methodik wie im KI-Blindtest, angewendet auf Ihre acht Einkäuferfragen, Ihre echten KI-Antworten und Ihre Wettbewerber: [zur Sichtbarkeitsprüfung](https://www.codaai.ai/studie/). Oder starten Sie mit dem [kostenlosen KI-Sichtbarkeits-Check](https://www.codaai.ai/check/).
+
+Die Begriffe dahinter stehen im [GEO-Glossar](/wissen/geo-glossar/): [Promptset](/wissen/geo-glossar/promptset/), [Mention Rate](/wissen/geo-glossar/mention-rate/), [Nullmessung](/wissen/geo-glossar/nullmessung/), [Share of AI Search](/wissen/geo-glossar/share-of-ai-search/), [Brand Mentions](/wissen/geo-glossar/brand-mentions/). Vertiefungen zu einzelnen Hebeln: [Markennennungen auf Drittseiten](/blog/markennennungen-drittseiten-ki/), [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/), [YouTube im B2B](/blog/youtube-ki-sichtbarkeit-b2b/) und [Warum Bing mitentscheidet](/blog/chatgpt-seo-perplexity-sichtbarkeit/).

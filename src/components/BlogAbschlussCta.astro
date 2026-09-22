@@ -1,0 +1,28 @@
+---
+/* Abschluss-CTA jedes Blogartikels (Beschluss Oli, 22.09.2026):
+   Hauptlink immer /check/ („Ergebnis zuerst"), Zweitlink je Reihe —
+   Messung/Offpage → Komplett-Audit, Content/Technik → Webinar. */
+import { REIHE_BY_ID, type ReiheId } from '../data/reihen';
+interface Props { lang: 'de' | 'en'; reihe?: ReiheId }
+const { lang, reihe } = Astro.props;
+const de = lang === 'de';
+const zweit = reihe ? REIHE_BY_ID[reihe].zweit[lang] : (de ? { href: '/digital-visibility/', label: 'Was das Komplett-Audit zusätzlich liefert' } : { href: '/en/digital-visibility/', label: 'What the full audit adds' });
+---
+<section class="mt-12 rounded-2xl bg-surface-ink text-white p-6 lg:p-8" aria-label={de ? 'Nächster Schritt' : 'Next step'}>
+  <p class="text-xs font-semibold uppercase tracking-widest text-navy-200 mb-2">{de ? 'Kostenloser Check' : 'Free check'}</p>
+  <p class="text-xl lg:text-2xl font-semibold leading-snug mb-2">
+    {de ? 'Nennt ChatGPT Ihr Unternehmen?' : 'Does ChatGPT name your company?'}
+  </p>
+  <p class="text-navy-200 text-sm leading-relaxed mb-5 max-w-xl">
+    {de
+      ? 'Geben Sie Ihre Website ein und sehen Sie das Ergebnis in Sekunden – ohne Anmeldung. Erst danach entscheiden Sie, ob Sie mehr wissen wollen.'
+      : 'Enter your website and see the result in seconds – no sign-up. Only then do you decide whether you want to know more.'}
+  </p>
+  <a href={de ? '/check/' : '/en/check/'} data-cta="blog-end-check"
+     class="inline-flex items-center justify-center h-11 px-6 rounded-[14px] bg-cta-strong text-white font-semibold text-sm hover:bg-cta-strong/90 transition-colors">
+    {de ? 'Website prüfen' : 'Check your website'}
+  </a>
+  <p class="text-sm mt-4 mb-0">
+    <a href={zweit.href} data-cta="blog-end-second" class="text-white underline underline-offset-4 hover:text-navy-100">{zweit.label}</a>
+  </p>
+</section>

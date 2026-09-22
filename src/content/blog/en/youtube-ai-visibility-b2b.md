@@ -3,17 +3,18 @@ title: "YouTube for B2B: Which Videos AI Systems Cite as Sources"
 seoTitle: "YouTube for B2B: Which Videos AI Cites"
 description: "YouTube is the most frequent source in the German Google AI Mode. What that means for B2B companies — and how to tell a citable video from a wasted one."
 pubDate: 2026-03-20
-updatedDate: 2026-08-05
+updatedDate: 2026-09-22
 lang: en
+heroImage: "/images/blog/youtube-b2b-en.webp"
+heroImageAlt: "Video camera during a recording; overlaid finding: around 40% of answers in the German Google AI Mode link to a YouTube video (SISTRIX)"
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Getting Mentioned"
+reihe: offpage
 tags: ["YouTube B2B", "AI visibility", "Google AI Mode", "GEO", "B2B video marketing"]
 featured: false
-heroImage: /images/blog/youtube-ki-quellen-en.webp
-heroImageAlt: "An AI answer with its source list: youtube.com and two manufacturer sites are cited, the company itself is not among them."
 summary: "Around 40% of all answers in the German Google AI Mode contain a link to a YouTube video, making YouTube the most frequently cited source there (SISTRIX, October 2025). In an Ahrefs study of 75,000 brands, YouTube mentions correlated more strongly with being named in AI answers than any other factor examined. What decides this is not channel size, but whether a video answers a specific question in full and is prepared so a machine can use it."
 faq:
   - q: "Is YouTube worth it for a B2B company with no subscribers?"
@@ -56,6 +57,18 @@ Around **40%** of all answers in the German Google AI Mode contain a link to a Y
     <span class="stat-source">SISTRIX AI Insights, retrieved August 2026</span>
   </div>
 </div>
+
+```grafik
+typ: anteil
+titel: YouTube is the most frequent single source in the German Google AI Mode
+wert: 40
+anzeige: "~40%"
+label: "of answers in the German Google AI Mode contain a link to a YouTube video."
+label_kurz: "Answer with a YouTube link"
+rest_label: "Answer without a YouTube link"
+quelle: "SISTRIX, top sources in AI Mode Germany, 27.10.2025"
+alt: "Around 40 percent of answers in the German Google AI Mode contain a link to a YouTube video – YouTube is the most frequent single source there."
+```
 
 ## What AI systems find on YouTube that they do not find on your website
 
@@ -182,6 +195,16 @@ In practice this means one chapter marker per sub-question, named like a subhead
 
 Not: “Intro”, “Part 1”, “Part 2”. Those labels carry no information anybody could cite.
 
+
+```grafik
+typ: vorher_nachher
+titel: Chapter markers that can be cited
+vorher: { label: "Not usable", text: "00:00 Intro · 02:10 Part 1 · 06:45 Part 2 · 11:30 Summary", hinweis: "No marker carries a statement that could be cited" }
+nachher: { label: "Usable", text: "00:00 What this is about · 01:24 Chain conveyors: design and limits · 04:10 Roller conveyors: design and limits · 07:35 When each system pays off", hinweis: "Each marker answers a sub-question. 78% of videos with timestamps were cited more than once." }
+quelle: "OtterlyAI, YouTube Citation Study 2026"
+alt: "Chapter markers such as Intro, Part 1 and Part 2 carry no citable statement; markers that each name a sub-question allow citations at section level – 78 percent of videos with timestamps were cited more than once."
+```
+
 ### 4. Description and transcript
 
 Description length is the only metadata factor with a meaningful correlation (r = 0.31). This is not a call for walls of text, but for completeness: what it is about, who it is for, which question it answers, who is speaking — and the company name written out, not abbreviated.
@@ -192,7 +215,7 @@ What is evidenced is only the indirect route: the metric that includes transcrip
 
 ## How this becomes a building block rather than a one-off
 
-A video that is produced but not published in a usable form is worth nothing for AI visibility. That is why publishing on YouTube is a building block in its own right for us, and not a footnote to production.
+A video that is produced but not published in a usable form is worth nothing for AI visibility. That is why publishing on YouTube is a building block in its own right for us, and not a footnote to production. Where video sits alongside readability, brand mentions and comparison lists is set out in [Getting recommended by ChatGPT as a supplier](/en/blog/get-recommended-by-chatgpt-as-a-supplier/).
 
 It belongs to the **[second visibility tier, “Recommended”](https://www.codaai.ai/en/digital-visibility/#sources)** — the tier that answers the question: am I present where the AI sources its evidence? The first tier settles beforehand whether AI systems can read your website at all. That order is not negotiable: what cannot be read will not be cited.
 
@@ -227,3 +250,5 @@ At the same time YouTube is only one source among many: roughly 1.8% of all meas
 So the first step is not the camera. It is the question of whether your company appears in those answers today at all — and who is named instead.
 
 **Would you like to see what AI systems currently say about your company?** We put eight real buyer questions from your sector to ChatGPT and Google AI Overviews and show you which of them leave your name out — and which competitor is recommended instead. [Request your free audit](https://www.codaai.ai/en/#offer).
+
+The terms behind this are in the [GEO glossary](/en/knowledge/geo-glossary/): [YouTube presence](/en/knowledge/geo-glossary/youtube-presence/), [grounding](/en/knowledge/geo-glossary/grounding/), [entity](/en/knowledge/geo-glossary/entity/), [mention](/en/knowledge/geo-glossary/mention/). How video works alongside brand mentions and comparison lists is covered in [brand mentions on third-party sites](/en/blog/brand-mentions-third-party-sites-ai/) and [comparison articles and vendor lists](/en/blog/comparison-articles-vendor-lists-ai/).

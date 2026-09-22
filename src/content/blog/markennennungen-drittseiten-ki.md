@@ -3,14 +3,16 @@ title: "Markennennungen auf Drittseiten: Warum Erwähnungen stärker wirken als 
 seoTitle: "Markennennungen schlagen Backlinks in KI"
 description: "Markennennungen korrelieren mit r = 0,664 mit der Sichtbarkeit in KI-Antworten, Backlinks nur mit 0,218. Was diese Zahl aussagt – und was nicht."
 pubDate: 2026-09-17
-heroImage: "/images/blog/markennennungen-drittseiten.webp"
-heroImageAlt: "Eine Marketingleiterin zeigt einem Kollegen einen Fachbeitrag auf dem Tablet, der Beta Technik ohne Link nennt; auf dem Monitor dahinter die Korrelation mit KI-Sichtbarkeit: Markennennungen 0,664, Backlinks 0,218"
+updatedDate: 2026-09-22
 lang: de
+heroImage: "/images/blog/markennennungen-de.webp"
+heroImageAlt: "Zwei Ingenieure besprechen Pläne am Stehpult; eingeblendeter Befund: Markennennungen korrelieren mit 0,664 mit KI-Sichtbarkeit, Backlinks mit 0,218 (Ahrefs)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."
 authorImage: /images/speaker-oliver-parrizas.webp
-category: "SEO & GEO"
+category: "Erwähnt werden"
+reihe: offpage
 tags: ["Markennennungen", "KI-Sichtbarkeit", "Backlinks", "GEO", "Digital PR"]
 featured: false
 summary: "In einer Ahrefs-Untersuchung über 75.000 Marken korrelieren Markennennungen im Web mit r = 0,664 mit der Nennung in Googles AI Overviews – Backlinks nur mit 0,218. Entscheidend ist dabei die Erwähnung selbst, nicht der Link. Ahrefs weist ausdrücklich darauf hin, dass Korrelation keine Kausalität belegt und alle gemessenen Werte auf der Spearman-Skala moderat bis schwach ausfallen."
@@ -53,6 +55,19 @@ Der Widerspruch ist nur scheinbar einer. Er löst sich auf, sobald man weiß, wo
     <span class="stat-source">dieselbe Untersuchung</span>
   </div>
 </div>
+
+```grafik
+typ: kennzahl_vergleich
+titel: Die drei stärksten Faktoren liegen außerhalb der eigenen Website
+werte:
+  - { label: "Markennennungen im Web", wert: 0.664, anzeige: "0,664", markiert: true }
+  - { label: "Markenname im Linktext", wert: 0.527, anzeige: "0,527" }
+  - { label: "Suchvolumen des Markennamens", wert: 0.392, anzeige: "0,392" }
+  - { label: "Domain Rating", wert: 0.326, anzeige: "0,326" }
+  - { label: "Backlinks", wert: 0.218, anzeige: "0,218", stark: true }
+quelle: "Ahrefs, 75.000 Marken, 26.05.2025 – Spearman-Rangkorrelation mit der Nennung in Googles AI Overviews"
+alt: "Markennennungen im Web korrelieren mit 0,664 mit der Nennung in Googles AI Overviews, Backlinks nur mit 0,218; dazwischen liegen Markenname im Linktext, Suchvolumen des Markennamens und Domain Rating."
+```
 
 Dieser Baustein ist der erste der zweiten Visibility-Stufe – **[Stufe 2 · Empfohlen](/digital-visibility/#quellen)**. Er beschreibt den Übergang von „Die KI kann uns lesen" zu „Die KI nennt uns, weil andere uns nennen".
 
@@ -150,6 +165,16 @@ Die Untersuchung zählt Erwähnungen, ohne sie zu gewichten. In der Praxis ist d
 
 **Die Tonlage entscheidet mit.** Eine Erwähnung in einer Liste von Insolvenzen zählt in einer Häufigkeitsmessung genauso wie eine in einer Bestenliste. Das ist ein bekannter blinder Fleck solcher Korrelationsstudien und ein Grund, die Zahl nicht als Zielgröße zu behandeln.
 
+
+```grafik
+typ: vorher_nachher
+titel: Dieselbe Erwähnung – zwei Wirkungen
+vorher: { label: "Zählt, trägt aber nichts", text: "„Anbieter X wurde ausgezeichnet.“", hinweis: "Verbindet den Namen mit keinem Begriff, nach dem jemand fragt" }
+nachher: { label: "Trägt eine Aussage", text: "„Anbieter X fertigt Prüfstände für Antriebsstränge nach ISO 1940-1.“", hinweis: "Name, Kategorie und Norm im selben Satz – daraus bildet ein Modell eine Aussage über die Entität" }
+quelle: "Eigene Darstellung nach Ahrefs (2025): Modelle leiten Autorität aus dem gemeinsamen Auftreten von Begriffen ab"
+alt: "Eine Erwähnung wie „Anbieter X wurde ausgezeichnet“ verbindet den Namen mit keinem gefragten Begriff; „Anbieter X fertigt Prüfstände für Antriebsstränge nach ISO 1940-1“ verbindet Name, Kategorie und Norm."
+```
+
 ### Wie Sie den Ausgangspunkt selbst bestimmen
 
 Für eine erste Standortbestimmung brauchen Sie kein Werkzeug. Vier Schritte, eine gute Stunde:
@@ -163,7 +188,7 @@ Was diese Handzählung nicht liefert, ist die Verbindung zur tatsächlichen Nenn
 
 ## Wie dieser Baustein mit den anderen zusammenhängt
 
-Markennennungen sind der erste Baustein der [Stufe 2](/digital-visibility/#quellen) und die Grundlage der folgenden. Der Baustein direkt daneben – [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/) – ist im Grunde ein Sonderfall: eine Erwähnung an der Stelle, an der jemand kurz vor einer Entscheidung steht.
+Markennennungen sind der erste Baustein der [Stufe 2](/digital-visibility/#quellen) und die Grundlage der folgenden. Der Baustein direkt daneben – [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/) – ist im Grunde ein Sonderfall: eine Erwähnung an der Stelle, an der jemand kurz vor einer Entscheidung steht. Wie beide mit Lesbarkeit und zitierfähigen Inhalten zusammenspielen, wenn ein Einkäufer ChatGPT nach Anbietern fragt, zeigt der Überblick [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
 
 Wichtig bleibt die Reihenfolge. Erwähnungen wirken, wenn ein KI-System die Belege prüfen kann, die es findet. Ist Ihre Website für die Crawler dieser Systeme nicht zugänglich, fehlt die Bestätigung – dann steht die Erwähnung ohne Deckung da. Deshalb kommt [Stufe 1 · Gefunden](/digital-visibility/#lesbar) zuerst, auch wenn Stufe 2 die interessantere Zahl trägt.
 
@@ -176,3 +201,5 @@ Der Satz, der aus dieser Untersuchung hängen bleibt, stammt nicht von uns, sond
 Das ist unbequem, weil es keine Abkürzung nahelegt. Es ist aber auch die Nachricht, die ein mittelständisches Unternehmen gebrauchen kann: Der Hebel liegt nicht in einem technischen Kniff, sondern darin, fachlich sichtbar zu sein – und die Erwähnungen, die es schon gibt, in Ordnung zu bringen.
 
 Wo Ihr Unternehmen heute steht, lässt sich messen. Genau das tut das Digital Visibility Audit: Es prüft an echten Einkäuferfragen, ob ChatGPT und die Google KI-Übersicht Sie nennen – und welche Quellen sie stattdessen heranziehen.
+
+Wo ChatGPT seine Belege überhaupt findet, erklärt der Artikel [Warum Bing mitentscheidet](/blog/chatgpt-seo-perplexity-sichtbarkeit/); wie sich die eigene Nennung messen lässt, die [Auswertung von 7.184 KI-Antworten](/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/). Eine weitere Quelle, die Unternehmen selbst füllen können, ist [YouTube](/blog/youtube-ki-sichtbarkeit-b2b/).

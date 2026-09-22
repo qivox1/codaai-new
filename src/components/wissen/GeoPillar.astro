@@ -327,7 +327,7 @@ const df = ui.diagramFormel;
                       case 'p':
                         return <p class="text-foreground leading-relaxed" set:html={withBase(b.html)} />;
                       case 'h3':
-                        return <h3 class="text-xl font-semibold text-foreground mt-9">{b.text}</h3>;
+                        return <h3 id={b.id} class="text-xl font-semibold text-foreground mt-9 scroll-mt-28">{b.text}</h3>;
                       case 'ul':
                         return (
                           <ul class="space-y-2.5 pl-1">

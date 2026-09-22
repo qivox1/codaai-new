@@ -27,6 +27,11 @@ const blog = defineCollection({
 
     // ── Classification ────────────────────────────────────────────────────
     category: z.string(),
+    // reihe: eine der vier Themenreihen (src/data/reihen.ts, Beschluss Oli
+    // 22.09.2026). Steuert Kategorie-Anzeige, Filter der Blog-Übersicht, den
+    // Kasten „Teil der Reihe …" und den Zweitlink des Abschluss-CTA. Pflicht
+    // für jeden neuen oder umgebauten Artikel.
+    reihe: z.enum(['technik', 'content', 'offpage', 'messung']).optional(),
     tags: z.array(z.string()),
     featured: z.boolean().optional().default(false),
 
