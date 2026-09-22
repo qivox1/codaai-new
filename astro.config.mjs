@@ -55,6 +55,9 @@ const EXTRA_SOURCES = {
   // 18.09.2026: /check/ besteht aus CheckPage + AuditCTA.
   'check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
   'en/check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
+  // 22.09.2026: Faktenseite — Inhalt in der Datendatei, Seite ist ein Wrapper.
+  'fakten': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
+  'en/facts': ['src/data/fakten.ts', 'src/components/wissen/FaktenSeite.astro'],
 };
 
 /** Projektwurzel — damit die Pfade unabhaengig vom Arbeitsverzeichnis stimmen. */

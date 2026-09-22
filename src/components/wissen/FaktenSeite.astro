@@ -1,0 +1,191 @@
+---
+/*
+ * Faktenseite (Grounding Page) — eine Komponente für beide Sprachen.
+ * Inhalt in src/data/fakten.ts, Seitendateien sind Wrapper:
+ *   /fakten/  ·  /en/facts/   (+ Markdown-Fassung /fakten.md, /en/facts.md)
+ *
+ * Aufbau (Extraktionsmuster wie Glossar und Pillar-Seite):
+ *   1. Kippsatz-H1, Lead (data-speakable) = die Ein-Satz-Beschreibung.
+ *   2. Beschreibung in drei Längen (1 Satz / 50 / 150 Wörter) — frei übernehmbar.
+ *   3. Faktenblock als Tabelle: eine Zeile = ein zitierbarer Fakt.
+ *   4. Abschnitte mit H2 im Frageformat, erster Satz nennt „CodaAI" beim Namen.
+ *   5. Abgrenzung zu „Coda AI" (coda.io) — Verwechslungsrisiko in KI-Antworten.
+ *
+ * Schema: AboutPage + vollständige Organization (gleiche @id wie sitewide, mit
+ * disambiguatingDescription) + Person Oliver Parrizas + BreadcrumbList.
+ * Bewusst KEIN FAQPage: die Fragen hier sind Stammdaten, keine Beratungs-FAQ,
+ * und der Wächter verlangt sitewide eindeutige FAQ-Fragen.
+ */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import HeroHeadline from '../HeroHeadline.astro';
+import { FAKTEN, FAKTEN_IDS, FAKTEN_PUBLISHED, FAKTEN_UPDATED, OLIVER, type FaktenLang } from '../../data/fakten';
+
+interface Props { lang: FaktenLang }
+const { lang } = Astro.props;
+const p = FAKTEN[lang];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+const pageUrl = `${SITE_URL}${p.path}`;
+const homeHref = lang === 'de' ? `${base}/` : `${base}/en/`;
+const withBase = (html: string) => html.replace(/href="\/(?!\/)/g, `href="${base}/`);
+const fmt = (d: Date) => d.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const orgSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': FAKTEN_IDS.org,
+  name: 'CodaAI',
+  alternateName: ['CodaAI – Digital Visibility', 'codaai.ai'],
+  legalName: 'AMP Beratung',
+  url: `${SITE_URL}/`,
+  description: p.descriptions[1].text,
+  disambiguatingDescription: p.disambiguating,
+  email: 'hi@codaai.ai',
+  telephone: '+49-151-53406969',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Langer Weg 7b',
+    postalCode: '33332',
+    addressLocality: 'Gütersloh',
+    addressCountry: 'DE',
+  },
+  areaServed: ['DE', 'AT', 'CH'],
+  knowsLanguage: ['de', 'en'],
+  knowsAbout: [
+    'Generative Engine Optimization (GEO)',
+    'Answer Engine Optimization (AEO)',
+    'Suchmaschinenoptimierung (SEO)',
+    'KI-Sichtbarkeit',
+    'B2B-Content-Marketing',
+  ],
+  founder: { '@id': FAKTEN_IDS.anja },
+  subjectOf: { '@id': `${pageUrl}#webpage` },
+});
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': FAKTEN_IDS.oliver,
+  name: OLIVER.name,
+  givenName: 'Oliver',
+  familyName: 'Parrizas',
+  jobTitle: lang === 'de' ? 'Digital- & Sichtbarkeits-Analyst' : 'Digital & visibility analyst',
+  image: `${SITE_URL}${OLIVER.image}`,
+  affiliation: { '@id': FAKTEN_IDS.org },
+  knowsAbout: ['Generative Engine Optimization (GEO)', 'Answer Engine Optimization (AEO)', 'SEO', 'KI-Sichtbarkeit'],
+  sameAs: [OLIVER.linkedin],
+});
+
+const aboutSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': `${pageUrl}#webpage`,
+  name: p.metaTitle,
+  description: p.metaDescription,
+  url: pageUrl,
+  inLanguage: lang,
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': FAKTEN_IDS.org },
+  mainEntity: { '@id': FAKTEN_IDS.org },
+  publisher: { '@id': FAKTEN_IDS.org },
+  datePublished: FAKTEN_PUBLISHED.toISOString(),
+  dateModified: FAKTEN_UPDATED.toISOString(),
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
+});
+
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: p.home, item: lang === 'de' ? `${SITE_URL}/` : `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: p.crumb, item: pageUrl },
+  ],
+});
+---
+
+<Layout
+  lang={lang}
+  title={p.metaTitle}
+  description={p.metaDescription}
+  jsonLd={[aboutSchema, orgSchema, personSchema, breadcrumbSchema]}
+  mdVariant={p.mdPath}
+>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <header class="mx-auto max-w-7xl px-6 lg:px-8 pt-4 pb-8">
+      <Breadcrumb items={[{ label: p.home, ariaLabel: p.homeAria, href: homeHref }, { label: p.crumb }]} class="mb-6" />
+      <div class="max-w-4xl">
+        <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-3">{p.kicker}</p>
+        <HeroHeadline line1={p.line1} line2={p.line2} />
+        <p class="mt-6 text-lg text-foreground leading-relaxed" data-speakable>{p.lead}</p>
+        <p class="mt-4 text-xs text-muted-foreground">
+          {p.stand} <time datetime={FAKTEN_UPDATED.toISOString()} class="text-foreground font-medium">{fmt(FAKTEN_UPDATED)}</time>
+        </p>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-20">
+     <div class="max-w-4xl">
+
+      <section id="beschreibung" aria-labelledby="desc-h" class="rounded-2xl border border-border bg-muted/30 p-6 lg:p-7 scroll-mt-28">
+        <h2 id="desc-h" class="text-xs font-semibold uppercase tracking-widest text-cta-accessible mb-2">{p.descTitle}</h2>
+        <p class="text-sm text-muted-foreground mb-5">{p.descNote}</p>
+        <dl class="space-y-5">
+          {p.descriptions.map((d) => (
+            <div>
+              <dt class="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">{d.label}</dt>
+              <dd class="text-foreground leading-relaxed">{d.text}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section id="faktenblock" aria-labelledby="facts-h" class="mt-14 scroll-mt-28">
+        <h2 id="facts-h" class="cai-h2">{p.tableTitle}</h2>
+        <div class="mt-5 overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <caption class="sr-only">{p.tableCaption}</caption>
+            <tbody>
+              {p.rows.map((r) => (
+                <tr class="border-b border-border/70 align-top">
+                  <th scope="row" class="text-left font-semibold text-foreground pr-4 py-3 w-[34%] sm:w-[28%]">{r.k}</th>
+                  <td class="py-3 text-foreground [&_a]:text-cta-accessible [&_a]:underline [&_a]:underline-offset-2" set:html={withBase(r.v)} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {p.sections.map((s) => (
+        <section id={s.id} aria-labelledby={`h-${s.id}`} class="mt-14 scroll-mt-28">
+          <h2 id={`h-${s.id}`} class="cai-h2">{s.h2}</h2>
+          <div class="mt-5 space-y-4">
+            {s.paras.map((para) => (
+              <p class="text-foreground leading-relaxed [&_a]:text-cta-accessible [&_a]:underline [&_a]:underline-offset-2" set:html={withBase(para)} />
+            ))}
+            {s.list && (
+              <ul class="space-y-2.5 pl-1">
+                {s.list.map((li) => (
+                  <li class="flex gap-3 text-foreground leading-relaxed">
+                    <span class="mt-2.5 size-1.5 rounded-full bg-navy-400 flex-shrink-0" aria-hidden="true"></span>
+                    <span>{li}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+      ))}
+
+      <p class="mt-16 border-t border-border pt-6 text-sm text-muted-foreground">{p.sourceNote}</p>
+     </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

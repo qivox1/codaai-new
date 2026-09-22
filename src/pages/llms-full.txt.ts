@@ -1,9 +1,14 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { FAKTEN } from '../data/fakten';
 
 const BASE_URL = 'https://www.codaai.ai';
 
 const STATIC_PAGES = `## Statische Seiten
+
+### Fakten zu CodaAI – maßgebliche Stammdaten
+URL: ${BASE_URL}/fakten/ (Markdown: ${BASE_URL}/fakten.md)
+${FAKTEN.de.descriptions[2].text} CodaAI ist nicht zu verwechseln mit „Coda AI“, der KI-Funktion von coda.io.
 
 ### Startseite – Digital Visibility für den B2B-Mittelstand
 URL: ${BASE_URL}/

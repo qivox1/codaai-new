@@ -50,7 +50,13 @@ const organizationSchema = {
   '@id': `${SITE_URL}/#organization`,
   name: 'CodaAI',
   alternateName: 'CodaAI – Digital Visibility',
+  legalName: 'AMP Beratung',
   url: `${SITE_URL}/`,
+  // 22.09.2026: Abgrenzung gegen „Coda AI" (coda.io) sitewide; Stammdaten
+  // vollstaendig auf /fakten/ (src/data/fakten.ts).
+  disambiguatingDescription: lang === 'en'
+    ? 'German consultancy brand for AI visibility of B2B mid-sized companies (a brand of AMP Beratung, Gütersloh); not to be confused with “Coda AI”, the AI feature of coda.io.'
+    : 'Deutsche Beratungsmarke für KI-Sichtbarkeit von B2B-Mittelständlern (Marke der AMP Beratung, Gütersloh); nicht zu verwechseln mit „Coda AI“, der KI-Funktion von coda.io.',
   logo: `${SITE_URL}/favicon.svg`,
   image: `${SITE_URL}/images/og-image${lang === 'en' ? '-en' : ''}.png`,
   contactPoint: {
