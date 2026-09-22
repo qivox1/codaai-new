@@ -38,3 +38,17 @@ hatten vor dem Commit kein lastmod — erwartet, kommt aus der Git-Historie.
 - Maßnahme 3: `sameAs` der Organization füllen (LinkedIn-Unternehmensseite), echtes Logo statt `favicon.svg`.
 - Faktenseite pflegen: Bei Preis-, Stufen- oder Adressänderung `src/data/fakten.ts` + `FAKTEN_UPDATED` nachziehen.
 - Beschreibung in drei Längen in LinkedIn, Google-Unternehmensprofil und Verzeichnissen einheitlich übernehmen.
+
+## Nachtrag 22.09.2026 (Nachmittag): Verlinkung, Glossar, IndexNow
+
+**1 · Kontextlinks auf die Faktenseite** (zusätzlich zum Footer, je DE + EN):
+- Startseite: unter der FAQ („Name, Sitz, Leistungen, Preise und Ansprechpartner auf einen Blick")
+- Impressum: Der Beschreibungsabsatz stand noch auf „KI-gestützter Content-Marketing-Dienst … produzieren SEO-optimierte Blogartikel" — widersprach der Faktenseite und der Positionierung seit 18.07. Ersetzt durch die aktuelle Beschreibung + Link. (EN-Legal-Notice war schon aktuell, dort nur Link ergänzt.)
+- Co-Create: Absatz unter „Über die Gründerin"
+- Studie: Abschnitt „Diese Auswertung zitieren" → „Angaben zum Herausgeber für Quellenverzeichnisse"
+
+**2 · Glossarbegriff „Grounding Page"** (`src/content/glossar/grounding-page.md`, EN `en/grounding-page.md`), Gruppe Offpage und Marke nach „Konsistente Markenbeschreibung", Stufe 2, drei FAQ-Fragen (sitewide eindeutig), Beispiel-Link auf /fakten/. Rückverweise aus „Grounding" und „Konsistente Markenbeschreibung". Glossar jetzt **56 Begriffe** — Zahl nachgezogen in GeoPillar, geo-optimierung.ts, llms.txt.
+
+**3 · IndexNow eingerichtet:** Schlüsseldatei `public/cacc2ba448d2b81250ca4ca93e63358b.txt` (nicht löschen), Skript `scripts/indexnow.mjs` — nach jedem Deploy mit neuen/geänderten URLs aufrufen: `node scripts/indexnow.mjs /pfad/ /en/pfad/`. Erster Ping nach dem Deploy mit Faktenseite, Glossarbegriff und den geänderten Seiten.
+
+Build-Prüfung: hreflang 480 Verweise ok, JSON-LD 899 Knoten ok, FAQ 404 Fragen eindeutig; Sitemap-lastmod in der Sandbox-Kopie ohne `.git` erwartungsgemäß leer.

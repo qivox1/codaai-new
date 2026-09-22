@@ -4,7 +4,7 @@ seoTitle: "Konsistente Markenbeschreibung"
 shortDefinition: "Eine konsistente Markenbeschreibung bedeutet, dass eine Marke auf allen Plattformen mit denselben Formulierungen beschrieben wird — auf der eigenen Website und bei Dritten. Erst dann erkennt ein KI-System sie als eine Entität."
 synonyms: ["Markenkonsistenz", "Einheitliches Markenbild", "Brand Consistency"]
 category: offpage
-related: ["entitaet", "brand-mentions", "sentiment", "review-plattformen", "modellwissen"]
+related: ["grounding-page", "entitaet", "brand-mentions", "sentiment", "review-plattformen", "modellwissen"]
 pubDate: 2026-09-03
 stufe: 2
 faq:

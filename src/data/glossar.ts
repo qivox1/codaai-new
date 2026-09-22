@@ -139,7 +139,7 @@ export const TERM_ORDER: Record<GlossarLang, ReadonlyArray<string>> = {
     // technik
     'llm-crawler', 'ttfb', 'url-discovery', 'crawl-budget', 'index-management',
     // offpage
-    'brand-mentions', 'konsistente-markenbeschreibung', 'digital-pr', 'listicles',
+    'brand-mentions', 'konsistente-markenbeschreibung', 'grounding-page', 'digital-pr', 'listicles',
     'community-praesenz', 'review-plattformen', 'youtube-praesenz', 'domain-authority',
     // messung
     'llm-visibility-tracking', 'promptset', 'nullmessung', 'mention-rate', 'sentiment',
@@ -156,7 +156,7 @@ export const TERM_ORDER: Record<GlossarLang, ReadonlyArray<string>> = {
     'information-gain', 'topical-authority', 'query-coverage', 'e-e-a-t', 'freshness',
     'ai-friendly-content-formats', 'llms-txt',
     'llm-crawlers', 'ttfb', 'url-discovery', 'crawl-budget', 'index-management',
-    'brand-mentions', 'consistent-brand-description', 'digital-pr', 'listicles',
+    'brand-mentions', 'consistent-brand-description', 'grounding-page', 'digital-pr', 'listicles',
     'community-presence', 'review-platforms', 'youtube-presence', 'domain-authority',
     'llm-visibility-tracking', 'prompt-set', 'baseline-measurement', 'mention-rate', 'sentiment',
     'citation-rate', 'ai-overview-citation-rate', 'share-of-ai-search', 'source-analysis',

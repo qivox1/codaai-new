@@ -5,7 +5,7 @@ de: konsistente-markenbeschreibung
 shortDefinition: "Consistent brand description means a brand is described with the same wording on every platform — on its own website and by third parties. Only then does an AI system recognise it as one entity."
 synonyms: ["Brand consistency", "Uniform brand image", "Entity consistency"]
 category: offpage
-related: ["entity", "brand-mentions", "sentiment", "review-platforms", "model-knowledge"]
+related: ["grounding-page", "entity", "brand-mentions", "sentiment", "review-platforms", "model-knowledge"]
 pubDate: 2026-09-03
 stufe: 2
 faq:

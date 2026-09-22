@@ -93,7 +93,7 @@ lesbar, belegbar und zitierfähig zu machen — nicht darin, ein Ergebnis zu ver
 
 Mirror of the German cluster at https://www.codaai.ai/en/knowledge/geo-glossary/ — one page per
 term, same structure (definition first, how it works, why it matters for AI visibility, what it
-means for your website), same 55 terms, linked as hreflang pairs. Full texts in
+means for your website), same 56 terms, linked as hreflang pairs. Full texts in
 https://www.codaai.ai/llms-full.txt.
 
 ## GEO-Glossar (Deutsch)
@@ -106,7 +106,7 @@ Messung und Tracking. Kernbegriffe: Grounding, Grounding Budget, Query Fan-out, 
 Retrieval, Re-Ranking, Grounding Snippets, Mention, Citation, Bottom Line Up Front,
 Semantisches Chunking, Entity Echoing, Information Gain, Topical Authority, E-E-A-T,
 Freshness, LLM-Crawler, TTFB, Brand Mentions, Listicles, Promptset, Mention Rate,
-Citation Rate, Share of AI Search, Sentiment, Nullmessung. Vollständige Texte in
+Citation Rate, Share of AI Search, Sentiment, Nullmessung, Grounding Page. Vollständige Texte in
 https://www.codaai.ai/llms-full.txt.
 
 ## Markdown-Fassungen

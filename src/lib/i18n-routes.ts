@@ -111,6 +111,8 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/wissen/geo-glossar/index-management/', '/en/knowledge/geo-glossary/index-management/'],
   ['/wissen/geo-glossar/brand-mentions/', '/en/knowledge/geo-glossary/brand-mentions/'],
   ['/wissen/geo-glossar/konsistente-markenbeschreibung/', '/en/knowledge/geo-glossary/consistent-brand-description/'],
+  // 22.09.2026: Grounding Page (Beispiel: /fakten/)
+  ['/wissen/geo-glossar/grounding-page/', '/en/knowledge/geo-glossary/grounding-page/'],
   ['/wissen/geo-glossar/digital-pr/', '/en/knowledge/geo-glossary/digital-pr/'],
   ['/wissen/geo-glossar/listicles/', '/en/knowledge/geo-glossary/listicles/'],
   ['/wissen/geo-glossar/community-praesenz/', '/en/knowledge/geo-glossary/community-presence/'],
