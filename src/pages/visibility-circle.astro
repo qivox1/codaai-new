@@ -494,6 +494,16 @@ const lang = 'de' as const;
   .vc-yend h3 { font-size: clamp(1.2rem, 2.2vw, 1.5rem); font-weight: 700; line-height: 1.3; color: #fff; max-width: 44rem; }
   .vc-yend p:not(.vc-kicker) { margin-top: .75rem; color: hsl(var(--muted-foreground-on-dark)); line-height: 1.6; max-width: 44rem; }
   .vc-reassure { margin-top: 1rem; font-size: .875rem; color: hsl(var(--muted-foreground)); }
+  /* Straffung 22.09.2026: Monat als Lerneinheit, Netto-Sternchen */
+  .vc-star { font-size: .5em; vertical-align: super; margin-left: .1em; font-weight: 700; }
+  .vc-tl-list { list-style: none; margin: .75rem 0 0; padding: 0; display: grid; gap: .45rem; }
+  .vc-tl-list li { position: relative; padding-left: 1.1rem; font-size: .9375rem; line-height: 1.5; color: hsl(var(--muted-foreground)); }
+  .vc-tl-list li::before { content: ''; position: absolute; left: 0; top: .6em; width: .45rem; height: 2px; background: hsl(var(--cta)); }
+  .vc-tl-step p.vc-tl-out { margin-top: .9rem; padding-top: .75rem; border-top: 1px dashed hsl(var(--border)); font-size: .875rem; font-weight: 600; color: hsl(var(--heading)); }
+  .vc-pack { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; padding: 1.1rem 1.25rem; border-radius: 16px; background: hsl(var(--surface-mist)); }
+  .vc-pack span { font-size: .875rem; font-weight: 600; color: hsl(var(--heading)); background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 99px; padding: .35rem .8rem; }
+  .vc-pack span.vc-pack-label { background: none; border: 0; padding-left: 0; font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: hsl(var(--cta-accessible)); }
+  .vc-netto { margin: 0; padding: 1rem 1.5rem 1.5rem; text-align: center; font-size: .8125rem; color: hsl(var(--muted-foreground)); }
   /* Vergleich Coaching / Circle / Betreuung */
   .vc-cmp { display: grid; gap: 1.25rem; }
   @media (min-width: 900px) { .vc-cmp { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; } }
