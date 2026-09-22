@@ -223,7 +223,7 @@ const lang = 'de' as const;
       const v = (k: string) => String(f.get(k) || '').trim();
       const btn = form.querySelector<HTMLButtonElement>('button[type=submit]');
       const errEl = form.querySelector<HTMLElement>('.vc-apply-err');
-      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.textContent = 'Wird gesendet …'; }
+      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.classList.add('is-busy'); btn.innerHTML = '<span class="vc-spin" aria-hidden="true"></span>Wird gesendet …'; }
       if (errEl) errEl.hidden = true;
       let ok = false;
       try {
@@ -242,15 +242,30 @@ const lang = 'de' as const;
         if (j && j.ok) ok = true;
         else if (j && (j.error === 'email_invalid' || j.error === 'phone_invalid')) {
           if (errEl) { errEl.textContent = j.error === 'email_invalid' ? 'Bitte prüfen Sie die E-Mail-Adresse.' : 'Bitte prüfen Sie die Mobilnummer.'; errEl.hidden = false; }
-          if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || ''; }
+          if (btn) { btn.disabled = false; btn.classList.remove('is-busy'); btn.textContent = btn.dataset.label || ''; }
           return;
         }
       } catch { ok = false; }
       (window as any).dataLayer?.push({ event: 'circle_request', circle_member: member, circle_channel: ok ? 'formular' : 'mail' });
       if (ok) {
-        form.querySelectorAll('label, button, .vc-apply-note').forEach((el) => ((el as HTMLElement).hidden = true));
-        const done = form.querySelector<HTMLElement>('.vc-apply-done');
-        if (done) { done.textContent = 'Danke. Ihre Anfrage ist bei uns angekommen. Sie hören innerhalb von zwei Werktagen von uns, mit drei Terminvorschlägen.'; done.hidden = false; }
+        // Formular vollständig durch eine Bestätigung ersetzen (hidden-Attribut allein
+        // wird von .vc-btn/.vc-apply label über display überschrieben).
+        const esc = (x: string) => x.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string));
+        const vorname = esc(v('name').split(/\s+/)[0] || '');
+        form.innerHTML =
+          '<div class="vc-apply-success" role="status" tabindex="-1">' +
+          '<span class="vc-success-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+          '<p class="vc-kicker">Anfrage erhalten</p>' +
+          '<h3>Vielen Dank' + (vorname ? ', ' + vorname : '') + '. Ihre Anfrage ist bei uns angekommen.</h3>' +
+          '<p>Wir melden uns innerhalb von zwei Werktagen mit drei Terminvorschlägen für Ihr Aufnahmegespräch' +
+          (v('email') ? ', per E-Mail an <strong>' + esc(v('email')) + '</strong>' : '') + '.</p>' +
+          '<ul class="vc-success-steps"><li>Wir prüfen, ob Ihre Branche und Region noch frei ist.</li><li>Sie wählen einen der drei Termine.</li><li>Im Gespräch klären wir in 30 Minuten, ob der Circle zu Ihnen passt.</li></ul>' +
+          '<p class="vc-success-note">Sie müssen nichts weiter tun. Fragen vorab: <a href="mailto:hi@codaai.ai">hi@codaai.ai</a></p>' +
+          '</div>';
+        form.classList.add('is-sent');
+        const box = form.querySelector<HTMLElement>('.vc-apply-success');
+        box?.focus({ preventScroll: true });
+        box?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
       const body = [
@@ -261,7 +276,7 @@ const lang = 'de' as const;
       ].join('\n');
       const subject = 'Visibility Circle – Aufnahmegespräch ' + v('firma');
       location.href = 'mailto:hi@codaai.ai?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      if (btn) { btn.disabled = false; btn.textContent = btn.dataset.label || ''; }
+      if (btn) { btn.disabled = false; btn.classList.remove('is-busy'); btn.textContent = btn.dataset.label || ''; }
       form.querySelector('.vc-apply-done')?.removeAttribute('hidden');
     });
   }
@@ -587,6 +602,25 @@ const lang = 'de' as const;
   .vc-ink .vc-apply p.vc-apply-err { font-size: .875rem; color: hsl(var(--destructive, 0 72% 45%)); font-weight: 600; margin: 0; }
   .vc-apply .vc-opt { font-weight: 400; color: hsl(var(--muted-foreground)); }
   .vc-apply .vc-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .vc-apply [hidden] { display: none !important; }
+  .vc-apply .vc-btn.is-busy { opacity: .85; cursor: progress; }
+  .vc-spin { width: 1rem; height: 1rem; border-radius: 99px; border: 2px solid rgba(255,255,255,.45); border-top-color: #fff; animation: vcSpin .8s linear infinite; }
+  @keyframes vcSpin { to { transform: rotate(360deg); } }
+  .vc-apply.is-sent { align-content: center; }
+  .vc-apply-success { display: grid; gap: .85rem; outline: none; padding: .5rem .25rem; animation: vcIn .45s ease both; }
+  @keyframes vcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .vc-success-ico { width: 3.25rem; height: 3.25rem; border-radius: 99px; display: inline-flex; align-items: center; justify-content: center; background: hsl(var(--confirm) / .14); }
+  .vc-success-ico svg { width: 1.6rem; height: 1.6rem; fill: none; stroke: hsl(var(--confirm-text)); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 24; stroke-dashoffset: 24; animation: vcTick .5s ease .2s forwards; }
+  @keyframes vcTick { to { stroke-dashoffset: 0; } }
+  .vc-ink .vc-apply-success p.vc-kicker { margin: 0; color: hsl(var(--cta-accessible)); }
+  .vc-apply-success h3 { font-size: 1.3rem; font-weight: 700; line-height: 1.3; color: hsl(var(--heading)); }
+  .vc-ink .vc-apply-success p { margin: 0; font-size: 1rem; line-height: 1.6; color: hsl(var(--foreground)); }
+  .vc-ink .vc-apply-success p.vc-success-note { font-size: .875rem; color: hsl(var(--muted-foreground)); }
+  .vc-ink .vc-apply-success a { color: hsl(var(--cta-accessible)); font-weight: 600; }
+  .vc-success-steps { list-style: none; margin: .25rem 0; padding: 0; display: grid; gap: .5rem; counter-reset: s; }
+  .vc-success-steps li { counter-increment: s; position: relative; padding-left: 2rem; font-size: .9375rem; line-height: 1.5; color: hsl(var(--foreground)); }
+  .vc-success-steps li::before { content: counter(s); position: absolute; left: 0; top: .05rem; width: 1.35rem; height: 1.35rem; border-radius: 99px; background: hsl(var(--cta-strong)); color: #fff; font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  @media (prefers-reduced-motion: reduce) { .vc-apply-success, .vc-success-ico svg, .vc-spin { animation: none; stroke-dashoffset: 0; } }
   .vc-ink .vc-apply p.vc-apply-done { font-size: .9375rem; color: hsl(var(--confirm-text)); font-weight: 600; margin: 0; }
 
 
