@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import WebinarSignup from '../components/premium/WebinarSignup.astro';
+import SnapshotTeaser from '../components/snapshot/SnapshotTeaser.astro';
 import FlipWords from '../components/react/FlipWords';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { faqWebinar } from '../data/faq';
@@ -366,6 +367,11 @@ const eventSchema = JSON.stringify({
 
         </aside>
       </section>
+
+      <!-- ── Visibility Snapshot (Teaser, seit 24.09.2026) ────────────── -->
+      <div class="border-t border-border py-16">
+        <SnapshotTeaser source="webinar" />
+      </div>
 
       <!-- ── Ergebnis / Outcome mit Scroll-Audit ──────────────────────── -->
       <section aria-labelledby="h-outcome" class="border-t border-border py-16">

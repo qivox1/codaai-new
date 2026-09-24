@@ -1,0 +1,324 @@
+---
+/**
+ * SnapshotModule — „Visibility Snapshot" (seit 24.09.2026, Konzept: Claude-Doc
+ * „KI-Empfehlungs-Check — Konzept", Name-Entscheidung Oli 24.09.).
+ *
+ * Besucher gibt Website + eine Kundenfrage ein → fünf KI-Systeme werden live
+ * gefragt → Befund auf Magenta: genannt in x von 5, Logos mit ✓/✗, welche
+ * Firmen stattdessen empfohlen werden. Antworttexte + Quellen erst nach
+ * bestätigter Firmen-E-Mail (Double-Opt-in, Mail kommt vom Server).
+ *
+ * Backend: audit.codaai.ai/ai/frage + /ai/frage/freischalten
+ * (Pipeline-CLAUDE.md 4.38, Modul scripts/ai_frage.py). Datenquellen und
+ * Modellnamen werden bewusst nirgends genannt (Nachahmerschutz).
+ *
+ * Captcha: Cloudflare Turnstile, sobald TURNSTILE_SITEKEY gesetzt ist. Bis
+ * dahin schützen Lockfeld + Mindest-Ausfüllzeit (serverseitig geprüft).
+ *
+ * URL-Übergabe: ?d=firma.de&q=Frage füllt vor und startet automatisch
+ * (Teaser auf Startseite/Webinar, Nurture-Mails).
+ *
+ * dataLayer: snapshot_start {lang}, snapshot_result {genannt, von, cached},
+ *            snapshot_error {status}, snapshot_unlock {marketing}
+ */
+interface Props { source?: string }
+const { source = 'snapshot' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const TURNSTILE_SITEKEY = '';   // ← Site Key von Cloudflare Turnstile hier eintragen
+const logos = [
+  { key: 'chatgpt', label: 'ChatGPT' },
+  { key: 'claude', label: 'Claude' },
+  { key: 'gemini', label: 'Gemini' },
+  { key: 'perplexity', label: 'Perplexity' },
+  { key: 'google_ai_mode', label: 'Google AI Mode', file: 'google' },
+];
+const beispiele = [
+  'Welche Anbieter für [Ihr Produkt] sind in Deutschland führend?',
+  'Welcher Hersteller eignet sich am besten für [Ihre Anwendung]?',
+  'Welche Alternativen gibt es zu [Ihr größter Wettbewerber]?',
+];
+---
+
+<div class="snap" data-snap data-state="idle" data-source={source} data-sitekey={TURNSTILE_SITEKEY || undefined}>
+  <form class="snap-form" data-form novalidate autocomplete="off">
+    <div class="snap-hp" inert aria-hidden="true"><label>Website<input type="text" name="website_url" data-hp tabindex="-1" autocomplete="off" /></label></div>
+
+    <label class="snap-lbl" for="snap-domain">Ihre Website</label>
+    <input id="snap-domain" class="snap-in" data-domain type="text" inputmode="url" spellcheck="false" placeholder="z. B. ihrefirma.de" />
+
+    <label class="snap-lbl" for="snap-frage">Eine Frage, die Ihre Kunden der KI stellen würden</label>
+    <textarea id="snap-frage" class="snap-in snap-ta" data-frage rows="3" maxlength="250" placeholder="z. B. Welche Anbieter für Präzisionsklimaanlagen sind in Deutschland führend?"></textarea>
+    <p class="snap-tip">Ohne Ihren Firmennamen — so, wie jemand fragt, der Sie noch nicht kennt.</p>
+    <div class="snap-chips" aria-label="Beispielfragen">
+      {beispiele.map((b) => <button type="button" class="snap-chip" data-bsp={b}>{b}</button>)}
+    </div>
+
+    {TURNSTILE_SITEKEY && <div class="snap-captcha" data-captcha></div>}
+
+    <button type="submit" class="snap-go" data-go>
+      <span>Snapshot starten</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p class="snap-err" data-err role="alert" hidden></p>
+    <p class="snap-micro">Kostenlos · rund 20 Sekunden · Ergebnis ohne Anmeldung</p>
+  </form>
+
+  <div class="snap-load" data-load aria-live="polite">
+    <p class="snap-load-h">Wir fragen die KI-Systeme …</p>
+    <ul class="snap-logos snap-logos--load">
+      {logos.map((l, i) => (
+        <li style={`--i:${i}`}><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt={l.label} width="34" height="34" /><span>{l.label}</span></li>
+      ))}
+    </ul>
+    <div class="snap-bar"><span></span></div>
+    <p class="snap-load-sub" data-loadsub>„<span data-qecho></span>“</p>
+  </div>
+
+  <div class="snap-res" data-res aria-live="polite">
+    <p class="snap-kicker">Visibility Snapshot · Stand <span data-stand></span></p>
+    <p class="snap-dom" data-dom></p>
+    <p class="snap-head" data-head></p>
+    <ul class="snap-logos snap-logos--res" data-reslogos>
+      {logos.map((l) => (
+        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span></li>
+      ))}
+    </ul>
+    <div class="snap-firms" data-firmsbox>
+      <p class="snap-firms-h" data-firmsh></p>
+      <ul class="snap-firms-l" data-firms></ul>
+    </div>
+    <p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>
+
+    <div class="snap-unlock" data-unlock>
+      <p class="snap-unlock-h">Was genau die KIs antworten — und welche Quellen sie nutzen</p>
+      <p class="snap-unlock-p">Wir senden Ihnen die vollständigen Antworten aller fünf Systeme samt Quellen. Nur an geschäftliche E-Mail-Adressen.</p>
+      <div class="snap-grid">
+        <input class="snap-in" data-vn type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
+        <input class="snap-in" data-nn type="text" placeholder="Nachname" aria-label="Nachname" autocomplete="family-name" />
+      </div>
+      <input class="snap-in" data-mail type="email" placeholder="Geschäftliche E-Mail-Adresse" aria-label="Geschäftliche E-Mail-Adresse" autocomplete="email" />
+      <label class="snap-cb"><input type="checkbox" data-c1 /> <span>Ja, senden Sie mir das Ergebnis per E-Mail. Die <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a> habe ich gelesen. <em>(Pflicht)</em></span></label>
+      <label class="snap-cb"><input type="checkbox" data-c2 /> <span>Ich möchte außerdem Hinweise zu KI-Sichtbarkeit und Einladungen zu Webinaren von CodaAI per E-Mail erhalten. Abmeldung jederzeit. <em>(optional)</em></span></label>
+      <button type="button" class="snap-send" data-send><span>Antworten &amp; Quellen zusenden</span></button>
+      <p class="snap-err snap-err--res" data-err2 role="alert" hidden></p>
+    </div>
+    <div class="snap-done" data-done hidden>
+      <p><b>Fast geschafft.</b> Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie den Link darin — danach sehen Sie alle Antworten und Quellen.</p>
+    </div>
+    <button type="button" class="snap-again" data-again>Andere Frage prüfen</button>
+  </div>
+</div>
+
+<style>
+  .snap { --pad: 28px; width:100%; max-width:560px; border-radius:24px; background:hsl(var(--card)); border:1px solid hsl(var(--border)); box-shadow:0 20px 60px -30px hsl(var(--foreground) / .35); overflow:hidden; }
+  .snap-form, .snap-load, .snap-res { padding:var(--pad); }
+  .snap-hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .snap-lbl { display:block; margin:0 0 6px; font-size:14px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-lbl + .snap-in { margin-bottom:18px; }
+  .snap-in { width:100%; border:1.5px solid hsl(var(--border)); border-radius:12px; padding:13px 14px; font-size:16px; background:hsl(var(--background)); color:hsl(var(--foreground)); }
+  .snap-in:focus { outline:none; border-color:hsl(var(--cta)); box-shadow:0 0 0 3px hsl(var(--cta) / .18); }
+  .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
+  .snap-tip { margin:6px 0 10px; font-size:13px; color:hsl(var(--muted-foreground)); }
+  .snap-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .snap-chip { border:1px solid hsl(var(--border)); background:hsl(var(--muted) / .35); color:hsl(var(--foreground)); border-radius:999px; padding:5px 11px; font-size:12.5px; text-align:left; cursor:pointer; }
+  .snap-chip:hover { border-color:hsl(var(--cta)); }
+  .snap-captcha { margin:0 0 14px; min-height:65px; }
+  .snap-go, .snap-send { display:flex; width:100%; align-items:center; justify-content:center; gap:10px; border:0; border-radius:12px; padding:15px 18px; font-size:16px; font-weight:700; cursor:pointer; background:hsl(var(--cta-strong)); color:#fff; }
+  .snap-go:hover, .snap-send:hover { filter:brightness(1.08); }
+  .snap-go[disabled], .snap-send[disabled] { opacity:.6; cursor:wait; }
+  .snap-err { margin:10px 0 0; font-size:14px; font-weight:600; color:hsl(var(--destructive, 0 70% 45%)); }
+  .snap-micro { margin:10px 0 0; font-size:12.5px; text-align:center; color:hsl(var(--muted-foreground)); }
+
+  .snap-load, .snap-res { display:none; }
+  .snap[data-state="load"] .snap-form, .snap[data-state="res"] .snap-form { display:none; }
+  .snap[data-state="load"] .snap-load { display:block; }
+  .snap[data-state="res"] .snap-res { display:block; }
+  .snap-load-h { margin:0 0 18px; font-size:18px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-logos { display:flex; justify-content:space-between; gap:8px; list-style:none; margin:0; padding:0; }
+  .snap-logos li { display:flex; flex-direction:column; align-items:center; gap:6px; font-size:11.5px; font-weight:600; flex:1; text-align:center; }
+  .snap-logos--load li { color:hsl(var(--muted-foreground)); animation:snap-pulse 2.5s ease-in-out infinite; animation-delay:calc(var(--i) * .5s); }
+  .snap-logos--load img { width:34px; height:34px; }
+  @keyframes snap-pulse { 0%,100% { opacity:.35; transform:translateY(0); } 20% { opacity:1; transform:translateY(-4px); } 40% { opacity:.6; transform:translateY(0); } }
+  .snap-bar { margin:22px 0 14px; height:6px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
+  .snap-bar span { display:block; height:100%; width:0; background:hsl(var(--cta)); }
+  .snap[data-state="load"] .snap-bar span { animation:snap-fill 22s cubic-bezier(.2,.6,.4,1) forwards; }
+  @keyframes snap-fill { to { width:94%; } }
+  .snap-load-sub { margin:0; font-size:14px; font-style:italic; color:hsl(var(--muted-foreground)); }
+  @media (prefers-reduced-motion: reduce) { .snap-logos--load li { animation:none; opacity:1; } .snap[data-state="load"] .snap-bar span { animation:none; width:60%; } }
+
+  .snap-res { background:hsl(var(--cta-strong)); color:#fff; }
+  .snap-kicker { margin:0; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.85; }
+  .snap-dom { margin:8px 0 2px; font-size:15px; font-weight:600; opacity:.9; word-break:break-all; }
+  .snap-head { margin:0 0 18px; font-size:28px; line-height:1.15; font-weight:800; }
+  .snap-logos--res { background:rgba(255,255,255,.12); border-radius:16px; padding:14px 10px; }
+  .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; }
+  .snap-lg img { width:26px; height:26px; }
+  .snap-mark { position:absolute; right:-4px; bottom:-4px; width:20px; height:20px; border-radius:50%; border:2px solid hsl(var(--cta-strong)); display:none; }
+  li[data-ok="1"] .snap-mark { display:block; background:#21a366 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  li[data-ok="0"] .snap-mark { display:block; background:#1B2B44 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+  li[data-ok="x"] .snap-lg { opacity:.45; }
+  .snap-sysl { color:#fff; opacity:.9; }
+  .snap-firms { margin-top:18px; }
+  .snap-firms-h { margin:0 0 8px; font-size:15px; font-weight:700; }
+  .snap-firms-l { display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0; }
+  /* per Skript erzeugt -> ohne Astro-Scope-Attribut, daher :global */
+  .snap-firms-l :global(li) { background:#fff; color:#0F1B2D; border-radius:999px; padding:5px 12px; font-size:14px; font-weight:700; }
+  .snap-firms-l :global(small) { font-weight:600; color:#5B6B82; margin-left:5px; }
+  .snap-disc { margin:14px 0 0; font-size:11.5px; line-height:1.45; opacity:.8; }
+  .snap-unlock { margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,.3); }
+  .snap-unlock-h { margin:0 0 4px; font-size:18px; font-weight:800; }
+  .snap-unlock-p { margin:0 0 14px; font-size:14px; opacity:.9; }
+  .snap-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .snap-unlock .snap-in { border-color:transparent; }
+  .snap-unlock > .snap-in { margin-bottom:12px; }
+  .snap-cb { display:flex; gap:10px; align-items:flex-start; margin:0 0 10px; font-size:13px; line-height:1.45; }
+  .snap-cb input { margin-top:3px; width:17px; height:17px; flex:none; accent-color:#1B2B44; }
+  .snap-cb a { color:#fff; text-decoration:underline; }
+  .snap-cb em { font-style:normal; opacity:.75; }
+  .snap-send { background:#0F1B2D; margin-top:6px; }
+  .snap-err--res { color:#fff; background:rgba(15,27,45,.35); border-radius:8px; padding:8px 10px; }
+  .snap-done { margin-top:20px; background:#fff; color:hsl(var(--foreground)); border-radius:14px; padding:16px; font-size:15px; }
+  .snap-again { margin-top:16px; background:none; border:0; color:#fff; text-decoration:underline; font-size:14px; cursor:pointer; padding:0; }
+  @media (max-width:480px) { .snap { --pad:20px; } .snap-head { font-size:24px; } .snap-grid { grid-template-columns:1fr; } .snap-sysl { font-size:10px; } .snap-lg { width:38px; height:38px; } }
+</style>
+
+<script>
+  (function () {
+    const API = 'https://audit.codaai.ai';
+    const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+    const lang = document.documentElement.lang || 'de';
+    document.querySelectorAll<HTMLElement>('[data-snap]').forEach((root) => {
+      const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector(s) as unknown as T;
+      const form = $<HTMLFormElement>('[data-form]');
+      const dom = $<HTMLInputElement>('[data-domain]');
+      const frage = $<HTMLTextAreaElement>('[data-frage]');
+      const err = $('[data-err]'), err2 = $('[data-err2]');
+      const go = $<HTMLButtonElement>('[data-go]'), send = $<HTMLButtonElement>('[data-send]');
+      const t0 = Date.now();
+      let checkId = '';
+      let captchaToken = '';
+      let autostart = false;
+
+      const setState = (s: string) => root.setAttribute('data-state', s);
+      const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = !msg; };
+
+      // Beispielfragen: einsetzen und den Platzhalter markieren
+      root.querySelectorAll<HTMLButtonElement>('[data-bsp]').forEach((b) => b.addEventListener('click', () => {
+        const t = b.dataset.bsp || '';
+        frage.value = t; frage.focus();
+        const a = t.indexOf('['), e = t.indexOf(']');
+        if (a >= 0 && e > a) frage.setSelectionRange(a, e + 1);
+      }));
+
+      // Captcha (Cloudflare Turnstile), nur wenn ein Site Key gesetzt ist
+      const sitekey = root.dataset.sitekey;
+      const box = $('[data-captcha]');
+      if (sitekey && box) {
+        const render = () => (window as any).turnstile.render(box, {
+          sitekey, language: 'de', callback: (t: string) => { captchaToken = t; if (autostart) { autostart = false; form.requestSubmit(); } },
+          'expired-callback': () => { captchaToken = ''; },
+        });
+        if ((window as any).turnstile) render();
+        else {
+          const s = document.createElement('script');
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+          s.async = true; s.onload = render; document.head.appendChild(s);
+        }
+      }
+
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        show(err, '');
+        const d = dom.value.trim(), q = frage.value.trim().replace(/\s+/g, ' ');
+        if (!d) return show(err, 'Bitte geben Sie Ihre Website an.');
+        if (q.length < 25) return show(err, 'Bitte formulieren Sie eine ganze Frage (mindestens 25 Zeichen).');
+        if (/[\[\]]/.test(q)) return show(err, 'Bitte ersetzen Sie den Platzhalter in eckigen Klammern durch Ihr Thema.');
+        if (sitekey && !captchaToken) return show(err, 'Einen Moment bitte — die Sicherheitsprüfung läuft noch.');
+        go.disabled = true;
+        ($('[data-qecho]') as HTMLElement).textContent = q;
+        setState('load');
+        dl.push({ event: 'snapshot_start', lang, source: root.dataset.source });
+        let res: any = null;
+        try {
+          const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 75000);
+          const r = await fetch(API + '/ai/frage', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+            body: JSON.stringify({ domain: d, frage: q, website_url: ($('[data-hp]') as HTMLInputElement).value,
+                                   fill_ms: Date.now() - t0, captcha: captchaToken, source: root.dataset.source }),
+          });
+          clearTimeout(tm);
+          res = await r.json();
+        } catch (e) { res = { status: 'error', hinweis: 'Die Verbindung hat zu lange gedauert. Bitte versuchen Sie es erneut.' }; }
+        go.disabled = false;
+        if ((window as any).turnstile && box) { try { (window as any).turnstile.reset(box); } catch (e) {} captchaToken = ''; }
+        if (!res || res.status !== 'ok') {
+          setState('idle');
+          dl.push({ event: 'snapshot_error', lang, status: res && res.status });
+          show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
+          if (res && res.feld === 'domain') dom.focus(); else if (res && res.feld === 'frage') frage.focus();
+          return;
+        }
+        checkId = res.check_id;
+        ($('[data-stand]') as HTMLElement).textContent = res.stand;
+        ($('[data-stand2]') as HTMLElement).textContent = res.stand;
+        ($('[data-dom]') as HTMLElement).textContent = res.marke && res.marke !== res.domain ? `${res.marke} · ${res.domain}` : res.domain;
+        ($('[data-head]') as HTMLElement).textContent = res.genannt === 0
+          ? `In keinem von ${res.von} KI-Systemen genannt.`
+          : `In ${res.genannt} von ${res.von} KI-Systemen genannt.`;
+        (res.systeme || []).forEach((s: any) => {
+          const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`);
+          if (li) li.setAttribute('data-ok', !s.antwort ? 'x' : s.genannt ? '1' : '0');
+        });
+        const firms = $('[data-firms]'); firms.innerHTML = '';
+        (res.empfohlen || []).forEach((f: any) => {
+          const li = document.createElement('li'); li.textContent = f.name;
+          const sm = document.createElement('small'); sm.textContent = `${f.anzahl}×`; li.appendChild(sm); firms.appendChild(li);
+        });
+        ($('[data-firmsh]') as HTMLElement).textContent = res.genannt === res.von ? 'Ebenfalls genannt:' : 'Stattdessen empfohlen:';
+        ($('[data-firmsbox]') as HTMLElement).hidden = !(res.empfohlen || []).length;
+        setState('res');
+        dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, cached: !!res.cached, source: root.dataset.source });
+      });
+
+      send.addEventListener('click', async () => {
+        show(err2, '');
+        const vn = ($('[data-vn]') as HTMLInputElement).value.trim(), nn = ($('[data-nn]') as HTMLInputElement).value.trim();
+        const mail = ($('[data-mail]') as HTMLInputElement).value.trim();
+        const c1 = ($('[data-c1]') as HTMLInputElement).checked, c2 = ($('[data-c2]') as HTMLInputElement).checked;
+        if (!vn || !nn) return show(err2, 'Bitte Vor- und Nachnamen angeben.');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return show(err2, 'Bitte eine gültige E-Mail-Adresse angeben.');
+        if (!c1) return show(err2, 'Bitte stimmen Sie der Zusendung des Ergebnisses zu.');
+        send.disabled = true;
+        let res: any = null;
+        try {
+          const r = await fetch(API + '/ai/frage/freischalten', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ check_id: checkId, name: `${vn} ${nn}`, email: mail, einwilligung_ergebnis: c1,
+                                   einwilligung_marketing: c2, einwilligung_version: '2026-09-24-v1',
+                                   website_url: ($('[data-hp]') as HTMLInputElement).value }),
+          });
+          res = await r.json();
+        } catch (e) { res = { status: 'error', hinweis: 'Die Verbindung ist fehlgeschlagen. Bitte erneut versuchen.' }; }
+        send.disabled = false;
+        if (!res || res.status !== 'ok') return show(err2, (res && res.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
+        ($('[data-unlock]') as HTMLElement).hidden = true;
+        ($('[data-done]') as HTMLElement).hidden = false;
+        dl.push({ event: 'snapshot_unlock', lang, marketing: c2, source: root.dataset.source });
+      });
+
+      ($('[data-again]') as HTMLElement).addEventListener('click', () => {
+        setState('idle'); frage.focus(); frage.select();
+        ($('[data-unlock]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true;
+      });
+
+      // Übergabe aus Teasern/Mails: ?d=…&q=… füllt vor und startet
+      const p = new URLSearchParams(location.search);
+      if (p.get('d')) dom.value = p.get('d') || '';
+      if (p.get('q')) frage.value = p.get('q') || '';
+      if (dom.value && frage.value.trim().length >= 25) {
+        root.scrollIntoView({ block: 'center' });
+        if (sitekey) autostart = true; else setTimeout(() => form.requestSubmit(), 2600);
+      }
+    });
+  })();
+</script>

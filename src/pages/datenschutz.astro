@@ -104,6 +104,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <p class="text-muted-foreground leading-relaxed mt-4">
             Die Verarbeitung dieser Daten erfolgt auf Grundlage unseres berechtigten Interesses an einer effizienten und sicheren Bereitstellung unserer Dienste (Art. 6 Abs. 1 lit. f DSGVO) sowie zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO).
           </p>
+
+          <!-- ENTWURF 24.09.2026 (Claude) — vor Veröffentlichung rechtlich gegenlesen lassen. -->
+          <h3 id="visibility-snapshot" class="text-xl font-medium text-foreground mt-6 mb-3">Visibility Snapshot</h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Mit dem Visibility Snapshot können Sie prüfen, ob KI-Systeme Ihr Unternehmen bei einer bestimmten Frage nennen. Dafür verarbeiten wir die eingegebene Website-Adresse und die Frage. Wir rufen die Website einmal ab, um zu prüfen, ob sie erreichbar ist, und stellen die Frage an Anbieter von KI-Diensten und Datendienstleister, auch außerhalb der EU. <strong>Bitte schreiben Sie keine personenbezogenen Daten in die Frage.</strong> Zum Schutz vor Missbrauch verarbeiten wir Ihre IP-Adresse; gespeichert wird sie nur als verschlüsselte Prüfsumme, die sich ab dem Folgetag nicht mehr mit neuen Zugriffen verknüpfen lässt. Zusätzlich setzen wir einen Dienst zur Erkennung automatisierter Zugriffe (Captcha) ein.
+          </p>
+          <p class="text-muted-foreground leading-relaxed mt-4">
+            Rechtsgrundlage ist unser berechtigtes Interesse, den kostenlosen Dienst bereitzustellen und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Website-Adresse, Frage und Ergebnis einer Prüfung löschen wir nach 90 Tagen, sofern Sie das Ergebnis nicht per E-Mail angefordert haben.
+          </p>
+          <p class="text-muted-foreground leading-relaxed mt-4">
+            <strong>Ergebnis per E-Mail:</strong> Wenn Sie die vollständigen Antworten anfordern, verarbeiten wir zusätzlich Vor- und Nachnamen und Ihre geschäftliche E-Mail-Adresse. Wir senden Ihnen zunächst eine E-Mail mit einem Bestätigungslink (Double-Opt-in); erst nach der Bestätigung ist das Ergebnis abrufbar. Wir protokollieren den Zeitpunkt der Anforderung und der Bestätigung sowie die Fassung des Einwilligungstextes. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Anfragen, die nicht innerhalb von 7 Tagen bestätigt werden, löschen wir.
+          </p>
+          <p class="text-muted-foreground leading-relaxed mt-4">
+            <strong>Weitere Informationen (optional):</strong> Nur wenn Sie das gesondert ankreuzen, senden wir Ihnen Hinweise zu KI-Sichtbarkeit und Einladungen zu Webinaren von CodaAI (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, etwa über den Abmeldelink in jeder E-Mail oder per Nachricht an hi@codaai.ai. Nach einem Widerruf speichern wir Ihre E-Mail-Adresse ausschließlich in einer Sperrliste, damit wir Ihnen nicht erneut schreiben.
+          </p>
+          <p class="text-muted-foreground leading-relaxed mt-4">
+            Die Daten einer bestätigten Anfrage speichern wir, solange es für die Bearbeitung erforderlich ist, längstens 24 Monate nach dem letzten Kontakt, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+          </p>
         </section>
 
         <section class="mb-10">
@@ -184,10 +202,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                   <td class="py-3 pr-4">SMS-Versand für Terminbestätigungen, Erinnerungen und Verifizierungscodes</td>
                   <td class="py-3">Kiel, Deutschland</td>
                 </tr>
-                <tr>
+                <tr class="border-b border-border/50">
                   <td class="py-3 pr-4"><a href="https://www.hetzner.com/de/rechtliches/datenschutz/" class="underline hover:text-foreground" target="_blank" rel="noopener">Hetzner Online GmbH</a></td>
-                  <td class="py-3 pr-4">Hosting der persönlichen Audit-Dashboards (audit.codaai.ai)</td>
+                  <td class="py-3 pr-4">Hosting der persönlichen Audit-Dashboards und des Visibility Snapshot (audit.codaai.ai)</td>
                   <td class="py-3">Gunzenhausen, Deutschland</td>
+                </tr>
+                <tr class="border-b border-border/50">
+                  <td class="py-3 pr-4"><a href="https://resend.com/legal/privacy-policy" class="underline hover:text-foreground" target="_blank" rel="noopener">Resend, Inc.</a></td>
+                  <td class="py-3 pr-4">Versand von Bestätigungs- und Ergebnis-E-Mails des Visibility Snapshot</td>
+                  <td class="py-3">USA</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4"><a href="https://www.cloudflare.com/privacypolicy/" class="underline hover:text-foreground" target="_blank" rel="noopener">Cloudflare, Inc.</a></td>
+                  <td class="py-3 pr-4">Schutz vor automatisierten Zugriffen (Turnstile) beim Visibility Snapshot</td>
+                  <td class="py-3">USA</td>
                 </tr>
               </tbody>
             </table>
@@ -196,7 +224,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             Soweit ein Dienstleister personenbezogene Daten außerhalb der EU verarbeitet,
             stützen wir die Übermittlung auf die Standardvertragsklauseln der EU-Kommission
             bzw. auf das EU-US Data Privacy Framework. Die Liste gibt den Stand vom
-            3. August 2026 wieder; Änderungen geben wir hier bekannt.
+            24. September 2026 wieder; Änderungen geben wir hier bekannt.
           </p>
         </section>
       </div>

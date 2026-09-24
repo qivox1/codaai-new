@@ -45,6 +45,8 @@ export const EXTRA_SOURCES = {
   'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
   'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
   'check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
+  // 24.09.2026: Visibility Snapshot — Inhalt im Modul.
+  'visibility-snapshot': ['src/components/snapshot/SnapshotModule.astro'],
   'en/check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
   'studie': ['src/data/studie.ts'],
   'en/study': ['src/data/studie.ts'],

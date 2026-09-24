@@ -12,6 +12,7 @@
    Zahlformat), reicht `copy.js` als `window.CODA_HOME_COPY` an das Inline-Skript
    weiter — ein `<script is:inline>` kann keine Astro-Ausdrücke lesen. */
 import AuditCTA from './AuditCTA.astro';
+import SnapshotTeaser from '../snapshot/SnapshotTeaser.astro';
 
 interface Props {
   lang?: 'de' | 'en';
@@ -503,6 +504,13 @@ const copy = {
     </div>
   </div>
 </section>
+
+<!-- ================= VISIBILITY SNAPSHOT (Teaser, nur DE, seit 24.09.2026) ================= -->
+{lang === 'de' && (
+  <div class="snapt-slot" style="padding:72px 24px;">
+    <SnapshotTeaser source="home" />
+  </div>
+)}
 
 <!-- ================= DREI STELLEN + BEGRIFFE (Akkordeon) ================= -->
 <!-- Ersetzt die frühere gepinnte SEO/AEO/GEO-Horizontalszene (~200vh Scrollstrecke

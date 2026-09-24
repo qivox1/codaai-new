@@ -1,0 +1,136 @@
+---
+/* /visibility-snapshot/ — „Visibility Snapshot" (DE, seit 24.09.2026).
+   Besucher prüft eine eigene Kundenfrage live gegen fünf KI-Systeme.
+   Modul: src/components/snapshot/SnapshotModule.astro, Backend: audit.codaai.ai/ai/frage
+   (Pipeline-CLAUDE.md 4.38). Kein EN-Gegenstück (bewusst, vorerst nur DE). */
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import HeroHeadline from '../components/HeroHeadline.astro';
+import SnapshotModule from '../components/snapshot/SnapshotModule.astro';
+
+const SITE_URL = 'https://www.codaai.ai';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pageUrl = `${SITE_URL}/visibility-snapshot/`;
+const title = 'Visibility Snapshot: Empfiehlt die KI Ihr Unternehmen? | CodaAI';
+const description = 'Stellen Sie fünf KI-Systemen die Frage, die Ihre Kunden stellen — und sehen Sie in rund 20 Sekunden, ob Sie genannt werden und wen die KI stattdessen empfiehlt. Kostenlos.';
+
+const webPageSchema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'WebPage', '@id': pageUrl, url: pageUrl,
+  name: 'Visibility Snapshot', description, inLanguage: 'de',
+  isPartOf: { '@type': 'WebSite', url: `${SITE_URL}/`, name: 'CodaAI' },
+});
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Start', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'Visibility Snapshot', item: pageUrl },
+  ],
+});
+
+const schritte = [
+  { n: '1', h: 'Frage stellen', p: 'Website und eine Frage eingeben, die Ihre Kunden stellen würden — ohne Ihren Firmennamen.' },
+  { n: '2', h: 'Befund sehen', p: 'Nach rund 20 Sekunden: In wie vielen von fünf KI-Systemen Sie genannt werden — und wen sie stattdessen empfehlen.' },
+  { n: '3', h: 'Antworten lesen', p: 'Auf Wunsch senden wir Ihnen alle Antworten samt der Quellen, auf die sich die KIs stützen. Nur an Firmen-E-Mail-Adressen.' },
+];
+const vergleich = [
+  ['Eine Frage, fünf KI-Systeme', true, true],
+  ['Wen die KI stattdessen empfiehlt', true, true],
+  ['Acht Einkäuferfragen Ihrer Branche', false, true],
+  ['Ihre Lage bei Google im Wettbewerbsvergleich', false, true],
+  ['Kann die KI Ihre Website lesen und zitieren?', false, true],
+  ['Priorisierter Maßnahmenplan', false, true],
+];
+---
+
+<Layout lang="de" title={title} description={description} jsonLd={[webPageSchema, breadcrumbSchema]}>
+  <Navbar lang="de" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
+      <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+        <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Visibility Snapshot' }]} class="mb-8" />
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:items-start">
+          <div class="max-w-2xl">
+            <p class="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
+              <span class="relative flex h-2 w-2" aria-hidden="true">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
+              </span>
+              Visibility Snapshot · live · kostenlos
+            </p>
+            <HeroHeadline line1="Ihre Kunden fragen die KI." line2="Empfiehlt sie Sie?" />
+            <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">Stellen Sie fünf KI-Systemen genau die Frage, die Ihre Kunden stellen. In rund 20 Sekunden sehen Sie, ob Ihr Unternehmen genannt wird — und welche Wettbewerber die KI stattdessen empfiehlt.</p>
+            <ul class="snap-sys mt-8 flex flex-wrap items-center gap-5" aria-label="Geprüfte KI-Systeme">
+              {[['chatgpt','ChatGPT'],['claude','Claude'],['gemini','Gemini'],['perplexity','Perplexity'],['google','Google AI Mode']].map(([f, l]) => (
+                <li class="flex items-center gap-2 text-sm font-semibold text-foreground"><img src={`${base}/images/ki-logos/${f}.svg`} alt="" width="24" height="24" />{l}</li>
+              ))}
+            </ul>
+          </div>
+          <SnapshotModule source="snapshot" />
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-how" class="border-b border-border bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <h2 id="h-how" class="cai-h2 max-w-3xl">So funktioniert der Snapshot</h2>
+        <ol class="mt-10 grid gap-6 md:grid-cols-3">
+          {schritte.map((s) => (
+            <li class="rounded-2xl border border-border bg-card p-7">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cta-strong text-sm font-bold text-white" aria-hidden="true">{s.n}</span>
+              <h3 class="mt-4 text-xl font-bold text-foreground">{s.h}</h3>
+              <p class="mt-3 text-base leading-relaxed text-muted-foreground">{s.p}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-cmp" class="border-b border-border bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <h2 id="h-cmp" class="cai-h2 max-w-3xl">Eine Frage ist ein Anfang. Das Audit ist das ganze Bild.</h2>
+        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">Der Snapshot zeigt, wie die KI heute auf Ihre eine Frage antwortet. Das Digital Visibility Audit prüft die Fragen, die Einkäufer Ihrer Branche tatsächlich stellen — und was sich ändern lässt.</p>
+        <div class="mt-10 overflow-x-auto rounded-2xl border border-border">
+          <table class="snapcmp w-full text-left text-sm">
+            <thead><tr><th class="px-5 py-4"></th><th class="px-5 py-4 font-bold">Snapshot</th><th class="snapcmp-a px-5 py-4 font-bold">Digital Visibility Audit</th></tr></thead>
+            <tbody>
+              {vergleich.map((r) => (
+                <tr><th scope="row" class="px-5 py-3.5 font-medium text-foreground">{r[0]}</th>
+                  <td class="px-5 py-3.5">{r[1] ? <span class="yes">✓</span> : <span class="no">—</span>}</td>
+                  <td class="snapcmp-a px-5 py-3.5"><span class="yes">✓</span></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-6 text-sm font-semibold"><a href={`${base}/check/`} class="text-cta-accessible underline underline-offset-4">Zum vollständigen Digital Visibility Audit →</a></p>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-web" class="bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
+          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Webinar · Di, 29.09.2026, 11:00 Uhr</p>
+          <h2 id="h-web" class="cai-h2">Empfohlen oder unsichtbar? Woran es liegt — und was hilft.</h2>
+          <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">Im Webinar zeigen wir live, warum die KI manche Anbieter nennt und andere nicht — und welche Hebel Sie selbst in der Hand haben.</p>
+          <a href={`${base}/webinar/`} class="mt-8 inline-flex items-center gap-2 rounded-xl bg-cta-strong px-6 py-3.5 font-bold text-white">Kostenlos zum Webinar anmelden →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang="de" />
+</Layout>
+
+<style>
+  .snapcmp th, .snapcmp td { border-bottom:1px solid hsl(var(--border)); }
+  .snapcmp thead th { background:hsl(var(--muted) / .35); }
+  .snapcmp tbody tr:last-child th, .snapcmp tbody tr:last-child td { border-bottom:0; }
+  .snapcmp .snapcmp-a { background:hsl(var(--cta) / .07); }
+  .snapcmp .yes { font-weight:700; color:hsl(var(--confirm-text)); }
+  .snapcmp .no { color:hsl(var(--muted-foreground)); }
+  @media (max-width:640px) { .snapcmp th, .snapcmp td { padding:10px; font-size:12.5px; } }
+</style>
+<script>
+  try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_view', lang: 'de' }); } catch (e) {}
+</script>
