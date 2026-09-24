@@ -124,6 +124,7 @@ const beispiele = [
   .snap-in:focus { outline:none; border-color:hsl(var(--cta)); box-shadow:0 0 0 3px hsl(var(--cta) / .18); }
   .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
   .snap-ta + .snap-chips, .snap-fhint + .snap-chips { margin-top:10px; }
+  .snap-form :global(.snap-test) { margin:8px 0 0; text-align:center; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8A5A00; }
   .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden] { display:none; }
   .snap-fhint { margin:-8px 0 18px; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
   .snap-fhint-t { margin:0; }
@@ -224,6 +225,10 @@ const beispiele = [
       let checkId = '';
       let captchaToken = '';
       let autostart = false;
+      // interner Testmodus: ?test=<Schluessel> (ohne IP-Limit), &frisch=1 (Cache umgehen)
+      const up = new URLSearchParams(location.search);
+      const testKey = (up.get('test') || '').slice(0, 64), frisch = up.get('frisch') === '1';
+      if (testKey) { const tm = document.createElement('p'); tm.className = 'snap-test'; tm.textContent = `Testmodus${frisch ? ' · frisch messen' : ''}`; form.appendChild(tm); }
 
       const setState = (s: string) => root.setAttribute('data-state', s);
       const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = !msg; };
@@ -305,7 +310,7 @@ const beispiele = [
           const r = await fetch(API + '/ai/frage', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
             body: JSON.stringify({ domain: d, frage: q, website_url: ($('[data-hp]') as HTMLInputElement).value,
-                                   fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, source: root.dataset.source }),
+                                   fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, test_key: testKey || undefined, frisch: frisch || undefined, source: root.dataset.source }),
           });
           clearTimeout(tm);
           res = await r.json();
