@@ -53,9 +53,6 @@ const beispiele = [
       <button type="button" class="snap-fhint-use" data-fhint-use hidden><span class="snap-fhint-k">Vorschlag übernehmen</span><span data-fhint-v></span></button>
       <button type="button" class="snap-fhint-skip" data-fhint-skip hidden>Trotzdem mit meiner Frage prüfen</button>
     </div>
-    <div class="snap-chips" aria-label="Beispielfragen">
-      {beispiele.map((b) => <button type="button" class="snap-chip" data-bsp={b}>{b}</button>)}
-    </div>
 
     {TURNSTILE_SITEKEY && <div class="snap-captcha" data-captcha></div>}
 
@@ -128,7 +125,7 @@ const beispiele = [
   .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
   .snap-ta + .snap-chips, .snap-fhint + .snap-chips { margin-top:10px; }
   .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden] { display:none; }
-  .snap-fhint { margin:-8px 0 0; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
+  .snap-fhint { margin:-8px 0 18px; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
   .snap-fhint-t { margin:0; }
   .snap-fhint-use { display:block; width:100%; margin-top:10px; padding:10px 12px; border:1px solid #E7C77E; border-radius:10px; background:#fff; color:hsl(var(--foreground)); font-size:14px; line-height:1.4; text-align:left; cursor:pointer; }
   .snap-fhint-use:hover { border-color:hsl(var(--cta)); }
