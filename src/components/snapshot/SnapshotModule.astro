@@ -75,38 +75,36 @@ const beispiele = [
   </div>
 
   <div class="snap-res" data-res aria-live="polite">
-    <p class="snap-kicker">Visibility Snapshot · Stand <span data-stand></span></p>
+    <p class="snap-kicker">Visibility Snapshot · <span data-dom></span> · <span data-stand></span></p>
     <p class="snap-q">„<span data-q></span>“</p>
-    <p class="snap-dom" data-dom></p>
-    <p class="snap-head" data-head></p>
+    <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
     <ul class="snap-logos snap-logos--res" data-reslogos>
       {logos.map((l) => (
         <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
     <div class="snap-find" data-findbox hidden>
-      <p class="snap-find-h" data-findh></p>
-      <ul class="snap-find-l" data-find></ul>
-      <p class="snap-find-s">Und das ist nur eine einzige Frage. Ihre Kunden stellen der KI Dutzende davon.</p>
+      <p class="snap-h" data-findh>Verbesserungsbedarf</p>
+      <dl class="snap-find-l" data-find></dl>
     </div>
-    <div class="snap-firms" data-firmsbox>
-      <p class="snap-firms-h" data-firmsh></p>
-      <ul class="snap-firms-l" data-firms></ul>
-    </div>
+    <p class="snap-also" data-also hidden></p>
     <p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>
 
     <div class="snap-unlock" data-unlock>
-      <p class="snap-unlock-h">Was genau die KIs antworten — und welche Quellen sie nutzen</p>
-      <p class="snap-unlock-p">Wir senden Ihnen die vollständigen Antworten aller fünf Systeme samt Quellen. Nur an geschäftliche E-Mail-Adressen.</p>
-      <div class="snap-grid">
-        <input class="snap-in" data-vn type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
-        <input class="snap-in" data-nn type="text" placeholder="Nachname" aria-label="Nachname" autocomplete="family-name" />
+      <p class="snap-unlock-h">Was die KI-Systeme im Wortlaut antworten</p>
+      <p class="snap-unlock-p">Alle fünf Antworten mit den Quellen, auf die sich die Systeme stützen. Diese Frage ist nur eine von vielen, die Ihre Kunden stellen.</p>
+      <button type="button" class="snap-open" data-open>Antworten &amp; Quellen ansehen <span aria-hidden="true">→</span></button>
+      <div class="snap-formwrap" data-formwrap hidden>
+        <div class="snap-grid">
+          <input class="snap-in" data-vn type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
+          <input class="snap-in" data-nn type="text" placeholder="Nachname" aria-label="Nachname" autocomplete="family-name" />
+        </div>
+        <input class="snap-in" data-mail type="email" placeholder="Geschäftliche E-Mail-Adresse" aria-label="Geschäftliche E-Mail-Adresse" autocomplete="email" />
+        <label class="snap-cb"><input type="checkbox" data-c1 /> <span>Ja, senden Sie mir das Ergebnis per E-Mail. Die <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a> habe ich gelesen. <em>(Pflicht)</em></span></label>
+        <label class="snap-cb"><input type="checkbox" data-c2 /> <span>Ich möchte außerdem Hinweise zu KI-Sichtbarkeit und Einladungen zu Webinaren von CodaAI per E-Mail erhalten. Abmeldung jederzeit. <em>(optional)</em></span></label>
+        <button type="button" class="snap-send" data-send><span>Per E-Mail zusenden</span></button>
+        <p class="snap-err snap-err--res" data-err2 role="alert" hidden></p>
       </div>
-      <input class="snap-in" data-mail type="email" placeholder="Geschäftliche E-Mail-Adresse" aria-label="Geschäftliche E-Mail-Adresse" autocomplete="email" />
-      <label class="snap-cb"><input type="checkbox" data-c1 /> <span>Ja, senden Sie mir das Ergebnis per E-Mail. Die <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a> habe ich gelesen. <em>(Pflicht)</em></span></label>
-      <label class="snap-cb"><input type="checkbox" data-c2 /> <span>Ich möchte außerdem Hinweise zu KI-Sichtbarkeit und Einladungen zu Webinaren von CodaAI per E-Mail erhalten. Abmeldung jederzeit. <em>(optional)</em></span></label>
-      <button type="button" class="snap-send" data-send><span>Antworten &amp; Quellen zusenden</span></button>
-      <p class="snap-err snap-err--res" data-err2 role="alert" hidden></p>
     </div>
     <div class="snap-done" data-done hidden>
       <p><b>Fast geschafft.</b> Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie den Link darin — danach sehen Sie alle Antworten und Quellen.</p>
@@ -152,53 +150,53 @@ const beispiele = [
   .snap-load-sub { margin:0; font-size:14px; font-style:italic; color:hsl(var(--muted-foreground)); }
   @media (prefers-reduced-motion: reduce) { .snap-logos--load li { animation:none; opacity:1; } .snap[data-state="load"] .snap-bar span { animation:none; width:60%; } }
 
-  .snap-res { background:hsl(var(--cta-strong)); color:#fff; }
-  .snap-kicker { margin:0; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.85; }
-  .snap-q { margin:10px 0 12px; font-size:21px; line-height:1.3; font-weight:700; }
-  .snap-dom { margin:8px 0 2px; font-size:15px; font-weight:600; opacity:.9; overflow-wrap:anywhere; }
-  .snap-head { margin:0 0 18px; font-size:28px; line-height:1.15; font-weight:800; }
-  .snap-logos--res { background:rgba(255,255,255,.12); border-radius:16px; padding:14px 10px; }
-  .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; }
+  /* Ergebnis: ruhig, weiss; Magenta nur als Akzent und fuer Aktionen */
+  .snap-res { background:hsl(var(--card)); color:hsl(var(--foreground)); border-top:4px solid hsl(var(--cta-strong)); }
+  .snap-kicker { margin:0; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:hsl(var(--muted-foreground)); overflow-wrap:anywhere; }
+  .snap-q { margin:10px 0 14px; font-size:22px; line-height:1.3; font-weight:700; }
+  .snap-verdict { margin:0 0 20px; font-size:16px; line-height:1.5; }
+  .snap-badge { display:inline-block; margin-right:4px; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.02em; vertical-align:1px; }
+  .snap-badge[data-lvl="gut"] { background:#E3F4EA; color:#146C43; }
+  .snap-badge[data-lvl="mittel"] { background:#FDF1D8; color:#8A5A00; }
+  .snap-badge[data-lvl="schlecht"] { background:#FDE7E7; color:#A1242B; }
+  .snap-logos--res { background:hsl(var(--foreground) / .04); border-radius:14px; padding:14px 8px; }
+  .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; box-shadow:0 0 0 1px hsl(var(--border)); }
   .snap-lg img { width:26px; height:26px; }
-  .snap-mark { position:absolute; right:-4px; bottom:-4px; width:20px; height:20px; border-radius:50%; border:2px solid hsl(var(--cta-strong)); display:none; }
-  li[data-ok="1"] .snap-mark { display:block; background:#21a366 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
-  li[data-ok="0"] .snap-mark { display:block; background:#1B2B44 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+  .snap-mark { position:absolute; right:-5px; bottom:-5px; width:20px; height:20px; border-radius:50%; border:2px solid #fff; display:none; font-style:normal; }
+  li[data-ok="1"] .snap-mark { display:block; background:#1F9D5B url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  li[data-ok="0"] .snap-mark { display:block; background:#C0343C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
   li[data-ok="x"] .snap-lg { opacity:.45; }
-  /* Platz statt Haken: 1 = gruen, spaeter = gelb */
-  li[data-ok="1"][data-rank] .snap-mark { background-image:none; font:800 11px/16px system-ui,sans-serif; font-style:normal; color:#fff; text-align:center; }
-  li[data-ok="1"][data-rank]:not([data-rank="1"]) .snap-mark { background-color:#F5B83D; color:#0F1B2D; }
+  li[data-ok="1"][data-rank] .snap-mark { background-image:none; font:700 11px/16px inherit; text-align:center; color:#fff; }
+  li[data-ok="1"][data-rank]:not([data-rank="1"]) .snap-mark { background-color:#E0A21B; }
   li[data-ok="1"][data-rank] .snap-mark::before { content:attr(data-n); }
-  .snap-sysp { display:block; margin-top:2px; font-size:11px; font-weight:600; color:#fff; opacity:.8; }
-  .snap-find { margin-top:18px; background:#fff; color:#0F1B2D; border-radius:14px; padding:14px 16px; }
-  .snap-find-h { margin:0 0 8px; font-size:15px; font-weight:800; }
-  .snap-find-l { margin:0; padding:0 0 0 18px; font-size:14px; line-height:1.45; }
-  .snap-find-l :global(li) { margin:0 0 6px; }
-  .snap-find-l :global(strong) { font-weight:800; }
-  .snap-find-s { margin:8px 0 0; font-size:13px; font-weight:700; color:hsl(var(--cta-strong)); }
-  .snap-sysl { color:#fff; opacity:.9; }
-  .snap-firms { margin-top:18px; }
-  .snap-firms-h { margin:0 0 8px; font-size:15px; font-weight:700; }
-  .snap-firms-l { display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0; }
-  /* per Skript erzeugt -> ohne Astro-Scope-Attribut, daher :global */
-  .snap-firms-l :global(li) { background:#fff; color:#0F1B2D; border-radius:999px; padding:5px 12px; font-size:14px; font-weight:700; }
-  .snap-firms-l :global(li.is-own) { background:#0F1B2D; color:#fff; box-shadow:0 0 0 2px #fff; }
-  .snap-firms-l :global(li.is-own small) { color:#fff; opacity:.75; }
-  .snap-firms-l :global(small) { font-weight:600; color:#5B6B82; margin-left:5px; }
-  .snap-disc { margin:14px 0 0; font-size:11.5px; line-height:1.45; opacity:.8; }
-  .snap-unlock { margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,.3); }
-  .snap-unlock-h { margin:0 0 4px; font-size:18px; font-weight:800; }
-  .snap-unlock-p { margin:0 0 14px; font-size:14px; opacity:.9; }
+  .snap-sysl { color:hsl(var(--foreground)); font-weight:600; }
+  .snap-sysp { display:block; margin-top:1px; font-size:11px; color:hsl(var(--muted-foreground)); }
+  .snap-h { margin:0 0 8px; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--muted-foreground)); }
+  .snap-find { margin-top:22px; }
+  .snap-find-l { margin:0; }
+  .snap-find-l :global(div) { display:grid; grid-template-columns:130px 1fr; gap:12px; padding:9px 0; border-top:1px solid hsl(var(--border)); font-size:14.5px; line-height:1.45; }
+  .snap-find-l :global(div:last-child) { border-bottom:1px solid hsl(var(--border)); }
+  .snap-find-l :global(dt) { font-weight:700; }
+  .snap-find-l :global(dd) { margin:0; color:hsl(var(--foreground) / .85); }
+  .snap-also { margin:14px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
+  .snap-also :global(b) { font-weight:700; color:hsl(var(--foreground)); }
+  .snap-disc { margin:12px 0 0; font-size:11.5px; line-height:1.45; color:hsl(var(--muted-foreground)); }
+  .snap-unlock { margin-top:24px; padding:18px; border-radius:14px; background:hsl(var(--foreground) / .04); }
+  .snap-unlock-h { margin:0 0 4px; font-size:17px; font-weight:700; }
+  .snap-unlock-p { margin:0 0 14px; font-size:14px; line-height:1.5; color:hsl(var(--muted-foreground)); }
+  .snap-open { display:flex; width:100%; align-items:center; justify-content:center; gap:8px; border:0; border-radius:12px; padding:14px 18px; font-size:16px; font-weight:700; cursor:pointer; background:hsl(var(--cta-strong)); color:#fff; }
+  .snap-open:hover { filter:brightness(1.08); }
   .snap-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
-  .snap-unlock .snap-in { border-color:transparent; }
-  .snap-unlock > .snap-in { margin-bottom:12px; }
-  .snap-cb { display:flex; gap:10px; align-items:flex-start; margin:0 0 10px; font-size:13px; line-height:1.45; }
-  .snap-cb input { margin-top:3px; width:17px; height:17px; flex:none; accent-color:#1B2B44; }
-  .snap-cb a { color:#fff; text-decoration:underline; }
-  .snap-cb em { font-style:normal; opacity:.75; }
-  .snap-send { background:#0F1B2D; margin-top:6px; }
-  .snap-err--res { color:#fff; background:rgba(15,27,45,.35); border-radius:8px; padding:8px 10px; }
-  .snap-done { margin-top:20px; background:#fff; color:hsl(var(--foreground)); border-radius:14px; padding:16px; font-size:15px; }
-  .snap-again { margin-top:16px; background:none; border:0; color:#fff; text-decoration:underline; font-size:14px; cursor:pointer; padding:0; }
+  .snap-formwrap > .snap-in { margin-bottom:12px; }
+  .snap-cb { display:flex; gap:10px; align-items:flex-start; margin:0 0 10px; font-size:13px; line-height:1.45; color:hsl(var(--foreground) / .85); }
+  .snap-cb input { margin-top:3px; width:17px; height:17px; flex:none; accent-color:hsl(var(--cta-strong)); }
+  .snap-cb a { color:inherit; text-decoration:underline; }
+  .snap-cb em { font-style:normal; color:hsl(var(--muted-foreground)); }
+  .snap-send { margin-top:6px; }
+  .snap-err--res { color:#A1242B; background:#FDE7E7; border-radius:8px; padding:8px 10px; }
+  .snap-done { margin-top:20px; background:#E3F4EA; color:#0F3D25; border-radius:14px; padding:16px; font-size:15px; }
+  .snap-again { margin-top:16px; background:none; border:0; color:hsl(var(--muted-foreground)); text-decoration:underline; font-size:14px; cursor:pointer; padding:0; }
+  @media (max-width:480px) { .snap-q { font-size:19px; } .snap-open { font-size:15px; padding:14px 12px; white-space:nowrap; } .snap-unlock { padding:16px; } .snap-find-l :global(div) { grid-template-columns:1fr; gap:2px; } }
   @media (max-width:480px) { .snap { --pad:20px; } .snap-head { font-size:24px; } .snap-grid { grid-template-columns:1fr; } .snap-sysl { font-size:10px; } .snap-lg { width:38px; height:38px; } }
 </style>
 
@@ -282,15 +280,25 @@ const beispiele = [
         ($('[data-stand]') as HTMLElement).textContent = res.stand;
         ($('[data-stand2]') as HTMLElement).textContent = res.stand;
         ($('[data-q]') as HTMLElement).textContent = res.frage || '';
-        ($('[data-dom]') as HTMLElement).textContent = res.marke && res.marke !== res.domain ? `${res.marke} · ${res.domain}` : res.domain;
+        ($('[data-dom]') as HTMLElement).textContent = res.domain;
         const g = res.genannt, von = res.von, e1 = res.erste_stelle ?? 0;
-        ($('[data-head]') as HTMLElement).textContent =
-          g === 0 ? `In keinem von ${von} KI-Systemen genannt.`
-          : (g === von && e1 === von) ? `In allen ${von} KI-Systemen genannt – jedes Mal an erster Stelle.`
-          : e1 === g ? `In ${g} von ${von} KI-Systemen genannt – dort jeweils an erster Stelle.`
-          : e1 === 0 ? `In ${g} von ${von} KI-Systemen genannt – aber nie an erster Stelle.`
-          : `In ${g} von ${von} KI-Systemen genannt – aber nur ${e1}× an erster Stelle.`;
+        const M = res.marke_kurz || res.marke || res.domain;
         const sys = res.systeme || [];
+        const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}` : (a[0] || '');
+        const fremde = (res.rangliste || []).filter((r: any) => !r.eigen);
+        const vorn: Record<string, number> = {};
+        sys.forEach((s: any) => (s.vor || []).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }));
+        const vornTop = Object.entries(vorn).sort((x, y) => y[1] - x[1]).slice(0, 2).map((x) => x[0]);
+        const rivTop = fremde.slice(0, 2).map((r: any) => r.name);
+        const fehltN = sys.filter((s: any) => s.antwort && !s.genannt).length;
+        let lvl = 'mittel', lbl = 'Ausbaufähig', satz = '';
+        if (g === 0) { lvl = 'schlecht'; lbl = 'Kritisch'; satz = `${M} kommt bei dieser Frage in keinem KI-System vor${rivTop.length ? ` – empfohlen werden stattdessen ${liste(rivTop)}` : ''}.`; }
+        else if (g === von && e1 === von) { lvl = 'gut'; lbl = 'Stark'; satz = `${M} ist bei dieser Frage überall die erste Empfehlung – eine starke Position, die es zu halten gilt.`; }
+        else if (e1 === g) { satz = `${M} steht vorn, wo es genannt wird – fehlt aber in ${fehltN} von ${von} KI-Systemen.`; }
+        else if (g * 2 >= von) { satz = `${M} ist präsent, aber ${e1 * 2 >= g ? 'nicht überall' : 'selten'} die erste Empfehlung${(vornTop.length ? vornTop : rivTop).length ? ` – vorn stehen oft ${liste(vornTop.length ? vornTop : rivTop)}` : ''}.`; }
+        else { lvl = 'schlecht'; lbl = 'Schwach'; satz = `${M} wird nur vereinzelt genannt${rivTop.length ? ` – die meisten KI-Systeme empfehlen ${liste(rivTop)}` : ''}.`; }
+        const bd = $('[data-badge]') as HTMLElement; bd.textContent = lbl; bd.setAttribute('data-lvl', lvl);
+        ($('[data-verdict]') as HTMLElement).textContent = satz;
         sys.forEach((s: any) => {
           const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`) as HTMLElement | null;
           if (!li) return;
@@ -300,40 +308,33 @@ const beispiele = [
           else { li.removeAttribute('data-rank'); mk.removeAttribute('data-n'); }
           pl.textContent = !s.antwort ? 'keine Antwort' : !s.genannt ? 'nicht genannt' : s.platz ? `Platz ${s.platz}` : 'genannt';
         });
-        // Befund: was fehlt?
-        const esc = (t: string) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' } as any)[c]);
-        const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}` : (a[0] || '');
-        const punkte: string[] = [];
-        const spaet = sys.filter((s: any) => s.genannt && s.platz > 1).sort((a: any, b: any) => b.platz - a.platz);
-        if (spaet[0]) punkte.push(`Bei <strong>${esc(spaet[0].label)}</strong> stehen Sie erst an <strong>${spaet[0].platz}. Stelle</strong> – nach ${esc(liste(spaet[0].vor || []))}.`);
-        if (spaet[1]) punkte.push(`Bei <strong>${esc(spaet[1].label)}</strong> an ${spaet[1].platz}. Stelle – nach ${esc(liste(spaet[1].vor || []))}.`);
-        const fehlt = sys.filter((s: any) => s.antwort && !s.genannt);
-        const gf = fehlt.find((s: any) => s.key === 'google_ai_mode');
-        if (gf && g > 0) punkte.push(`<strong>Google AI Mode</strong> nennt Sie gar nicht – die KI direkt in der Google-Suche, wo viele Einkäufer ihre Recherche beginnen.`);
-        const andere = fehlt.filter((s: any) => s.key !== 'google_ai_mode' || g === 0).map((s: any) => s.label);
-        if (andere.length && g > 0) punkte.push(`<strong>${esc(liste(andere))}</strong> ${andere.length > 1 ? 'nennen' : 'nennt'} Sie nicht.`);
+        // Verbesserungsbedarf: System – Befund, hoechstens 4 Zeilen
+        const zeilen: [string, string][] = [];
+        if (g > 0) {
+          sys.filter((s: any) => s.antwort && !s.genannt).sort((a: any) => (a.key === 'google_ai_mode' ? -1 : 1)).forEach((s: any) =>
+            zeilen.push([s.label, s.key === 'google_ai_mode' ? 'Nicht genannt – die KI direkt in der Google-Suche.' : 'Nicht genannt.']));
+          sys.filter((s: any) => s.genannt && s.platz > 1).sort((a: any, b: any) => b.platz - a.platz).forEach((s: any) =>
+            zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`]));
+        } else if (rivTop.length) {
+          zeilen.push(['Alle Systeme', `Nennen Sie nicht – empfohlen werden ${liste(fremde.slice(0, 3).map((r: any) => r.name))}.`]);
+        }
         const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
-          punkte.push(`Als Quellen stützen sich die KI-Systeme auf <strong>${esc(liste(qd))}</strong> – Ihre eigene Website ${res.eigene_quelle_n === 0 ? '<strong>kein einziges Mal</strong>' : `nur <strong>${res.eigene_quelle_n}×</strong>`}.`);
+          zeilen.push(['Quellen', `Ihre Website ${res.eigene_quelle_n === 0 ? 'wird nicht' : `nur ${res.eigene_quelle_n}×`} zitiert – stattdessen ${liste(qd)}.`]);
         }
-        const top = (res.rangliste || []).find((r: any) => !r.eigen);
-        const eigenR = (res.rangliste || []).find((r: any) => r.eigen);
-        if (top && (!eigenR || top.anzahl > eigenR.anzahl || top.erste > eigenR.erste)) {
-          if (!punkte.length || g === 0) punkte.push(`<strong>${esc(top.name)}</strong> wird ${top.anzahl}× genannt${top.erste ? `, davon ${top.erste}× an erster Stelle` : ''}.`);
-        }
-        if (!punkte.length) punkte.push('Starke Position – bei dieser einen Frage. KI-Antworten ändern sich laufend; wer vorn ist, muss es halten.');
-        ($('[data-findh]') as HTMLElement).textContent = (g === von && e1 === von && punkte.length === 1) ? 'Einordnung:' : 'Wo es hakt:';
-        ($('[data-find]') as HTMLElement).innerHTML = punkte.slice(0, 4).map((t) => `<li>${t}</li>`).join('');
-        ($('[data-findbox]') as HTMLElement).hidden = false;
-        // Rangliste inkl. eigener Marke
-        const firms = $('[data-firms]'); firms.innerHTML = '';
-        const rl = (res.rangliste && res.rangliste.length) ? res.rangliste : (res.empfohlen || []);
-        rl.forEach((f: any) => {
-          const li = document.createElement('li'); li.textContent = f.name; if (f.eigen) li.className = 'is-own';
-          const sm = document.createElement('small'); sm.textContent = `${f.anzahl}×`; li.appendChild(sm); firms.appendChild(li);
+        const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
+        zeilen.slice(0, 4).forEach(([t, d]) => {
+          const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+          dt.textContent = t; dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
-        ($('[data-firmsh]') as HTMLElement).textContent = g === 0 ? 'Stattdessen empfohlen:' : 'So verteilen sich die Nennungen:';
-        ($('[data-firmsbox]') as HTMLElement).hidden = !rl.length;
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilen.length;
+        const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
+        if (fremde.length) {
+          const b = document.createElement('b'); b.textContent = g === 0 ? 'Stattdessen empfohlen: ' : 'Ebenfalls empfohlen: ';
+          also.append(b, document.createTextNode(fremde.slice(0, 4).map((r: any) => `${r.name} (${r.anzahl}×)`).join(', ')));
+        }
+        also.hidden = !fremde.length;
+        ($('[data-formwrap]') as HTMLElement).hidden = true; ($('[data-open]') as HTMLElement).hidden = false;
         setState('res');
         dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
       });
@@ -364,6 +365,12 @@ const beispiele = [
         dl.push({ event: 'snapshot_unlock', lang, marketing: c2, source: root.dataset.source });
       });
 
+      ($('[data-open]') as HTMLElement).addEventListener('click', () => {
+        ($('[data-open]') as HTMLElement).hidden = true;
+        ($('[data-formwrap]') as HTMLElement).hidden = false;
+        ($('[data-vn]') as HTMLInputElement).focus();
+        dl.push({ event: 'snapshot_unlock_open', lang, source: root.dataset.source });
+      });
       ($('[data-again]') as HTMLElement).addEventListener('click', () => {
         setState('idle'); frage.focus(); frage.select();
         ($('[data-unlock]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true;
