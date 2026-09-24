@@ -48,7 +48,11 @@ const beispiele = [
 
     <label class="snap-lbl" for="snap-frage">Eine Frage, die Ihre Kunden der KI stellen würden</label>
     <textarea id="snap-frage" class="snap-in snap-ta" data-frage rows="3" maxlength="250" placeholder="z. B. Welche Anbieter für Präzisionsklimaanlagen sind in Deutschland führend?"></textarea>
-    <p class="snap-tip">Ohne Ihren Firmennamen — so, wie jemand fragt, der Sie noch nicht kennt.</p>
+    <div class="snap-fhint" data-fhint role="status" hidden>
+      <p class="snap-fhint-t" data-fhint-t></p>
+      <button type="button" class="snap-fhint-use" data-fhint-use hidden><span class="snap-fhint-k">Vorschlag übernehmen</span><span data-fhint-v></span></button>
+      <button type="button" class="snap-fhint-skip" data-fhint-skip hidden>Trotzdem mit meiner Frage prüfen</button>
+    </div>
     <div class="snap-chips" aria-label="Beispielfragen">
       {beispiele.map((b) => <button type="button" class="snap-chip" data-bsp={b}>{b}</button>)}
     </div>
@@ -122,7 +126,14 @@ const beispiele = [
   .snap-in { width:100%; border:1.5px solid hsl(var(--border)); border-radius:12px; padding:13px 14px; font-size:16px; background:hsl(var(--background)); color:hsl(var(--foreground)); }
   .snap-in:focus { outline:none; border-color:hsl(var(--cta)); box-shadow:0 0 0 3px hsl(var(--cta) / .18); }
   .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
-  .snap-tip { margin:6px 0 10px; font-size:13px; color:hsl(var(--muted-foreground)); }
+  .snap-ta + .snap-chips, .snap-fhint + .snap-chips { margin-top:10px; }
+  .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden] { display:none; }
+  .snap-fhint { margin:-8px 0 0; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
+  .snap-fhint-t { margin:0; }
+  .snap-fhint-use { display:block; width:100%; margin-top:10px; padding:10px 12px; border:1px solid #E7C77E; border-radius:10px; background:#fff; color:hsl(var(--foreground)); font-size:14px; line-height:1.4; text-align:left; cursor:pointer; }
+  .snap-fhint-use:hover { border-color:hsl(var(--cta)); }
+  .snap-fhint-skip { margin-top:8px; padding:0; border:0; background:none; color:#5C3D00; font-size:13px; text-decoration:underline; cursor:pointer; }
+  .snap-fhint-k { display:block; margin-bottom:2px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--cta-strong)); }
   .snap-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
   .snap-chip { border:1px solid hsl(var(--border)); background:hsl(var(--muted) / .35); color:hsl(var(--foreground)); border-radius:999px; padding:5px 11px; font-size:12.5px; text-align:left; cursor:pointer; }
   .snap-chip:hover { border-color:hsl(var(--cta)); }
@@ -220,10 +231,45 @@ const beispiele = [
       const setState = (s: string) => root.setAttribute('data-state', s);
       const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = !msg; };
 
+      // Hinweis unter der Frage (eigener Name, Server-Hinweise, Umformulierung)
+      const fh = $('[data-fhint]'), fhT = $('[data-fhint-t]'), fhU = $<HTMLButtonElement>('[data-fhint-use]'), fhV = $('[data-fhint-v]');
+      const fhS = $<HTMLButtonElement>('[data-fhint-skip]');
+      let produktOk = false;
+      const hinweis = (txt: string, vorschlag = '', weiter = false) => {
+        fhT.textContent = txt; fh.hidden = !txt; fhS.hidden = !weiter;
+        fhV.textContent = vorschlag ? `„${vorschlag}“` : ''; fhU.hidden = !vorschlag; fhU.dataset.v = vorschlag;
+      };
+      fhS.addEventListener('click', () => {
+        produktOk = true; hinweis('');
+        dl.push({ event: 'snapshot_produkt_ignoriert', lang, source: root.dataset.source });
+        form.requestSubmit();
+      });
+      fhU.addEventListener('click', () => {
+        frage.value = fhU.dataset.v || ''; hinweis(''); frage.focus();
+        dl.push({ event: 'snapshot_vorschlag_uebernommen', lang, source: root.dataset.source });
+      });
+      const stamm = () => {
+        const h = dom.value.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#]/)[0];
+        const st = h.split('.')[0] || '';
+        return st.length >= 3 ? st : '';
+      };
+      let serverHinweis = false;
+      const liveCheck = () => {
+        if (serverHinweis) return;
+        const st = stamm(), q = frage.value;
+        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&') + '[\\p{L}-]*)', 'iu')) : null;
+        if (m) hinweis(`„${m[2]}“ ist Ihr eigener Name – die KI soll Sie ja von selbst empfehlen. Fragen Sie so, wie ein Kunde fragt, der Sie noch nicht kennt, z. B. „Welche Anbieter für … sind in Deutschland führend?“`);
+        else hinweis('');
+      };
+      let lt: any = 0;
+      const plan = () => { clearTimeout(lt); lt = setTimeout(liveCheck, 350); };
+      frage.addEventListener('input', () => { serverHinweis = false; produktOk = false; plan(); });
+      dom.addEventListener('input', plan);
+
       // Beispielfragen: einsetzen und den Platzhalter markieren
       root.querySelectorAll<HTMLButtonElement>('[data-bsp]').forEach((b) => b.addEventListener('click', () => {
         const t = b.dataset.bsp || '';
-        frage.value = t; frage.focus();
+        frage.value = t; frage.focus(); serverHinweis = false; hinweis('');
         const a = t.indexOf('['), e = t.indexOf(']');
         if (a >= 0 && e > a) frage.setSelectionRange(a, e + 1);
       }));
@@ -249,8 +295,8 @@ const beispiele = [
         show(err, '');
         const d = dom.value.trim(), q = frage.value.trim().replace(/\s+/g, ' ');
         if (!d) return show(err, 'Bitte geben Sie Ihre Website an.');
-        if (q.length < 25) return show(err, 'Bitte formulieren Sie eine ganze Frage (mindestens 25 Zeichen).');
-        if (/[\[\]]/.test(q)) return show(err, 'Bitte ersetzen Sie den Platzhalter in eckigen Klammern durch Ihr Thema.');
+        if (q.length < 25) { frage.focus(); return hinweis('Bitte formulieren Sie eine ganze Frage (mindestens 25 Zeichen).'); }
+        if (/[\[\]]/.test(q)) { frage.focus(); return hinweis('Bitte ersetzen Sie den Platzhalter in eckigen Klammern durch Ihr Thema.'); }
         if (sitekey && !captchaToken) return show(err, 'Einen Moment bitte — die Sicherheitsprüfung läuft noch.');
         go.disabled = true;
         ($('[data-qecho]') as HTMLElement).textContent = q;
@@ -262,7 +308,7 @@ const beispiele = [
           const r = await fetch(API + '/ai/frage', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
             body: JSON.stringify({ domain: d, frage: q, website_url: ($('[data-hp]') as HTMLInputElement).value,
-                                   fill_ms: Date.now() - t0, captcha: captchaToken, source: root.dataset.source }),
+                                   fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, source: root.dataset.source }),
           });
           clearTimeout(tm);
           res = await r.json();
@@ -271,9 +317,15 @@ const beispiele = [
         if ((window as any).turnstile && box) { try { (window as any).turnstile.reset(box); } catch (e) {} captchaToken = ''; }
         if (!res || res.status !== 'ok') {
           setState('idle');
-          dl.push({ event: 'snapshot_error', lang, status: res && res.status });
-          show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
-          if (res && res.feld === 'domain') dom.focus(); else if (res && res.feld === 'frage') frage.focus();
+          dl.push({ event: 'snapshot_error', lang, status: res && res.status, grund: res && (res.grund || res.feld) });
+          if (res && res.feld === 'frage') {
+            serverHinweis = true;
+            hinweis(res.hinweis || 'Bitte formulieren Sie die Frage anders.', res.vorschlag || '', !!res.weiter);
+            frage.focus();
+          } else {
+            show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
+            if (res && res.feld === 'domain') dom.focus();
+          }
           return;
         }
         checkId = res.check_id;
