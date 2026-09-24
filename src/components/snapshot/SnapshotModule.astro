@@ -76,13 +76,19 @@ const beispiele = [
 
   <div class="snap-res" data-res aria-live="polite">
     <p class="snap-kicker">Visibility Snapshot · Stand <span data-stand></span></p>
+    <p class="snap-q">„<span data-q></span>“</p>
     <p class="snap-dom" data-dom></p>
     <p class="snap-head" data-head></p>
     <ul class="snap-logos snap-logos--res" data-reslogos>
       {logos.map((l) => (
-        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span></li>
+        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
+    <div class="snap-find" data-findbox hidden>
+      <p class="snap-find-h" data-findh></p>
+      <ul class="snap-find-l" data-find></ul>
+      <p class="snap-find-s">Und das ist nur eine einzige Frage. Ihre Kunden stellen der KI Dutzende davon.</p>
+    </div>
     <div class="snap-firms" data-firmsbox>
       <p class="snap-firms-h" data-firmsh></p>
       <ul class="snap-firms-l" data-firms></ul>
@@ -148,7 +154,8 @@ const beispiele = [
 
   .snap-res { background:hsl(var(--cta-strong)); color:#fff; }
   .snap-kicker { margin:0; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.85; }
-  .snap-dom { margin:8px 0 2px; font-size:15px; font-weight:600; opacity:.9; word-break:break-all; }
+  .snap-q { margin:10px 0 12px; font-size:21px; line-height:1.3; font-weight:700; }
+  .snap-dom { margin:8px 0 2px; font-size:15px; font-weight:600; opacity:.9; overflow-wrap:anywhere; }
   .snap-head { margin:0 0 18px; font-size:28px; line-height:1.15; font-weight:800; }
   .snap-logos--res { background:rgba(255,255,255,.12); border-radius:16px; padding:14px 10px; }
   .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; }
@@ -157,12 +164,25 @@ const beispiele = [
   li[data-ok="1"] .snap-mark { display:block; background:#21a366 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
   li[data-ok="0"] .snap-mark { display:block; background:#1B2B44 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
   li[data-ok="x"] .snap-lg { opacity:.45; }
+  /* Platz statt Haken: 1 = gruen, spaeter = gelb */
+  li[data-ok="1"][data-rank] .snap-mark { background-image:none; font:800 11px/16px system-ui,sans-serif; font-style:normal; color:#fff; text-align:center; }
+  li[data-ok="1"][data-rank]:not([data-rank="1"]) .snap-mark { background-color:#F5B83D; color:#0F1B2D; }
+  li[data-ok="1"][data-rank] .snap-mark::before { content:attr(data-n); }
+  .snap-sysp { display:block; margin-top:2px; font-size:11px; font-weight:600; color:#fff; opacity:.8; }
+  .snap-find { margin-top:18px; background:#fff; color:#0F1B2D; border-radius:14px; padding:14px 16px; }
+  .snap-find-h { margin:0 0 8px; font-size:15px; font-weight:800; }
+  .snap-find-l { margin:0; padding:0 0 0 18px; font-size:14px; line-height:1.45; }
+  .snap-find-l :global(li) { margin:0 0 6px; }
+  .snap-find-l :global(strong) { font-weight:800; }
+  .snap-find-s { margin:8px 0 0; font-size:13px; font-weight:700; color:hsl(var(--cta-strong)); }
   .snap-sysl { color:#fff; opacity:.9; }
   .snap-firms { margin-top:18px; }
   .snap-firms-h { margin:0 0 8px; font-size:15px; font-weight:700; }
   .snap-firms-l { display:flex; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0; }
   /* per Skript erzeugt -> ohne Astro-Scope-Attribut, daher :global */
   .snap-firms-l :global(li) { background:#fff; color:#0F1B2D; border-radius:999px; padding:5px 12px; font-size:14px; font-weight:700; }
+  .snap-firms-l :global(li.is-own) { background:#0F1B2D; color:#fff; box-shadow:0 0 0 2px #fff; }
+  .snap-firms-l :global(li.is-own small) { color:#fff; opacity:.75; }
   .snap-firms-l :global(small) { font-weight:600; color:#5B6B82; margin-left:5px; }
   .snap-disc { margin:14px 0 0; font-size:11.5px; line-height:1.45; opacity:.8; }
   .snap-unlock { margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,.3); }
@@ -261,23 +281,61 @@ const beispiele = [
         checkId = res.check_id;
         ($('[data-stand]') as HTMLElement).textContent = res.stand;
         ($('[data-stand2]') as HTMLElement).textContent = res.stand;
+        ($('[data-q]') as HTMLElement).textContent = res.frage || '';
         ($('[data-dom]') as HTMLElement).textContent = res.marke && res.marke !== res.domain ? `${res.marke} · ${res.domain}` : res.domain;
-        ($('[data-head]') as HTMLElement).textContent = res.genannt === 0
-          ? `In keinem von ${res.von} KI-Systemen genannt.`
-          : `In ${res.genannt} von ${res.von} KI-Systemen genannt.`;
-        (res.systeme || []).forEach((s: any) => {
-          const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`);
-          if (li) li.setAttribute('data-ok', !s.antwort ? 'x' : s.genannt ? '1' : '0');
+        const g = res.genannt, von = res.von, e1 = res.erste_stelle ?? 0;
+        ($('[data-head]') as HTMLElement).textContent =
+          g === 0 ? `In keinem von ${von} KI-Systemen genannt.`
+          : (g === von && e1 === von) ? `In allen ${von} KI-Systemen genannt – jedes Mal an erster Stelle.`
+          : e1 === g ? `In ${g} von ${von} KI-Systemen genannt – dort jeweils an erster Stelle.`
+          : e1 === 0 ? `In ${g} von ${von} KI-Systemen genannt – aber nie an erster Stelle.`
+          : `In ${g} von ${von} KI-Systemen genannt – aber nur ${e1}× an erster Stelle.`;
+        const sys = res.systeme || [];
+        sys.forEach((s: any) => {
+          const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`) as HTMLElement | null;
+          if (!li) return;
+          li.setAttribute('data-ok', !s.antwort ? 'x' : s.genannt ? '1' : '0');
+          const mk = li.querySelector('.snap-mark') as HTMLElement, pl = li.querySelector('[data-p]') as HTMLElement;
+          if (s.genannt && s.platz) { li.setAttribute('data-rank', String(s.platz)); mk.setAttribute('data-n', String(s.platz)); }
+          else { li.removeAttribute('data-rank'); mk.removeAttribute('data-n'); }
+          pl.textContent = !s.antwort ? 'keine Antwort' : !s.genannt ? 'nicht genannt' : s.platz ? `Platz ${s.platz}` : 'genannt';
         });
+        // Befund: was fehlt?
+        const esc = (t: string) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' } as any)[c]);
+        const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}` : (a[0] || '');
+        const punkte: string[] = [];
+        const spaet = sys.filter((s: any) => s.genannt && s.platz > 1).sort((a: any, b: any) => b.platz - a.platz);
+        if (spaet[0]) punkte.push(`Bei <strong>${esc(spaet[0].label)}</strong> stehen Sie erst an <strong>${spaet[0].platz}. Stelle</strong> – nach ${esc(liste(spaet[0].vor || []))}.`);
+        if (spaet[1]) punkte.push(`Bei <strong>${esc(spaet[1].label)}</strong> an ${spaet[1].platz}. Stelle – nach ${esc(liste(spaet[1].vor || []))}.`);
+        const fehlt = sys.filter((s: any) => s.antwort && !s.genannt);
+        const gf = fehlt.find((s: any) => s.key === 'google_ai_mode');
+        if (gf && g > 0) punkte.push(`<strong>Google AI Mode</strong> nennt Sie gar nicht – die KI direkt in der Google-Suche, wo viele Einkäufer ihre Recherche beginnen.`);
+        const andere = fehlt.filter((s: any) => s.key !== 'google_ai_mode' || g === 0).map((s: any) => s.label);
+        if (andere.length && g > 0) punkte.push(`<strong>${esc(liste(andere))}</strong> ${andere.length > 1 ? 'nennen' : 'nennt'} Sie nicht.`);
+        const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
+        if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
+          punkte.push(`Als Quellen stützen sich die KI-Systeme auf <strong>${esc(liste(qd))}</strong> – Ihre eigene Website ${res.eigene_quelle_n === 0 ? '<strong>kein einziges Mal</strong>' : `nur <strong>${res.eigene_quelle_n}×</strong>`}.`);
+        }
+        const top = (res.rangliste || []).find((r: any) => !r.eigen);
+        const eigenR = (res.rangliste || []).find((r: any) => r.eigen);
+        if (top && (!eigenR || top.anzahl > eigenR.anzahl || top.erste > eigenR.erste)) {
+          if (!punkte.length || g === 0) punkte.push(`<strong>${esc(top.name)}</strong> wird ${top.anzahl}× genannt${top.erste ? `, davon ${top.erste}× an erster Stelle` : ''}.`);
+        }
+        if (!punkte.length) punkte.push('Starke Position – bei dieser einen Frage. KI-Antworten ändern sich laufend; wer vorn ist, muss es halten.');
+        ($('[data-findh]') as HTMLElement).textContent = (g === von && e1 === von && punkte.length === 1) ? 'Einordnung:' : 'Wo es hakt:';
+        ($('[data-find]') as HTMLElement).innerHTML = punkte.slice(0, 4).map((t) => `<li>${t}</li>`).join('');
+        ($('[data-findbox]') as HTMLElement).hidden = false;
+        // Rangliste inkl. eigener Marke
         const firms = $('[data-firms]'); firms.innerHTML = '';
-        (res.empfohlen || []).forEach((f: any) => {
-          const li = document.createElement('li'); li.textContent = f.name;
+        const rl = (res.rangliste && res.rangliste.length) ? res.rangliste : (res.empfohlen || []);
+        rl.forEach((f: any) => {
+          const li = document.createElement('li'); li.textContent = f.name; if (f.eigen) li.className = 'is-own';
           const sm = document.createElement('small'); sm.textContent = `${f.anzahl}×`; li.appendChild(sm); firms.appendChild(li);
         });
-        ($('[data-firmsh]') as HTMLElement).textContent = res.genannt === res.von ? 'Ebenfalls genannt:' : 'Stattdessen empfohlen:';
-        ($('[data-firmsbox]') as HTMLElement).hidden = !(res.empfohlen || []).length;
+        ($('[data-firmsh]') as HTMLElement).textContent = g === 0 ? 'Stattdessen empfohlen:' : 'So verteilen sich die Nennungen:';
+        ($('[data-firmsbox]') as HTMLElement).hidden = !rl.length;
         setState('res');
-        dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, cached: !!res.cached, source: root.dataset.source });
+        dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
       });
 
       send.addEventListener('click', async () => {
