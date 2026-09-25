@@ -37,6 +37,7 @@ const t = isEn
       lastname: 'Last name',
       email: 'Email address',
       submit: 'Secure your place →',
+      sending: 'Sending …',
       privacy: 'Privacy Policy',
       thanks: 'Almost there!',
     }
@@ -50,6 +51,7 @@ const t = isEn
       lastname: 'Name',
       email: 'E-Mail-Adresse',
       submit: 'Platz sichern →',
+      sending: 'Wird gesendet …',
       privacy: 'Datenschutzerklärung',
       thanks: 'Fast geschafft!',
     };
@@ -120,7 +122,11 @@ const msgs = isEn
           ? <span>CodaAI may contact me in connection with this webinar registration. See the <a href={privacyHref} target="_blank" rel="noopener">{t.privacy}</a> for details.</span>
           : <span>CodaAI darf mich im Zuge der Webinaranmeldung kontaktieren. Hinweise in der <a href={privacyHref} target="_blank" rel="noopener">{t.privacy}</a>.</span>}
       </label>
-      <button type="button" class="wacta-submit" data-submit>{t.submit}</button>
+      <button type="button" class="wacta-submit" data-submit>
+        <span class="wacta-spin" aria-hidden="true"></span>
+        <span class="wacta-lbl">{t.submit}</span>
+        <span class="wacta-busy">{t.sending}</span>
+      </button>
     </div>
 
     <p class="wacta-err" data-err hidden></p>
@@ -229,7 +235,17 @@ const msgs = isEn
   .wacta[data-state="sending"] .wacta-form { max-width:520px; opacity:1; pointer-events:auto; }
   .wacta[data-state="contact"] .wacta-contact,
   .wacta[data-state="sending"] .wacta-contact { max-height:360px; opacity:1; margin-top:10px; }
-  .wacta[data-state="sending"] .wacta-submit { opacity:.6; pointer-events:none; }
+  /* Lade-Zustand beim Absenden — 1:1 wie das Anfrageformular auf /visibility-circle
+     (.vc-btn.is-busy + .vc-spin, 25.09.2026): weisser Ring dreht sich vor
+     „Wird gesendet …", Knopf bleibt farbig, nur leicht gedimmt. */
+  .wacta-spin, .wacta-busy { display:none; }
+  .wacta-spin { width:1rem; height:1rem; border-radius:99px; flex:0 0 auto;
+    border:2px solid rgba(255,255,255,.45); border-top-color:#fff; animation:wacta-rot .8s linear infinite; }
+  @keyframes wacta-rot { to { transform:rotate(360deg); } }
+  .wacta[data-state="sending"] .wacta-submit { opacity:.85; cursor:progress; pointer-events:none; transform:none; }
+  .wacta[data-state="sending"] .wacta-spin { display:inline-block; }
+  .wacta[data-state="sending"] .wacta-lbl { display:none; }
+  .wacta[data-state="sending"] .wacta-busy { display:inline; }
   .wacta[data-state="done"] .wacta-done { display:flex; }
 
   @media (max-width:520px) { .wacta-trigger { width:100%; justify-content:center; } }
@@ -275,7 +291,11 @@ const msgs = isEn
       var emailIn = q('[data-email]'), consentIn = q('[data-consent]'), hp = q('[data-hp]');
       var err = q('[data-err]'), formEl = root.querySelector('[data-form]');
       if (formEl) formEl.addEventListener('submit', function (e) { e.preventDefault(); });
-      var setState = function (s) { root.setAttribute('data-state', s); };
+      var setState = function (s) {
+        root.setAttribute('data-state', s);
+        // Knopf nach Fehler/Erfolg wieder freigeben (Lade-Zustand haengt an 'sending').
+        if (s !== 'sending' && submitBtn) { submitBtn.disabled = false; submitBtn.removeAttribute('aria-busy'); }
+      };
       var showErr = function (m) { if (err) { err.innerHTML = m; err.hidden = false; } };
       var clearErr = function () { if (err) err.hidden = true; };
       if (openBtn) openBtn.addEventListener('click', function () { setState('url'); setTimeout(function () { if (urlIn) urlIn.focus(); }, 420); });
@@ -325,6 +345,7 @@ const msgs = isEn
         if (!consentIn || !consentIn.checked) { showErr(msg('consent')); return; }
         if (hp && hp.value) { setState('done'); return; }
         setState('sending');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.setAttribute('aria-busy', 'true'); }
         var lang = 'de';
         try { lang = document.documentElement.lang || 'de'; } catch (e) {}
         // cache:'reload' ist Pflicht, nicht Kosmetik. Die /exec-URL antwortet mit
