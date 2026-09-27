@@ -244,6 +244,7 @@ const beispiele = [
   .snap-cb a { color:inherit; text-decoration:underline; }
   .snap-cb em { font-style:normal; color:hsl(var(--muted-foreground)); }
   .snap-send { margin-top:6px; }
+  .snap-err :global(.snap-errlink) { color:inherit; font-weight:700; text-decoration:underline; text-underline-offset:2px; white-space:nowrap; }
   .snap-err--res { color:#A1242B; background:#FDE7E7; border-radius:8px; padding:8px 10px; }
   .snap-done { margin-top:20px; background:#E3F4EA; color:#0F3D25; border-radius:14px; padding:16px; font-size:15px; }
   .snap-again { margin-top:16px; background:none; border:0; color:hsl(var(--muted-foreground)); text-decoration:underline; font-size:14px; cursor:pointer; padding:0; }
@@ -441,6 +442,12 @@ const beispiele = [
             frage.focus();
           } else {
             show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
+            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Textlink zur Termin-Sektion
+              const a = document.createElement('a');
+              a.href = '/#termin'; a.textContent = 'Termin vereinbaren →'; a.className = 'snap-errlink';
+              a.addEventListener('click', () => dl.push({ event: 'snapshot_limit_termin', lang, source: root.dataset.source }));
+              err.append(' ', a);
+            }
             if (res && res.feld === 'domain') dom.focus();
           }
           return;
