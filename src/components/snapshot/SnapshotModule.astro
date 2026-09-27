@@ -86,6 +86,15 @@ const beispiele = [
     </ul>
     <div class="snap-bar"><span></span></div>
     <p class="snap-load-sub" data-loadsub>„<span data-qecho></span>“</p>
+    <div class="snap-tech" data-techbox>
+      <p class="snap-tech-h">Parallel prüfen wir Ihre Website:</p>
+      <ul class="snap-tech-l" data-techl>
+        <li data-tk="crawler"><i></i><span>Dürfen KI-Systeme Ihre Website lesen?</span></li>
+        <li data-tk="schema"><i></i><span>Versteht die KI, wer Sie sind? (strukturierte Daten)</span></li>
+        <li data-tk="text"><i></i><span>Sind Ihre Inhalte ohne JavaScript lesbar?</span></li>
+        <li data-tk="llms"><i></i><span>Gibt es eine llms.txt für KI-Systeme?</span></li>
+      </ul>
+    </div>
   </div>
 
   <div class="snap-res" data-res aria-live="polite">
@@ -97,6 +106,7 @@ const beispiele = [
         <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
+    <p class="snap-vs" data-vs hidden></p>
     <div class="snap-find" data-findbox hidden>
       <p class="snap-h" data-findh>Verbesserungsbedarf</p>
       <dl class="snap-find-l" data-find></dl>
@@ -105,6 +115,15 @@ const beispiele = [
     <div class="snap-ber" data-ber hidden>
       <p class="snap-ber-h" data-berh></p>
       <div class="snap-ber-l" data-berl></div>
+    </div>
+    <div class="snap-cov" data-cov hidden>
+      <p class="snap-cov-t" data-covt></p>
+      <div class="snap-cov-bar"><span data-covbar></span></div>
+    </div>
+    <div class="snap-audit" data-audit hidden>
+      <p class="snap-audit-h">Digital Visibility Audit</p>
+      <p class="snap-audit-p" data-auditp></p>
+      <a class="snap-audit-a" href="/#termin" data-audita>Termin für das Audit vereinbaren →</a>
     </div>
     <p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>
 
@@ -213,7 +232,32 @@ const beispiele = [
   .snap-also { margin:14px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
   .snap-also :global(b) { font-weight:700; color:hsl(var(--foreground)); }
   .snap-disc { margin:12px 0 0; font-size:11.5px; line-height:1.45; color:hsl(var(--muted-foreground)); }
-  .snap-ber[hidden], .snap-mini[hidden], .snap-open[hidden] { display:none; }
+  .snap-ber[hidden], .snap-mini[hidden], .snap-open[hidden], .snap-vs[hidden], .snap-cov[hidden], .snap-audit[hidden] { display:none; }
+  .snap-tech { margin-top:18px; text-align:left; border-top:1px solid hsl(var(--border)); padding-top:14px; }
+  .snap-tech-h { margin:0 0 8px; font-size:13px; font-weight:700; color:hsl(var(--muted-foreground)); }
+  .snap-tech-l { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .snap-tech-l li { display:flex; align-items:center; gap:10px; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-tech-l li i { flex-shrink:0; width:18px; height:18px; border-radius:50%; border:2px solid hsl(var(--border)); border-top-color:hsl(var(--cta)); animation:snap-spin .8s linear infinite; font-style:normal; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .snap-tech-l li[data-ok] i { animation:none; border:0; color:#fff; }
+  .snap-tech-l li[data-ok="1"] i { background:#21635F; }
+  .snap-tech-l li[data-ok="1"] i::after { content:"✓"; }
+  .snap-tech-l li[data-ok="0"] i { background:#A1242B; }
+  .snap-tech-l li[data-ok="0"] i::after { content:"!"; }
+  .snap-tech-l li[data-ok="x"] i { background:hsl(var(--border)); }
+  .snap-tech-l li[data-ok="0"] span { font-weight:700; }
+  @keyframes snap-spin { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .snap-tech-l li i { animation:none; } }
+  .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:#FDE7E7; color:#8C2F21; font-size:14.5px; line-height:1.45; }
+  .snap-vs :global(b) { font-weight:800; }
+  .snap-cov { margin:18px 0 0; }
+  .snap-cov-t { margin:0 0 6px; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-cov-t :global(b) { font-weight:800; }
+  .snap-cov-bar { height:8px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
+  .snap-cov-bar span { display:block; height:100%; min-width:6px; background:hsl(var(--cta)); border-radius:99px; }
+  .snap-audit { margin:18px 0 0; padding:16px; border-radius:14px; background:hsl(var(--foreground)); color:#fff; }
+  .snap-audit-h { margin:0 0 4px; font-size:16px; font-weight:800; }
+  .snap-audit-p { margin:0 0 10px; font-size:14px; line-height:1.5; color:hsl(0 0% 100% / .88); }
+  .snap-audit-a { display:inline-block; color:#fff; font-weight:700; font-size:14.5px; text-decoration:underline; text-underline-offset:3px; }
   .snap-ber { margin:18px 0 0; padding:16px; border-radius:14px; border:1px solid hsl(var(--border)); }
   .snap-ber[data-lvl="gut"] { border-color:hsl(var(--cta) / .45); background:hsl(var(--cta) / .05); }
   .snap-ber-h { margin:0 0 10px; font-size:15px; font-weight:700; color:hsl(var(--foreground)); }
@@ -420,6 +464,17 @@ const beispiele = [
         ($('[data-qecho]') as HTMLElement).textContent = q;
         setState('load');
         dl.push({ event: 'snapshot_start', lang, source: root.dataset.source });
+        // Technik-Check parallel zur Messung (Ladebildschirm)
+        let technik: any[] = [];
+        root.querySelectorAll<HTMLElement>('[data-techl] li').forEach((li) => li.removeAttribute('data-ok'));
+        const techP = fetch(API + '/ai/frage/technik', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ domain: d, test_key: testKey || undefined }) }).then((r) => r.json()).then((j) => {
+            technik = j.pruefungen || [];
+            technik.forEach((t: any, i: number) => setTimeout(() => {
+              const li = root.querySelector(`[data-techl] [data-tk="${t.key}"]`);
+              if (li) li.setAttribute('data-ok', t.ok === true ? '1' : t.ok === false ? '0' : 'x');
+            }, 900 + i * 900));
+          }).catch(() => {});
         let res: any = null;
         try {
           const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 75000);
@@ -498,8 +553,11 @@ const beispiele = [
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
           zeilen.push(['Quellen', `Ihre Website ${res.eigene_quelle_n === 0 ? 'wird nicht' : `nur ${res.eigene_quelle_n}×`} zitiert – stattdessen ${liste(qd)}.`]);
         }
+        const tech = (res.technik && res.technik.length ? res.technik : technik) || [];
+        const techFehlt = tech.filter((t: any) => t.ok === false);
+        techFehlt.forEach((t: any) => zeilen.push(['Technik', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
-        zeilen.slice(0, 4).forEach(([t, d]) => {
+        zeilen.slice(0, 6).forEach(([t, d]) => {
           const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
           dt.textContent = t; dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
@@ -532,6 +590,31 @@ const beispiele = [
           });
         }
         ber.hidden = !bl.length;
+        // Wettbewerber im direkten Vergleich
+        const vs = $('[data-vs]') as HTMLElement; vs.innerHTML = '';
+        const top = fremde[0];
+        if (top && top.anzahl > g) {
+          const b1 = document.createElement('b'), b2 = document.createElement('b');
+          b1.textContent = top.name; b2.textContent = g === 0 ? 'Sie gar nicht' : `Sie ${g}×`;
+          vs.append(b1, document.createTextNode(` wird ${top.anzahl}× von ${von} KI-Systemen genannt – `), b2, document.createTextNode('.'));
+        }
+        vs.hidden = !vs.childNodes.length;
+        // Abdeckung
+        const nF = res.fragen_geschaetzt || 0, cov = $('[data-cov]') as HTMLElement;
+        if (nF >= 20) {
+          ($('[data-covt]') as HTMLElement).innerHTML = '';
+          const bb = document.createElement('b'); bb.textContent = `1 von rund ${nF}`;
+          ($('[data-covt]') as HTMLElement).append('Geprüft: ', bb, ' typischen Kundenfragen zu Ihrem Angebot (Schätzung).');
+          ($('[data-covbar]') as HTMLElement).style.width = `${Math.max(100 / nF, 1.5)}%`;
+        }
+        cov.hidden = nF < 20;
+        // Audit mit konkretem Inhalt
+        const nB = (res.bereiche || []).length + 1, nT = techFehlt.length;
+        ($('[data-auditp]') as HTMLElement).textContent =
+          `Wir prüfen ${nB > 1 ? `Ihre ${nB} Geschäftsbereiche` : 'Ihr gesamtes Angebot'} mit je 8 Kundenfragen in allen 5 KI-Systemen, zeigen die Quellen, auf die sich die KI stützt` +
+          (nT ? `, und beheben mit Ihnen ${nT === 1 ? 'den technischen Befund' : `die ${nT} technischen Befunde`} von eben.` : ', und leiten konkrete Maßnahmen ab.') +
+          ' Im 30-minütigen Gespräch.';
+        ($('[data-audit]') as HTMLElement).hidden = false;
         const fw = $('[data-formwrap]') as HTMLElement;
         if (hilfeAn) {
           fw.classList.add('is-kurz'); fw.hidden = false; ($('[data-open]') as HTMLElement).hidden = true;
@@ -569,6 +652,7 @@ const beispiele = [
         dl.push({ event: 'snapshot_unlock', lang, marketing: c2, source: root.dataset.source });
       });
 
+      ($('[data-audita]') as HTMLElement).addEventListener('click', () => dl.push({ event: 'snapshot_audit_klick', lang, source: root.dataset.source }));
       ($('[data-open]') as HTMLElement).addEventListener('click', () => {
         ($('[data-open]') as HTMLElement).hidden = true;
         ($('[data-formwrap]') as HTMLElement).hidden = false;
