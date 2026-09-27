@@ -87,12 +87,14 @@ const beispiele = [
     <div class="snap-bar"><span></span></div>
     <p class="snap-load-sub" data-loadsub>„<span data-qecho></span>“</p>
     <div class="snap-tech" data-techbox>
-      <p class="snap-tech-h">Parallel prüfen wir Ihre Website:</p>
+      <p class="snap-tech-h">Parallel prüfen wir, ob KI-Systeme Sie lesen und verstehen können:</p>
       <ul class="snap-tech-l" data-techl>
         <li data-tk="crawler"><i></i><span>Dürfen KI-Systeme Ihre Website lesen?</span></li>
-        <li data-tk="schema"><i></i><span>Versteht die KI, wer Sie sind? (strukturierte Daten)</span></li>
-        <li data-tk="text"><i></i><span>Sind Ihre Inhalte ohne JavaScript lesbar?</span></li>
-        <li data-tk="llms"><i></i><span>Gibt es eine llms.txt für KI-Systeme?</span></li>
+        <li data-tk="schutz"><i></i><span>Lässt Ihr Website-Schutz sie durch?</span></li>
+        <li data-tk="text"><i></i><span>Sehen sie Ihre Inhalte ohne JavaScript?</span></li>
+        <li data-tk="klar"><i></i><span>Ist klar erkennbar, was Sie anbieten?</span></li>
+        <li data-tk="aktuell"><i></i><span>Wie aktuell sind Ihre Inhalte?</span></li>
+        <li data-tk="schema"><i></i><span>Sind Ihre Firmendaten maschinenlesbar?</span></li>
       </ul>
     </div>
   </div>
@@ -107,6 +109,10 @@ const beispiele = [
       ))}
     </ul>
     <p class="snap-vs" data-vs hidden></p>
+    <div class="snap-sb" data-sb hidden>
+      <p class="snap-sb-h"><span>So beschreibt <span data-sbsys>ChatGPT</span> Ihr Unternehmen <small>(ohne Websuche)</small></span> <span class="snap-sb-u" data-sbu></span></p>
+      <p class="snap-sb-t">„<span data-sbt></span>“</p>
+    </div>
     <div class="snap-find" data-findbox hidden>
       <p class="snap-h" data-findh>Verbesserungsbedarf</p>
       <dl class="snap-find-l" data-find></dl>
@@ -247,6 +253,13 @@ const beispiele = [
   .snap-tech-l li[data-ok="0"] span { font-weight:700; }
   @keyframes snap-spin { to { transform:rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .snap-tech-l li i { animation:none; } }
+  .snap-sb { margin:14px 0 0; padding:12px 14px; border-radius:10px; border:1px solid hsl(var(--border)); text-align:left; }
+  .snap-sb-h { margin:0 0 6px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 10px; font-size:13.5px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-sb-h small { font-weight:500; color:hsl(var(--muted-foreground)); }
+  .snap-sb-u { font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:#E6F4EC; color:#1B6B43; }
+  .snap-sb[data-u="ungenau"] .snap-sb-u { background:#FDF1D8; color:#8A5A00; }
+  .snap-sb[data-u="falsch"] .snap-sb-u, .snap-sb[data-u="unbekannt"] .snap-sb-u { background:#FDE7E7; color:#8C2F21; }
+  .snap-sb-t { margin:0; font-size:14.5px; line-height:1.5; font-style:italic; color:hsl(var(--muted-foreground)); }
   .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:#FDE7E7; color:#8C2F21; font-size:14.5px; line-height:1.45; }
   .snap-vs :global(b) { font-weight:800; }
   .snap-cov { margin:18px 0 0; }
@@ -473,7 +486,7 @@ const beispiele = [
             technik.forEach((t: any, i: number) => setTimeout(() => {
               const li = root.querySelector(`[data-techl] [data-tk="${t.key}"]`);
               if (li) li.setAttribute('data-ok', t.ok === true ? '1' : t.ok === false ? '0' : 'x');
-            }, 900 + i * 900));
+            }, 700 + i * 700));
           }).catch(() => {});
         let res: any = null;
         try {
@@ -553,11 +566,23 @@ const beispiele = [
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
           zeilen.push(['Quellen', `Ihre Website ${res.eigene_quelle_n === 0 ? 'wird nicht' : `nur ${res.eigene_quelle_n}×`} zitiert – stattdessen ${liste(qd)}.`]);
         }
-        const tech = (res.technik && res.technik.length ? res.technik : technik) || [];
+        const sb = res.steckbrief || {}, sbBox = $('[data-sb]') as HTMLElement;
+        const sbTxt: Record<string, [string, string]> = {
+          richtig: ['Zutreffend', ''], ungenau: ['Ungenau', 'beschreibt Ihr Angebot ungenau (ohne Websuche).'],
+          falsch: ['Falsch', 'beschreibt Ihr Unternehmen falsch (ohne Websuche).'], unbekannt: ['Kennt Sie nicht', 'kennt Ihr Unternehmen nicht (ohne Websuche).'] };
+        if (sb.text && sbTxt[sb.urteil]) {
+          ($('[data-sbsys]') as HTMLElement).textContent = sb.system || 'ChatGPT';
+          ($('[data-sbt]') as HTMLElement).textContent = sb.text;
+          ($('[data-sbu]') as HTMLElement).textContent = sbTxt[sb.urteil][0];
+          sbBox.setAttribute('data-u', sb.urteil);
+          if (sb.urteil !== 'richtig') zeilen.push(['Bekanntheit', `${sb.system || 'ChatGPT'} ${sbTxt[sb.urteil][1]}`]);
+        }
+        sbBox.hidden = !(sb.text && sbTxt[sb.urteil]);
+        const tech = ((res.technik && res.technik.length ? res.technik : technik) || []).filter((t: any) => t.key !== 'llms');
         const techFehlt = tech.filter((t: any) => t.ok === false);
         techFehlt.forEach((t: any) => zeilen.push(['Technik', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
-        zeilen.slice(0, 6).forEach(([t, d]) => {
+        zeilen.slice(0, 7).forEach(([t, d]) => {
           const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
           dt.textContent = t; dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
