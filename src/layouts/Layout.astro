@@ -194,7 +194,7 @@ const csp = [
   // Fonts are self-hosted â no external font CDN needed
   "font-src 'self'",
   // Local images + data: URIs + GA4 measurement pixel
-  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://px.ads.linkedin.com",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://px.ads.linkedin.com https://audit.codaai.ai",
   // Supabase + GA4 data collection endpoints + GTM
   "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://script.google.com https://script.googleusercontent.com https://audit.codaai.ai https://px.ads.linkedin.com",
   // GTM noscript fallback iframe; no other frames allowed
