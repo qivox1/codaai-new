@@ -74,6 +74,17 @@ const beispiele = [
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <p class="snap-err" data-err role="alert" hidden></p>
+    <div class="snap-lim" data-lim hidden>
+      <p class="snap-lim-t" data-limt></p>
+      <button type="button" class="snap-send" data-limbtn>Digital Visibility Audit anfordern <span aria-hidden="true">→</span></button>
+      <div class="snap-lim-f" data-limf hidden>
+        <label class="snap-amail snap-amail--hell" data-limmailw><input data-limmail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="vorname.nachname" aria-label="Geschäftliche E-Mail-Adresse" /><span data-limat></span></label>
+        <button type="button" class="snap-send" data-limsend>Vollständiges Audit senden <span aria-hidden="true">→</span></button>
+        <p class="snap-aerr" data-limerr role="alert" hidden></p>
+        <p class="snap-lim-mini"><a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
+      </div>
+      <p class="snap-lim-done" data-limdone hidden></p>
+    </div>
     <p class="snap-micro">Kostenlos · rund 20 Sekunden · Ergebnis ohne Anmeldung</p>
   </form>
 
@@ -289,6 +300,14 @@ const beispiele = [
   .snap-amail input { flex:1; min-width:0; border:0; padding:14px 4px 14px 14px; font-size:16px; color:#131A2B; background:transparent; outline:none; }
   .snap-amail span { display:flex; align-items:center; padding:0 14px 0 2px; font-size:16px; color:#56627A; white-space:nowrap; }
   .snap-amail.is-voll span { display:none; }
+  .snap-amail--hell { border-color:hsl(var(--border)); }
+  .snap-lim { margin:12px 0 0; padding:14px; border-radius:12px; border:1px solid hsl(var(--cta) / .35); background:hsl(var(--cta) / .05); text-align:left; }
+  .snap-lim[hidden], .snap-lim-f[hidden], .snap-lim-done[hidden], [data-limbtn][hidden] { display:none; }
+  .snap-lim-t { margin:0 0 10px; font-size:14.5px; line-height:1.5; color:hsl(var(--foreground)); }
+  .snap-lim-f .snap-send { margin-top:8px; }
+  .snap-lim-mini { margin:8px 0 0; font-size:12.5px; text-align:center; }
+  .snap-lim-mini a { color:hsl(var(--muted-foreground)); }
+  .snap-lim-done { margin:0; font-size:14.5px; line-height:1.5; color:hsl(var(--foreground)); }
   .snap-amail.is-voll input { padding-right:14px; }
   .snap-aform .snap-send { margin-top:10px; padding:17px 18px; font-size:17px; font-weight:800; box-shadow:0 10px 24px -10px hsl(var(--cta) / .8); }
   .snap-aerr { margin:10px 0 0; padding:9px 12px; border-radius:10px; background:#FBE3F8; color:#7A0A8C; font-size:13.5px; line-height:1.45; }
@@ -497,6 +516,7 @@ const beispiele = [
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
         show(err, '');
+        ($('[data-lim]') as HTMLElement).hidden = true;
         const d = dom.value.trim(), q = frage.value.trim().replace(/\s+/g, ' ');
         if (!d) return show(err, 'Bitte geben Sie Ihre Website an.');
         if (q.length < 25) { frage.focus(); return hinweis('Bitte formulieren Sie eine ganze Frage (mindestens 25 Zeichen).'); }
@@ -555,12 +575,16 @@ const beispiele = [
             hinweis(res.hinweis || 'Bitte formulieren Sie die Frage anders.', res.vorschlag || '', !!res.weiter);
             frage.focus();
           } else {
-            show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
-            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Textlink zur Termin-Sektion
-              const a = document.createElement('a');
-              a.href = '/#termin'; a.textContent = 'Termin vereinbaren →'; a.className = 'snap-errlink';
-              a.addEventListener('click', () => dl.push({ event: 'snapshot_limit_termin', lang, source: root.dataset.source }));
-              err.append(' ', a);
+            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Audit direkt anfordern
+              show(err, '');
+              limDomain = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'Für eine vollständige Analyse bestellen Sie bitte Ihr Digital Visibility Audit.';
+              ($('[data-limat]') as HTMLElement).textContent = '@' + limDomain;
+              ($('[data-limbtn]') as HTMLElement).hidden = false; ($('[data-limf]') as HTMLElement).hidden = true;
+              ($('[data-limdone]') as HTMLElement).hidden = true; ($('[data-lim]') as HTMLElement).hidden = false;
+              dl.push({ event: 'snapshot_limit', lang, source: root.dataset.source });
+            } else {
+              show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
             }
             if (res && res.feld === 'domain') dom.focus();
           }
@@ -684,6 +708,36 @@ const beispiele = [
         ($('[data-audit]') as HTMLElement).hidden = false;
         setState('res');
         dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
+      });
+
+      let limDomain = '';
+      const limMail = $('[data-limmail]') as HTMLInputElement, limSend = $<HTMLButtonElement>('[data-limsend]'), limErr = $('[data-limerr]') as HTMLElement;
+      ($('[data-limbtn]') as HTMLElement).addEventListener('click', () => {
+        ($('[data-limbtn]') as HTMLElement).hidden = true; ($('[data-limf]') as HTMLElement).hidden = false; limMail.focus();
+        dl.push({ event: 'snapshot_limit_audit_offen', lang, source: root.dataset.source });
+      });
+      limMail.addEventListener('input', () => ($('[data-limmailw]') as HTMLElement).classList.toggle('is-voll', limMail.value.includes('@')));
+      limMail.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); limSend.click(); } });
+      limSend.addEventListener('click', async () => {
+        show(limErr, '');
+        const v = limMail.value.trim().replace(/\s+/g, '');
+        const mail = v.includes('@') ? v : (v ? `${v}@${limDomain}` : '');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { limMail.focus(); return show(limErr, 'Bitte geben Sie Ihre geschäftliche E-Mail-Adresse an.'); }
+        limSend.disabled = true;
+        let r2: any = null;
+        try {
+          const r = await fetch(API + '/ai/frage/freischalten', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ domain: limDomain, name: '', email: mail, audit: true, einwilligung_ergebnis: true,
+                                   einwilligung_version: '2026-09-27-audit-v1', test_key: testKey || undefined,
+                                   website_url: ($('[data-hp]') as HTMLInputElement).value }) });
+          r2 = await r.json();
+        } catch (e) { r2 = { status: 'error', hinweis: 'Die Verbindung ist fehlgeschlagen. Bitte erneut versuchen.' }; }
+        limSend.disabled = false;
+        if (!r2 || r2.status !== 'ok') return show(limErr, (r2 && r2.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
+        ($('[data-limf]') as HTMLElement).hidden = true;
+        const dn = $('[data-limdone]') as HTMLElement; dn.hidden = false;
+        dn.textContent = `Fast geschafft. Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihr Audit und senden es Ihnen zu.`;
+        dl.push({ event: 'snapshot_audit_anfrage', quelle: 'limit', lang, source: root.dataset.source });
       });
 
       let auditDomain = '';
