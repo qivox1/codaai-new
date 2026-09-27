@@ -139,18 +139,18 @@ const beispiele = [
       <div class="snap-cov-bar"><span data-covbar></span></div>
     </div>
     <div class="snap-audit" data-audit hidden>
-      <p class="snap-audit-h">Das war nur eine Frage.<br />Ein <span class="snap-audit-pk">Digital Visibility Audit</span> zeigt das ganze Bild.</p>
+      <p class="snap-audit-h">Das war nur eine Frage.<br />Sehen Sie <span class="snap-audit-pk">das ganze Bild</span>.</p>
       <p class="snap-audit-c">Ihre Kunden fragen zuerst die KI. Wen sie nicht nennt, kommt auf keine Shortlist. <span data-auditbeweis></span></p>
-      <p class="snap-audit-p">Für <b data-auditd></b>:</p>
+      <p class="snap-audit-p">Digital Visibility Audit für <b data-auditd></b>:</p>
       <ul class="snap-audit-l">
         <li>Ihre Sichtbarkeit in der Suchmaschine und in KI-Systemen</li>
         <li>Konkreter Wettbewerbsvergleich</li>
-        <li>8 typische Kundenfragen in allen 5 KI-Systemen</li>
-        <li data-auditt>Die technischen Befunde mit konkreten Empfehlungen</li>
+        <li>Typische Kundenfragen in allen 5 KI-Systemen</li>
+        <li>Die technischen Befunde mit konkreten Empfehlungen</li>
       </ul>
       <div class="snap-aform" data-aform>
         <label class="snap-amail" data-amail><input data-mail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="vorname.nachname" aria-label="Geschäftliche E-Mail-Adresse" /><span data-at></span></label>
-        <button type="button" class="snap-send" data-send><span data-sendt>Vollständiges Audit senden</span> <span aria-hidden="true">→</span></button>
+        <button type="button" class="snap-send" data-send><span data-sendt>Das ganze Bild sehen</span> <span aria-hidden="true">→</span></button>
         <p class="snap-aerr" data-err2 role="alert" hidden></p>
         <p class="snap-amini"><a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
       </div>
@@ -730,8 +730,6 @@ const beispiele = [
         else if (lvl === 'gut') bw.textContent = 'Bei dieser Frage sind Sie vorn – in Ihren anderen Geschäftsbereichen auch?';
         else if (von - g > 0) bw.textContent = `Bei dieser Frage fehlen Sie in ${von - g} von ${von} KI-Systemen.`;
         else if (vorOft.length) mitNamen('Bei dieser Frage stehen oft ', vorOft, ' vor Ihnen.');
-        ($('[data-auditt]') as HTMLElement).textContent = nT > 1 ? `Die ${nT} technischen Befunde mit konkreten Empfehlungen`
-          : nT === 1 ? 'Den technischen Befund mit konkreten Empfehlungen' : 'Die technische Prüfung mit konkreten Empfehlungen';
         auditDomain = res.domain;
         ($('[data-at]') as HTMLElement).textContent = '@' + res.domain;
         const mi = $('[data-mail]') as HTMLInputElement; mi.value = ''; ($('[data-amail]') as HTMLElement).classList.remove('is-voll');
