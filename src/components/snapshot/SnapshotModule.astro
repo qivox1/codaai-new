@@ -213,7 +213,7 @@ const beispiele = [
   .snap-also { margin:14px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
   .snap-also :global(b) { font-weight:700; color:hsl(var(--foreground)); }
   .snap-disc { margin:12px 0 0; font-size:11.5px; line-height:1.45; color:hsl(var(--muted-foreground)); }
-  .snap-ber[hidden], .snap-mini[hidden] { display:none; }
+  .snap-ber[hidden], .snap-mini[hidden], .snap-open[hidden] { display:none; }
   .snap-ber { margin:18px 0 0; padding:16px; border-radius:14px; border:1px solid hsl(var(--border)); }
   .snap-ber[data-lvl="gut"] { border-color:hsl(var(--cta) / .45); background:hsl(var(--cta) / .05); }
   .snap-ber-h { margin:0 0 10px; font-size:15px; font-weight:700; color:hsl(var(--foreground)); }
@@ -225,7 +225,8 @@ const beispiele = [
   .snap-formwrap.is-kurz > * { grid-column:1 / -1; margin:0; }
   .snap-formwrap.is-kurz [data-namegrid], .snap-formwrap.is-kurz [data-c1wrap] { display:none; }
   .snap-formwrap.is-kurz [data-mail] { grid-column:1; order:1; }
-  .snap-formwrap.is-kurz .snap-send { grid-column:2; order:2; width:auto; white-space:nowrap; }
+  .snap-formwrap.is-kurz .snap-send { grid-column:2; order:2; width:auto; white-space:nowrap; padding:0 20px; font-size:15px; }
+  .snap-formwrap.is-kurz [data-mail] { min-width:0; }
   .snap-formwrap.is-kurz .snap-mini { order:3; font-size:12.5px; color:hsl(var(--muted-foreground)); }
   .snap-formwrap.is-kurz .snap-mini a { color:inherit; }
   .snap-formwrap.is-kurz [data-c2wrap] { order:4; }
