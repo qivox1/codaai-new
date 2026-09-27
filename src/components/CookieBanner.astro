@@ -1,181 +1,183 @@
 ---
 /**
- * CookieBanner.astro
+ * CookieBanner.astro — Einwilligung v2 (27.09.2026, vor dem LinkedIn-Kampagnenstart)
  *
- * DSGVO-konformer Cookie-Banner mit Google Consent Mode v2 Integration.
+ * Zwei Ebenen:
+ *  1. Banner: Ablehnen · Einstellungen · Alle akzeptieren (gleichwertig bedienbar)
+ *  2. Einstellungen: Notwendig (immer an), Statistik (GA4), Marketing (LinkedIn Insight Tag),
+ *     Komfort (letzte Snapshot-Prüfung im Browser merken) — einzeln wählbar
  *
- * Verhalten:
- * - Erstbesucher: Banner erscheint am unteren Bildschirmrand
- * - "Akzeptieren": Consent in localStorage gespeichert, GTM wird sofort geladen
- * - "Ablehnen": Consent gespeichert, GTM wird NICHT geladen (auch nicht beim Reload)
- * - Wiederkehrende Besucher: Banner bleibt versteckt, GTM-Entscheidung aus letztem Besuch
+ * Speicherung: localStorage 'codaai-consent-v2' = {"v":2,"statistik":bool,"marketing":bool,"komfort":bool,"ts":ISO}
+ * Die alte Einwilligung 'codaai-cookie-consent' (nur GA4) gilt für die neuen Zwecke nicht → Banner erscheint erneut.
  *
- * GTM wird immer erst NACH Zustimmung geladen (Consent Mode v2).
- * Das verbessert auch den PageSpeed-Score für Erstbesucher (kein externes GA4-Script).
+ * Wirkung:
+ *  - Consent Mode v2: statistik → analytics_storage; marketing → ad_storage, ad_user_data, ad_personalization
+ *  - GTM lädt nur, wenn statistik ODER marketing erteilt ist (Layout.astro + hier)
+ *  - dataLayer: {event:'consent_update', consent_statistik, consent_marketing, consent_komfort}
+ *    → in GTM: LinkedIn Insight Tag nur mit Trigger auf consent_marketing = true feuern lassen
+ *  - window.codaaiConsent(): liefert die aktuelle Auswahl (z. B. für das Merken der Snapshot-Prüfung)
+ *  - Buttons mit data-cookie-reset (Datenschutz-Seite, Footer) öffnen die Einstellungen
  */
-
-interface Props {
-  lang: 'de' | 'en';
-}
-
+interface Props { lang: 'de' | 'en' }
 const { lang } = Astro.props;
 
 const texts = {
   de: {
     title: 'Ihre Privatsphäre',
-    text: 'Wir nutzen Google Analytics (GA4), um zu verstehen, wie unsere Website genutzt wird. Ihre Daten werden anonymisiert verarbeitet. Sie können Ihre Einwilligung jederzeit widerrufen.',
-    accept: 'Akzeptieren',
-    decline: 'Ablehnen',
-    privacy: 'Datenschutzerklärung',
-    imprint: 'Impressum',
-    privacyUrl: '/datenschutz/',
-    imprintUrl: '/impressum/',
-    changeConsent: 'Cookie-Einstellungen ändern',
+    text: 'Wir nutzen Dienste von Google und LinkedIn, um die Nutzung unserer Website auszuwerten und die Wirkung unserer Anzeigen zu messen. Außerdem merken wir uns Ihre letzte Snapshot-Prüfung in Ihrem Browser. Dabei können Daten in die USA übermittelt werden. Sie können Ihre Auswahl jederzeit ändern.',
+    acceptAll: 'Alle akzeptieren', decline: 'Ablehnen', settings: 'Einstellungen', save: 'Auswahl speichern',
+    privacy: 'Datenschutzerklärung', imprint: 'Impressum', privacyUrl: '/datenschutz/', imprintUrl: '/impressum/',
+    settingsTitle: 'Cookie-Einstellungen', always: 'immer aktiv', details: 'Details',
+    cats: [
+      { key: 'notwendig', name: 'Notwendig', desc: 'Speichert Ihre Cookie-Auswahl.', svc: 'Keine Drittanbieter · Speicherung in Ihrem Browser, bis Sie die Auswahl ändern.' },
+      { key: 'statistik', name: 'Statistik', desc: 'Seitenaufrufe und Nutzung des Visibility Snapshot auswerten.', svc: 'Google Analytics 4 über Google Tag Manager · Anbieter: Google Ireland Ltd. · Übermittlung in die USA möglich (EU-US Data Privacy Framework) · Cookies bis 14 Monate.' },
+      { key: 'marketing', name: 'Marketing', desc: 'Erfolg unserer LinkedIn-Anzeigen messen und Besuchern dieser Website Anzeigen zeigen.', svc: 'LinkedIn Insight Tag · Anbieter: LinkedIn Ireland Unlimited Company · Übermittlung in die USA möglich (EU-US Data Privacy Framework) · Cookies bis 6 Monate.' },
+      { key: 'komfort', name: 'Komfort', desc: 'Ihre letzte Snapshot-Prüfung merken, damit Sie beim nächsten Besuch direkt weitermachen können.', svc: 'Keine Drittanbieter · Website und Frage werden nur in Ihrem Browser gespeichert, bis Sie sie löschen.' },
+    ],
   },
   en: {
     title: 'Your Privacy',
-    text: 'We use Google Analytics (GA4) to understand how our website is used. Your data is processed anonymously. You can withdraw your consent at any time.',
-    accept: 'Accept',
-    decline: 'Decline',
-    privacy: 'Privacy Policy',
-    imprint: 'Legal Notice',
-    privacyUrl: '/en/privacy-policy/',
-    imprintUrl: '/en/legal-notice/',
-    changeConsent: 'Change cookie settings',
+    text: 'We use services from Google and LinkedIn to analyse how our website is used and to measure the impact of our ads. We also remember your last Snapshot check in your browser. Data may be transferred to the USA. You can change your choice at any time.',
+    acceptAll: 'Accept all', decline: 'Decline', settings: 'Settings', save: 'Save selection',
+    privacy: 'Privacy Policy', imprint: 'Legal Notice', privacyUrl: '/en/privacy-policy/', imprintUrl: '/en/legal-notice/',
+    settingsTitle: 'Cookie settings', always: 'always on', details: 'Details',
+    cats: [
+      { key: 'notwendig', name: 'Necessary', desc: 'Stores your cookie choice.', svc: 'No third parties · stored in your browser until you change your choice.' },
+      { key: 'statistik', name: 'Statistics', desc: 'Analyse page views and use of the Visibility Snapshot.', svc: 'Google Analytics 4 via Google Tag Manager · Provider: Google Ireland Ltd. · Transfer to the USA possible (EU-US Data Privacy Framework) · cookies up to 14 months.' },
+      { key: 'marketing', name: 'Marketing', desc: 'Measure the success of our LinkedIn ads and show ads to visitors of this website.', svc: 'LinkedIn Insight Tag · Provider: LinkedIn Ireland Unlimited Company · Transfer to the USA possible (EU-US Data Privacy Framework) · cookies up to 6 months.' },
+      { key: 'komfort', name: 'Convenience', desc: 'Remember your last Snapshot check so you can pick up where you left off.', svc: 'No third parties · website and question are stored only in your browser until you delete them.' },
+    ],
   },
 };
-
 const t = texts[lang];
+const btnGhost = 'px-4 py-2 text-sm font-medium text-foreground border border-border rounded-[14px] hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+const btnMain = 'px-4 py-2 text-sm font-medium bg-cta-strong text-cta-foreground rounded-[14px] hover:bg-cta-strong/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
 ---
 
-{/* ── Cookie Banner ──────────────────────────────────────────────────────── */}
-<div
-  id="cookie-banner"
-  role="dialog"
-  aria-modal="false"
-  aria-label={lang === 'de' ? 'Cookie-Einwilligung' : 'Cookie consent'}
-  style="display: none;"
-  class="fixed bottom-0 left-0 right-0 z-50 animate-fade-in"
->
+<div id="cookie-banner" role="dialog" aria-modal="false" aria-label={lang === 'de' ? 'Cookie-Einwilligung' : 'Cookie consent'}
+  style="display: none;" class="fixed bottom-0 left-0 right-0 z-50 animate-fade-in">
   <div class="bg-background/95 backdrop-blur-md border-t border-border shadow-2xl">
     <div class="mx-auto max-w-7xl px-6 py-5 lg:px-8">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
 
-        {/* Text */}
+      <div data-cc-layer="1" class="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-8">
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold text-foreground mb-1">{t.title}</p>
           <p class="text-sm leading-relaxed text-muted-foreground">
-            {t.text}
-            {' '}
-            <a
-              href={t.privacyUrl}
-              class="underline underline-offset-2 hover:text-foreground transition-colors"
-            >
-              {t.privacy}
-            </a>
-            {' · '}
-            <a
-              href={t.imprintUrl}
-              class="underline underline-offset-2 hover:text-foreground transition-colors"
-            >
-              {t.imprint}
-            </a>
+            {t.text}{' '}
+            <a href={t.privacyUrl} class="underline underline-offset-2 hover:text-foreground transition-colors">{t.privacy}</a>{' · '}
+            <a href={t.imprintUrl} class="underline underline-offset-2 hover:text-foreground transition-colors">{t.imprint}</a>
           </p>
         </div>
-
-        {/* Buttons */}
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <button
-            id="cookie-decline"
-            type="button"
-            class="px-4 py-2 text-sm font-medium text-muted-foreground border border-border rounded-[14px] hover:bg-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {t.decline}
-          </button>
-          <button
-            id="cookie-accept"
-            type="button"
-            class="px-4 py-2 text-sm font-medium bg-cta-strong text-cta-foreground rounded-[14px] hover:bg-cta-strong/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {t.accept}
-          </button>
+        <div class="flex flex-wrap items-center gap-3 flex-shrink-0">
+          <button type="button" data-cc="decline" class={btnGhost}>{t.decline}</button>
+          <button type="button" data-cc="settings" class={btnGhost}>{t.settings}</button>
+          <button type="button" data-cc="all" class={btnMain}>{t.acceptAll}</button>
         </div>
-
       </div>
+
+      <div data-cc-layer="2" hidden class="max-h-[70vh] overflow-y-auto">
+        <p class="text-base font-semibold text-foreground mb-3">{t.settingsTitle}</p>
+        <div class="flex flex-col divide-y divide-border border border-border rounded-[14px] bg-background">
+          {t.cats.map((c) => (
+            <div class="px-4 py-3">
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold text-foreground">{c.name}</p>
+                  <p class="text-sm text-muted-foreground">{c.desc}</p>
+                  <details class="mt-1">
+                    <summary class="text-xs text-muted-foreground cursor-pointer underline underline-offset-2">{t.details}</summary>
+                    <p class="text-xs text-muted-foreground mt-1">{c.svc}</p>
+                  </details>
+                </div>
+                {c.key === 'notwendig'
+                  ? <span class="text-xs font-medium text-muted-foreground whitespace-nowrap pt-1">{t.always}</span>
+                  : <label class="cc-switch"><input type="checkbox" data-cc-cat={c.key} aria-label={c.name} /><span></span></label>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-muted-foreground mt-3">
+          <a href={t.privacyUrl} class="underline underline-offset-2 hover:text-foreground">{t.privacy}</a>{' · '}
+          <a href={t.imprintUrl} class="underline underline-offset-2 hover:text-foreground">{t.imprint}</a>
+        </p>
+        <div class="flex flex-wrap items-center justify-end gap-3 mt-3">
+          <button type="button" data-cc="decline" class={btnGhost}>{t.decline}</button>
+          <button type="button" data-cc="save" class={btnGhost}>{t.save}</button>
+          <button type="button" data-cc="all" class={btnMain}>{t.acceptAll}</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-{/* ── Consent-Reset Link (für Datenschutz-Seite nutzbar via data-attr) ──── */}
-{/*
-  Einbindung auf Datenschutz-Seite:
-    <button data-cookie-reset>Cookie-Einstellungen ändern</button>
-  Das Script unten greift diesen Button automatisch auf.
-*/}
+<style>
+  .cc-switch { position:relative; display:inline-block; width:40px; height:22px; flex-shrink:0; margin-top:2px; }
+  .cc-switch input { position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer; z-index:1; }
+  .cc-switch span { position:absolute; inset:0; border-radius:99px; background:hsl(var(--border-strong)); transition:background .2s; }
+  .cc-switch span::after { content:""; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s; box-shadow:0 1px 2px rgb(0 0 0 / .2); }
+  .cc-switch input:checked + span { background:hsl(var(--cta-strong)); }
+  .cc-switch input:checked + span::after { transform:translateX(18px); }
+  .cc-switch input:focus-visible + span { outline:2px solid hsl(var(--ring)); outline-offset:2px; }
+  [data-cc-layer][hidden] { display:none; }
+</style>
 
 <script>
   const GTM_ID = 'GTM-N3CZH2WT';
-  const CONSENT_KEY = 'codaai-cookie-consent';
+  const KEY = 'codaai-consent-v2';
+  const banner = document.getElementById('cookie-banner') as HTMLElement | null;
+  type Wahl = { v: 2; statistik: boolean; marketing: boolean; komfort: boolean; ts: string };
 
-  const banner = document.getElementById('cookie-banner');
+  const lesen = (): Wahl | null => {
+    try { const j = JSON.parse(localStorage.getItem(KEY) || 'null'); return j && j.v === 2 ? j : null; } catch (e) { return null; }
+  };
+  (window as any).codaaiConsent = () => lesen() || { v: 2, statistik: false, marketing: false, komfort: false, ts: '' };
 
-  /* ── GTM laden ──────────────────────────────────────────────────────── */
   function loadGTM(): void {
-    // Nicht doppelt laden
-    if ((window as any).google_tag_manager?.[GTM_ID]) return;
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
-    document.head.appendChild(s);
+    if ((window as any).google_tag_manager?.[GTM_ID] || document.querySelector(`script[src*="gtm.js?id=${GTM_ID}"]`)) return;
+    const s = document.createElement('script'); s.async = true;
+    s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`; document.head.appendChild(s);
   }
-
-  /* ── Consent Mode v2: Zustimmung signalisieren ──────────────────────── */
-  function grantConsent(): void {
-    if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('consent', 'update', {
-        analytics_storage: 'granted',
-        ad_storage: 'granted',
-        ad_user_data: 'granted',
-        ad_personalization: 'granted',
+  function anwenden(w: Wahl): void {
+    const g = (window as any).gtag;
+    if (typeof g === 'function') {
+      g('consent', 'update', {
+        analytics_storage: w.statistik ? 'granted' : 'denied',
+        ad_storage: w.marketing ? 'granted' : 'denied',
+        ad_user_data: w.marketing ? 'granted' : 'denied',
+        ad_personalization: w.marketing ? 'granted' : 'denied',
       });
     }
-    loadGTM();
+    const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+    dl.push({ event: 'consent_update', consent_statistik: w.statistik, consent_marketing: w.marketing, consent_komfort: w.komfort });
+    if (!w.komfort) { try { localStorage.removeItem('codaai-snapshot-letzte'); } catch (e) {} }
+    if (w.statistik || w.marketing) loadGTM();
+  }
+  function speichern(statistik: boolean, marketing: boolean, komfort: boolean): void {
+    const w: Wahl = { v: 2, statistik, marketing, komfort, ts: new Date().toISOString() };
+    try { localStorage.setItem(KEY, JSON.stringify(w)); localStorage.removeItem('codaai-cookie-consent'); } catch (e) {}
+    anwenden(w); verbergen();
   }
 
-  /* ── Banner anzeigen / verstecken ───────────────────────────────────── */
-  function showBanner(): void {
-    if (banner) banner.style.display = 'block';
+  const schicht = (n: 1 | 2) => banner?.querySelectorAll<HTMLElement>('[data-cc-layer]').forEach((el) => { el.hidden = el.dataset.ccLayer !== String(n); });
+  const box = (k: string) => banner?.querySelector<HTMLInputElement>(`[data-cc-cat="${k}"]`);
+  function zeigen(n: 1 | 2 = 1): void {
+    if (!banner) return;
+    const w = lesen();
+    ['statistik', 'marketing', 'komfort'].forEach((k) => { const b = box(k); if (b) b.checked = !!(w && (w as any)[k]); });
+    schicht(n); banner.style.display = 'block';
   }
-  function hideBanner(): void {
-    if (banner) banner.style.display = 'none';
-  }
+  function verbergen(): void { if (banner) banner.style.display = 'none'; }
 
-  /* ── Initialisierung: Banner nur zeigen wenn noch keine Entscheidung ── */
-  const existingConsent = localStorage.getItem(CONSENT_KEY);
+  if (!lesen()) requestAnimationFrame(() => zeigen(1));
 
-  if (!existingConsent) {
-    // Kurze Verzögerung damit der initiale Paint nicht blockiert wird
-    requestAnimationFrame(() => showBanner());
-  }
+  banner?.querySelectorAll<HTMLButtonElement>('[data-cc]').forEach((b) => b.addEventListener('click', () => {
+    const a = b.dataset.cc;
+    if (a === 'all') speichern(true, true, true);
+    else if (a === 'decline') speichern(false, false, false);
+    else if (a === 'settings') schicht(2);
+    else if (a === 'save') speichern(!!box('statistik')?.checked, !!box('marketing')?.checked, !!box('komfort')?.checked);
+  }));
 
-  /* ── Event-Listener: Akzeptieren ───────────────────────────────────── */
-  document.getElementById('cookie-accept')?.addEventListener('click', () => {
-    localStorage.setItem(CONSENT_KEY, 'accepted');
-    grantConsent();
-    hideBanner();
-  });
-
-  /* ── Event-Listener: Ablehnen ──────────────────────────────────────── */
-  document.getElementById('cookie-decline')?.addEventListener('click', () => {
-    localStorage.setItem(CONSENT_KEY, 'declined');
-    hideBanner();
-  });
-
-  /* ── Consent-Reset: data-cookie-reset Buttons (z.B. auf Datenschutz-Seite) */
-  document.querySelectorAll('[data-cookie-reset]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      localStorage.removeItem(CONSENT_KEY);
-      showBanner();
-    });
-  });
+  document.querySelectorAll('[data-cookie-reset]').forEach((btn) => btn.addEventListener('click', () => zeigen(2)));
 </script>

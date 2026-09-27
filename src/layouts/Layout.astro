@@ -188,15 +188,15 @@ const csp = [
   // GTM loader needs googletagmanager.com for gtm.js
   // 04.08.2026: cdnjs.cloudflare.com und cdn.jsdelivr.net entfallen — GSAP,
   // ScrollTrigger und Lenis liegen jetzt selbst gehostet in public/vendor/.
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://snap.licdn.com",
   // Tailwind/Radix inline styles + React inline style props
   "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
   "font-src 'self'",
   // Local images + data: URIs + GA4 measurement pixel
-  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://px.ads.linkedin.com",
   // Supabase + GA4 data collection endpoints + GTM
-  "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://script.google.com https://script.googleusercontent.com https://audit.codaai.ai",
+  "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://script.google.com https://script.googleusercontent.com https://audit.codaai.ai https://px.ads.linkedin.com",
   // GTM noscript fallback iframe; no other frames allowed
   "frame-src https://www.googletagmanager.com https://tagmanager.google.com",
   "object-src 'none'",
@@ -240,14 +240,18 @@ const csp = [
         wait_for_update: 2000,
       });
 
-      // Wiederkehrender Besucher mit bestehender Zustimmung: sofort granted
-      if (localStorage.getItem('codaai-cookie-consent') === 'accepted') {
+      // Wiederkehrender Besucher: gespeicherte Auswahl (Einwilligung v2, 27.09.2026) anwenden.
+      // Die alte Einwilligung 'codaai-cookie-consent' (nur GA4) deckt LinkedIn nicht ab und gilt nicht mehr.
+      var __cc = null;
+      try { __cc = JSON.parse(localStorage.getItem('codaai-consent-v2') || 'null'); } catch (e) {}
+      if (__cc && __cc.v === 2) {
         gtag('consent', 'update', {
-          analytics_storage: 'granted',
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
+          analytics_storage: __cc.statistik ? 'granted' : 'denied',
+          ad_storage: __cc.marketing ? 'granted' : 'denied',
+          ad_user_data: __cc.marketing ? 'granted' : 'denied',
+          ad_personalization: __cc.marketing ? 'granted' : 'denied',
         });
+        window.dataLayer.push({event: 'consent_update', consent_statistik: !!__cc.statistik, consent_marketing: !!__cc.marketing, consent_komfort: !!__cc.komfort});
       }
 
       // GTM dataLayer Marker (immer, damit GTM korrekt initialisiert)
@@ -255,7 +259,7 @@ const csp = [
 
       // GTM nach window.load laden — NUR wenn Zustimmung vorhanden
       window.addEventListener('load', function() {
-        if (localStorage.getItem('codaai-cookie-consent') === 'accepted') {
+        if (__cc && __cc.v === 2 && (__cc.statistik || __cc.marketing)) {
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N3CZH2WT';
