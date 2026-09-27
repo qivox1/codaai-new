@@ -18,7 +18,13 @@
  * URL-Übergabe: ?d=firma.de&q=Frage füllt vor und startet automatisch
  * (Teaser auf Startseite/Webinar, Nurture-Mails).
  *
+ * Eingabehilfe (27.09.2026, zunächst nur mit ?test=… oder ?vorschau=1):
+ * animierter Platzhalter mit Beispielfragen je Rolle (?src=li-gf | li-vl | li-ml),
+ * eine Formelzeile und ein Fragen-Vorschlag aus der Startseite der eingegebenen
+ * Website (POST /ai/frage/vorschlag, max. ~4,5 s, überschreibt nie Eingetipptes).
+ *
  * dataLayer: snapshot_start {lang}, snapshot_result {genannt, von, cached},
+ *            snapshot_vorschlag {ok, ms}, snapshot_vorschlag_behalten,
  *            snapshot_error {status}, snapshot_unlock {marketing}
  */
 interface Props { source?: string }
@@ -47,7 +53,9 @@ const beispiele = [
     <input id="snap-domain" class="snap-in" data-domain type="text" inputmode="url" spellcheck="false" placeholder="z. B. ihrefirma.de" />
 
     <label class="snap-lbl" for="snap-frage">Eine Frage, die Ihre Kunden der KI stellen würden</label>
+    <p class="snap-formel" data-formel hidden>Produkt + Anwendung oder Branche – so fragt ein Kunde, der Sie noch nicht kennt.</p>
     <textarea id="snap-frage" class="snap-in snap-ta" data-frage rows="3" maxlength="250" placeholder="z. B. Welche Anbieter für Präzisionsklimaanlagen sind in Deutschland führend?"></textarea>
+    <p class="snap-vhint" data-vhint role="status" hidden>Vorschlag für Ihre Website – gern anpassen.</p>
     <div class="snap-fhint" data-fhint role="status" hidden>
       <p class="snap-fhint-t" data-fhint-t></p>
       <button type="button" class="snap-fhint-use" data-fhint-use hidden><span class="snap-fhint-k">Vorschlag übernehmen</span><span data-fhint-v></span></button>
@@ -125,7 +133,12 @@ const beispiele = [
   .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
   .snap-ta + .snap-chips, .snap-fhint + .snap-chips { margin-top:10px; }
   .snap-form :global(.snap-test) { margin:8px 0 0; text-align:center; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8A5A00; }
-  .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden] { display:none; }
+  .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden], .snap-formel[hidden], .snap-vhint[hidden] { display:none; }
+  .snap-formel { margin:-2px 0 8px; font-size:13px; line-height:1.4; color:hsl(var(--muted-foreground)); }
+  .snap-lbl:has(+ .snap-formel:not([hidden])) { margin-bottom:2px; }
+  .snap-vhint { margin:-12px 0 18px; font-size:13px; color:hsl(var(--cta-accessible)); }
+  .snap-vhint::before { content:"✦ "; }
+  .snap-ta.is-typing { caret-color:transparent; }
   .snap-fhint { margin:-8px 0 18px; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
   .snap-fhint-t { margin:0; }
   .snap-fhint-use { display:block; width:100%; margin-top:10px; padding:10px 12px; border:1px solid #E7C77E; border-radius:10px; background:#fff; color:hsl(var(--foreground)); font-size:14px; line-height:1.4; text-align:left; cursor:pointer; }
@@ -267,6 +280,79 @@ const beispiele = [
       const plan = () => { clearTimeout(lt); lt = setTimeout(liveCheck, 350); };
       frage.addEventListener('input', () => { serverHinweis = false; produktOk = false; plan(); });
       dom.addEventListener('input', plan);
+
+      // ---------- Eingabehilfe (27.09.2026): Platzhalter je Rolle, Formel, Vorschlag ----------
+      const hilfeAn = !!testKey || up.get('vorschau') === '1';
+      if (hilfeAn) {
+        const rolle = (up.get('src') || '').toLowerCase();
+        const BSP: Record<string, string[]> = {
+          'li-gf': ['Welcher Hersteller für Industriefilter ist für die Lebensmittelindustrie zu empfehlen?',
+                    'Welcher Anbieter für Druckluftrockner eignet sich für die Pharmaindustrie?',
+                    'Wer ist ein guter Hersteller für Sondermaschinen in der Verpackungstechnik?'],
+          'li-vl': ['Welcher Zulieferer für Präzisionsdrehteile ist für kleine Serien zu empfehlen?',
+                    'Wer liefert zuverlässig Kunststoff-Spritzgussteile für die Medizintechnik?',
+                    'Welcher Hersteller für Förderanlagen eignet sich für die Intralogistik?'],
+          'li-ml': ['Was ist die beste Lösung für Ölnebelabscheidung an CNC-Maschinen?',
+                    'Welcher Anbieter für Koordinatenmessgeräte eignet sich für Kunststoffteile?',
+                    'Welche Blitzschutzanlage ist für die Nachrüstung von Industriegebäuden zu empfehlen?'],
+        };
+        const liste = BSP[rolle] || [BSP['li-gf'][0], BSP['li-vl'][0], BSP['li-ml'][0]];
+        const formel = $('[data-formel]'), vhint = $('[data-vhint]');
+        formel.hidden = false;
+        const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const warte = (ms: number) => new Promise((r) => setTimeout(r, ms));
+        let phStop = false;
+        const setPh = (t: string) => frage.setAttribute('placeholder', t);
+        const platzhalter = async () => {
+          if (ruhig) { setPh('z. B. ' + liste[0]); return; }
+          await warte(600);
+          for (let i = 0; i < liste.length && !phStop; i++) {
+            const t = 'z. B. ' + liste[i];
+            for (let k = 6; k <= t.length && !phStop; k++) { setPh(t.slice(0, k)); await warte(28); }
+            if (phStop || i === liste.length - 1) break;
+            await warte(2200);
+            for (let k = t.length; k >= 6 && !phStop; k -= 3) { setPh(t.slice(0, k)); await warte(12); }
+            await warte(250);
+          }
+          setPh('z. B. ' + liste[liste.length - 1]);
+        };
+        const stopPh = () => { if (!phStop) { phStop = true; setPh('z. B. ' + liste[0]); } };
+        frage.addEventListener('focus', stopPh);
+        platzhalter();
+
+        // Vorschlag aus der Startseite der eingegebenen Website
+        let fuerDomain = '', tippt = false, sofort = false, vorschlagText = '';
+        const eintippen = async (t: string) => {
+          tippt = true; sofort = ruhig; frage.classList.add('is-typing'); frage.value = '';
+          for (let k = 1; k <= t.length && !sofort; k++) { frage.value = t.slice(0, k); await warte(16); }
+          frage.value = t; tippt = false; frage.classList.remove('is-typing');
+        };
+        const holeVorschlag = async () => {
+          const d = dom.value.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+          if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(d) || d === fuerDomain) return;
+          if (frage.value.trim() && frage.value !== vorschlagText) return;   // nie Eingetipptes überschreiben
+          fuerDomain = d;
+          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 4500);
+          try {
+            const r = await fetch(API + '/ai/frage/vorschlag', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ domain: d, test_key: testKey || undefined }), signal: ac.signal });
+            const j = await r.json();
+            const ms = Date.now() - t1;
+            dl.push({ event: 'snapshot_vorschlag', ok: !!j.frage, ms, lang, source: root.dataset.source });
+            if (!j.frage || d !== fuerDomain) return;
+            if (frage.value.trim() && frage.value !== vorschlagText) return;
+            stopPh(); vorschlagText = j.frage; hinweis('');
+            await eintippen(j.frage);
+            vorschlagText = frage.value; vhint.hidden = false;
+          } catch (e) { /* zu langsam oder nicht erreichbar: Platzhalter bleibt */ }
+          finally { clearTimeout(to); }
+        };
+        dom.addEventListener('change', holeVorschlag);
+        dom.addEventListener('blur', holeVorschlag);
+        dom.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); holeVorschlag(); frage.focus(); } });
+        frage.addEventListener('focus', () => { if (tippt) sofort = true; });
+        frage.addEventListener('input', () => { if (!tippt && vhint && !vhint.hidden) { vhint.hidden = true; if (vorschlagText) dl.push({ event: 'snapshot_vorschlag_angepasst', lang, source: root.dataset.source }); vorschlagText = ''; } });
+      }
 
       // Beispielfragen: einsetzen und den Platzhalter markieren
       root.querySelectorAll<HTMLButtonElement>('[data-bsp]').forEach((b) => b.addEventListener('click', () => {
