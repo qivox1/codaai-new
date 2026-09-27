@@ -53,7 +53,7 @@ const beispiele = [
     <input id="snap-domain" class="snap-in" data-domain type="text" inputmode="url" spellcheck="false" placeholder="z. B. ihrefirma.de" />
 
     <label class="snap-lbl" for="snap-frage">Eine Frage, die Ihre Kunden der KI stellen würden</label>
-    <p class="snap-formel" data-formel hidden>Produkt + Anwendung oder Branche – so fragt ein Kunde, der Sie noch nicht kennt.</p>
+    <p class="snap-formel" data-formel hidden>Produkt + Anwendung – so fragt ein Kunde, der Sie nicht kennt.</p>
     <textarea id="snap-frage" class="snap-in snap-ta" data-frage rows="3" maxlength="250" placeholder="z. B. Welche Anbieter für Präzisionsklimaanlagen sind in Deutschland führend?"></textarea>
     <p class="snap-vhint" data-vhint role="status" hidden>Vorschlag für Ihre Website – gern anpassen.</p>
     <div class="snap-fhint" data-fhint role="status" hidden>
@@ -136,7 +136,7 @@ const beispiele = [
   .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden], .snap-formel[hidden], .snap-vhint[hidden] { display:none; }
   .snap-formel { margin:-2px 0 8px; font-size:13px; line-height:1.4; color:hsl(var(--muted-foreground)); }
   .snap-lbl:has(+ .snap-formel:not([hidden])) { margin-bottom:2px; }
-  .snap-vhint { margin:-12px 0 18px; font-size:13px; color:hsl(var(--cta-accessible)); }
+  .snap-vhint { margin:-10px 0 16px; font-size:13px; color:hsl(var(--cta-accessible)); }
   .snap-vhint::before { content:"✦ "; }
   .snap-ta.is-typing { caret-color:transparent; }
   .snap-fhint { margin:-8px 0 18px; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
