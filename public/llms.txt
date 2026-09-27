@@ -113,10 +113,16 @@ https://www.codaai.ai/llms-full.txt.
 
 ## Markdown-Fassungen
 
-Die Startseite, jeder Blogartikel und jede Glossarseite liegen zusätzlich als reine Markdown-Datei
-unter derselben Adresse ohne abschließenden Schrägstrich, mit `.md` am Ende:
+Jede indexierbare Seite liegt zusätzlich als reine Markdown-Datei unter derselben Adresse ohne
+abschließenden Schrägstrich, mit `.md` am Ende — `/preise/` → `/preise.md`, `/en/pricing/` →
+`/en/pricing.md`. Die wichtigsten:
 
 - `https://www.codaai.ai/index.md` · `https://www.codaai.ai/en/index.md` (Startseite)
+- `https://www.codaai.ai/digital-visibility.md` · `https://www.codaai.ai/en/digital-visibility.md` (Leistungen, 15 Bausteine)
+- `https://www.codaai.ai/preise.md` · `https://www.codaai.ai/en/pricing.md` (Preise)
+- `https://www.codaai.ai/faq.md` · `https://www.codaai.ai/en/faq.md` (alle Fragen und Antworten)
+- `https://www.codaai.ai/fakten.md` · `https://www.codaai.ai/en/facts.md` (Stammdaten)
+- `https://www.codaai.ai/studie.md` · `https://www.codaai.ai/en/study.md` (Studie)
 - `https://www.codaai.ai/blog/<slug>.md` · `https://www.codaai.ai/en/blog/<slug>.md`
 - `https://www.codaai.ai/wissen/geo-glossar/<slug>.md` · `https://www.codaai.ai/en/knowledge/geo-glossary/<slug>.md`
 - `https://www.codaai.ai/wissen/geo-optimierung.md` · `https://www.codaai.ai/en/knowledge/geo-optimization.md` (GEO-Leitfaden)

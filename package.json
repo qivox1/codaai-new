@@ -8,8 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postbuild": "node scripts/check-seo-invariants.mjs",
+    "postbuild": "node scripts/build-md-variants.mjs && node scripts/check-seo-invariants.mjs",
     "seo:check": "node scripts/check-seo-invariants.mjs",
+    "md:variants": "node scripts/build-md-variants.mjs",
     "check:colors": "node scripts/check-colors.mjs",
     "prepare": "git config core.hooksPath .githooks || true",
     "indexnow": "node scripts/indexnow-changed.mjs"
@@ -49,11 +50,16 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-stringify": "^11.0.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^3.4.19",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
+    "unified": "^11.0.5",
     "zod": "^4.3.6"
   }
 }

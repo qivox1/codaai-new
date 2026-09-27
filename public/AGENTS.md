@@ -45,8 +45,8 @@ Kontakt: hi@codaai.ai · https://www.codaai.ai/kontakt/
 ## Markdown statt HTML
 
 Statisches Hosting kennt keine Content Negotiation — ein `Accept: text/markdown`
-kann GitHub Pages nicht beantworten. Stattdessen liegen die Startseite, jeder
-Blogartikel und jede Glossarseite als eigene Datei daneben:
+kann GitHub Pages nicht beantworten. Stattdessen liegt jede indexierbare Seite
+als eigene Datei daneben — Adresse ohne abschließenden Schrägstrich, `.md` am Ende:
 
 | HTML | Markdown |
 |---|---|
@@ -55,12 +55,13 @@ Blogartikel und jede Glossarseite als eigene Datei daneben:
 | `/en/blog/<slug>/` | `/en/blog/<slug>.md` |
 | `/wissen/geo-glossar/<slug>/` | `/wissen/geo-glossar/<slug>.md` |
 | `/en/knowledge/geo-glossary/<slug>/` | `/en/knowledge/geo-glossary/<slug>.md` |
+| alle übrigen, z. B. `/preise/` · `/en/faq/` | `/preise.md` · `/en/faq.md` |
 
 Jede HTML-Seite nennt ihre Fassung im `<head>`:
 `<link rel="alternate" type="text/markdown" href="…">`.
 
-Die Datei beginnt mit Titel, Kurzfassung, Quell-URL, Veröffentlichungs- und
-Änderungsdatum und der Zitierregel; danach folgt der vollständige Text. Wer
+Die Datei beginnt mit Titel, Kurzfassung, Quell-URL, Stand und der
+Zitierregel; danach folgt der vollständige Text. Wer
 zitiert, nimmt bitte die `Quelle`-Zeile aus dem Kopf, nicht die `.md`-Adresse —
 kanonisch ist die HTML-Seite.
 
