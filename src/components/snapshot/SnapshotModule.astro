@@ -127,33 +127,19 @@ const beispiele = [
       <div class="snap-cov-bar"><span data-covbar></span></div>
     </div>
     <div class="snap-audit" data-audit hidden>
-      <p class="snap-audit-h">Digital Visibility Audit</p>
+      <p class="snap-audit-k">Kostenlos · Digital Visibility Audit</p>
+      <p class="snap-audit-h">Das war eine Frage. Das Audit zeigt das ganze Bild.</p>
       <p class="snap-audit-p" data-auditp></p>
-      <a class="snap-audit-a" href="/#termin" data-audita>Termin für das Audit vereinbaren →</a>
-    </div>
-    <p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>
-
-    <div class="snap-unlock" data-unlock>
-      <p class="snap-unlock-h">Was die KI-Systeme im Wortlaut antworten</p>
-      <p class="snap-unlock-p">Alle fünf Antworten mit den Quellen, auf die sich die Systeme stützen. Diese Frage ist nur eine von vielen, die Ihre Kunden stellen.</p>
-      <button type="button" class="snap-open" data-open>Antworten &amp; Quellen ansehen <span aria-hidden="true">→</span></button>
-      <div class="snap-formwrap" data-formwrap hidden>
-        <div class="snap-grid" data-namegrid>
-          <input class="snap-in" data-vn type="text" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name" />
-          <input class="snap-in" data-nn type="text" placeholder="Nachname" aria-label="Nachname" autocomplete="family-name" />
-        </div>
-        <input class="snap-in" data-mail type="email" placeholder="Geschäftliche E-Mail-Adresse" aria-label="Geschäftliche E-Mail-Adresse" autocomplete="email" />
-        <label class="snap-cb" data-c1wrap><input type="checkbox" data-c1 /> <span>Ja, senden Sie mir das Ergebnis per E-Mail. Die <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a> habe ich gelesen. <em>(Pflicht)</em></span></label>
-        <label class="snap-cb" data-c2wrap><input type="checkbox" data-c2 /> <span>Ich möchte außerdem Hinweise zu KI-Sichtbarkeit und Einladungen zu Webinaren von CodaAI per E-Mail erhalten. Abmeldung jederzeit. <em>(optional)</em></span></label>
-        <button type="button" class="snap-send" data-send><span data-sendt>Per E-Mail zusenden</span></button>
-        <p class="snap-mini" data-mini hidden>Sie erhalten das Ergebnis per E-Mail · <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
-        <p class="snap-err snap-err--res" data-err2 role="alert" hidden></p>
+      <div class="snap-aform" data-aform>
+        <label class="snap-amail" data-amail><input data-mail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="vorname.nachname" aria-label="Geschäftliche E-Mail-Adresse" /><span data-at></span></label>
+        <button type="button" class="snap-send" data-send><span data-sendt>Vollständiges Audit senden</span> <span aria-hidden="true">→</span></button>
+        <p class="snap-aerr" data-err2 role="alert" hidden></p>
+        <p class="snap-amini">Per E-Mail, spätestens am nächsten Werktag · Kein Anruf, kein Newsletter · <a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
       </div>
-    </div>
-    <div class="snap-done" data-done hidden>
-      <p><b>Fast geschafft.</b> Wir haben Ihnen eine E-Mail geschickt. Bitte bestätigen Sie den Link darin — danach sehen Sie alle Antworten und Quellen.</p>
+      <p class="snap-adone" data-done hidden><b>Fast geschafft.</b> <span data-donet></span></p>
     </div>
     <button type="button" class="snap-again" data-again>Andere Frage prüfen</button>
+    <p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>
   </div>
 </div>
 
@@ -220,7 +206,7 @@ const beispiele = [
   .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; box-shadow:0 0 0 1px hsl(var(--border)); }
   .snap-lg img { width:26px; height:26px; }
   .snap-mark { position:absolute; right:-5px; bottom:-5px; width:20px; height:20px; border-radius:50%; border:2px solid #fff; display:none; font-style:normal; }
-  li[data-ok="1"] .snap-mark { display:block; background:#1F9D5B url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  li[data-ok="1"] .snap-mark { display:block; background:hsl(var(--confirm)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
   li[data-ok="0"] .snap-mark { display:block; background:#C0343C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
   li[data-ok="x"] .snap-lg { opacity:.45; }
   li[data-ok="1"][data-rank] .snap-mark { background-image:none; font:700 11px/16px inherit; text-align:center; color:#fff; }
@@ -245,7 +231,7 @@ const beispiele = [
   .snap-tech-l li { display:flex; align-items:center; gap:10px; font-size:14px; color:hsl(var(--foreground)); }
   .snap-tech-l li i { flex-shrink:0; width:18px; height:18px; border-radius:50%; border:2px solid hsl(var(--border)); border-top-color:hsl(var(--cta)); animation:snap-spin .8s linear infinite; font-style:normal; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
   .snap-tech-l li[data-ok] i { animation:none; border:0; color:#fff; }
-  .snap-tech-l li[data-ok="1"] i { background:#21635F; }
+  .snap-tech-l li[data-ok="1"] i { background:hsl(var(--confirm)); }
   .snap-tech-l li[data-ok="1"] i::after { content:"✓"; }
   .snap-tech-l li[data-ok="0"] i { background:#A1242B; }
   .snap-tech-l li[data-ok="0"] i::after { content:"!"; }
@@ -256,20 +242,36 @@ const beispiele = [
   .snap-sb { margin:14px 0 0; padding:12px 14px; border-radius:10px; border:1px solid hsl(var(--border)); text-align:left; }
   .snap-sb-h { margin:0 0 6px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 10px; font-size:13.5px; font-weight:700; color:hsl(var(--foreground)); }
   .snap-sb-h small { font-weight:500; color:hsl(var(--muted-foreground)); }
-  .snap-sb-u { font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:#E6F4EC; color:#1B6B43; }
+  .snap-sb-u { font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:hsl(var(--verdigris-100)); color:hsl(var(--confirm-text)); }
   .snap-sb[data-u="ungenau"] .snap-sb-u { background:#FDF1D8; color:#8A5A00; }
-  .snap-sb[data-u="falsch"] .snap-sb-u, .snap-sb[data-u="unbekannt"] .snap-sb-u { background:#FDE7E7; color:#8C2F21; }
+  .snap-sb[data-u="falsch"] .snap-sb-u, .snap-sb[data-u="unbekannt"] .snap-sb-u { background:hsl(var(--cta) / .12); color:hsl(var(--cta-accessible)); }
   .snap-sb-t { margin:0; font-size:14.5px; line-height:1.5; font-style:italic; color:hsl(var(--muted-foreground)); }
-  .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:#FDE7E7; color:#8C2F21; font-size:14.5px; line-height:1.45; }
+  .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
   .snap-vs :global(b) { font-weight:800; }
   .snap-cov { margin:18px 0 0; }
   .snap-cov-t { margin:0 0 6px; font-size:14px; color:hsl(var(--foreground)); }
   .snap-cov-t :global(b) { font-weight:800; }
   .snap-cov-bar { height:8px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
   .snap-cov-bar span { display:block; height:100%; min-width:6px; background:hsl(var(--cta)); border-radius:99px; }
-  .snap-audit { margin:18px 0 0; padding:16px; border-radius:14px; background:hsl(var(--foreground)); color:#fff; }
-  .snap-audit-h { margin:0 0 4px; font-size:16px; font-weight:800; }
-  .snap-audit-p { margin:0 0 10px; font-size:14px; line-height:1.5; color:hsl(0 0% 100% / .88); }
+  .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:#131A2B; color:#fff; text-align:left; }
+  .snap-audit-k { margin:0 0 4px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#EA82FC; }
+  .snap-audit-h { margin:0 0 6px; font-size:19px; font-weight:800; line-height:1.3; }
+  .snap-audit-p { margin:0 0 16px; font-size:14px; line-height:1.55; color:hsl(0 0% 100% / .86); }
+  .snap-audit-p :global(b) { color:#fff; }
+  .snap-amail { display:flex; align-items:stretch; border-radius:12px; background:#fff; overflow:hidden; border:2px solid transparent; cursor:text; }
+  .snap-amail:focus-within { border-color:hsl(var(--cta)); }
+  .snap-amail input { flex:1; min-width:0; border:0; padding:14px 4px 14px 14px; font-size:16px; color:#131A2B; background:transparent; outline:none; }
+  .snap-amail span { display:flex; align-items:center; padding:0 14px 0 2px; font-size:16px; color:#56627A; white-space:nowrap; }
+  .snap-amail.is-voll span { display:none; }
+  .snap-amail.is-voll input { padding-right:14px; }
+  .snap-aform .snap-send { margin-top:10px; padding:17px 18px; font-size:17px; font-weight:800; box-shadow:0 10px 24px -10px hsl(var(--cta) / .8); }
+  .snap-aerr { margin:10px 0 0; padding:9px 12px; border-radius:10px; background:#FBE3F8; color:#7A0A8C; font-size:13.5px; line-height:1.45; }
+  .snap-aerr[hidden], .snap-aform[hidden], .snap-adone[hidden] { display:none; }
+  .snap-amini { margin:10px 0 0; font-size:12.5px; line-height:1.5; color:hsl(0 0% 100% / .7); text-align:center; }
+  .snap-amini a { color:hsl(0 0% 100% / .88); }
+  .snap-adone { margin:0; font-size:15px; line-height:1.55; }
+  .snap-adone b { display:block; font-size:18px; margin-bottom:4px; }
+  @media (max-width:420px) { .snap-amail span { font-size:14px; } }
   .snap-audit-a { display:inline-block; color:#fff; font-weight:700; font-size:14.5px; text-decoration:underline; text-underline-offset:3px; }
   .snap-ber { margin:18px 0 0; padding:16px; border-radius:14px; border:1px solid hsl(var(--border)); }
   .snap-ber[data-lvl="gut"] { border-color:hsl(var(--cta) / .45); background:hsl(var(--cta) / .05); }
@@ -634,59 +636,53 @@ const beispiele = [
         }
         cov.hidden = nF < 20;
         // Audit mit konkretem Inhalt
-        const nB = (res.bereiche || []).length + 1, nT = techFehlt.length;
-        ($('[data-auditp]') as HTMLElement).textContent =
-          `Wir prüfen ${nB > 1 ? `Ihre ${nB} Geschäftsbereiche` : 'Ihr gesamtes Angebot'} mit je 8 Kundenfragen in allen 5 KI-Systemen, zeigen die Quellen, auf die sich die KI stützt` +
-          (nT ? `, und beheben mit Ihnen ${nT === 1 ? 'den technischen Befund' : `die ${nT} technischen Befunde`} von eben.` : ', und leiten konkrete Maßnahmen ab.') +
-          ' Im 30-minütigen Gespräch.';
+        const nT = techFehlt.length, ap = $('[data-auditp]') as HTMLElement; ap.innerHTML = '';
+        const fett = (t: string) => { const b = document.createElement('b'); b.textContent = t; return b; };
+        ap.append('Für ', fett(res.domain), ': Ihre Sichtbarkeit bei Google, Ihre Wettbewerber, ', fett('8 typische Kundenfragen in allen 5 KI-Systemen'));
+        if (nT) ap.append(' und ', fett(nT === 1 ? 'den technischen Befund' : `die ${nT} technischen Befunde`), ' von eben');
+        ap.append(' – mit konkreten Empfehlungen.');
+        auditDomain = res.domain;
+        ($('[data-at]') as HTMLElement).textContent = '@' + res.domain;
+        const mi = $('[data-mail]') as HTMLInputElement; mi.value = ''; ($('[data-amail]') as HTMLElement).classList.remove('is-voll');
+        ($('[data-aform]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true; show(err2, '');
         ($('[data-audit]') as HTMLElement).hidden = false;
-        const fw = $('[data-formwrap]') as HTMLElement;
-        if (hilfeAn) {
-          fw.classList.add('is-kurz'); fw.hidden = false; ($('[data-open]') as HTMLElement).hidden = true;
-          ($('[data-mini]') as HTMLElement).hidden = false;
-          ($('[data-sendt]') as HTMLElement).textContent = 'Antworten erhalten';
-          ($('[data-mail]') as HTMLInputElement).placeholder = `Ihre E-Mail bei ${res.domain}`;
-        } else { fw.hidden = true; ($('[data-open]') as HTMLElement).hidden = false; }
         setState('res');
         dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
       });
 
+      let auditDomain = '';
+      const mailIn = $('[data-mail]') as HTMLInputElement;
+      mailIn.addEventListener('input', () => ($('[data-amail]') as HTMLElement).classList.toggle('is-voll', mailIn.value.includes('@')));
+      mailIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); send.click(); } });
       send.addEventListener('click', async () => {
         show(err2, '');
-        const vn = ($('[data-vn]') as HTMLInputElement).value.trim(), nn = ($('[data-nn]') as HTMLInputElement).value.trim();
-        const mail = ($('[data-mail]') as HTMLInputElement).value.trim();
-        const c1 = hilfeAn || ($('[data-c1]') as HTMLInputElement).checked, c2 = !hilfeAn && ($('[data-c2]') as HTMLInputElement).checked;
-        if (!hilfeAn && (!vn || !nn)) return show(err2, 'Bitte Vor- und Nachnamen angeben.');
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return show(err2, 'Bitte eine gültige E-Mail-Adresse angeben.');
-        if (!c1) return show(err2, 'Bitte stimmen Sie der Zusendung des Ergebnisses zu.');
+        const v = mailIn.value.trim().replace(/\s+/g, '');
+        const mail = v.includes('@') ? v : (v ? `${v}@${auditDomain}` : '');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { mailIn.focus(); return show(err2, 'Bitte geben Sie Ihre geschäftliche E-Mail-Adresse an.'); }
         send.disabled = true;
         let res: any = null;
         try {
           const r = await fetch(API + '/ai/frage/freischalten', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ check_id: checkId, name: `${vn} ${nn}`.trim(), email: mail, einwilligung_ergebnis: c1, test_key: testKey || undefined,
-                                   einwilligung_marketing: c2, einwilligung_version: '2026-09-24-v1',
+            body: JSON.stringify({ check_id: checkId, name: '', email: mail, audit: true, einwilligung_ergebnis: true,
+                                   einwilligung_version: '2026-09-27-audit-v1', test_key: testKey || undefined,
                                    website_url: ($('[data-hp]') as HTMLInputElement).value }),
           });
           res = await r.json();
         } catch (e) { res = { status: 'error', hinweis: 'Die Verbindung ist fehlgeschlagen. Bitte erneut versuchen.' }; }
         send.disabled = false;
-        if (!res || res.status !== 'ok') return show(err2, (res && res.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
-        ($('[data-unlock]') as HTMLElement).hidden = true;
+        if (!res || res.status !== 'ok') {
+          dl.push({ event: 'snapshot_audit_fehler', grund: (res && res.feld) || 'sonst', lang, source: root.dataset.source });
+          return show(err2, (res && res.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
+        }
+        ($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihr Audit und senden es Ihnen zu.`;
+        ($('[data-aform]') as HTMLElement).hidden = true;
         ($('[data-done]') as HTMLElement).hidden = false;
-        dl.push({ event: 'snapshot_unlock', lang, marketing: c2, source: root.dataset.source });
+        dl.push({ event: 'snapshot_audit_anfrage', lang, source: root.dataset.source });
       });
 
-      ($('[data-audita]') as HTMLElement).addEventListener('click', () => dl.push({ event: 'snapshot_audit_klick', lang, source: root.dataset.source }));
-      ($('[data-open]') as HTMLElement).addEventListener('click', () => {
-        ($('[data-open]') as HTMLElement).hidden = true;
-        ($('[data-formwrap]') as HTMLElement).hidden = false;
-        ($('[data-vn]') as HTMLInputElement).focus();
-        dl.push({ event: 'snapshot_unlock_open', lang, source: root.dataset.source });
-      });
       ($('[data-again]') as HTMLElement).addEventListener('click', () => {
         setState('idle'); frage.focus(); frage.select();
-        ($('[data-unlock]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true;
       });
 
       // Übergabe aus Teasern/Mails: ?d=…&q=… füllt vor und startet
