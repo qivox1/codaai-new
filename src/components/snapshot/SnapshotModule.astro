@@ -99,8 +99,6 @@ const beispiele = [
     <p class="snap-load-sub" data-loadsub>„<span data-qecho></span>“</p>
     <div class="snap-tech" data-techbox>
       <p class="snap-tech-h">Parallel prüfen wir, ob KI-Systeme Sie lesen und verstehen können:</p>
-      <div class="snap-tech-g">
-      <figure class="snap-shot" data-shot hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-shotd></span></div><img data-shotimg alt="Startseite Ihrer Website" width="640" height="400" /></figure>
       <ul class="snap-tech-l" data-techl>
         <li data-tk="crawler"><i></i><span>Dürfen KI-Systeme Ihre Website lesen?</span></li>
         <li data-tk="schutz"><i></i><span>Lässt Ihr Website-Schutz sie durch?</span></li>
@@ -109,7 +107,6 @@ const beispiele = [
         <li data-tk="aktuell"><i></i><span>Wie aktuell sind Ihre Inhalte?</span></li>
         <li data-tk="schema"><i></i><span>Sind Ihre Firmendaten maschinenlesbar?</span></li>
       </ul>
-      </div>
     </div>
   </div>
 
@@ -254,7 +251,7 @@ const beispiele = [
   .snap-shot-b i { width:6px; height:6px; border-radius:50%; background:hsl(var(--border)); }
   .snap-shot-b span { margin-left:6px; font-size:10px; color:hsl(var(--muted-foreground)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .snap-shot img, .snap-thumb img { display:block; width:100%; height:auto; }
-  .snap-thumb { margin:14px 0 4px; border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 12px 28px -18px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
+  .snap-thumb { margin:16px 0 22px; border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 12px 28px -18px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
   @keyframes snap-in { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
   @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:70%; } }
   @media (prefers-reduced-motion: reduce) { .snap-shot, .snap-thumb { animation:none; } }
@@ -527,16 +524,15 @@ const beispiele = [
         setState('load');
         // Screenshot der Startseite (wird serverseitig ueber /ai/frage/technik ausgeloest)
         const shotD = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
-        ($('[data-shot]') as HTMLElement).hidden = true; ($('[data-thumb]') as HTMLElement).hidden = true;
-        ($('[data-shotd]') as HTMLElement).textContent = shotD; ($('[data-thumbd]') as HTMLElement).textContent = shotD;
+        ($('[data-thumb]') as HTMLElement).hidden = true;
+        ($('[data-thumbd]') as HTMLElement).textContent = shotD;
         let shotN = 0; const shotRun = ++shotLauf;
         const holeBild = () => {
           if (shotRun !== shotLauf || ++shotN > 14) return;
           const im = new Image();
           im.onload = () => {
             if (shotRun !== shotLauf) return;
-            ($('[data-shotimg]') as HTMLImageElement).src = im.src; ($('[data-thumbimg]') as HTMLImageElement).src = im.src;
-            ($('[data-shot]') as HTMLElement).hidden = false; ($('[data-thumb]') as HTMLElement).hidden = false;
+            ($('[data-thumbimg]') as HTMLImageElement).src = im.src; ($('[data-thumb]') as HTMLElement).hidden = false;
           };
           im.onerror = () => setTimeout(holeBild, 1800);
           im.src = `${API}/ai/frage/bild?d=${encodeURIComponent(shotD)}&n=${shotN}`;
