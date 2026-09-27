@@ -115,12 +115,12 @@ const beispiele = [
     <p class="snap-q">„<span data-q></span>“</p>
     <figure class="snap-thumb" data-thumb hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-thumbd></span></div><img data-thumbimg alt="Startseite Ihrer Website" width="640" height="400" /></figure>
     <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
+    <p class="snap-vs" data-vs hidden></p>
     <ul class="snap-logos snap-logos--res" data-reslogos>
       {logos.map((l) => (
         <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
-    <p class="snap-vs" data-vs hidden></p>
     <div class="snap-find" data-findbox hidden>
       <p class="snap-h" data-findh>Verbesserungsbedarf</p>
       <dl class="snap-find-l" data-find></dl>
@@ -276,7 +276,7 @@ const beispiele = [
   .snap-sb[data-u="ungenau"] .snap-sb-u { background:#FDF1D8; color:#8A5A00; }
   .snap-sb[data-u="falsch"] .snap-sb-u, .snap-sb[data-u="unbekannt"] .snap-sb-u { background:hsl(var(--cta) / .12); color:hsl(var(--cta-accessible)); }
   .snap-sb-t { margin:0; font-size:14.5px; line-height:1.5; font-style:italic; color:hsl(var(--muted-foreground)); }
-  .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
+  .snap-vs { margin:-6px 0 20px; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
   .snap-vs :global(b) { font-weight:800; }
   .snap-cov { margin:18px 0 0; }
   .snap-cov-t { margin:0 0 6px; font-size:14.5px; font-weight:600; color:hsl(var(--cta-accessible)); }
@@ -595,6 +595,7 @@ const beispiele = [
         const M = res.marke_kurz || res.marke || res.domain;
         const sys = res.systeme || [];
         const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}` : (a[0] || '');
+        const fettL = (a: string[]) => liste(a.map((x) => `\u0001${x}\u0002`));
         const fremde = (res.rangliste || []).filter((r: any) => !r.eigen);
         const vorn: Record<string, number> = {};
         sys.forEach((s: any) => (s.vor || []).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }));
@@ -602,13 +603,17 @@ const beispiele = [
         const rivTop = fremde.slice(0, 2).map((r: any) => r.name);
         const fehltN = sys.filter((s: any) => s.antwort && !s.genannt).length;
         let lvl = 'mittel', lbl = 'Ausbaufähig', satz = '';
-        if (g === 0) { lvl = 'schlecht'; lbl = 'Kritisch'; satz = `${M} kommt bei dieser Frage in keinem KI-System vor${rivTop.length ? ` – empfohlen werden stattdessen ${liste(rivTop)}` : ''}.`; }
+        if (g === 0) { lvl = 'schlecht'; lbl = 'Kritisch'; satz = `${M} kommt bei dieser Frage in keinem KI-System vor${rivTop.length ? ` – empfohlen werden stattdessen ${fettL(rivTop)}` : ''}.`; }
         else if (g === von && e1 === von) { lvl = 'gut'; lbl = 'Stark'; satz = `${M} ist bei dieser Frage überall die erste Empfehlung – eine starke Position, die es zu halten gilt.`; }
         else if (e1 === g) { satz = `${M} steht vorn, wo es genannt wird – fehlt aber in ${fehltN} von ${von} KI-Systemen.`; }
-        else if (g * 2 >= von) { satz = `${M} ist präsent, aber ${e1 * 2 >= g ? 'nicht überall' : 'selten'} die erste Empfehlung${(vornTop.length ? vornTop : rivTop).length ? ` – vorn stehen oft ${liste(vornTop.length ? vornTop : rivTop)}` : ''}.`; }
-        else { lvl = 'schlecht'; lbl = 'Schwach'; satz = `${M} wird nur vereinzelt genannt${rivTop.length ? ` – die meisten KI-Systeme empfehlen ${liste(rivTop)}` : ''}.`; }
+        else if (g * 2 >= von) { satz = `${M} ist präsent, aber ${e1 * 2 >= g ? 'nicht überall' : 'selten'} die erste Empfehlung${(vornTop.length ? vornTop : rivTop).length ? ` – vorn stehen oft ${fettL(vornTop.length ? vornTop : rivTop)}` : ''}.`; }
+        else { lvl = 'schlecht'; lbl = 'Schwach'; satz = `${M} wird nur vereinzelt genannt${rivTop.length ? ` – die meisten KI-Systeme empfehlen ${fettL(rivTop)}` : ''}.`; }
         const bd = $('[data-badge]') as HTMLElement; bd.textContent = lbl; bd.setAttribute('data-lvl', lvl);
-        ($('[data-verdict]') as HTMLElement).textContent = satz;
+        const vd = $('[data-verdict]') as HTMLElement; vd.innerHTML = '';
+        satz.split(/(\u0001[^\u0002]*\u0002)/).forEach((t) => {
+          if (t.startsWith('\u0001')) { const b = document.createElement('b'); b.textContent = t.slice(1, -1); vd.appendChild(b); }
+          else if (t) vd.appendChild(document.createTextNode(t));
+        });
         sys.forEach((s: any) => {
           const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`) as HTMLElement | null;
           if (!li) return;
@@ -621,10 +626,11 @@ const beispiele = [
         // Verbesserungsbedarf: System – Befund, hoechstens 4 Zeilen
         const zeilen: [string, string][] = [];
         if (g > 0) {
-          sys.filter((s: any) => s.antwort && !s.genannt).sort((a: any) => (a.key === 'google_ai_mode' ? -1 : 1)).forEach((s: any) =>
-            zeilen.push([s.label, s.key === 'google_ai_mode' ? 'Nicht genannt – die KI direkt in der Google-Suche.' : 'Nicht genannt.']));
-          sys.filter((s: any) => s.genannt && s.platz > 1).sort((a: any, b: any) => b.platz - a.platz).forEach((s: any) =>
-            zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`]));
+          const reihe = Array.from(root.querySelectorAll<HTMLElement>('[data-reslogos] [data-sys]')).map((li) => li.dataset.sys);
+          [...sys].sort((a: any, b: any) => reihe.indexOf(a.key) - reihe.indexOf(b.key)).forEach((s: any) => {
+            if (s.antwort && !s.genannt) zeilen.push([s.label, s.key === 'google_ai_mode' ? 'Nicht genannt – die KI direkt in der Google-Suche.' : 'Nicht genannt.']);
+            else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`]);
+          });
         } else if (rivTop.length) {
           zeilen.push(['Alle Systeme', `Nennen Sie nicht – empfohlen werden ${liste(fremde.slice(0, 3).map((r: any) => r.name))}.`]);
         }
