@@ -18,12 +18,12 @@
  * URL-Übergabe: ?d=firma.de&q=Frage füllt vor und startet automatisch
  * (Teaser auf Startseite/Webinar, Nurture-Mails).
  *
- * Eingabehilfe (27.09.2026, zunächst nur mit ?test=… oder ?vorschau=1):
+ * Eingabehilfe (27.09.2026, seit 27.09. für alle live):
  * animierter Platzhalter mit Beispielfragen je Rolle (?src=li-gf | li-vl | li-ml),
  * eine Formelzeile und ein Fragen-Vorschlag aus der Startseite der eingegebenen
  * Website (POST /ai/frage/vorschlag, max. ~4,5 s, überschreibt nie Eingetipptes).
  *
- * Vorschau (27.09.2026, ebenfalls nur mit ?test / ?vorschau=1): Freischaltung nur mit
+ * Kurz-Freischaltung (27.09.2026, für alle live): Freischaltung nur mit
  * geschäftlicher E-Mail (Name wird serverseitig aus der Adresse abgeleitet, Domain muss zur
  * geprüften Website passen) und Knöpfe „<Bereich> prüfen“ für weitere Geschäftsbereiche
  * (res.bereiche, vom Server parallel zur Messung ermittelt).
@@ -311,7 +311,7 @@ const beispiele = [
       dom.addEventListener('input', plan);
 
       // ---------- Eingabehilfe (27.09.2026): Platzhalter je Rolle, Formel, Vorschlag ----------
-      const hilfeAn = !!testKey || up.get('vorschau') === '1';
+      const hilfeAn = true;   // seit 27.09.2026 für alle live (vorher nur ?test / ?vorschau=1)
       if (hilfeAn) {
         const rolle = (up.get('src') || '').toLowerCase();
         const BSP: Record<string, string[]> = {
