@@ -223,7 +223,7 @@ const beispiele = [
   .snap-ber-l :global(.snap-ber-b b) { display:block; margin-bottom:2px; font-size:14.5px; color:hsl(var(--cta-accessible)); }
   .snap-formwrap.is-kurz { display:grid; grid-template-columns:1fr auto; gap:8px 8px; align-items:stretch; }
   .snap-formwrap.is-kurz > * { grid-column:1 / -1; margin:0; }
-  .snap-formwrap.is-kurz [data-namegrid], .snap-formwrap.is-kurz [data-c1wrap] { display:none; }
+  .snap-formwrap.is-kurz [data-namegrid], .snap-formwrap.is-kurz [data-c1wrap], .snap-formwrap.is-kurz [data-c2wrap] { display:none; }
   .snap-formwrap.is-kurz [data-mail] { grid-column:1; order:1; }
   .snap-formwrap.is-kurz .snap-send { grid-column:2; order:2; width:auto; white-space:nowrap; padding:0 20px; font-size:15px; }
   .snap-formwrap.is-kurz [data-mail] { min-width:0; }
@@ -540,7 +540,7 @@ const beispiele = [
         show(err2, '');
         const vn = ($('[data-vn]') as HTMLInputElement).value.trim(), nn = ($('[data-nn]') as HTMLInputElement).value.trim();
         const mail = ($('[data-mail]') as HTMLInputElement).value.trim();
-        const c1 = hilfeAn || ($('[data-c1]') as HTMLInputElement).checked, c2 = ($('[data-c2]') as HTMLInputElement).checked;
+        const c1 = hilfeAn || ($('[data-c1]') as HTMLInputElement).checked, c2 = !hilfeAn && ($('[data-c2]') as HTMLInputElement).checked;
         if (!hilfeAn && (!vn || !nn)) return show(err2, 'Bitte Vor- und Nachnamen angeben.');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return show(err2, 'Bitte eine gültige E-Mail-Adresse angeben.');
         if (!c1) return show(err2, 'Bitte stimmen Sie der Zusendung des Ergebnisses zu.');
