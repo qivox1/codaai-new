@@ -103,9 +103,9 @@ const beispiele = [
   </div>
 
   <div class="snap-res" data-res aria-live="polite">
-    <figure class="snap-thumb" data-thumb hidden><img data-thumbimg alt="" width="640" height="400" /></figure>
     <p class="snap-kicker">Visibility Snapshot · <span data-dom></span> · <span data-stand></span></p>
     <p class="snap-q">„<span data-q></span>“</p>
+    <figure class="snap-thumb" data-thumb hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-thumbd></span></div><img data-thumbimg alt="Startseite Ihrer Website" width="640" height="400" /></figure>
     <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
     <ul class="snap-logos snap-logos--res" data-reslogos>
       {logos.map((l) => (
@@ -243,9 +243,9 @@ const beispiele = [
   .snap-shot-b i { width:6px; height:6px; border-radius:50%; background:hsl(var(--border)); }
   .snap-shot-b span { margin-left:6px; font-size:10px; color:hsl(var(--muted-foreground)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .snap-shot img, .snap-thumb img { display:block; width:100%; height:auto; }
-  .snap-thumb { float:right; width:112px; margin:0 0 8px 12px; border:1px solid hsl(var(--border)); border-radius:6px; overflow:hidden; animation:snap-in .5s ease both; }
+  .snap-thumb { margin:14px 0 4px; border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 12px 28px -18px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
   @keyframes snap-in { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
-  @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:70%; } .snap-thumb { width:84px; } }
+  @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:70%; } }
   @media (prefers-reduced-motion: reduce) { .snap-shot, .snap-thumb { animation:none; } }
   .snap-tech { margin-top:18px; text-align:left; border-top:1px solid hsl(var(--border)); padding-top:14px; }
   .snap-tech-h { margin:0 0 8px; font-size:13px; font-weight:700; color:hsl(var(--muted-foreground)); }
@@ -508,7 +508,7 @@ const beispiele = [
         // Screenshot der Startseite (wird serverseitig ueber /ai/frage/technik ausgeloest)
         const shotD = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
         ($('[data-shot]') as HTMLElement).hidden = true; ($('[data-thumb]') as HTMLElement).hidden = true;
-        ($('[data-shotd]') as HTMLElement).textContent = shotD;
+        ($('[data-shotd]') as HTMLElement).textContent = shotD; ($('[data-thumbd]') as HTMLElement).textContent = shotD;
         let shotN = 0; const shotRun = ++shotLauf;
         const holeBild = () => {
           if (shotRun !== shotLauf || ++shotN > 14) return;
