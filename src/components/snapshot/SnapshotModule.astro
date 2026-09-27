@@ -116,7 +116,7 @@ const beispiele = [
     <figure class="snap-thumb" data-thumb hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-thumbd></span></div><img data-thumbimg alt="Startseite Ihrer Website" width="640" height="400" /></figure>
     <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
     <p class="snap-vs" data-vs hidden></p>
-    <ul class="snap-logos snap-logos--res" data-reslogos>
+    <ul class="snap-logos snap-logos--res" data-reslogos hidden>
       {logos.map((l) => (
         <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
@@ -221,6 +221,7 @@ const beispiele = [
   .snap-badge[data-lvl="gut"] { background:#E3F4EA; color:#146C43; }
   .snap-badge[data-lvl="mittel"] { background:#FDF1D8; color:#8A5A00; }
   .snap-badge[data-lvl="schlecht"] { background:#FDE7E7; color:#A1242B; }
+  .snap-logos--res[hidden] { display:none; }
   .snap-logos--res { background:hsl(var(--foreground) / .04); border-radius:14px; padding:14px 8px; }
   .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; box-shadow:0 0 0 1px hsl(var(--border)); }
   .snap-lg img { width:26px; height:26px; }
@@ -239,6 +240,14 @@ const beispiele = [
   .snap-find-l :global(div) { display:grid; grid-template-columns:130px 1fr; gap:12px; padding:9px 0; border-top:1px solid hsl(var(--border)); font-size:14.5px; line-height:1.45; }
   .snap-find-l :global(div:last-child) { border-bottom:1px solid hsl(var(--border)); }
   .snap-find-l :global(dt) { font-weight:700; }
+  .snap-find-l :global(.is-sys) { align-items:center; }
+  .snap-find-l :global(.is-sys dt) { display:flex; align-items:center; gap:8px; }
+  .snap-find-l :global(.snap-flg) { position:relative; flex-shrink:0; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid hsl(var(--border)); display:flex; align-items:center; justify-content:center; }
+  .snap-find-l :global(.snap-flg img) { width:22px; height:22px; }
+  .snap-find-l :global(.snap-fmk) { position:absolute; right:-5px; bottom:-4px; min-width:17px; height:17px; padding:0 3px; border-radius:99px; border:2px solid hsl(var(--card)); font:800 10.5px/13px inherit; font-style:normal; text-align:center; color:#fff; }
+  .snap-find-l :global(.snap-fmk.is-platz) { background:#E0A21B; }
+  .snap-find-l :global(.snap-fmk.is-fehlt) { background:hsl(var(--cta-strong)); }
+  .snap-find-l :global(.snap-flb) { font-size:13px; font-weight:600; color:hsl(var(--muted-foreground)); }
   .snap-find-l :global(dd) { margin:0; color:hsl(var(--foreground) / .85); }
   .snap-also { margin:14px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
   .snap-also :global(b) { font-weight:700; color:hsl(var(--foreground)); }
@@ -628,16 +637,13 @@ const beispiele = [
           pl.textContent = !s.antwort ? 'keine Antwort' : !s.genannt ? 'nicht genannt' : s.platz ? `Platz ${s.platz}` : 'genannt';
         });
         // Verbesserungsbedarf: System – Befund, hoechstens 4 Zeilen
-        const zeilen: [string, string][] = [];
-        if (g > 0) {
-          const reihe = Array.from(root.querySelectorAll<HTMLElement>('[data-reslogos] [data-sys]')).map((li) => li.dataset.sys);
-          [...sys].sort((a: any, b: any) => reihe.indexOf(a.key) - reihe.indexOf(b.key)).forEach((s: any) => {
-            if (s.antwort && !s.genannt) zeilen.push([s.label, s.key === 'google_ai_mode' ? 'Nicht genannt – die KI direkt in der Google-Suche.' : 'Nicht genannt.']);
-            else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`]);
-          });
-        } else if (rivTop.length) {
-          zeilen.push(['Alle Systeme', `Nennen Sie nicht – empfohlen werden ${liste(fremde.slice(0, 3).map((r: any) => r.name))}.`]);
-        }
+        const zeilen: [string, string, any?][] = [];
+        const reihe = Array.from(root.querySelectorAll<HTMLElement>('[data-reslogos] [data-sys]')).map((li) => li.dataset.sys);
+        [...sys].sort((a: any, b: any) => reihe.indexOf(a.key) - reihe.indexOf(b.key)).forEach((s: any) => {
+          const emp = (s.empfiehlt || []).length ? ` – empfiehlt ${liste(s.empfiehlt)}` : '';
+          if (s.antwort && !s.genannt) zeilen.push([s.label, `Nicht genannt${emp}.`, s]);
+          else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`, s]);
+        });
         const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
           zeilen.push(['Quellen', `Ihre Website ${res.eigene_quelle_n === 0 ? 'wird nicht' : `nur ${res.eigene_quelle_n}×`} zitiert – stattdessen ${liste(qd)}.`]);
@@ -653,14 +659,22 @@ const beispiele = [
           sbBox.setAttribute('data-u', sb.urteil);
           if (sb.urteil !== 'richtig') zeilen.push(['Bekanntheit', `${sb.system || 'ChatGPT'} ${sbTxt[sb.urteil][1]}`]);
         }
-        sbBox.hidden = !(sb.text && sbTxt[sb.urteil]);
+        sbBox.hidden = true;
         const tech = ((res.technik && res.technik.length ? res.technik : technik) || []).filter((t: any) => t.key !== 'llms');
         const techFehlt = tech.filter((t: any) => t.ok === false);
         techFehlt.forEach((t: any) => zeilen.push(['Technik', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
-        zeilen.slice(0, 7).forEach(([t, d]) => {
+        zeilen.slice(0, 9).forEach(([t, d, sy]) => {
           const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
-          dt.textContent = t; dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
+          if (sy) {
+            const src = (root.querySelector(`[data-reslogos] [data-sys="${sy.key}"] img`) as HTMLImageElement | null)?.getAttribute('src') || '';
+            const lg = document.createElement('span'), im = document.createElement('img'), mk = document.createElement('i'), lb = document.createElement('span');
+            lg.className = 'snap-flg'; lg.title = t; im.src = src; im.alt = ''; im.width = 26; im.height = 26;
+            mk.className = sy.genannt ? 'snap-fmk is-platz' : 'snap-fmk is-fehlt'; mk.textContent = sy.genannt ? String(sy.platz) : '×';
+            lb.className = 'snap-flb'; lb.textContent = t;
+            lg.append(im, mk); dt.append(lg, lb); row.className = 'is-sys';
+          } else dt.textContent = t;
+          dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
         ($('[data-findbox]') as HTMLElement).hidden = !zeilen.length;
         const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
@@ -683,7 +697,7 @@ const beispiele = [
           });
           li.append(nm, x); berl.appendChild(li);
         });
-        ber.hidden = !bl.length;
+        ber.hidden = true;
         // Wettbewerber im direkten Vergleich
         const vs = $('[data-vs]') as HTMLElement; vs.innerHTML = '';
         const top = fremde[0];
