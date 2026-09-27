@@ -113,22 +113,22 @@ const beispiele = [
       <p class="snap-sb-h"><span>So beschreibt <span data-sbsys>ChatGPT</span> Ihr Unternehmen <small>(ohne Websuche)</small></span> <span class="snap-sb-u" data-sbu></span></p>
       <p class="snap-sb-t">„<span data-sbt></span>“</p>
     </div>
+    <div class="snap-ber" data-ber hidden>
+      <p class="snap-ber-h" data-berh>Weitere erkannte Geschäftsbereiche</p>
+      <ul class="snap-ber-l" data-berl></ul>
+    </div>
     <div class="snap-find" data-findbox hidden>
       <p class="snap-h" data-findh>Verbesserungsbedarf</p>
       <dl class="snap-find-l" data-find></dl>
     </div>
     <p class="snap-also" data-also hidden></p>
-    <div class="snap-ber" data-ber hidden>
-      <p class="snap-ber-h" data-berh></p>
-      <div class="snap-ber-l" data-berl></div>
-    </div>
     <div class="snap-cov" data-cov hidden>
       <p class="snap-cov-t" data-covt></p>
       <div class="snap-cov-bar"><span data-covbar></span></div>
     </div>
     <div class="snap-audit" data-audit hidden>
       <p class="snap-audit-k">Kostenlos · Digital Visibility Audit</p>
-      <p class="snap-audit-h">Das war eine Frage. Das Audit zeigt das ganze Bild.</p>
+      <p class="snap-audit-h">Das war eine Frage.<br />Das Audit zeigt das ganze Bild.</p>
       <p class="snap-audit-p">Für <b data-auditd></b>:</p>
       <ul class="snap-audit-l">
         <li>Ihre Sichtbarkeit in der Suchmaschine und in KI-Systemen</li>
@@ -255,7 +255,7 @@ const beispiele = [
   .snap-vs { margin:14px 0 0; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
   .snap-vs :global(b) { font-weight:800; }
   .snap-cov { margin:18px 0 0; }
-  .snap-cov-t { margin:0 0 6px; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-cov-t { margin:0 0 6px; font-size:14.5px; font-weight:600; color:hsl(var(--cta-accessible)); }
   .snap-cov-t :global(b) { font-weight:800; }
   .snap-cov-bar { height:8px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
   .snap-cov-bar span { display:block; height:100%; min-width:6px; background:hsl(var(--cta)); border-radius:99px; }
@@ -283,13 +283,13 @@ const beispiele = [
   .snap-adone b { display:block; font-size:18px; margin-bottom:4px; }
   @media (max-width:420px) { .snap-amail span { font-size:14px; } }
   .snap-audit-a { display:inline-block; color:#fff; font-weight:700; font-size:14.5px; text-decoration:underline; text-underline-offset:3px; }
-  .snap-ber { margin:18px 0 0; padding:16px; border-radius:14px; border:1px solid hsl(var(--border)); }
-  .snap-ber[data-lvl="gut"] { border-color:hsl(var(--cta) / .45); background:hsl(var(--cta) / .05); }
-  .snap-ber-h { margin:0 0 10px; font-size:15px; font-weight:700; color:hsl(var(--foreground)); }
-  .snap-ber-l { display:flex; flex-direction:column; gap:8px; }
-  .snap-ber-l :global(.snap-ber-b) { display:block; width:100%; text-align:left; padding:10px 12px; border-radius:10px; border:1px solid hsl(var(--border)); background:hsl(var(--background)); cursor:pointer; font-size:13.5px; line-height:1.4; color:hsl(var(--muted-foreground)); }
-  .snap-ber-l :global(.snap-ber-b:hover) { border-color:hsl(var(--cta)); }
-  .snap-ber-l :global(.snap-ber-b b) { display:block; margin-bottom:2px; font-size:14.5px; color:hsl(var(--cta-accessible)); }
+  .snap-ber { margin:10px 0 0; padding:10px 14px; border-radius:10px; border:1px solid hsl(var(--border)); text-align:left; }
+  .snap-ber-h { margin:0 0 4px; font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:hsl(var(--muted-foreground)); }
+  .snap-ber-l { margin:0; padding:0; list-style:none; }
+  .snap-ber-l :global(li) { display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:4px 0; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-ber-l :global(li + li) { border-top:1px solid hsl(var(--border) / .6); }
+  .snap-ber-l :global(.snap-ber-b) { flex-shrink:0; border:0; background:none; padding:0; cursor:pointer; font-size:13.5px; font-weight:700; color:hsl(var(--cta-accessible)); }
+  .snap-ber-l :global(.snap-ber-b:hover) { text-decoration:underline; text-underline-offset:3px; }
   .snap-formwrap.is-kurz { display:grid; grid-template-columns:1fr auto; gap:8px 8px; align-items:stretch; }
   .snap-formwrap.is-kurz > * { grid-column:1 / -1; margin:0; }
   .snap-formwrap.is-kurz [data-namegrid], .snap-formwrap.is-kurz [data-c1wrap], .snap-formwrap.is-kurz [data-c2wrap] { display:none; }
@@ -608,24 +608,17 @@ const beispiele = [
         // weitere Geschaeftsbereiche (Vorschau)
         const ber = $('[data-ber]') as HTMLElement, berl = $('[data-berl]') as HTMLElement; berl.innerHTML = '';
         const bl = hilfeAn ? (res.bereiche || []) : [];
-        if (bl.length) {
-          ($('[data-berh]') as HTMLElement).textContent = lvl === 'gut'
-            ? 'Hier sind Sie vorn. Und in Ihren anderen Geschäftsbereichen?'
-            : 'Auch Ihre anderen Geschäftsbereiche prüfen:';
-          ber.setAttribute('data-lvl', lvl);
-          bl.forEach((b: any) => {
-            const x = document.createElement('button'), bt = document.createElement('b'), sp = document.createElement('span');
-            x.type = 'button'; x.className = 'snap-ber-b'; bt.textContent = `${b.bereich} prüfen →`; sp.textContent = b.frage;
-            x.append(bt, sp);
-            x.addEventListener('click', () => {
-              frage.value = b.frage; serverHinweis = false; hinweis('');
-              dl.push({ event: 'snapshot_bereich', bereich: b.bereich, lvl, lang, source: root.dataset.source });
-              root.scrollIntoView({ block: 'start', behavior: 'smooth' });
-              form.requestSubmit();
-            });
-            berl.appendChild(x);
+        bl.forEach((b: any) => {
+          const li = document.createElement('li'), nm = document.createElement('span'), x = document.createElement('button');
+          nm.textContent = b.bereich; x.type = 'button'; x.className = 'snap-ber-b'; x.textContent = 'Jetzt prüfen →'; x.title = b.frage;
+          x.addEventListener('click', () => {
+            frage.value = b.frage; serverHinweis = false; hinweis('');
+            dl.push({ event: 'snapshot_bereich', bereich: b.bereich, lvl, lang, source: root.dataset.source });
+            root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            form.requestSubmit();
           });
-        }
+          li.append(nm, x); berl.appendChild(li);
+        });
         ber.hidden = !bl.length;
         // Wettbewerber im direkten Vergleich
         const vs = $('[data-vs]') as HTMLElement; vs.innerHTML = '';
@@ -641,7 +634,7 @@ const beispiele = [
         if (nF >= 20) {
           ($('[data-covt]') as HTMLElement).innerHTML = '';
           const bb = document.createElement('b'); bb.textContent = `1 von rund ${nF}`;
-          ($('[data-covt]') as HTMLElement).append('Geprüft: ', bb, ' typischen Kundenfragen zu Ihrem Angebot (Schätzung).');
+          ($('[data-covt]') as HTMLElement).append(bb, ' typischen Kundenfragen zu Ihrem Angebot geprüft (Schätzung)');
           ($('[data-covbar]') as HTMLElement).style.width = `${Math.max(100 / nF, 1.5)}%`;
         }
         cov.hidden = nF < 20;
