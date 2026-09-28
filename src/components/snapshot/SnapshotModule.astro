@@ -933,7 +933,7 @@ const beispiele = [
         if (!r2 || r2.status !== 'ok') return show(limErr, (r2 && r2.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
         ($('[data-limf]') as HTMLElement).hidden = true;
         const dn = $('[data-limdone]') as HTMLElement; dn.hidden = false;
-        dn.textContent = `Fast geschafft. Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihren Wettbewerbsvergleich und senden ihn Ihnen zu.`;
+        dn.textContent = `Fast geschafft. Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach ergänzen Sie noch Ihren Namen, und wir erstellen Ihren Wettbewerbsvergleich.`;
         dl.push({ event: 'snapshot_audit_anfrage', quelle: 'limit', icp, lang, source: root.dataset.source });
       });
 
@@ -962,7 +962,7 @@ const beispiele = [
           dl.push({ event: 'snapshot_audit_fehler', grund: (res && res.feld) || 'sonst', lang, source: root.dataset.source });
           return show(err2, (res && res.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
         }
-        ($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihren Wettbewerbsvergleich und senden ihn Ihnen zu.`;
+        ($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach ergänzen Sie noch Ihren Namen, und wir erstellen Ihren Wettbewerbsvergleich.`;
         ($('[data-aform]') as HTMLElement).hidden = true;
         ($('[data-done]') as HTMLElement).hidden = false;
         dl.push({ event: 'snapshot_audit_anfrage', icp, zustand: root.dataset.zustand, lang, source: root.dataset.source });
