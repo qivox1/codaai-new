@@ -169,6 +169,8 @@ const beispiele = [
 <style>
   .snap { --pad: 28px; width:100%; max-width:560px; border-radius:24px; background:hsl(var(--card)); border:1px solid hsl(var(--border)); box-shadow:0 20px 60px -30px hsl(var(--foreground) / .35); overflow:hidden; }
   .snap-form, .snap-load, .snap-res { padding:var(--pad); }
+  .is-vf .snap-lshot-f img, .is-vf .snap-thumb img { filter: blur(16px) saturate(.7); transform: scale(1.08); }
+  .snap-vf-dom { margin-bottom:18px; color:hsl(var(--muted-foreground)); font-style:italic; user-select:none; }
   .snap-hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
   .snap-lbl { display:block; margin:0 0 6px; font-size:14px; font-weight:700; color:hsl(var(--foreground)); }
   .snap-lbl + .snap-in { margin-bottom:18px; }
@@ -427,7 +429,33 @@ const beispiele = [
       let rolleSrc = (up.get('src') || '').toLowerCase();
       try { if (/^li-(gf|vl|ml)$/.test(rolleSrc)) sessionStorage.setItem('coda_src', rolleSrc); else rolleSrc = sessionStorage.getItem('coda_src') || rolleSrc; } catch (e) {}
       const icp = rolleSrc === 'li-vl' ? 'vl' : rolleSrc === 'li-ml' ? 'ml' : 'gf';
-      if (testKey) { const tm = document.createElement('p'); tm.className = 'snap-test'; tm.textContent = `Testmodus${frisch ? ' · frisch messen' : ''}`; form.appendChild(tm); }
+      // ---------- Vorführmodus (28.09.2026): ?vorfuehrung=<code> — Firma anonym, fürs Webinar ----------
+      const VF: Record<string, any> = {
+        sanitaer: { d: atob('ZmpzY2h1ZXR0ZS5jb20='), label: 'Ein deutscher Hersteller von Sanitärarmaturen',
+          dom: 'hersteller-sanitaer.de', marke: 'Unser Hersteller',
+          q: 'Welche deutschen Hersteller von Sanitärarmaturen bieten das beste Preis-Leistungs-Verhältnis für mittlere Projektgrößen?',
+          wv: 'https://vergleich.codaai.ai/demo-sanitaer?t=suXTMTaqtD8oLCfpnO1-BQPO' },
+      };
+      const vf = VF[(up.get('vorfuehrung') || '').toLowerCase()] || null;
+      const vfEsc = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      let vfRe: RegExp | null = null;
+      const vfMask = () => {
+        if (!vf || !vfRe) return;
+        const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const n: Text[] = []; while (w.nextNode()) n.push(w.currentNode as Text);
+        n.forEach((t) => { const v = t.nodeValue || ''; vfRe!.lastIndex = 0;
+          if (vfRe!.test(v)) { vfRe!.lastIndex = 0; t.nodeValue = v.replace(vfRe!, (m) => m.includes('.') ? vf.dom : vf.marke); } });
+      };
+      if (vf) {
+        root.classList.add('is-vf');
+        dom.value = vf.d; dom.hidden = true;
+        const fk = document.createElement('div'); fk.className = 'snap-in snap-vf-dom'; fk.textContent = vf.label;
+        dom.insertAdjacentElement('afterend', fk);
+        frage.value = vf.q;
+        const st = vf.d.split('.')[0];
+        vfRe = new RegExp('(www\\.)?' + vfEsc(vf.d) + '|' + vfEsc(st) + '|Sch(ü|ue|u)tte[\\p{L}.&\\- ]*?(GmbH|KG|Co\\. KG)?', 'giu');
+      }
+      if (testKey && !vf) { const tm = document.createElement('p'); tm.className = 'snap-test'; tm.textContent = `Testmodus${frisch ? ' · frisch messen' : ''}`; form.appendChild(tm); }
 
       const setState = (s: string) => root.setAttribute('data-state', s);
       const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = !msg; };
@@ -585,7 +613,7 @@ const beispiele = [
         q.split(' ').forEach((w, i) => { if (i) lq.append(' '); const sp = document.createElement('span'); sp.textContent = w; lq.appendChild(sp); lWorte.push(sp); });
         root.querySelectorAll<HTMLElement>('[data-loadlogos] li').forEach((li) => { li.removeAttribute('data-ok'); li.removeAttribute('data-rank'); li.querySelector('.snap-mark')?.removeAttribute('data-n'); });
         const im = $('[data-lshotimg]') as HTMLImageElement; im.hidden = true; im.removeAttribute('src');
-        ($('[data-lshotd]') as HTMLElement).textContent = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+        ($('[data-lshotd]') as HTMLElement).textContent = vf ? vf.dom : d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
         if (ruhigA) { malen(0.6); return; }
         lT0 = performance.now(); malen(0);
         lRaf = requestAnimationFrame(lauf);
@@ -635,7 +663,7 @@ const beispiele = [
         // Screenshot der Startseite (wird serverseitig ueber /ai/frage/technik ausgeloest)
         const shotD = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
         ($('[data-thumb]') as HTMLElement).hidden = true;
-        ($('[data-thumbd]') as HTMLElement).textContent = shotD;
+        ($('[data-thumbd]') as HTMLElement).textContent = vf ? vf.dom : shotD;
         let shotN = 0; const shotRun = ++shotLauf;
         const holeBild = () => {
           if (shotRun !== shotLauf || ++shotN > 14) return;
@@ -718,9 +746,11 @@ const beispiele = [
         ($('[data-stand]') as HTMLElement).textContent = res.stand;
         ($('[data-stand2]') as HTMLElement).textContent = res.stand;
         ($('[data-q]') as HTMLElement).textContent = res.frage || '';
-        ($('[data-dom]') as HTMLElement).textContent = res.domain;
+        if (vf) { const bits = [res.marke, res.marke_kurz].filter((x: any) => x && String(x).length >= 3).map((x: any) => vfEsc(String(x)));
+          vfRe = new RegExp([vfRe!.source, ...bits].join('|'), 'giu'); }
+        ($('[data-dom]') as HTMLElement).textContent = vf ? vf.dom : res.domain;
         const g = res.genannt, von = res.von, e1 = res.erste_stelle ?? 0;
-        const M = res.marke_kurz || res.marke || res.domain;
+        const M = vf ? vf.marke : (res.marke_kurz || res.marke || res.domain);
         const sys = res.systeme || [];
         const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}` : (a[0] || '');
         const fettL = (a: string[]) => liste(a.map((x) => `\u0001${x}\u0002`));
@@ -916,6 +946,7 @@ const beispiele = [
         const mi = $('[data-mail]') as HTMLInputElement; mi.value = ''; ($('[data-amail]') as HTMLElement).classList.remove('is-voll');
         ($('[data-aform]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true; show(err2, '');
         ($('[data-audit]') as HTMLElement).hidden = false;
+        vfMask();
         await enthuellen(sys, g, von);
         setState('res');
         dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
@@ -955,6 +986,13 @@ const beispiele = [
       const mailIn = $('[data-mail]') as HTMLInputElement;
       mailIn.addEventListener('input', () => ($('[data-amail]') as HTMLElement).classList.toggle('is-voll', mailIn.value.includes('@')));
       mailIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); send.click(); } });
+      if (vf) {
+        mailIn.placeholder = 'vorname.nachname';
+        send.addEventListener('click', (e) => {
+          e.stopImmediatePropagation();
+          if (vf.wv) window.open(vf.wv, '_blank', 'noopener');
+        }, true);
+      }
       send.addEventListener('click', async () => {
         show(err2, '');
         const v = mailIn.value.trim().replace(/\s+/g, '');
