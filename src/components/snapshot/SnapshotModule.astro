@@ -1028,7 +1028,7 @@ const beispiele = [
       const p = new URLSearchParams(location.search);
       if (p.get('d')) dom.value = p.get('d') || '';
       if (p.get('q')) frage.value = p.get('q') || '';
-      if (dom.value && frage.value.trim().length >= 25) {
+      if (!vf && dom.value && frage.value.trim().length >= 25) {   // Vorführmodus: Start per Klick, nicht automatisch
         root.scrollIntoView({ block: 'center' });
         if (sitekey) autostart = true; else setTimeout(() => form.requestSubmit(), 2600);
       }
