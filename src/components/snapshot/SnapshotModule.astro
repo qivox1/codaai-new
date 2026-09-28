@@ -225,7 +225,13 @@ const beispiele = [
   .snap.is-wait .snap-bar span { animation:snap-glimm2 1.6s ease-in-out infinite; }
   @keyframes snap-glimm2 { 50% { opacity:.55; } }
   /* Screenshot mit Scanlinie */
-  .snap-lshot-f { position:relative; aspect-ratio:16/10; overflow:hidden; background:hsl(var(--muted) / .5); }
+  /* Ladebildschirm (28.09.2026): Screenshot über die volle Breite, Prüfungen darunter zweispaltig */
+  .snap-load .snap-tech-g { flex-direction:column; align-items:stretch; }
+  .snap-load .snap-lshot { flex:none; width:100%; }
+  .snap-load .snap-tech-l { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; }
+  .snap-load .snap-tech-l li { align-items:flex-start; font-size:13.5px; line-height:1.4; }
+  .snap-load .snap-tech-l li i { margin-top:1px; }
+  .snap-lshot-f { position:relative; aspect-ratio:2/1; overflow:hidden; background:hsl(var(--muted) / .5); }
   .snap-lshot-f img { width:100%; height:100%; object-fit:cover; object-position:top; animation:snap-in .5s ease both; }
   .snap-lshot-ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; color:hsl(var(--muted-foreground)); }
   .snap-lshot-f img:not([hidden]) + .snap-lshot-ph { display:none; }
@@ -290,7 +296,7 @@ const beispiele = [
   .snap-shot img, .snap-thumb img { display:block; width:100%; height:auto; }
   .snap-thumb { margin:16px 0 22px; border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 12px 28px -18px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
   @keyframes snap-in { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
-  @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:100%; } .snap-lshot-f { aspect-ratio:16/7; } .snap-lq { font-size:17px; } }
+  @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:100%; } .snap-lshot-f { aspect-ratio:16/7; } .snap-load .snap-tech-l { grid-template-columns:1fr; } .snap-lq { font-size:17px; } }
   @media (prefers-reduced-motion: reduce) { .snap-shot, .snap-thumb { animation:none; } }
   .snap-tech { margin-top:18px; text-align:left; border-top:1px solid hsl(var(--border)); padding-top:14px; }
   .snap-tech-h { margin:0 0 8px; font-size:13px; font-weight:700; color:hsl(var(--muted-foreground)); }
