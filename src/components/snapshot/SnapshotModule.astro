@@ -136,7 +136,6 @@ const beispiele = [
     <p class="snap-also" data-also hidden></p>
     <div class="snap-cov" data-cov hidden>
       <p class="snap-cov-t" data-covt></p>
-      <div class="snap-cov-bar"><span data-covbar></span></div>
     </div>
     <div class="snap-audit" data-audit hidden>
       <p class="snap-audit-h" data-audith><span class="snap-audit-h1">Das war nur <b>eine</b> Frage.</span><br /><span class="snap-audit-pk">Sehen Sie jetzt das ganze Bild.</span></p>
@@ -288,10 +287,9 @@ const beispiele = [
   .snap-vs { margin:-6px 0 20px; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
   .snap-vs :global(b) { font-weight:800; }
   .snap-cov { margin:18px 0 0; }
-  .snap-cov-t { margin:0 0 6px; font-size:14.5px; font-weight:600; color:hsl(var(--cta-accessible)); }
+  .snap-cov-t { margin:0; font-size:14.5px; font-weight:600; color:hsl(var(--cta-accessible)); }
   .snap-cov-t :global(b) { font-weight:800; }
-  .snap-cov-bar { height:8px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
-  .snap-cov-bar span { display:block; height:100%; min-width:6px; background:hsl(var(--cta)); border-radius:99px; }
+  @media (max-width:480px) { .snap-cov-t :global(.snap-cov-typ) { display:none; } }   /* passt so auch auf 360-px-Telefonen in eine Zeile */
   .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:hsl(var(--navy-600)); color:#fff; text-align:left; }
   .snap-audit-k { margin:0 0 4px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#EA82FC; }
   .snap-audit-h { margin:0 0 8px; font-size:22px; font-weight:700; line-height:1.3; }
@@ -736,8 +734,7 @@ const beispiele = [
         if (nF >= 20) {
           ($('[data-covt]') as HTMLElement).innerHTML = '';
           const bb = document.createElement('b'); bb.textContent = `1 von rund ${nF}`;
-          ($('[data-covt]') as HTMLElement).append(bb, ' typischen Kundenfragen zu Ihrem Angebot geprüft (Schätzung)');
-          ($('[data-covbar]') as HTMLElement).style.width = `${Math.max(100 / nF, 1.5)}%`;
+          ($('[data-covt]') as HTMLElement).append(bb, ' ', Object.assign(document.createElement('span'), { className: 'snap-cov-typ', textContent: 'typischen ' }), 'Kundenfragen geprüft');
         }
         cov.hidden = nF < 20;
         // Audit mit konkretem Inhalt
