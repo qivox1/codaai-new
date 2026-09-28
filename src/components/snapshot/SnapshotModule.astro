@@ -938,7 +938,7 @@ const beispiele = [
         let r2: any = null;
         try {
           const r = await fetch(API + '/ai/frage/freischalten', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ domain: limDomain, name: '', email: mail, audit: true, einwilligung_ergebnis: true,
+            body: JSON.stringify({ domain: limDomain, name: '', email: mail, audit: true, icp, einwilligung_ergebnis: true,
                                    einwilligung_version: '2026-09-27-audit-v1', test_key: testKey || undefined,
                                    website_url: ($('[data-hp]') as HTMLInputElement).value }) });
           r2 = await r.json();
@@ -965,7 +965,7 @@ const beispiele = [
         try {
           const r = await fetch(API + '/ai/frage/freischalten', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ check_id: checkId, name: '', email: mail, audit: true, einwilligung_ergebnis: true,
+            body: JSON.stringify({ check_id: checkId, name: '', email: mail, audit: true, icp, einwilligung_ergebnis: true,
                                    einwilligung_version: '2026-09-27-audit-v1', test_key: testKey || undefined,
                                    website_url: ($('[data-hp]') as HTMLInputElement).value }),
           });
