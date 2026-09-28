@@ -76,10 +76,10 @@ const beispiele = [
     <p class="snap-err" data-err role="alert" hidden></p>
     <div class="snap-lim" data-lim hidden>
       <p class="snap-lim-t" data-limt></p>
-      <button type="button" class="snap-send" data-limbtn>Digital Visibility Audit anfordern <span aria-hidden="true">→</span></button>
+      <button type="button" class="snap-send" data-limbtn>Wettbewerbsvergleich anfordern <span aria-hidden="true">→</span></button>
       <div class="snap-lim-f" data-limf hidden>
         <label class="snap-amail snap-amail--hell" data-limmailw><input data-limmail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="vorname.nachname" aria-label="Geschäftliche E-Mail-Adresse" /><span data-limat></span></label>
-        <button type="button" class="snap-send" data-limsend>Vollständiges Audit senden <span aria-hidden="true">→</span></button>
+        <button type="button" class="snap-send" data-limsend>Wettbewerbsvergleich anfordern <span aria-hidden="true">→</span></button>
         <p class="snap-aerr" data-limerr role="alert" hidden></p>
         <p class="snap-lim-mini"><a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
       </div>
@@ -139,18 +139,18 @@ const beispiele = [
       <div class="snap-cov-bar"><span data-covbar></span></div>
     </div>
     <div class="snap-audit" data-audit hidden>
-      <p class="snap-audit-h"><span class="snap-audit-h1">Das war nur <b>eine</b> Frage.</span><br /><span class="snap-audit-pk">Sehen Sie jetzt das ganze Bild.</span></p>
-      <p class="snap-audit-c">Ihre Kunden fragen zuerst die KI. Wen sie nicht nennt, kommt auf keine Shortlist.<span data-auditbeweis hidden></span></p>
-      <p class="snap-audit-p">Sie erhalten Ihr Digital Visibility Audit für <b data-auditd></b>:</p>
-      <ul class="snap-audit-l">
-        <li>Ihre Sichtbarkeit in der Suchmaschine und in KI-Systemen</li>
-        <li>Konkreter Wettbewerbsvergleich</li>
-        <li>Typische Kundenfragen in allen 5 KI-Systemen</li>
-        <li>Die technischen Befunde mit konkreten Empfehlungen</li>
+      <p class="snap-audit-h" data-audith><span class="snap-audit-h1">Das war nur <b>eine</b> Frage.</span><br /><span class="snap-audit-pk">Sehen Sie jetzt das ganze Bild.</span></p>
+      <p class="snap-audit-c"><span class="snap-audit-ct" data-auditc>Ihre Kunden fragen zuerst die KI, und die schreibt die Shortlist. Wer dort fehlt, bekommt die Anfrage nicht. Und meist merkt man das gar nicht.</span><span data-auditbeweis hidden></span></p>
+      <p class="snap-audit-p">Ihr KI-Wettbewerbsvergleich für <b data-auditd></b>:</p>
+      <ul class="snap-audit-l" data-auditl>
+        <li>Welche Wettbewerber die KI bei Ihren wichtigsten Kundenfragen empfiehlt, und warum</li>
+        <li>Bei welchen Fragen die Anfragen heute an andere gehen</li>
+        <li>Ihre Position in Google und KI, direkt neben Ihren Wettbewerbern</li>
+        <li>Was konkret zu tun ist, damit Sie auf die Shortlist kommen</li>
       </ul>
       <div class="snap-aform" data-aform>
         <label class="snap-amail" data-amail><input data-mail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="vorname.nachname" aria-label="Geschäftliche E-Mail-Adresse" /><span data-at></span></label>
-        <button type="button" class="snap-send" data-send><span data-sendt>Audit jetzt erhalten</span> <span aria-hidden="true">→</span></button>
+        <button type="button" class="snap-send" data-send><span data-sendt>Wettbewerbsvergleich anfordern</span> <span aria-hidden="true">→</span></button>
         <p class="snap-aerr" data-err2 role="alert" hidden></p>
         <p class="snap-amini"><a href={`${base}/datenschutz/#visibility-snapshot`} target="_blank" rel="noopener">Datenschutzhinweise</a></p>
       </div>
@@ -295,19 +295,20 @@ const beispiele = [
   .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:#131A2B; color:#fff; text-align:left; }
   .snap-audit-k { margin:0 0 4px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#EA82FC; }
   .snap-audit-h { margin:0 0 8px; font-size:22px; font-weight:700; line-height:1.3; }
-  .snap-audit-h1 { font-weight:400; }
-  .snap-audit-h1 b { font-weight:700; }
+  .snap-audit-h :global(.snap-audit-h1) { font-weight:400; }
+  .snap-audit-h :global(.snap-audit-h1 b) { font-weight:700; }
   @media (max-width:480px) { .snap-audit-h { font-size:19px; } }
-  .snap-audit-pk { color:#EA82FC; }
+  .snap-audit-h :global(.snap-audit-pk) { color:#EA82FC; }
   .snap-audit-c { margin:0 0 14px; font-size:15px; line-height:1.5; font-weight:400; color:hsl(0 0% 100% / .9); }
   .snap-audit-c span { color:#EA82FC; }
+  .snap-audit-c .snap-audit-ct { color:inherit; }
   .snap-audit-c :global(b) { font-weight:400; }
   .snap-audit-p { margin:0 0 16px; font-size:14px; line-height:1.55; color:hsl(0 0% 100% / .86); }
   .snap-audit-p b { color:#fff; }
   .snap-audit-p:has(+ .snap-audit-l) { margin-bottom:6px; }
   .snap-audit-l { margin:0 0 16px; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px; }
-  .snap-audit-l li { position:relative; padding-left:22px; font-size:14px; line-height:1.45; color:hsl(0 0% 100% / .9); }
-  .snap-audit-l li::before { content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #EA82FC; border-bottom:2px solid #EA82FC; transform:rotate(-45deg); }
+  .snap-audit-l :global(li) { position:relative; padding-left:22px; font-size:14px; line-height:1.45; color:hsl(0 0% 100% / .9); }
+  .snap-audit-l :global(li)::before { content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #EA82FC; border-bottom:2px solid #EA82FC; transform:rotate(-45deg); }
   .snap-amail { display:flex; align-items:stretch; border-radius:12px; background:#fff; overflow:hidden; border:2px solid transparent; cursor:text; }
   .snap-amail:focus-within { border-color:hsl(var(--cta)); }
   .snap-amail input { flex:1; min-width:0; border:0; padding:14px 4px 14px 14px; font-size:16px; color:#131A2B; background:transparent; outline:none; }
@@ -389,6 +390,10 @@ const beispiele = [
       // interner Testmodus: ?test=<Schluessel> (ohne IP-Limit), &frisch=1 (Cache umgehen)
       const up = new URLSearchParams(location.search);
       const testKey = (up.get('test') || '').slice(0, 64), frisch = up.get('frisch') === '1';
+      // Rolle aus der Anzeige (?src=li-gf | li-vl | li-ml), für die Sitzung gemerkt
+      let rolleSrc = (up.get('src') || '').toLowerCase();
+      try { if (/^li-(gf|vl|ml)$/.test(rolleSrc)) sessionStorage.setItem('coda_src', rolleSrc); else rolleSrc = sessionStorage.getItem('coda_src') || rolleSrc; } catch (e) {}
+      const icp = rolleSrc === 'li-vl' ? 'vl' : rolleSrc === 'li-ml' ? 'ml' : 'gf';
       if (testKey) { const tm = document.createElement('p'); tm.className = 'snap-test'; tm.textContent = `Testmodus${frisch ? ' · frisch messen' : ''}`; form.appendChild(tm); }
 
       const setState = (s: string) => root.setAttribute('data-state', s);
@@ -590,7 +595,7 @@ const beispiele = [
             if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Audit direkt anfordern
               show(err, '');
               limDomain = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
-              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'Für eine vollständige Analyse bestellen Sie bitte Ihr Digital Visibility Audit.';
+              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'Für den vollständigen Überblick fordern Sie Ihren KI-Wettbewerbsvergleich an: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.';
               ($('[data-limat]') as HTMLElement).textContent = '@' + limDomain;
               ($('[data-limbtn]') as HTMLElement).hidden = false; ($('[data-limf]') as HTMLElement).hidden = true;
               ($('[data-limdone]') as HTMLElement).hidden = true; ($('[data-lim]') as HTMLElement).hidden = false;
@@ -722,6 +727,65 @@ const beispiele = [
         // Audit mit konkretem Inhalt
         const nT = techFehlt.length;
         ($('[data-auditd]') as HTMLElement).textContent = res.domain;
+        // Überschrift, Text und Liste je Rolle (icp) und Befund (Stand 28.09.2026)
+        {
+          const W = g === 0 ? (rivTop[0] || '') : (vornTop[0] || (top && top.anzahl > g ? top.name : ''));
+          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && W) ? 'hinten' : 'offen';
+          const nFr = nF >= 20 ? `rund ${nF}` : '';
+          type Zeile = (string | { b: string })[];
+          const T: Record<string, { h: Record<string, [Zeile, string]>; c: string; l: string[] }> = {
+            gf: {
+              h: {
+                fehlt: [['Die KI empfiehlt ', { b: W }, '.'], 'Nicht Sie.'],
+                hinten: [[{ b: W }, ' steht vor Ihnen.'], 'Bei wie vielen Fragen noch?'],
+                vorn: [['Hier sind Sie vorn.'], nFr ? `Bei den anderen ${nFr} Fragen auch?` : 'Bei Ihren anderen Kundenfragen auch?'],
+                offen: [['Das war nur ', { b: 'eine' }, ' Frage.'], nFr ? `Ihre Kunden stellen ${nFr}.` : 'Wer gewinnt die anderen?'],
+              },
+              c: 'Ihre Kunden fragen zuerst die KI, und die schreibt die Shortlist. Wer dort fehlt, bekommt die Anfrage nicht. Und meist merkt man das gar nicht.',
+              l: ['Welche Wettbewerber die KI bei Ihren wichtigsten Kundenfragen empfiehlt, und warum',
+                  'Bei welchen Fragen die Anfragen heute an andere gehen',
+                  'Ihre Position in Google und KI, direkt neben Ihren Wettbewerbern',
+                  'Was konkret zu tun ist, damit Sie auf die Shortlist kommen'],
+            },
+            vl: {
+              h: {
+                fehlt: [['Diese Anfrage geht an ', { b: W }, '.'], 'Nicht an Sie.'],
+                hinten: [[{ b: W }, ' steht vor Ihnen auf der Shortlist.'], 'Bei wie vielen Anfragen noch?'],
+                vorn: [['Diese Anfrage landet bei Ihnen.'], nFr ? `Und die anderen ${nFr}?` : 'Und die anderen?'],
+                offen: [['Das war nur ', { b: 'eine' }, ' Anfrage.'], nFr ? `Einkäufer stellen ${nFr}.` : 'Wer bekommt die anderen?'],
+              },
+              c: 'Einkäufer fragen die KI, bevor sie Ihren Vertrieb anrufen. Wen sie nicht nennt, der bekommt keine Anfrage. Und im CRM taucht das nie als verlorene Chance auf.',
+              l: ['Bei welchen Kundenfragen die KI heute Ihre Wettbewerber empfiehlt',
+                  'Wer auf den Shortlists steht, und warum die KI ihn nennt',
+                  'Wo Anfragen an Ihnen vorbeilaufen, nach Produkt und Anwendung',
+                  'Was passieren muss, damit Ihr Vertrieb wieder mit am Tisch sitzt'],
+            },
+            ml: {
+              h: {
+                fehlt: [['Die KI empfiehlt ', { b: W }, '.'], 'Ihre Marke fehlt.'],
+                hinten: [[{ b: W }, ' steht vor Ihnen.'], 'Wissen Sie, warum?'],
+                vorn: [['Hier sind Sie vorn.'], nFr ? `Bei den anderen ${nFr} Fragen auch?` : 'Bei Ihren anderen Themen auch?'],
+                offen: [['Das war nur ', { b: 'eine' }, ' Frage.'], nFr ? `Ihre Zielgruppe stellt ${nFr}.` : 'Wie sieht der Rest aus?'],
+              },
+              c: 'Gute Google-Rankings reichen nicht mehr. Die KI entscheidet nach eigenen Quellen, wen sie empfiehlt. Und kein Analytics-Report zeigt Ihnen das.',
+              l: ['Ihre Sichtbarkeit in Google und in fünf KI-Systemen, neben Ihren Wettbewerbern',
+                  'Welche Quellen die KI für Ihre Wettbewerber zitiert, und welche Ihnen fehlen',
+                  'Die typischen Fragen Ihrer Zielgruppe, systematisch gemessen',
+                  'Ein priorisierter Maßnahmenplan, mit dem Sie intern Budget begründen können'],
+            },
+          };
+          const t = T[icp];
+          const [z1, z2] = t.h[zustand];
+          const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
+          const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
+          z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });
+          const s2 = document.createElement('span'); s2.className = 'snap-audit-pk'; s2.textContent = z2;
+          hEl.append(s1, document.createElement('br'), s2);
+          ($('[data-auditc]') as HTMLElement).textContent = t.c;
+          const ul = $('[data-auditl]') as HTMLElement; ul.innerHTML = '';
+          t.l.forEach((x) => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+          root.dataset.icp = icp; root.dataset.zustand = zustand;
+        }
         const bw = $('[data-auditbeweis]') as HTMLElement; bw.innerHTML = '';
         const vorOft = (vornTop.length ? vornTop : rivTop);
         const mitNamen = (vor: string, namen: string[], nach: string) => {
@@ -739,7 +803,7 @@ const beispiele = [
         ($('[data-aform]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true; show(err2, '');
         ($('[data-audit]') as HTMLElement).hidden = false;
         setState('res');
-        dl.push({ event: 'snapshot_result', lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
+        dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
       });
 
       let limDomain = '';
@@ -768,8 +832,8 @@ const beispiele = [
         if (!r2 || r2.status !== 'ok') return show(limErr, (r2 && r2.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
         ($('[data-limf]') as HTMLElement).hidden = true;
         const dn = $('[data-limdone]') as HTMLElement; dn.hidden = false;
-        dn.textContent = `Fast geschafft. Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihr Audit und senden es Ihnen zu.`;
-        dl.push({ event: 'snapshot_audit_anfrage', quelle: 'limit', lang, source: root.dataset.source });
+        dn.textContent = `Fast geschafft. Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihren Wettbewerbsvergleich und senden ihn Ihnen zu.`;
+        dl.push({ event: 'snapshot_audit_anfrage', quelle: 'limit', icp, lang, source: root.dataset.source });
       });
 
       let auditDomain = '';
@@ -797,10 +861,10 @@ const beispiele = [
           dl.push({ event: 'snapshot_audit_fehler', grund: (res && res.feld) || 'sonst', lang, source: root.dataset.source });
           return show(err2, (res && res.hinweis) || 'Das hat nicht geklappt. Bitte erneut versuchen.');
         }
-        ($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihr Audit und senden es Ihnen zu.`;
+        ($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach erstellen wir Ihren Wettbewerbsvergleich und senden ihn Ihnen zu.`;
         ($('[data-aform]') as HTMLElement).hidden = true;
         ($('[data-done]') as HTMLElement).hidden = false;
-        dl.push({ event: 'snapshot_audit_anfrage', lang, source: root.dataset.source });
+        dl.push({ event: 'snapshot_audit_anfrage', icp, zustand: root.dataset.zustand, lang, source: root.dataset.source });
       });
 
       ($('[data-again]') as HTMLElement).addEventListener('click', () => {
