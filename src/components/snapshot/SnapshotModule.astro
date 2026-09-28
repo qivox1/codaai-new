@@ -292,22 +292,22 @@ const beispiele = [
   .snap-cov-t :global(b) { font-weight:800; }
   .snap-cov-bar { height:8px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
   .snap-cov-bar span { display:block; height:100%; min-width:6px; background:hsl(var(--cta)); border-radius:99px; }
-  .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:#131A2B; color:#fff; text-align:left; }
+  .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:hsl(var(--navy-600)); color:#fff; text-align:left; }
   .snap-audit-k { margin:0 0 4px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#EA82FC; }
   .snap-audit-h { margin:0 0 8px; font-size:22px; font-weight:700; line-height:1.3; }
   .snap-audit-h :global(.snap-audit-h1) { font-weight:400; }
   .snap-audit-h :global(.snap-audit-h1 b) { font-weight:700; }
   @media (max-width:480px) { .snap-audit-h { font-size:19px; } }
   .snap-audit-h :global(.snap-audit-pk) { color:#EA82FC; }
-  .snap-audit-c { margin:0 0 14px; font-size:15px; line-height:1.5; font-weight:400; color:hsl(0 0% 100% / .9); }
+  .snap-audit-c { margin:0 0 14px; font-size:15px; line-height:1.5; font-weight:400; color:hsl(0 0% 100% / .9); }   /* Fließtext, Absatz und Liste: einheitlich 15 px (28.09.2026) */
   .snap-audit-c span { color:#EA82FC; }
   .snap-audit-c .snap-audit-ct { color:inherit; }
   .snap-audit-c :global(b) { font-weight:400; }
-  .snap-audit-p { margin:0 0 16px; font-size:14px; line-height:1.55; color:hsl(0 0% 100% / .86); }
+  .snap-audit-p { margin:0 0 16px; font-size:15px; line-height:1.5; color:hsl(0 0% 100% / .9); }
   .snap-audit-p b { color:#fff; }
   .snap-audit-p:has(+ .snap-audit-l) { margin-bottom:6px; }
   .snap-audit-l { margin:0 0 16px; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px; }
-  .snap-audit-l :global(li) { position:relative; padding-left:22px; font-size:14px; line-height:1.45; color:hsl(0 0% 100% / .9); }
+  .snap-audit-l :global(li) { position:relative; padding-left:22px; font-size:15px; line-height:1.45; color:hsl(0 0% 100% / .9); }
   .snap-audit-l :global(li)::before { content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #EA82FC; border-bottom:2px solid #EA82FC; transform:rotate(-45deg); }
   .snap-amail { display:flex; align-items:stretch; border-radius:12px; background:#fff; overflow:hidden; border:2px solid transparent; cursor:text; }
   .snap-amail:focus-within { border-color:hsl(var(--cta)); }
