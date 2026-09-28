@@ -839,10 +839,18 @@ const beispiele = [
           const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && W) ? 'hinten' : 'offen';
           const nFr = nF >= 20 ? `rund ${nF}` : '';
           type Zeile = (string | { b: string })[];
+          // bei „nicht genannt“ bis zu drei Wettbewerber in der Überschrift (28.09.2026), max. ~45 Zeichen
+          const Wl: string[] = [];
+          if (g === 0) for (const n of fremde.map((r: any) => r.name)) {
+            if (Wl.length >= 3 || (Wl.length && [...Wl, n].join(', ').length > 45)) break;
+            Wl.push(n);
+          }
+          if (!Wl.length && W) Wl.push(W);
+          const namen = (): Zeile => { const z: Zeile = []; Wl.forEach((n, i) => { if (i) z.push(i === Wl.length - 1 ? ' und ' : ', '); z.push({ b: n }); }); return z; };
           const T: Record<string, { h: Record<string, [Zeile, string]>; c: string; l: string[] }> = {
             gf: {
               h: {
-                fehlt: [['Die KI empfiehlt ', { b: W }, '.'], 'Nicht Sie.'],
+                fehlt: [['Die KI empfiehlt ', ...namen(), '.'], 'Nicht Sie.'],
                 hinten: [[{ b: W }, ' steht vor Ihnen.'], 'Bei wie vielen Fragen noch?'],
                 vorn: [['Hier sind Sie vorn.'], nFr ? `Bei den anderen ${nFr} Fragen auch?` : 'Bei Ihren anderen Kundenfragen auch?'],
                 offen: [['Das war nur ', { b: 'eine' }, ' Frage.'], nFr ? `Ihre Kunden stellen ${nFr}.` : 'Wer gewinnt die anderen?'],
@@ -855,7 +863,7 @@ const beispiele = [
             },
             vl: {
               h: {
-                fehlt: [['Diese Anfrage geht an ', { b: W }, '.'], 'Nicht an Sie.'],
+                fehlt: [['Diese Anfrage geht an ', ...namen(), '.'], 'Nicht an Sie.'],
                 hinten: [[{ b: W }, ' steht vor Ihnen auf der Shortlist.'], 'Bei wie vielen Anfragen noch?'],
                 vorn: [['Diese Anfrage landet bei Ihnen.'], nFr ? `Und die anderen ${nFr}?` : 'Und die anderen?'],
                 offen: [['Das war nur ', { b: 'eine' }, ' Anfrage.'], nFr ? `Einkäufer stellen ${nFr}.` : 'Wer bekommt die anderen?'],
@@ -868,7 +876,7 @@ const beispiele = [
             },
             ml: {
               h: {
-                fehlt: [['Die KI empfiehlt ', { b: W }, '.'], 'Ihre Marke fehlt.'],
+                fehlt: [['Die KI empfiehlt ', ...namen(), '.'], 'Ihre Marke fehlt.'],
                 hinten: [[{ b: W }, ' steht vor Ihnen.'], 'Wissen Sie, warum?'],
                 vorn: [['Hier sind Sie vorn.'], nFr ? `Bei den anderen ${nFr} Fragen auch?` : 'Bei Ihren anderen Themen auch?'],
                 offen: [['Das war nur ', { b: 'eine' }, ' Frage.'], nFr ? `Ihre Zielgruppe stellt ${nFr}.` : 'Wie sieht der Rest aus?'],
