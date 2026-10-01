@@ -311,26 +311,111 @@ function codaHomeInit(){
   })();
 
 
-  /* ---------- Begriffe-Akkordeon + Tab-Karten (ersetzt den Horizontal-Pin) ---------- */
+  /* ---------- Begriffe-Akkordeon: vier Begriffe als Weg + Mini-Szenen ----------
+     01.10.2026: ersetzt die drei Tab-Karten (SEO/AEO/GEO). Das Markup trägt
+     den END-Zustand jeder Szene (ohne JS und in der .md-Fassung vollständig);
+     erst ein Klick setzt die Szene zurück und spielt sie ab. Keine Selbst-
+     öffnung, kein Scroll-Trigger — Interaktion statt Animation. reduced =
+     Endbild sofort. Laufende Timer werden bei jedem Wechsel verworfen. */
   (function(){
     var btn=document.getElementById('accbtn'), body=document.getElementById('accbody');
     if(!btn||!body) return;
-    function fit(){ body.style.maxHeight=body.scrollHeight+40+'px'; }
+    var steps=[].slice.call(body.querySelectorAll('.bg-step'));
+    var panes=[].slice.call(body.querySelectorAll('.bg-pane'));
+    var fillEl=body.querySelector('.bg-fill');
+    var timers=[], cur=0;
+    function fit(){ if(btn.getAttribute('aria-expanded')==='true') body.style.maxHeight=body.scrollHeight+40+'px'; }
+    function later(fn,ms){ if(reduced){ fn(); return; } timers.push(setTimeout(fn,ms)); }
+    function clear(){ timers.forEach(clearTimeout); timers=[]; }
+    function q(p,s){ return p.querySelector(s); }
+    function qa(p,s){ return [].slice.call(p.querySelectorAll(s)); }
+    function show(p,k,ms){ var el=q(p,'[data-k="'+k+'"]'); if(el) later(function(){ el.classList.add('in'); },ms); }
+    function type(el,ms0,speed){
+      var t=el.getAttribute('data-text'); speed=speed||28;
+      if(reduced){ el.textContent=t; return 0; }
+      el.textContent=''; el.classList.add('bg-typing');
+      for(var i=0;i<t.length;i++){ (function(ch){ later(function(){ el.textContent+=ch; },ms0+i*speed); })(t.charAt(i)); }
+      later(function(){ el.classList.remove('bg-typing'); },ms0+t.length*speed+400);
+      return ms0+t.length*speed;
+    }
+    var scenes=[
+      function(p){ /* SEO: Treffer erscheinen, eigene Seite steigt von 4 auf 1 (FLIP) */
+        var rs=qa(p,'.bg-r'), me=q(p,'.bg-r.me'), others=rs.filter(function(r){return r!==me;});
+        if(reduced) return;
+        me.classList.remove('top'); others.forEach(function(r,i){ q(r,'.bg-pos').textContent=i+1; });
+        q(me,'.bg-pos').textContent=rs.length;
+        rs.forEach(function(r){ r.classList.remove('in'); r.style.transition=''; r.style.transform=''; });
+        var t=type(q(p,'.bg-typed'),200);
+        others.concat([me]).forEach(function(r,i){ later(function(){ r.classList.add('in'); },t+250+i*150); });
+        later(function(){
+          var before=rs.map(function(r){ return r.getBoundingClientRect().top; });
+          me.classList.add('top');
+          q(me,'.bg-pos').textContent='1'; others.forEach(function(r,i){ q(r,'.bg-pos').textContent=i+2; });
+          rs.forEach(function(r,i){
+            var d=before[i]-r.getBoundingClientRect().top;
+            r.style.transition='none'; r.style.transform='translateY('+d+'px)';
+          });
+          void p.offsetWidth;
+          rs.forEach(function(r){ r.style.transition='transform .7s cubic-bezier(.3,.7,.2,1)'; r.style.transform=''; });
+        },t+1300);
+      },
+      function(p){ /* AIO: Floskeln verblassen, Fakten wandern in die Wissenskarte */
+        if(reduced) return;
+        qa(p,'.bg-fl').forEach(function(f){ f.classList.remove('x'); });
+        var facts=qa(p,'.bg-fact'), chips=qa(p,'.bg-chip');
+        facts.forEach(function(f){ f.classList.remove('hl'); });
+        chips.forEach(function(c){ c.classList.remove('in'); });
+        later(function(){ qa(p,'.bg-fl').forEach(function(f){ f.classList.add('x'); }); },500);
+        facts.forEach(function(f,i){
+          later(function(){ f.classList.add('hl'); },1100+i*380);
+          if(chips[i]) later(function(){ chips[i].classList.add('in'); },1300+i*380);
+        });
+      },
+      function(p){ /* AEO: Frage, Antwort schreibt sich, eigene Domain als Quelle */
+        if(reduced) return;
+        var a=q(p,'.bg-typed2'), full=a.getAttribute('data-text');
+        qa(p,'.bg-fade').forEach(function(f){ f.classList.remove('in'); });
+        a.textContent='';
+        var t=type(q(p,'.bg-typed'),200);
+        show(p,'ov',t+300);
+        type(a,t+600,14);
+        show(p,'src',t+700+full.length*14);
+      },
+      function(p){ /* GEO: Frage im Chat, Empfehlungsliste, eigener Name markiert */
+        if(reduced) return;
+        qa(p,'.bg-fade').forEach(function(f){ f.classList.remove('in'); });
+        var t=type(q(p,'.bg-typed'),200,22);
+        show(p,'bot',t+400);
+        ['r1','me','r3'].forEach(function(k,i){ show(p,k,t+800+i*350); });
+      }
+    ];
+    function go(i,focus){
+      clear(); cur=i;
+      steps.forEach(function(s,j){
+        s.classList.toggle('on',j===i); s.classList.toggle('done',j<i);
+        s.setAttribute('aria-selected',j===i?'true':'false'); s.setAttribute('tabindex',j===i?'0':'-1');
+      });
+      panes.forEach(function(pn,j){ pn.classList.toggle('on',j===i); });
+      if(fillEl) fillEl.style.width=(i/(steps.length-1)*75)+'%';
+      if(focus) steps[i].focus();
+      if(panes[i]&&scenes[i]) scenes[i](panes[i]);
+      fit();
+    }
+    steps.forEach(function(s,i){
+      s.addEventListener('click',function(){ go(i); });
+      s.addEventListener('keydown',function(e){
+        if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+        e.preventDefault();
+        go((i+(e.key==='ArrowRight'?1:steps.length-1))%steps.length,true);
+      });
+    });
+    body.querySelectorAll('.bg-replay').forEach(function(r){ r.addEventListener('click',function(){ go(cur); }); });
+    window.addEventListener('resize',fit);
     btn.addEventListener('click',function(){
       var open=btn.getAttribute('aria-expanded')==='true';
       btn.setAttribute('aria-expanded', open?'false':'true');
-      if(open){ body.style.maxHeight='0px'; } else { fit(); }
-      if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },520);
-    });
-    body.querySelectorAll('.tab').forEach(function(t){
-      t.addEventListener('click',function(){
-        body.querySelectorAll('.tab').forEach(function(o){o.classList.remove('on');o.setAttribute('aria-selected','false');});
-        body.querySelectorAll('.pane').forEach(function(o){o.classList.remove('on');});
-        t.classList.add('on'); t.setAttribute('aria-selected','true');
-        var pane=body.querySelector('.pane[data-pane="'+t.dataset.tab+'"]');
-        if(pane) pane.classList.add('on');
-        if(btn.getAttribute('aria-expanded')==='true') fit();
-      });
+      if(open){ clear(); body.style.maxHeight='0px'; } else { go(cur); }
+      if(window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); },560);
     });
   })();
 

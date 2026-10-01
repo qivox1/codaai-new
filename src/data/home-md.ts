@@ -42,6 +42,12 @@ zur Aussage dazu. Methodik und Befunde: https://www.codaai.ai/studie/
 3. **KI-Assistenten (GEO)** — Ihr Unternehmen wird in ChatGPT, Gemini, Perplexity und Claude
    beim Namen genannt, wenn Einkäufer nach Anbietern fragen.
 
+Voraussetzung für alle drei ist **AIO (AI Optimization)**: Die KI muss verstehen, wer Sie sind —
+durch strukturierte Daten, Fakten statt Floskeln und überall dieselben Angaben.
+
+Kurz gesagt: SEO bringt Sie in die Trefferliste. AIO macht Sie für KI lesbar. AEO macht Sie zur
+Antwort. GEO macht Sie zur Empfehlung.
+
 ## Wie CodaAI arbeitet
 
 Drei Stufen, aufeinander aufbauend: **Gefunden** → **Empfohlen** → **Zitiert**.
@@ -90,6 +96,12 @@ finding. Method and results: https://www.codaai.ai/en/study/
    answer box costs clicks despite a good ranking.
 3. **AI assistants (GEO)** — your company is named in ChatGPT, Gemini, Perplexity and Claude
    when buyers ask for providers.
+
+The precondition for all three is **AIO (AI Optimization)**: the AI has to understand who you are —
+through structured data, facts instead of phrases and the same details everywhere.
+
+In short: SEO gets you into the results. AIO makes you readable for AI. AEO makes you the answer.
+GEO makes you the recommendation.
 
 ## How CodaAI works
 
