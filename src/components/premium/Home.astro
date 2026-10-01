@@ -1077,9 +1077,11 @@ const copy = {
   .flip{display:inline-block;position:relative;min-height:1.2em}
   .flip .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(16px);filter:blur(10px);color:hsl(var(--muted-foreground))}
   /* 01.10.2026: gleiche Farbe wie der Knopf „Snapshot starten“ (Beschluss Oli) */
-  .flip .w.pink{color:var(--magenta-strong)}
+  /* 01.10.2026 (Oli): mittleres Pink statt Leucht-Magenta — Farbe der Buchstaben „da“ in
+     „davon“ der H1 (Verlauf Navy-600 → CTA an dieser Stelle, gemessen #933EB7/#9C3EBF). */
+  .flip .w.pink{color:hsl(283 50% 49%)}
   .flip .w.in{opacity:1;transform:none;filter:blur(0);transition:opacity .4s ease,transform .4s ease,filter .4s ease,text-shadow .6s ease}
-  .flip .w.pink.in{text-shadow:0 0 28px hsl(var(--cta-strong) / .35)}
+  .flip .w.pink.in{text-shadow:0 0 24px hsl(283 50% 49% / .18)}
   .flip .w.out{opacity:0;transform:translateY(-16px);filter:blur(10px);transition:opacity .32s ease,transform .32s ease,filter .32s ease}
   .flip .sizer{visibility:hidden;white-space:nowrap;color:transparent}
   .hero p.desc{margin-top:22px;max-width:56ch;color:hsl(var(--foreground));line-height:1.65;font-size:1.04rem}
@@ -1670,13 +1672,15 @@ const copy = {
      Das Modul nutzt hsl(var(--card)); in #cai-premium ist --card als
      hsl(var(--card)) selbstreferenziell und damit ungültig → hier lokal auf
      das globale Tripel zurücksetzen. */
-  .hero--snap .hero-grid{grid-template-columns:minmax(0,1fr) 520px;align-items:start}
+  /* 01.10.2026: Snapshot-Spalte 520 → 480 px, damit die fünf KI-Logos links in einer Zeile stehen */
+  .hero--snap .hero-grid{grid-template-columns:minmax(0,1fr) 480px;align-items:start}
   @media(max-width:1040px){.hero--snap .hero-grid{grid-template-columns:minmax(0,1fr)}}
   .hero-snap{position:relative;z-index:2;--card:var(--surface-paper);scroll-margin-top:110px}
   .hero-snap .snap{max-width:none}
   .hero-ki{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;list-style:none;padding:0}
   .hero-ki li{display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:var(--fg)}
   .hero-ki img{width:20px;height:20px}
+  @media(min-width:1041px) and (max-width:1240px){.hero-ki{gap:6px 12px}.hero-ki li{font-size:.8rem}}
   .snap-go{display:inline-flex;align-items:center;gap:10px;justify-self:start;background:var(--magenta-strong);color:#fff;
     font-weight:700;font-size:1rem;padding:15px 24px;border-radius:var(--btn-radius);text-decoration:none;transition:filter .2s,transform .2s}
   .snap-go:hover{filter:brightness(1.08);transform:translateY(-1px)}
