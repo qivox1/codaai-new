@@ -432,6 +432,20 @@ const beispiele = [
       let rolleSrc = (up.get('src') || '').toLowerCase();
       try { if (/^li-(gf|vl|ml)$/.test(rolleSrc)) sessionStorage.setItem('coda_src', rolleSrc); else rolleSrc = sessionStorage.getItem('coda_src') || rolleSrc; } catch (e) {}
       const icp = rolleSrc === 'li-vl' ? 'vl' : rolleSrc === 'li-ml' ? 'ml' : 'gf';
+      // Herkunft für den täglichen Snapshot-Bericht (01.10.2026): UTM-Werte der Anzeige für die Sitzung merken;
+      // ?intern=1 markiert den eigenen Browser dauerhaft (Tests erscheinen dann nicht im Bericht), ?intern=0 hebt es auf.
+      const utm: Record<string, string> = {};
+      try {
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_id', 'utm_term'].forEach((k) => { const v = up.get(k); if (v) utm[k] = v.slice(0, 80); });
+        if (Object.keys(utm).length) sessionStorage.setItem('coda_utm', JSON.stringify(utm));
+        else Object.assign(utm, JSON.parse(sessionStorage.getItem('coda_utm') || '{}'));
+      } catch (e) {}
+      let intern = false;
+      try {
+        if (up.get('intern') === '1') localStorage.setItem('coda_intern', '1');
+        if (up.get('intern') === '0') localStorage.removeItem('coda_intern');
+        intern = localStorage.getItem('coda_intern') === '1';
+      } catch (e) {}
       // ---------- Vorführmodus (28.09.2026): ?vorfuehrung=<code> — Firma anonym, fürs Webinar ----------
       const VF: Record<string, any> = {
         sanitaer: { d: atob('ZmpzY2h1ZXR0ZS5jb20='), label: 'Ein deutscher Hersteller von Sanitärarmaturen',
@@ -702,7 +716,8 @@ const beispiele = [
           setTimeout(() => { loadH.textContent = 'This is taking unusually long today. We are staying on it …'; }, 80000),
         ];
         const body = JSON.stringify({ domain: d, frage: q, website_url: ($('[data-hp]') as HTMLInputElement).value,
-                                      fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, lang: 'en', test_key: testKey || undefined, frisch: frisch || undefined, source: root.dataset.source });
+                                      fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, lang: 'en', test_key: testKey || undefined, frisch: frisch || undefined, source: root.dataset.source,
+                                      src: rolleSrc || undefined, icp, utm: Object.keys(utm).length ? utm : undefined, intern: intern || undefined });
         const anfrage = async (ms: number, b: string) => {
           const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), ms);
           try {
