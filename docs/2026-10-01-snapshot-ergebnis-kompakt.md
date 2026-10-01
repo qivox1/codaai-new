@@ -23,3 +23,10 @@
 **EN:** `scripts/make-snapshot-en.py` um die neuen Texte ergänzt, `SnapshotModuleEn.astro` neu erzeugt; linke Fläche zweisprachig über `lang`.
 
 **Arbeitsordner:** `umbau-digital-visibility/snapshot-kompakt-2026-10-01/` (Prototyp-Skript `proto_snapshot_kompakt.py` v2, `umsetzen_zweisprachig.py`, Screenshots, Video).
+
+## Nachtrag 01.10.2026 abends (Rückmeldung Oli)
+
+1. **Full HD:** Ergebnis inkl. Abschluss und Knopf passt jetzt komplett in 1920×950 (Karte endet bei 872 px, Knopf bei 710 px; auch 1440×820 zeigt den Knopf). Mittel: Kopfbereich oben 150 → 112 px (nur Desktop), Frage 17 px, Vorschaubild 104 px, Logo-Zeile ohne Systemnamen (nur Platz), Satz „Ihr KI-Wettbewerbsvergleich für … per E-Mail“ ausgeblendet (Domain steht im E-Mail-Feld), engere Abstände. Sobald links der Vergleichs-Kasten erscheint, weicht der Einleitungsabsatz (Desktop).
+2. **Keine Beispielfirmen mehr links:** Statt „Hansgrohe/Grohe/Der Hersteller“ zeigt der Kasten die **echten Zahlen aus dem Snapshot des Besuchers**: eigene Firma + bis zu drei Wettbewerber, „genannt (von 5)“ und „davon zuerst“, Datum des Snapshots; Raster 1 geprüft · 19 offen. Daten kommen über `snapshot:ergebnis` (`rang`, `stand`, `lvl`); Namensdubletten (Börger/Borger) werden zusammengefasst.
+3. Linker und rechter dunkler Kasten auf Full HD und 1440 px pixelgenau bündig.
+Skripte: `umbau-digital-visibility/snapshot-kompakt-2026-10-01/optimieren_fhd_echtdaten.py`, `optimieren_fhd_2.py`.
