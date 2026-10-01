@@ -7,6 +7,7 @@ import WebinarSignup from '../../components/premium/WebinarSignup.astro';
 import FlipWords from '../../components/react/FlipWords';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import { faqWebinarEn } from '../../data/faq.en';
+import { WEBINAR_SLOTS } from '../../data/webinar-slots';
 
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -20,7 +21,7 @@ const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replac
 const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
 
 /* ── Der eine Punkt, an dem die englische Seite bewusst NICHT spiegelt ──────
-   Das Webinar am 29.09.2026 wird auf Deutsch gehalten: beide Sprecher sprechen
+   Die Webinare (13.10. + 10.11.2026) werden auf Deutsch gehalten: beide Sprecher sprechen
    Deutsch, die Fragerunde laeuft auf Deutsch. Wer das ueberliest, verliert eine
    Stunde — deshalb steht der Hinweis an drei sichtbaren Stellen (Hero,
    unmittelbar ueber der Anmeldung, erste FAQ-Frage) und nicht im
@@ -36,9 +37,8 @@ const h1FlipWords = [
   { text: 'you lose the deal.', color: '#DF41FB', duration: 10000 },
 ];
 
-const slots = [
-  { id: '2026-09-29', day: 'Tuesday', date: '29 September 2026', time: '11:00–12:00 CEST', iso: '2026-09-29T11:00:00+02:00' },
-];
+// 01.10.2026: zwei Termine zur Wahl — Quelle src/data/webinar-slots.ts
+const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.en.dayLong, date: s.en.date, time: s.en.time, iso: s.start, end: s.end, short: `${s.en.day}, ${s.en.dateShort} 2026`, dateShort: s.en.dateShort, tz: s.en.time.split(' ').pop() }));
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
 const painStats = [
@@ -93,13 +93,13 @@ const faqSchema = JSON.stringify({
 /* Einzelnes Event-Objekt statt Array: Layout.astro parst jede jsonLd-Zeichenkette und legt sie
    als Objekt in den @graph — ein Array wurde dort zu {"0":{…}} und war für Google unwirksam.
    Auf der deutschen Seite am 13.08.2026 behoben (44ce29a), hier am 17.08.2026 nachgezogen.
-   Es gibt genau einen Termin (slots[0]). */
-const eventSchema = JSON.stringify({
+   Seit 01.10.2026 ein eigenes Event-Objekt je Termin. */
+const eventSchemas = slots.map((slot) => JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: 'Recommended or invisible? — Why your next orders are decided in ChatGPT and Google AI Overviews',
-  startDate: slots[0].iso,
-  endDate: slots[0].iso.replace('T11:00', 'T12:00'),
+  startDate: slot.iso,
+  endDate: slot.end,
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   /* Das Webinar wird auf Deutsch gehalten. Das gehoert auch ins Schema —
@@ -114,14 +114,14 @@ const eventSchema = JSON.stringify({
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/en/webinar/` },
   description: 'Free live webinar, held in German: why B2B orders are decided in AI answers today — with live audits of real companies and a personal visibility audit on request.',
-});
+}));
 ---
 
 <Layout
   lang={lang}
   title="Live webinar: Recommended or invisible? | CodaAI"
   description="Free live webinar on why B2B orders are decided in ChatGPT and Google AI Overviews — with live audits of real companies. Held in German."
-  jsonLd={[eventSchema, faqSchema]}
+  jsonLd={[...eventSchemas, faqSchema]}
   ogImage="https://www.codaai.ai/images/og-webinar.jpg"
 >
   <Navbar lang={lang} />
@@ -160,7 +160,10 @@ const eventSchema = JSON.stringify({
               Live webinar
             </span>
             <span class="text-border" aria-hidden="true">/</span>
-            <span class="text-foreground">Tue 29 Sept 2026 · 11:00 CEST</span>
+            <span class="text-foreground" data-wslot-end={slots[0].end}>{slots[0].short} · 11:00 {slots[0].tz}</span>
+            <span class="text-border" aria-hidden="true" data-wslot-end={slots[0].end}>/</span>
+            <span data-wslot-end={slots[0].end}>or {slots[1].dateShort}</span>
+            <span class="text-foreground" data-wslot-after={slots[0].end} hidden>{slots[1].short} · 11:00 {slots[1].tz}</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 minutes</span>
             <span class="text-border" aria-hidden="true">/</span>
@@ -215,11 +218,23 @@ const eventSchema = JSON.stringify({
               </p>
             </div>
 
-            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
-              <div class="flex items-baseline justify-between gap-4">
-                <dt class="text-muted-foreground">Date</dt>
-                <dd class="font-semibold text-foreground">Tue, 29 September 2026 · 11:00 CEST</dd>
+            <fieldset class="wslot-pick mt-6" data-wslot-pick>
+              <legend class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Choose your date</legend>
+              <div class="wslot-grid">
+                {slots.map((slot, i) => (
+                  <label class="wslot-tile" data-wslot-end={slot.end}>
+                    <input type="radio" name="wslot-hero" value={slot.id} checked={i === 0} />
+                    <span class="wslot-date">{slot.short}</span>
+                    <span class="wslot-time">{slot.time}</span>
+                    {i === 0
+                      ? <span class="wslot-tag">next date</span>
+                      : <span class="wslot-tag"><span data-wslot-end={slots[0].end}>alternative date</span><span data-wslot-after={slots[0].end} hidden>next date</span></span>}
+                  </label>
+                ))}
               </div>
+            </fieldset>
+
+            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
               <div class="flex items-baseline justify-between gap-4">
                 <dt class="text-muted-foreground">Duration</dt>
                 <dd class="font-semibold text-foreground">60 minutes</dd>
@@ -614,7 +629,7 @@ const eventSchema = JSON.stringify({
     const firstname = ($('w-name') as HTMLInputElement).value.trim();
     const lastname = ($('w-lastname') as HTMLInputElement).value.trim();
     const email = ($('w-email') as HTMLInputElement).value.trim();
-    const slot = '2026-09-29';
+    const slot = (document.querySelector('[data-wslot-pick] input:checked') as HTMLInputElement | null)?.value || '';
     const consent = ($('w-consent') as HTMLInputElement).checked;
     const livetest = ($('w-livetest') as HTMLInputElement).checked;
 
@@ -644,7 +659,7 @@ const eventSchema = JSON.stringify({
   // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
   // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
-  const slotDates = ['2026-09-29T11:00:00+02:00'].map((d) => new Date(d));
+  const slotDates = ['2026-10-13T11:00:00+02:00', '2026-11-10T11:00:00+01:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
@@ -1301,13 +1316,13 @@ if (document.readyState === 'loading') {
         // Auch der Treffer muss unbequem enden — sonst liest sich eine hohe
         // Zahl als Entwarnung, obwohl sie nichts über die Rangfolge sagt.
         elSub.textContent = 'That number says nothing about where you stand in the answer. '
-          + 'Whether you are recommended or merely mentioned, you will see live on 29 September.';
+          + 'Whether you are recommended or merely mentioned, you will see live in the webinar.';
       } else {
         elHead.classList.remove('is-num');
         elHead.textContent = 'Not found.';
         elLead.textContent = 'Not a single AI answer mentions your brand.';
         elSub.textContent = 'Anyone asking about what you do is given other names. '
-          + 'Which ones, we show live on 29 September.';
+          + 'Which ones, we show live in the webinar.';
       }
       setMode('result');
       // Domain an die Anmeldung weitergeben
@@ -1380,3 +1395,27 @@ if (document.readyState === 'loading') {
   })();
 
 </script>
+
+<style>
+  /* Terminwahl in der Anmeldekarte (01.10.2026) */
+  .wslot-pick { border:0; padding:0; min-width:0; }
+  .wslot-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .wslot-tile { position:relative; display:flex; flex-direction:column; gap:2px; cursor:pointer;
+    border:1.5px solid hsl(var(--border)); border-radius:16px; padding:12px 14px 12px 40px;
+    background:hsl(var(--surface-paper)); transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+  .wslot-tile:hover { transform:translateY(-1px); }
+  .wslot-tile input { position:absolute; left:14px; top:15px; width:16px; height:16px; margin:0;
+    accent-color:hsl(var(--cta-strong)); cursor:pointer; }
+  .wslot-tile:has(input:checked) { border-color:hsl(var(--cta-strong)); box-shadow:0 0 0 3px hsl(var(--cta) / .14); }
+  .wslot-tile:has(input:focus-visible) { outline:2px solid hsl(var(--cta-strong)); outline-offset:2px; }
+  .wslot-date { font-size:15px; font-weight:700; color:hsl(var(--foreground)); line-height:1.25; }
+  .wslot-time { font-size:12.5px; color:hsl(var(--muted-foreground)); }
+  .wslot-tag { margin-top:4px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--cta-accessible)); }
+  .wslot-tile[hidden] { display:none; }
+  /* In der Hero-Karte stehen die grossen Kacheln schon — die kleine Terminwahl im
+     Formular waere dort doppelt. In allen anderen Formularen der Seite bleibt sie. */
+  :global(.wslot-pick ~ div .wacta-slots) { display:none; }
+  .wslot-grid:has(.wslot-tile[hidden]) { grid-template-columns:1fr; }
+  @media (max-width:380px) { .wslot-grid { grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce) { .wslot-tile { transition:none; } }
+</style>

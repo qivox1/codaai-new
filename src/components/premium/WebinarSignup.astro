@@ -9,6 +9,7 @@
  * Eigene [data-wacta]-Verdrahtung, damit die AuditCTA-Instanzen (visibility_check)
  * nicht kollidieren.
  */
+import { WEBINAR_SLOTS } from '../../data/webinar-slots';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 interface Props {
   label?: string;
@@ -26,6 +27,19 @@ const isEn = lang === 'en';
 const cta = label ?? (isEn ? 'Register for the webinar' : 'Zum Webinar anmelden');
 const privacyHref = isEn ? `${base}/en/privacy-policy/` : `${base}/datenschutz/`;
 
+/* 01.10.2026: Terminwahl (zwei Termine). Jede Instanz traegt eigene Radios; das Script
+   synchronisiert alle Instanzen und die Termin-Kacheln der Hero-Karte ueber das Event
+   `codaai:wslot` und blendet vergangene Termine aus. */
+const slotGroup = `wslot-${Math.random().toString(36).slice(2, 8)}`;
+const slotItems = WEBINAR_SLOTS.map((s, i) => ({
+  id: s.id,
+  end: s.end,
+  checked: i === 0,
+  label: isEn ? `${s.en.day}, ${s.en.date}` : `${s.de.day}, ${s.de.date}`,
+  time: isEn ? s.en.time : s.de.time,
+  when: isEn ? `${s.en.day}, ${s.en.date}, 11:00 ${s.en.time.split(' ').pop()}` : `${s.de.day}, ${s.de.date}, 11:00 Uhr`,
+}));
+
 const t = isEn
   ? {
       hp: 'Website',
@@ -33,6 +47,7 @@ const t = isEn
       urlAria: 'Website URL',
       next: 'Continue',
       hint: 'Your registration — where shall we send the access link?',
+      slots: 'Choose your date',
       firstname: 'First name',
       lastname: 'Last name',
       email: 'Email address',
@@ -47,6 +62,7 @@ const t = isEn
       urlAria: 'Website-URL',
       next: 'Weiter',
       hint: 'Ihre Anmeldung — wohin dürfen wir den Zugangslink senden?',
+      slots: 'Termin wählen',
       firstname: 'Vorname',
       lastname: 'Name',
       email: 'E-Mail-Adresse',
@@ -110,6 +126,17 @@ const msgs = isEn
     </div>
 
     <div class="wacta-contact" data-contact>
+      <fieldset class="wacta-slots" data-slots>
+        <legend class="wacta-hint">{t.slots}</legend>
+        <div class="wacta-slot-row">
+          {slotItems.map((s) => (
+            <label class="wacta-slot" data-wslot-end={s.end}>
+              <input type="radio" name={slotGroup} value={s.id} data-when={s.when} checked={s.checked} />
+              <span><b>{s.label}</b><small>{s.time}</small></span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
       <p class="wacta-hint">{t.hint}</p>
       <div class="wacta-grid">
         <input class="wacta-in" data-firstname type="text" placeholder={t.firstname} aria-label={t.firstname} autocomplete="given-name" />
@@ -137,8 +164,8 @@ const msgs = isEn
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>
     {isEn
-      ? <p><b>{t.thanks}</b> We have just sent you an email — please confirm your registration for the webinar on <b>Tue, 29 September 2026, 11:00&nbsp;CEST</b> there. Right after confirming, you will receive your personal access link and calendar invite. The webinar is held in German.</p>
-      : <p><b>{t.thanks}</b> Wir haben Ihnen soeben eine E-Mail geschickt — bitte bestätigen Sie darin Ihre Anmeldung zum Webinar am <b>Di, 29.09.2026, 11:00&nbsp;Uhr</b>. Direkt nach dem Klick erhalten Sie Ihren persönlichen Zugangslink samt Kalendereintrag.</p>}
+      ? <p><b>{t.thanks}</b> We have just sent you an email — please confirm your registration for the webinar on <b data-done-when>{slotItems[0].when}</b> there. Right after confirming, you will receive your personal access link and calendar invite. The webinar is held in German.</p>
+      : <p><b>{t.thanks}</b> Wir haben Ihnen soeben eine E-Mail geschickt — bitte bestätigen Sie darin Ihre Anmeldung zum Webinar am <b data-done-when>{slotItems[0].when}</b>. Direkt nach dem Klick erhalten Sie Ihren persönlichen Zugangslink samt Kalendereintrag.</p>}
   </div>
 </div>
 
@@ -193,6 +220,21 @@ const msgs = isEn
   .wacta-contact { max-height:0; opacity:0; overflow:hidden;
     transition:max-height .45s ease, opacity .35s ease, margin-top .45s ease; }
   .wacta-hint { font-size:13px; font-weight:600; color:var(--muted); margin:0 0 8px; }
+  /* Terminwahl (01.10.2026) — zwei Kacheln nebeneinander, gewaehlte in Magenta umrandet. */
+  .wacta-slots { border:0; padding:0; margin:0 0 12px; min-width:0; }
+  .wacta-slots legend { padding:0; }
+  .wacta-slot-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .wacta-slot { position:relative; display:flex; align-items:center; gap:9px; cursor:pointer;
+    border:1.5px solid var(--bd); border-radius:14px; padding:10px 12px; background:hsl(var(--surface-paper));
+    transition:border-color .18s ease, box-shadow .18s ease; }
+  .wacta-slot input { width:16px; height:16px; flex:0 0 auto; accent-color:var(--pink); margin:0; cursor:pointer; }
+  .wacta-slot span { display:flex; flex-direction:column; line-height:1.25; }
+  .wacta-slot b { font-size:14px; color:var(--ink); }
+  .wacta-slot small { font-size:12px; color:var(--muted); }
+  .wacta-slot:has(input:checked) { border-color:var(--pink); box-shadow:0 0 0 3px hsl(var(--cta) / .14); }
+  .wacta-slot[hidden] { display:none; }
+  .wacta-slots.is-single .wacta-slot-row { grid-template-columns:1fr; }
+  .wacta.wacta--dark .wacta-slot b { color:var(--ink); }
   .wacta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
   .wacta-contact .wacta-in[data-email] { margin-bottom:10px; }
 
@@ -234,7 +276,7 @@ const msgs = isEn
   .wacta[data-state="contact"] .wacta-form,
   .wacta[data-state="sending"] .wacta-form { max-width:520px; opacity:1; pointer-events:auto; }
   .wacta[data-state="contact"] .wacta-contact,
-  .wacta[data-state="sending"] .wacta-contact { max-height:360px; opacity:1; margin-top:10px; }
+  .wacta[data-state="sending"] .wacta-contact { max-height:520px; opacity:1; margin-top:10px; }
   /* Lade-Zustand beim Absenden — 1:1 wie das Anfrageformular auf /visibility-circle
      (.vc-btn.is-busy + .vc-spin, 25.09.2026): weisser Ring dreht sich vor
      „Wird gesendet …", Knopf bleibt farbig, nur leicht gedimmt. */
@@ -257,7 +299,47 @@ const msgs = isEn
 <script is:inline>
   (function () {
     var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
-    var SLOT = '2026-09-29';
+    /* Terminwahl (01.10.2026): Vergangene Termine (Ende vorbei) verschwinden ueberall,
+       wo ein Element data-wslot-end traegt; Elemente mit data-wslot-after erscheinen erst
+       nach diesem Zeitpunkt. Die Auswahl gilt seitenweit (Event codaai:wslot). */
+    var NOW = Date.now();
+    function past(iso) { var t = Date.parse(iso); return !isNaN(t) && t <= NOW; }
+    function hidePast() {
+      var a = document.querySelectorAll('[data-wslot-end]');
+      for (var i = 0; i < a.length; i++) if (past(a[i].getAttribute('data-wslot-end'))) { a[i].hidden = true; var r = a[i].querySelector('input'); if (r) { r.disabled = true; r.checked = false; } }
+      var b = document.querySelectorAll('[data-wslot-after]');
+      for (var j = 0; j < b.length; j++) b[j].hidden = !past(b[j].getAttribute('data-wslot-after'));
+    }
+    function currentSlot() {
+      var r = document.querySelector('[data-wslot-pick] input:checked:not(:disabled), .wacta-slot input:checked:not(:disabled)');
+      if (r) return r.value;
+      var f = document.querySelector('.wacta-slot input:not(:disabled)');
+      return f ? f.value : '';
+    }
+    function syncSlot(id) {
+      var all = document.querySelectorAll('.wacta-slot input, [data-wslot-pick] input');
+      for (var i = 0; i < all.length; i++) if (!all[i].disabled) all[i].checked = (all[i].value === id);
+    }
+    function initSlots() {
+      // Das Inline-Script steht einmal pro Instanz auf der Seite — nur der erste Lauf verdrahtet.
+      if (window.__wslotInit) return;
+      window.__wslotInit = true;
+      hidePast();
+      var id = currentSlot();
+      if (id) syncSlot(id);
+      var sets = document.querySelectorAll('[data-slots]');
+      for (var k = 0; k < sets.length; k++) {
+        var live = sets[k].querySelectorAll('input:not(:disabled)').length;
+        if (live < 2) sets[k].classList.add('is-single');
+      }
+      document.addEventListener('change', function (e) {
+        var t = e.target;
+        if (t && t.type === 'radio' && t.closest && (t.closest('.wacta-slot') || t.closest('[data-wslot-pick]'))) {
+          syncSlot(t.value);
+          try { document.dispatchEvent(new CustomEvent('codaai:wslot', { detail: { slot: t.value } })); } catch (_) {}
+        }
+      });
+    }
     function normalizeDomain(raw) {
       var s = (raw || '').trim().toLowerCase();
       s = s.replace(/^https?:\/\//, '').replace(/^www\./, '');
@@ -344,6 +426,10 @@ const msgs = isEn
         if (!EMAIL_RE.test(email)) { showErr(msg('email')); if (emailIn) emailIn.focus(); return; }
         if (!consentIn || !consentIn.checked) { showErr(msg('consent')); return; }
         if (hp && hp.value) { setState('done'); return; }
+        var SLOT = currentSlot();
+        var slotIn = root.querySelector('.wacta-slot input[value="' + SLOT + '"]');
+        var doneWhen = root.querySelector('[data-done-when]');
+        if (doneWhen && slotIn && slotIn.getAttribute('data-when')) doneWhen.textContent = slotIn.getAttribute('data-when');
         setState('sending');
         if (submitBtn) { submitBtn.disabled = true; submitBtn.setAttribute('aria-busy', 'true'); }
         var lang = 'de';
@@ -372,7 +458,7 @@ const msgs = isEn
       if (submitBtn) submitBtn.addEventListener('click', submit);
       if (emailIn) emailIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); if (consentIn) consentIn.focus(); } });
     }
-    function boot() { var list = document.querySelectorAll('[data-wacta]'); for (var i = 0; i < list.length; i++) initWacta(list[i]); }
+    function boot() { initSlots(); var list = document.querySelectorAll('[data-wacta]'); for (var i = 0; i < list.length; i++) initWacta(list[i]); }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
     else boot();
   })();

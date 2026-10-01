@@ -44,7 +44,7 @@ const showStudyBtn = !isStudiePage;
 /* ⚠️ Der Webinar-Knopf verschwindet nach dem Termin von selbst. Ohne diese
    Grenze wuerde der Footer sitewide ein vergangenes Datum bewerben — schlimmer
    als gar kein Link. Naechster Termin: Datum hier hochsetzen. */
-const WEBINAR_DATE = new Date('2026-09-29T12:00:00+02:00');
+const WEBINAR_DATE = new Date('2026-11-10T12:00:00+01:00'); // 01.10.2026: letzter von zwei Terminen (13.10. + 10.11.)
 const showWebinarBtn = new Date() <= WEBINAR_DATE;
 
 const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
@@ -57,7 +57,7 @@ const studyCopy = lang === 'de'
       titleB: 'unsichtbar',
       note: '449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.',
       cta: 'Zur Studie →',
-      ctaWebinar: 'Zum Webinar am 29. September →',
+      ctaWebinar: 'Zum Webinar am 13.10. oder 10.11. →',
     }
   : {
       mapAlt: 'Dot map of Germany — 449 companies examined across 258 industries',
@@ -66,7 +66,7 @@ const studyCopy = lang === 'de'
       titleB: 'invisible',
       note: '449 companies · 3,592 buyer questions · 7,184 AI answers. The most extensive analysis to date of AI visibility among mid-sized companies in Germany.',
       cta: 'Read the study →',
-      ctaWebinar: 'Webinar, 29 September →',
+      ctaWebinar: 'Webinar, 13 Oct or 10 Nov →',
     };
 
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)

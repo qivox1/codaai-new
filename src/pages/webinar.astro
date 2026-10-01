@@ -8,6 +8,7 @@ import SnapshotTeaser from '../components/snapshot/SnapshotTeaser.astro';
 import FlipWords from '../components/react/FlipWords';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { faqWebinar } from '../data/faq';
+import { WEBINAR_SLOTS } from '../data/webinar-slots';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Audit-Scroll-Animation auf /webinar vorerst ausgeblendet (Oli 25.07.2026) —
@@ -26,9 +27,8 @@ const h1FlipWords = [
   { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
 ];
 
-const slots = [
-  { id: '2026-09-29', day: 'Dienstag', date: '29. September 2026', time: '11:00–12:00 Uhr', iso: '2026-09-29T11:00:00+02:00' },
-];
+// 01.10.2026: zwei Termine zur Wahl — Quelle src/data/webinar-slots.ts
+const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.de.dateLong, time: s.de.time, iso: s.start, end: s.end, short: `${s.de.day} ${s.de.date}`, dateShort: s.de.dateShort }));
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
 const painStats = [
@@ -83,13 +83,13 @@ const faqSchema = JSON.stringify({
 
 /* Einzelnes Event-Objekt statt Array: Layout.astro parst jede jsonLd-Zeichenkette und legt sie
    als Objekt in den @graph — ein Array wurde dort zu {"0":{…}} und war für Google unwirksam
-   (Befund + Fix 12./13.08.2026). Es gibt genau einen Termin (slots[0]). */
-const eventSchema = JSON.stringify({
+   (Befund + Fix 12./13.08.2026). Seit 01.10.2026 ein eigenes Event-Objekt je Termin (zwei Zeichenketten). */
+const eventSchemas = slots.map((slot) => JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: 'Empfohlen oder unsichtbar? — Warum Ihre nächsten Aufträge in ChatGPT & Co. entschieden werden',
-  startDate: slots[0].iso,
-  endDate: slots[0].iso.replace('T11:00', 'T12:00'),
+  startDate: slot.iso,
+  endDate: slot.end,
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
   eventStatus: 'https://schema.org/EventScheduled',
   /* Das Webinar wird auf Deutsch gehalten — steht auf der EN-Seite schon im Schema,
@@ -104,14 +104,14 @@ const eventSchema = JSON.stringify({
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },
   description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit auf Wunsch.',
-});
+}));
 ---
 
 <Layout
   lang="de"
   title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
   description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
-  jsonLd={[eventSchema, faqSchema]}
+  jsonLd={[...eventSchemas, faqSchema]}
   ogImage="https://www.codaai.ai/images/og-webinar.jpg"
 >
   <Navbar lang="de" />
@@ -150,7 +150,12 @@ const eventSchema = JSON.stringify({
               Live-Webinar
             </span>
             <span class="text-border" aria-hidden="true">/</span>
-            <span class="text-foreground">Di 29.09.2026 · 11:00 Uhr</span>
+            {/* Terminzeile: nach dem 13.10. blendet das Script den ersten Termin und das
+                „alternativ" aus und zeigt nur noch den zweiten (data-wslot-end / -after). */}
+            <span class="text-foreground" data-wslot-end={slots[0].end}>{slots[0].short} · 11:00 Uhr</span>
+            <span class="text-border" aria-hidden="true" data-wslot-end={slots[0].end}>/</span>
+            <span data-wslot-end={slots[0].end}>alternativ {slots[1].dateShort}</span>
+            <span class="text-foreground" data-wslot-after={slots[0].end} hidden>{slots[1].short} · 11:00 Uhr</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 Minuten</span>
         </p>
@@ -191,11 +196,25 @@ const eventSchema = JSON.stringify({
               </p>
             </div>
 
-            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
-              <div class="flex items-baseline justify-between gap-4">
-                <dt class="text-muted-foreground">Termin</dt>
-                <dd class="font-semibold text-foreground">Di, 29.09.2026 · 11:00 Uhr</dd>
+            {/* Terminwahl (01.10.2026): zwei Kacheln, 13.10. vorausgewaehlt. Die Wahl gilt
+                fuer jedes Anmeldeformular der Seite (Sync im WebinarSignup-Script). */}
+            <fieldset class="wslot-pick mt-6" data-wslot-pick>
+              <legend class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Termin wählen</legend>
+              <div class="wslot-grid">
+                {slots.map((slot, i) => (
+                  <label class="wslot-tile" data-wslot-end={slot.end}>
+                    <input type="radio" name="wslot-hero" value={slot.id} checked={i === 0} />
+                    <span class="wslot-date">{slot.short.replace(' ', ', ')}</span>
+                    <span class="wslot-time">{slot.time}</span>
+                    {i === 0
+                      ? <span class="wslot-tag">nächster Termin</span>
+                      : <span class="wslot-tag"><span data-wslot-end={slots[0].end}>Alternativtermin</span><span data-wslot-after={slots[0].end} hidden>nächster Termin</span></span>}
+                  </label>
+                ))}
               </div>
+            </fieldset>
+
+            <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
               <div class="flex items-baseline justify-between gap-4">
                 <dt class="text-muted-foreground">Dauer</dt>
                 <dd class="font-semibold text-foreground">60 Minuten</dd>
@@ -588,7 +607,7 @@ const eventSchema = JSON.stringify({
     const firstname = ($('w-name') as HTMLInputElement).value.trim();
     const lastname = ($('w-lastname') as HTMLInputElement).value.trim();
     const email = ($('w-email') as HTMLInputElement).value.trim();
-    const slot = '2026-09-29';
+    const slot = (document.querySelector('[data-wslot-pick] input:checked') as HTMLInputElement | null)?.value || '';
     const consent = ($('w-consent') as HTMLInputElement).checked;
     const livetest = ($('w-livetest') as HTMLInputElement).checked;
 
@@ -618,7 +637,7 @@ const eventSchema = JSON.stringify({
   // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
   // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
-  const slotDates = ['2026-09-29T11:00:00+02:00'].map((d) => new Date(d));
+  const slotDates = ['2026-10-13T11:00:00+02:00', '2026-11-10T11:00:00+01:00'].map((d) => new Date(d));
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
@@ -1275,13 +1294,13 @@ if (document.readyState === 'loading') {
         // Auch der Treffer muss unbequem enden — sonst liest sich eine hohe
         // Zahl als Entwarnung, obwohl sie nichts über die Rangfolge sagt.
         elSub.textContent = 'Diese Zahl sagt nichts darüber, an welcher Stelle Sie stehen. '
-          + 'Ob Sie empfohlen werden oder nur vorkommen, sehen Sie am 29.09. live.';
+          + 'Ob Sie empfohlen werden oder nur vorkommen, sehen Sie im Webinar live.';
       } else {
         elHead.classList.remove('is-num');
         elHead.textContent = 'Nicht gefunden.';
         elLead.textContent = 'Keine einzige KI-Antwort nennt Ihre Marke.';
         elSub.textContent = 'Wer nach Ihrer Leistung fragt, bekommt andere Namen genannt. '
-          + 'Welche das sind, zeigen wir am 29.09. live.';
+          + 'Welche das sind, zeigen wir im Webinar live.';
       }
       setMode('result');
       // Domain an die Anmeldung weitergeben
@@ -1354,3 +1373,27 @@ if (document.readyState === 'loading') {
   })();
 
 </script>
+
+<style>
+  /* Terminwahl in der Anmeldekarte (01.10.2026) */
+  .wslot-pick { border:0; padding:0; min-width:0; }
+  .wslot-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .wslot-tile { position:relative; display:flex; flex-direction:column; gap:2px; cursor:pointer;
+    border:1.5px solid hsl(var(--border)); border-radius:16px; padding:12px 14px 12px 40px;
+    background:hsl(var(--surface-paper)); transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+  .wslot-tile:hover { transform:translateY(-1px); }
+  .wslot-tile input { position:absolute; left:14px; top:15px; width:16px; height:16px; margin:0;
+    accent-color:hsl(var(--cta-strong)); cursor:pointer; }
+  .wslot-tile:has(input:checked) { border-color:hsl(var(--cta-strong)); box-shadow:0 0 0 3px hsl(var(--cta) / .14); }
+  .wslot-tile:has(input:focus-visible) { outline:2px solid hsl(var(--cta-strong)); outline-offset:2px; }
+  .wslot-date { font-size:15px; font-weight:700; color:hsl(var(--foreground)); line-height:1.25; }
+  .wslot-time { font-size:12.5px; color:hsl(var(--muted-foreground)); }
+  .wslot-tag { margin-top:4px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--cta-accessible)); }
+  .wslot-tile[hidden] { display:none; }
+  /* In der Hero-Karte stehen die grossen Kacheln schon — die kleine Terminwahl im
+     Formular waere dort doppelt. In allen anderen Formularen der Seite bleibt sie. */
+  :global(.wslot-pick ~ div .wacta-slots) { display:none; }
+  .wslot-grid:has(.wslot-tile[hidden]) { grid-template-columns:1fr; }
+  @media (max-width:380px) { .wslot-grid { grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce) { .wslot-tile { transition:none; } }
+</style>
