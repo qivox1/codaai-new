@@ -70,9 +70,10 @@ export default defineConfig({
         // /digital-visibility/ und gehoert nicht in die Sitemap.
         !page.endsWith('/leistungen/') &&
         // 01.10.2026: /check/ und /visibility-snapshot/ sind Weiterleitungen auf
-        // den Snapshot im Kopfbereich der Startseite (/en/check/ bleibt).
+        // den Snapshot im Kopfbereich der Startseite; /en/check/ ebenso (EN-Snapshot).
         !/\/\/[^/]+\/check\/$/.test(page) &&
         !page.endsWith('/visibility-snapshot/') &&
+        !page.endsWith('/en/check/') &&
         // /kontakt/ und /en/contact/ sind seit 04.08.2026 ebenfalls nur noch
         // Weiterleitungen (auf #termin der jeweiligen Startseite).
         !page.endsWith('/kontakt/') &&

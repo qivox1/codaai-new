@@ -1,7 +1,7 @@
 ---
 /* Abschluss-CTA jedes Blogartikels (Beschluss Oli, 22.09.2026):
-   Hauptlink „Ergebnis zuerst" — DE seit 01.10.2026 der Visibility Snapshot
-   auf der Startseite (/#snapshot), EN weiter /en/check/. Zweitlink je Reihe —
+   Hauptlink „Ergebnis zuerst" — seit 01.10.2026 der Visibility Snapshot im
+   Kopfbereich der Startseite (/#snapshot bzw. /en/#snapshot). Zweitlink je Reihe —
    Messung/Offpage → Komplett-Audit, Content/Technik → Webinar. */
 import { REIHE_BY_ID, type ReiheId } from '../data/reihen';
 interface Props { lang: 'de' | 'en'; reihe?: ReiheId }
@@ -10,18 +10,18 @@ const de = lang === 'de';
 const zweit = reihe ? REIHE_BY_ID[reihe].zweit[lang] : (de ? { href: '/digital-visibility/', label: 'Was das Komplett-Audit zusätzlich liefert' } : { href: '/en/digital-visibility/', label: 'What the full audit adds' });
 ---
 <section class="mt-12 rounded-2xl bg-surface-ink text-white p-6 lg:p-8" aria-label={de ? 'Nächster Schritt' : 'Next step'} data-blog-cta-root data-reihe={reihe ?? ''}>
-  <p class="text-xs font-semibold uppercase tracking-widest text-navy-200 mb-2">{de ? 'Visibility Snapshot · kostenlos' : 'Free check'}</p>
+  <p class="text-xs font-semibold uppercase tracking-widest text-navy-200 mb-2">{de ? 'Visibility Snapshot · kostenlos' : 'Visibility Snapshot · free'}</p>
   <p class="text-xl lg:text-2xl font-semibold leading-snug mb-2">
-    {de ? 'Empfiehlt die KI Ihr Unternehmen?' : 'Does ChatGPT name your company?'}
+    {de ? 'Empfiehlt die KI Ihr Unternehmen?' : 'Does AI recommend your company?'}
   </p>
   <p class="text-navy-200 text-sm leading-relaxed mb-5 max-w-xl">
     {de
       ? 'Stellen Sie fünf KI-Systemen die Frage Ihrer Kunden und sehen Sie in rund 20 Sekunden, ob Sie genannt werden – und wen die KI stattdessen empfiehlt. Ohne Anmeldung.'
-      : 'Enter your website and see the result in seconds – no sign-up. Only then do you decide whether you want to know more.'}
+      : 'Put your customers’ question to five AI systems and see in about 20 seconds whether you are named – and whom AI recommends instead. No sign-up.'}
   </p>
-  <a href={de ? '/#snapshot' : '/en/check/'} data-cta="blog-end-check"
+  <a href={de ? '/#snapshot' : '/en/#snapshot'} data-cta="blog-end-check"
      class="inline-flex items-center justify-center h-11 px-6 rounded-[14px] bg-cta-strong text-white font-semibold text-sm hover:bg-cta-strong/90 transition-colors">
-    {de ? 'Snapshot starten' : 'Check your website'}
+    {de ? 'Snapshot starten' : 'Start snapshot'}
   </a>
   <p class="text-sm mt-4 mb-0">
     <a href={zweit.href} data-cta="blog-end-second" class="text-white underline underline-offset-4 hover:text-navy-100">{zweit.label}</a>

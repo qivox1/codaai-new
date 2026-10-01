@@ -35,7 +35,7 @@ export const faqGeneralEn: FaqItem[] = [
   },
   {
     q: 'How do I get started — and what do I have to provide?',
-    a: 'You start with your free Digital Visibility Audit: we document what ChatGPT and Google AI Overviews say about your company today, and you get it as a personal dashboard. In a 30-minute call we go through the findings together. To begin, we need nothing from you but your domain — expertise from inside your company and a named contact only become necessary once you decide to work with us.',
+    a: 'You start with the free Visibility Snapshot on our homepage: one of your customers’ questions, five AI systems, about 20 seconds. On request, the AI competitor comparison with around 20 buyer questions follows as a personal dashboard. In a 30-minute call we go through the findings together. To begin, we need nothing from you but your domain — expertise from inside your company and a named contact only become necessary once you decide to work with us.',
   },
   {
     q: 'What sets CodaAI apart from an AI writing tool and from a traditional agency?',
@@ -155,6 +155,18 @@ export const faqWebinarEn: FaqItem[] = [
   },
 ];
 
+/* ── Visibility Snapshot + AI competitor comparison (01.10.2026) ──────────────
+   English counterpart of faqSnapshot (faq.ts). The topic page /visibility-snapshot/
+   has become a redirect, so /en/faq carries the FAQPage schema for EXACTLY this group. */
+export const faqSnapshotEn: FaqItem[] = [
+  { q: 'What does the Visibility Snapshot cost?', a: 'Nothing. The snapshot and the AI competitor comparison are free and without obligation.' },
+  { q: 'Why should I not put my company name in the question?', a: 'Because your customers do not ask that way. Anyone who already knows your name is not searching for suppliers. Only the question of a customer who does not know you yet tells you something – for example “Which suppliers of … are leading in Germany?”.' },
+  { q: 'Why do the results vary?', a: 'AI systems write every answer anew. Two identical lists in the same order are the exception. The snapshot is therefore a dated sample; the picture only becomes reliable across many questions – which is exactly what the competitor comparison does.' },
+  { q: 'How do I get the AI competitor comparison?', a: 'Enter your business email address below the result and click the link in the confirmation email. Then add your name, and we prepare the comparison for your website. You receive it by email, usually by the next working day.' },
+  { q: 'Why only with a company email address?', a: 'The comparison shows how AI talks about a specific company and its competitors. That is why we only send it to an address that belongs to the website checked – not to free email addresses.' },
+  { q: 'What happens to my data?', a: 'We use your details to prepare the comparison and send it to you. You will find the details in our privacy policy.' },
+];
+
 /* Order and labelling of the collected page /en/faq/. */
 export const faqGroupsEn: { id: string; title: string; intro: string; href: string; hrefLabel: string; items: FaqItem[] }[] = [
   {
@@ -164,6 +176,14 @@ export const faqGroupsEn: { id: string; title: string; intro: string; href: stri
     href: '/en/',
     hrefLabel: 'To the homepage',
     items: faqGeneralEn,
+  },
+  {
+    id: 'snapshot',
+    title: 'Visibility Snapshot',
+    intro: 'What the free snapshot shows, why results vary and how you get the AI competitor comparison.',
+    href: '/en/#snapshot',
+    hrefLabel: 'To the snapshot',
+    items: faqSnapshotEn,
   },
   {
     id: 'digital-visibility',

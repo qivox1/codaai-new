@@ -37,7 +37,7 @@ export const EXTRA_SOURCES = {
   'en/pricing': ['src/components/react/PricingCalculatorV2.tsx', 'src/data/faq.en.ts'],
   // 04.08.2026: Beide Startseiten bestehen fast vollstaendig aus Home.astro.
   '': ['src/components/premium/Home.astro', 'src/components/snapshot/SnapshotModule.astro'],
-  'en': ['src/components/premium/Home.astro', 'src/components/premium/AuditCTA.astro'],
+  'en': ['src/components/premium/Home.astro', 'src/components/snapshot/SnapshotModuleEn.astro'],
   'faq': ['src/data/faq.ts'],
   'en/faq': ['src/data/faq.en.ts'],
   'digital-visibility': ['src/data/faq.ts'],
@@ -45,7 +45,6 @@ export const EXTRA_SOURCES = {
   'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
   'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
   // 01.10.2026: /check/ und /visibility-snapshot/ sind Weiterleitungen (Snapshot auf der Startseite).
-  'en/check': ['src/components/check/CheckPage.astro', 'src/components/premium/AuditCTA.astro'],
   'studie': ['src/data/studie.ts'],
   'en/study': ['src/data/studie.ts'],
 };

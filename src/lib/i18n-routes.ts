@@ -145,7 +145,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
  *             /check/, /visibility-snapshot/ (noindex-Weiterleitungen auf /#snapshot, 01.10.2026)
  *             (ki-sichtbarkeit-praxis hat seit 22.09.2026 eine EN-Fassung)
  *             /checkout-success/ (Stripe abgeschaltet, noindex)
- *   EN-only : /en/check/ (bis es den Snapshot auf Englisch gibt)
+ *   EN-only : – (/en/check/ seit 01.10.2026 ebenfalls Weiterleitung auf /en/#snapshot)
  *            – (ai-content-marketing-strategy-guide seit 22.09.2026 Weiterleitung)
  *
  *   Kein Paar trotz beidseitiger Existenz:

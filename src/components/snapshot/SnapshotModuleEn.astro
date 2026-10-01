@@ -1,0 +1,1040 @@
+---
+/**
+ * GENERIERT von scripts/make-snapshot-en.py aus SnapshotModule.astro — nicht von Hand ändern.
+ * Englische Fassung für /en/ (01.10.2026).
+ *
+ * SnapshotModule — „Visibility Snapshot" (seit 24.09.2026, Konzept: Claude-Doc
+ * „KI-Empfehlungs-Check — Konzept", Name-Entscheidung Oli 24.09.).
+ *
+ * Besucher gibt Website + eine Kundenfrage ein → fünf KI-Systeme werden live
+ * gefragt → Befund auf Magenta: genannt in x von 5, Logos mit ✓/✗, welche
+ * Firmen stattdessen empfohlen werden. Antworttexte + Quellen erst nach
+ * bestätigter Firmen-E-Mail (Double-Opt-in, Mail kommt vom Server).
+ *
+ * Backend: audit.codaai.ai/ai/frage + /ai/frage/freischalten
+ * (Pipeline-CLAUDE.md 4.38, Modul scripts/ai_frage.py). Datenquellen und
+ * Modellnamen werden bewusst nirgends genannt (Nachahmerschutz).
+ *
+ * Captcha: Cloudflare Turnstile, sobald TURNSTILE_SITEKEY gesetzt ist. Bis
+ * dahin schützen Lockfeld + Mindest-Ausfüllzeit (serverseitig geprüft).
+ *
+ * URL-Übergabe: ?d=firma.de&q=Frage füllt vor und startet automatisch
+ * (Teaser auf Startseite/Webinar, Nurture-Mails).
+ *
+ * Eingabehilfe (27.09.2026, seit 27.09. für alle live):
+ * animierter Platzhalter mit Beispielfragen je Rolle (?src=li-gf | li-vl | li-ml),
+ * eine Formelzeile und ein Fragen-Vorschlag aus der Startseite der eingegebenen
+ * Website (POST /ai/frage/vorschlag, max. ~4,5 s, überschreibt nie Eingetipptes).
+ *
+ * Kurz-Freischaltung (27.09.2026, für alle live): Freischaltung nur mit
+ * geschäftlicher E-Mail (Name wird serverseitig aus der Adresse abgeleitet, Domain muss zur
+ * geprüften Website passen) und Knöpfe „<Bereich> prüfen“ für weitere Geschäftsbereiche
+ * (res.bereiche, vom Server parallel zur Messung ermittelt).
+ *
+ * dataLayer: snapshot_start {lang}, snapshot_result {genannt, von, cached},
+ *            snapshot_vorschlag {ok, ms}, snapshot_vorschlag_behalten,
+ *            snapshot_error {status}, snapshot_unlock {marketing}
+ */
+interface Props { source?: string }
+const { source = 'snapshot' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const TURNSTILE_SITEKEY = '';   // ← Site Key von Cloudflare Turnstile hier eintragen
+const logos = [
+  { key: 'chatgpt', label: 'ChatGPT' },
+  { key: 'claude', label: 'Claude' },
+  { key: 'gemini', label: 'Gemini' },
+  { key: 'perplexity', label: 'Perplexity' },
+  { key: 'google_ai_mode', label: 'Google AI Mode', file: 'google' },
+];
+const beispiele = [
+  'Which suppliers of [your product] are leading in Germany?',
+  'Which manufacturer is best suited for [your application]?',
+  'What alternatives are there to [your biggest competitor]?',
+];
+---
+
+<div class="snap" data-snap data-state="idle" data-source={source} data-sitekey={TURNSTILE_SITEKEY || undefined}>
+  <form class="snap-form" data-form novalidate autocomplete="off">
+    <div class="snap-hp" inert aria-hidden="true"><label>Website<input type="text" name="website_url" data-hp tabindex="-1" autocomplete="off" /></label></div>
+
+    <label class="snap-lbl" for="snap-domain">Your website</label>
+    <input id="snap-domain" class="snap-in" data-domain type="text" inputmode="url" spellcheck="false" placeholder="e.g. yourcompany.com" />
+
+    <label class="snap-lbl" for="snap-frage">A question your customers would ask AI</label>
+    <p class="snap-formel" data-formel hidden>Product + application – the way a customer who does not know you would ask.</p>
+    <textarea id="snap-frage" class="snap-in snap-ta" data-frage rows="3" maxlength="250" placeholder="e.g. Which suppliers of precision air conditioning are leading in Germany?"></textarea>
+    <p class="snap-vhint" data-vhint role="status" hidden>Suggested for your website – feel free to adjust it.</p>
+    <div class="snap-fhint" data-fhint role="status" hidden>
+      <p class="snap-fhint-t" data-fhint-t></p>
+      <button type="button" class="snap-fhint-use" data-fhint-use hidden><span class="snap-fhint-k">Use suggestion</span><span data-fhint-v></span></button>
+      <button type="button" class="snap-fhint-skip" data-fhint-skip hidden>Check my question anyway</button>
+    </div>
+
+    {TURNSTILE_SITEKEY && <div class="snap-captcha" data-captcha></div>}
+
+    <button type="submit" class="snap-go" data-go>
+      <span>Start snapshot</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p class="snap-err" data-err role="alert" hidden></p>
+    <div class="snap-lim" data-lim hidden>
+      <p class="snap-lim-t" data-limt></p>
+      <button type="button" class="snap-send" data-limbtn>Request competitor comparison <span aria-hidden="true">→</span></button>
+      <div class="snap-lim-f" data-limf hidden>
+        <label class="snap-amail snap-amail--hell" data-limmailw><input data-limmail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="firstname.lastname" aria-label="Business email address" /><span data-limat></span></label>
+        <button type="button" class="snap-send" data-limsend>Request competitor comparison <span aria-hidden="true">→</span></button>
+        <p class="snap-aerr" data-limerr role="alert" hidden></p>
+        <p class="snap-lim-mini"><a href={`${base}/en/privacy-policy/#visibility-snapshot`} target="_blank" rel="noopener">Privacy notice</a></p>
+      </div>
+      <p class="snap-lim-done" data-limdone hidden></p>
+    </div>
+    <p class="snap-micro">Free · about 20 seconds · result without sign-up</p>
+  </form>
+
+  <div class="snap-load" data-load aria-live="polite">
+    <p class="snap-load-h" data-loadh aria-live="polite">Asking the AI systems …</p>
+    <p class="snap-lq" data-lq></p>
+    <div class="snap-bar"><span data-lbar></span></div>
+    <ul class="snap-logos snap-logos--load" data-loadlogos>
+      {logos.map((l, i) => (
+        <li style={`--i:${i}`} data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span>{l.label}</span></li>
+      ))}
+    </ul>
+    <div class="snap-tech" data-techbox>
+      <p class="snap-tech-h">At the same time, we read your website the way an AI system sees it:</p>
+      <div class="snap-tech-g">
+      <figure class="snap-shot snap-lshot" data-lshot aria-hidden="true">
+        <div class="snap-shot-b"><i></i><i></i><i></i><span data-lshotd></span></div>
+        <div class="snap-lshot-f"><img data-lshotimg alt="" hidden /><span class="snap-lshot-ph">Loading homepage …</span><i class="snap-scan"></i></div>
+      </figure>
+      <ul class="snap-tech-l" data-techl>
+        <li data-tk="crawler"><i></i><span>May AI systems read your website?</span></li>
+        <li data-tk="schutz"><i></i><span>Does your website protection let them through?</span></li>
+        <li data-tk="text"><i></i><span>Can they see your content without JavaScript?</span></li>
+        <li data-tk="klar"><i></i><span>Is it clear what you offer?</span></li>
+        <li data-tk="aktuell"><i></i><span>How up to date is your content?</span></li>
+        <li data-tk="schema"><i></i><span>Is your company data machine-readable?</span></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="snap-res" data-res aria-live="polite">
+    <p class="snap-kicker">Visibility Snapshot · <span data-dom></span> · <span data-stand></span></p>
+    <p class="snap-q">„<span data-q></span>“</p>
+    <figure class="snap-thumb" data-thumb hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-thumbd></span></div><img data-thumbimg alt="Homepage of your website" width="640" height="400" /></figure>
+    <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
+    <p class="snap-vs" data-vs hidden></p>
+    <ul class="snap-logos snap-logos--res" data-reslogos hidden>
+      {logos.map((l) => (
+        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
+      ))}
+    </ul>
+    <div class="snap-find" data-findbox hidden>
+      <p class="snap-h" data-findh>Room for improvement</p>
+      <dl class="snap-find-l" data-find></dl>
+    </div>
+    <div class="snap-sb" data-sb hidden>
+      <p class="snap-sb-h"><span>How <span data-sbsys>ChatGPT</span> describes your company <small>(without web search)</small></span> <span class="snap-sb-u" data-sbu></span></p>
+      <p class="snap-sb-t">„<span data-sbt></span>“</p>
+    </div>
+    <div class="snap-ber" data-ber hidden>
+      <p class="snap-ber-h" data-berh>Other business areas we found</p>
+      <ul class="snap-ber-l" data-berl></ul>
+    </div>
+    <p class="snap-also" data-also hidden></p>
+    <div class="snap-cov" data-cov hidden>
+      <p class="snap-cov-t" data-covt></p>
+    </div>
+    <div class="snap-audit" data-audit hidden>
+      <p class="snap-audit-h" data-audith><span class="snap-audit-h1">That was just <b>one</b> question.</span><br /><span class="snap-audit-pk">Now see the whole picture.</span></p>
+      <p class="snap-audit-c"><span class="snap-audit-ct" data-auditc>Your customers ask AI first, and AI writes the shortlist. Anyone missing from it does not get the enquiry. And most of the time nobody notices.</span><span data-auditbeweis hidden></span></p>
+      <p class="snap-audit-p">Your AI competitor comparison for <b data-auditd></b>:</p>
+      <ul class="snap-audit-l" data-auditl>
+        <li>Which competitors AI recommends for your most important customer questions, and why</li>
+        <li>For which questions the enquiries currently go to others</li>
+        <li>Your position in Google and AI, right next to your competitors</li>
+        <li>What exactly to do to get onto the shortlist</li>
+      </ul>
+      <div class="snap-aform" data-aform>
+        <label class="snap-amail" data-amail><input data-mail type="text" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="firstname.lastname" aria-label="Business email address" /><span data-at></span></label>
+        <button type="button" class="snap-send" data-send><span data-sendt>Request competitor comparison</span> <span aria-hidden="true">→</span></button>
+        <p class="snap-aerr" data-err2 role="alert" hidden></p>
+        <p class="snap-amini"><a href={`${base}/en/privacy-policy/#visibility-snapshot`} target="_blank" rel="noopener">Privacy notice</a></p>
+      </div>
+      <p class="snap-adone" data-done hidden><b>Almost done.</b> <span data-donet></span></p>
+    </div>
+    <button type="button" class="snap-again" data-again>Check another question</button>
+    <p class="snap-disc">Sample taken on <span data-stand2></span>. AI answers vary from day to day. The answers shown are those of the AI systems, not a statement by CodaAI about the companies named.</p>
+  </div>
+</div>
+
+<style>
+  .snap { --pad: 28px; width:100%; max-width:560px; border-radius:24px; background:hsl(var(--card)); border:1px solid hsl(var(--border)); box-shadow:0 20px 60px -30px hsl(var(--foreground) / .35); overflow:hidden; }
+  .snap-form, .snap-load, .snap-res { padding:var(--pad); }
+  .is-vf .snap-lshot-f img, .is-vf .snap-thumb img { filter: blur(16px) saturate(.7); transform: scale(1.08); }
+  .snap-vf-dom { margin-bottom:18px; color:hsl(var(--muted-foreground)); font-style:italic; user-select:none; }
+  .snap-hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .snap-lbl { display:block; margin:0 0 6px; font-size:14px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-lbl + .snap-in { margin-bottom:18px; }
+  .snap-in { width:100%; border:1.5px solid hsl(var(--border)); border-radius:12px; padding:13px 14px; font-size:16px; background:hsl(var(--background)); color:hsl(var(--foreground)); }
+  .snap-in:focus { outline:none; border-color:hsl(var(--cta)); box-shadow:0 0 0 3px hsl(var(--cta) / .18); }
+  .snap-ta { resize:vertical; min-height:88px; line-height:1.45; }
+  .snap-ta + .snap-chips, .snap-fhint + .snap-chips { margin-top:10px; }
+  .snap-form :global(.snap-test) { margin:8px 0 0; text-align:center; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8A5A00; }
+  .snap-fhint-use[hidden], .snap-fhint-skip[hidden], .snap-fhint[hidden], .snap-formel[hidden], .snap-vhint[hidden] { display:none; }
+  .snap-formel { margin:-2px 0 8px; font-size:13px; line-height:1.4; color:hsl(var(--muted-foreground)); }
+  .snap-lbl:has(+ .snap-formel:not([hidden])) { margin-bottom:2px; }
+  .snap-vhint { margin:8px 0 16px; font-size:13px; color:hsl(var(--cta-accessible)); }
+  .snap-vhint::before { content:"✦ "; }
+  .snap-ta.is-typing { caret-color:transparent; }
+  .snap-fhint { margin:-8px 0 18px; padding:12px 14px; border-radius:12px; background:#FDF1D8; color:#5C3D00; font-size:13.5px; line-height:1.45; }
+  .snap-fhint-t { margin:0; }
+  .snap-fhint-use { display:block; width:100%; margin-top:10px; padding:10px 12px; border:1px solid #E7C77E; border-radius:10px; background:#fff; color:hsl(var(--foreground)); font-size:14px; line-height:1.4; text-align:left; cursor:pointer; }
+  .snap-fhint-use:hover { border-color:hsl(var(--cta)); }
+  .snap-fhint-skip { margin-top:8px; padding:0; border:0; background:none; color:#5C3D00; font-size:13px; text-decoration:underline; cursor:pointer; }
+  .snap-fhint-k { display:block; margin-bottom:2px; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--cta-strong)); }
+  .snap-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .snap-chip { border:1px solid hsl(var(--border)); background:hsl(var(--muted) / .35); color:hsl(var(--foreground)); border-radius:999px; padding:5px 11px; font-size:12.5px; text-align:left; cursor:pointer; }
+  .snap-chip:hover { border-color:hsl(var(--cta)); }
+  .snap-captcha { margin:0 0 14px; min-height:65px; }
+  .snap-go, .snap-send { display:flex; width:100%; align-items:center; justify-content:center; gap:10px; border:0; border-radius:12px; padding:15px 18px; font-size:16px; font-weight:700; cursor:pointer; background:hsl(var(--cta-strong)); color:#fff; }
+  .snap-go:hover, .snap-send:hover { filter:brightness(1.08); }
+  .snap-go[disabled], .snap-send[disabled] { opacity:.6; cursor:wait; }
+  .snap-err { margin:10px 0 0; font-size:14px; font-weight:600; color:hsl(var(--destructive, 0 70% 45%)); }
+  .snap-micro { margin:10px 0 0; font-size:12.5px; text-align:center; color:hsl(var(--muted-foreground)); }
+
+  .snap-load, .snap-res { display:none; }
+  .snap[data-state="load"] .snap-form, .snap[data-state="res"] .snap-form { display:none; }
+  .snap[data-state="load"] .snap-load { display:block; }
+  .snap[data-state="res"] .snap-res { display:block; }
+  .snap-load-h { margin:0 0 18px; font-size:18px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-logos { display:flex; justify-content:space-between; gap:8px; list-style:none; margin:0; padding:0; }
+  .snap-logos li { display:flex; flex-direction:column; align-items:center; gap:6px; font-size:11.5px; font-weight:600; flex:1; text-align:center; }
+  .snap-logos--load li { color:hsl(var(--muted-foreground)); animation:snap-pulse 2.5s ease-in-out infinite; animation-delay:calc(var(--i) * .5s); }
+  .snap-logos--load .snap-lg { width:40px; height:40px; }
+  .snap-logos--load .snap-lg img { width:24px; height:24px; }
+  /* Enthuellung (28.09.2026): Logos hören auf zu pulsieren und klappen nacheinander auf ✓ / ✗ */
+  .snap.is-reveal .snap-logos--load li { animation:none; opacity:1; transform:none; color:hsl(var(--foreground)); }
+  .snap.is-reveal .snap-logos--load li[data-ok] .snap-lg { animation:snap-flip .45s ease both; }
+  .snap.is-reveal .snap-logos--load li[data-ok="0"] .snap-lg { box-shadow:0 0 0 2px #C0343C; }
+  .snap.is-reveal .snap-logos--load li[data-ok="1"] .snap-lg { box-shadow:0 0 0 2px hsl(var(--confirm)); }
+  @keyframes snap-flip { 0% { transform:rotateY(0); } 50% { transform:rotateY(90deg) scale(1.08); } 100% { transform:rotateY(0) scale(1); } }
+  .snap-load-h :global(b) { color:hsl(var(--cta-accessible)); font-size:1.25em; }
+  /* Frage füllt sich pink im Takt des Balkens */
+  .snap-lq { margin:0 0 4px; font-size:19px; line-height:1.35; font-weight:700; color:hsl(var(--navy-300)); }
+  .snap-lq :global(span) { transition:color .35s ease; }
+  .snap-lq :global(span.is-an) { color:hsl(var(--cta-accessible)); }
+  .snap.is-wait .snap-lq :global(span:not(.is-an)) { animation:snap-glimm 1.6s ease-in-out infinite; }
+  @keyframes snap-glimm { 50% { color:hsl(var(--cta-accessible) / .45); } }
+  .snap.is-wait .snap-bar span { animation:snap-glimm2 1.6s ease-in-out infinite; }
+  @keyframes snap-glimm2 { 50% { opacity:.55; } }
+  /* Screenshot mit Scanlinie */
+  /* Ladebildschirm (28.09.2026): Screenshot über die volle Breite, Prüfungen darunter zweispaltig */
+  .snap-load .snap-tech-g { flex-direction:column; align-items:stretch; }
+  .snap-load .snap-lshot { flex:none; width:100%; }
+  .snap-load .snap-tech-l { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; }
+  .snap-load .snap-tech-l li { align-items:flex-start; font-size:13.5px; line-height:1.4; }
+  .snap-load .snap-tech-l li i { margin-top:1px; }
+  .snap-lshot-f { position:relative; aspect-ratio:2/1; overflow:hidden; background:hsl(var(--muted) / .5); }
+  .snap-lshot-f img { width:100%; height:100%; object-fit:cover; object-position:top; animation:snap-in .5s ease both; }
+  .snap-lshot-ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; color:hsl(var(--muted-foreground)); }
+  .snap-lshot-f img:not([hidden]) + .snap-lshot-ph { display:none; }
+  .snap-scan { position:absolute; left:0; right:0; top:0; height:38%; pointer-events:none; background:linear-gradient(to bottom, hsl(var(--cta) / 0) 0%, hsl(var(--cta) / .16) 85%, hsl(var(--cta)) 100%); animation:snap-scan 2.6s cubic-bezier(.45,0,.55,1) infinite; }
+  @keyframes snap-scan { 0% { transform:translateY(-100%); } 100% { transform:translateY(265%); } }
+  .snap.is-reveal .snap-scan { display:none; }
+  .snap[data-state="res"] .snap-res { animation:snap-in .45s ease both; }
+  @keyframes snap-pulse { 0%,100% { opacity:.35; transform:translateY(0); } 20% { opacity:1; transform:translateY(-4px); } 40% { opacity:.6; transform:translateY(0); } }
+  .snap-bar { margin:22px 0 14px; height:6px; border-radius:99px; background:hsl(var(--muted)); overflow:hidden; }
+  .snap-bar span { display:block; height:100%; width:0; background:hsl(var(--cta)); }
+  /* Breite setzt das Skript (gleiche Kurve wie die Frage) */
+  @media (prefers-reduced-motion: reduce) { .snap-logos--load li { animation:none; opacity:1; } .snap-scan { display:none; } .snap.is-wait .snap-lq :global(span), .snap.is-wait .snap-bar span, .snap.is-reveal .snap-logos--load li[data-ok] .snap-lg { animation:none; } }
+
+  /* Ergebnis: ruhig, weiss; Magenta nur als Akzent und fuer Aktionen */
+  .snap-res { background:hsl(var(--card)); color:hsl(var(--foreground)); border-top:4px solid hsl(var(--cta-strong)); }
+  .snap-kicker { margin:0; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:hsl(var(--muted-foreground)); overflow-wrap:anywhere; }
+  .snap-q { margin:10px 0 14px; font-size:22px; line-height:1.3; font-weight:700; }
+  .snap-verdict { margin:0 0 20px; font-size:16px; line-height:1.5; }
+  .snap-badge { display:inline-block; margin-right:4px; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.02em; vertical-align:1px; }
+  .snap-badge[data-lvl="gut"] { background:#E3F4EA; color:#146C43; }
+  .snap-badge[data-lvl="mittel"] { background:#FDF1D8; color:#8A5A00; }
+  .snap-badge[data-lvl="schlecht"] { background:#FDE7E7; color:#A1242B; }
+  .snap-logos--res[hidden] { display:none; }
+  .snap-logos--res { background:hsl(var(--foreground) / .04); border-radius:14px; padding:14px 8px; }
+  .snap-lg { position:relative; display:inline-flex; width:44px; height:44px; align-items:center; justify-content:center; border-radius:50%; background:#fff; box-shadow:0 0 0 1px hsl(var(--border)); }
+  .snap-lg img { width:26px; height:26px; }
+  .snap-mark { position:absolute; right:-5px; bottom:-5px; width:20px; height:20px; border-radius:50%; border:2px solid #fff; display:none; font-style:normal; }
+  li[data-ok="1"] .snap-mark { display:block; background:hsl(var(--confirm)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+  li[data-ok="0"] .snap-mark { display:block; background:#C0343C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+  li[data-ok="x"] .snap-lg { opacity:.45; }
+  li[data-ok="1"][data-rank] .snap-mark { background-image:none; font:700 11px/16px inherit; text-align:center; color:#fff; }
+  li[data-ok="1"][data-rank]:not([data-rank="1"]) .snap-mark { background-color:#E0A21B; }
+  li[data-ok="1"][data-rank] .snap-mark::before { content:attr(data-n); }
+  .snap-sysl { color:hsl(var(--foreground)); font-weight:600; }
+  .snap-sysp { display:block; margin-top:1px; font-size:11px; color:hsl(var(--muted-foreground)); }
+  .snap-h { margin:0 0 8px; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:hsl(var(--muted-foreground)); }
+  .snap-find { margin-top:22px; }
+  .snap-find-l { margin:0; }
+  .snap-find-l :global(div) { display:grid; grid-template-columns:130px 1fr; gap:12px; padding:9px 0; border-top:1px solid hsl(var(--border)); font-size:14.5px; line-height:1.45; }
+  .snap-find-l :global(div:last-child) { border-bottom:1px solid hsl(var(--border)); }
+  .snap-find-l :global(dt) { font-weight:700; }
+  .snap-find-l :global(.is-sys) { align-items:center; }
+  .snap-find-l :global(.is-sys dt) { display:flex; align-items:center; gap:8px; }
+  .snap-find-l :global(.snap-flg) { position:relative; flex-shrink:0; width:38px; height:38px; margin:2px 4px 2px 0; border-radius:50%; background:#fff; border:1px solid hsl(var(--border)); display:flex; align-items:center; justify-content:center; }
+  .snap-find-l :global(.snap-flg img) { width:24px; height:24px; }
+  .snap-find-l :global(.snap-fmk) { position:absolute; right:-5px; bottom:-4px; min-width:19px; height:19px; padding:0 4px; border-radius:99px; border:2px solid hsl(var(--card)); font-family:inherit; font-size:11px; font-weight:800; line-height:15px; font-style:normal; box-sizing:border-box; text-align:center; color:#fff; }
+  .snap-find-l :global(.snap-fmk.is-platz) { background:#E0A21B; }
+  .snap-find-l :global(.snap-fmk.is-fehlt) { background:hsl(var(--cta-strong)); }
+  .snap-find-l :global(.snap-flb) { font-size:13px; font-weight:600; color:hsl(var(--muted-foreground)); }
+  .snap-find-l :global(dd) { margin:0; color:hsl(var(--foreground) / .85); }
+  .snap-also { margin:14px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
+  .snap-also :global(b) { font-weight:700; color:hsl(var(--foreground)); }
+  .snap-disc { margin:12px 0 0; font-size:11.5px; line-height:1.45; color:hsl(var(--muted-foreground)); }
+  .snap-ber[hidden], .snap-mini[hidden], .snap-open[hidden], .snap-vs[hidden], .snap-cov[hidden], .snap-audit[hidden] { display:none; }
+  .snap-tech-g { display:flex; gap:14px; align-items:flex-start; }
+  .snap-tech-g .snap-tech-l { flex:1; min-width:0; }
+  .snap-shot { flex:0 0 42%; margin:0; border:1px solid hsl(var(--border)); border-radius:8px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 8px 20px -14px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
+  .snap-shot[hidden], .snap-thumb[hidden] { display:none; }
+  .snap-shot-b { display:flex; align-items:center; gap:4px; padding:5px 7px; background:hsl(var(--muted)); border-bottom:1px solid hsl(var(--border)); }
+  .snap-shot-b i { width:6px; height:6px; border-radius:50%; background:hsl(var(--border)); }
+  .snap-shot-b span { margin-left:6px; font-size:10px; color:hsl(var(--muted-foreground)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .snap-shot img, .snap-thumb img { display:block; width:100%; height:auto; }
+  .snap-thumb { margin:16px 0 22px; border:1px solid hsl(var(--border)); border-radius:10px; overflow:hidden; background:hsl(var(--background)); box-shadow:0 12px 28px -18px hsl(var(--foreground) / .5); animation:snap-in .5s ease both; }
+  @keyframes snap-in { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+  @media (max-width:480px) { .snap-tech-g { flex-direction:column; } .snap-shot { flex-basis:auto; width:100%; } .snap-lshot-f { aspect-ratio:16/7; } .snap-load .snap-tech-l { grid-template-columns:1fr; } .snap-lq { font-size:17px; } }
+  @media (prefers-reduced-motion: reduce) { .snap-shot, .snap-thumb { animation:none; } }
+  .snap-tech { margin-top:18px; text-align:left; border-top:1px solid hsl(var(--border)); padding-top:14px; }
+  .snap-tech-h { margin:0 0 8px; font-size:13px; font-weight:700; color:hsl(var(--muted-foreground)); }
+  .snap-tech-l { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .snap-tech-l li { display:flex; align-items:center; gap:10px; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-tech-l li i { flex-shrink:0; width:18px; height:18px; border-radius:50%; border:2px solid hsl(var(--border)); border-top-color:hsl(var(--cta)); animation:snap-spin .8s linear infinite; font-style:normal; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .snap-tech-l li[data-ok] i { animation:none; border:0; color:#fff; }
+  .snap-tech-l li[data-ok="1"] i { background:hsl(var(--confirm)); }
+  .snap-tech-l li[data-ok="1"] i::after { content:"✓"; }
+  .snap-tech-l li[data-ok="0"] i { background:#A1242B; }
+  .snap-tech-l li[data-ok="0"] i::after { content:"!"; }
+  .snap-tech-l li[data-ok="x"] i { background:hsl(var(--border)); }
+  .snap-tech-l li[data-ok="0"] span { font-weight:700; }
+  @keyframes snap-spin { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .snap-tech-l li i { animation:none; } }
+  .snap-sb { margin:14px 0 0; padding:12px 14px; border-radius:10px; border:1px solid hsl(var(--border)); text-align:left; }
+  .snap-sb-h { margin:0 0 6px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 10px; font-size:13.5px; font-weight:700; color:hsl(var(--foreground)); }
+  .snap-sb-h small { font-weight:500; color:hsl(var(--muted-foreground)); }
+  .snap-sb-u { font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:hsl(var(--verdigris-100)); color:hsl(var(--confirm-text)); }
+  .snap-sb[data-u="ungenau"] .snap-sb-u { background:#FDF1D8; color:#8A5A00; }
+  .snap-sb[data-u="falsch"] .snap-sb-u, .snap-sb[data-u="unbekannt"] .snap-sb-u { background:hsl(var(--cta) / .12); color:hsl(var(--cta-accessible)); }
+  .snap-sb-t { margin:0; font-size:14.5px; line-height:1.5; font-style:italic; color:hsl(var(--muted-foreground)); }
+  .snap-vs { margin:-6px 0 20px; padding:10px 12px; border-radius:10px; background:hsl(var(--cta) / .09); color:hsl(var(--cta-accessible)); font-size:14.5px; line-height:1.45; }
+  .snap-vs :global(b) { font-weight:800; }
+  .snap-cov { margin:18px 0 0; }
+  .snap-cov-t { margin:0; font-size:14.5px; font-weight:600; color:hsl(var(--cta-accessible)); }
+  .snap-cov-t :global(b) { font-weight:800; }
+  @media (max-width:480px) { .snap-cov-t :global(.snap-cov-typ) { display:none; } }   /* passt so auch auf 360-px-Telefonen in eine Zeile */
+  .snap-audit { margin:20px 0 0; padding:20px; border-radius:16px; background:hsl(var(--navy-600)); color:#fff; text-align:left; }
+  .snap-audit-k { margin:0 0 4px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#EA82FC; }
+  .snap-audit-h { margin:0 0 8px; font-size:22px; font-weight:700; line-height:1.3; }
+  .snap-audit-h :global(.snap-audit-h1) { font-weight:400; }
+  .snap-audit-h :global(.snap-audit-h1 b) { font-weight:700; }
+  @media (max-width:480px) { .snap-audit-h { font-size:19px; } }
+  .snap-audit-h :global(.snap-audit-pk) { color:#EA82FC; }
+  .snap-audit-c { margin:0 0 14px; font-size:15px; line-height:1.5; font-weight:400; color:hsl(0 0% 100% / .9); }   /* Fließtext, Absatz und Liste: einheitlich 15 px (28.09.2026) */
+  .snap-audit-c span { color:#EA82FC; }
+  .snap-audit-c .snap-audit-ct { color:inherit; }
+  .snap-audit-c :global(b) { font-weight:400; }
+  .snap-audit-p { margin:0 0 16px; font-size:15px; line-height:1.5; color:hsl(0 0% 100% / .9); }
+  .snap-audit-p b { color:#fff; }
+  .snap-audit-p:has(+ .snap-audit-l) { margin-bottom:6px; }
+  .snap-audit-l { margin:0 0 16px; padding:0; list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .snap-audit-l :global(li) { position:relative; padding-left:22px; font-size:15px; line-height:1.45; color:hsl(0 0% 100% / .9); }
+  .snap-audit-l :global(li)::before { content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #EA82FC; border-bottom:2px solid #EA82FC; transform:rotate(-45deg); }
+  .snap-amail { display:flex; align-items:stretch; border-radius:12px; background:#fff; overflow:hidden; border:2px solid transparent; cursor:text; }
+  .snap-amail:focus-within { border-color:hsl(var(--cta)); }
+  .snap-amail input { flex:1; min-width:0; border:0; padding:14px 4px 14px 14px; font-size:16px; color:#131A2B; background:transparent; outline:none; }
+  .snap-amail span { display:flex; align-items:center; padding:0 14px 0 2px; font-size:16px; color:#56627A; white-space:nowrap; }
+  .snap-amail.is-voll span { display:none; }
+  .snap-amail--hell { border-color:hsl(var(--border)); }
+  .snap-lim { margin:12px 0 0; padding:14px; border-radius:12px; border:1px solid hsl(var(--cta) / .35); background:hsl(var(--cta) / .05); text-align:left; }
+  .snap-lim[hidden], .snap-lim-f[hidden], .snap-lim-done[hidden], [data-limbtn][hidden] { display:none; }
+  .snap-lim-t { margin:0 0 10px; font-size:14.5px; line-height:1.5; color:hsl(var(--foreground)); }
+  .snap-lim-f .snap-send { margin-top:8px; }
+  .snap-lim-mini { margin:8px 0 0; font-size:12.5px; text-align:center; }
+  .snap-lim-mini a { color:hsl(var(--muted-foreground)); }
+  .snap-lim-done { margin:0; font-size:14.5px; line-height:1.5; color:hsl(var(--foreground)); }
+  .snap-amail.is-voll input { padding-right:14px; }
+  .snap-aform .snap-send { margin-top:10px; padding:17px 18px; font-size:17px; font-weight:800; box-shadow:0 10px 24px -10px hsl(var(--cta) / .8); }
+  .snap-aerr { margin:10px 0 0; padding:9px 12px; border-radius:10px; background:#FBE3F8; color:#7A0A8C; font-size:13.5px; line-height:1.45; }
+  .snap-aerr[hidden], .snap-aform[hidden], .snap-adone[hidden] { display:none; }
+  .snap-amini { margin:10px 0 0; font-size:12.5px; line-height:1.5; color:hsl(0 0% 100% / .7); text-align:center; }
+  .snap-amini a { color:hsl(0 0% 100% / .88); }
+  .snap-adone { margin:0; font-size:15px; line-height:1.55; color:hsl(var(--confirm-on-dark)); }   /* CodaAI-Grün auf Navy (28.09.2026) */
+  .snap-adone b { display:block; font-size:18px; margin-bottom:4px; }
+  @media (max-width:420px) { .snap-amail span { font-size:14px; } }
+  .snap-audit-a { display:inline-block; color:#fff; font-weight:700; font-size:14.5px; text-decoration:underline; text-underline-offset:3px; }
+  .snap-ber { margin:10px 0 0; padding:10px 14px; border-radius:10px; border:1px solid hsl(var(--border)); text-align:left; }
+  .snap-ber-h { margin:0 0 4px; font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:hsl(var(--muted-foreground)); }
+  .snap-ber-l { margin:0; padding:0; list-style:none; }
+  .snap-ber-l :global(li) { display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:4px 0; font-size:14px; color:hsl(var(--foreground)); }
+  .snap-ber-l :global(li + li) { border-top:1px solid hsl(var(--border) / .6); }
+  .snap-ber-l :global(.snap-ber-b) { flex-shrink:0; border:0; background:none; padding:0; cursor:pointer; font-size:13.5px; font-weight:700; color:hsl(var(--cta-accessible)); }
+  .snap-ber-l :global(.snap-ber-b:hover) { text-decoration:underline; text-underline-offset:3px; }
+  .snap-formwrap.is-kurz { display:grid; grid-template-columns:1fr auto; gap:8px 8px; align-items:stretch; }
+  .snap-formwrap.is-kurz > * { grid-column:1 / -1; margin:0; }
+  .snap-formwrap.is-kurz [data-namegrid], .snap-formwrap.is-kurz [data-c1wrap], .snap-formwrap.is-kurz [data-c2wrap] { display:none; }
+  .snap-formwrap.is-kurz [data-mail] { grid-column:1; order:1; }
+  .snap-formwrap.is-kurz .snap-send { grid-column:2; order:2; width:auto; white-space:nowrap; padding:0 20px; font-size:15px; }
+  .snap-formwrap.is-kurz [data-mail] { min-width:0; }
+  .snap-formwrap.is-kurz .snap-mini { order:3; font-size:12.5px; color:hsl(var(--muted-foreground)); }
+  .snap-formwrap.is-kurz .snap-mini a { color:inherit; }
+  .snap-formwrap.is-kurz [data-c2wrap] { order:4; }
+  .snap-formwrap.is-kurz [data-err2] { order:5; }
+  @media (max-width:480px) { .snap-formwrap.is-kurz [data-mail], .snap-formwrap.is-kurz .snap-send { grid-column:1 / -1; } }
+  .snap-unlock { margin-top:24px; padding:18px; border-radius:14px; background:hsl(var(--foreground) / .04); }
+  .snap-unlock-h { margin:0 0 4px; font-size:17px; font-weight:700; }
+  .snap-unlock-p { margin:0 0 14px; font-size:14px; line-height:1.5; color:hsl(var(--muted-foreground)); }
+  .snap-open { display:flex; width:100%; align-items:center; justify-content:center; gap:8px; border:0; border-radius:12px; padding:14px 18px; font-size:16px; font-weight:700; cursor:pointer; background:hsl(var(--cta-strong)); color:#fff; }
+  .snap-open:hover { filter:brightness(1.08); }
+  .snap-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .snap-formwrap > .snap-in { margin-bottom:12px; }
+  .snap-cb { display:flex; gap:10px; align-items:flex-start; margin:0 0 10px; font-size:13px; line-height:1.45; color:hsl(var(--foreground) / .85); }
+  .snap-cb input { margin-top:3px; width:17px; height:17px; flex:none; accent-color:hsl(var(--cta-strong)); }
+  .snap-cb a { color:inherit; text-decoration:underline; }
+  .snap-cb em { font-style:normal; color:hsl(var(--muted-foreground)); }
+  .snap-send { margin-top:6px; }
+  .snap-err :global(.snap-errlink) { color:inherit; font-weight:700; text-decoration:underline; text-underline-offset:2px; white-space:nowrap; }
+  .snap-err--res { color:#A1242B; background:#FDE7E7; border-radius:8px; padding:8px 10px; }
+  .snap-done { margin-top:20px; background:#E3F4EA; color:#0F3D25; border-radius:14px; padding:16px; font-size:15px; }
+  .snap-again { margin-top:16px; background:none; border:0; color:hsl(var(--muted-foreground)); text-decoration:underline; font-size:14px; cursor:pointer; padding:0; }
+  @media (max-width:480px) { .snap-q { font-size:19px; } .snap-open { font-size:15px; padding:14px 12px; white-space:nowrap; } .snap-unlock { padding:16px; } .snap-find-l :global(div) { grid-template-columns:1fr; gap:2px; } }
+  @media (max-width:480px) { .snap { --pad:20px; } .snap-head { font-size:24px; } .snap-grid { grid-template-columns:1fr; } .snap-sysl { font-size:10px; } .snap-lg { width:38px; height:38px; } }
+</style>
+
+<script>
+  (function () {
+    const API = 'https://audit.codaai.ai';
+    let shotLauf = 0;
+    const dl = ((window as any).dataLayer = (window as any).dataLayer || []);
+    const lang = document.documentElement.lang || 'de';
+    document.querySelectorAll<HTMLElement>('[data-snap]').forEach((root) => {
+      const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector(s) as unknown as T;
+      const form = $<HTMLFormElement>('[data-form]');
+      const dom = $<HTMLInputElement>('[data-domain]');
+      const frage = $<HTMLTextAreaElement>('[data-frage]');
+      const err = $('[data-err]'), err2 = $('[data-err2]');
+      const go = $<HTMLButtonElement>('[data-go]'), send = $<HTMLButtonElement>('[data-send]');
+      const t0 = Date.now();
+      let checkId = '';
+      let captchaToken = '';
+      let autostart = false;
+      // interner Testmodus: ?test=<Schluessel> (ohne IP-Limit), &frisch=1 (Cache umgehen)
+      const up = new URLSearchParams(location.search);
+      const testKey = (up.get('test') || '').slice(0, 64), frisch = up.get('frisch') === '1';
+      // Rolle aus der Anzeige (?src=li-gf | li-vl | li-ml), für die Sitzung gemerkt
+      let rolleSrc = (up.get('src') || '').toLowerCase();
+      try { if (/^li-(gf|vl|ml)$/.test(rolleSrc)) sessionStorage.setItem('coda_src', rolleSrc); else rolleSrc = sessionStorage.getItem('coda_src') || rolleSrc; } catch (e) {}
+      const icp = rolleSrc === 'li-vl' ? 'vl' : rolleSrc === 'li-ml' ? 'ml' : 'gf';
+      // ---------- Vorführmodus (28.09.2026): ?vorfuehrung=<code> — Firma anonym, fürs Webinar ----------
+      const VF: Record<string, any> = {
+        sanitaer: { d: atob('ZmpzY2h1ZXR0ZS5jb20='), label: 'Ein deutscher Hersteller von Sanitärarmaturen',
+          dom: 'hersteller-sanitaer.de', marke: 'Unser Hersteller',
+          q: 'Welche deutschen Hersteller von Sanitärarmaturen bieten das beste Preis-Leistungs-Verhältnis für mittlere Projektgrößen?',
+          wv: 'https://vergleich.codaai.ai/demo-sanitaer?t=suXTMTaqtD8oLCfpnO1-BQPO' },
+      };
+      const vf = VF[(up.get('vorfuehrung') || '').toLowerCase()] || null;
+      const vfEsc = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      let vfRe: RegExp | null = null;
+      const vfMask = () => {
+        if (!vf || !vfRe) return;
+        const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const n: Text[] = []; while (w.nextNode()) n.push(w.currentNode as Text);
+        n.forEach((t) => { const v = t.nodeValue || ''; vfRe!.lastIndex = 0;
+          if (vfRe!.test(v)) { vfRe!.lastIndex = 0; t.nodeValue = v.replace(vfRe!, (m) => m.includes('.') ? vf.dom : vf.marke); } });
+      };
+      if (vf) {
+        root.classList.add('is-vf');
+        dom.value = vf.d; dom.hidden = true;
+        const fk = document.createElement('div'); fk.className = 'snap-in snap-vf-dom'; fk.textContent = vf.label;
+        dom.insertAdjacentElement('afterend', fk);
+        frage.value = vf.q;
+        const st = vf.d.split('.')[0];
+        vfRe = new RegExp('(www\\.)?' + vfEsc(vf.d) + '|' + vfEsc(st) + '|Sch(ü|ue|u)tte[\\p{L}.&\\- ]*?(GmbH|KG|Co\\. KG)?', 'giu');
+      }
+      if (testKey && !vf) { const tm = document.createElement('p'); tm.className = 'snap-test'; tm.textContent = `Testmodus${frisch ? ' · frisch messen' : ''}`; form.appendChild(tm); }
+
+      const setState = (s: string) => root.setAttribute('data-state', s);
+      const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = !msg; };
+
+      // Hinweis unter der Frage (eigener Name, Server-Hinweise, Umformulierung)
+      const fh = $('[data-fhint]'), fhT = $('[data-fhint-t]'), fhU = $<HTMLButtonElement>('[data-fhint-use]'), fhV = $('[data-fhint-v]');
+      const fhS = $<HTMLButtonElement>('[data-fhint-skip]');
+      let produktOk = false;
+      const hinweis = (txt: string, vorschlag = '', weiter = false) => {
+        fhT.textContent = txt; fh.hidden = !txt; fhS.hidden = !weiter;
+        fhV.textContent = vorschlag ? `“${vorschlag}”` : ''; fhU.hidden = !vorschlag; fhU.dataset.v = vorschlag;
+      };
+      fhS.addEventListener('click', () => {
+        produktOk = true; hinweis('');
+        dl.push({ event: 'snapshot_produkt_ignoriert', lang, source: root.dataset.source });
+        form.requestSubmit();
+      });
+      fhU.addEventListener('click', () => {
+        frage.value = fhU.dataset.v || ''; hinweis(''); frage.focus();
+        dl.push({ event: 'snapshot_vorschlag_uebernommen', lang, source: root.dataset.source });
+      });
+      const stamm = () => {
+        const h = dom.value.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#]/)[0];
+        const st = h.split('.')[0] || '';
+        return st.length >= 3 ? st : '';
+      };
+      let serverHinweis = false;
+      const liveCheck = () => {
+        if (serverHinweis) return;
+        const st = stamm(), q = frage.value;
+        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&') + '[\\p{L}-]*)', 'iu')) : null;
+        if (m) hinweis(`“${m[2]}” is your own name – the point is whether AI recommends you by itself. Ask the way a customer who does not know you yet would ask, e.g. “Which suppliers of … are leading in Germany?”`);
+        else hinweis('');
+      };
+      let lt: any = 0;
+      const plan = () => { clearTimeout(lt); lt = setTimeout(liveCheck, 350); };
+      frage.addEventListener('input', () => { serverHinweis = false; produktOk = false; plan(); });
+      dom.addEventListener('input', plan);
+
+      // ---------- Eingabehilfe (27.09.2026): Platzhalter je Rolle, Formel, Vorschlag ----------
+      const hilfeAn = true;   // seit 27.09.2026 für alle live (vorher nur ?test / ?vorschau=1)
+      if (hilfeAn) {
+        const rolle = (up.get('src') || '').toLowerCase();
+        const BSP: Record<string, string[]> = {
+          'li-gf': ['Which manufacturer of industrial filters is recommended for the food industry?',
+                    'Which supplier of compressed air dryers is suitable for the pharmaceutical industry?',
+                    'Who is a good manufacturer of special-purpose machines for packaging?'],
+          'li-vl': ['Which supplier of precision turned parts is recommended for small batches?',
+                    'Who reliably supplies plastic injection-moulded parts for medical technology?',
+                    'Which manufacturer of conveyor systems is suitable for intralogistics?'],
+          'li-ml': ['What is the best solution for oil mist separation on CNC machines?',
+                    'Which supplier of coordinate measuring machines is suitable for plastic parts?',
+                    'Which lightning protection system is recommended for retrofitting industrial buildings?'],
+        };
+        const liste = BSP[rolle] || [BSP['li-gf'][0], BSP['li-vl'][0], BSP['li-ml'][0]];
+        const formel = $('[data-formel]'), vhint = $('[data-vhint]');
+        formel.hidden = false;
+        const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const warte = (ms: number) => new Promise((r) => setTimeout(r, ms));
+        let phStop = false;
+        const setPh = (t: string) => frage.setAttribute('placeholder', t);
+        const platzhalter = async () => {
+          if (ruhig) { setPh('e.g. ' + liste[0]); return; }
+          await warte(600);
+          for (let i = 0; i < liste.length && !phStop; i++) {
+            const t = 'e.g. ' + liste[i];
+            for (let k = 6; k <= t.length && !phStop; k++) { setPh(t.slice(0, k)); await warte(28); }
+            if (phStop || i === liste.length - 1) break;
+            await warte(2200);
+            for (let k = t.length; k >= 6 && !phStop; k -= 3) { setPh(t.slice(0, k)); await warte(12); }
+            await warte(250);
+          }
+          setPh('e.g. ' + liste[liste.length - 1]);
+        };
+        const stopPh = () => { if (!phStop) { phStop = true; setPh('e.g. ' + liste[0]); } };
+        frage.addEventListener('focus', stopPh);
+        platzhalter();
+
+        // Vorschlag aus der Startseite der eingegebenen Website
+        let fuerDomain = '', tippt = false, sofort = false, vorschlagText = '';
+        const eintippen = async (t: string) => {
+          tippt = true; sofort = ruhig; frage.classList.add('is-typing'); frage.value = '';
+          for (let k = 1; k <= t.length && !sofort; k++) { frage.value = t.slice(0, k); await warte(16); }
+          frage.value = t; tippt = false; frage.classList.remove('is-typing');
+        };
+        const holeVorschlag = async () => {
+          const d = dom.value.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+          if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(d) || d === fuerDomain) return;
+          if (frage.value.trim() && frage.value !== vorschlagText) return;   // nie Eingetipptes überschreiben
+          fuerDomain = d;
+          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 4500);
+          try {
+            const r = await fetch(API + '/ai/frage/vorschlag', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ domain: d, lang: 'en', test_key: testKey || undefined }), signal: ac.signal });
+            const j = await r.json();
+            const ms = Date.now() - t1;
+            dl.push({ event: 'snapshot_vorschlag', ok: !!j.frage, ms, lang, source: root.dataset.source });
+            if (!j.frage || d !== fuerDomain) return;
+            if (frage.value.trim() && frage.value !== vorschlagText) return;
+            stopPh(); vorschlagText = j.frage; hinweis('');
+            await eintippen(j.frage);
+            vorschlagText = frage.value; vhint.hidden = false;
+          } catch (e) { /* zu langsam oder nicht erreichbar: Platzhalter bleibt */ }
+          finally { clearTimeout(to); }
+        };
+        dom.addEventListener('change', holeVorschlag);
+        dom.addEventListener('blur', holeVorschlag);
+        dom.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); holeVorschlag(); frage.focus(); } });
+        frage.addEventListener('focus', () => { if (tippt) sofort = true; });
+        frage.addEventListener('input', () => { if (!tippt && vhint && !vhint.hidden) { vhint.hidden = true; if (vorschlagText) dl.push({ event: 'snapshot_vorschlag_angepasst', lang, source: root.dataset.source }); vorschlagText = ''; } });
+      }
+
+      // Beispielfragen: einsetzen und den Platzhalter markieren
+      root.querySelectorAll<HTMLButtonElement>('[data-bsp]').forEach((b) => b.addEventListener('click', () => {
+        const t = b.dataset.bsp || '';
+        frage.value = t; frage.focus(); serverHinweis = false; hinweis('');
+        const a = t.indexOf('['), e = t.indexOf(']');
+        if (a >= 0 && e > a) frage.setSelectionRange(a, e + 1);
+      }));
+
+      // Captcha (Cloudflare Turnstile), nur wenn ein Site Key gesetzt ist
+      const sitekey = root.dataset.sitekey;
+      const box = $('[data-captcha]');
+      if (sitekey && box) {
+        const render = () => (window as any).turnstile.render(box, {
+          sitekey, language: 'en', callback: (t: string) => { captchaToken = t; if (autostart) { autostart = false; form.requestSubmit(); } },
+          'expired-callback': () => { captchaToken = ''; },
+        });
+        if ((window as any).turnstile) render();
+        else {
+          const s = document.createElement('script');
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+          s.async = true; s.onload = render; document.head.appendChild(s);
+        }
+      }
+
+      // ---------- Ladeanimation (28.09.2026): Frage füllt sich pink, Screenshot mit Scanlinie, Enthüllung ----------
+      const ruhigA = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const lbar = $('[data-lbar]') as HTMLElement, lq = $('[data-lq]') as HTMLElement, loadHd = $('[data-loadh]') as HTMLElement;
+      const DAUER = 22000;
+      let lWorte: HTMLElement[] = [], lT0 = 0, lRaf = 0, lFix = -1, lWait: any = 0;
+      const kurve = (t: number) => 0.94 * (1 - Math.pow(1 - Math.min(t / DAUER, 1), 2.4));
+      const malen = (pz: number) => {
+        lbar.style.width = (pz * 100).toFixed(2) + '%';
+        lWorte.forEach((w, i) => w.classList.toggle('is-an', pz >= (i + 0.5) / lWorte.length));
+      };
+      const lauf = () => {
+        if (root.getAttribute('data-state') !== 'load' || lFix >= 0) return;
+        malen(kurve(performance.now() - lT0)); lRaf = requestAnimationFrame(lauf);
+      };
+      const ladeStart = (q: string, d: string) => {
+        cancelAnimationFrame(lRaf); clearTimeout(lWait); lFix = -1;
+        root.classList.remove('is-reveal', 'is-wait');
+        lq.innerHTML = ''; lWorte = [];
+        q.split(' ').forEach((w, i) => { if (i) lq.append(' '); const sp = document.createElement('span'); sp.textContent = w; lq.appendChild(sp); lWorte.push(sp); });
+        root.querySelectorAll<HTMLElement>('[data-loadlogos] li').forEach((li) => { li.removeAttribute('data-ok'); li.removeAttribute('data-rank'); li.querySelector('.snap-mark')?.removeAttribute('data-n'); });
+        const im = $('[data-lshotimg]') as HTMLImageElement; im.hidden = true; im.removeAttribute('src');
+        ($('[data-lshotd]') as HTMLElement).textContent = vf ? vf.dom : d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+        if (ruhigA) { malen(0.6); return; }
+        lT0 = performance.now(); malen(0);
+        lRaf = requestAnimationFrame(lauf);
+        lWait = setTimeout(() => root.classList.add('is-wait'), DAUER);
+      };
+      const warteA = (ms: number) => new Promise((r) => setTimeout(r, ms));
+      const enthuellen = async (sys: any[], g: number, von: number) => {
+        cancelAnimationFrame(lRaf); clearTimeout(lWait); root.classList.remove('is-wait');
+        if (ruhigA) return;
+        // Balken und Frage vollenden (0,45 s)
+        const von0 = lFix >= 0 ? lFix : Math.max(kurve(performance.now() - lT0), 0);
+        lFix = von0; const t1 = performance.now();
+        await new Promise<void>((fertig) => {
+          const schritt = () => { const k = Math.min((performance.now() - t1) / 450, 1); malen(von0 + (1 - von0) * (1 - Math.pow(1 - k, 3)));
+            if (k < 1) requestAnimationFrame(schritt); else fertig(); };
+          requestAnimationFrame(schritt);
+        });
+        root.classList.add('is-reveal');
+        let n = 0;
+        const zaehl = () => { loadHd.innerHTML = ''; const b = document.createElement('b'); b.textContent = String(n);
+          loadHd.append(b, ` of ${von} AI systems name you`); };
+        zaehl();
+        for (const li of Array.from(root.querySelectorAll<HTMLElement>('[data-loadlogos] li'))) {
+          const s = sys.find((x: any) => x.key === li.dataset.sys);
+          if (!s) continue;
+          await warteA(320);
+          li.setAttribute('data-ok', !s.antwort ? 'x' : s.genannt ? '1' : '0');
+          const mk = li.querySelector('.snap-mark') as HTMLElement;
+          if (s.genannt && s.platz) { li.setAttribute('data-rank', String(s.platz)); mk.setAttribute('data-n', String(s.platz)); }
+          if (s.genannt) { n++; zaehl(); }
+        }
+        await warteA(1000);
+      };
+
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        show(err, '');
+        ($('[data-lim]') as HTMLElement).hidden = true;
+        const d = dom.value.trim(), q = frage.value.trim().replace(/\s+/g, ' ');
+        if (!d) return show(err, 'Please enter your website.');
+        if (q.length < 25) { frage.focus(); return hinweis('Please write a complete question (at least 25 characters).'); }
+        if (/[\[\]]/.test(q)) { frage.focus(); return hinweis('Please replace the placeholder in square brackets with your topic.'); }
+        if (sitekey && !captchaToken) return show(err, 'One moment please — the security check is still running.');
+        go.disabled = true;
+        ladeStart(q, d);
+        setState('load');
+        // Screenshot der Startseite (wird serverseitig ueber /ai/frage/technik ausgeloest)
+        const shotD = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+        ($('[data-thumb]') as HTMLElement).hidden = true;
+        ($('[data-thumbd]') as HTMLElement).textContent = vf ? vf.dom : shotD;
+        let shotN = 0; const shotRun = ++shotLauf;
+        const holeBild = () => {
+          if (shotRun !== shotLauf || ++shotN > 14) return;
+          const im = new Image();
+          im.onload = () => {
+            if (shotRun !== shotLauf) return;
+            const li = $('[data-lshotimg]') as HTMLImageElement; li.src = im.src; li.hidden = false;
+            ($('[data-thumbimg]') as HTMLImageElement).src = im.src; ($('[data-thumb]') as HTMLElement).hidden = false;
+          };
+          im.onerror = () => setTimeout(holeBild, 1800);
+          im.src = `${API}/ai/frage/bild?d=${encodeURIComponent(shotD)}&n=${shotN}`;
+        };
+        setTimeout(holeBild, 1500);
+        dl.push({ event: 'snapshot_start', lang, source: root.dataset.source });
+        // Technik-Check parallel zur Messung (Ladebildschirm)
+        let technik: any[] = [];
+        root.querySelectorAll<HTMLElement>('[data-techl] li').forEach((li) => li.removeAttribute('data-ok'));
+        const techP = fetch(API + '/ai/frage/technik', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ domain: d, lang: 'en', test_key: testKey || undefined }) }).then((r) => r.json()).then((j) => {
+            technik = j.pruefungen || [];
+            technik.forEach((t: any, i: number) => setTimeout(() => {
+              const li = root.querySelector(`[data-techl] [data-tk="${t.key}"]`);
+              if (li) li.setAttribute('data-ok', t.ok === true ? '1' : t.ok === false ? '0' : 'x');
+            }, 700 + i * 700));
+          }).catch(() => {});
+        let res: any = null;
+        // Zwischenmeldungen, falls einzelne KI-Systeme langsam antworten (28.09.2026)
+        const loadH = $('[data-loadh]') as HTMLElement;
+        loadH.textContent = 'Asking the AI systems …';
+        const ladeTimer = [
+          setTimeout(() => { loadH.textContent = 'Some AI systems are responding more slowly right now. Just a moment …'; }, 25000),
+          setTimeout(() => { loadH.textContent = 'Nearly there. Waiting for the last answers …'; }, 50000),
+          setTimeout(() => { loadH.textContent = 'This is taking unusually long today. We are staying on it …'; }, 80000),
+        ];
+        const body = JSON.stringify({ domain: d, frage: q, website_url: ($('[data-hp]') as HTMLInputElement).value,
+                                      fill_ms: Date.now() - t0, captcha: captchaToken, produkt_ok: produktOk, lang: 'en', test_key: testKey || undefined, frisch: frisch || undefined, source: root.dataset.source });
+        const anfrage = async (ms: number, b: string) => {
+          const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), ms);
+          try {
+            const r = await fetch(API + '/ai/frage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal, body: b });
+            return await r.json();
+          } finally { clearTimeout(tm); }
+        };
+        try {
+          res = await anfrage(100000, body);
+        } catch (e) {
+          // Der Server rechnet weiter und legt das Ergebnis im Cache ab – ein zweiter Aufruf holt es ab.
+          dl.push({ event: 'snapshot_retry', lang, source: root.dataset.source });
+          try { await new Promise((r) => setTimeout(r, 4000)); res = await anfrage(60000, body.replace(/,"frisch":true/, '')); }
+          catch (e2) { res = { status: 'error', hinweis: 'The AI systems are responding very slowly right now. Please try again in a few minutes.' }; }
+        }
+        ladeTimer.forEach(clearTimeout);
+        go.disabled = false;
+        if ((window as any).turnstile && box) { try { (window as any).turnstile.reset(box); } catch (e) {} captchaToken = ''; }
+        if (!res || res.status !== 'ok') {
+          cancelAnimationFrame(lRaf); clearTimeout(lWait); root.classList.remove('is-wait');
+          setState('idle');
+          dl.push({ event: 'snapshot_error', lang, status: res && res.status, grund: res && (res.grund || res.feld) });
+          if (res && res.feld === 'frage') {
+            serverHinweis = true;
+            hinweis(res.hinweis || 'Please phrase the question differently.', res.vorschlag || '', !!res.weiter);
+            frage.focus();
+          } else {
+            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Audit direkt anfordern
+              show(err, '');
+              limDomain = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
+              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'For the full picture, request your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.';
+              ($('[data-limat]') as HTMLElement).textContent = '@' + limDomain;
+              ($('[data-limbtn]') as HTMLElement).hidden = false; ($('[data-limf]') as HTMLElement).hidden = true;
+              ($('[data-limdone]') as HTMLElement).hidden = true; ($('[data-lim]') as HTMLElement).hidden = false;
+              dl.push({ event: 'snapshot_limit', lang, source: root.dataset.source });
+            } else {
+              show(err, (res && res.hinweis) || 'The snapshot is not available right now. Please try again later.');
+            }
+            if (res && res.feld === 'domain') dom.focus();
+          }
+          return;
+        }
+        checkId = res.check_id;
+        ($('[data-stand]') as HTMLElement).textContent = res.stand;
+        ($('[data-stand2]') as HTMLElement).textContent = res.stand;
+        ($('[data-q]') as HTMLElement).textContent = res.frage || '';
+        if (vf) { const bits = [res.marke, res.marke_kurz].filter((x: any) => x && String(x).length >= 3).map((x: any) => vfEsc(String(x)));
+          vfRe = new RegExp([vfRe!.source, ...bits].join('|'), 'giu'); }
+        ($('[data-dom]') as HTMLElement).textContent = vf ? vf.dom : res.domain;
+        const g = res.genannt, von = res.von, e1 = res.erste_stelle ?? 0;
+        const M = vf ? vf.marke : (res.marke_kurz || res.marke || res.domain);
+        const sys = res.systeme || [];
+        const liste = (a: string[]) => a.length > 1 ? `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}` : (a[0] || '');
+        const fettL = (a: string[]) => liste(a.map((x) => `\u0001${x}\u0002`));
+        const fremde = (res.rangliste || []).filter((r: any) => !r.eigen);
+        const vorn: Record<string, number> = {};
+        sys.forEach((s: any) => (s.vor || []).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }));
+        const vornTop = Object.entries(vorn).sort((x, y) => y[1] - x[1]).slice(0, 2).map((x) => x[0]);
+        const rivTop = fremde.slice(0, 2).map((r: any) => r.name);
+        const fehltN = sys.filter((s: any) => s.antwort && !s.genannt).length;
+        let lvl = 'mittel', lbl = 'Room to grow', satz = '';
+        if (g === 0) { lvl = 'schlecht'; lbl = 'Critical'; satz = `${M} does not appear in any AI system for this question${rivTop.length ? ` – recommended instead: ${fettL(rivTop)}` : ''}.`; }
+        else if (g === von && e1 === von) { lvl = 'gut'; lbl = 'Strong'; satz = `${M} is the first recommendation everywhere for this question – a strong position worth holding on to.`; }
+        else if (e1 === g) { satz = `${M} comes first wherever it is named – but is missing in ${fehltN} of ${von} AI systems.`; }
+        else if (g * 2 >= von) { satz = `${M} is present, but ${e1 * 2 >= g ? 'not everywhere' : 'rarely'} the first recommendation${(vornTop.length ? vornTop : rivTop).length ? ` – often ahead: ${fettL(vornTop.length ? vornTop : rivTop)}` : ''}.`; }
+        else { lvl = 'schlecht'; lbl = 'Weak'; satz = `${M} is named only occasionally${rivTop.length ? ` – most AI systems recommend ${fettL(rivTop)}` : ''}.`; }
+        const bd = $('[data-badge]') as HTMLElement; bd.textContent = lbl; bd.setAttribute('data-lvl', lvl);
+        const vd = $('[data-verdict]') as HTMLElement; vd.innerHTML = '';
+        satz.split(/(\u0001[^\u0002]*\u0002)/).forEach((t) => {
+          if (t.startsWith('\u0001')) { const b = document.createElement('b'); b.textContent = t.slice(1, -1); vd.appendChild(b); }
+          else if (t) vd.appendChild(document.createTextNode(t));
+        });
+        sys.forEach((s: any) => {
+          const li = root.querySelector(`[data-reslogos] [data-sys="${s.key}"]`) as HTMLElement | null;
+          if (!li) return;
+          li.setAttribute('data-ok', !s.antwort ? 'x' : s.genannt ? '1' : '0');
+          const mk = li.querySelector('.snap-mark') as HTMLElement, pl = li.querySelector('[data-p]') as HTMLElement;
+          if (s.genannt && s.platz) { li.setAttribute('data-rank', String(s.platz)); mk.setAttribute('data-n', String(s.platz)); }
+          else { li.removeAttribute('data-rank'); mk.removeAttribute('data-n'); }
+          pl.textContent = !s.antwort ? 'no answer' : !s.genannt ? 'not named' : s.platz ? `rank ${s.platz}` : 'named';
+        });
+        // Verbesserungsbedarf: System – Befund, hoechstens 4 Zeilen
+        const zeilen: [string, string, any?][] = [];
+        const reihe = Array.from(root.querySelectorAll<HTMLElement>('[data-reslogos] [data-sys]')).map((li) => li.dataset.sys);
+        [...sys].sort((a: any, b: any) => reihe.indexOf(a.key) - reihe.indexOf(b.key)).forEach((s: any) => {
+          const emp = (s.empfiehlt || []).length ? ` – recommends ${liste(s.empfiehlt)}` : '';
+          if (s.antwort && !s.genannt) zeilen.push([s.label, `Not named${emp}.`, s]);
+          else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Rank ${s.platz}${(s.vor || []).length ? ` – behind ${liste(s.vor)}` : ''}.`, s]);
+        });
+        const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
+        if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
+          zeilen.push(['Sources', `Your website is ${res.eigene_quelle_n === 0 ? 'not cited' : `cited only ${res.eigene_quelle_n}×`} – instead: ${liste(qd)}.`]);
+        }
+        const sb = res.steckbrief || {}, sbBox = $('[data-sb]') as HTMLElement;
+        const sbTxt: Record<string, [string, string]> = {
+          richtig: ['Accurate', ''], ungenau: ['Inaccurate', 'describes your offering inaccurately (without web search).'],
+          falsch: ['Wrong', 'describes your company wrongly (without web search).'], unbekannt: ['Does not know you', 'does not know your company (without web search).'] };
+        if (sb.text && sbTxt[sb.urteil]) {
+          ($('[data-sbsys]') as HTMLElement).textContent = sb.system || 'ChatGPT';
+          ($('[data-sbt]') as HTMLElement).textContent = sb.text;
+          ($('[data-sbu]') as HTMLElement).textContent = sbTxt[sb.urteil][0];
+          sbBox.setAttribute('data-u', sb.urteil);
+          if (sb.urteil !== 'richtig') zeilen.push(['Awareness', `${sb.system || 'ChatGPT'} ${sbTxt[sb.urteil][1]}`]);
+        }
+        sbBox.hidden = true;
+        const tech = ((res.technik && res.technik.length ? res.technik : technik) || []).filter((t: any) => t.key !== 'llms');
+        const techFehlt = tech.filter((t: any) => t.ok === false);
+        techFehlt.forEach((t: any) => zeilen.push(['Technical', t.detail || t.label]));
+        const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
+        zeilen.slice(0, 9).forEach(([t, d, sy]) => {
+          const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+          if (sy) {
+            const src = (root.querySelector(`[data-reslogos] [data-sys="${sy.key}"] img`) as HTMLImageElement | null)?.getAttribute('src') || '';
+            const lg = document.createElement('span'), im = document.createElement('img'), mk = document.createElement('i'), lb = document.createElement('span');
+            lg.className = 'snap-flg'; lg.title = t; im.src = src; im.alt = ''; im.width = 26; im.height = 26;
+            mk.className = sy.genannt ? 'snap-fmk is-platz' : 'snap-fmk is-fehlt'; mk.textContent = sy.genannt ? String(sy.platz) : '×';
+            lb.className = 'snap-flb'; lb.textContent = t;
+            lg.append(im, mk); dt.append(lg, lb); row.className = 'is-sys';
+          } else dt.textContent = t;
+          dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
+        });
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilen.length;
+        const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
+        if (fremde.length) {
+          const b = document.createElement('b'); b.textContent = g === 0 ? 'Recommended instead: ' : 'Also recommended: ';
+          also.append(b, document.createTextNode(fremde.slice(0, 4).map((r: any) => `${r.name} (${r.anzahl}×)`).join(', ')));
+        }
+        also.hidden = !fremde.length;
+        // weitere Geschaeftsbereiche (Vorschau)
+        const ber = $('[data-ber]') as HTMLElement, berl = $('[data-berl]') as HTMLElement; berl.innerHTML = '';
+        const bl = hilfeAn ? (res.bereiche || []) : [];
+        bl.forEach((b: any) => {
+          const li = document.createElement('li'), nm = document.createElement('span'), x = document.createElement('button');
+          nm.textContent = b.bereich; x.type = 'button'; x.className = 'snap-ber-b'; x.textContent = 'Check now →'; x.title = b.frage;
+          x.addEventListener('click', () => {
+            frage.value = b.frage; serverHinweis = false; hinweis('');
+            dl.push({ event: 'snapshot_bereich', bereich: b.bereich, lvl, lang, source: root.dataset.source });
+            root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            form.requestSubmit();
+          });
+          li.append(nm, x); berl.appendChild(li);
+        });
+        ber.hidden = true;
+        // Wettbewerber im direkten Vergleich
+        const vs = $('[data-vs]') as HTMLElement; vs.innerHTML = '';
+        const top = fremde[0];
+        if (top && top.anzahl > g) {
+          const b1 = document.createElement('b'), b2 = document.createElement('b');
+          b1.textContent = top.name; b2.textContent = g === 0 ? 'you not at all' : `you ${g}×`;
+          vs.append(b1, document.createTextNode(` is named ${top.anzahl}× by ${von} AI systems – `), b2, document.createTextNode('.'));
+        }
+        vs.hidden = !vs.childNodes.length;
+        // Abdeckung
+        const nF = res.fragen_geschaetzt || 0, cov = $('[data-cov]') as HTMLElement;
+        if (nF >= 20) {
+          ($('[data-covt]') as HTMLElement).innerHTML = '';
+          const bb = document.createElement('b'); bb.textContent = `1 of around ${nF}`;
+          ($('[data-covt]') as HTMLElement).append(bb, ' ', Object.assign(document.createElement('span'), { className: 'snap-cov-typ', textContent: 'typical ' }), 'customer questions checked');
+        }
+        cov.hidden = nF < 20;
+        // Audit mit konkretem Inhalt
+        const nT = techFehlt.length;
+        ($('[data-auditd]') as HTMLElement).textContent = res.domain;
+        // Überschrift, Text und Liste je Rolle (icp) und Befund (Stand 28.09.2026)
+        {
+          const W = g === 0 ? (rivTop[0] || '') : (vornTop[0] || (top && top.anzahl > g ? top.name : ''));
+          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && W) ? 'hinten' : 'offen';
+          const nFr = nF >= 20 ? `around ${nF}` : '';
+          type Zeile = (string | { b: string })[];
+          // bei „nicht genannt“ bis zu drei Wettbewerber in der Überschrift (28.09.2026), max. ~45 Zeichen
+          const Wl: string[] = [];
+          if (g === 0) for (const n of fremde.map((r: any) => r.name)) {
+            if (Wl.length >= 3 || (Wl.length && [...Wl, n].join(', ').length > 45)) break;
+            Wl.push(n);
+          }
+          if (!Wl.length && W) Wl.push(W);
+          const namen = (): Zeile => { const z: Zeile = []; Wl.forEach((n, i) => { if (i) z.push(i === Wl.length - 1 ? ' and ' : ', '); z.push({ b: n }); }); return z; };
+          const T: Record<string, { h: Record<string, [Zeile, string]>; c: string; l: string[] }> = {
+            gf: {
+              h: {
+                fehlt: [['AI recommends ', ...namen(), '.'], 'Not you.'],
+                hinten: [[{ b: W }, ' is ahead of you.'], 'For how many more questions?'],
+                vorn: [['Here you are ahead.'], nFr ? `For the other ${nFr} questions too?` : 'For your other customer questions too?'],
+                offen: [['That was just ', { b: 'one' }, ' question.'], nFr ? `Your customers ask ${nFr}.` : 'Who wins the others?'],
+              },
+              c: 'Your customers ask AI first, and AI writes the shortlist. Anyone missing from it does not get the enquiry. And most of the time nobody notices.',
+              l: ['Which competitors AI recommends for your most important customer questions, and why',
+                  'For which questions the enquiries currently go to others',
+                  'Your position in Google and AI, right next to your competitors',
+                  'What exactly to do to get onto the shortlist'],
+            },
+            vl: {
+              h: {
+                fehlt: [['This enquiry goes to ', ...namen(), '.'], 'Not to you.'],
+                hinten: [[{ b: W }, ' is ahead of you on the shortlist.'], 'For how many more enquiries?'],
+                vorn: [['This enquiry lands with you.'], nFr ? `And the other ${nFr}?` : 'And the others?'],
+                offen: [['That was just ', { b: 'one' }, ' enquiry.'], nFr ? `Buyers ask ${nFr}.` : 'Who gets the others?'],
+              },
+              c: 'Buyers ask AI before they call your sales team. Whoever it does not name gets no enquiry. And your CRM never shows it as a lost opportunity.',
+              l: ['For which customer questions AI currently recommends your competitors',
+                  'Who is on the shortlists, and why AI names them',
+                  'Where enquiries pass you by, by product and application',
+                  'What has to happen so your sales team gets back to the table'],
+            },
+            ml: {
+              h: {
+                fehlt: [['AI recommends ', ...namen(), '.'], 'Your brand is missing.'],
+                hinten: [[{ b: W }, ' is ahead of you.'], 'Do you know why?'],
+                vorn: [['Here you are ahead.'], nFr ? `For the other ${nFr} questions too?` : 'For your other topics too?'],
+                offen: [['That was just ', { b: 'one' }, ' question.'], nFr ? `Your audience asks ${nFr}.` : 'What does the rest look like?'],
+              },
+              c: 'Good Google rankings are no longer enough. AI decides on its own sources whom to recommend. And no analytics report shows you that.',
+              l: ['Your visibility in Google and five AI systems, next to your competitors',
+                  'Which sources AI cites for your competitors, and which ones you are missing',
+                  'The typical questions of your audience, measured systematically',
+                  'A prioritised action plan you can use to justify budget internally'],
+            },
+          };
+          const t = T[icp];
+          const [z1, z2] = t.h[zustand];
+          const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
+          const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
+          z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });
+          const s2 = document.createElement('span'); s2.className = 'snap-audit-pk'; s2.textContent = z2;
+          hEl.append(s1, document.createElement('br'), s2);
+          ($('[data-auditc]') as HTMLElement).textContent = t.c;
+          const ul = $('[data-auditl]') as HTMLElement; ul.innerHTML = '';
+          t.l.forEach((x) => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+          root.dataset.icp = icp; root.dataset.zustand = zustand;
+        }
+        const bw = $('[data-auditbeweis]') as HTMLElement; bw.innerHTML = '';
+        const vorOft = (vornTop.length ? vornTop : rivTop);
+        const mitNamen = (vor: string, namen: string[], nach: string) => {
+          bw.append(vor); namen.forEach((n, k) => { if (k) bw.append(k === namen.length - 1 ? ' and ' : ', ');
+            const b = document.createElement('b'); b.textContent = n; bw.appendChild(b); }); bw.append(nach);
+        };
+        if (g === 0 && rivTop.length) mitNamen('For this question, the enquiries currently go to ', rivTop, '.');
+        else if (g === 0) bw.textContent = 'For this question, not a single AI system names you.';
+        else if (lvl === 'gut') bw.textContent = 'For this question you are ahead – in your other business areas too?';
+        else if (von - g > 0) bw.textContent = `For this question you are missing in ${von - g} of ${von} AI systems.`;
+        else if (vorOft.length) mitNamen('For this question, ', vorOft, ' are often ahead of you.');
+        auditDomain = res.domain;
+        ($('[data-at]') as HTMLElement).textContent = '@' + res.domain;
+        const mi = $('[data-mail]') as HTMLInputElement; mi.value = ''; ($('[data-amail]') as HTMLElement).classList.remove('is-voll');
+        ($('[data-aform]') as HTMLElement).hidden = false; ($('[data-done]') as HTMLElement).hidden = true; show(err2, '');
+        ($('[data-audit]') as HTMLElement).hidden = false;
+        vfMask();
+        await enthuellen(sys, g, von);
+        setState('res');
+        dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
+      });
+
+      let limDomain = '';
+      const limMail = $('[data-limmail]') as HTMLInputElement, limSend = $<HTMLButtonElement>('[data-limsend]'), limErr = $('[data-limerr]') as HTMLElement;
+      ($('[data-limbtn]') as HTMLElement).addEventListener('click', () => {
+        ($('[data-limbtn]') as HTMLElement).hidden = true; ($('[data-limf]') as HTMLElement).hidden = false; limMail.focus();
+        dl.push({ event: 'snapshot_limit_audit_offen', lang, source: root.dataset.source });
+      });
+      limMail.addEventListener('input', () => ($('[data-limmailw]') as HTMLElement).classList.toggle('is-voll', limMail.value.includes('@')));
+      limMail.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); limSend.click(); } });
+      limSend.addEventListener('click', async () => {
+        show(limErr, '');
+        const v = limMail.value.trim().replace(/\s+/g, '');
+        const mail = v.includes('@') ? v : (v ? `${v}@${limDomain}` : '');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { limMail.focus(); return show(limErr, 'Please enter your business email address.'); }
+        limSend.disabled = true;
+        let r2: any = null;
+        try {
+          const r = await fetch(API + '/ai/frage/freischalten', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ domain: limDomain, name: '', email: mail, audit: true, icp, einwilligung_ergebnis: true,
+                                   einwilligung_version: '2026-09-27-audit-v1', lang: 'en', test_key: testKey || undefined,
+                                   website_url: ($('[data-hp]') as HTMLInputElement).value }) });
+          r2 = await r.json();
+        } catch (e) { r2 = { status: 'error', hinweis: 'The connection failed. Please try again.' }; }
+        limSend.disabled = false;
+        if (!r2 || r2.status !== 'ok') return show(limErr, (r2 && r2.hinweis) || 'That did not work. Please try again.');
+        ($('[data-limf]') as HTMLElement).hidden = true;
+        const dn = $('[data-limdone]') as HTMLElement; dn.hidden = false;
+        dn.textContent = `Almost done. Please confirm the link in the email to ${mail}. Then add your name, and we will prepare your competitor comparison.`;
+        dl.push({ event: 'snapshot_audit_anfrage', quelle: 'limit', icp, lang, source: root.dataset.source });
+      });
+
+      let auditDomain = '';
+      const mailIn = $('[data-mail]') as HTMLInputElement;
+      mailIn.addEventListener('input', () => ($('[data-amail]') as HTMLElement).classList.toggle('is-voll', mailIn.value.includes('@')));
+      mailIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); send.click(); } });
+      if (vf) {
+        mailIn.placeholder = 'firstname.lastname';
+        send.addEventListener('click', (e) => {
+          e.stopImmediatePropagation();
+          if (vf.wv) window.open(vf.wv, '_blank', 'noopener');
+        }, true);
+      }
+      send.addEventListener('click', async () => {
+        show(err2, '');
+        const v = mailIn.value.trim().replace(/\s+/g, '');
+        const mail = v.includes('@') ? v : (v ? `${v}@${auditDomain}` : '');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { mailIn.focus(); return show(err2, 'Please enter your business email address.'); }
+        send.disabled = true;
+        let res: any = null;
+        try {
+          const r = await fetch(API + '/ai/frage/freischalten', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ check_id: checkId, name: '', email: mail, audit: true, icp, einwilligung_ergebnis: true,
+                                   einwilligung_version: '2026-09-27-audit-v1', lang: 'en', test_key: testKey || undefined,
+                                   website_url: ($('[data-hp]') as HTMLInputElement).value }),
+          });
+          res = await r.json();
+        } catch (e) { res = { status: 'error', hinweis: 'The connection failed. Please try again.' }; }
+        send.disabled = false;
+        if (!res || res.status !== 'ok') {
+          dl.push({ event: 'snapshot_audit_fehler', grund: (res && res.feld) || 'sonst', lang, source: root.dataset.source });
+          return show(err2, (res && res.hinweis) || 'That did not work. Please try again.');
+        }
+        ($('[data-donet]') as HTMLElement).textContent = `Please confirm the link in the email to ${mail}. Then add your name, and we will prepare your competitor comparison.`;
+        ($('[data-aform]') as HTMLElement).hidden = true;
+        ($('[data-done]') as HTMLElement).hidden = false;
+        dl.push({ event: 'snapshot_audit_anfrage', icp, zustand: root.dataset.zustand, lang, source: root.dataset.source });
+      });
+
+      ($('[data-again]') as HTMLElement).addEventListener('click', () => {
+        setState('idle'); frage.focus(); frage.select();
+      });
+
+      // Übergabe aus Teasern/Mails: ?d=…&q=… füllt vor und startet
+      const p = new URLSearchParams(location.search);
+      if (p.get('d')) dom.value = p.get('d') || '';
+      if (p.get('q')) frage.value = p.get('q') || '';
+      if (!vf && dom.value && frage.value.trim().length >= 25) {   // Vorführmodus: Start per Klick, nicht automatisch
+        root.scrollIntoView({ block: 'center' });
+        if (sitekey) autostart = true; else setTimeout(() => form.requestSubmit(), 2600);
+      }
+    });
+  })();
+</script>

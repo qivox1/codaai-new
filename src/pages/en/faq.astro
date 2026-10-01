@@ -22,17 +22,23 @@ import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import HeroHeadline from '../../components/HeroHeadline.astro';
-import { faqGroupsEn } from '../../data/faq.en';
+import { faqGroupsEn, faqSnapshotEn } from '../../data/faq.en';
 
 const lang = 'en' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
+// FAQPage schema ONLY for the snapshot group (its topic page became a redirect, 01.10.2026).
+const snapshotFaqSchema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqSnapshotEn.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
 ---
 
 <Layout
   lang={lang}
   title="Questions & Answers – CodaAI | Digital Visibility, Pricing"
-  description="All the answers at a glance: how we work together, how AI visibility is measured, pricing and terms, and the live webinar."
+  description="All the answers at a glance: how we work together, the free Visibility Snapshot, how AI visibility is measured, pricing and terms, and the live webinar."
+  jsonLd={[snapshotFaqSchema]}
 >
   <Navbar lang={lang} />
   <main class="pt-24 lg:pt-28" id="main-content">
@@ -47,7 +53,7 @@ const total = faqGroupsEn.reduce((n, g) => n + g.items.length, 0);
         line2="Here are your answers."
       />
       <p class="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-        Four areas — from how we work together and how AI
+        Five areas — from how we work together, the snapshot and how AI
         visibility is measured through to price and term. Is yours missing?
         <a href="mailto:hi@codaai.ai" class="text-cta-accessible hover:text-cta font-medium">Get in touch.</a>
       </p>

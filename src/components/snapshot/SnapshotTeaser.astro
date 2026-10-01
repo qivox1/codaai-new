@@ -1,11 +1,11 @@
 ---
 /**
- * SnapshotTeaser — schlanker Verweis auf den Visibility Snapshot.
+ * SnapshotTeaser — schlanker Verweis auf den Visibility Snapshot (DE + EN).
  *
  * Der Snapshot selbst liegt seit 01.10.2026 im Kopfbereich der Startseite
- * (#snapshot); /visibility-snapshot/ ist nur noch eine Weiterleitung. Dieser
- * Teaser steht auf Glossar, Leitfaden und Webinar-Seite an Stelle des früheren
- * Audit-Formulars.
+ * (/#snapshot bzw. /en/#snapshot); /visibility-snapshot/, /check/ und /en/check/
+ * sind nur noch Weiterleitungen. Dieser Teaser steht auf Glossar, Leitfaden und
+ * Webinar-Seite an Stelle des früheren Audit-Formulars.
  *
  * Bewusst OHNE Eingabefelder (Beschluss Oli, 01.10.2026): Wer hier schon
  * Website und Frage eintippt und dann auf der Startseite landet, erwartet ein
@@ -14,25 +14,32 @@
  * Formular springt (die Startseite setzt den Fokus ins Website-Feld).
  *
  * Gestaltung flach im CodaAI-Design (Mist-Fläche, eine Linie, ein Magenta-Knopf).
- * dataLayer: snapshot_teaser_click {source}
+ * dataLayer: snapshot_teaser_click {source, lang}
  */
-interface Props { source?: string }
-const { source = 'teaser' } = Astro.props;
+interface Props { source?: string; lang?: 'de' | 'en' }
+const { source = 'teaser', lang = 'de' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const logos = [['chatgpt', 'ChatGPT'], ['claude', 'Claude'], ['gemini', 'Gemini'], ['perplexity', 'Perplexity'], ['google', 'Google AI Mode']];
+const T = lang === 'en'
+  ? { k: 'Visibility Snapshot · free', h1: 'Does AI recommend you', h2: 'when your customers ask?',
+      p: 'Put your customers’ question to five AI systems. In about 20 seconds you see whether you are named — and whom AI recommends instead.',
+      logos: 'AI systems checked', go: 'Start snapshot', m: 'Free · no sign-up', href: `${base}/en/#snapshot` }
+  : { k: 'Visibility Snapshot · kostenlos', h1: 'Empfiehlt die KI Sie,', h2: 'wenn Ihre Kunden fragen?',
+      p: 'Stellen Sie fünf KI-Systemen die Frage Ihrer Kunden. In rund 20 Sekunden sehen Sie, ob Sie genannt werden — und wen die KI stattdessen empfiehlt.',
+      logos: 'Geprüfte KI-Systeme', go: 'Snapshot starten', m: 'Kostenlos · ohne Anmeldung', href: `${base}/#snapshot` };
 ---
-<div role="region" class="snapt" data-snapt data-source={source} aria-labelledby={`snapt-h-${source}`}>
+<div role="region" class="snapt" data-snapt data-source={source} data-lang={lang} aria-labelledby={`snapt-h-${source}`}>
   <div class="snapt-copy">
-    <p class="snapt-k">Visibility Snapshot · kostenlos</p>
-    <h2 id={`snapt-h-${source}`} class="snapt-h">Empfiehlt die KI Sie, <span>wenn Ihre Kunden fragen?</span></h2>
-    <p class="snapt-p">Stellen Sie fünf KI-Systemen die Frage Ihrer Kunden. In rund 20 Sekunden sehen Sie, ob Sie genannt werden — und wen die KI stattdessen empfiehlt.</p>
-    <ul class="snapt-logos" aria-label="Geprüfte KI-Systeme">
+    <p class="snapt-k">{T.k}</p>
+    <h2 id={`snapt-h-${source}`} class="snapt-h">{T.h1} <span>{T.h2}</span></h2>
+    <p class="snapt-p">{T.p}</p>
+    <ul class="snapt-logos" aria-label={T.logos}>
       {logos.map(([f, l]) => <li><img src={`${base}/images/ki-logos/${f}.svg`} alt="" width="18" height="18" />{l}</li>)}
     </ul>
   </div>
   <div class="snapt-act">
-    <a class="snapt-go" href={`${base}/#snapshot`} data-snapt-go>Snapshot starten <span aria-hidden="true">→</span></a>
-    <p class="snapt-m">Kostenlos · ohne Anmeldung</p>
+    <a class="snapt-go" href={T.href} data-snapt-go>{T.go} <span aria-hidden="true">→</span></a>
+    <p class="snapt-m">{T.m}</p>
   </div>
 </div>
 
@@ -54,6 +61,7 @@ const logos = [['chatgpt', 'ChatGPT'], ['claude', 'Claude'], ['gemini', 'Gemini'
 </style>
 <script>
   document.querySelectorAll<HTMLAnchorElement>('[data-snapt-go]').forEach((a) => a.addEventListener('click', () => {
-    try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_teaser_click', source: a.closest<HTMLElement>('[data-snapt]')?.dataset.source }); } catch (_) {}
+    const r = a.closest<HTMLElement>('[data-snapt]');
+    try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_teaser_click', source: r?.dataset.source, lang: r?.dataset.lang }); } catch (_) {}
   }));
 </script>

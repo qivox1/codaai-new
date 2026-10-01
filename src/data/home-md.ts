@@ -107,9 +107,10 @@ GEO makes you the recommendation.
 ## How CodaAI works
 
 Three stages, each building on the last: **Found** → **Recommended** → **Cited**.
-Everything starts with a Digital Visibility Audit that measures the actual AI answers to real
-buyer questions — mentions, not rankings. That determines which of the 15 service building
-blocks the work focuses on.
+Everything starts with the free Visibility Snapshot on the homepage: one customer question, five AI
+systems, about 20 seconds. The AI competitor comparison with around 20 buyer questions follows on
+request — mentions, not rankings. That determines which of the 15 service building blocks the
+work focuses on.
 
 Scope of work: https://www.codaai.ai/en/digital-visibility/
 Pricing (from €1,970 per month, with a calculator): https://www.codaai.ai/en/pricing/

@@ -36,3 +36,20 @@ Prototyp und Skripte: `umbau-digital-visibility/startseite-aufgeraeumt-2026-10-0
 - Englischer Snapshot (Modul-Texte, Backend: Fragen-Vorschlag, Mails, Ergebnis-Texte).
 - AuditCTA-Komponente und CheckPage bleiben im Code (EN nutzt sie noch).
 - FAQ der früheren Snapshot-Seite (mit Schema) ist mit der Seite entfallen.
+
+## Nachtrag 01.10.2026 (abends): Teaser nur Link, FAQ, Englisch
+
+- **Teaser ohne Formular** (Rückmeldung Oli: Eingaben im Glossar, dann „passiert nichts“ — der
+  Autostart greift erst ab 25 Zeichen Frage). `SnapshotTeaser` hat nur noch Text + Knopf auf
+  `/#snapshot` bzw. `/en/#snapshot`; die Startseite setzt bei `#snapshot` den Fokus ins Website-Feld.
+- **FAQ:** Die sechs Fragen der früheren Snapshot-Seite stehen als Gruppe „Visibility Snapshot“ auf
+  `/faq` (`faqSnapshot`) und `/en/faq` (`faqSnapshotEn`) — FAQPage-Schema dort NUR für diese Gruppe.
+- **Englisch komplett:** `/en/` hat denselben Aufbau wie `/` mit `SnapshotModuleEn` (generiert aus
+  `SnapshotModule.astro` durch `scripts/make-snapshot-en.py` — **bei jeder Änderung am deutschen
+  Modul neu erzeugen**). Alle EN-Audit-Formulare ersetzt, `/en/check/` = Weiterleitung auf
+  `/en/#snapshot`, Datenschutz EN um Abschnitt „Visibility Snapshot“ + Resend/Cloudflare ergänzt.
+- **Backend** (audit.codaai.ai, Pipeline-CLAUDE.md 4.38): `ai_frage.py` versteht `lang: "en"`
+  (Marker `SPRACHE-EN-20261001`; Hinweise, Vorschlag, Technik, DOI-Mail, Namensseite englisch,
+  Google AI Mode mit `language_code` en); `wv.py` erzeugt für EN-Leads englische Fragen und rendert
+  `wv_render_en.py` (generiert von `make_wv_render_en.py`). EN-Termin-Anker ist `#appointment`.
+- `home-init.js?v=20261001b` (Cache-Wechsel wegen Fokus-Logik).
