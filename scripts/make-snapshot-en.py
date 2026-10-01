@@ -98,6 +98,8 @@ M = [
      '<button type="button" class="snap-again" data-again>Check another question</button>'),
     ('<p class="snap-disc">Stichprobe vom <span data-stand2></span>. KI-Antworten schwanken von Tag zu Tag. Wiedergegeben sind Antworten der KI-Systeme, keine Aussage von CodaAI über die genannten Unternehmen.</p>',
      '<p class="snap-disc">Sample taken on <span data-stand2></span>. AI answers vary from day to day. The answers shown are those of the AI systems, not a statement by CodaAI about the companies named.</p>'),
+    ('<p class="snap-q">„<span data-q></span>“</p>', '<p class="snap-q">“<span data-q></span>”</p>'),
+    ('<p class="snap-sb-t">„<span data-sbt></span>“</p>', '<p class="snap-sb-t">“<span data-sbt></span>”</p>'),
 ]
 for a, b in M:
     rep(a, b)
