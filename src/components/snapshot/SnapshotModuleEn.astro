@@ -121,8 +121,10 @@ const beispiele = [
 
   <div class="snap-res" data-res aria-live="polite">
     <p class="snap-kicker">Visibility Snapshot · <span data-dom></span> · <span data-stand></span></p>
+    <div class="snap-qrow">
     <p class="snap-q">“<span data-q></span>”</p>
     <figure class="snap-thumb" data-thumb hidden><div class="snap-shot-b"><i></i><i></i><i></i><span data-thumbd></span></div><img data-thumbimg alt="Homepage of your website" width="640" height="400" /></figure>
+    </div>
     <p class="snap-verdict"><span class="snap-badge" data-badge></span> <span data-verdict></span></p>
     <p class="snap-vs" data-vs hidden></p>
     <ul class="snap-logos snap-logos--res" data-reslogos hidden>
@@ -130,10 +132,11 @@ const beispiele = [
         <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
-    <div class="snap-find" data-findbox hidden>
-      <p class="snap-h" data-findh>Room for improvement</p>
+    <p class="snap-vorn" data-vorn hidden></p>
+    <details class="snap-find" data-findbox hidden>
+      <summary class="snap-find-s" data-findh>Notes</summary>
       <dl class="snap-find-l" data-find></dl>
-    </div>
+    </details>
     <div class="snap-sb" data-sb hidden>
       <p class="snap-sb-h"><span>How <span data-sbsys>ChatGPT</span> describes your company <small>(without web search)</small></span> <span class="snap-sb-u" data-sbu></span></p>
       <p class="snap-sb-t">“<span data-sbt></span>”</p>
@@ -149,7 +152,8 @@ const beispiele = [
     <div class="snap-audit" data-audit hidden>
       <p class="snap-audit-h" data-audith><span class="snap-audit-h1">That was just <b>one</b> question.</span><br /><span class="snap-audit-pk">Now see the whole picture.</span></p>
       <p class="snap-audit-c"><span class="snap-audit-ct" data-auditc>Your customers ask AI first, and AI writes the shortlist. Anyone missing from it does not get the enquiry. And most of the time nobody notices.</span><span data-auditbeweis hidden></span></p>
-      <p class="snap-audit-p">Your AI competitor comparison for <b data-auditd></b>:</p>
+      <div class="snap-acov" data-acov hidden><div class="snap-acov-bar"><i data-acovi></i></div><p class="snap-acov-t" data-acovt></p></div>
+      <p class="snap-audit-p">Your AI competitor comparison for <b data-auditd></b> by email:</p>
       <ul class="snap-audit-l" data-auditl>
         <li>Which competitors AI recommends for your most important customer questions, and why</li>
         <li>For which questions the enquiries currently go to others</li>
@@ -254,6 +258,39 @@ const beispiele = [
   .snap-res { background:hsl(var(--card)); color:hsl(var(--foreground)); border-top:4px solid hsl(var(--cta-strong)); }
   .snap-kicker { margin:0; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:hsl(var(--muted-foreground)); overflow-wrap:anywhere; }
   .snap-q { margin:10px 0 14px; font-size:22px; line-height:1.3; font-weight:700; }
+  /* 01.10.2026: Ergebnis kompakt (Abnahme Oli) */
+  .snap-qrow { display:grid; grid-template-columns:minmax(0,1fr) 128px; gap:16px; align-items:start; margin:10px 0 16px; }
+  .snap-qrow .snap-q { margin:0; font-size:19px; }
+  .snap-qrow .snap-thumb { margin:2px 0 0; border-radius:8px; }
+  .snap-qrow .snap-thumb .snap-shot-b { padding:4px 6px; }
+  .snap-qrow .snap-thumb .snap-shot-b span { display:none; }
+  .snap-verdict { margin-bottom:14px !important; }
+  .snap-logos--res .snap-sysl { font-size:11px; }
+  .snap-vorn { margin:10px 0 0; font-size:14px; line-height:1.5; color:hsl(var(--foreground) / .85); }
+  .snap-vorn[hidden] { display:none; }
+  .snap-vorn :global(b) { color:hsl(var(--foreground)); }
+  .snap-find { margin-top:12px !important; }
+  .snap-find-s { cursor:pointer; list-style:none; font-size:13.5px; font-weight:600; color:hsl(var(--muted-foreground)); padding:6px 0; }
+  .snap-find-s::-webkit-details-marker { display:none; }
+  .snap-find-s::before { content:"▸"; display:inline-block; width:14px; transition:transform .2s; }
+  .snap-find[open] .snap-find-s::before { transform:rotate(90deg); }
+  .snap-find[open] .snap-find-l { margin-top:6px; }
+  .snap-also, .snap-cov { display:none !important; }
+  .snap-audit-c, .snap-audit-l { display:none !important; }
+  .snap-acov { margin:0 0 14px; }
+  .snap-acov[hidden] { display:none; }
+  .snap-acov-bar { height:6px; border-radius:99px; background:hsl(0 0% 100% / .16); overflow:hidden; }
+  .snap-acov-bar i { display:block; height:100%; width:0; border-radius:99px; background:#EA82FC; transition:width 1.2s cubic-bezier(.2,.7,.2,1) .4s; }
+  .snap-acov-t { margin:7px 0 0; font-size:13px; color:hsl(0 0% 100% / .78); }
+  .snap-acov-t :global(b) { color:#fff; }
+  /* v2: dunkler Abschluss kompakter */
+  .snap-audit { margin-top:16px !important; padding:18px 20px !important; }
+  .snap-audit-h { font-size:20px !important; margin-bottom:12px !important; }
+  .snap-acov { margin-bottom:12px; }
+  .snap-audit-p { margin-bottom:8px !important; font-size:14px !important; }
+  .snap-aform .snap-send { margin-top:8px !important; padding:14px 18px !important; font-size:16px !important; }
+  .snap-amail input { padding-top:12px; padding-bottom:12px; }
+  .snap-amini { margin-top:8px !important; }
   .snap-verdict { margin:0 0 20px; font-size:16px; line-height:1.5; }
   .snap-badge { display:inline-block; margin-right:4px; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.02em; vertical-align:1px; }
   .snap-badge[data-lvl="gut"] { background:#E3F4EA; color:#146C43; }
@@ -665,6 +702,7 @@ const beispiele = [
         await warteA(1000);
       };
 
+      let wvListe: string[] = [];
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
         show(err, '');
@@ -799,6 +837,7 @@ const beispiele = [
           else { li.removeAttribute('data-rank'); mk.removeAttribute('data-n'); }
           pl.textContent = !s.antwort ? 'no answer' : !s.genannt ? 'not named' : s.platz ? `rank ${s.platz}` : 'named';
         });
+        ($('[data-reslogos]') as HTMLElement).hidden = false;   // 01.10.2026: Logo-Zeile statt Tabellenzeilen
         // Verbesserungsbedarf: System – Befund, hoechstens 4 Zeilen
         const zeilen: [string, string, any?][] = [];
         const reihe = Array.from(root.querySelectorAll<HTMLElement>('[data-reslogos] [data-sys]')).map((li) => li.dataset.sys);
@@ -827,7 +866,14 @@ const beispiele = [
         const techFehlt = tech.filter((t: any) => t.ok === false);
         techFehlt.forEach((t: any) => zeilen.push(['Technical', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
-        zeilen.slice(0, 9).forEach(([t, d, sy]) => {
+        const zeilenK = zeilen.filter((z) => !z[2]);   // 01.10.2026: Systemzeilen stehen schon in der Logo-Zeile
+        {
+          const nTech = zeilenK.filter((z) => z[0] === 'Technical').length, nRest = zeilenK.length - nTech;
+          ($('[data-findh]') as HTMLElement).textContent = !nRest ? `${nTech} technical note${nTech === 1 ? '' : 's'} for your website`
+            : `${zeilenK.length} notes on ${zeilenK.map((z) => z[0].toLowerCase()).filter((x, k, a) => a.indexOf(x) === k).join(', ')}`;
+          ($('[data-findbox]') as HTMLElement).removeAttribute('open');
+        }
+        zeilenK.slice(0, 9).forEach(([t, d, sy]) => {
           const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
           if (sy) {
             const src = (root.querySelector(`[data-reslogos] [data-sys="${sy.key}"] img`) as HTMLImageElement | null)?.getAttribute('src') || '';
@@ -839,13 +885,29 @@ const beispiele = [
           } else dt.textContent = t;
           dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
-        ($('[data-findbox]') as HTMLElement).hidden = !zeilen.length;
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length;
         const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
         if (fremde.length) {
           const b = document.createElement('b'); b.textContent = g === 0 ? 'Recommended instead: ' : 'Also recommended: ';
           also.append(b, document.createTextNode(fremde.slice(0, 4).map((r: any) => `${r.name} (${r.anzahl}×)`).join(', ')));
         }
-        also.hidden = !fremde.length;
+        also.hidden = true;
+        // 01.10.2026: eine Zeile „Vor Ihnen …“ / „Stattdessen empfohlen …“
+        {
+          const vz = $('[data-vorn]') as HTMLElement; vz.innerHTML = '';
+          const fett = (n: string) => { const b = document.createElement('b'); b.textContent = n; return b; };
+          const vor: Record<string, number> = {};
+          sys.forEach((x: any) => { const n = (x.vor || [])[0]; if (n) vor[n] = (vor[n] || 0) + 1; });
+          const vl = Object.entries(vor).sort((a, b) => b[1] - a[1]);
+          if (g === 0 && fremde.length) {
+            vz.append('Recommended instead: ');
+            fremde.slice(0, 3).forEach((r: any, k: number) => { if (k) vz.append(', '); vz.append(fett(r.name), ` (${r.anzahl}×)`); });
+          } else if (vl.length) {
+            vz.append('Ahead of you: ');
+            vl.slice(0, 3).forEach(([n, c], k) => { if (k) vz.append(', '); vz.append(fett(n)); if (c > 1) vz.append(` (${c} systems)`); });
+          }
+          vz.hidden = !vz.childNodes.length;
+        }
         // weitere Geschaeftsbereiche (Vorschau)
         const ber = $('[data-ber]') as HTMLElement, berl = $('[data-berl]') as HTMLElement; berl.innerHTML = '';
         const bl = hilfeAn ? (res.bereiche || []) : [];
@@ -878,6 +940,16 @@ const beispiele = [
           ($('[data-covt]') as HTMLElement).append(bb, ' ', Object.assign(document.createElement('span'), { className: 'snap-cov-typ', textContent: 'typical ' }), 'customer questions checked');
         }
         cov.hidden = nF < 20;
+        {
+          const ac = $('[data-acov]') as HTMLElement, at = $('[data-acovt]') as HTMLElement, ai = $('[data-acovi]') as HTMLElement;
+          at.innerHTML = ''; ai.style.width = '0';
+          if (nF >= 20) {
+            const b = document.createElement('b'); b.textContent = `1 of around ${nF}`;
+            at.append(b, ' customer questions checked · in the comparison: ', Object.assign(document.createElement('b'), { textContent: '20' }));
+            setTimeout(() => { ai.style.width = Math.max(100 / nF, 1.5).toFixed(2) + '%'; }, 60);
+          }
+          ac.hidden = nF < 20;
+        }
         // Audit mit konkretem Inhalt
         const nT = techFehlt.length;
         ($('[data-auditd]') as HTMLElement).textContent = res.domain;
@@ -944,6 +1016,7 @@ const beispiele = [
           const s2 = document.createElement('span'); s2.className = 'snap-audit-pk'; s2.textContent = z2;
           hEl.append(s1, document.createElement('br'), s2);
           ($('[data-auditc]') as HTMLElement).textContent = t.c;
+          wvListe = t.l;
           const ul = $('[data-auditl]') as HTMLElement; ul.innerHTML = '';
           t.l.forEach((x) => { const li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
           root.dataset.icp = icp; root.dataset.zustand = zustand;
@@ -967,6 +1040,13 @@ const beispiele = [
         vfMask();
         await enthuellen(sys, g, von);
         setState('res');
+        {   // 01.10.2026: Startseite zeigt links die Vergleichs-Fläche
+          const seen = new Set<string>(), wett: string[] = [];
+          for (const r of fremde) { const k = String(r.name).toLowerCase(); if (!seen.has(k)) { seen.add(k); wett.push(r.name); } if (wett.length >= 3) break; }
+          document.dispatchEvent(new CustomEvent('snapshot:ergebnis', { detail: {
+            domain: res.domain, marke: M, genannt: g, von, nF: res.fragen_geschaetzt || 0, wett, liste: wvListe,
+            zustand: root.dataset.zustand, icp } }));
+        }
         dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
       });
 

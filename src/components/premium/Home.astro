@@ -563,6 +563,29 @@ const copy = {
     <div class="hero-snap" id="snapshot">
       {lang === 'en' ? <SnapshotModuleEn source="home-en" /> : <SnapshotModule source="home" />}
     </div>
+    {(
+      <aside class="wvp" id="wvp" hidden aria-live="polite">
+        <div class="wvp-kopf">
+          <p class="wvp-k">{lang === 'en' ? 'AI competitor comparison' : 'KI-Wettbewerbsvergleich'}</p>
+          <h2 class="wvp-h"><span data-wvp-h1>{lang === 'en' ? 'One question checked.' : 'Eine Frage geprüft.'}</span> <em data-wvp-h2></em></h2>
+        </div>
+        <div class="wvp-demo" data-wvp-demo>
+          <p class="wvp-p" data-wvp-p></p>
+          <div class="wvp-demo-g">
+            <div>
+              <div class="wvp-dots" aria-hidden="true">{Array.from({ length: 20 }, (_, i) => <i style={`--i:${i}`} class={[0,2,3,5,7,8,11,12,14,16,18].includes(i) ? 'is-lost' : ''}></i>)}</div>
+              <p class="wvp-dots-t"><b data-wvp-n>0</b> {lang === 'en' ? 'of 20 customer questions went to competitors' : 'von 20 Kundenfragen gingen an Wettbewerber'}</p>
+            </div>
+            <ul class="wvp-bars">
+              <li><span>Hansgrohe</span><i style="--w:100%"></i><b data-to="79">0</b></li>
+              <li><span>Grohe</span><i style="--w:87%"></i><b data-to="69">0</b></li>
+              <li class="is-you"><span>{lang === 'en' ? 'Manufacturer' : 'Der Hersteller'}</span><i style="--w:19%"></i><b data-to="15">0</b></li>
+            </ul>
+          </div>
+          <p class="wvp-demo-f">{lang === 'en' ? 'Example from a real comparison (sanitary fittings, name removed) · mentions across five AI systems' : 'Beispiel aus einem echten Vergleich (Sanitärarmaturen, Name entfernt) · Nennungen in fünf KI-Systemen'}</p>
+        </div>
+      </aside>
+    )}
     {/* KI-Antwort-Karte (getippte Frage) am 01.10.2026 entfernt — der Snapshot ist jetzt die Vorführung.
     <div class="kicard-wrap" id="ktilt">
       <div class="kicard" id="kicard">
@@ -957,6 +980,65 @@ const copy = {
 <script is:inline defer src="/vendor/ScrollTrigger-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/lenis-1.0.42.min.js"></script>
 <script is:inline defer src="/vendor/home-init.js?v=20261001b"></script>
+<script is:inline>
+/* 01.10.2026: Vergleichs-Fläche links füllen und 2,5 s nach dem Ergebnis einblenden */
+(function(){
+  var box=document.getElementById('wvp'); if(!box) return;
+  var VERZ=2500, timer=0, gezeigt=false, en=(document.documentElement.lang||'').slice(0,2)==='en';
+  var q=function(s){return box.querySelector(s);};
+  function fett(n){var b=document.createElement('b'); b.textContent=n; return b;}
+  function namen(el, a){ a.forEach(function(n,k){ if(k) el.append(k===a.length-1?(en?' and ':' und '):', '); el.append(fett(n)); }); }
+  function zaehlen(){
+    box.classList.add('is-run');
+    var nEl=q('[data-wvp-n]'), n=0, lost=box.querySelectorAll('.wvp-dots i.is-lost').length;
+    var t=setInterval(function(){ n++; nEl.textContent=String(n); if(n>=lost) clearInterval(t); }, 130);
+    box.querySelectorAll('.wvp-bars b').forEach(function(b){
+      var ziel=+b.getAttribute('data-to'), t0=0;
+      setTimeout(function(){ var st=performance.now(); (function f(now){ var k=Math.min((now-st)/1300,1); b.textContent=String(Math.round(ziel*(1-Math.pow(1-k,3)))); if(k<1) requestAnimationFrame(f); })(st); }, 1200);
+    });
+  }
+  document.addEventListener('snapshot:ergebnis', function(e){
+    var d=e.detail||{}, w=d.wett||[], nF=d.nF||0;
+    q('[data-wvp-h2]').textContent = en ? (nF>=20 ? ('Your customers ask around '+nF+'.') : 'Your customers ask many more.')
+                                        : (nF>=20 ? ('Ihre Kunden stellen rund '+nF+'.') : 'Ihre Kunden stellen viele.');
+    var p=q('[data-wvp-p]'); p.innerHTML='';
+    if(en){
+      p.append('We put ', fett('20 typical customer questions'), ' to five AI systems and show for which ones ');
+      if(w.length){ if(d.genannt===0){ p.append('the enquiries go to '); namen(p,w); p.append(' – and why.'); }
+                    else { namen(p,w); p.append(w.length>1?' are ahead of you – and why.':' is ahead of you – and why.'); } }
+      else p.append('other suppliers are recommended – and why.');
+    } else {
+      p.append('Wir stellen fünf KI-Systemen ', fett('20 typische Fragen Ihrer Kunden'), ' und zeigen, bei welchen ');
+      if(w.length){ if(d.genannt===0){ p.append('Fragen die Anfragen an '); namen(p,w); p.append(' gehen – und warum.'); }
+                    else { p.append('Fragen '); namen(p,w); p.append(w.length>1?' vor Ihnen stehen – und warum.':' vor Ihnen steht – und warum.'); } }
+      else p.append('Fragen andere Anbieter empfohlen werden – und warum.');
+    }
+    if(gezeigt) return;
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      gezeigt=true; box.hidden=false;
+      ausrichten(); setTimeout(ausrichten, 900);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ box.classList.add('is-in'); setTimeout(zaehlen, 500); }); });
+      try{ (window.dataLayer=window.dataLayer||[]).push({event:'snapshot_wvp_sichtbar', zustand:d.zustand, icp:d.icp}); }catch(_){}
+    }, VERZ);
+  });
+  /* Desktop: linker Kasten beginnt und endet bündig mit dem dunklen Abschluss rechts */
+  var mq=window.matchMedia('(min-width:1041px)');
+  function ty(el){ try{ return new DOMMatrixReadOnly(getComputedStyle(el).transform).m42||0; }catch(_){ return 0; } }
+  function ausrichten(){
+    var demo=q('[data-wvp-demo]'), kopf=q('.wvp-kopf'), cta=document.querySelector('#snapshot [data-audit]');
+    kopf.style.marginTop=''; demo.style.marginTop=''; demo.style.minHeight='';
+    if(box.hidden||!cta||cta.hidden||!mq.matches) return;
+    var rc=cta.getBoundingClientRect(), rd=demo.getBoundingClientRect();
+    var top=rd.top-ty(demo), dy=rc.top-top;
+    if(dy>0){ kopf.style.marginTop=dy+'px'; top+=dy; }   /* Überschrift rückt mit, steht direkt über dem Kasten */
+    else if(dy<0){ var mt=parseFloat(getComputedStyle(demo).marginTop)||0, neu=Math.max(6, mt+dy); demo.style.marginTop=neu+'px'; top-=(mt-neu); }
+    demo.style.minHeight=Math.max(rc.bottom-top, 0)+'px';
+  }
+  window.addEventListener('resize', ausrichten);
+  try{ var cta0=document.querySelector('#snapshot [data-audit]'); if(cta0 && window.ResizeObserver) new ResizeObserver(ausrichten).observe(cta0); }catch(_){}
+})();
+</script>
 
 <style is:global>
 
@@ -1680,6 +1762,46 @@ const copy = {
   .hero-ki{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;list-style:none;padding:0}
   .hero-ki li{display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:var(--fg)}
   .hero-ki img{width:20px;height:20px}
+
+  /* ── 01.10.2026: Vergleichs-Fläche links, dunkler Kasten bündig mit dem Abschluss rechts ──
+     Ein einziger Knopf (rechts). Höhe/Lage des linken Kastens setzt das Skript (nur Desktop). */
+  @media(min-width:1041px){
+    .hero--snap .hero-grid{row-gap:22px;grid-template-rows:auto 1fr}
+    .hero--snap .hero-grid>.hero-snap{grid-column:2;grid-row:1 / span 2}
+    .hero--snap .hero-grid>.wvp{grid-column:1;grid-row:2}
+  }
+  .wvp{position:relative;z-index:2;align-self:start;opacity:0;transition:opacity .7s ease}
+  .wvp[hidden]{display:none}
+  .wvp.is-in{opacity:1}
+  .wvp-kopf,.wvp-demo{transform:translateY(14px);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .wvp-demo{transition-delay:.12s}
+  .wvp.is-in .wvp-kopf,.wvp.is-in .wvp-demo{transform:none}
+  .wvp-k{margin:0 0 6px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--magenta-ink)}
+  .wvp-h{margin:0;font-size:clamp(1.25rem,1.8vw,1.55rem);line-height:1.22;font-weight:700;letter-spacing:-.01em;color:var(--fg)}
+  .wvp-h em{font-style:normal;color:hsl(283 50% 49%)}
+  .wvp-demo{box-sizing:border-box;margin:16px 0 0;padding:18px 20px;border-radius:16px;background:hsl(var(--navy-600));color:#fff;
+    display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+  .wvp-p{margin:0;font-size:15px;line-height:1.5;color:hsl(0 0% 100% / .9)}
+  .wvp-p b{color:#fff}
+  .wvp-demo-g{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;align-items:center}
+  .wvp-dots{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+  .wvp-dots i{aspect-ratio:1;border-radius:4px;background:hsl(0 0% 100% / .1);transition:background .25s ease calc(var(--i) * 70ms),transform .25s ease calc(var(--i) * 70ms)}
+  .wvp.is-run .wvp-dots i{background:hsl(0 0% 100% / .28)}
+  .wvp.is-run .wvp-dots i.is-lost{background:#EA82FC;transform:scale(.92)}
+  .wvp-dots-t{margin:7px 0 0;font-size:.74rem;line-height:1.35;color:hsl(0 0% 100% / .78)}
+  .wvp-dots-t b{color:#EA82FC;font-size:1rem}
+  .wvp-bars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  .wvp-bars li{display:grid;grid-template-columns:112px minmax(0,1fr) 26px;align-items:center;gap:8px;font-size:.8rem}
+  .wvp-bars span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:hsl(0 0% 100% / .85)}
+  .wvp-bars i{height:8px;border-radius:99px;background:hsl(0 0% 100% / .38);width:0;transition:width 1.3s cubic-bezier(.2,.7,.2,1) 1.2s}
+  .wvp.is-run .wvp-bars i{width:var(--w)}
+  .wvp-bars li.is-you span{color:#fff;font-weight:700}
+  .wvp-bars li.is-you i{background:#EA82FC}
+  .wvp-bars b{text-align:right;font-variant-numeric:tabular-nums}
+  .wvp-demo-f{margin:0;font-size:.68rem;line-height:1.4;color:hsl(0 0% 100% / .55)}
+  @media(max-width:1040px){.wvp{margin-top:6px}}
+  @media(max-width:480px){.wvp-demo{padding:18px}.wvp-demo-g{grid-template-columns:1fr;gap:14px}.wvp-dots{grid-template-columns:repeat(10,1fr);gap:4px}.wvp-dots i{border-radius:3px}}
+  @media(prefers-reduced-motion:reduce){.wvp,.wvp *{transition:none!important}}
   @media(min-width:1041px) and (max-width:1240px){.hero-ki{gap:6px 12px}.hero-ki li{font-size:.8rem}}
   .snap-go{display:inline-flex;align-items:center;gap:10px;justify-self:start;background:var(--magenta-strong);color:#fff;
     font-weight:700;font-size:1rem;padding:15px 24px;border-radius:var(--btn-radius);text-decoration:none;transition:filter .2s,transform .2s}

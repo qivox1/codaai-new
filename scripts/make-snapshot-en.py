@@ -71,7 +71,7 @@ M = [
     ('<span>Wie aktuell sind Ihre Inhalte?</span>', '<span>How up to date is your content?</span>'),
     ('<span>Sind Ihre Firmendaten maschinenlesbar?</span>', '<span>Is your company data machine-readable?</span>'),
     ('alt="Startseite Ihrer Website"', 'alt="Homepage of your website"'),
-    ('<p class="snap-h" data-findh>Verbesserungsbedarf</p>', '<p class="snap-h" data-findh>Room for improvement</p>'),
+    ('<summary class="snap-find-s" data-findh>Hinweise</summary>', '<summary class="snap-find-s" data-findh>Notes</summary>'),
     ('<span>So beschreibt <span data-sbsys>ChatGPT</span> Ihr Unternehmen <small>(ohne Websuche)</small></span>',
      '<span>How <span data-sbsys>ChatGPT</span> describes your company <small>(without web search)</small></span>'),
     ('<p class="snap-ber-h" data-berh>Weitere erkannte Geschäftsbereiche</p>', '<p class="snap-ber-h" data-berh>Other business areas we found</p>'),
@@ -79,8 +79,8 @@ M = [
      '<span class="snap-audit-h1">That was just <b>one</b> question.</span><br /><span class="snap-audit-pk">Now see the whole picture.</span>'),
     ('<span class="snap-audit-ct" data-auditc>Ihre Kunden fragen zuerst die KI, und die schreibt die Shortlist. Wer dort fehlt, bekommt die Anfrage nicht. Und meist merkt man das gar nicht.</span>',
      '<span class="snap-audit-ct" data-auditc>Your customers ask AI first, and AI writes the shortlist. Anyone missing from it does not get the enquiry. And most of the time nobody notices.</span>'),
-    ('<p class="snap-audit-p">Ihr KI-Wettbewerbsvergleich für <b data-auditd></b>:</p>',
-     '<p class="snap-audit-p">Your AI competitor comparison for <b data-auditd></b>:</p>'),
+    ('<p class="snap-audit-p">Ihr KI-Wettbewerbsvergleich für <b data-auditd></b> per E-Mail:</p>',
+     '<p class="snap-audit-p">Your AI competitor comparison for <b data-auditd></b> by email:</p>'),
     ('        <li>Welche Wettbewerber die KI bei Ihren wichtigsten Kundenfragen empfiehlt, und warum</li>\n'
      '        <li>Bei welchen Fragen die Anfragen heute an andere gehen</li>\n'
      '        <li>Ihre Position in Google und KI, direkt neben Ihren Wettbewerbern</li>\n'
@@ -259,6 +259,16 @@ J = [
     ("($('[data-donet]') as HTMLElement).textContent = `Bitte bestätigen Sie kurz den Link in der E-Mail an ${mail}. Danach ergänzen Sie noch Ihren Namen, und wir erstellen Ihren Wettbewerbsvergleich.`;",
      "($('[data-donet]') as HTMLElement).textContent = `Please confirm the link in the email to ${mail}. Then add your name, and we will prepare your competitor comparison.`;"),
     ("mailIn.placeholder = 'vorname.nachname';", "mailIn.placeholder = 'firstname.lastname';"),
+    # Ergebnis kompakt (01.10.2026)
+    ("const nTech = zeilenK.filter((z) => z[0] === 'Technik').length", "const nTech = zeilenK.filter((z) => z[0] === 'Technical').length"),
+    ("? `${nTech} Technik-Hinweis${nTech === 1 ? '' : 'e'} für Ihre Website`", "? `${nTech} technical note${nTech === 1 ? '' : 's'} for your website`"),
+    (": `${zeilenK.length} Hinweise zu ${zeilenK.map((z) => z[0]).filter((x, k, a) => a.indexOf(x) === k).join(', ')}`;",
+     ": `${zeilenK.length} notes on ${zeilenK.map((z) => z[0].toLowerCase()).filter((x, k, a) => a.indexOf(x) === k).join(', ')}`;"),
+    ("vz.append('Stattdessen empfohlen: ');", "vz.append('Recommended instead: ');"),
+    ("vz.append('Vor Ihnen: ');", "vz.append('Ahead of you: ');"),
+    ("if (c > 1) vz.append(` (${c} Systeme)`);", "if (c > 1) vz.append(` (${c} systems)`);"),
+    ("const b = document.createElement('b'); b.textContent = `1 von rund ${nF}`;", "const b = document.createElement('b'); b.textContent = `1 of around ${nF}`;"),
+    ("at.append(b, ' Kundenfragen geprüft · im Vergleich: ',", "at.append(b, ' customer questions checked · in the comparison: ',"),
 ]
 for a, b in J:
     rep(a, b)
