@@ -32,7 +32,7 @@ export const faqAllgemein: FaqItem[] = [
   },
   {
     q: 'Wie fange ich an — und was muss ich dafür bereitstellen?',
-    a: 'Der Einstieg ist Ihr kostenloses Digital Visibility Audit: Wir dokumentieren, was ChatGPT und die Google KI-Übersicht heute über Ihr Unternehmen antworten, und Sie bekommen das als persönliches Dashboard. Im 30-Minuten-Gespräch gehen wir den Befund gemeinsam durch. Von Ihnen brauchen wir zum Start nichts außer Ihrer Domain — erst wenn Sie sich für eine Zusammenarbeit entscheiden, kommen Fachwissen aus Ihrem Haus und ein Ansprechpartner dazu.',
+    a: 'Der Einstieg ist der kostenlose Visibility Snapshot auf unserer Startseite: eine Frage Ihrer Kunden, fünf KI-Systeme, rund 20 Sekunden. Auf Wunsch folgt der KI-Wettbewerbsvergleich mit rund 20 Einkäuferfragen, den Sie als persönliches Dashboard bekommen. Im 30-Minuten-Gespräch gehen wir den Befund gemeinsam durch. Von Ihnen brauchen wir zum Start nichts außer Ihrer Domain — erst wenn Sie sich für eine Zusammenarbeit entscheiden, kommen Fachwissen aus Ihrem Haus und ein Ansprechpartner dazu.',
   },
   {
     q: 'Was unterscheidet CodaAI von einem KI-Schreibtool und von einer klassischen Agentur?',
@@ -147,6 +147,20 @@ export const faqWebinar: FaqItem[] = [
   },
 ];
 
+/* ── Visibility Snapshot + KI-Wettbewerbsvergleich (01.10.2026) ────────────
+   Übernommen von der früheren Seite /visibility-snapshot/ (seit 01.10.2026 eine
+   Weiterleitung; der Snapshot liegt im Kopfbereich der Startseite). Weil es
+   keine eigene Themenseite mehr gibt, trägt /faq das FAQPage-Schema für GENAU
+   diese Gruppe — sonst nirgends ausgezeichnet, also keine Dublette. */
+export const faqSnapshot: FaqItem[] = [
+  { q: 'Was kostet der Visibility Snapshot?', a: 'Nichts. Der Snapshot und der KI-Wettbewerbsvergleich sind kostenlos und unverbindlich.' },
+  { q: 'Warum soll ich meinen Firmennamen nicht in die Frage schreiben?', a: 'Weil Ihre Kunden Sie so nicht fragen. Wer Ihren Namen schon kennt, sucht nicht nach Anbietern. Aussagekräftig ist nur die Frage eines Kunden, der Sie noch nicht kennt – etwa „Welche Anbieter für … sind in Deutschland führend?“.' },
+  { q: 'Warum schwanken die Ergebnisse?', a: 'KI-Systeme formulieren jede Antwort neu. Zwei identische Listen in gleicher Reihenfolge sind die Ausnahme. Der Snapshot ist deshalb eine Stichprobe mit Datum; belastbar wird das Bild erst über viele Fragen – genau das leistet der Wettbewerbsvergleich.' },
+  { q: 'Wie bekomme ich den KI-Wettbewerbsvergleich?', a: 'Unter dem Ergebnis Ihre geschäftliche E-Mail-Adresse eintragen und den Link in der Bestätigungsmail anklicken. Danach ergänzen Sie Ihren Namen, und wir erstellen den Vergleich für Ihre Website. Sie erhalten ihn per E-Mail, in der Regel bis zum nächsten Werktag.' },
+  { q: 'Warum nur mit einer Firmen-E-Mail-Adresse?', a: 'Der Vergleich zeigt, wie die KI über ein bestimmtes Unternehmen und seine Wettbewerber spricht. Deshalb senden wir ihn nur an eine Adresse, die zur geprüften Website gehört – nicht an Freemail-Adressen.' },
+  { q: 'Was passiert mit meinen Daten?', a: 'Wir nutzen Ihre Angaben, um den Vergleich zu erstellen und Ihnen zuzusenden. Einzelheiten stehen in unseren Datenschutzhinweisen.' },
+];
+
 /* Reihenfolge und Beschriftung der Sammelseite /faq. */
 export const faqGroups: { id: string; title: string; intro: string; href: string; hrefLabel: string; items: FaqItem[] }[] = [
   {
@@ -156,6 +170,14 @@ export const faqGroups: { id: string; title: string; intro: string; href: string
     href: '/',
     hrefLabel: 'Zur Startseite',
     items: faqAllgemein,
+  },
+  {
+    id: 'snapshot',
+    title: 'Visibility Snapshot',
+    intro: 'Was der kostenlose Snapshot zeigt, warum die Ergebnisse schwanken und wie Sie den KI-Wettbewerbsvergleich bekommen.',
+    href: '/#snapshot',
+    hrefLabel: 'Zum Snapshot',
+    items: faqSnapshot,
   },
   {
     id: 'digital-visibility',

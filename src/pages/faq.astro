@@ -9,7 +9,9 @@
  * Antworten erwarten und keine Linkliste — sie zeigt alle vier Gruppen
  * untereinander und verlinkt jeweils auf die zugehörige Seite.
  *
- * KEIN FAQPage-Schema hier. Das liegt auf den Themenseiten, damit dieselbe
+ * FAQPage-Schema hier NUR für die Gruppe „Visibility Snapshot“ (seit 01.10.2026):
+ * deren Themenseite /visibility-snapshot/ ist eine Weiterleitung geworden.
+ * Alle übrigen Gruppen: KEIN Schema hier. Das liegt auf den Themenseiten, damit dieselbe
  * Frage nicht zweimal ausgezeichnet im Index steht. Wer hier eines ergänzt,
  * erzeugt genau diese Dublette.
  *
@@ -22,17 +24,22 @@ import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import HeroHeadline from '../components/HeroHeadline.astro';
-import { faqGroups } from '../data/faq';
+import { faqGroups, faqSnapshot } from '../data/faq';
 
 const lang = 'de' as const;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
+const snapshotFaqSchema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqSnapshot.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
 ---
 
 <Layout
   lang={lang}
   title="Fragen & Antworten – CodaAI | Digital Visibility, Preise, Zusammenarbeit"
-  description="Alle Antworten auf einen Blick: CodaAI und die Zusammenarbeit, wie KI-Sichtbarkeit gemessen wird, Preise und Laufzeiten sowie das Live-Webinar."
+  description="Alle Antworten auf einen Blick: CodaAI und die Zusammenarbeit, der kostenlose Visibility Snapshot, wie KI-Sichtbarkeit gemessen wird, Preise und Laufzeiten sowie das Live-Webinar."
+  jsonLd={[snapshotFaqSchema]}
 >
   <Navbar lang={lang} />
   {/* id="main-content" nachgetragen 04.08.2026: Der Sprunglink im Layout zeigt
@@ -53,8 +60,8 @@ const total = faqGroups.reduce((n, g) => n + g.items.length, 0);
         line2="Hier stehen Ihre Antworten."
       />
       <p class="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-        Vier Bereiche — von der Zusammenarbeit über die Messung der
-        KI-Sichtbarkeit bis zu Preis und Laufzeit. Fehlt Ihre?
+        Fünf Bereiche — von der Zusammenarbeit über den Snapshot und die
+        Messung der KI-Sichtbarkeit bis zu Preis und Laufzeit. Fehlt Ihre?
         <a href="mailto:hi@codaai.ai" class="text-cta-accessible hover:text-cta font-medium">Schreiben Sie uns.</a>
       </p>
 

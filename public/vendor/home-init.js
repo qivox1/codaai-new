@@ -313,6 +313,15 @@ function codaHomeInit(){
 
 
 
+  /* Ankunft über /#snapshot (Teaser, Footer, Blog-Kästen, Weiterleitungen):
+     Cursor ins Website-Feld — aber nur, wenn es leer ist (sonst läuft gerade
+     die Vorbefüllung aus ?d=…&q=…). */
+  (function(){
+    if(location.hash!=='#snapshot') return;
+    var inp=document.querySelector('#snapshot [data-domain]');
+    if(inp && !inp.value) setTimeout(function(){ try{ inp.focus({preventScroll:true}); }catch(_){ inp.focus(); } }, 400);
+  })();
+
   /* ---------- Sprungknöpfe zum Snapshot (01.10.2026) ----------
      Scrollen zum Kopfbereich und setzen den Fokus ins Website-Feld. */
   document.querySelectorAll('[data-snapgo]').forEach(function(a){
