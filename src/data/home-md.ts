@@ -51,8 +51,9 @@ Antwort. GEO macht Sie zur Empfehlung.
 ## Wie CodaAI arbeitet
 
 Drei Stufen, aufeinander aufbauend: **Gefunden** → **Empfohlen** → **Zitiert**.
-Den Anfang macht immer ein Digital Visibility Audit, das die tatsächlichen KI-Antworten auf echte
-Einkäuferfragen misst — nicht Rankings, sondern Nennungen. Daraus ergibt sich, an welchen der
+Den Anfang macht der kostenlose Visibility Snapshot direkt auf der Startseite: eine Kundenfrage,
+fünf KI-Systeme, rund 20 Sekunden. Auf Wunsch folgt der KI-Wettbewerbsvergleich mit rund 20
+Einkäuferfragen — nicht Rankings, sondern Nennungen. Daraus ergibt sich, an welchen der
 15 Leistungsbausteine gearbeitet wird.
 
 Leistungsumfang: https://www.codaai.ai/digital-visibility/

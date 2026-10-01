@@ -1,171 +1,33 @@
 ---
-/* /visibility-snapshot/ — „Visibility Snapshot" (DE, seit 24.09.2026).
-   Besucher prüft eine eigene Kundenfrage live gegen fünf KI-Systeme.
-   Modul: src/components/snapshot/SnapshotModule.astro, Backend: audit.codaai.ai/ai/frage
-   (Pipeline-CLAUDE.md 4.38). Kein EN-Gegenstück (bewusst, vorerst nur DE). */
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import HeroHeadline from '../components/HeroHeadline.astro';
-import SnapshotModule from '../components/snapshot/SnapshotModule.astro';
-
-const SITE_URL = 'https://www.codaai.ai';
+/* /visibility-snapshot/ — Weiterleitung (seit 01.10.2026, Beschluss Oli).
+   Der Snapshot liegt jetzt im Kopfbereich der Startseite (/#snapshot). Diese
+   Datei bleibt, damit alte Links, Nurture-Mails, LinkedIn-Beiträge und
+   Lesezeichen weiter funktionieren. Die Parameter ?d=…&q=… (Vorbefüllung +
+   Autostart) werden per Skript mitgenommen; der Meta-Refresh ohne Skript
+   landet ohne Parameter auf der Startseite.
+   GitHub Pages kann kein 301 — deshalb Meta-Refresh + location.replace, dazu
+   noindex und ein Canonical auf das Ziel. Aus der Sitemap ausgeschlossen
+   (Filter in astro.config.mjs). Früherer Seiteninhalt: Git-Historie bis 2f8c965. */
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const pageUrl = `${SITE_URL}/visibility-snapshot/`;
-const title = 'Visibility Snapshot: Empfiehlt die KI Ihr Unternehmen? | CodaAI';
-const description = 'Stellen Sie fünf KI-Systemen die Frage, die Ihre Kunden stellen — und sehen Sie in rund 20 Sekunden, ob Sie genannt werden und wen die KI stattdessen empfiehlt. Kostenlos.';
-
-const webPageSchema = JSON.stringify({
-  '@context': 'https://schema.org', '@type': 'WebPage', '@id': pageUrl, url: pageUrl,
-  name: 'Visibility Snapshot', description, inLanguage: 'de',
-  isPartOf: { '@type': 'WebSite', url: `${SITE_URL}/`, name: 'CodaAI' },
-});
-const breadcrumbSchema = JSON.stringify({
-  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Start', item: `${SITE_URL}/` },
-    { '@type': 'ListItem', position: 2, name: 'Visibility Snapshot', item: pageUrl },
-  ],
-});
-
-const schritte = [
-  { n: '1', h: 'Frage stellen', p: 'Ihre Website und eine Frage eingeben, die Ihre Kunden stellen würden – ohne Ihren Firmennamen. Auf Wunsch schlagen wir eine Frage aus Ihrer Startseite vor.' },
-  { n: '2', h: 'Befund sehen', p: 'Nach rund 20 Sekunden: in wie vielen von fünf KI-Systemen Sie genannt werden, auf welchem Platz – und wen die KI stattdessen empfiehlt. Dazu ein kurzer Technik-Check Ihrer Website.' },
-  { n: '3', h: 'Wettbewerbsvergleich anfordern', p: 'Eine Frage ist eine Stichprobe. Mit Ihrer Firmen-E-Mail fordern Sie den KI-Wettbewerbsvergleich für Ihre Website an – wir erstellen ihn und senden Ihnen den Link, in der Regel bis zum nächsten Werktag.' },
-];
-const vergleich: [string, string, string][] = [
-  ['Kundenfragen', 'eine, Ihre eigene', 'rund 20, entlang der Customer Journey'],
-  ['KI-Systeme', 'ChatGPT, Claude, Gemini, Perplexity, Google AI Mode', 'dieselben fünf'],
-  ['Wen die KI stattdessen empfiehlt', '✓', '✓ gezählt über alle Fragen'],
-  ['Ihre stärksten Wettbewerber in der KI', '—', '✓ mit Namen und Nennungen'],
-  ['Bei welchen Fragen die Anfrage an andere geht', '—', '✓ Frage für Frage'],
-  ['Erste Anbietersuche, Einsatzfall, Alternativen und Preis', '—', '✓ je Stufe ausgewertet'],
-  ['Ihre Position in Google und in der KI', '—', '✓ direkt neben Ihren Wettbewerbern'],
-  ['Warum die anderen vorn liegen', '—', '✓ Quellen, Technik, Inhalte'],
-  ['Kann die KI Ihre Website lesen?', '✓ Kurz-Check', '✓ im Vergleich zum Wettbewerb'],
-];
-const BEISPIEL_URL = 'https://vergleich.codaai.ai/demo-sanitaer?t=suXTMTaqtD8oLCfpnO1-BQPO';
-const faq = [
-  { q: 'Was kostet der Visibility Snapshot?', a: 'Nichts. Der Snapshot und der KI-Wettbewerbsvergleich sind kostenlos und unverbindlich.' },
-  { q: 'Warum soll ich meinen Firmennamen nicht in die Frage schreiben?', a: 'Weil Ihre Kunden Sie so nicht fragen. Wer Ihren Namen schon kennt, sucht nicht nach Anbietern. Aussagekräftig ist nur die Frage eines Kunden, der Sie noch nicht kennt – etwa „Welche Anbieter für … sind in Deutschland führend?“.' },
-  { q: 'Warum schwanken die Ergebnisse?', a: 'KI-Systeme formulieren jede Antwort neu. Zwei identische Listen in gleicher Reihenfolge sind die Ausnahme. Der Snapshot ist deshalb eine Stichprobe mit Datum; belastbar wird das Bild erst über viele Fragen – genau das leistet der Wettbewerbsvergleich.' },
-  { q: 'Wie bekomme ich den KI-Wettbewerbsvergleich?', a: 'Unter dem Ergebnis Ihre geschäftliche E-Mail-Adresse eintragen und den Link in der Bestätigungsmail anklicken. Danach ergänzen Sie Ihren Namen, und wir erstellen den Vergleich für Ihre Website. Sie erhalten ihn per E-Mail, in der Regel bis zum nächsten Werktag.' },
-  { q: 'Warum nur mit einer Firmen-E-Mail-Adresse?', a: 'Der Vergleich zeigt, wie die KI über ein bestimmtes Unternehmen und seine Wettbewerber spricht. Deshalb senden wir ihn nur an eine Adresse, die zur geprüften Website gehört – nicht an Freemail-Adressen.' },
-  { q: 'Was passiert mit meinen Daten?', a: 'Wir nutzen Ihre Angaben, um den Vergleich zu erstellen und Ihnen zuzusenden. Einzelheiten stehen in unseren Datenschutzhinweisen.' },
-];
-const faqSchema = JSON.stringify({
-  '@context': 'https://schema.org', '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-});
+const target = `${base}/#snapshot`;
+const canonical = 'https://www.codaai.ai/';
 ---
 
-<Layout lang="de" title={title} description={description} jsonLd={[webPageSchema, breadcrumbSchema, faqSchema]}>
-  <Navbar lang="de" />
-  <main id="main-content" class="pt-24 lg:pt-28">
-    <section class="relative overflow-hidden border-b border-border bg-background">
-      <div aria-hidden="true" class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-cta/10 blur-3xl"></div>
-      <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
-        <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'Visibility Snapshot' }]} class="mb-8" />
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:items-start">
-          <div class="max-w-2xl">
-            <p class="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cta-accessible">
-              <span class="relative flex h-2 w-2" aria-hidden="true">
-                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cta opacity-60"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-cta"></span>
-              </span>
-              Visibility Snapshot · live · kostenlos
-            </p>
-            <HeroHeadline line1="Ihre Kunden fragen die KI." line2="Empfiehlt sie Sie?" />
-            <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">Stellen Sie fünf KI-Systemen genau die Frage, die Ihre Kunden stellen. In rund 20 Sekunden sehen Sie, ob Ihr Unternehmen genannt wird — und welche Wettbewerber die KI stattdessen empfiehlt.</p>
-            <ul class="snap-sys mt-8 flex flex-wrap items-center gap-5" aria-label="Geprüfte KI-Systeme">
-              {[['chatgpt','ChatGPT'],['claude','Claude'],['gemini','Gemini'],['perplexity','Perplexity'],['google','Google AI Mode']].map(([f, l]) => (
-                <li class="flex items-center gap-2 text-sm font-semibold text-foreground"><img src={`${base}/images/ki-logos/${f}.svg`} alt="" width="24" height="24" />{l}</li>
-              ))}
-            </ul>
-          </div>
-          <SnapshotModule source="snapshot" />
-        </div>
-      </div>
-    </section>
-
-    <section aria-labelledby="h-how" class="border-b border-border bg-background">
-      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <h2 id="h-how" class="cai-h2 max-w-3xl">So funktioniert der Snapshot</h2>
-        <ol class="mt-10 grid gap-6 md:grid-cols-3">
-          {schritte.map((s) => (
-            <li class="rounded-2xl border border-border bg-card p-7">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cta-strong text-sm font-bold text-white" aria-hidden="true">{s.n}</span>
-              <h3 class="mt-4 text-xl font-bold text-foreground">{s.h}</h3>
-              <p class="mt-3 text-base leading-relaxed text-muted-foreground">{s.p}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <section aria-labelledby="h-cmp" class="border-b border-border bg-background">
-      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <h2 id="h-cmp" class="cai-h2 max-w-3xl">Eine Frage ist eine Stichprobe. Der Wettbewerbsvergleich zeigt das ganze Bild.</h2>
-        <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">Der Snapshot zeigt, wie die KI heute auf Ihre eine Frage antwortet. Der KI-Wettbewerbsvergleich stellt die Fragen, die Ihre Kunden vom ersten Suchen bis zum Preisvergleich stellen – und zeigt, bei welchen davon die Anfrage heute an Ihre Wettbewerber geht.</p>
-        <div class="mt-10 overflow-x-auto rounded-2xl border border-border">
-          <table class="snapcmp w-full text-left text-sm">
-            <thead><tr><th class="px-5 py-4"></th><th class="px-5 py-4 font-bold">Snapshot</th><th class="snapcmp-a px-5 py-4 font-bold">KI-Wettbewerbsvergleich</th></tr></thead>
-            <tbody>
-              {vergleich.map((r) => (
-                <tr><th scope="row" class="px-5 py-3.5 font-medium text-foreground">{r[0]}</th>
-                  <td class="px-5 py-3.5">{r[1] === '—' ? <span class="no">—</span> : r[1].startsWith('✓') ? <span class="yes">{r[1]}</span> : r[1]}</td>
-                  <td class="snapcmp-a px-5 py-3.5">{r[2].startsWith('✓') ? <span class="yes">{r[2]}</span> : <b>{r[2]}</b>}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a href="#main-content" class="inline-flex items-center gap-2 rounded-xl bg-cta-strong px-6 py-3.5 font-bold text-white">Snapshot starten ↑</a>
-          <a href={BEISPIEL_URL} target="_blank" rel="noopener" class="text-sm font-semibold text-cta-accessible underline underline-offset-4">Beispiel ansehen: ein Hersteller von Sanitärarmaturen (anonymisiert) →</a>
-        </div>
-        <p class="mt-4 text-sm text-muted-foreground">Kostenlos · mit Ihrer Firmen-E-Mail · in der Regel bis zum nächsten Werktag</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="h-faq" class="border-b border-border bg-background">
-      <div class="mx-auto max-w-3xl px-6 py-16 lg:px-8">
-        <h2 id="h-faq" class="cai-h2">Häufige Fragen</h2>
-        <div class="mt-8 divide-y divide-border rounded-2xl border border-border">
-          {faq.map((f) => (
-            <details class="snapfaq group px-6 py-5">
-              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-foreground">{f.q}<span class="text-cta-accessible transition-transform group-open:rotate-45" aria-hidden="true">+</span></summary>
-              <p class="mt-3 text-base leading-relaxed text-muted-foreground">{f.a}{f.q.startsWith('Was passiert') && <> <a href={`${base}/datenschutz/#visibility-snapshot`} class="text-cta-accessible underline underline-offset-4">Datenschutzhinweise</a></>}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section aria-labelledby="h-talk" class="bg-background">
-      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
-          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">Lieber direkt sprechen?</p>
-          <h2 id="h-talk" class="cai-h2">30 Minuten: Ihr Befund und Ihr Weg.</h2>
-          <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">Wir sehen uns gemeinsam an, wo Sie in der KI stehen, aus welchen Quellen sie bei Ihren Fragen liest – und ob wir das für Sie umsetzen oder Ihr Team dafür fit machen. Per Video oder Telefon, kostenlos.</p>
-          <a href={`${base}/#termin`} class="mt-8 inline-flex items-center gap-2 rounded-xl bg-cta-strong px-6 py-3.5 font-bold text-white">Termin vereinbaren →</a>
-        </div>
-      </div>
-    </section>
-  </main>
-  <Footer lang="de" />
-</Layout>
-
-<style>
-  .snapcmp th, .snapcmp td { border-bottom:1px solid hsl(var(--border)); }
-  .snapcmp thead th { background:hsl(var(--muted) / .35); }
-  .snapcmp tbody tr:last-child th, .snapcmp tbody tr:last-child td { border-bottom:0; }
-  .snapcmp .snapcmp-a { background:hsl(var(--cta) / .07); }
-  .snapcmp .yes { font-weight:700; color:hsl(var(--confirm-text)); }
-  .snapcmp .no { color:hsl(var(--muted-foreground)); }
-  .snapfaq summary::-webkit-details-marker { display:none; }
-  @media (max-width:640px) { .snapcmp th, .snapcmp td { padding:10px; font-size:12.5px; } }
-</style>
-<script>
-  try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_view', lang: 'de' }); } catch (e) {}
-</script>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    <script is:inline set:html={`location.replace(${JSON.stringify(base + '/')} + location.search + '#snapshot');`} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Weitergeleitet zum Visibility Snapshot | CodaAI</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
+    <p>
+      Den Visibility Snapshot finden Sie jetzt direkt auf der
+      <a href={target} style="color: hsl(var(--cta-accessible)); font-weight: 600;">Startseite</a>.
+    </p>
+  </body>
+</html>

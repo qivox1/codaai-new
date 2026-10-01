@@ -212,6 +212,7 @@ function codaHomeInit(){
   [['hero','hero'],['problem','problem'],['spiegel','spiegel'],
    ['outcome','outcome'],['angebot',CD.offerId]].forEach(function(pair){
     var key=pair[0], id=pair[1];
+    if(!document.getElementById(id)) return;
     ScrollTrigger.create({trigger:'#'+id,start:'top center',end:'bottom center',
       onToggle:function(self){ if(self.isActive){
         document.querySelectorAll('.dotnav a').forEach(function(a){a.classList.toggle('on',a.dataset.nav===key);});
@@ -310,6 +311,19 @@ function codaHomeInit(){
     // 4) AUFLÖSUNG — überlappender Crossfade direkt in den Schluss (Overlay deckt die Kette voll ab)
   })();
 
+
+
+  /* ---------- Sprungknöpfe zum Snapshot (01.10.2026) ----------
+     Scrollen zum Kopfbereich und setzen den Fokus ins Website-Feld. */
+  document.querySelectorAll('[data-snapgo]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var box=document.getElementById('snapshot'); if(!box) return;
+      e.preventDefault();
+      box.scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});
+      var inp=box.querySelector('[data-domain]');
+      if(inp) setTimeout(function(){ try{ inp.focus({preventScroll:true}); }catch(_){ inp.focus(); } }, reduced?0:600);
+    });
+  });
 
   /* ---------- Begriffe-Akkordeon: vier Begriffe als Weg + Mini-Szenen ----------
      01.10.2026: ersetzt die drei Tab-Karten (SEO/AEO/GEO). Das Markup trägt

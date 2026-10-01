@@ -12,7 +12,7 @@
    Zahlformat), reicht `copy.js` als `window.CODA_HOME_COPY` an das Inline-Skript
    weiter — ein `<script is:inline>` kann keine Astro-Ausdrücke lesen. */
 import AuditCTA from './AuditCTA.astro';
-import SnapshotTeaser from '../snapshot/SnapshotTeaser.astro';
+import SnapshotModule from '../snapshot/SnapshotModule.astro';
 
 interface Props {
   lang?: 'de' | 'en';
@@ -33,7 +33,7 @@ const offerId = lang === 'de' ? 'angebot' : 'offer';
 
 const copy = {
   de: {
-    nav: ['Start', 'Das Problem', 'Ein echtes Audit', 'Das Angebot', 'Auftragseingang'],
+    nav: ['Start', 'Das Problem', 'Ein Beispiel', 'Das Angebot', 'Auftragseingang'],
 
     /* ── Hero ── */
     h1a: 'Die KI empfiehlt drei Anbieter.',
@@ -166,11 +166,11 @@ const copy = {
     sumAll: 'Vier Kürzel, ein Fundament: Wer SEO sauber macht, hat für die anderen drei schon die halbe Arbeit erledigt.',
 
     /* ── Der Spiegel ── */
-    miEyebrow: 'Beispiel-Audit · echte Zahlen, Firmenname entfernt',
-    miH2a: 'Ein echtes Audit zeigt schwarz auf weiß,',
+    miEyebrow: 'Beispiel · KI-Wettbewerbsvergleich · echte Zahlen, Firmenname entfernt',
+    miH2a: 'Der Wettbewerbsvergleich zeigt schwarz auf weiß,',
     miH2b: 'wer statt Ihnen empfohlen wird.',
-    miLead: 'Für dieses Unternehmen — ein deutscher Hersteller von Sanitärarmaturen aus dem Mittelstand — haben wir 8 Fragen formuliert, die seine Käufer wirklich stellen: zu seinen Produkten, seinem Markt, seinen Wettbewerbern. Dann haben wir sie ChatGPT und Googles KI-Übersicht gestellt und protokolliert, wer genannt wurde. Name und Logo sind entfernt. Die Befunde nicht.',
-    miCue: 'Klappen Sie eine Frage auf. In Ihrem Audit steht dort Ihre Branche — und der Name, der statt Ihrem genannt wird.',
+    miLead: 'Ein deutscher Hersteller von Sanitärarmaturen, acht Fragen seiner Käufer, gestellt an ChatGPT und Googles KI-Übersicht. Der Name ist entfernt, die Befunde nicht.',
+    miCue: 'Klappen Sie eine Frage auf. In Ihrem Vergleich steht dort Ihre Branche — und der Name, der statt Ihrem genannt wird.',
     miAnon: 'Firmenname entfernt · Zahlen unverändert',
     miKpi: [
       { v: '0 %', l: 'KI-Sichtbarkeit' },
@@ -205,8 +205,8 @@ const copy = {
       },
     ],
     miFoot: 'Auszug: 3 von 8 individuell formulierten Käuferfragen.',
-    miFootLink: 'Das vollständige Audit ansehen →',
-    miAfter: 'Für Ihr Unternehmen formulieren wir eigene Fragen. Ergebnis in 24 Stunden.',
+    miFootLink: 'Den vollständigen Vergleich ansehen →',
+    miAfter: 'So sieht Ihr Vergleich aus. Er beginnt mit einer einzigen Frage.',
     miAfterCta: 'Und Ihr Unternehmen? Website eingeben, Ergebnis sehen:',
 
     /* ── Angebot ── */
@@ -236,7 +236,7 @@ const copy = {
     offCta: 'Erst das Ergebnis, dann entscheiden Sie:',
     offMicro: [
       'Kostenlos und unverbindlich.',
-      'Kein Verkaufsanruf — Sie erhalten das Audit per E-Mail.',
+      'Ergebnis in rund 20 Sekunden, ohne Anmeldung.',
       'Auch sinnvoll, wenn Sie eine Agentur haben: sie bekommt die Bausteine.',
     ],
 
@@ -537,11 +537,11 @@ const copy = {
   <a href="#problem" data-nav="problem"><span>{copy.nav[1]}</span></a>
   <a href="#spiegel" data-nav="spiegel"><span>{copy.nav[2]}</span></a>
   <a href={`#${offerId}`} data-nav="angebot"><span>{copy.nav[3]}</span></a>
-  <a href="#outcome" data-nav="outcome"><span>{copy.nav[4]}</span></a>
+  {lang !== 'de' && <a href="#outcome" data-nav="outcome"><span>{copy.nav[4]}</span></a>}
 </div>
 
 <!-- ================= HERO ================= -->
-<section class="hero" id="hero">
+<section class={lang === 'de' ? 'hero hero--snap' : 'hero'} id="hero">
   <div class="hero-aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
   <div class="hero-spot" id="herospot"></div>
   <div class="wrap hero-grid">
@@ -552,11 +552,24 @@ const copy = {
       </h1>
       <p class="hl2">{copy.hl2} <span class="flip" id="flip" aria-live="polite"><span class="sizer">{copy.flipSizer}</span></span></p>
       <p class="desc">{copy.desc}</p>
-      <div class="ctas">
-        <AuditCTA lang={lang} label={copy.heroCta} source="home-hero" />
-      </div>
+      {lang === 'de' ? (
+        <ul class="hero-ki" aria-label="Geprüfte KI-Systeme">
+          {[['chatgpt','ChatGPT'],['claude','Claude'],['gemini','Gemini'],['perplexity','Perplexity'],['google','Google AI Mode']].map(([f, l]) => (
+            <li><img src={`/images/ki-logos/${f}.svg`} alt="" width="20" height="20" />{l}</li>
+          ))}
+        </ul>
+      ) : (
+        <div class="ctas">
+          <AuditCTA lang={lang} label={copy.heroCta} source="home-hero" />
+        </div>
+      )}
     </div>
 
+    {lang === 'de' ? (
+      <div class="hero-snap" id="snapshot">
+        <SnapshotModule source="home" />
+      </div>
+    ) : (
     <div class="kicard-wrap" id="ktilt">
       <div class="kicard" id="kicard">
         <span class="kbadge"><span class="pulse"></span> {copy.kBadge}</span>
@@ -572,6 +585,7 @@ const copy = {
       </div>
       <p class="kcap">{copy.kCap}</p>
     </div>
+    )}
   </div>
 </section>
 
@@ -624,13 +638,6 @@ const copy = {
     </div>
   </div>
 </section>
-
-<!-- ================= VISIBILITY SNAPSHOT (Teaser, nur DE, seit 24.09.2026) ================= -->
-{lang === 'de' && (
-  <div class="snapt-slot" style="padding:72px 24px;">
-    <SnapshotTeaser source="home" />
-  </div>
-)}
 
 <!-- ================= DREI STELLEN + BEGRIFFE (Akkordeon) ================= -->
 <!-- Ersetzt die frühere gepinnte SEO/AEO/GEO-Horizontalszene (~200vh Scrollstrecke
@@ -802,7 +809,7 @@ const copy = {
 
     <div class="mi-card" id="mi-card">
       <div class="mi-top">
-        <span class="mi-lg">Coda<em>AI</em> Digital Visibility Audit</span>
+        <span class="mi-lg">Coda<em>AI</em> {lang === 'de' ? 'KI-Wettbewerbsvergleich' : 'Digital Visibility Audit'}</span>
         <span class="mi-anon">{copy.miAnon}</span>
       </div>
 
@@ -879,7 +886,9 @@ const copy = {
 
     <div class="mi-after">
       <p>{copy.miAfter}</p>
-      <AuditCTA lang={lang} label={copy.miAfterCta} source="home-audit" />
+      {lang === 'de'
+        ? <a class="snap-go" href="#snapshot" data-snapgo>Snapshot starten <span aria-hidden="true">↑</span></a>
+        : <AuditCTA lang={lang} label={copy.miAfterCta} source="home-audit" />}
     </div>
   </div>
 </section>
@@ -923,13 +932,19 @@ const copy = {
     <a class="off-link" href={copy.offLinkHref}>{copy.offLink}</a>
 
     <div class="off-cta">
-      <AuditCTA lang={lang} label={copy.offCta} source="home-offer" />
+      {lang === 'de' ? (
+        <div class="off-btns">
+          <a class="snap-go snap-go--dark" href="#snapshot" data-snapgo>Snapshot starten <span aria-hidden="true">↑</span></a>
+          <a class="off-sec" href="#termin">Erstgespräch vereinbaren</a>
+        </div>
+      ) : <AuditCTA lang={lang} label={copy.offCta} source="home-offer" />}
       <p class="off-micro">{copy.offMicro[0]}<s>·</s>{copy.offMicro[1]}<s>·</s>{copy.offMicro[2]}</p>
     </div>
   </div>
 </section>
 
 <!-- ================= OUTCOME — „Die Kette" ================= -->
+{lang !== 'de' && (
 <section class="outcome" id="outcome">
   <div class="oc-scene" id="oc-scene">
     <div class="oc-stage">
@@ -978,6 +993,7 @@ const copy = {
     </div>
   </div>
 </section>
+)}
 
 </div>
 
@@ -1118,9 +1134,10 @@ const copy = {
     letter-spacing:-.02em;color:hsl(var(--muted-foreground))}
   .flip{display:inline-block;position:relative;min-height:1.2em}
   .flip .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(16px);filter:blur(10px);color:hsl(var(--muted-foreground))}
-  .flip .w.pink{color:var(--magenta)}
+  /* 01.10.2026: gleiche Farbe wie der Knopf „Snapshot starten“ (Beschluss Oli) */
+  .flip .w.pink{color:var(--magenta-strong)}
   .flip .w.in{opacity:1;transform:none;filter:blur(0);transition:opacity .4s ease,transform .4s ease,filter .4s ease,text-shadow .6s ease}
-  .flip .w.pink.in{text-shadow:0 0 28px hsl(var(--cta) / .5)}
+  .flip .w.pink.in{text-shadow:0 0 28px hsl(var(--cta-strong) / .35)}
   .flip .w.out{opacity:0;transform:translateY(-16px);filter:blur(10px);transition:opacity .32s ease,transform .32s ease,filter .32s ease}
   .flip .sizer{visibility:hidden;white-space:nowrap;color:transparent}
   .hero p.desc{margin-top:22px;max-width:56ch;color:hsl(var(--foreground));line-height:1.65;font-size:1.04rem}
@@ -1705,6 +1722,28 @@ const copy = {
     .bg-fade,.bg-chip,.bg-fl,.bg-fact,.bg-dot,.bg-fill,.bg-r{transition:none!important}
     .bg-typing::after{animation:none}
   }
+
+
+  /* ── 01.10.2026 Prototyp „Startseite aufgeräumt“: Snapshot im Kopfbereich ──
+     Das Modul nutzt hsl(var(--card)); in #cai-premium ist --card als
+     hsl(var(--card)) selbstreferenziell und damit ungültig → hier lokal auf
+     das globale Tripel zurücksetzen. */
+  .hero--snap .hero-grid{grid-template-columns:minmax(0,1fr) 520px;align-items:start}
+  @media(max-width:1040px){.hero--snap .hero-grid{grid-template-columns:minmax(0,1fr)}}
+  .hero-snap{position:relative;z-index:2;--card:var(--surface-paper);scroll-margin-top:110px}
+  .hero-snap .snap{max-width:none}
+  .hero-ki{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;list-style:none;padding:0}
+  .hero-ki li{display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:var(--fg)}
+  .hero-ki img{width:20px;height:20px}
+  .snap-go{display:inline-flex;align-items:center;gap:10px;justify-self:start;background:var(--magenta-strong);color:#fff;
+    font-weight:700;font-size:1rem;padding:15px 24px;border-radius:var(--btn-radius);text-decoration:none;transition:filter .2s,transform .2s}
+  .snap-go:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .snap-go--dark{background:hsl(var(--navy-900))}
+  .off-btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .off-sec{display:inline-flex;align-items:center;padding:14px 22px;border-radius:var(--btn-radius);border:1.5px solid #fff;
+    color:#fff;font-weight:700;text-decoration:none}
+  .off-sec:hover{background:rgba(255,255,255,.12)}
+  .off-btns+.off-micro{margin-top:16px}
 
   /* ── Der Spiegel: echtes Muster-Audit, Interaktion statt Animation ── */
   .mirror{background:var(--bg);padding:clamp(72px,10vh,112px) 0;border-top:1px solid var(--line)}

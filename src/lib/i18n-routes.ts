@@ -65,8 +65,8 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
 
   // -- GEO-Optimierung, Pillar-Seite (18.09.2026) ---------------------------
   ['/wissen/geo-optimierung/', '/en/knowledge/geo-optimization/'],
-  // 18.09.2026: Landingpage KI-Sichtbarkeits-Check (Ergebnis zuerst).
-  ['/check/', '/en/check/'],
+  // 18.09.2026: Landingpage KI-Sichtbarkeits-Check — Paar am 01.10.2026 aufgelöst:
+  // /check/ ist seither eine Weiterleitung auf den Snapshot der Startseite.
   // 22.09.2026: Faktenseite (Grounding Page) — Stammdaten fuer Presse, Verzeichnisse, KI.
   ['/fakten/', '/en/facts/'],
 
@@ -142,9 +142,11 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
  * Durchsicht die Frage „vergessen oder Absicht?".
  *
  *   DE-only : /leistungen/ (noindex-Weiterleitung)
+ *             /check/, /visibility-snapshot/ (noindex-Weiterleitungen auf /#snapshot, 01.10.2026)
  *             (ki-sichtbarkeit-praxis hat seit 22.09.2026 eine EN-Fassung)
  *             /checkout-success/ (Stripe abgeschaltet, noindex)
- *   EN-only : – (ai-content-marketing-strategy-guide seit 22.09.2026 Weiterleitung)
+ *   EN-only : /en/check/ (bis es den Snapshot auf Englisch gibt)
+ *            – (ai-content-marketing-strategy-guide seit 22.09.2026 Weiterleitung)
  *
  *   Kein Paar trotz beidseitiger Existenz:
  *     /kontakt/ ↔ /en/contact/ — beide sind noindex-Weiterleitungen (s. o.)

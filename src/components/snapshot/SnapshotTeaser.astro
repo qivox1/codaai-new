@@ -1,8 +1,16 @@
 ---
 /**
- * SnapshotTeaser — auffälliges Band, das auf /visibility-snapshot/ führt
- * (Startseite, Webinar-Seite; seit 24.09.2026). Mini-Eingabe: Website + Frage
- * → Weiterleitung mit ?d=…&q=… → dort startet der Snapshot automatisch.
+ * SnapshotTeaser — schlanker Einstieg in den Visibility Snapshot.
+ *
+ * Seit 01.10.2026 (Startseite aufgeräumt, Beschluss Oli) liegt der Snapshot
+ * selbst im Kopfbereich der Startseite (#snapshot); /visibility-snapshot/ ist
+ * nur noch eine Weiterleitung. Dieser Teaser ersetzt auf Glossar, Leitfaden
+ * und Webinar-Seite das frühere Audit-Formular: Website + Frage eingeben →
+ * Sprung auf /?d=…&q=…#snapshot → dort startet der Snapshot automatisch.
+ *
+ * Gestaltung bewusst flach im CodaAI-Design (Mist-Fläche, eine Linie, ein
+ * magenta Knopf) — die frühere dunkle Karte mit großem Radius und Leuchten
+ * passte nicht zum Rest der Seite (Rückmeldung Oli, 01.10.2026).
  * dataLayer: snapshot_teaser_click {source}
  */
 interface Props { source?: string }
@@ -13,49 +21,53 @@ const logos = [['chatgpt', 'ChatGPT'], ['claude', 'Claude'], ['gemini', 'Gemini'
 <div role="region" class="snapt" data-snapt data-source={source} aria-labelledby={`snapt-h-${source}`}>
   <div class="snapt-in">
     <div class="snapt-copy">
-      <p class="snapt-k"><span class="snapt-dot" aria-hidden="true"></span>Neu · Visibility Snapshot</p>
-      <h2 id={`snapt-h-${source}`} class="snapt-h">Empfiehlt die KI Sie — <span>wenn Ihre Kunden fragen?</span></h2>
-      <p class="snapt-p">Stellen Sie fünf KI-Systemen die Frage Ihrer Kunden. In 20 Sekunden sehen Sie, ob Sie genannt werden — und wen die KI stattdessen empfiehlt.</p>
+      <p class="snapt-k">Visibility Snapshot · kostenlos</p>
+      <h2 id={`snapt-h-${source}`} class="snapt-h">Empfiehlt die KI Sie, <span>wenn Ihre Kunden fragen?</span></h2>
+      <p class="snapt-p">Stellen Sie fünf KI-Systemen die Frage Ihrer Kunden. In rund 20 Sekunden sehen Sie, ob Sie genannt werden — und wen die KI stattdessen empfiehlt.</p>
       <ul class="snapt-logos" aria-label="Geprüfte KI-Systeme">
-        {logos.map(([f, l], i) => <li style={`--i:${i}`}><img src={`${base}/images/ki-logos/${f}.svg`} alt={l} width="26" height="26" /></li>)}
+        {logos.map(([f, l]) => <li><img src={`${base}/images/ki-logos/${f}.svg`} alt="" width="18" height="18" />{l}</li>)}
       </ul>
     </div>
-    <form class="snapt-form" data-tform action={`${base}/visibility-snapshot/`} method="get">
-      <input class="snapt-f" name="d" type="text" inputmode="url" spellcheck="false" placeholder="Ihre Website, z. B. ihrefirma.de" aria-label="Ihre Website" />
-      <textarea class="snapt-f" name="q" rows="2" maxlength="250" placeholder="Die Frage Ihrer Kunden, z. B. „Welche Anbieter für … sind führend?“" aria-label="Frage Ihrer Kunden"></textarea>
+    <form class="snapt-form" data-tform action={`${base}/`} method="get">
+      <label class="snapt-l" for={`snapt-d-${source}`}>Ihre Website</label>
+      <input class="snapt-f" id={`snapt-d-${source}`} name="d" type="text" inputmode="url" spellcheck="false" placeholder="z. B. ihrefirma.de" />
+      <label class="snapt-l" for={`snapt-q-${source}`}>Eine Frage, die Ihre Kunden der KI stellen würden</label>
+      <textarea class="snapt-f" id={`snapt-q-${source}`} name="q" rows="2" maxlength="250" placeholder="z. B. Welche Anbieter für … sind in Deutschland führend?"></textarea>
       <button type="submit" class="snapt-go">Snapshot starten <span aria-hidden="true">→</span></button>
-      <p class="snapt-m">Kostenlos · Ergebnis ohne Anmeldung</p>
+      <p class="snapt-m">Ergebnis ohne Anmeldung</p>
     </form>
   </div>
 </div>
 
 <style>
-  .snapt { position:relative; overflow:hidden; border-radius:28px; margin:0 auto; max-width:1200px;
-    background:radial-gradient(120% 140% at 100% 0%, hsl(var(--cta-strong) / .55) 0%, transparent 55%), #0F1B2D; color:#fff; }
-  .snapt::after { content:""; position:absolute; inset:auto -10% -60% auto; width:420px; height:420px; border-radius:50%;
-    background:hsl(var(--cta) / .25); filter:blur(80px); pointer-events:none; }
-  .snapt-in { position:relative; z-index:1; display:grid; gap:32px; padding:44px; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); align-items:center; }
-  .snapt-k { display:inline-flex; align-items:center; gap:8px; margin:0 0 12px; font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:hsl(var(--cta-on-dark, 320 80% 75%)); }
-  .snapt-dot { width:8px; height:8px; border-radius:50%; background:hsl(var(--cta)); box-shadow:0 0 0 0 hsl(var(--cta) / .7); animation:snapt-ping 1.8s infinite; }
-  @keyframes snapt-ping { 70% { box-shadow:0 0 0 10px hsl(var(--cta) / 0); } 100% { box-shadow:0 0 0 0 hsl(var(--cta) / 0); } }
-  .snapt-h { margin:0; font-size:clamp(28px, 3.4vw, 42px); line-height:1.12; font-weight:800; color:#fff; }
-  .snapt-h span { color:hsl(var(--cta-on-dark, 320 80% 75%)); }
-  .snapt-p { margin:14px 0 0; font-size:17px; line-height:1.55; color:rgba(255,255,255,.82); max-width:34em; }
-  .snapt-logos { display:flex; gap:12px; margin:22px 0 0; padding:0; list-style:none; }
-  .snapt-logos li { display:inline-flex; width:48px; height:48px; align-items:center; justify-content:center; border-radius:50%; background:#fff;
-    animation:snapt-glow 5s ease-in-out infinite; animation-delay:calc(var(--i) * 1s); }
-  @keyframes snapt-glow { 0%,100% { transform:scale(1); box-shadow:none; } 10% { transform:scale(1.12); box-shadow:0 0 0 4px hsl(var(--cta) / .6); } 20% { transform:scale(1); box-shadow:none; } }
-  .snapt-form { display:flex; flex-direction:column; gap:10px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); border-radius:20px; padding:20px; backdrop-filter:blur(6px); }
-  .snapt-f { width:100%; border:0; border-radius:12px; padding:13px 14px; font-size:16px; background:#fff; color:#0F1B2D; resize:none; line-height:1.4; }
-  .snapt-f:focus { outline:3px solid hsl(var(--cta) / .5); }
-  .snapt-go { border:0; border-radius:12px; padding:15px; font-size:16px; font-weight:800; color:#fff; cursor:pointer; background:hsl(var(--cta-strong)); }
-  .snapt-go:hover { filter:brightness(1.1); }
-  .snapt-m { margin:2px 0 0; text-align:center; font-size:12.5px; color:rgba(255,255,255,.7); }
-  @media (max-width:900px) { .snapt-in { grid-template-columns:1fr; padding:28px 22px; } }
-  @media (prefers-reduced-motion: reduce) { .snapt-logos li, .snapt-dot { animation:none; } }
+  .snapt { margin:0 auto; max-width:1200px; background:hsl(var(--surface-mist)); border:1px solid hsl(var(--border)); border-radius:var(--btn-radius, 14px); color:hsl(var(--foreground)); }
+  .snapt-in { display:grid; gap:32px; padding:36px; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); align-items:center; }
+  .snapt-k { margin:0 0 10px; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:hsl(var(--cta-accessible)); }
+  .snapt-h { margin:0; font-size:clamp(24px, 2.8vw, 32px); line-height:1.2; font-weight:700; letter-spacing:-.015em; color:hsl(var(--foreground)); }
+  .snapt-h span { background-image:linear-gradient(135deg, hsl(var(--navy-600)), hsl(var(--cta))); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .snapt-p { margin:12px 0 0; font-size:16px; line-height:1.6; color:hsl(var(--muted-foreground)); max-width:34em; }
+  .snapt-logos { display:flex; flex-wrap:wrap; gap:8px 16px; margin:18px 0 0; padding:0; list-style:none; }
+  .snapt-logos li { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:hsl(var(--foreground)); }
+  .snapt-form { display:flex; flex-direction:column; gap:8px; background:hsl(var(--surface-paper)); border:1px solid hsl(var(--border)); border-radius:var(--btn-radius, 14px); padding:20px; }
+  .snapt-l { font-size:13px; font-weight:600; color:hsl(var(--foreground)); }
+  .snapt-f { width:100%; border:1px solid hsl(var(--border-strong)); border-radius:12px; padding:12px 14px; font:inherit; font-size:16px; background:hsl(var(--surface-paper)); color:hsl(var(--foreground)); resize:none; line-height:1.4; }
+  .snapt-f:focus { outline:3px solid hsl(var(--cta) / .35); border-color:hsl(var(--cta)); }
+  .snapt-go { margin-top:6px; border:0; border-radius:var(--btn-radius, 14px); padding:14px; font:inherit; font-size:16px; font-weight:700; color:#fff; cursor:pointer; background:hsl(var(--cta-strong)); }
+  .snapt-go:hover { filter:brightness(1.08); }
+  .snapt-m { margin:2px 0 0; text-align:center; font-size:12.5px; color:hsl(var(--muted-foreground)); }
+  @media (max-width:900px) { .snapt-in { grid-template-columns:1fr; padding:24px 20px; gap:22px; } }
 </style>
 <script>
-  document.querySelectorAll<HTMLFormElement>('[data-tform]').forEach((f) => f.addEventListener('submit', () => {
-    try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_teaser_click', source: f.closest<HTMLElement>('[data-snapt]')?.dataset.source }); } catch (e) {}
+  document.querySelectorAll<HTMLFormElement>('[data-tform]').forEach((f) => f.addEventListener('submit', (e) => {
+    try { ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'snapshot_teaser_click', source: f.closest<HTMLElement>('[data-snapt]')?.dataset.source }); } catch (_) {}
+    // Sprung direkt zum Modul im Kopfbereich der Startseite (ein GET-Formular kann keinen #-Anker setzen).
+    e.preventDefault();
+    const p = new URLSearchParams();
+    const d = (f.elements.namedItem('d') as HTMLInputElement | null)?.value.trim();
+    const q = (f.elements.namedItem('q') as HTMLTextAreaElement | null)?.value.trim();
+    if (d) p.set('d', d);
+    if (q) p.set('q', q);
+    const qs = p.toString();
+    location.href = f.getAttribute('action') + (qs ? `?${qs}` : '') + '#snapshot';
   }));
 </script>
