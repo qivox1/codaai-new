@@ -880,6 +880,23 @@ const beispiele = [
         sbBox.hidden = true;
         const tech = ((res.technik && res.technik.length ? res.technik : technik) || []).filter((t: any) => t.key !== 'llms');
         const techFehlt = tech.filter((t: any) => t.ok === false);
+        // Prototyp 02.10.2026: Befunde für die linke Spalte der Startseite
+        const befunde: { typ: string; t: string; d: string }[] = [];
+        if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) befunde.push({ typ: 'quellen',
+          t: res.eigene_quelle_n === 0 ? 'Die KI zitiert Ihre Website nicht' : 'Die KI zitiert lieber andere Websites',
+          d: `${res.eigene_quelle_n === 0 ? 'Stattdessen' : `Ihre nur ${res.eigene_quelle_n}×, stattdessen`} ${liste(qd)}.` });
+        if (sb.text && sb.urteil && sb.urteil !== 'richtig') befunde.push({ typ: 'bekanntheit',
+          t: `${sb.system || 'ChatGPT'} ${({ ungenau: 'beschreibt Ihr Angebot ungenau', falsch: 'beschreibt Ihr Unternehmen falsch', unbekannt: 'kennt Ihr Unternehmen nicht' } as any)[sb.urteil] || 'kennt Sie kaum'}`,
+          d: 'Gefragt ohne Websuche, also aus dem, was das Modell über Sie gelernt hat.' });
+        const techT: Record<string, [string, string]> = {
+          crawler: ['KI-Systeme dürfen Ihre Website nicht lesen', 'Ihre robots.txt sperrt die Crawler der KI-Anbieter aus.'],
+          schutz: ['Ihr Website-Schutz sperrt KI-Systeme aus', 'Die Firewall weist die Crawler der KI-Anbieter ab.'],
+          text: ['Ohne JavaScript sieht die KI kaum Inhalt', 'KI-Crawler führen meist kein JavaScript aus.'],
+          klar: ['Für die KI ist unklar, was Sie anbieten', 'Die Startseite benennt Ihr Angebot nicht eindeutig.'],
+          aktuell: ['Ihre Inhalte wirken veraltet', 'KI-Systeme bevorzugen aktuelle Quellen.'],
+          schema: ['Ihre Firmendaten sind nicht maschinenlesbar', 'Kein Schema.org auf der Startseite, KI-Systeme ordnen Sie dadurch schlechter ein.'] };
+        techFehlt.forEach((t: any) => befunde.push({ typ: 'technik', t: (techT[t.key] || [t.label])[0], d: (techT[t.key] || [, t.detail || ''])[1] || '' }));
+        const vornN = sys.filter((s: any) => s.antwort && !(s.genannt && s.platz === 1)).length;
         techFehlt.forEach((t: any) => zeilen.push(['Technik', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
         const zeilenK = zeilen.filter((z) => !z[2]);   // 01.10.2026: Systemzeilen stehen schon in der Logo-Zeile
@@ -901,7 +918,7 @@ const beispiele = [
           } else dt.textContent = t;
           dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
-        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length;
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length || (root.dataset.source === 'home' && befunde.length > 0);
         const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
         if (fremde.length) {
           const b = document.createElement('b'); b.textContent = g === 0 ? 'Stattdessen empfohlen: ' : 'Ebenfalls empfohlen: ';
@@ -1025,7 +1042,17 @@ const beispiele = [
             },
           };
           const t = T[icp];
-          const [z1, z2] = t.h[zustand];
+          // Prototyp 02.10.2026 (2): Befund steht in der H1, der Kasten stellt die Frage dazu
+          const rz = (o: Record<string, string>) => o[icp] || o.gf;
+          const fr: Record<string, [Zeile, string]> = {
+            hinten: [['Was macht ', { b: W }, ' besser?'], rz({ gf: 'Der Wettbewerbsvergleich zeigt es Ihnen.',
+              vl: `Der Wettbewerbsvergleich zeigt, wo ${W} Ihnen Anfragen abnimmt.`, ml: `Der Wettbewerbsvergleich zeigt, welche Quellen ${W} nach vorn bringen.` })],
+            fehlt: [['Warum empfiehlt die KI andere?'], rz({ gf: 'Der Wettbewerbsvergleich zeigt es Ihnen.',
+              vl: 'Der Wettbewerbsvergleich zeigt, warum diese Anfragen an Ihnen vorbeigehen.', ml: 'Der Wettbewerbsvergleich zeigt, welche Quellen der KI über Sie fehlen.' })],
+            vorn: [['Und bei Ihren anderen Kundenfragen?'], 'Der Wettbewerbsvergleich zeigt, wo andere vorn liegen.'],
+            offen: [['Wer steht vor Ihnen?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],
+          };
+          const [z1, z2] = (root.dataset.source === 'home' && fr[zustand]) ? fr[zustand] : t.h[zustand];
           const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
           const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
           z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });
@@ -1061,7 +1088,8 @@ const beispiele = [
           for (const r of fremde) { const k = String(r.name).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); if (!seen.has(k)) { seen.add(k); wett.push(r.name); } if (wett.length >= 3) break; }
           document.dispatchEvent(new CustomEvent('snapshot:ergebnis', { detail: {
             domain: res.domain, marke: M, genannt: g, von, nF: res.fragen_geschaetzt || 0, wett, liste: wvListe,
-            zustand: root.dataset.zustand, icp, lvl, stand: res.stand,
+            zustand: root.dataset.zustand, icp, lvl, stand: res.stand, befunde, vornN,
+            W: g === 0 ? (rivTop[0] || '') : (vornTop[0] || (fremde[0] && fremde[0].anzahl > g ? fremde[0].name : '')),
             rang: (res.rangliste || []).map((r: any) => ({ name: r.name, anzahl: r.anzahl, erste: r.erste, eigen: !!r.eigen })) } }));
         }
         dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });
