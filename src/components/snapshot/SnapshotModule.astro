@@ -635,6 +635,8 @@ const beispiele = [
         dom.addEventListener('blur', holeVorschlag);
         dom.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); holeVorschlag(); frage.focus(); } });
         frage.addEventListener('focus', () => { if (tippt) sofort = true; });
+        // 02.10.2026: Absenden, während der Vorschlag sich eintippt → ganzen Vorschlag nehmen (sonst ging der halbe Satz raus)
+        form.addEventListener('submit', () => { if (tippt && vorschlagText) { sofort = true; frage.value = vorschlagText; } }, true);
         frage.addEventListener('input', () => { if (!tippt && vhint && !vhint.hidden) { vhint.hidden = true; if (vorschlagText) dl.push({ event: 'snapshot_vorschlag_angepasst', lang, source: root.dataset.source }); vorschlagText = ''; } });
       }
 
@@ -1089,6 +1091,7 @@ const beispiele = [
           document.dispatchEvent(new CustomEvent('snapshot:ergebnis', { detail: {
             domain: res.domain, marke: M, genannt: g, von, nF: res.fragen_geschaetzt || 0, wett, liste: wvListe,
             zustand: root.dataset.zustand, icp, lvl, stand: res.stand, befunde, vornN,
+            technik: tech.map((t: any) => ({ key: t.key, label: t.label, ok: t.ok })),
             W: g === 0 ? (rivTop[0] || '') : (vornTop[0] || (fremde[0] && fremde[0].anzahl > g ? fremde[0].name : '')),
             rang: (res.rangliste || []).map((r: any) => ({ name: r.name, anzahl: r.anzahl, erste: r.erste, eigen: !!r.eigen })) } }));
         }

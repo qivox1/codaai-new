@@ -1052,8 +1052,17 @@ const copy = {
     balken(d);
     /* BEFUNDE-20261002: Gründe links über dem Kasten */
     var bf=(d.befunde||[]).slice(0,3), bx=q('[data-wvp-bef]'), hero0=box.closest('.hero');
-    bx.hidden = en || !bf.length; q('[data-wvp-offen]').hidden = bx.hidden; if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
-    if(!bx.hidden){
+    var tk=(d.technik||[]), okModus=!bf.length && tk.length>0 && tk.every(function(t){ return t.ok===true; });
+    bx.hidden = en || (!bf.length && !okModus); q('[data-wvp-offen]').hidden = bx.hidden; bx.classList.toggle('is-ok', !!okModus);
+    q('[data-wvp-offen] strong').textContent = okModus ? (d.W ? 'Warum '+d.W+' trotzdem vorn liegt, zeigt der Wettbewerbsvergleich' : 'Wo andere vorn liegen, zeigt der Wettbewerbsvergleich') : 'Die übrigen Gründe zeigt der Wettbewerbsvergleich';
+    if(!bx.hidden && okModus){
+      var bh0=q('[data-wvp-befh]'); bh0.innerHTML=''; bh0.append('Technisch ist ', fett(d.domain||''), ' gut aufgestellt');
+      var bl0=q('[data-wvp-befl]'); bl0.innerHTML='';
+      tk.forEach(function(t){ var li=document.createElement('li'), i=document.createElement('i'), sp=document.createElement('strong');
+        i.setAttribute('aria-hidden','true'); i.textContent='✓'; sp.textContent=t.label; li.append(i,sp); bl0.appendChild(li); });
+    }
+if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
+    if(!bx.hidden && !okModus){
       var zahl=['Einen','Zwei','Drei'][bf.length-1];
       var bh=q('[data-wvp-befh]'); bh.innerHTML=''; bh.append(zahl+(bf.length===1?' Grund':' Gründe')+' haben wir auf ', fett(d.domain||''), ' schon gefunden');
       var bl=q('[data-wvp-befl]'); bl.innerHTML='';
@@ -1062,6 +1071,7 @@ const copy = {
         if(b.d){ var sm=document.createElement('span'); sm.textContent=b.d; dv.append(sm); } li.append(i,dv); bl.appendChild(li); });
       var lz=document.createElement('li'); lz.className='is-offen'; var i2=document.createElement('i'); i2.textContent='+'; i2.setAttribute('aria-hidden','true');
       var d2=document.createElement('div'); var s2=document.createElement('strong'); s2.textContent='Die übrigen Gründe zeigt der Wettbewerbsvergleich'; d2.append(s2); /* offene Zeile steht seit Stufe 4 über dem Kasten */
+      if(tk.length && tk.every(function(t){ return t.ok===true; })){ var lt=document.createElement('li'); lt.className='is-tech-ok'; var it=document.createElement('i'); it.setAttribute('aria-hidden','true'); it.textContent='✓'; var st2=document.createElement('strong'); st2.textContent='Technik geprüft: alle '+tk.length+' Punkte in Ordnung'; lt.append(it,st2); bl.appendChild(lt); }
     }
     if(!en && d.vornN>0){ var hh=q('.wvp-h'); hh.innerHTML=''; var em=document.createElement('em');
       if(d.genannt===0){ em.textContent='Keines der '+(d.von||5)+' KI-Systeme'; hh.append(em,' nennt Sie bei dieser Frage.'); }
@@ -1864,6 +1874,25 @@ const copy = {
   @media(min-width:1041px){.hero.wvp-an p.desc{display:none}}
   /* HELL-20261002: Befund in der H1, linker Kasten hell, rechts nur Frage + Knopf */
   html[lang^="de"] .wvp .wvp-kopf{display:none}
+  /* STUFE6-20261002: Technik in Ordnung + ruhigere Typografie im Vergleichs-Kasten */
+  .wvp-bef.is-ok .wvp-bef-l{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+  .wvp-bef.is-ok .wvp-bef-l li{align-items:center}
+  .wvp-bef.is-ok .wvp-bef-l i{background:hsl(var(--confirm));font-size:12px}
+  .wvp-bef-l li.is-tech-ok{align-items:center}
+  .wvp-bef-l li.is-tech-ok i{background:hsl(var(--confirm));font-size:12px}
+  .wvp-bef-l li.is-tech-ok strong{font-weight:500;font-size:.9rem}
+  .wvp-bef.is-ok .wvp-bef-l strong{font-weight:500;font-size:.9rem}
+  @media(max-width:480px){.wvp-bef.is-ok .wvp-bef-l{grid-template-columns:1fr}}
+  #hero .wvp .wvp-p{font-size:15px;font-weight:600;color:var(--fg)}
+  #hero .wvp .wvp-p b{font-weight:600}
+  #hero .wvp .wvp-bars-k,#hero .wvp .wvp-dots-t,#hero .wvp .wvp-demo-f,#hero .wvp .wvp-bars li small,#hero .wvp .wvp-wer{font-size:12px;line-height:1.4}
+  #hero .wvp .wvp-dots-t b{font-size:12px;font-weight:600}
+  #hero .wvp .wvp-wer{font-weight:400;margin-top:0}
+  #hero .wvp .wvp-bars li{font-size:13px;grid-template-columns:150px minmax(0,1fr) 16px 60px}
+  #hero .wvp .wvp-bars span{color:var(--fg)}
+  #hero .wvp .wvp-bars b{font-weight:400}
+  #hero .wvp .wvp-bars li.is-you span,#hero .wvp .wvp-bars li.is-you b{font-weight:600}
+  @media(max-width:480px){#hero .wvp .wvp-bars li{grid-template-columns:110px minmax(0,1fr) 16px 56px}}
   /* HINWEIS-20261002 */
   .hero-disc{grid-column:1 / -1;position:relative;z-index:2}
   .hero-disc[hidden]{display:none}

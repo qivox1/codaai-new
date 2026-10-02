@@ -22,3 +22,11 @@
 
 ## Arbeitsordner
 `umbau-digital-visibility/snapshot-befunde-2026-10-02/`: Skripte `proto_befunde.py` → `proto_h1_hell.py` → `proto_feinschliff.py` → `proto_buendig_unten.py` → `proto_hinweis_breit.py` (in dieser Reihenfolge auf das Repo angewendet), Backups in `backup/`, Vorher/Nachher-Bilder jenz.de.
+
+## Nachtrag 02.10.2026 nachmittags (Test Oli mit piepenbrock.de)
+
+1. **Abgeschnittene Frage behoben:** Wer auf „Prüfen“ klickte, während sich der Fragenvorschlag eintippte, schickte den halben Satz ab (z. B. „… große Industrieunt“). Jetzt vervollständigt ein Submit-Listener (Capture) im Vorschlagsblock die Frage vor dem Absenden. Mit Playwright geprüft: Klick bei „Welcher Dienstleister“ → gesendet wird die ganze Frage.
+2. **Technik ohne Befund sichtbar:** Sind alle 6 Technik-Punkte in Ordnung und gibt es keine anderen Gründe, steht links „Technisch ist {domain} gut aufgestellt“ mit 6 grünen Haken (zweispaltig) und „Warum {W} trotzdem vorn liegt, zeigt der Wettbewerbsvergleich“. Gibt es Gründe, aber keinen Technik-Befund, kommt unter die Gründe „✓ Technik geprüft: alle 6 Punkte in Ordnung“. Ereignis `snapshot:ergebnis` trägt dafür `technik`.
+3. **Vergleichs-Kasten ruhiger:** drei Größen (15 px Titel halbfett, 13 px Zeilen, 12 px Beschriftungen), Zahlen nicht mehr fett (nur eigene Firma halbfett), Namensspalte 150 px.
+H1 mit langen Namen (z. B. „Die KI empfiehlt ISS Facility Services.“) wird ab 37 Zeichen automatisch kleiner gesetzt — so belassen.
+Skripte: `fix_technik_typo_frage.py`, `fix_technik_ok_zeile.py`.
