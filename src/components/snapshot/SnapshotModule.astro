@@ -616,7 +616,7 @@ const beispiele = [
           if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(d) || d === fuerDomain) return;
           if (frage.value.trim() && frage.value !== vorschlagText) return;   // nie Eingetipptes überschreiben
           fuerDomain = d;
-          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 4500);
+          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 8000);   // Server-Fallback über die Angebotskategorie (02.10.2026)
           try {
             const r = await fetch(API + '/ai/frage/vorschlag', { method: 'POST', headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ domain: d, test_key: testKey || undefined }), signal: ac.signal });
@@ -801,14 +801,17 @@ const beispiele = [
             hinweis(res.hinweis || 'Bitte formulieren Sie die Frage anders.', res.vorschlag || '', !!res.weiter);
             frage.focus();
           } else {
-            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Audit direkt anfordern
+            const unerreichbar = !!(res && res.status === 'invalid' && res.feld === 'domain' && res.dns);   // 02.10.2026
+            if (res && (res.status === 'limit' || unerreichbar)) {   // Tages-/Stundenlimit oder Website sperrt die Prüfung: Vergleich direkt anfordern
               show(err, '');
               limDomain = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
-              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'Für den vollständigen Überblick fordern Sie Ihren KI-Wettbewerbsvergleich an: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.';
+              ($('[data-limt]') as HTMLElement).textContent = unerreichbar
+                ? `${res.hinweis || 'Ihre Website lässt unsere automatische Prüfung gerade nicht zu.'} Ihren KI-Wettbewerbsvergleich erstellen wir trotzdem: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.`
+                : (res.hinweis || 'Für den vollständigen Überblick fordern Sie Ihren KI-Wettbewerbsvergleich an: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.');
               ($('[data-limat]') as HTMLElement).textContent = '@' + limDomain;
               ($('[data-limbtn]') as HTMLElement).hidden = false; ($('[data-limf]') as HTMLElement).hidden = true;
               ($('[data-limdone]') as HTMLElement).hidden = true; ($('[data-lim]') as HTMLElement).hidden = false;
-              dl.push({ event: 'snapshot_limit', lang, source: root.dataset.source });
+              dl.push({ event: unerreichbar ? 'snapshot_unerreichbar' : 'snapshot_limit', lang, source: root.dataset.source });
             } else {
               show(err, (res && res.hinweis) || 'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.');
             }
@@ -867,7 +870,8 @@ const beispiele = [
           if (s.antwort && !s.genannt) zeilen.push([s.label, `Nicht genannt${emp}.`, s]);
           else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Platz ${s.platz}${(s.vor || []).length ? ` – hinter ${liste(s.vor)}` : ''}.`, s]);
         });
-        const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
+        const qStamm = (x: string) => x.replace(/^(www|de|en|blog|shop|news)\./, '').split('.')[0];   // 02.10.2026: eine Firma = eine Quelle
+        const qd = (res.quellen || []).map((x: any) => x.domain).filter((x: string, k: number, a: string[]) => a.findIndex((y) => qStamm(y) === qStamm(x)) === k).slice(0, 3);
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
           zeilen.push(['Quellen', `Ihre Website ${res.eigene_quelle_n === 0 ? 'wird nicht' : `nur ${res.eigene_quelle_n}×`} zitiert – stattdessen ${liste(qd)}.`]);
         }
@@ -923,7 +927,7 @@ const beispiele = [
           } else dt.textContent = t;
           dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
-        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length || (root.dataset.source === 'home' && befunde.length > 0);
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length || (/^home/.test(root.dataset.source || '') && befunde.length > 0);
         const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
         if (fremde.length) {
           const b = document.createElement('b'); b.textContent = g === 0 ? 'Stattdessen empfohlen: ' : 'Ebenfalls empfohlen: ';
@@ -1058,7 +1062,7 @@ const beispiele = [
             meist: [W ? ['Wo überholt Sie ', { b: W }, '?'] : ['Wo fehlen Sie noch?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],
             offen: [['Wer steht vor Ihnen?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],
           };
-          const [z1, z2] = (root.dataset.source === 'home' && fr[zustand]) ? fr[zustand] : (t.h[zustand] || t.h.hinten);
+          const [z1, z2] = (/^home/.test(root.dataset.source || '') && fr[zustand]) ? fr[zustand] : (t.h[zustand] || t.h.hinten);
           const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
           const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
           z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });

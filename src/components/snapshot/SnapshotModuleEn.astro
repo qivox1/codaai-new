@@ -1,7 +1,7 @@
 ---
 /**
  * GENERIERT von scripts/make-snapshot-en.py aus SnapshotModule.astro — nicht von Hand ändern.
- * Englische Fassung für /en/ (01.10.2026).
+ * Englische Fassung für /en/ (01.10.2026, Startseiten-Ergebnis seit 02.10.2026).
  *
  * SnapshotModule — „Visibility Snapshot" (seit 24.09.2026, Konzept: Claude-Doc
  * „KI-Empfehlungs-Check — Konzept", Name-Entscheidung Oli 24.09.).
@@ -559,7 +559,7 @@ const beispiele = [
       const liveCheck = () => {
         if (serverHinweis) return;
         const st = stamm(), q = frage.value;
-        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&') + '[\\p{L}-]*)', 'iu')) : null;
+        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/-/g, '[\\s-]?') + '[\\p{L}-]*)', 'iu')) : null;
         if (m) hinweis(`“${m[2]}” is your own name – the point is whether AI recommends you by itself. Ask the way a customer who does not know you yet would ask, e.g. “Which suppliers of … are leading in Germany?”`);
         else hinweis('');
       };
@@ -619,7 +619,7 @@ const beispiele = [
           if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(d) || d === fuerDomain) return;
           if (frage.value.trim() && frage.value !== vorschlagText) return;   // nie Eingetipptes überschreiben
           fuerDomain = d;
-          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 4500);
+          const t1 = Date.now(), ac = new AbortController(), to = setTimeout(() => ac.abort(), 8000);   // Server-Fallback über die Angebotskategorie (02.10.2026)
           try {
             const r = await fetch(API + '/ai/frage/vorschlag', { method: 'POST', headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ domain: d, lang: 'en', test_key: testKey || undefined }), signal: ac.signal });
@@ -638,6 +638,8 @@ const beispiele = [
         dom.addEventListener('blur', holeVorschlag);
         dom.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); holeVorschlag(); frage.focus(); } });
         frage.addEventListener('focus', () => { if (tippt) sofort = true; });
+        // 02.10.2026: Absenden, während der Vorschlag sich eintippt → ganzen Vorschlag nehmen (sonst ging der halbe Satz raus)
+        form.addEventListener('submit', () => { if (tippt && vorschlagText) { sofort = true; frage.value = vorschlagText; } }, true);
         frage.addEventListener('input', () => { if (!tippt && vhint && !vhint.hidden) { vhint.hidden = true; if (vorschlagText) dl.push({ event: 'snapshot_vorschlag_angepasst', lang, source: root.dataset.source }); vorschlagText = ''; } });
       }
 
@@ -802,14 +804,17 @@ const beispiele = [
             hinweis(res.hinweis || 'Please phrase the question differently.', res.vorschlag || '', !!res.weiter);
             frage.focus();
           } else {
-            if (res && res.status === 'limit') {   // Tages-/Stundenlimit: Audit direkt anfordern
+            const unerreichbar = !!(res && res.status === 'invalid' && res.feld === 'domain' && res.dns);   // 02.10.2026
+            if (res && (res.status === 'limit' || unerreichbar)) {   // Tages-/Stundenlimit oder Website sperrt die Prüfung: Vergleich direkt anfordern
               show(err, '');
               limDomain = d.trim().toLowerCase().replace(/^[a-z]+:\/\//, '').replace(/^www\./, '').split(/[\/?#\s]/)[0];
-              ($('[data-limt]') as HTMLElement).textContent = res.hinweis || 'For the full picture, request your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.';
+              ($('[data-limt]') as HTMLElement).textContent = unerreichbar
+                ? `${res.hinweis || 'Your website does not allow our automated check at the moment.'} We can still prepare your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.`
+                : (res.hinweis || 'For the full picture, request your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.');
               ($('[data-limat]') as HTMLElement).textContent = '@' + limDomain;
               ($('[data-limbtn]') as HTMLElement).hidden = false; ($('[data-limf]') as HTMLElement).hidden = true;
               ($('[data-limdone]') as HTMLElement).hidden = true; ($('[data-lim]') as HTMLElement).hidden = false;
-              dl.push({ event: 'snapshot_limit', lang, source: root.dataset.source });
+              dl.push({ event: unerreichbar ? 'snapshot_unerreichbar' : 'snapshot_limit', lang, source: root.dataset.source });
             } else {
               show(err, (res && res.hinweis) || 'The snapshot is not available right now. Please try again later.');
             }
@@ -831,8 +836,11 @@ const beispiele = [
         const fettL = (a: string[]) => liste(a.map((x) => `\u0001${x}\u0002`));
         const fremde = (res.rangliste || []).filter((r: any) => !r.eigen);
         const vorn: Record<string, number> = {};
-        sys.forEach((s: any) => (s.vor || []).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }));
-        const vornTop = Object.entries(vorn).sort((x, y) => y[1] - x[1]).slice(0, 2).map((x) => x[0]);
+        // Härtung 02.10.2026: wo die Marke genannt ist, zählen die davor; wo sie fehlt, die dort empfohlenen
+        sys.forEach((s: any) => { if (!s.antwort) return; (s.genannt ? (s.vor || []) : (s.empfiehlt || [])).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }); });
+        const rangIdx = (n: string) => { const i = fremde.findIndex((r: any) => r.name === n); return i < 0 ? 99 : i; };
+        const vornListe = Object.entries(vorn).sort((x, y) => (y[1] - x[1]) || (rangIdx(x[0]) - rangIdx(y[0])));
+        const vornTop = vornListe.slice(0, 2).map((x) => x[0]);
         const rivTop = fremde.slice(0, 2).map((r: any) => r.name);
         const fehltN = sys.filter((s: any) => s.antwort && !s.genannt).length;
         let lvl = 'mittel', lbl = 'Room to grow', satz = '';
@@ -865,7 +873,8 @@ const beispiele = [
           if (s.antwort && !s.genannt) zeilen.push([s.label, `Not named${emp}.`, s]);
           else if (s.genannt && s.platz > 1) zeilen.push([s.label, `Rank ${s.platz}${(s.vor || []).length ? ` – behind ${liste(s.vor)}` : ''}.`, s]);
         });
-        const qd = (res.quellen || []).slice(0, 3).map((x: any) => x.domain);
+        const qStamm = (x: string) => x.replace(/^(www|de|en|blog|shop|news)\./, '').split('.')[0];   // 02.10.2026: eine Firma = eine Quelle
+        const qd = (res.quellen || []).map((x: any) => x.domain).filter((x: string, k: number, a: string[]) => a.findIndex((y) => qStamm(y) === qStamm(x)) === k).slice(0, 3);
         if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) {
           zeilen.push(['Sources', `Your website is ${res.eigene_quelle_n === 0 ? 'not cited' : `cited only ${res.eigene_quelle_n}×`} – instead: ${liste(qd)}.`]);
         }
@@ -883,6 +892,23 @@ const beispiele = [
         sbBox.hidden = true;
         const tech = ((res.technik && res.technik.length ? res.technik : technik) || []).filter((t: any) => t.key !== 'llms');
         const techFehlt = tech.filter((t: any) => t.ok === false);
+        // Prototyp 02.10.2026: Befunde für die linke Spalte der Startseite
+        const befunde: { typ: string; t: string; d: string }[] = [];
+        if (qd.length && res.eigene_quelle_n < res.quellen_sys_n) befunde.push({ typ: 'quellen',
+          t: res.eigene_quelle_n === 0 ? 'AI does not cite your website' : 'AI prefers to cite other websites',
+          d: `${res.eigene_quelle_n === 0 ? 'Instead:' : `Yours only ${res.eigene_quelle_n}×, instead:`} ${liste(qd)}.` });
+        if (sb.text && sb.urteil && sb.urteil !== 'richtig') befunde.push({ typ: 'bekanntheit',
+          t: `${sb.system || 'ChatGPT'} ${({ ungenau: 'describes your offering inaccurately', falsch: 'describes your company wrongly', unbekannt: 'does not know your company' } as any)[sb.urteil] || 'hardly knows you'}`,
+          d: 'Asked without web search, i.e. from what the model has learned about you.' });
+        const techT: Record<string, [string, string]> = {
+          crawler: ['AI systems may not read your website', 'Your robots.txt blocks the AI providers’ crawlers.'],
+          schutz: ['Your website protection locks AI systems out', 'The firewall turns away the AI providers’ crawlers.'],
+          text: ['Without JavaScript, AI sees hardly any content', 'AI crawlers usually do not run JavaScript.'],
+          klar: ['AI cannot tell what you offer', 'Your homepage does not name your offering clearly.'],
+          aktuell: ['Your content looks out of date', 'AI systems prefer current sources.'],
+          schema: ['Your company data is not machine-readable', 'No Schema.org on your homepage, so AI systems place you less reliably.'] };
+        techFehlt.forEach((t: any) => befunde.push({ typ: 'technik', t: (techT[t.key] || [t.label])[0], d: (techT[t.key] || [, t.detail || ''])[1] || '' }));
+        const vornN = sys.filter((s: any) => s.antwort && !(s.genannt && s.platz === 1)).length;
         techFehlt.forEach((t: any) => zeilen.push(['Technical', t.detail || t.label]));
         const fl = $('[data-find]') as HTMLElement; fl.innerHTML = '';
         const zeilenK = zeilen.filter((z) => !z[2]);   // 01.10.2026: Systemzeilen stehen schon in der Logo-Zeile
@@ -904,7 +930,7 @@ const beispiele = [
           } else dt.textContent = t;
           dd.textContent = d; row.append(dt, dd); fl.appendChild(row);
         });
-        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length;
+        ($('[data-findbox]') as HTMLElement).hidden = !zeilenK.length || (/^home/.test(root.dataset.source || '') && befunde.length > 0);
         const also = $('[data-also]') as HTMLElement; also.innerHTML = '';
         if (fremde.length) {
           const b = document.createElement('b'); b.textContent = g === 0 ? 'Recommended instead: ' : 'Also recommended: ';
@@ -917,7 +943,7 @@ const beispiele = [
           const fett = (n: string) => { const b = document.createElement('b'); b.textContent = n; return b; };
           const vor: Record<string, number> = {};
           sys.forEach((x: any) => { const n = (x.vor || [])[0]; if (n) vor[n] = (vor[n] || 0) + 1; });
-          const vl = Object.entries(vor).sort((a, b) => b[1] - a[1]);
+          const vl = vornListe;
           if (g === 0 && fremde.length) {
             vz.append('Recommended instead: ');
             fremde.slice(0, 3).forEach((r: any, k: number) => { if (k) vz.append(', '); vz.append(fett(r.name), ` (${r.anzahl}×)`); });
@@ -975,7 +1001,7 @@ const beispiele = [
         // Überschrift, Text und Liste je Rolle (icp) und Befund (Stand 28.09.2026)
         {
           const W = g === 0 ? (rivTop[0] || '') : (vornTop[0] || (top && top.anzahl > g ? top.name : ''));
-          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && W) ? 'hinten' : 'offen';
+          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && e1 * 2 > von) ? 'meist' : (g > 0 && W) ? 'hinten' : 'offen';
           const nFr = nF >= 20 ? `around ${nF}` : '';
           type Zeile = (string | { b: string })[];
           // bei „nicht genannt“ bis zu drei Wettbewerber in der Überschrift (28.09.2026), max. ~45 Zeichen
@@ -1028,7 +1054,18 @@ const beispiele = [
             },
           };
           const t = T[icp];
-          const [z1, z2] = t.h[zustand];
+          // Prototyp 02.10.2026 (2): Befund steht in der H1, der Kasten stellt die Frage dazu
+          const rz = (o: Record<string, string>) => o[icp] || o.gf;
+          const fr: Record<string, [Zeile, string]> = {
+            hinten: [['What does ', { b: W }, ' do better?'], rz({ gf: 'The competitor comparison shows you.',
+              vl: `The competitor comparison shows where ${W} takes enquiries from you.`, ml: `The competitor comparison shows which sources put ${W} ahead.` })],
+            fehlt: [['Why does AI recommend others?'], rz({ gf: 'The competitor comparison shows you.',
+              vl: 'The competitor comparison shows why these enquiries pass you by.', ml: 'The competitor comparison shows which sources about you AI is missing.' })],
+            vorn: [['And for your other customer questions?'], 'The competitor comparison shows where others are ahead.'],
+            meist: [W ? ['Where does ', { b: W }, ' overtake you?'] : ['Where are you still missing?'], 'The competitor comparison shows you.'],
+            offen: [['Who is ahead of you?'], 'The competitor comparison shows you.'],
+          };
+          const [z1, z2] = (/^home/.test(root.dataset.source || '') && fr[zustand]) ? fr[zustand] : (t.h[zustand] || t.h.hinten);
           const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
           const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
           z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });
@@ -1064,7 +1101,9 @@ const beispiele = [
           for (const r of fremde) { const k = String(r.name).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); if (!seen.has(k)) { seen.add(k); wett.push(r.name); } if (wett.length >= 3) break; }
           document.dispatchEvent(new CustomEvent('snapshot:ergebnis', { detail: {
             domain: res.domain, marke: M, genannt: g, von, nF: res.fragen_geschaetzt || 0, wett, liste: wvListe,
-            zustand: root.dataset.zustand, icp, lvl, stand: res.stand,
+            zustand: root.dataset.zustand, icp, lvl, stand: res.stand, befunde, vornN,
+            technik: tech.map((t: any) => ({ key: t.key, label: t.label, ok: t.ok })),
+            W: g === 0 ? (rivTop[0] || '') : (vornTop[0] || (fremde[0] && fremde[0].anzahl > g ? fremde[0].name : '')),
             rang: (res.rangliste || []).map((r: any) => ({ name: r.name, anzahl: r.anzahl, erste: r.erste, eigen: !!r.eigen })) } }));
         }
         dl.push({ event: 'snapshot_result', icp, zustand: root.dataset.zustand, lang, genannt: res.genannt, von: res.von, erste: res.erste_stelle, cached: !!res.cached, source: root.dataset.source });

@@ -28,7 +28,7 @@ def rep(old, new, n=1):
 
 rep("---\n/**\n * SnapshotModule — „Visibility Snapshot\"",
     "---\n/**\n * GENERIERT von scripts/make-snapshot-en.py aus SnapshotModule.astro — nicht von Hand ändern.\n"
-    " * Englische Fassung für /en/ (01.10.2026).\n *\n * SnapshotModule — „Visibility Snapshot\"")
+    " * Englische Fassung für /en/ (01.10.2026, Startseiten-Ergebnis seit 02.10.2026).\n *\n * SnapshotModule — „Visibility Snapshot\"")
 
 # ------------------------------------------------------------------ Frontmatter
 rep("  'Welche Anbieter für [Ihr Produkt] sind in Deutschland führend?',\n"
@@ -146,8 +146,47 @@ J = [
     ("loadH.textContent = 'Das dauert heute ungewöhnlich lange. Wir bleiben dran …';", "loadH.textContent = 'This is taking unusually long today. We are staying on it …';"),
     ("hinweis: 'Die KI-Systeme antworten gerade sehr langsam. Bitte versuchen Sie es in ein paar Minuten noch einmal.'", "hinweis: 'The AI systems are responding very slowly right now. Please try again in a few minutes.'"),
     ("hinweis(res.hinweis || 'Bitte formulieren Sie die Frage anders.',", "hinweis(res.hinweis || 'Please phrase the question differently.',"),
-    ("res.hinweis || 'Für den vollständigen Überblick fordern Sie Ihren KI-Wettbewerbsvergleich an: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.';",
-     "res.hinweis || 'For the full picture, request your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.';"),
+    # 02.10.2026: Limit ODER Website sperrt die Prüfung
+    ("? `${res.hinweis || 'Ihre Website lässt unsere automatische Prüfung gerade nicht zu.'} Ihren KI-Wettbewerbsvergleich erstellen wir trotzdem: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.`",
+     "? `${res.hinweis || 'Your website does not allow our automated check at the moment.'} We can still prepare your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.`"),
+    (": (res.hinweis || 'Für den vollständigen Überblick fordern Sie Ihren KI-Wettbewerbsvergleich an: wer statt Ihnen empfohlen wird, bei welchen Fragen, und was zu tun ist.');",
+     ": (res.hinweis || 'For the full picture, request your AI competitor comparison: who is recommended instead of you, for which questions, and what to do.');"),
+    # 02.10.2026: Befunde für die linke Spalte
+    ("t: res.eigene_quelle_n === 0 ? 'Die KI zitiert Ihre Website nicht' : 'Die KI zitiert lieber andere Websites',",
+     "t: res.eigene_quelle_n === 0 ? 'AI does not cite your website' : 'AI prefers to cite other websites',"),
+    ("d: `${res.eigene_quelle_n === 0 ? 'Stattdessen' : `Ihre nur ${res.eigene_quelle_n}×, stattdessen`} ${liste(qd)}.` });",
+     "d: `${res.eigene_quelle_n === 0 ? 'Instead:' : `Yours only ${res.eigene_quelle_n}×, instead:`} ${liste(qd)}.` });"),
+    ("({ ungenau: 'beschreibt Ihr Angebot ungenau', falsch: 'beschreibt Ihr Unternehmen falsch', unbekannt: 'kennt Ihr Unternehmen nicht' } as any)[sb.urteil] || 'kennt Sie kaum'",
+     "({ ungenau: 'describes your offering inaccurately', falsch: 'describes your company wrongly', unbekannt: 'does not know your company' } as any)[sb.urteil] || 'hardly knows you'"),
+    ("d: 'Gefragt ohne Websuche, also aus dem, was das Modell über Sie gelernt hat.' });",
+     "d: 'Asked without web search, i.e. from what the model has learned about you.' });"),
+    ("crawler: ['KI-Systeme dürfen Ihre Website nicht lesen', 'Ihre robots.txt sperrt die Crawler der KI-Anbieter aus.'],",
+     "crawler: ['AI systems may not read your website', 'Your robots.txt blocks the AI providers’ crawlers.'],"),
+    ("schutz: ['Ihr Website-Schutz sperrt KI-Systeme aus', 'Die Firewall weist die Crawler der KI-Anbieter ab.'],",
+     "schutz: ['Your website protection locks AI systems out', 'The firewall turns away the AI providers’ crawlers.'],"),
+    ("text: ['Ohne JavaScript sieht die KI kaum Inhalt', 'KI-Crawler führen meist kein JavaScript aus.'],",
+     "text: ['Without JavaScript, AI sees hardly any content', 'AI crawlers usually do not run JavaScript.'],"),
+    ("klar: ['Für die KI ist unklar, was Sie anbieten', 'Die Startseite benennt Ihr Angebot nicht eindeutig.'],",
+     "klar: ['AI cannot tell what you offer', 'Your homepage does not name your offering clearly.'],"),
+    ("aktuell: ['Ihre Inhalte wirken veraltet', 'KI-Systeme bevorzugen aktuelle Quellen.'],",
+     "aktuell: ['Your content looks out of date', 'AI systems prefer current sources.'],"),
+    ("schema: ['Ihre Firmendaten sind nicht maschinenlesbar', 'Kein Schema.org auf der Startseite, KI-Systeme ordnen Sie dadurch schlechter ein.'] };",
+     "schema: ['Your company data is not machine-readable', 'No Schema.org on your homepage, so AI systems place you less reliably.'] };"),
+    # 02.10.2026: Abschluss auf der Startseite (Frage + Nutzen)
+    ("hinten: [['Was macht ', { b: W }, ' besser?'], rz({ gf: 'Der Wettbewerbsvergleich zeigt es Ihnen.',\n"
+     "              vl: `Der Wettbewerbsvergleich zeigt, wo ${W} Ihnen Anfragen abnimmt.`, ml: `Der Wettbewerbsvergleich zeigt, welche Quellen ${W} nach vorn bringen.` })],",
+     "hinten: [['What does ', { b: W }, ' do better?'], rz({ gf: 'The competitor comparison shows you.',\n"
+     "              vl: `The competitor comparison shows where ${W} takes enquiries from you.`, ml: `The competitor comparison shows which sources put ${W} ahead.` })],"),
+    ("fehlt: [['Warum empfiehlt die KI andere?'], rz({ gf: 'Der Wettbewerbsvergleich zeigt es Ihnen.',\n"
+     "              vl: 'Der Wettbewerbsvergleich zeigt, warum diese Anfragen an Ihnen vorbeigehen.', ml: 'Der Wettbewerbsvergleich zeigt, welche Quellen der KI über Sie fehlen.' })],",
+     "fehlt: [['Why does AI recommend others?'], rz({ gf: 'The competitor comparison shows you.',\n"
+     "              vl: 'The competitor comparison shows why these enquiries pass you by.', ml: 'The competitor comparison shows which sources about you AI is missing.' })],"),
+    ("vorn: [['Und bei Ihren anderen Kundenfragen?'], 'Der Wettbewerbsvergleich zeigt, wo andere vorn liegen.'],",
+     "vorn: [['And for your other customer questions?'], 'The competitor comparison shows where others are ahead.'],"),
+    ("meist: [W ? ['Wo überholt Sie ', { b: W }, '?'] : ['Wo fehlen Sie noch?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],",
+     "meist: [W ? ['Where does ', { b: W }, ' overtake you?'] : ['Where are you still missing?'], 'The competitor comparison shows you.'],"),
+    ("offen: [['Wer steht vor Ihnen?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],",
+     "offen: [['Who is ahead of you?'], 'The competitor comparison shows you.'],"),
     ("'Der Snapshot ist gerade nicht verfügbar. Bitte später erneut versuchen.'", "'The snapshot is not available right now. Please try again later.'"),
     ("`${a.slice(0, -1).join(', ')} und ${a[a.length - 1]}`", "`${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}`"),
     ("let lvl = 'mittel', lbl = 'Ausbaufähig', satz = '';", "let lvl = 'mittel', lbl = 'Room to grow', satz = '';"),

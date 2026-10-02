@@ -1016,7 +1016,7 @@ const copy = {
     q('[data-wvp-bk]').textContent = en ? ('Your question in '+von+' AI systems: named · of which first')
                                         : ('Ihre Frage in '+von+' KI-Systemen: genannt · davon zuerst');
     var dt=q('[data-wvp-dt]'); dt.innerHTML='';
-    if(en) dt.append(fett('1'),' checked · ',fett('19'),' open');
+    if(en){ dt.append(fett('1'),' checked · ',fett('19'),' open'); var wg0=document.createElement('em'); wg0.className='wvp-wer'; wg0.textContent='Who wins them?'; dt.append(wg0); }
     else { dt.append(fett('1'),' geprüft · ',fett('19'),' offen'); var wg=document.createElement('em'); wg.className='wvp-wer'; wg.textContent='Wer gewinnt sie?'; dt.append(wg); }
     q('[data-wvp-f]').textContent = en ? ('Real results from your snapshot'+(d.stand?' on '+d.stand:'')+' · the comparison measures all 20 questions')
                                        : ('Echte Ergebnisse aus Ihrem Snapshot'+(d.stand?' vom '+d.stand:'')+' · der Vergleich misst alle 20 Fragen');
@@ -1029,65 +1029,63 @@ const copy = {
     var f=function(){ ziel.hidden = sr.getAttribute('data-state')!=='res'; }; f();
     try{ new MutationObserver(f).observe(sr,{attributes:true,attributeFilter:['data-state']}); }catch(_){}
   })();
-  /* H1-20261002: die H1 beantwortet ihre Frage */
+  /* H1-20261002 (zweisprachig seit 02.10.2026 abends): die H1 beantwortet ihre Frage */
+  var T=function(de,enT){ return en?enT:de; };
+  function liste(a){ return a.length>1 ? a.slice(0,-1).join(', ')+T(' und ',' and ')+a[a.length-1] : (a[0]||''); }
   var h1=document.querySelector('.hero .cai-h1'), hk1=h1&&h1.querySelector('.k1'), hk2=h1&&h1.querySelector('.k2');
   var h1orig=h1?[hk1.textContent,hk2.textContent]:null, h1neu=false;
   function setH1(a,b){ if(!h1) return; h1.classList.remove('cai-kipp'); void h1.offsetWidth; hk1.textContent=a; hk2.textContent=b;
     h1.classList.toggle('h1-lang', a.length>36); h1.classList.add('cai-kipp'); }
   function h1Ergebnis(d){
-    if(en||!h1) return; var Mk=d.marke||d.domain, W=d.W||'', z=d.zustand, a='', b='';
-    if(z==='fehlt'&&(d.wett||[]).length){ var ns=[]; (d.wett||[]).forEach(function(n){ var t=ns.concat([n]); if(ns.length<3&&(!ns.length||t.join(', ').length<=30)) ns=t; });
-      a='Die KI empfiehlt '+(ns.length>1?ns.slice(0,-1).join(', ')+' und '+ns[ns.length-1]:ns[0])+'.'; b='Nicht '+Mk+'.'; }
-    else if(z==='meist'){ a='Die KI empfiehlt '+Mk+'.'; b='Aber nicht überall.'; }
-    else if(z==='hinten'&&W){ a='Die KI empfiehlt '+W+'.'; b='Vor '+Mk+'.'; }
-    else if(z==='vorn'){ a='Die KI empfiehlt '+Mk+'.'; b='Bei dieser Frage.'; }
-    else if(d.genannt>0){ a='Die KI nennt '+Mk+'.'; b='Aber nicht als Erste.'; }
+    if(!h1) return; var Mk=d.marke||d.domain, W=d.W||'', z=d.zustand, a='', b='', E=T('Die KI empfiehlt ','The AI recommends ');
+    if(z==='fehlt'&&(d.wett||[]).length){ var ns=[]; (d.wett||[]).some(function(n){ var t=ns.concat([n]); if(ns.length>=3||(ns.length&&t.join(', ').length>30)) return true; ns=t; return false; });
+      a=E+liste(ns)+'.'; b=T('Nicht ','Not ')+Mk+'.'; }
+    else if(z==='meist'){ a=E+Mk+'.'; b=T('Aber nicht überall.','But not everywhere.'); }
+    else if(z==='hinten'&&W){ a=E+W+'.'; b=T('Vor ','Ahead of ')+Mk+'.'; }
+    else if(z==='vorn'){ a=E+Mk+'.'; b=T('Bei dieser Frage.','For this question.'); }
+    else if(d.genannt>0){ a=T('Die KI nennt ','The AI mentions ')+Mk+'.'; b=T('Aber nicht als Erste.','But not first.'); }
     if(!a) return; setH1(a,b); h1neu=true;
   }
   try{ var snapRoot=document.querySelector('#snapshot [data-snap]');
     if(snapRoot&&window.MutationObserver) new MutationObserver(function(){ if(h1neu&&snapRoot.getAttribute('data-state')!=='res'){ h1neu=false; setH1(h1orig[0],h1orig[1]); h1.classList.remove('h1-lang'); } })
       .observe(snapRoot,{attributes:true,attributeFilter:['data-state']}); }catch(_){}
+  function zeile(ul, cls, zeichen, titel, unter){ var li=document.createElement('li'), i=document.createElement('i'), dv=document.createElement('div'), st=document.createElement('strong');
+    if(cls) li.className=cls; i.setAttribute('aria-hidden','true'); i.textContent=zeichen; st.textContent=titel; dv.append(st);
+    if(unter){ var sm=document.createElement('span'); sm.textContent=unter; dv.append(sm); } li.append(i,dv); ul.appendChild(li); }
   document.addEventListener('snapshot:ergebnis', function(e){
     h1Ergebnis(e.detail||{});
-    var d=e.detail||{}, w=d.wett||[], nF=d.nF||0;
+    var d=e.detail||{}, nF=d.nF||0;
     balken(d);
-    /* BEFUNDE-20261002: Gründe links über dem Kasten */
-    var bf=(d.befunde||[]).slice(0,3), bx=q('[data-wvp-bef]'), hero0=box.closest('.hero');
-    var tk=(d.technik||[]), okModus=!bf.length && tk.length>0 && tk.every(function(t){ return t.ok===true; });
-    bx.hidden = en || (!bf.length && !okModus); q('[data-wvp-offen]').hidden = bx.hidden; bx.classList.toggle('is-ok', !!okModus);
-    q('[data-wvp-offen] strong').textContent = okModus ? (d.W ? 'Warum '+d.W+' trotzdem vorn liegt, zeigt der Wettbewerbsvergleich' : 'Wo andere vorn liegen, zeigt der Wettbewerbsvergleich') : 'Die übrigen Gründe zeigt der Wettbewerbsvergleich';
+    /* Gründe links über dem Kasten; Technik-Zustände inkl. „nicht prüfbar“ (02.10.2026) */
+    var bf=(d.befunde||[]).slice(0,3), bx=q('[data-wvp-bef]'), hero0=box.closest('.hero'), tk=(d.technik||[]);
+    var nOk=tk.filter(function(t){ return t.ok===true; }).length, nNa=tk.filter(function(t){ return t.ok!==true && t.ok!==false; }).length,
+        nBad=tk.filter(function(t){ return t.ok===false; }).length;
+    var okModus=!bf.length && tk.length>0 && !nBad && nOk>0;
+    bx.hidden = (!bf.length && !okModus); q('[data-wvp-offen]').hidden = bx.hidden; bx.classList.toggle('is-ok', !!okModus);
+    q('[data-wvp-offen] strong').textContent = okModus
+      ? (d.W ? T('Warum '+d.W+' trotzdem vorn liegt, zeigt der Wettbewerbsvergleich','The competitor comparison shows why '+d.W+' is still ahead')
+             : T('Wo andere vorn liegen, zeigt der Wettbewerbsvergleich','The competitor comparison shows where others are ahead'))
+      : T('Die übrigen Gründe zeigt der Wettbewerbsvergleich','The competitor comparison shows the other reasons');
+    var bh=q('[data-wvp-befh]'), bl=q('[data-wvp-befl]'); bh.innerHTML=''; bl.innerHTML='';
     if(!bx.hidden && okModus){
-      var bh0=q('[data-wvp-befh]'); bh0.innerHTML=''; bh0.append('Technisch ist ', fett(d.domain||''), ' gut aufgestellt');
-      var bl0=q('[data-wvp-befl]'); bl0.innerHTML='';
-      tk.forEach(function(t){ var li=document.createElement('li'), i=document.createElement('i'), sp=document.createElement('strong');
-        i.setAttribute('aria-hidden','true'); i.textContent='✓'; sp.textContent=t.label; li.append(i,sp); bl0.appendChild(li); });
+      if(!nNa) bh.append(T('Technisch ist ','Technically, '), fett(d.domain||''), T(' gut aufgestellt',' is in good shape'));
+      else bh.append(T('Technisch keine Auffälligkeiten auf ','No technical issues found on '), fett(d.domain||''));
+      tk.forEach(function(t){ if(t.ok===true) zeile(bl,'','✓',t.label); else zeile(bl,'is-na','?',t.label+T(' (nicht prüfbar)',' (could not be checked)')); });
+    } else if(!bx.hidden){
+      var zahl=bf.length-1;
+      if(en) bh.append(['One reason','Two reasons','Three reasons'][zahl]+' already found on ', fett(d.domain||''));
+      else bh.append(['Einen Grund','Zwei Gründe','Drei Gründe'][zahl]+' haben wir auf ', fett(d.domain||''), ' schon gefunden');
+      bf.forEach(function(b){ zeile(bl,'','!',b.t,b.d); });
+      if(tk.length && !nBad && nOk>0) zeile(bl,'is-tech-ok','✓', nNa
+        ? T('Technik geprüft: '+nOk+' von '+tk.length+' Punkten in Ordnung, '+nNa+' nicht prüfbar','Technical check: '+nOk+' of '+tk.length+' points fine, '+nNa+' could not be checked')
+        : T('Technik geprüft: alle '+tk.length+' Punkte in Ordnung','Technical check: all '+tk.length+' points fine'));
+      else if(tk.length && !nBad && !nOk) zeile(bl,'is-tech-ok is-na','?',T('Technik konnte nicht geprüft werden','Technical points could not be checked'));
     }
-if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
-    if(!bx.hidden && !okModus){
-      var zahl=['Einen','Zwei','Drei'][bf.length-1];
-      var bh=q('[data-wvp-befh]'); bh.innerHTML=''; bh.append(zahl+(bf.length===1?' Grund':' Gründe')+' haben wir auf ', fett(d.domain||''), ' schon gefunden');
-      var bl=q('[data-wvp-befl]'); bl.innerHTML='';
-      bf.forEach(function(b){ var li=document.createElement('li'), i=document.createElement('i'), dv=document.createElement('div'), st=document.createElement('strong');
-        i.setAttribute('aria-hidden','true'); i.textContent='!'; st.textContent=b.t; dv.append(st);
-        if(b.d){ var sm=document.createElement('span'); sm.textContent=b.d; dv.append(sm); } li.append(i,dv); bl.appendChild(li); });
-      var lz=document.createElement('li'); lz.className='is-offen'; var i2=document.createElement('i'); i2.textContent='+'; i2.setAttribute('aria-hidden','true');
-      var d2=document.createElement('div'); var s2=document.createElement('strong'); s2.textContent='Die übrigen Gründe zeigt der Wettbewerbsvergleich'; d2.append(s2); /* offene Zeile steht seit Stufe 4 über dem Kasten */
-      if(tk.length && tk.every(function(t){ return t.ok===true; })){ var lt=document.createElement('li'); lt.className='is-tech-ok'; var it=document.createElement('i'); it.setAttribute('aria-hidden','true'); it.textContent='✓'; var st2=document.createElement('strong'); st2.textContent='Technik geprüft: alle '+tk.length+' Punkte in Ordnung'; lt.append(it,st2); bl.appendChild(lt); }
-    }
-    if(!en && d.vornN>0){ var hh=q('.wvp-h'); hh.innerHTML=''; var em=document.createElement('em');
-      if(d.genannt===0){ em.textContent='Keines der '+(d.von||5)+' KI-Systeme'; hh.append(em,' nennt Sie bei dieser Frage.'); }
-      else { em.textContent=d.vornN+' von '+(d.von||5)+' KI-Systemen'; hh.append(em,' nennen zuerst andere.'); } }
-    var h2e=q('[data-wvp-h2]'); if(h2e) h2e.textContent = en ? (nF>=20 ? ('Your customers ask around '+nF+'.') : 'Your customers ask many more.')
-                                        : (nF>=20 ? ('Ihre Kunden stellen rund '+nF+'.') : 'Ihre Kunden stellen viele.');
+    if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
+    var h2e=q('[data-wvp-h2]'); if(h2e) h2e.textContent = T(nF>=20 ? ('Ihre Kunden stellen rund '+nF+'.') : 'Ihre Kunden stellen viele.', nF>=20 ? ('Your customers ask around '+nF+'.') : 'Your customers ask many more.');
     var p=q('[data-wvp-p]'); p.innerHTML='';
-    if(en){
-      p.append('The comparison checks ', fett('20 typical customer questions'), ' and shows where ');
-      if(w.length){ if(d.genannt===0){ p.append('enquiries go to '); namen(p,w); p.append(' – and why.'); }
-                    else { namen(p,w); p.append(w.length>1?' are ahead of you – and why.':' is ahead of you – and why.'); } }
-      else p.append('others are recommended – and why.');
-    } else {
-      p.append('Der Vergleich prüft ', fett('20 Kundenfragen'), d.genannt===0?': Wer wird empfohlen – und warum?':': Wer liegt vorn – und warum?');
-    }
+    p.append(T('Der Vergleich prüft ','The comparison checks '), fett(T('20 Kundenfragen','20 customer questions')),
+      d.genannt===0 ? T(': Wer wird empfohlen – und warum?',': who is recommended – and why?') : T(': Wer liegt vorn – und warum?',': who is ahead – and why?'));
     if(gezeigt) return;
     clearTimeout(timer);
     timer=setTimeout(function(){
@@ -1874,12 +1872,14 @@ if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
   /* FHD-ECHT-2-20261001: Einleitung links weicht, sobald der Vergleichs-Kasten erscheint (nur Desktop) */
   @media(min-width:1041px){.hero.wvp-an p.desc{display:none}}
   /* HELL-20261002: Befund in der H1, linker Kasten hell, rechts nur Frage + Knopf */
-  html[lang^="de"] .wvp .wvp-kopf{display:none}
+  .wvp .wvp-kopf{display:none}
   /* STUFE6-20261002: Technik in Ordnung + ruhigere Typografie im Vergleichs-Kasten */
   .wvp-bef.is-ok .wvp-bef-l{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
   .wvp-bef.is-ok .wvp-bef-l li{align-items:center}
   .wvp-bef.is-ok .wvp-bef-l i{background:hsl(var(--confirm));font-size:12px}
   .wvp-bef-l li.is-tech-ok{align-items:center}
+  #hero .wvp-bef .wvp-bef-l li.is-na i{background:hsl(222 12% 72%)}
+  .wvp-bef.is-ok .wvp-bef-l li.is-na strong{color:hsl(var(--muted-foreground))}
   .wvp-bef-l li.is-tech-ok i{background:hsl(var(--confirm));font-size:12px}
   .wvp-bef-l li.is-tech-ok strong{font-weight:500;font-size:.9rem}
   .wvp-bef.is-ok .wvp-bef-l strong{font-weight:500;font-size:.9rem}
@@ -1918,8 +1918,8 @@ if(hero0) hero0.classList.toggle('wvp-bef-da', !bx.hidden);
   .wvp .wvp-bars{gap:7px}
   .wvp .wvp-bars-k{margin-bottom:6px}
   .wvp .wvp-dots{gap:3px}
-  html[lang^="de"] .wvp .wvp-demo{margin-top:0}
-  html[lang^="de"] #snapshot .snap-acov{display:none!important}
+  .wvp .wvp-demo{margin-top:0}
+  #snapshot .snap-acov{display:none!important}
   .hero .cai-h1.h1-lang{font-size:clamp(1.9rem,3vw,2.5rem)}
   .wvp .wvp-demo{background:#fff;color:var(--fg);border:1px solid hsl(var(--border));box-shadow:0 14px 34px -24px hsl(222 40% 20% / .35)}
   .wvp .wvp-p{color:hsl(var(--muted-foreground))}
