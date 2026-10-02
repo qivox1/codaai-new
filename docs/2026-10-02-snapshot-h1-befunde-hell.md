@@ -30,3 +30,11 @@
 3. **Vergleichs-Kasten ruhiger:** drei Größen (15 px Titel halbfett, 13 px Zeilen, 12 px Beschriftungen), Zahlen nicht mehr fett (nur eigene Firma halbfett), Namensspalte 150 px.
 H1 mit langen Namen (z. B. „Die KI empfiehlt ISS Facility Services.“) wird ab 37 Zeichen automatisch kleiner gesetzt — so belassen.
 Skripte: `fix_technik_typo_frage.py`, `fix_technik_ok_zeile.py`.
+
+## Härtung 02.10.2026 (10 Domains aus der Dashboard-Liste, DE + 4 × EN)
+Getestet wie ein Besucher (Domain eintippen, Vorschlag abwarten, absenden; Full HD, 1440, Handy): simona.de, abus.com, icotek.com, https://www.rheinzink.de, linsinger.com, mcairlaids.net, https://www.heggemann.com, hoenle.com, phoenixgroup.eu, http://www.vetter-forks.com; EN: windmoeller.de, stark-roemheld.com, kelvion.com, karlbruckner.de.
+Behoben (`haertung_konsistenz.py`):
+1. **Falscher Wettbewerber in H1/Abschluss:** „Wer liegt vor Ihnen“ zählte nur Systeme, in denen die eigene Marke vorkommt. simona.de: H1 „aquatherm“, obwohl Rehau 4× genannt wurde (SIMONA 1×); hoenle.com: „Polytec PT“ statt Henkel/Dymax. Jetzt zählen auch die Empfehlungen der Systeme, in denen die Marke fehlt; Gleichstand nach Rangliste. Gilt für H1, Fazit, „Vor Ihnen“-Zeile, Abschluss.
+2. **Neuer Zustand `meist`** (eigene Marke in der Mehrheit der Systeme zuerst): H1 „Die KI empfiehlt {Marke}. / Aber nicht überall.“, Abschluss „Wo überholt Sie {W}?“. Vorher falsch: „Die KI empfiehlt VMZINC. Vor RHEINZINK.“ (RHEINZINK 4× zuerst) und „Die KI nennt PHOENIX group. Aber nicht als Erste.“ (PHOENIX 4× zuerst).
+3. **Regex-Fehler bei Domains mit Bindestrich** (stark-roemheld, vetter-forks): Live-Prüfung „eigener Name in der Frage“ warf `Invalid escape` — jetzt korrekt, Bindestrich passt auch auf Leerzeichen.
+Offen (Bericht an Oli): englische Fassung noch alter Stand; Namensdubletten aus dem Server (Klüh Cleaning/Klüh Service Management, Henkel/Loctite, Panacol/Panacol-Elosol); 404-Rauschen beim Nachladen des Vorschaubilds; Technik-Punkte „nicht prüfbar“ (null) werden nicht erwähnt; Website nicht erreichbar (vetter-forks.com, HTTP 503) → Hinweis ok, aber kein Weg zum Vergleich.

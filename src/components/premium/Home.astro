@@ -1038,6 +1038,7 @@ const copy = {
     if(en||!h1) return; var Mk=d.marke||d.domain, W=d.W||'', z=d.zustand, a='', b='';
     if(z==='fehlt'&&(d.wett||[]).length){ var ns=[]; (d.wett||[]).forEach(function(n){ var t=ns.concat([n]); if(ns.length<3&&(!ns.length||t.join(', ').length<=30)) ns=t; });
       a='Die KI empfiehlt '+(ns.length>1?ns.slice(0,-1).join(', ')+' und '+ns[ns.length-1]:ns[0])+'.'; b='Nicht '+Mk+'.'; }
+    else if(z==='meist'){ a='Die KI empfiehlt '+Mk+'.'; b='Aber nicht überall.'; }
     else if(z==='hinten'&&W){ a='Die KI empfiehlt '+W+'.'; b='Vor '+Mk+'.'; }
     else if(z==='vorn'){ a='Die KI empfiehlt '+Mk+'.'; b='Bei dieser Frage.'; }
     else if(d.genannt>0){ a='Die KI nennt '+Mk+'.'; b='Aber nicht als Erste.'; }

@@ -556,7 +556,7 @@ const beispiele = [
       const liveCheck = () => {
         if (serverHinweis) return;
         const st = stamm(), q = frage.value;
-        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&') + '[\\p{L}-]*)', 'iu')) : null;
+        const m = st ? q.match(new RegExp('(^|[^\\p{L}\\d])(' + st.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/-/g, '[\\s-]?') + '[\\p{L}-]*)', 'iu')) : null;
         if (m) hinweis(`„${m[2]}“ ist Ihr eigener Name – die KI soll Sie ja von selbst empfehlen. Fragen Sie so, wie ein Kunde fragt, der Sie noch nicht kennt, z. B. „Welche Anbieter für … sind in Deutschland führend?“`);
         else hinweis('');
       };
@@ -830,8 +830,11 @@ const beispiele = [
         const fettL = (a: string[]) => liste(a.map((x) => `\u0001${x}\u0002`));
         const fremde = (res.rangliste || []).filter((r: any) => !r.eigen);
         const vorn: Record<string, number> = {};
-        sys.forEach((s: any) => (s.vor || []).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }));
-        const vornTop = Object.entries(vorn).sort((x, y) => y[1] - x[1]).slice(0, 2).map((x) => x[0]);
+        // Härtung 02.10.2026: wo die Marke genannt ist, zählen die davor; wo sie fehlt, die dort empfohlenen
+        sys.forEach((s: any) => { if (!s.antwort) return; (s.genannt ? (s.vor || []) : (s.empfiehlt || [])).forEach((n: string) => { vorn[n] = (vorn[n] || 0) + 1; }); });
+        const rangIdx = (n: string) => { const i = fremde.findIndex((r: any) => r.name === n); return i < 0 ? 99 : i; };
+        const vornListe = Object.entries(vorn).sort((x, y) => (y[1] - x[1]) || (rangIdx(x[0]) - rangIdx(y[0])));
+        const vornTop = vornListe.slice(0, 2).map((x) => x[0]);
         const rivTop = fremde.slice(0, 2).map((r: any) => r.name);
         const fehltN = sys.filter((s: any) => s.antwort && !s.genannt).length;
         let lvl = 'mittel', lbl = 'Ausbaufähig', satz = '';
@@ -933,7 +936,7 @@ const beispiele = [
           const fett = (n: string) => { const b = document.createElement('b'); b.textContent = n; return b; };
           const vor: Record<string, number> = {};
           sys.forEach((x: any) => { const n = (x.vor || [])[0]; if (n) vor[n] = (vor[n] || 0) + 1; });
-          const vl = Object.entries(vor).sort((a, b) => b[1] - a[1]);
+          const vl = vornListe;
           if (g === 0 && fremde.length) {
             vz.append('Stattdessen empfohlen: ');
             fremde.slice(0, 3).forEach((r: any, k: number) => { if (k) vz.append(', '); vz.append(fett(r.name), ` (${r.anzahl}×)`); });
@@ -991,7 +994,7 @@ const beispiele = [
         // Überschrift, Text und Liste je Rolle (icp) und Befund (Stand 28.09.2026)
         {
           const W = g === 0 ? (rivTop[0] || '') : (vornTop[0] || (top && top.anzahl > g ? top.name : ''));
-          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && W) ? 'hinten' : 'offen';
+          const zustand = lvl === 'gut' ? 'vorn' : (g === 0 && W) ? 'fehlt' : (g > 0 && e1 * 2 > von) ? 'meist' : (g > 0 && W) ? 'hinten' : 'offen';
           const nFr = nF >= 20 ? `rund ${nF}` : '';
           type Zeile = (string | { b: string })[];
           // bei „nicht genannt“ bis zu drei Wettbewerber in der Überschrift (28.09.2026), max. ~45 Zeichen
@@ -1052,9 +1055,10 @@ const beispiele = [
             fehlt: [['Warum empfiehlt die KI andere?'], rz({ gf: 'Der Wettbewerbsvergleich zeigt es Ihnen.',
               vl: 'Der Wettbewerbsvergleich zeigt, warum diese Anfragen an Ihnen vorbeigehen.', ml: 'Der Wettbewerbsvergleich zeigt, welche Quellen der KI über Sie fehlen.' })],
             vorn: [['Und bei Ihren anderen Kundenfragen?'], 'Der Wettbewerbsvergleich zeigt, wo andere vorn liegen.'],
+            meist: [W ? ['Wo überholt Sie ', { b: W }, '?'] : ['Wo fehlen Sie noch?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],
             offen: [['Wer steht vor Ihnen?'], 'Der Wettbewerbsvergleich zeigt es Ihnen.'],
           };
-          const [z1, z2] = (root.dataset.source === 'home' && fr[zustand]) ? fr[zustand] : t.h[zustand];
+          const [z1, z2] = (root.dataset.source === 'home' && fr[zustand]) ? fr[zustand] : (t.h[zustand] || t.h.hinten);
           const hEl = $('[data-audith]') as HTMLElement; hEl.innerHTML = '';
           const s1 = document.createElement('span'); s1.className = 'snap-audit-h1';
           z1.forEach((x) => { if (typeof x === 'string') s1.append(x); else { const b = document.createElement('b'); b.textContent = x.b; s1.appendChild(b); } });
