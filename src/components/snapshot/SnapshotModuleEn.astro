@@ -38,7 +38,7 @@
 interface Props { source?: string }
 const { source = 'snapshot' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const TURNSTILE_SITEKEY = '';   // ← Site Key von Cloudflare Turnstile hier eintragen
+const TURNSTILE_SITEKEY = '0x4AAAAAAFMmoCxqpgOTRuSj';   // Cloudflare Turnstile, Widget „CodaAI Visibility Snapshot“ (Konto hi@codaai.ai), seit 03.10.2026
 const logos = [
   { key: 'chatgpt', label: 'ChatGPT' },
   { key: 'claude', label: 'Claude' },

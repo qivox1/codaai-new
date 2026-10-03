@@ -188,7 +188,8 @@ const csp = [
   // GTM loader needs googletagmanager.com for gtm.js
   // 04.08.2026: cdnjs.cloudflare.com und cdn.jsdelivr.net entfallen — GSAP,
   // ScrollTrigger und Lenis liegen jetzt selbst gehostet in public/vendor/.
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://snap.licdn.com",
+  // 03.10.2026: challenges.cloudflare.com für das Snapshot-Captcha (Turnstile)
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://snap.licdn.com https://challenges.cloudflare.com",
   // Tailwind/Radix inline styles + React inline style props
   "style-src 'self' 'unsafe-inline'",
   // Fonts are self-hosted â no external font CDN needed
@@ -198,7 +199,7 @@ const csp = [
   // Supabase + GA4 data collection endpoints + GTM
   "connect-src 'self' https://fcauvtwqkluvsbicaojo.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://script.google.com https://script.googleusercontent.com https://audit.codaai.ai https://px.ads.linkedin.com",
   // GTM noscript fallback iframe; no other frames allowed
-  "frame-src https://www.googletagmanager.com https://tagmanager.google.com",
+  "frame-src https://www.googletagmanager.com https://tagmanager.google.com https://challenges.cloudflare.com",
   "object-src 'none'",
   "media-src 'none'",
   // Prevent base-tag hijacking
