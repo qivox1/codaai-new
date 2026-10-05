@@ -53,7 +53,7 @@ Google, OpenAI und andere Anbieter haben keinen eigenen Seitentyp dieser Art def
 
 ## Was unterscheidet eine Grounding Page von der Über-uns-Seite?
 
-Die Über-uns-Seite erzählt, die Grounding Page belegt. Auf der Über-uns-Seite stehen Geschichte, Haltung und Team; auf der Grounding Page stehen die prüfbaren Angaben, nüchtern und vollständig. Dixon Jones bezeichnet die Startseite oder die Über-uns-Seite als typische „Entity Home" einer Marke — die Seite, die definiert, wer ein Unternehmen ist, und an der sich alle anderen Seiten ausrichten müssen. Die Grounding Page ergänzt sie um die Detailtiefe, die dort keinen Platz hat. Beide Seiten verlinken sich gegenseitig und widersprechen sich in keiner Angabe.
+Die [Über-uns-Seite](/wissen/geo-glossar/entity-home/) erzählt, die Grounding Page belegt. Auf der Über-uns-Seite stehen Geschichte, Haltung und Team; auf der Grounding Page stehen die prüfbaren Angaben, nüchtern und vollständig. Dixon Jones bezeichnet die Startseite oder die Über-uns-Seite als typische „Entity Home" einer Marke — die Seite, die definiert, wer ein Unternehmen ist, und an der sich alle anderen Seiten ausrichten müssen. Die Grounding Page ergänzt sie um die Detailtiefe, die dort keinen Platz hat. Beide Seiten verlinken sich gegenseitig und widersprechen sich in keiner Angabe.
 
 ## Warum ist eine Grounding Page für die KI-Sichtbarkeit wichtig?
 

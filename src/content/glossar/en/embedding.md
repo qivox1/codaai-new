@@ -19,7 +19,7 @@ An embedding is the representation of a text as a long numeric vector, for examp
 
 ## How do embeddings work?
 
-An AI system splits web pages into sections ([chunking](/en/knowledge/geo-glossary/chunking/)), converts each section into a vector and stores it in a vector database. When a user asks a question, the question is also translated into a vector. The system then searches for the sections whose vectors are closest to the question vector. The measure for this is [cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/).
+An AI system splits web pages into sections ([chunking](/en/knowledge/geo-glossary/chunking/)), converts each section into a vector and stores it in a [vector database](/en/knowledge/geo-glossary/vector-database/). When a user asks a question, the question is also translated into a vector. The system then searches for the sections whose vectors are closest to the question vector. The measure for this is [cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/).
 
 The decisive difference from keyword search: a page does not have to contain the question word for word to be found. It has to answer it in substance. Conversely, repeating a keyword twenty times achieves nothing; the vector represents meaning, not frequency.
 

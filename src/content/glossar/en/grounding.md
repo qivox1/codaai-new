@@ -22,7 +22,7 @@ Grounding is the process by which an AI system builds its answer on external sou
 
 Grounding begins with the [web search](/en/knowledge/geo-glossary/web-search/), which the system triggers when its confidence in an answer from memory is low. One question produces several search queries ([query fan-out](/en/knowledge/geo-glossary/query-fan-out/)). For each of them, the top-ranked pages are collected ([initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/)), then individual passages are evaluated ([re-ranking](/en/knowledge/geo-glossary/re-ranking/)). The best passages are extracted as [grounding snippets](/en/knowledge/geo-glossary/grounding-snippets/) and placed in the model's context together with the user's question, personalisation and any attached media. From this the answer is produced, with citations to the sources the snippets came from.
 
-In Google AI Overviews and AI Mode, this access usually does not take place as a live fetch of your page but against the existing Google index. A server log shows nothing there. Gemini additionally applies a [grounding budget](/en/knowledge/geo-glossary/grounding-budget/): whoever ranks better gets more room.
+In [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/), this access usually does not take place as a live fetch of your page but against the existing Google index. A server log shows nothing there. Gemini additionally applies a [grounding budget](/en/knowledge/geo-glossary/grounding-budget/): whoever ranks better gets more room.
 
 ## Why does grounding matter for AI visibility?
 

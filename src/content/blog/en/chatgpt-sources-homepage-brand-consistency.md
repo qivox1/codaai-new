@@ -182,6 +182,6 @@ The message of this study is not that everything is out of reach. It is that the
 
 Neither is new. Both are rarely done, because they are unspectacular and earn nobody applause. According to the available data, they are the part with the best prospects.
 
-Whether ChatGPT and Google AI Overviews name your company for your buyers' questions today — and which sources they draw on instead — is what the Digital Visibility Audit measures, using real questions from your industry.
+Whether ChatGPT and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) name your company for your buyers' questions today — and which sources they draw on instead — is what the Digital Visibility Audit measures, using real questions from your industry.
 
 How ChatGPT selects its sources in the first place is covered in [why Bing matters](/en/blog/chatgpt-seo-perplexity-visibility/); another source of your own besides the home page is [YouTube](/en/blog/youtube-ai-visibility-b2b/).

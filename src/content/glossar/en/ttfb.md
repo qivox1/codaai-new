@@ -47,7 +47,7 @@ On dynamic websites, server processing is usually the largest item. Pages delive
 
 ## How does TTFB affect AI crawlers?
 
-A live agent that fetches pages during an AI answer works under time pressure: the user is waiting for the answer. If a server responds too slowly, the agent aborts the request — and does not retry. A milder form of the same applies to training crawlers: slow hosts receive fewer fetches per unit of time ([crawl budget](/en/knowledge/geo-glossary/crawl-budget/)). For AI agents that operate websites on a user's behalf, Jessica Frederick (Sitebulb) also recommends optimising TTFB and payload size — agents have little patience.
+A live agent that fetches pages during an AI answer works under time pressure: the user is waiting for the answer. If a server responds too slowly, the agent aborts the request — and does not retry. A milder form of the same applies to training crawlers: slow hosts receive fewer fetches per unit of time ([crawl budget](/en/knowledge/geo-glossary/crawl-budget/)). For [AI agents](/en/knowledge/geo-glossary/ai-agents/) that operate websites on a user's behalf, Jessica Frederick (Sitebulb) also recommends optimising TTFB and payload size — agents have little patience.
 
 ## Why does TTFB matter for AI visibility?
 

@@ -18,7 +18,7 @@ Log files are the records of the web server in which every request is logged wit
 
 ## What do log files show, and what not?
 
-Four limitations, which SISTRIX describes in detail in an analysis of requests from AI user bots. First: for Google AI Overviews and AI Mode there is generally no live access; these systems access the Google index and leave no logs. Second: a request means the page was considered a candidate in [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/), not that it passed [re-ranking](/en/knowledge/geo-glossary/re-ranking/) and appears in the answer. Third: the request is a validation in case of uncertainty; the system does not answer because of the request. Fourth: to save latency and cost, a lot is cached. Pages with few requests may be used often, pages with many requests may only end up in the cache.
+Four limitations, which SISTRIX describes in detail in an analysis of requests from AI user bots. First: for [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/) there is generally no live access; these systems access the Google index and leave no logs. Second: a request means the page was considered a candidate in [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/), not that it passed [re-ranking](/en/knowledge/geo-glossary/re-ranking/) and appears in the answer. Third: the request is a validation in case of uncertainty; the system does not answer because of the request. Fourth: to save latency and cost, a lot is cached. Pages with few requests may be used often, pages with many requests may only end up in the cache.
 
 ## Why do log files still matter for AI visibility?
 
@@ -26,4 +26,4 @@ Because they reveal technical problems that no other data source shows: which us
 
 ## What does this mean for your website?
 
-Analyse log files by AI user agents and use them to answer technical questions, not the question of visibility. For visibility you need [LLM Visibility Tracking](/en/knowledge/geo-glossary/llm-visibility-tracking/) across a prompt set, the "Generative AI" report in Search Console for Google AI Overviews and the "AI Performance" report in Bing Webmaster Tools for Copilot. Only the combination yields a complete picture.
+Analyse log files by AI user agents and use them to answer technical questions, not the question of visibility. For visibility you need [LLM Visibility Tracking](/en/knowledge/geo-glossary/llm-visibility-tracking/) across a prompt set, the "Generative AI" report in Search Console for Google AI Overviews and the "AI Performance" report in [Bing Webmaster Tools](/en/knowledge/geo-glossary/citation-share/) for Copilot. Only the combination yields a complete picture.

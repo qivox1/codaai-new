@@ -44,4 +44,4 @@ Google-Extended is not a bot but a control token in robots.txt. It governs wheth
 
 ## What does this mean for your website?
 
-Check your robots.txt for blocked AI bots. Deliver important content server-side in the HTML, not via JavaScript. Keep the server response time low ([TTFB](/en/knowledge/geo-glossary/ttfb/)) and the DOM lean. Avoid click walls and login walls in front of content that should be found. And analyse your log files for AI user agents to see which pages the systems actually retrieve — with the caveat that Google AI Overviews and AI Mode usually do not generate a live retrieval.
+Check your robots.txt for blocked AI bots. Deliver important content server-side in the HTML, not via JavaScript. Keep the server response time low ([TTFB](/en/knowledge/geo-glossary/ttfb/)) and the DOM lean. Avoid click walls and login walls in front of content that should be found. And analyse your log files for AI user agents to see which pages the systems actually retrieve — with the caveat that [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/) usually do not generate a live retrieval.

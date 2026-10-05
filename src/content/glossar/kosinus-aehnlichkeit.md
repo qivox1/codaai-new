@@ -72,7 +72,7 @@ Bei normierten Vektoren mit der Länge 1 fallen die Unterschiede weg: Das Skalar
 
 Suchsysteme und Sprachmodelle legen Anfragen und Dokumente als Vektoren in einen gemeinsamen Raum. Abschnitte, deren Vektor nahe am Vektor der Anfrage liegt, gelten als relevanter — gemessen etwa per Kosinus-Ähnlichkeit. So beschreibt es Mike King (iPullRank). In der [Retrieval-Pipeline](/wissen/geo-glossar/initial-retrieval/) eines KI-Systems ist diese Nähe ein zentrales Kriterium dafür, welche Passagen im [Re-Ranking](/wissen/geo-glossar/re-ranking/) über die Relevanzschwelle kommen.
 
-Die Bedeutungsnähe ist dabei selten das einzige Signal. Viele Systeme kombinieren die semantische Suche mit einer klassischen Wortsuche wie BM25 (Hybrid Retrieval). Die Wortsuche schneidet besser ab, wenn es auf exakte Begriffe ankommt — Produktnamen, Normen, Artikelnummern. Ein Abschnitt sollte deshalb beides bieten: den richtigen Sinn und die richtigen Wörter.
+Die Bedeutungsnähe ist dabei selten das einzige Signal. Viele Systeme kombinieren die [semantische Suche](/wissen/geo-glossar/semantische-suche/) mit einer klassischen Wortsuche wie [BM25](/wissen/geo-glossar/hybrid-retrieval/) (Hybrid Retrieval). Die Wortsuche schneidet besser ab, wenn es auf exakte Begriffe ankommt — Produktnamen, Normen, Artikelnummern. Ein Abschnitt sollte deshalb beides bieten: den richtigen Sinn und die richtigen Wörter.
 
 ## Warum ist die Kosinus-Ähnlichkeit für die KI-Sichtbarkeit wichtig?
 

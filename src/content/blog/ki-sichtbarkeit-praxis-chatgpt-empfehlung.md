@@ -91,13 +91,13 @@ Die Richtung bestätigt auch [Gartner](https://www.gartner.com/en/newsroom/press
 
 ### Der blinde Fleck der meisten KI-Sichtbarkeits-Strategien
 
-Die meisten Unternehmen, die sich mit KI-Sichtbarkeit beschäftigen, lösen genau eine von zwei Dimensionen. Sie kümmern sich um die technische Seite: `robots.txt` für GPTBot und ClaudeBot öffnen, `llms.txt` anlegen, Schema.org-Markup ergänzen, Serverantwortzeiten senken. Das ist richtig und notwendig — aber es sorgt nur dafür, dass KI-Systeme Ihre Inhalte überhaupt abrufen dürfen und können.
+Die meisten Unternehmen, die sich mit KI-Sichtbarkeit beschäftigen, lösen genau eine von zwei Dimensionen. Sie kümmern sich um die technische Seite: `robots.txt` für GPTBot und ClaudeBot öffnen, `llms.txt` anlegen, [Schema.org-Markup](/wissen/geo-glossar/strukturierte-daten/) ergänzen, Serverantwortzeiten senken. Das ist richtig und notwendig — aber es sorgt nur dafür, dass KI-Systeme Ihre Inhalte überhaupt abrufen dürfen und können.
 
 Ob sie diese Inhalte dann auch **zitieren**, entscheidet etwas anderes: was dort steht. Technische Abrufbarkeit ist die Eintrittskarte — GEO-optimierter Content das eigentliche Ticket. Beides muss stimmen, und die zweite Hälfte wird in der Praxis fast durchgängig unterschätzt. Ein sauber ausgelieferter Marketingtext ohne Fakten, ohne Struktur und ohne Quellen ist für ein Sprachmodell wertlos: Es findet darin nichts, was es in einer Antwort verwenden könnte.
 
 ## Was 7.184 KI-Antworten über den deutschen Mittelstand verraten
 
-Um die Größenordnung des Problems zu messen statt zu schätzen, haben wir 449 mittelständische Unternehmen aus dem deutschsprachigen Raum systematisch getestet. Pro Unternehmen wurden acht realistische Einkäuferfragen zum eigenen Produkt- und Leistungsspektrum formuliert und an zwei Systeme gestellt: ChatGPT (ohne aktivierte Live-Websuche, um das strukturelle Modellwissen zu messen) und die Google KI-Übersicht in deutscher Lokalisierung. Ergebnis: 3.592 Fragen, 7.184 dokumentierte KI-Antworten, Datenstand Juni/Juli 2026.
+Um die Größenordnung des Problems zu messen statt zu schätzen, haben wir 449 mittelständische Unternehmen aus dem deutschsprachigen Raum systematisch getestet. Pro Unternehmen wurden acht realistische Einkäuferfragen zum eigenen Produkt- und Leistungsspektrum formuliert und an zwei Systeme gestellt: ChatGPT (ohne aktivierte Live-Websuche, um das strukturelle Modellwissen zu messen) und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) in deutscher Lokalisierung. Ergebnis: 3.592 Fragen, 7.184 dokumentierte KI-Antworten, Datenstand Juni/Juli 2026.
 
 Die zentralen Befunde des [KI-Blindtests Mittelstand 2026](https://www.codaai.ai/studie/):
 

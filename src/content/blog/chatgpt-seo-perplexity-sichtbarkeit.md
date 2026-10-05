@@ -77,7 +77,7 @@ Zwei Einschränkungen gehören dazu, damit die Zahl trägt: Die Untersuchung sta
 
 Für die Praxis bleibt der Befund trotzdem unbequem. Viele deutsche B2B-Unternehmen betreiben SEO ausschließlich mit Blick auf Google. Bing gilt als Randerscheinung, weil sein Marktanteil bei menschlichen Nutzern klein ist. Für die Frage, was ChatGPT als Beleg findet, ist dieser Marktanteil aber irrelevant.
 
-**Was daraus folgt, ist unspektakulär und wird trotzdem selten gemacht:** Bing Webmaster Tools einrichten, die Sitemap dort einreichen, den Index-Abdeckungsbericht lesen. Bing indexiert eigenständig und langsamer als Google; Seiten, die bei Google längst stehen, fehlen dort mitunter ganz. Das ist keine Optimierung, das ist eine Bestandsaufnahme – und sie kostet einen Nachmittag.
+**Was daraus folgt, ist unspektakulär und wird trotzdem selten gemacht:** [Bing Webmaster Tools](/wissen/geo-glossar/citation-share/) einrichten, die Sitemap dort einreichen, den Index-Abdeckungsbericht lesen. Bing indexiert eigenständig und langsamer als Google; Seiten, die bei Google längst stehen, fehlen dort mitunter ganz. Das ist keine Optimierung, das ist eine Bestandsaufnahme – und sie kostet einen Nachmittag.
 
 
 ```grafik
@@ -168,7 +168,7 @@ Siehe oben: Der Aktualisierungszyklus schlägt die Publikationsfrequenz. Ein rea
 
 Der ehrliche Teil. **Es gibt keine buchbare Platzierung in einem KI-System.** Kein Anbieter verkauft Nennungen, und dieselbe Frage kann morgen anders beantwortet werden. Wer eine Platzierung garantiert, verspricht etwas, das technisch nicht existiert.
 
-Auch die Wirkung ist begrenzter, als die Aufregung vermuten lässt. Der Klickverlust durch AI Overviews ist real, aber ungleich verteilt: [SISTRIX beziffert ihn](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) auf durchschnittlich **6,6 Prozent** aller organischen Klicks, mit einer Spanne von 1 Prozent bei Rezepten bis 24 Prozent bei Elternportalen. Und AI Overviews erscheinen in Deutschland derzeit bei rund **17 Prozent der Suchanfragen** – mit stagnierender, nicht steigender Tendenz.
+Auch die Wirkung ist begrenzter, als die Aufregung vermuten lässt. Der Klickverlust durch [AI Overviews](/wissen/geo-glossar/ai-overviews/) ist real, aber ungleich verteilt: [SISTRIX beziffert ihn](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) auf durchschnittlich **6,6 Prozent** aller organischen Klicks, mit einer Spanne von 1 Prozent bei Rezepten bis 24 Prozent bei Elternportalen. Und AI Overviews erscheinen in Deutschland derzeit bei rund **17 Prozent der Suchanfragen** – mit stagnierender, nicht steigender Tendenz.
 
 Das ehrliche Argument ist deshalb nicht das Besuchervolumen. Es ist die Vorentscheidung: Wer in der Antwort nicht vorkommt, steht auf keiner Liste, die anschließend geprüft wird. Das trifft wenige Suchvorgänge – aber es trifft sie an der Stelle, an der ausgewählt wird.
 
@@ -180,7 +180,7 @@ Ohne Messung ist jede Aussage über Wirkung eine Behauptung. Drei Dinge lassen s
 
 1. **Dieselben Fragen, derselbe Wortlaut, monatlich.** Nehmen Sie acht Fragen, die Ihr Vertrieb tatsächlich hört, und stellen Sie sie in ChatGPT und in der Google-Suche mit KI-Übersicht. Notieren Sie, welche Anbieter genannt werden und welche Quellen die Systeme anführen. Abweichende Formulierungen liefern abweichende Antworten und machen den Vergleich wertlos.
 2. **Bing-Index prüfen.** In den Bing Webmaster Tools sehen Sie, welche Ihrer Seiten dort überhaupt bekannt sind. Das ist die Vorbedingung für alles Weitere bei ChatGPT. Was danach kommt, damit ChatGPT Sie nicht nur findet, sondern als Anbieter nennt, steht im Artikel [In ChatGPT als Anbieter empfohlen werden](/blog/in-chatgpt-als-anbieter-empfohlen-werden/).
-3. **Search Console lesen.** Google weist seit Juni 2026 unter *Leistung → Suchergebnisse* einen Filter für AI Overview und AI Mode aus. Er zeigt **nur Impressionen** – keine Klicks, keine Suchanfragen, keine Klickrate. Das ist wenig, aber es ist die einzige offizielle Zahl, die es gibt.
+3. **Search Console lesen.** Google weist seit Juni 2026 unter *Leistung → Suchergebnisse* einen Filter für AI Overview und [AI Mode](/wissen/geo-glossar/ai-mode/) aus. Er zeigt **nur Impressionen** – keine Klicks, keine Suchanfragen, keine Klickrate. Das ist wenig, aber es ist die einzige offizielle Zahl, die es gibt.
 
 Wichtig zur Einordnung: KI-Antworten sind nicht deterministisch. Dieselbe Frage kann heute anders beantwortet werden als morgen. Seriös ist deshalb die Aussage über den Verlauf, nicht über einen einzelnen Tag – auch dann, wenn die Kurve flach bleibt.
 

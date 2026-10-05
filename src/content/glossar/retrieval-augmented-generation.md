@@ -43,7 +43,7 @@ Der Unterschied liegt in der Perspektive. RAG ist der Begriff aus der KI-Forschu
 
 ## Warum ist RAG für die KI-Sichtbarkeit wichtig?
 
-RAG ist der Mechanismus, über den aktuelle Webinhalte in KI-Antworten gelangen. Google nennt RAG ausdrücklich als Technik seiner generativen KI-Funktionen wie AI Overviews und AI Mode: Die zentralen Ranking-Systeme rufen relevante, aktuelle Seiten aus dem Suchindex ab, und die Antwort zeigt anklickbare Links zu diesen Seiten (Google Search Central, Juli 2026).
+RAG ist der Mechanismus, über den aktuelle Webinhalte in KI-Antworten gelangen. Google nennt RAG ausdrücklich als Technik seiner generativen KI-Funktionen wie [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/): Die zentralen Ranking-Systeme rufen relevante, aktuelle Seiten aus dem Suchindex ab, und die Antwort zeigt anklickbare Links zu diesen Seiten (Google Search Central, Juli 2026).
 
 Daraus folgt eine harte Bedingung. Lily Ray argumentiert, dass die großen KI-Suchprodukte auf RAG beruhen und Inhalte, die nicht indexiert sind und nicht ranken, gar nicht erst in das Kontextfenster des Modells gelangen (Substack, März 2026). Was nicht abgerufen wird, kann nicht zitiert werden.
 

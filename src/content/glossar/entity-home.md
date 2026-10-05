@@ -46,7 +46,7 @@ KI-Systeme übernehmen, was sie über eine Marke finden. Ist die eigene Seite ve
 
 Fehlt die Information ganz, holt das System sie woanders. Cyrus Shepard empfahl in einem Webinar von AirOps (August 2026), statt einer einzigen Über-uns-Seite etwa 10 bis 15 Markenseiten zu pflegen — zu Auszeichnungen, Presse, Jobs und Philosophie. Sonst finden KI-Systeme diese Informationen auf Drittseiten.
 
-Auch Details zählen. Joy Hawkins (Sterling Sky) beobachtete im AI Mode, dass Google bei Wettbewerbern die Jahre im Geschäft hervorhob. Sie empfiehlt, das Gründungsjahr prominent auf Startseite und Über-uns-Seite zu nennen (August 2026).
+Auch Details zählen. Joy Hawkins (Sterling Sky) beobachtete im [AI Mode](/wissen/geo-glossar/ai-mode/), dass Google bei Wettbewerbern die Jahre im Geschäft hervorhob. Sie empfiehlt, das Gründungsjahr prominent auf Startseite und Über-uns-Seite zu nennen (August 2026).
 
 ## Was bedeutet das für Ihre Website?
 

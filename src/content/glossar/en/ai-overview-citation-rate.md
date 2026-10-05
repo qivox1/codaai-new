@@ -14,7 +14,7 @@ faq:
     a: "Because for AI Overviews and AI Mode, Google generally does not fetch the page live but accesses its existing index. A log file therefore shows no requests, yet the citation is still there. For these systems, Search Console and prompt tracking are the only data sources."
 ---
 
-The AI Overview Citation Rate is the frequency with which a page is shown as a source in Google AI Overviews, above the classic search results and in AI Mode. It is the special case of the [Citation Rate](/en/knowledge/geo-glossary/citation-rate/) for the system with the largest reach in the German market, and it is the only AI citation that can be observed directly in a Google-owned tool.
+The AI Overview Citation Rate is the frequency with which a page is shown as a source in Google AI Overviews, above the classic search results and in [AI Mode](/en/knowledge/geo-glossary/ai-mode/). It is the special case of the [Citation Rate](/en/knowledge/geo-glossary/citation-rate/) for the system with the largest reach in the German market, and it is the only AI citation that can be observed directly in a Google-owned tool.
 
 ## How is the AI Overview Citation Rate measured?
 

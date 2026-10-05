@@ -62,7 +62,7 @@ Mark Williams-Cook (September 2026) puts this in context: Google uses its Knowle
 
 Several tests show that AI systems mainly read the visible text:
 
-- **Chunking:** according to WordLift (a tool vendor, March 2026), RAG systems usually ingest a page as flat text. During [chunking](/en/knowledge/geo-glossary/chunking/), the chunker slices the relationships in the JSON-LD into disconnected fragments. In WordLift's experiment, adding a standard JSON-LD block improved fact extraction by just 0.17 points on a five-point scale.
+- **Chunking:** according to WordLift (a tool vendor, March 2026), [RAG](/en/knowledge/geo-glossary/retrieval-augmented-generation/) systems usually ingest a page as flat text. During [chunking](/en/knowledge/geo-glossary/chunking/), the chunker slices the relationships in the JSON-LD into disconnected fragments. In WordLift's experiment, adding a standard JSON-LD block improved fact extraction by just 0.17 points on a five-point scale.
 - **Visible text wins:** in a test by Ahrefs, five major AI systems ignored JSON-LD as well as hidden Microdata and RDFa (September 2026). Malte Landwehr reports that when text and markup contradict each other, the text wins (August 2026).
 - **Correlation is not effect:** according to an Ahrefs report from May 2026, pages cited by AI were about three times more likely to contain JSON-LD — but adding schema did not clearly increase citations (Search Engine Journal, September 2026).
 
@@ -70,7 +70,7 @@ Jason Barnard sums it up: markup should repeat what is already clear on the page
 
 ## Why does structured data matter for AI visibility?
 
-Its effect is indirect. Olaf Kopp (Aufgesang) calls Schema.org a “hygiene factor”: its influence runs through indexing, the knowledge graph and retrieval layers, not through the markup being read directly (May 2026). That matters for Google, because [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and AI Mode build on the search index, and according to Google, AI Mode also draws on the Knowledge Graph. In an experiment by OtterlyAI, additional schema attributes improved visibility in Google and in AI Overviews, but not in ChatGPT (Thomas Peham, September 2026).
+Its effect is indirect. Olaf Kopp (Aufgesang) calls Schema.org a “hygiene factor”: its influence runs through indexing, the knowledge graph and retrieval layers, not through the markup being read directly (May 2026). That matters for Google, because [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/) build on the search index, and according to Google, AI Mode also draws on the Knowledge Graph. In an experiment by OtterlyAI, additional schema attributes improved visibility in Google and in AI Overviews, but not in ChatGPT (Thomas Peham, September 2026).
 
 ## What does this mean for your website?
 

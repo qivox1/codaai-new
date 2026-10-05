@@ -13,7 +13,7 @@ faq:
     a: "Langform-Fachvideos, die eine konkrete Frage beantworten: Erklärungen, Vergleiche, Anleitungen, Einblicke in Projekte. Kurzclips bringen Reichweite, aber kaum Zitierungen. Titel, Beschreibung und Kapitel sollten die Frage tragen, das Transkript die Antwort — und der Firmenname gehört in beides."
 ---
 
-YouTube-Präsenz bezeichnet die Sichtbarkeit einer Marke über eigene Videos auf YouTube. Für KI-Systeme ist YouTube eine eigenständige Quelle: Google bindet Videos in AI Overviews und AI Mode ein, und ChatGPT zitiert YouTube-Links bei Erklär- und Anleitungsfragen. In Korrelationsanalysen — etwa der von Ahrefs über 75.000 Marken — gehört YouTube-Präsenz zu den stärksten Faktoren für die Nennung in KI-Antworten.
+YouTube-Präsenz bezeichnet die Sichtbarkeit einer Marke über eigene Videos auf YouTube. Für KI-Systeme ist YouTube eine eigenständige Quelle: Google bindet Videos in [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/) ein, und ChatGPT zitiert YouTube-Links bei Erklär- und Anleitungsfragen. In Korrelationsanalysen — etwa der von Ahrefs über 75.000 Marken — gehört YouTube-Präsenz zu den stärksten Faktoren für die Nennung in KI-Antworten.
 
 ## Wie wirkt YouTube-Präsenz auf KI-Antworten?
 

@@ -68,7 +68,7 @@ Jason Barnard fasst es so zusammen: Markup soll wiederholen, was bereits klar au
 
 ## Warum sind strukturierte Daten für die KI-Sichtbarkeit wichtig?
 
-Ihre Wirkung ist indirekt. Olaf Kopp (Aufgesang) nennt Schema.org einen „Hygienefaktor“: Der Einfluss laufe über Indexierung, Knowledge Graph und Abrufebenen, nicht über das direkte Lesen des Markups (Mai 2026). Für Google ist das relevant, weil [AI Overviews](/wissen/geo-glossar/ai-overviews/) und AI Mode auf dem Suchindex aufbauen und der AI Mode laut Google auch auf den Knowledge Graph zugreift. In einem Experiment von OtterlyAI verbesserten zusätzliche Schema-Attribute die Sichtbarkeit in Google und in AI Overviews, nicht aber in ChatGPT (Thomas Peham, September 2026).
+Ihre Wirkung ist indirekt. Olaf Kopp (Aufgesang) nennt Schema.org einen „Hygienefaktor“: Der Einfluss laufe über Indexierung, Knowledge Graph und Abrufebenen, nicht über das direkte Lesen des Markups (Mai 2026). Für Google ist das relevant, weil [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/) auf dem Suchindex aufbauen und der AI Mode laut Google auch auf den Knowledge Graph zugreift. In einem Experiment von OtterlyAI verbesserten zusätzliche Schema-Attribute die Sichtbarkeit in Google und in AI Overviews, nicht aber in ChatGPT (Thomas Peham, September 2026).
 
 ## Was bedeutet das für Ihre Website?
 

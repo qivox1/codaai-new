@@ -91,13 +91,13 @@ For AI visibility, this nuance is not a reason to relax but a reason for more ur
 
 ### The blind spot in most AI visibility strategies
 
-Most companies working on AI visibility address exactly one of two dimensions. They take care of the technical side: opening `robots.txt` to GPTBot and ClaudeBot, creating `llms.txt`, adding Schema.org markup, reducing server response times. That is right and necessary — but it only ensures that AI systems are allowed and able to retrieve your content at all.
+Most companies working on AI visibility address exactly one of two dimensions. They take care of the technical side: opening `robots.txt` to GPTBot and ClaudeBot, creating `llms.txt`, adding [Schema.org markup](/en/knowledge/geo-glossary/structured-data/), reducing server response times. That is right and necessary — but it only ensures that AI systems are allowed and able to retrieve your content at all.
 
 Whether they then also **cite** that content is decided by something else: what it says. Technical retrievability gets you through the door — GEO-optimised content is what earns you a place. Both have to be right, and in practice the second half is almost always underestimated. A cleanly delivered marketing text without facts, structure or sources is worthless to a language model: it finds nothing in it that it could use in an answer.
 
 ## What 7,184 AI answers reveal about mid-sized companies in Germany
 
-To measure the scale of the problem rather than estimate it, we systematically tested 449 mid-sized companies in Germany. For each company, eight realistic buyer questions about its own range of products and services were formulated and put to two systems: ChatGPT (without live web search enabled, to measure structural model knowledge) and Google AI Overviews with German localisation. The result: 3,592 questions, 7,184 documented AI answers, data as of June/July 2026.
+To measure the scale of the problem rather than estimate it, we systematically tested 449 mid-sized companies in Germany. For each company, eight realistic buyer questions about its own range of products and services were formulated and put to two systems: ChatGPT (without live web search enabled, to measure structural model knowledge) and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) with German localisation. The result: 3,592 questions, 7,184 documented AI answers, data as of June/July 2026.
 
 The key findings of the [AI Blind Test 2026](/en/study/):
 

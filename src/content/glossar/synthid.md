@@ -24,7 +24,7 @@ Bei Bildern, Video und Audio bettet SynthID das Signal direkt in die Datei ein, 
 
 Google hat SynthID 2023 eingeführt. Bis November 2025 wurden laut Google mehr als 20 Milliarden Inhalte damit markiert. Die Textvariante ist quelloffen und steht in der Bibliothek Hugging Face Transformers ab Version 4.46.0 zur Verfügung (Google AI for Developers).
 
-Prüfen lässt sich ein Inhalt an mehreren Stellen. Im Mai 2025 stellte Google das Prüfportal SynthID Detector vor. In der Gemini-App können Nutzer Bilder, Videos und Audiodateien hochladen und fragen, ob sie mit Google-KI erstellt wurden. Seit Mai 2026 baut Google die Prüfung in die Suche aus, etwa in Lens, AI Mode und Circle to Search, und danach in Chrome (Google I/O, Mai 2026).
+Prüfen lässt sich ein Inhalt an mehreren Stellen. Im Mai 2025 stellte Google das Prüfportal SynthID Detector vor. In der Gemini-App können Nutzer Bilder, Videos und Audiodateien hochladen und fragen, ob sie mit Google-KI erstellt wurden. Seit Mai 2026 baut Google die Prüfung in die Suche aus, etwa in Lens, [AI Mode](/wissen/geo-glossar/ai-mode/) und Circle to Search, und danach in Chrome (Google I/O, Mai 2026).
 
 ## Wo liegen die Grenzen von SynthID?
 

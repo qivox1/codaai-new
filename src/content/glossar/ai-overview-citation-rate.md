@@ -12,7 +12,7 @@ faq:
     a: "Weil Google für AI Overviews und AI Mode in der Regel keinen Live-Abruf der Seite durchführt, sondern auf seinen bestehenden Index zugreift. Ein Logfile zeigt deshalb keine Zugriffe — die Zitierung ist trotzdem da. Für diese Systeme sind Search Console und Prompt-Tracking die einzigen Datenquellen."
 ---
 
-Die AI Overview Citation Rate ist die Häufigkeit, mit der eine Seite in den KI-Übersichten von Google — den AI Overviews oberhalb der klassischen Suchergebnisse und im AI Mode — als Quelle angezeigt wird. Sie ist der Spezialfall der [Citation Rate](/wissen/geo-glossar/citation-rate/) für das System mit der größten Reichweite im deutschen Markt, und sie ist die einzige KI-Zitierung, die sich direkt in einem Google-eigenen Werkzeug beobachten lässt.
+Die AI Overview Citation Rate ist die Häufigkeit, mit der eine Seite in den KI-Übersichten von Google — den AI Overviews oberhalb der klassischen Suchergebnisse und im [AI Mode](/wissen/geo-glossar/ai-mode/) — als Quelle angezeigt wird. Sie ist der Spezialfall der [Citation Rate](/wissen/geo-glossar/citation-rate/) für das System mit der größten Reichweite im deutschen Markt, und sie ist die einzige KI-Zitierung, die sich direkt in einem Google-eigenen Werkzeug beobachten lässt.
 
 ## Wie wird die AI Overview Citation Rate gemessen?
 

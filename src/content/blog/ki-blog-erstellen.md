@@ -139,7 +139,7 @@ Bevor Sie veröffentlichen, checken Sie:
 - [ ] Meta-Description (150–160 Zeichen) mit Keyword und CTA
 - [ ] Alt-Texte für Bilder mit relevantem Keyword
 - [ ] URL-Slug kurz und keyword-basiert
-- [ ] Schema.org-Markup: `BlogPosting` und `FAQPage` für FAQ-Sektionen
+- [ ] [Schema.org-Markup](/wissen/geo-glossar/strukturierte-daten/): `BlogPosting` und `FAQPage` für FAQ-Sektionen
 
 Der letzte Punkt wird oft vergessen: Strukturierte Daten helfen KI-Suchmaschinen wie Perplexity und ChatGPT, Ihren Content korrekt zu interpretieren und als Quelle zu zitieren. Das ist **GEO (Generative Engine Optimization)** – und laut [SISTRIX-Analyse Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) zeigen 20 % der Keywords in Deutschland bereits KI-generierte Antworten. Wer in diesen Antworten zitiert wird, gewinnt doppelte Sichtbarkeit – in klassischen Rankings und in KI-Antworten. Mehr dazu im separaten Artikel zur [ChatGPT-SEO-Optimierung](https://www.codaai.ai/blog/chatgpt-seo-perplexity-sichtbarkeit/).
 

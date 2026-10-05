@@ -55,7 +55,7 @@ Google, OpenAI and other providers have not defined a page type of this kind. Fo
 
 ## How does a grounding page differ from the about page?
 
-The about page tells a story, the grounding page provides evidence. The about page holds history, values and team; the grounding page holds the verifiable facts, plainly and completely. Dixon Jones describes the homepage or the about page as the typical “entity home” of a brand — the page that defines who a company is and that all other pages have to align with. The grounding page adds the level of detail that has no room there. Both pages link to each other and do not contradict each other on any detail.
+The [about page](/en/knowledge/geo-glossary/entity-home/) tells a story, the grounding page provides evidence. The about page holds history, values and team; the grounding page holds the verifiable facts, plainly and completely. Dixon Jones describes the homepage or the about page as the typical “entity home” of a brand — the page that defines who a company is and that all other pages have to align with. The grounding page adds the level of detail that has no room there. Both pages link to each other and do not contradict each other on any detail.
 
 ## Why is a grounding page important for AI visibility?
 

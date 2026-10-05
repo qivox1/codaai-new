@@ -17,7 +17,7 @@ Document Relevance bezeichnet die Relevanz einer ganzen Seite für eine Suchanfr
 
 ## Wie funktioniert Document Relevance?
 
-Ein KI-System ranked Seiten nicht selbst neu. Es übernimmt die Trefferlisten eines Suchindex — Bing für ChatGPT und Copilot, Google für AI Overviews, AI Mode und Gemini, ein eigener Index bei Perplexity — und behandelt die vorderen Positionen als Kandidaten für das [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/). Je höher die Position, desto größer die Wahrscheinlichkeit, in den Kandidaten-Pool zu kommen, und bei Gemini desto größer das [Grounding Budget](/wissen/geo-glossar/grounding-budget/).
+Ein KI-System ranked Seiten nicht selbst neu. Es übernimmt die Trefferlisten eines Suchindex — Bing für ChatGPT und Copilot, Google für [AI Overviews](/wissen/geo-glossar/ai-overviews/), [AI Mode](/wissen/geo-glossar/ai-mode/) und Gemini, ein eigener Index bei Perplexity — und behandelt die vorderen Positionen als Kandidaten für das [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/). Je höher die Position, desto größer die Wahrscheinlichkeit, in den Kandidaten-Pool zu kommen, und bei Gemini desto größer das [Grounding Budget](/wissen/geo-glossar/grounding-budget/).
 
 ## Warum ist Document Relevance für die KI-Sichtbarkeit wichtig?
 

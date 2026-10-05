@@ -48,7 +48,7 @@ AI systems repeat what they find about a brand. If your own page is out of date,
 
 If the information is missing altogether, the system fetches it elsewhere. In a webinar with AirOps (August 2026), Cyrus Shepard recommended maintaining around 10 to 15 brand pages — on awards, press, jobs and philosophy — instead of a single about page. Otherwise AI systems find this information on third-party sites.
 
-Details count too. Joy Hawkins (Sterling Sky) noticed in AI Mode that Google highlighted how many years competitors had been in business. She recommends stating the founding year prominently on the homepage and about page (August 2026).
+Details count too. Joy Hawkins (Sterling Sky) noticed in [AI Mode](/en/knowledge/geo-glossary/ai-mode/) that Google highlighted how many years competitors had been in business. She recommends stating the founding year prominently on the homepage and about page (August 2026).
 
 ## What does this mean for your website?
 

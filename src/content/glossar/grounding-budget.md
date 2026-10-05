@@ -21,7 +21,7 @@ Nach dem [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/) liegt eine 
 
 ## Warum ist das Grounding Budget für die KI-Sichtbarkeit wichtig?
 
-Es erklärt, warum die Position innerhalb der Top-Ergebnisse weiterhin zählt, obwohl KI-Antworten keine Trefferliste zeigen. Platz eins und Platz acht kommen beide in den Kandidaten-Pool — aber Platz eins bekommt mehr Budget und damit eine höhere Wahrscheinlichkeit, mit einer passenden Passage zitiert zu werden. Für Gemini und die Google KI-Übersicht ist ein gutes Google-Ranking deshalb wichtiger, nicht weniger wichtig.
+Es erklärt, warum die Position innerhalb der Top-Ergebnisse weiterhin zählt, obwohl KI-Antworten keine Trefferliste zeigen. Platz eins und Platz acht kommen beide in den Kandidaten-Pool — aber Platz eins bekommt mehr Budget und damit eine höhere Wahrscheinlichkeit, mit einer passenden Passage zitiert zu werden. Für Gemini und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) ist ein gutes Google-Ranking deshalb wichtiger, nicht weniger wichtig.
 
 ## Was bedeutet das für Ihre Website?
 

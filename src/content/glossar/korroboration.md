@@ -25,7 +25,7 @@ Grozeva beschreibt Korroboration als die Gründe, die ein KI-System hat, einer M
 
 Korroboration wirkt an drei Stellen:
 
-- **Beim Grounding:** Laut Mike King (iPullRank) suchen KI-Systeme nach Informationen, die über mehrere Quellen hinweg übereinstimmen. Nach seiner Auswertung von Google-Patenten erzeugen AI Overviews zuerst eine Antwort und suchen dann Dokumente, die sie stützen.
+- **Beim Grounding:** Laut Mike King (iPullRank) suchen KI-Systeme nach Informationen, die über mehrere Quellen hinweg übereinstimmen. Nach seiner Auswertung von Google-Patenten erzeugen [AI Overviews](/wissen/geo-glossar/ai-overviews/) zuerst eine Antwort und suchen dann Dokumente, die sie stützen.
 - **Im Training:** Ein Sprachmodell lernt aus großen Textmengen. Was dabei übrig bleibt, ist laut Duane Forrester Konsens, nicht Code (Juli 2026).
 - **Im Knowledge Graph:** Laut Kalicube übernehmen Knowledge Graphs Inhalte unter anderem, um bestehende Fakten zu bestätigen. Das [Entity Home](/wissen/geo-glossar/entity-home/) dient dabei als Abgleichspunkt.
 

@@ -20,7 +20,7 @@ Grounding ist der Vorgang, mit dem ein KI-System seine Antwort auf externen Quel
 
 Grounding beginnt mit der [Websuche](/wissen/geo-glossar/websuche/), die das System auslöst, wenn seine Sicherheit für eine Antwort aus dem Gedächtnis niedrig ist. Aus einer Frage entstehen mehrere Suchanfragen ([Query Fan-out](/wissen/geo-glossar/query-fan-out/)). Für jede werden die bestplatzierten Seiten gesammelt ([Initial Retrieval](/wissen/geo-glossar/initial-retrieval/)), dann werden einzelne Passagen bewertet ([Re-Ranking](/wissen/geo-glossar/re-ranking/)). Die besten Passagen werden als [Grounding Snippets](/wissen/geo-glossar/grounding-snippets/) extrahiert und zusammen mit der Nutzerfrage, Personalisierung und gegebenenfalls angehängten Medien in den Kontext des Modells gelegt. Daraus entsteht die Antwort — mit Zitaten auf die Quellen, aus denen die Snippets stammen.
 
-Bei Google AI Overviews und AI Mode findet dieser Zugriff in der Regel nicht als Live-Abruf Ihrer Seite statt, sondern gegen den bestehenden Google-Index. Ein Server-Log zeigt dort nichts. Bei Gemini gilt zusätzlich ein [Grounding Budget](/wissen/geo-glossar/grounding-budget/): Wer besser rankt, bekommt mehr Raum.
+Bei Google [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/) findet dieser Zugriff in der Regel nicht als Live-Abruf Ihrer Seite statt, sondern gegen den bestehenden Google-Index. Ein Server-Log zeigt dort nichts. Bei Gemini gilt zusätzlich ein [Grounding Budget](/wissen/geo-glossar/grounding-budget/): Wer besser rankt, bekommt mehr Raum.
 
 ## Warum ist Grounding für die KI-Sichtbarkeit wichtig?
 

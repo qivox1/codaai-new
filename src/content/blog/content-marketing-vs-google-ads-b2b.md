@@ -102,7 +102,7 @@ Content ist kein Marketingkanal. Es ist ein Vertrauenskanal. Und im B2B, wo Vert
 
 Bevor wir zu den versteckten Kosten kommen, eine Entwicklung, die 2026 die Kostenrechnung grundlegend verändert: KI-generierte Antworten in der Suche. [SISTRIX hat im Februar 2026](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) über 100 Millionen Suchanfragen in Deutschland ausgewertet – mit dramatischen Ergebnissen.
 
-**20 % der Keywords in Deutschland** zeigen jetzt KI-generierte AI Overviews. Die Klickrate auf Position 1 ist von 27 % auf 11 % gesunken. Monatlich gehen deutschen Websites **265 Millionen organische Klicks** verloren.
+**20 % der Keywords in Deutschland** zeigen jetzt KI-generierte [AI Overviews](/wissen/geo-glossar/ai-overviews/). Die Klickrate auf Position 1 ist von 27 % auf 11 % gesunken. Monatlich gehen deutschen Websites **265 Millionen organische Klicks** verloren.
 
 Das verschiebt die Gleichung: Google Ads konkurriert jetzt nicht nur mit organischen Ergebnissen, sondern auch mit KI-Antworten, die den Nutzer direkt befriedigen – ohne Klick. Für bezahlte Suchanzeigen unterhalb von AI Overviews bedeutet das: weniger sichtbare Impressionen, höhere CPCs durch mehr Wettbewerb um weniger Klickfläche.
 

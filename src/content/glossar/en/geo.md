@@ -16,7 +16,7 @@ faq:
     a: "No. The factors that make a mention more likely are known; nobody knows the formula of the individual AI systems. Serious GEO work therefore measures probabilities across many queries instead of promising a position."
 ---
 
-GEO (Generative Engine Optimization) is the work of getting an AI system to mention a company in its answer or to cite its content as a source. This means systems such as ChatGPT, Gemini, Perplexity, Microsoft Copilot and Google AI Overviews. The term sets itself apart from SEO: SEO wants a position in a results list, GEO wants a role in a generated answer.
+GEO (Generative Engine Optimization) is the work of getting an AI system to mention a company in its answer or to cite its content as a source. This means systems such as ChatGPT, Gemini, Perplexity, Microsoft Copilot and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/). The term sets itself apart from SEO: SEO wants a position in a results list, GEO wants a role in a generated answer.
 
 ## How does GEO work?
 

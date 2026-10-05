@@ -72,7 +72,7 @@ In our model, this building block belongs to the second visibility tier – **[T
 
 ## What the study actually measured
 
-The Overthink Group, an American content agency, ran around 1,260 buying prompts across four surfaces in June 2026 together with the measurement provider Amadora: ChatGPT, Gemini, Perplexity and Google AI Overviews. [The results were published on 14 July 2026](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/).
+The Overthink Group, an American content agency, ran around 1,260 buying prompts across four surfaces in June 2026 together with the measurement provider Amadora: ChatGPT, Gemini, Perplexity and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/). [The results were published on 14 July 2026](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/).
 
 The set-up matters for putting the results in context, so here is the short version: 250 niche B2B software categories, selected by a search volume of between 150 and 700 queries per month. Four prompt variants per category, including the realistic everyday phrasing “I am researching [category] for my team. Which vendors belong on my shortlist?” One week of runtime.
 

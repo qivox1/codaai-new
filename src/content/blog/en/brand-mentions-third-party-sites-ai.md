@@ -29,7 +29,7 @@ faq:
     a: "For a first overview, a manual count is enough. Search for your company name in quotation marks, count the hits on other domains and sort them by type: trade media, directories, forums, competitor comparisons. That does not give you a correlation, but it answers the question that matters first — whether anyone outside your own website writes about you at all."
 ---
 
-A supplier of medical technology has invested in link building for years. Its Domain Rating is respectable, and so are its rankings. Even so, the company does not appear in ChatGPT or in Google AI Overviews when a buyer asks for suppliers in its category. A considerably smaller competitor does appear — one that two trade publications write about regularly.
+A supplier of medical technology has invested in link building for years. Its Domain Rating is respectable, and so are its rankings. Even so, the company does not appear in ChatGPT or in [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) when a buyer asks for suppliers in its category. A considerably smaller competitor does appear — one that two trade publications write about regularly.
 
 The contradiction is only an apparent one. It disappears as soon as you know what these systems respond to.
 

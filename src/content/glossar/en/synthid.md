@@ -26,7 +26,7 @@ For images, video and audio, SynthID embeds the signal directly in the file, inv
 
 Google introduced SynthID in 2023. By November 2025, more than 20 billion pieces of content had been watermarked with it, according to Google. The text version is open source and available in the Hugging Face Transformers library from version 4.46.0 (Google AI for Developers).
 
-Content can be checked in several places. In May 2025, Google presented the SynthID Detector verification portal. In the Gemini app, users can upload images, videos and audio files and ask whether they were created with Google AI. Since May 2026, Google has been extending verification to Search, for example in Lens, AI Mode and Circle to Search, and then to Chrome (Google I/O, May 2026).
+Content can be checked in several places. In May 2025, Google presented the SynthID Detector verification portal. In the Gemini app, users can upload images, videos and audio files and ask whether they were created with Google AI. Since May 2026, Google has been extending verification to Search, for example in Lens, [AI Mode](/en/knowledge/geo-glossary/ai-mode/) and Circle to Search, and then to Chrome (Google I/O, May 2026).
 
 ## Where are the limits of SynthID?
 

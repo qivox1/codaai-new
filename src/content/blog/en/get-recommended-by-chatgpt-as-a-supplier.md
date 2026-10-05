@@ -30,7 +30,7 @@ faq:
 
 Ask ChatGPT which suppliers are worth considering for a particular job and you do not get a list of results but three to five names. Only those companies make the buyer's longlist. **ChatGPT names the companies it either knows from training or finds confirmed in several independent sources during a web search.** Both can be influenced, but not with the tools that were enough for Google.
 
-In our [study of 449 mid-sized companies in Germany](/en/study/), **54.7% of 3,592 buyer questions went without a mention** of the company examined. For 46.8% of the companies, ChatGPT and Google AI Overviews recommended competitors by name instead.
+In our [study of 449 mid-sized companies in Germany](/en/study/), **54.7% of 3,592 buyer questions went without a mention** of the company examined. For 46.8% of the companies, ChatGPT and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) recommended competitors by name instead.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">

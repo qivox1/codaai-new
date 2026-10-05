@@ -20,7 +20,7 @@ The Citation Rate is the share of answers in which a page of your own domain is 
 
 Four steps. First, check the grounding probability: for which prompts do AI systems list sources at all? Only there can a [citation](/en/knowledge/geo-glossary/citation/) arise. Second, collect the Citation Rate, several times per prompt and system. Third, a technical check for successful retrieval: can the system retrieve all relevant pages? Fourth, the [source analysis](/en/knowledge/geo-glossary/source-analysis/): which third-party sites are cited for the same prompts, and does the brand need to be present there?
 
-For Google AI Overviews, citation can additionally be observed via the "Generative AI" report in Search Console ([AI Overview Citation Rate](/en/knowledge/geo-glossary/ai-overview-citation-rate/)).
+For [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/), citation can additionally be observed via the "Generative AI" report in Search Console ([AI Overview Citation Rate](/en/knowledge/geo-glossary/ai-overview-citation-rate/)).
 
 ## Why does the Citation Rate matter for AI visibility?
 

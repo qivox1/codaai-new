@@ -20,7 +20,7 @@ A token is the smallest unit a [language model](/en/knowledge/geo-glossary/llm/)
 
 Before a model processes a text, a tokenizer splits it into tokens and assigns a number to each one. The model then estimates, for each position, which token follows with which probability. For further processing as meaning, tokens or whole sections are translated into vectors (see [embedding](/en/knowledge/geo-glossary/embedding/)).
 
-Tokens are also the currency of the context window. Each model can only keep a certain number of tokens "in view" at once. The user's question, the system's instructions and all excerpts from web pages the system found in a web search must fit into this window.
+Tokens are also the currency of the [context window](/en/knowledge/geo-glossary/context-window/). Each model can only keep a certain number of tokens "in view" at once. The user's question, the system's instructions and all excerpts from web pages the system found in a web search must fit into this window.
 
 ## Why do tokens matter for AI visibility?
 

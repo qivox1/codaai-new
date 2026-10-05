@@ -74,7 +74,7 @@ For normalised vectors with length 1, the differences disappear: the dot product
 
 Search systems and language models place queries and documents as vectors in a shared space. Sections whose vector lies close to the query vector count as more relevant — measured, for example, by cosine similarity. That is how Mike King (iPullRank) describes it. In the [retrieval pipeline](/en/knowledge/geo-glossary/initial-retrieval/) of an AI system, this closeness is a central criterion for which passages clear the relevance threshold in [re-ranking](/en/knowledge/geo-glossary/re-ranking/).
 
-Closeness of meaning is rarely the only signal. Many systems combine semantic search with a classic word-based search such as BM25 (hybrid retrieval). Word-based search performs better when exact terms matter — product names, standards, part numbers. A section should therefore offer both: the right meaning and the right words.
+Closeness of meaning is rarely the only signal. Many systems combine [semantic search](/en/knowledge/geo-glossary/semantic-search/) with a classic word-based search such as [BM25](/en/knowledge/geo-glossary/hybrid-retrieval/) (hybrid retrieval). Word-based search performs better when exact terms matter — product names, standards, part numbers. A section should therefore offer both: the right meaning and the right words.
 
 ## Why does cosine similarity matter for AI visibility?
 

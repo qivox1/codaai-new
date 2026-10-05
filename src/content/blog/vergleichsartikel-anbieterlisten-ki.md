@@ -72,7 +72,7 @@ Dieser Baustein gehört bei uns zur zweiten Visibility-Stufe – **[Stufe 2 · E
 
 ## Was in der Untersuchung tatsächlich gemessen wurde
 
-Die Overthink Group, eine amerikanische Content-Agentur, hat im Juni 2026 gemeinsam mit dem Messanbieter Amadora rund 1.260 Kaufprompts über vier Oberflächen laufen lassen: ChatGPT, Gemini, Perplexity und die Google AI Overviews. [Veröffentlicht wurde das Ergebnis am 14. Juli 2026](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/).
+Die Overthink Group, eine amerikanische Content-Agentur, hat im Juni 2026 gemeinsam mit dem Messanbieter Amadora rund 1.260 Kaufprompts über vier Oberflächen laufen lassen: ChatGPT, Gemini, Perplexity und die Google [AI Overviews](/wissen/geo-glossar/ai-overviews/). [Veröffentlicht wurde das Ergebnis am 14. Juli 2026](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/).
 
 Der Aufbau ist wichtig für die Einordnung, deshalb hier die Kurzfassung: 250 nischige B2B-Softwarekategorien, ausgewählt über ein Suchvolumen zwischen 150 und 700 Anfragen pro Monat. Je Kategorie vier Promptvarianten, darunter die im Alltag realistische Formulierung „Ich recherchiere [Kategorie] für mein Team. Welche Anbieter gehören auf meine Auswahlliste?" Eine Woche Laufzeit.
 

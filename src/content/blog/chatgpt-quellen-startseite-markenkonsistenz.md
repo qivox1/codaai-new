@@ -182,6 +182,6 @@ Die Nachricht dieser Untersuchung ist nicht, dass alles unerreichbar wäre. Sie 
 
 Keines von beiden ist neu. Beides wird selten getan, weil es unspektakulär ist und niemandem Applaus einbringt. Nach den vorliegenden Daten ist es der Teil mit der besten Aussicht.
 
-Ob ChatGPT und die Google KI-Übersicht Ihr Unternehmen bei den Fragen Ihrer Einkäufer heute nennen – und welche Quellen sie stattdessen heranziehen –, misst das Digital Visibility Audit an echten Fragen aus Ihrer Branche.
+Ob ChatGPT und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) Ihr Unternehmen bei den Fragen Ihrer Einkäufer heute nennen – und welche Quellen sie stattdessen heranziehen –, misst das Digital Visibility Audit an echten Fragen aus Ihrer Branche.
 
 Wie ChatGPT seine Quellen überhaupt auswählt, beschreibt der Artikel [Warum Bing mitentscheidet](/blog/chatgpt-seo-perplexity-sichtbarkeit/); eine weitere eigene Quelle neben der Startseite ist [YouTube](/blog/youtube-ki-sichtbarkeit-b2b/).

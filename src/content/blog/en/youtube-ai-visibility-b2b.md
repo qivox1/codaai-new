@@ -33,7 +33,7 @@ faq:
 
 A special-purpose machinery manufacturer in southern Germany wonders why he never appears in AI answers, although his website ranks well on Google. He has produced four explainer videos. They sit on his product page. None of them is on YouTube — and that is exactly where a substantial share of the systems deciding whether to name him go looking for their evidence.
 
-Around **40%** of all answers in the German Google AI Mode contain a link to a YouTube video. That makes YouTube the most frequently cited source there — ahead of Wikipedia, ahead of any trade portal. [SISTRIX measured this across many millions of answers in October 2025](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/). This article sets out how far that finding carries, where its limits are, and what separates a citable video from an unusable one.
+Around **40%** of all answers in the German Google [AI Mode](/en/knowledge/geo-glossary/ai-mode/) contain a link to a YouTube video. That makes YouTube the most frequently cited source there — ahead of Wikipedia, ahead of any trade portal. [SISTRIX measured this across many millions of answers in October 2025](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/). This article sets out how far that finding carries, where its limits are, and what separates a citable video from an unusable one.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
@@ -90,7 +90,7 @@ Alongside its widely quoted detail findings, [OtterlyAI's YouTube Citation Study
 
 The SISTRIX figure needs its context too: an AI Mode answer in Germany contains **around 15 source links** on average. “A YouTube link appears in 40% of answers” therefore does not mean YouTube supplies 40% of the evidence — it means that among fifteen sources it turns up particularly reliably.
 
-So why does it still sit this far up the article? Because the distribution is extremely uneven. YouTube accounts for 36.6% of measured YouTube citations in Google AI Overviews, but 0.2% in Gemini. An average across all systems obscures precisely the decision at stake — namely, where your buyers actually search. More on that below.
+So why does it still sit this far up the article? Because the distribution is extremely uneven. YouTube accounts for 36.6% of measured YouTube citations in [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/), but 0.2% in Gemini. An average across all systems obscures precisely the decision at stake — namely, where your buyers actually search. More on that below.
 
 One more figure belongs in this weighing up: according to [SISTRIX measurements](https://www.sistrix.de/ai-insights/ai-overviews), only **42.2%** of all AI Mode answers contain any brand reference at all. This is not about getting “more visibility”. It is about one of the few slots that are handed out at all.
 

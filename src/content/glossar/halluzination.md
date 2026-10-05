@@ -5,7 +5,7 @@ seoDescription: "KI-Halluzination erklärt: warum Sprachmodelle falsche Angaben 
 shortDefinition: "Eine KI-Halluzination ist eine Aussage eines KI-Systems, die plausibel klingt, aber falsch ist oder sich auf keine Quelle stützt. Sie entsteht, weil Sprachmodelle wahrscheinliche statt geprüfte Antworten erzeugen."
 synonyms: ["Halluzination", "AI Hallucination", "Konfabulation", "KI-Fehlinformation"]
 category: grundlagen
-related: ["modellwissen", "grounding", "knowledge-cutoff", "promptset", "nullmessung", "korroboration"]
+related: ["modellwissen", "grounding", "knowledge-cutoff", "promptset", "nullmessung", "korroboration", "synthid"]
 pubDate: 2026-10-05
 faq:
   - q: "Verhindert Grounding jede KI-Halluzination?"
@@ -49,7 +49,7 @@ Belastbare Zahlen gibt es nur für eng umrissene Aufgaben. In einer im Oktober 2
 
 - **Falsche Quellen:** Ist die gefundene Seite falsch oder veraltet, übernimmt die Antwort den Fehler.
 - **Fehlende Quellen:** Laut Forrester bevorzugt auch das Retrieval bekannte Entitäten. Wenig beschriebene Unternehmen werden seltener gefunden.
-- **Unsichtbare Angaben:** Im Experiment von OtterlyAI halluzinierten ChatGPT und andere Systeme sogar bei Informationen, die nur im Schema-Markup standen und nicht im Text (Thomas Peham, September 2026).
+- **Unsichtbare Angaben:** Im Experiment von OtterlyAI halluzinierten ChatGPT und andere Systeme sogar bei Informationen, die nur im [Schema-Markup](/wissen/geo-glossar/strukturierte-daten/) standen und nicht im Text (Thomas Peham, September 2026).
 
 ## Warum ist die KI-Halluzination für die KI-Sichtbarkeit wichtig?
 

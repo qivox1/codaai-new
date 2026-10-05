@@ -14,7 +14,7 @@ faq:
     a: "Nein. Die Faktoren, die eine Nennung wahrscheinlicher machen, sind bekannt; die Formel der einzelnen KI-Systeme kennt niemand. Seriöse Arbeit an GEO misst deshalb Wahrscheinlichkeiten über viele Abfragen statt eine Position zu versprechen."
 ---
 
-GEO (Generative Engine Optimization) ist die Arbeit daran, dass ein KI-System ein Unternehmen in seiner Antwort nennt oder dessen Inhalte als Quelle zitiert. Gemeint sind Systeme wie ChatGPT, Gemini, Perplexity, Microsoft Copilot und die Google KI-Übersicht. Der Begriff grenzt sich von SEO ab: SEO will eine Position in einer Trefferliste, GEO will eine Rolle in einer generierten Antwort.
+GEO (Generative Engine Optimization) ist die Arbeit daran, dass ein KI-System ein Unternehmen in seiner Antwort nennt oder dessen Inhalte als Quelle zitiert. Gemeint sind Systeme wie ChatGPT, Gemini, Perplexity, Microsoft Copilot und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/). Der Begriff grenzt sich von SEO ab: SEO will eine Position in einer Trefferliste, GEO will eine Rolle in einer generierten Antwort.
 
 ## Wie funktioniert GEO?
 

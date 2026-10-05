@@ -59,7 +59,7 @@ Citation Share answers the question “How much space do I get for this query?�
 
 ## Why does Citation Share matter for AI visibility?
 
-The data comes straight from the operator of the AI system. In April 2026, Aleyda Solís called the AI Performance report the only first-party citation data available from any AI ecosystem. Google now shows impressions from AI Overviews and AI Mode in Search Console, but no citation shares per query.
+The data comes straight from the operator of the AI system. In April 2026, Aleyda Solís called the AI Performance report the only first-party citation data available from any AI ecosystem. Google now shows impressions from [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/) in Search Console, but no citation shares per query.
 
 The metric also shows which pages carry the weight. Claire Carlisle (Whitespark) found that on the websites she examined, deep informational pages rather than the homepage achieved the highest Citation Share (July 2026). In the grounding queries she found very long, conversational prompts.
 

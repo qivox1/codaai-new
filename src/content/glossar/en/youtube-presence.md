@@ -16,7 +16,7 @@ faq:
     a: "Long-form specialist videos that answer a specific question: explanations, comparisons, tutorials, insights into projects. Short clips bring reach but hardly any citations. Title, description and chapters should carry the question, the transcript the answer — and the company name belongs in both."
 ---
 
-YouTube presence is the visibility of a brand through its own videos on YouTube. For AI systems, YouTube is a source in its own right: Google embeds videos in AI Overviews and AI Mode, and ChatGPT cites YouTube links for explanation and how-to questions. In correlation analyses — such as the one by Ahrefs across 75,000 brands — YouTube presence is among the strongest factors for being mentioned in AI answers.
+YouTube presence is the visibility of a brand through its own videos on YouTube. For AI systems, YouTube is a source in its own right: Google embeds videos in [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/), and ChatGPT cites YouTube links for explanation and how-to questions. In correlation analyses — such as the one by Ahrefs across 75,000 brands — YouTube presence is among the strongest factors for being mentioned in AI answers.
 
 ## How does YouTube presence affect AI answers?
 

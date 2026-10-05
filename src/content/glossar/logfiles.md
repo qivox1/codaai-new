@@ -17,7 +17,7 @@ Logfiles sind die Protokolle des Webservers, in denen jeder Abruf mit Zeitpunkt,
 
 ## Was zeigen Logfiles — und was nicht?
 
-Vier Einschränkungen, die SISTRIX in einer Analyse zu Zugriffen von AI-Userbots ausführlich beschreibt. Erstens: Bei Google AI Overviews und AI Mode findet in der Regel kein Live-Zugriff statt; diese Systeme greifen auf den Google-Index zu und hinterlassen keine Logs. Zweitens: Ein Abruf heißt, dass die Seite im [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/) als Kandidat galt — nicht, dass sie das [Re-Ranking](/wissen/geo-glossar/re-ranking/) bestanden hat und in der Antwort steht. Drittens: Der Aufruf ist eine Validierung bei Unsicherheit; das System antwortet nicht wegen des Aufrufs. Viertens: Um Latenz und Kosten zu sparen, wird viel gecacht — Seiten mit wenig Zugriffen werden unter Umständen oft genutzt, Seiten mit vielen Zugriffen landen vielleicht nur im Cache.
+Vier Einschränkungen, die SISTRIX in einer Analyse zu Zugriffen von AI-Userbots ausführlich beschreibt. Erstens: Bei Google [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/) findet in der Regel kein Live-Zugriff statt; diese Systeme greifen auf den Google-Index zu und hinterlassen keine Logs. Zweitens: Ein Abruf heißt, dass die Seite im [Initial Retrieval](/wissen/geo-glossar/initial-retrieval/) als Kandidat galt — nicht, dass sie das [Re-Ranking](/wissen/geo-glossar/re-ranking/) bestanden hat und in der Antwort steht. Drittens: Der Aufruf ist eine Validierung bei Unsicherheit; das System antwortet nicht wegen des Aufrufs. Viertens: Um Latenz und Kosten zu sparen, wird viel gecacht — Seiten mit wenig Zugriffen werden unter Umständen oft genutzt, Seiten mit vielen Zugriffen landen vielleicht nur im Cache.
 
 ## Warum sind Logfiles für die KI-Sichtbarkeit trotzdem wichtig?
 
@@ -25,4 +25,4 @@ Weil sie technische Probleme sichtbar machen, die keine andere Datenquelle zeigt
 
 ## Was bedeutet das für Ihre Website?
 
-Werten Sie Logfiles nach AI User Agents aus und beantworten Sie damit technische Fragen — nicht die Frage nach der Sichtbarkeit. Für die Sichtbarkeit brauchen Sie [LLM Visibility Tracking](/wissen/geo-glossar/llm-visibility-tracking/) über ein Promptset, den „Generative KI"-Report der Search Console für Googles KI-Übersichten und den „AI Performance"-Report in Bing Webmaster Tools für Copilot. Erst die Kombination ergibt ein vollständiges Bild.
+Werten Sie Logfiles nach AI User Agents aus und beantworten Sie damit technische Fragen — nicht die Frage nach der Sichtbarkeit. Für die Sichtbarkeit brauchen Sie [LLM Visibility Tracking](/wissen/geo-glossar/llm-visibility-tracking/) über ein Promptset, den „Generative KI"-Report der Search Console für Googles KI-Übersichten und den „AI Performance"-Report in [Bing Webmaster Tools](/wissen/geo-glossar/citation-share/) für Copilot. Erst die Kombination ergibt ein vollständiges Bild.

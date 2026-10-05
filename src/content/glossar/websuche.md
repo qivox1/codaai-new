@@ -17,7 +17,7 @@ Die Websuche ist der Moment, in dem ein KI-System sein [Modellwissen](/wissen/ge
 
 ## Wie funktioniert die Websuche in KI-Systemen?
 
-Fällt die Sicherheit niedrig aus, formuliert das System eine oder mehrere Suchanfragen ([Query Fan-out](/wissen/geo-glossar/query-fan-out/)), schickt sie an einen Suchindex und sammelt die Treffer als Kandidaten ([Initial Retrieval](/wissen/geo-glossar/initial-retrieval/)). Aus den Kandidaten werden die relevantesten Passagen ausgewählt ([Re-Ranking](/wissen/geo-glossar/re-ranking/)) und als [Grounding Snippets](/wissen/geo-glossar/grounding-snippets/) in den Kontext des Modells gelegt. Erst dann entsteht die Antwort. Der Fachbegriff für dieses Verfahren ist Retrieval-Augmented Generation (RAG).
+Fällt die Sicherheit niedrig aus, formuliert das System eine oder mehrere Suchanfragen ([Query Fan-out](/wissen/geo-glossar/query-fan-out/)), schickt sie an einen Suchindex und sammelt die Treffer als Kandidaten ([Initial Retrieval](/wissen/geo-glossar/initial-retrieval/)). Aus den Kandidaten werden die relevantesten Passagen ausgewählt ([Re-Ranking](/wissen/geo-glossar/re-ranking/)) und als [Grounding Snippets](/wissen/geo-glossar/grounding-snippets/) in den Kontext des Modells gelegt. Erst dann entsteht die Antwort. Der Fachbegriff für dieses Verfahren ist [Retrieval-Augmented Generation](/wissen/geo-glossar/retrieval-augmented-generation/) (RAG).
 
 Ist die Sicherheit hoch, entfällt all das. Das Modell antwortet aus dem Gedächtnis, und keine Website wird abgerufen — auch Ihre nicht.
 

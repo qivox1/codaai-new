@@ -24,7 +24,7 @@ After the [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/), th
 
 ## Why does the grounding budget matter for AI visibility?
 
-It explains why the position within the top results still counts, even though AI answers show no result list. Position one and position eight both enter the candidate pool, but position one gets more budget and with it a higher probability of being cited with a matching passage. For Gemini and Google AI Overviews, a good Google ranking is therefore more important, not less.
+It explains why the position within the top results still counts, even though AI answers show no result list. Position one and position eight both enter the candidate pool, but position one gets more budget and with it a higher probability of being cited with a matching passage. For Gemini and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/), a good Google ranking is therefore more important, not less.
 
 ## What does this mean for your website?
 

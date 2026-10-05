@@ -29,7 +29,7 @@ faq:
     a: "Für einen ersten Überblick reicht eine Handzählung. Suchen Sie Ihren Firmennamen in Anführungszeichen, zählen Sie die Treffer auf fremden Domains und trennen Sie nach Art: Fachmedien, Verzeichnisse, Foren, Wettbewerbervergleiche. Das ergibt keine Korrelation, aber es beantwortet die Frage, die zuerst zählt – ob außerhalb der eigenen Website überhaupt über Sie geschrieben wird."
 ---
 
-Ein Zulieferer für Medizintechnik hat über Jahre in Linkaufbau investiert. Das Domain Rating ist ordentlich, die Rankings sind es auch. Trotzdem taucht das Unternehmen in ChatGPT und in der Google KI-Übersicht nicht auf, wenn ein Einkäufer nach Anbietern seiner Kategorie fragt. Ein deutlich kleinerer Wettbewerber taucht auf – einer, über den regelmäßig in zwei Fachmedien geschrieben wird.
+Ein Zulieferer für Medizintechnik hat über Jahre in Linkaufbau investiert. Das Domain Rating ist ordentlich, die Rankings sind es auch. Trotzdem taucht das Unternehmen in ChatGPT und in der [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) nicht auf, wenn ein Einkäufer nach Anbietern seiner Kategorie fragt. Ein deutlich kleinerer Wettbewerber taucht auf – einer, über den regelmäßig in zwei Fachmedien geschrieben wird.
 
 Der Widerspruch ist nur scheinbar einer. Er löst sich auf, sobald man weiß, worauf diese Systeme reagieren.
 

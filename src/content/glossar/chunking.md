@@ -21,7 +21,7 @@ Chunking ist das systematische Zerlegen von Texten in kleine Abschnitte, die ein
 
 ## Wie funktioniert Chunking?
 
-Die vereinfachte Verarbeitungskette eines KI-Systems hat sechs Schritte: Datenquellen sammeln, Parsing und Extraction, Chunking, Embeddings, Speicherung in einer Vektordatenbank, Retrieval und Antwort. Chunking sitzt in der Mitte und bestimmt, welche Einheit später verglichen wird. Bei einer Anfrage berechnet das System, wie nah jeder Chunk der Frage ist ([Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/)), und gibt die besten an das Sprachmodell weiter. Ein Chunk wird dabei ohne den Rest der Seite bewertet.
+Die vereinfachte Verarbeitungskette eines KI-Systems hat sechs Schritte: Datenquellen sammeln, Parsing und Extraction, Chunking, Embeddings, Speicherung in einer [Vektordatenbank](/wissen/geo-glossar/vektordatenbank/), Retrieval und Antwort. Chunking sitzt in der Mitte und bestimmt, welche Einheit später verglichen wird. Bei einer Anfrage berechnet das System, wie nah jeder Chunk der Frage ist ([Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/)), und gibt die besten an das Sprachmodell weiter. Ein Chunk wird dabei ohne den Rest der Seite bewertet.
 
 Für Websuchen gilt dasselbe Prinzip unter anderem Namen: Mike King (iPullRank) setzt Chunking mit dem Passage Indexing gleich, mit dem Google begonnen hat, nicht mehr nur ganze Seiten, sondern einzelne Abschnitte einer Seite zu bewerten.
 
@@ -47,7 +47,7 @@ Die Chunk-Größe wird in Token gemessen. Für Entwickler-Dienste, mit denen Unt
 | Google RAG Engine | 1.024 Token | 256 Token |
 | AWS Bedrock Knowledge Bases (feste Länge) | 300 Token | 20 % |
 
-Für die Websuche von ChatGPT oder Googles KI-Übersicht sind keine Werte veröffentlicht. Die Überlappung zeigt aber, warum feste Absatzlängen wenig bringen: Weil benachbarte Chunks sich zu 20 bis 50 Prozent überschneiden, entschärfen die Systeme Grenzprobleme selbst.
+Für die Websuche von ChatGPT oder Googles [KI-Übersicht](/wissen/geo-glossar/ai-overviews/) sind keine Werte veröffentlicht. Die Überlappung zeigt aber, warum feste Absatzlängen wenig bringen: Weil benachbarte Chunks sich zu 20 bis 50 Prozent überschneiden, entschärfen die Systeme Grenzprobleme selbst.
 
 ## Warum ist Chunking für die KI-Sichtbarkeit wichtig?
 

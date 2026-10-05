@@ -18,7 +18,7 @@ Web search is the moment in which an AI system leaves its [model knowledge](/en/
 
 ## How does web search work in AI systems?
 
-If confidence is low, the system formulates one or more search queries ([query fan-out](/en/knowledge/geo-glossary/query-fan-out/)), sends them to a search index and collects the hits as candidates ([initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/)). From the candidates, the most relevant passages are selected ([re-ranking](/en/knowledge/geo-glossary/re-ranking/)) and placed in the model's context as [grounding snippets](/en/knowledge/geo-glossary/grounding-snippets/). Only then is the answer produced. The technical term for this procedure is Retrieval-Augmented Generation (RAG).
+If confidence is low, the system formulates one or more search queries ([query fan-out](/en/knowledge/geo-glossary/query-fan-out/)), sends them to a search index and collects the hits as candidates ([initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/)). From the candidates, the most relevant passages are selected ([re-ranking](/en/knowledge/geo-glossary/re-ranking/)) and placed in the model's context as [grounding snippets](/en/knowledge/geo-glossary/grounding-snippets/). Only then is the answer produced. The technical term for this procedure is [Retrieval-Augmented Generation](/en/knowledge/geo-glossary/retrieval-augmented-generation/) (RAG).
 
 If confidence is high, none of this happens. The model answers from memory, and no website is retrieved, yours included.
 

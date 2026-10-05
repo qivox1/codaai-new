@@ -45,7 +45,7 @@ Bei dynamischen Websites ist die Serververarbeitung meist der größte Posten. S
 
 ## Wie wirkt die TTFB auf KI-Crawler?
 
-Ein Live-Agent, der während einer KI-Antwort Seiten abruft, arbeitet unter Zeitdruck: Der Nutzer wartet auf die Antwort. Antwortet ein Server zu langsam, bricht der Agent den Request ab — und führt keinen Retry durch. Für Trainings-Crawler gilt Ähnliches in abgeschwächter Form: Langsame Hosts bekommen weniger Abrufe je Zeiteinheit ([Crawl-Budget](/wissen/geo-glossar/crawl-budget/)). Auch für KI-Agenten, die im Auftrag eines Nutzers Websites bedienen, empfiehlt Jessica Frederick (Sitebulb), die TTFB und die Größe der ausgelieferten Daten zu optimieren — Agenten haben wenig Geduld.
+Ein Live-Agent, der während einer KI-Antwort Seiten abruft, arbeitet unter Zeitdruck: Der Nutzer wartet auf die Antwort. Antwortet ein Server zu langsam, bricht der Agent den Request ab — und führt keinen Retry durch. Für Trainings-Crawler gilt Ähnliches in abgeschwächter Form: Langsame Hosts bekommen weniger Abrufe je Zeiteinheit ([Crawl-Budget](/wissen/geo-glossar/crawl-budget/)). Auch für [KI-Agenten](/wissen/geo-glossar/ki-agenten/), die im Auftrag eines Nutzers Websites bedienen, empfiehlt Jessica Frederick (Sitebulb), die TTFB und die Größe der ausgelieferten Daten zu optimieren — Agenten haben wenig Geduld.
 
 ## Warum ist die TTFB für die KI-Sichtbarkeit wichtig?
 

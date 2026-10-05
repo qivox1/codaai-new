@@ -19,7 +19,7 @@ Die Citation Rate ist der Anteil der Antworten, in denen eine Seite der eigenen 
 
 Vier Schritte. Erstens die Grounding-Wahrscheinlichkeit prüfen: Bei welchen Prompts geben KI-Systeme überhaupt Quellen an? Nur dort kann eine [Citation](/wissen/geo-glossar/citation/) entstehen. Zweitens die Citation Rate erheben — mehrfach je Prompt und System. Drittens eine technische Prüfung für erfolgreiches Retrieval: Kann das System alle relevanten Seiten abrufen? Viertens die [Quellenanalyse](/wissen/geo-glossar/quellenanalyse/): Welche Drittseiten werden bei denselben Prompts zitiert, und muss die Marke dort präsent sein?
 
-Für Google AI Overviews lässt sich die Zitierung zusätzlich über den „Generative KI"-Report der Search Console beobachten ([AI Overview Citation Rate](/wissen/geo-glossar/ai-overview-citation-rate/)).
+Für Google [AI Overviews](/wissen/geo-glossar/ai-overviews/) lässt sich die Zitierung zusätzlich über den „Generative KI"-Report der Search Console beobachten ([AI Overview Citation Rate](/wissen/geo-glossar/ai-overview-citation-rate/)).
 
 ## Warum ist die Citation Rate für die KI-Sichtbarkeit wichtig?
 

@@ -26,4 +26,4 @@ It explains why grounding carries so much weight. A model that is not confident 
 
 ## What does this mean for your website?
 
-Everything you published after the cut-off of the common models reaches the AI only via web search. So make the currency of your content visible: publication and modification dates in the source code and in the schema markup, current years in the text. The term [freshness](/en/knowledge/geo-glossary/freshness/) describes why AI systems cite older content much less often.
+Everything you published after the cut-off of the common models reaches the AI only via web search. So make the currency of your content visible: publication and modification dates in the source code and in the [schema markup](/en/knowledge/geo-glossary/structured-data/), current years in the text. The term [freshness](/en/knowledge/geo-glossary/freshness/) describes why AI systems cite older content much less often.

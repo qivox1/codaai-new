@@ -27,7 +27,7 @@ Grozeva describes corroboration as the reasons an AI system has to trust a brand
 
 Corroboration takes effect in three places:
 
-- **During grounding:** according to Mike King (iPullRank), AI systems look for information that is consistent across several sources. Based on his reading of Google patents, AI Overviews generate an answer first and then look for documents that support it.
+- **During grounding:** according to Mike King (iPullRank), AI systems look for information that is consistent across several sources. Based on his reading of Google patents, [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) generate an answer first and then look for documents that support it.
 - **During training:** a language model learns from large volumes of text. What survives, according to Duane Forrester, is consensus, not code (July 2026).
 - **In the knowledge graph:** according to Kalicube, knowledge graphs take in content partly to confirm existing facts. The [entity home](/en/knowledge/geo-glossary/entity-home/) serves as the reconciliation point.
 

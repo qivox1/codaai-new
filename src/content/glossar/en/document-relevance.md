@@ -19,7 +19,7 @@ Document relevance is the relevance of an entire page for a search query, as a s
 
 ## How does document relevance work?
 
-An AI system does not re-rank pages itself. It takes over the result lists of a search index, Bing for ChatGPT and Copilot, Google for AI Overviews, AI Mode and Gemini, its own index in the case of Perplexity, and treats the top positions as candidates for the [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/). The higher the position, the greater the probability of entering the candidate pool, and with Gemini the greater the [grounding budget](/en/knowledge/geo-glossary/grounding-budget/).
+An AI system does not re-rank pages itself. It takes over the result lists of a search index, Bing for ChatGPT and Copilot, Google for [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/), [AI Mode](/en/knowledge/geo-glossary/ai-mode/) and Gemini, its own index in the case of Perplexity, and treats the top positions as candidates for the [initial retrieval](/en/knowledge/geo-glossary/initial-retrieval/). The higher the position, the greater the probability of entering the candidate pool, and with Gemini the greater the [grounding budget](/en/knowledge/geo-glossary/grounding-budget/).
 
 ## Why does document relevance matter for AI visibility?
 

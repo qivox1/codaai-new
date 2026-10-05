@@ -30,7 +30,7 @@ faq:
 
 Wer ChatGPT fragt, welche Anbieter für eine bestimmte Aufgabe infrage kommen, bekommt keine Trefferliste, sondern drei bis fünf Namen. Nur diese Unternehmen landen auf der Longlist des Einkäufers. **Genannt wird, wen das System entweder aus dem Training kennt oder bei einer Websuche in mehreren unabhängigen Quellen bestätigt findet.** Beides lässt sich beeinflussen, aber nicht mit den Mitteln, die bei Google gereicht haben.
 
-In unserer [Studie mit 449 mittelständischen Unternehmen](/studie/) blieben **54,7 % der 3.592 Einkäuferfragen ohne Nennung** des untersuchten Unternehmens. Bei 46,8 % der Unternehmen empfahlen ChatGPT und die Google KI-Übersicht stattdessen namentlich Wettbewerber.
+In unserer [Studie mit 449 mittelständischen Unternehmen](/studie/) blieben **54,7 % der 3.592 Einkäuferfragen ohne Nennung** des untersuchten Unternehmens. Bei 46,8 % der Unternehmen empfahlen ChatGPT und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) stattdessen namentlich Wettbewerber.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">

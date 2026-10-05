@@ -23,7 +23,7 @@ Chunking is the systematic splitting of texts into small sections that an AI sys
 
 ## How does chunking work?
 
-The simplified processing chain of an AI system has six steps: collecting data sources, parsing and extraction, chunking, embeddings, storage in a vector database, retrieval and answer. Chunking sits in the middle and determines which unit is compared later. For a query, the system calculates how close each chunk is to the question ([cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/)) and passes the best ones to the language model. A chunk is assessed without the rest of the page.
+The simplified processing chain of an AI system has six steps: collecting data sources, parsing and extraction, chunking, embeddings, storage in a [vector database](/en/knowledge/geo-glossary/vector-database/), retrieval and answer. Chunking sits in the middle and determines which unit is compared later. For a query, the system calculates how close each chunk is to the question ([cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/)) and passes the best ones to the language model. A chunk is assessed without the rest of the page.
 
 For web search, the same principle applies under a different name: Mike King (iPullRank) equates chunking with passage indexing, through which Google began to assess not only whole pages but individual sections of a page.
 
@@ -49,7 +49,7 @@ Chunk size is measured in tokens. For developer services that companies use to b
 | Google RAG Engine | 1,024 tokens | 256 tokens |
 | AWS Bedrock Knowledge Bases (fixed size) | 300 tokens | 20% |
 
-No values have been published for ChatGPT's web search or Google's AI Overviews. The overlap shows, however, why fixed paragraph lengths achieve little: because neighbouring chunks overlap by 20 to 50 percent, the systems defuse boundary problems themselves.
+No values have been published for ChatGPT's web search or Google's [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/). The overlap shows, however, why fixed paragraph lengths achieve little: because neighbouring chunks overlap by 20 to 50 percent, the systems defuse boundary problems themselves.
 
 ## Why does chunking matter for AI visibility?
 

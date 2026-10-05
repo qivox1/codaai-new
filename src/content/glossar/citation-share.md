@@ -57,7 +57,7 @@ Citation Share beantwortet die Frage „Wie viel Raum bekomme ich bei dieser Anf
 
 ## Warum ist Citation Share für die KI-Sichtbarkeit wichtig?
 
-Die Daten kommen direkt vom Betreiber des KI-Systems. Aleyda Solís nannte den AI-Performance-Bericht im April 2026 die einzigen First-Party-Zitationsdaten eines KI-Ökosystems. Google zeigt in der Search Console inzwischen Impressionen aus AI Overviews und AI Mode, aber keine Zitieranteile je Anfrage.
+Die Daten kommen direkt vom Betreiber des KI-Systems. Aleyda Solís nannte den AI-Performance-Bericht im April 2026 die einzigen First-Party-Zitationsdaten eines KI-Ökosystems. Google zeigt in der Search Console inzwischen Impressionen aus [AI Overviews](/wissen/geo-glossar/ai-overviews/) und [AI Mode](/wissen/geo-glossar/ai-mode/), aber keine Zitieranteile je Anfrage.
 
 Die Kennzahl zeigt außerdem, welche Seiten tragen. Claire Carlisle (Whitespark) stellte fest, dass bei den geprüften Websites nicht die Startseite, sondern tiefe Informationsseiten den höchsten Citation Share erzielten (Juli 2026). In den Grounding Queries fand sie sehr lange, gesprächsartige Anfragen.
 

@@ -17,7 +17,7 @@ Ein Embedding ist die Darstellung eines Textes als langer Zahlenvektor, zum Beis
 
 ## Wie funktionieren Embeddings?
 
-Ein KI-System zerlegt Webseiten in Abschnitte ([Chunking](/wissen/geo-glossar/chunking/)), wandelt jeden Abschnitt in einen Vektor um und speichert ihn in einer Vektordatenbank. Bei einer Nutzerfrage wird auch die Frage in einen Vektor übersetzt. Anschließend sucht das System die Abschnitte, deren Vektoren dem Fragevektor am nächsten liegen. Das Maß dafür ist die [Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/).
+Ein KI-System zerlegt Webseiten in Abschnitte ([Chunking](/wissen/geo-glossar/chunking/)), wandelt jeden Abschnitt in einen Vektor um und speichert ihn in einer [Vektordatenbank](/wissen/geo-glossar/vektordatenbank/). Bei einer Nutzerfrage wird auch die Frage in einen Vektor übersetzt. Anschließend sucht das System die Abschnitte, deren Vektoren dem Fragevektor am nächsten liegen. Das Maß dafür ist die [Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/).
 
 Der entscheidende Unterschied zur Stichwortsuche: Eine Seite muss die Frage nicht wörtlich enthalten, um gefunden zu werden. Sie muss sie inhaltlich beantworten. Umgekehrt hilft es nichts, ein Keyword zwanzigmal zu wiederholen — der Vektor bildet Bedeutung ab, nicht Häufigkeit.
 

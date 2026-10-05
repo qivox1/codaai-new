@@ -33,7 +33,7 @@ faq:
 
 Ein Sondermaschinenbauer aus Baden-Württemberg fragt sich, warum er in KI-Antworten nicht vorkommt, obwohl seine Website bei Google gut rankt. Vier Erklärvideos hat er produziert. Sie liegen auf der Produktseite. Auf YouTube liegt keines davon – und genau dort holt sich ein erheblicher Teil der Systeme, die über seine Nennung entscheiden, seine Belege.
 
-In rund **40 Prozent** aller Antworten des deutschen Google AI Mode steht ein Link zu einem YouTube-Video. Damit ist YouTube dort die am häufigsten genannte Quelle – häufiger als Wikipedia, häufiger als jedes Fachportal. Das hat [SISTRIX im Oktober 2025 über viele Millionen Antworten gemessen](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/). Dieser Artikel ordnet ein, wie weit dieser Befund trägt, wo seine Grenzen liegen – und woran sich ein zitierfähiges Video von einem unverwertbaren unterscheidet.
+In rund **40 Prozent** aller Antworten des deutschen Google [AI Mode](/wissen/geo-glossar/ai-mode/) steht ein Link zu einem YouTube-Video. Damit ist YouTube dort die am häufigsten genannte Quelle – häufiger als Wikipedia, häufiger als jedes Fachportal. Das hat [SISTRIX im Oktober 2025 über viele Millionen Antworten gemessen](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/). Dieser Artikel ordnet ein, wie weit dieser Befund trägt, wo seine Grenzen liegen – und woran sich ein zitierfähiges Video von einem unverwertbaren unterscheidet.
 
 <div class="blog-stat-grid not-prose">
   <div class="blog-stat-card">
@@ -90,7 +90,7 @@ Die [YouTube Citation Study 2026 von OtterlyAI](https://otterly.ai/blog/youtube-
 
 Auch die SISTRIX-Zahl braucht ihren Kontext: Eine AI-Mode-Antwort in Deutschland enthält im Schnitt **rund 15 Quellenlinks**. „In 40 Prozent der Antworten kommt ein YouTube-Link vor" heißt also nicht, dass YouTube 40 Prozent der Belege stellt – sondern dass es unter fünfzehn Quellen besonders zuverlässig vertreten ist.
 
-Warum steht das trotzdem so weit vorn in diesem Artikel? Weil die Verteilung extrem ungleich ist. YouTube trägt 36,6 Prozent der gemessenen YouTube-Zitate in Google AI Overviews, aber 0,2 Prozent in Gemini. Ein Mittelwert über alle Systeme verschleiert genau die Entscheidung, um die es geht – nämlich, wo Ihre Einkäufer suchen. Dazu unten mehr.
+Warum steht das trotzdem so weit vorn in diesem Artikel? Weil die Verteilung extrem ungleich ist. YouTube trägt 36,6 Prozent der gemessenen YouTube-Zitate in Google [AI Overviews](/wissen/geo-glossar/ai-overviews/), aber 0,2 Prozent in Gemini. Ein Mittelwert über alle Systeme verschleiert genau die Entscheidung, um die es geht – nämlich, wo Ihre Einkäufer suchen. Dazu unten mehr.
 
 Und noch eine Zahl gehört in diese Abwägung: Nach [SISTRIX-Messungen](https://www.sistrix.de/ai-insights/ai-overviews) enthalten nur **42,2 Prozent** aller AI-Mode-Antworten überhaupt eine Markenreferenz. Es geht nicht darum, „mehr Sichtbarkeit" zu bekommen. Es geht um einen von wenigen Plätzen, die überhaupt vergeben werden.
 

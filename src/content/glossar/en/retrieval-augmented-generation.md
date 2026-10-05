@@ -45,7 +45,7 @@ The difference is one of perspective. RAG is the term from AI research and appli
 
 ## Why does RAG matter for AI visibility?
 
-RAG is the mechanism through which current web content reaches AI answers. Google explicitly names RAG as a technique behind its generative AI features such as AI Overviews and AI Mode: its core ranking systems retrieve relevant, up-to-date pages from the Search index, and the answer shows prominent, clickable links to those pages (Google Search Central, July 2026).
+RAG is the mechanism through which current web content reaches AI answers. Google explicitly names RAG as a technique behind its generative AI features such as [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [AI Mode](/en/knowledge/geo-glossary/ai-mode/): its core ranking systems retrieve relevant, up-to-date pages from the Search index, and the answer shows prominent, clickable links to those pages (Google Search Central, July 2026).
 
 This creates a hard condition. Lily Ray argues that the major AI search products rely on RAG, and that content which is not indexed and not ranking cannot enter the model's context window at all (Substack, March 2026). What is not retrieved cannot be cited.
 

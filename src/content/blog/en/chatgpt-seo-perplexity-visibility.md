@@ -77,7 +77,7 @@ Two caveats belong with this, so that the figure holds up: the study dates from 
 
 For practical purposes the finding is uncomfortable all the same. Many German B2B companies do SEO with Google exclusively in mind. Bing is regarded as marginal because its market share among human users is small. For the question of what ChatGPT finds as evidence, however, that market share is irrelevant.
 
-**What follows from this is unspectacular and still rarely done:** set up Bing Webmaster Tools, submit your sitemap there, read the index coverage report. Bing indexes independently and more slowly than Google; pages that have long been listed on Google are sometimes missing there entirely. That is not optimisation, it is a stocktake — and it takes an afternoon.
+**What follows from this is unspectacular and still rarely done:** set up [Bing Webmaster Tools](/en/knowledge/geo-glossary/citation-share/), submit your sitemap there, read the index coverage report. Bing indexes independently and more slowly than Google; pages that have long been listed on Google are sometimes missing there entirely. That is not optimisation, it is a stocktake — and it takes an afternoon.
 
 
 ```grafik
@@ -102,7 +102,7 @@ There is a widespread notion that an AI answer relies on two to five sources, so
 
 [SISTRIX analysed many millions of answers for the German Google AI Mode](https://www.sistrix.de/news/top-quellen-im-ai-mode-deutschland-google-liebt-sich-selbst-am-meisten/): an answer contains **around 15 source links** on average. Space as such is not scarce.
 
-What is scarce is something else. According to [SISTRIX measurements](https://www.sistrix.de/ai-insights/ai-overviews), only **42.2%** of all AI Mode answers contain any brand reference at all. In the majority of answers not a single company name comes up — things are explained, not recommended. The real question is therefore not “How do I get into the top five sources?”, but: is my category one of those in which AI systems name names at all? And if so — whose?
+What is scarce is something else. According to [SISTRIX measurements](https://www.sistrix.de/ai-insights/ai-overviews), only **42.2%** of all [AI Mode](/en/knowledge/geo-glossary/ai-mode/) answers contain any brand reference at all. In the majority of answers not a single company name comes up — things are explained, not recommended. The real question is therefore not “How do I get into the top five sources?”, but: is my category one of those in which AI systems name names at all? And if so — whose?
 
 That is also why measurement comes at the start and not at the end. Whether names come up in your buyer questions can be found out in an hour. Without that answer, you are optimising in the dark.
 
@@ -168,7 +168,7 @@ See above: the update cycle beats publishing frequency. A realistic rhythm is to
 
 The honest part. **There is no bookable placement in an AI system.** No provider sells mentions, and the same question may be answered differently tomorrow. Anyone guaranteeing a placement is promising something that does not exist technically.
 
-The impact is also more limited than the excitement suggests. The loss of clicks caused by AI Overviews is real, but unevenly distributed: [SISTRIX puts it](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) at an average of **6.6%** of all organic clicks, ranging from 1% for recipes to 24% for parenting portals. And AI Overviews currently appear in Germany for around **17% of search queries** — with a stagnating, not a rising, trend.
+The impact is also more limited than the excitement suggests. The loss of clicks caused by [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) is real, but unevenly distributed: [SISTRIX puts it](https://www.sistrix.de/news/ai-overviews-in-deutschland-so-stark-sinken-die-klickraten-wirklich/) at an average of **6.6%** of all organic clicks, ranging from 1% for recipes to 24% for parenting portals. And AI Overviews currently appear in Germany for around **17% of search queries** — with a stagnating, not a rising, trend.
 
 The honest argument is therefore not visitor volume. It is the preliminary decision: if you do not appear in the answer, you are not on any list that gets checked afterwards. That affects few searches — but it affects them at the point where the selection is made.
 

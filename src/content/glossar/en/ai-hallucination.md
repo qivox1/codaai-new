@@ -7,7 +7,7 @@ seoDescription: "AI hallucination explained: why language models invent false de
 shortDefinition: "An AI hallucination is a statement by an AI system that sounds plausible but is false or rests on no source. It arises because language models produce probable answers rather than verified ones."
 synonyms: ["Hallucination", "LLM hallucination", "Confabulation", "AI misinformation"]
 category: grundlagen
-related: ["model-knowledge", "grounding", "knowledge-cutoff", "prompt-set", "baseline-measurement", "corroboration"]
+related: ["model-knowledge", "grounding", "knowledge-cutoff", "prompt-set", "baseline-measurement", "corroboration", "synthid"]
 pubDate: 2026-10-05
 faq:
   - q: "Does grounding prevent every AI hallucination?"
@@ -51,7 +51,7 @@ Reliable figures exist only for narrowly defined tasks. In a study published in 
 
 - **Wrong sources:** if the page it finds is wrong or out of date, the answer inherits the error.
 - **Missing sources:** according to Forrester, retrieval also favours well-known entities. Companies that are rarely written about are found less often.
-- **Invisible details:** in an experiment by OtterlyAI, ChatGPT and other systems even hallucinated information that appeared only in schema markup and not in the text (Thomas Peham, September 2026).
+- **Invisible details:** in an experiment by OtterlyAI, ChatGPT and other systems even hallucinated information that appeared only in [schema markup](/en/knowledge/geo-glossary/structured-data/) and not in the text (Thomas Peham, September 2026).
 
 ## Why does AI hallucination matter for AI visibility?
 
