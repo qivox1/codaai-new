@@ -3,7 +3,7 @@ title: "Index-Management"
 shortDefinition: "Index-Management ist die Steuerung, welche URLs einer Website indexierbar sind: Noindex nur für Inhalte, die nicht in KI-Antworten erscheinen sollen, Canonical-Tags nur für notwendigen Duplicate Content."
 synonyms: ["Indexierung", "Indexierbarkeit", "Noindex und Canonical"]
 category: technik
-related: ["crawl-budget", "url-discovery", "document-relevance", "initial-retrieval"]
+related: ["crawl-budget", "url-discovery", "document-relevance", "initial-retrieval", "indexnow"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

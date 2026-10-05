@@ -3,7 +3,7 @@ title: "Semantisches Chunking"
 shortDefinition: "Semantisches Chunking ist die Schreibweise, bei der jeder Absatz eine in sich geschlossene Antwort zu genau einem Thema ist und jeder Satz auch ohne Kontext verständlich bleibt."
 synonyms: ["Chunk-optimiertes Schreiben", "Self-contained Paragraphs", "Passage-Optimierung"]
 category: content
-related: ["chunking", "re-ranking", "grounding-snippets", "bottom-line-up-front", "entity-echoing"]
+related: ["chunking", "re-ranking", "grounding-snippets", "bottom-line-up-front", "entity-echoing", "llm-readability"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

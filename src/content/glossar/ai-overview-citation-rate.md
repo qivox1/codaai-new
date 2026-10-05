@@ -3,7 +3,7 @@ title: "AI Overview Citation Rate"
 shortDefinition: "Die AI Overview Citation Rate misst, wie oft eine Seite in Googles KI-Übersichten (AI Overviews) als Quelle erscheint — beobachtbar über den „Generative KI“-Report der Search Console."
 synonyms: ["AIO Citation Rate", "KI-Übersicht-Zitierrate", "AI Overviews Sichtbarkeit"]
 category: messung
-related: ["citation-rate", "grounding", "logfiles", "document-relevance", "grounding-budget"]
+related: ["citation-rate", "grounding", "logfiles", "document-relevance", "grounding-budget", "ai-overviews"]
 pubDate: 2026-09-03
 faq:
   - q: "Wo sehe ich meine AI Overview Citation Rate?"

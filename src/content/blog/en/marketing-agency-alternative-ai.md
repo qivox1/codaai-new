@@ -1,6 +1,6 @@
 ---
 title: "AI vs Marketing Agency: Mid-Market Guide"
-description: "Why AI content platforms are becoming viable alternatives to marketing agencies – and when you should still hire an agency."
+description: "Why AI content platforms are becoming a viable alternative to marketing agencies for mid-market companies – and when you should still hire an agency instead."
 pubDate: 2026-03-08
 lang: en
 author: "Oliver Parrizas"

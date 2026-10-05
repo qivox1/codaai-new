@@ -1,6 +1,6 @@
 ---
 title: "Reduce Marketing Costs with AI Content"
-description: "Concrete measures to reduce marketing costs using AI while increasing lead volume – the five levers that matter most for B2B companies."
+description: "Concrete ways to cut marketing costs with AI while increasing lead volume – the five levers that matter most for B2B companies, and which one to start with."
 pubDate: 2026-02-25
 lang: en
 author: "Oliver Parrizas"

@@ -5,7 +5,7 @@ de: initial-retrieval
 shortDefinition: "Initial retrieval is the first selection step of an AI system: it collects the pages that rank best for the query and its fan-out queries into a candidate pool."
 synonyms: ["Candidate pool", "Retrieval", "First-stage retrieval"]
 category: pipeline
-related: ["document-relevance", "query-fan-out", "re-ranking", "grounding-budget", "grounding"]
+related: ["document-relevance", "query-fan-out", "re-ranking", "grounding-budget", "grounding", "hybrid-retrieval"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

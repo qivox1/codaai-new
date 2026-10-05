@@ -408,7 +408,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           },
           {
             type: 'p',
-            html: `Wer die Begriffe vertiefen will, findet sie im <a href="${G}/">GEO-Glossar</a> — 56 Begriffe, je einer pro Seite, in der Reihenfolge, in der ein Inhalt den Weg in eine KI-Antwort nimmt.`,
+            html: `Wer die Begriffe vertiefen will, findet sie im <a href="${G}/">GEO-Glossar</a> — 76 Begriffe, je einer pro Seite, in der Reihenfolge, in der ein Inhalt den Weg in eine KI-Antwort nimmt.`,
           },
         ],
       },
@@ -796,7 +796,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           },
           {
             type: 'p',
-            html: `To go deeper into the terms, see the <a href="${GE}/">GEO Glossary</a> — 56 terms, one page each, in the order in which content makes its way into an AI answer.`,
+            html: `To go deeper into the terms, see the <a href="${GE}/">GEO Glossary</a> — 76 terms, one page each, in the order in which content makes its way into an AI answer.`,
           },
         ],
       },

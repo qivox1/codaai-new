@@ -2,6 +2,7 @@
 title: "Share of AI Search"
 lang: en
 de: share-of-ai-search
+seoDescription: "Share of AI Search explained: your brand's share of AI answers to a fixed prompt set, compared with competitors over time – the lead metric of AI visibility."
 shortDefinition: "Share of AI Search is the share a brand holds of the AI answers to a fixed prompt set, compared with competitors and over time. In AI search, it replaces click numbers as the leading metric."
 synonyms: ["Share of Voice (SOV)", "AI Share of Voice", "Share of AI answers"]
 category: messung

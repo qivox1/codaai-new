@@ -104,6 +104,10 @@ const glossar = defineCollection({
     // Die Meta-Description wird daraus auf 160 Zeichen gekürzt (erster Satz,
     // sonst Wortgrenze) — siehe metaDescription() in [slug].astro.
     shortDefinition: z.string().max(240),
+    // Optional: eigene Meta-Description (140–160 Zeichen) für Begriffe mit
+    // Suchnachfrage. Ohne Angabe wird sie aus shortDefinition abgeleitet
+    // (metaDescription() in GlossarTerm.astro). Seit 05.10.2026 (SEO-Report KW 41).
+    seoDescription: z.string().min(140).max(160).optional(),
     // Andere Schreibweisen und die englischen Fachbegriffe. Werden auf der
     // Seite genannt („auch: …") und als alternateName ausgezeichnet, damit
     // Anfragen in beiden Sprachen auf dieselbe Seite treffen.

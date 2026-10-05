@@ -3,8 +3,9 @@ title: "Modellwissen"
 shortDefinition: "Modellwissen ist alles, was ein Sprachmodell beim Training gesehen hat — nicht mehr, nicht weniger. Antworten aus dem Modellwissen entstehen ohne Websuche."
 synonyms: ["Parametric Knowledge", "Trainingswissen", "Parametrisches Wissen"]
 category: grundlagen
-related: ["common-crawl", "knowledge-cutoff", "websuche", "grounding", "brand-mentions"]
+related: ["common-crawl", "knowledge-cutoff", "websuche", "grounding", "brand-mentions", "halluzination"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "Wie kommt meine Marke ins Modellwissen?"
     a: "Über die Trainingsdaten: Webseiten aus Common Crawl, Wikipedia, Foren wie Reddit, Fachmedien und lizenzierte Quellen. Was dort oft, konsistent und in Verbindung mit klaren Begriffen über eine Marke steht, wird Teil dessen, was das Modell über sie „weiß“."
@@ -26,4 +27,4 @@ Antworten aus dem Modellwissen entstehen ohne Websuche — und damit ohne Chance
 
 ## Was bedeutet das für Ihre Website?
 
-Das Modellwissen ändert sich nur mit dem nächsten Training. Kurzfristig erreichen Sie die KI über die Websuche, langfristig über ein konsistentes Markenbild im ganzen Netz. Prüfen Sie beides getrennt: Fragen Sie das Modell mit abgeschalteter Websuche, was es über Ihr Unternehmen weiß, und vergleichen Sie das Ergebnis mit der Antwort inklusive Websuche. Die Differenz zeigt, welchen Weg Sie zuerst bearbeiten müssen.
+Das Modellwissen ändert sich nur mit dem nächsten Training. Kurzfristig erreichen Sie die KI über die Websuche, zum Beispiel mit einer indexierten Faktenseite ([Grounding Page](/wissen/geo-glossar/grounding-page/)), langfristig über ein konsistentes Markenbild im ganzen Netz. Prüfen Sie beides getrennt: Fragen Sie das Modell mit abgeschalteter Websuche, was es über Ihr Unternehmen weiß, und vergleichen Sie das Ergebnis mit der Antwort inklusive Websuche. Die Differenz zeigt, welchen Weg Sie zuerst bearbeiten müssen.

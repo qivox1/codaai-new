@@ -1,6 +1,6 @@
 ---
 title: "KI Content Marketing im Mittelstand"
-description: "Mittelständische Unternehmen produzieren zu wenig Content – obwohl sie die Expertise haben. KI schließt die Content-Lücke."
+description: "Mittelständler haben die Expertise, produzieren aber zu wenig Content. Wie KI die Content-Lücke schließt – in Agenturqualität, ohne Agenturbudget."
 pubDate: 2026-02-19
 lang: de
 inUebersicht: false

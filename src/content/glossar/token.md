@@ -1,9 +1,10 @@
 ---
 title: "Token"
+seoDescription: "Token erklärt: die kleinste Einheit, mit der ein Sprachmodell rechnet – Wort, Wortteil oder Zeichen – und warum Token Kontextfenster, Kosten und Zitate prägen."
 shortDefinition: "Ein Token ist die kleinste Einheit, mit der ein Sprachmodell arbeitet: ein Wort, ein Wortteil oder ein einzelnes Zeichen. Alle Wahrscheinlichkeiten eines LLM beziehen sich auf Tokens."
 synonyms: ["Tokens", "Tokenisierung"]
 category: grundlagen
-related: ["llm", "embedding", "chunking"]
+related: ["llm", "embedding", "chunking", "kontextfenster"]
 pubDate: 2026-09-03
 faq:
   - q: "Wie viele Tokens hat ein deutscher Text?"

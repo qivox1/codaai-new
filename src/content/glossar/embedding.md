@@ -1,9 +1,10 @@
 ---
 title: "Embedding"
+seoDescription: "Embedding erklärt: wie KI-Systeme Texte in Zahlenvektoren übersetzen, warum ähnliche Bedeutung nahe beieinander liegt und was das für Ihre Inhalte heißt."
 shortDefinition: "Ein Embedding ist die Übersetzung eines Textes in einen Zahlenvektor, der seine Bedeutung abbildet. Texte mit ähnlicher Bedeutung liegen im Vektorraum nahe beieinander."
 synonyms: ["Vektorrepräsentation", "Text-Embedding", "Vektordatenbank"]
 category: grundlagen
-related: ["kosinus-aehnlichkeit", "chunking", "token", "re-ranking"]
+related: ["kosinus-aehnlichkeit", "chunking", "token", "re-ranking", "vektordatenbank", "semantische-suche"]
 pubDate: 2026-09-03
 faq:
   - q: "Was ist eine Vektordatenbank?"

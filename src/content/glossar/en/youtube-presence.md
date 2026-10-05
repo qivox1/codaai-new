@@ -2,6 +2,7 @@
 title: "YouTube presence"
 lang: en
 de: youtube-praesenz
+seoDescription: "YouTube presence explained: why a brand's own YouTube videos correlate strongly with visibility in AI Overviews and ChatGPT – and which videos to make."
 shortDefinition: "YouTube presence means a brand's own videos on YouTube that AI systems use as a source. YouTube links are among the top correlation factors for visibility in AI Overviews and ChatGPT — even with low view counts."
 synonyms: ["Video presence", "YouTube for AI visibility"]
 category: offpage

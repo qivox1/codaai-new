@@ -3,7 +3,7 @@ title: "What ChatGPT Cites: Two Thirds Are Out of Reach — and the Second-Large
 seoTitle: "What ChatGPT Cites – and What You Control"
 description: "Two thirds of the pages ChatGPT cites most are out of reach for marketing. But the second-largest category belongs to you: your own homepage."
 pubDate: 2026-09-17
-updatedDate: 2026-09-22
+updatedDate: 2026-10-05
 lang: en
 heroImage: "/images/blog/chatgpt-startseite-en.webp"
 heroImageAlt: "Laptop showing a presentation in an office; overlaid finding: 23.8% of the most-cited pages in ChatGPT are home and landing pages (Ahrefs)"
@@ -137,6 +137,8 @@ A short list has emerged from our audit work. It is unspectacular, and that is e
 6. **How to reach you**, as text, not just as a form. That sounds trivial, and it is surprisingly often missing in machine-readable form.
 
 Two things are deliberately missing from this list. **Keywords** are missing because they add nothing that is not already covered by the six points. And **structured markup alone** is not enough: it helps with extraction, but it does not replace a sentence that is not there. A schema entry on a page that makes no statement remains a schema entry that makes no statement.
+
+In more detail and with a date, the same facts also belong on a dedicated facts page – a [grounding page](/en/knowledge/geo-glossary/grounding-page/). The homepage says in a few sentences who you are; the grounding page provides the reference against which AI systems and third-party sources check these facts. One example is [CodaAI’s facts page](/en/facts/).
 
 ### And the matter of freshness
 

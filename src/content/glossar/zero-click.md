@@ -1,10 +1,11 @@
 ---
 title: "Zero-Click"
 shortDefinition: "Zero-Click beschreibt eine Suche, die ohne Klick auf eine Website endet: Der Nutzer bekommt eine direkte, zusammengefasste Antwort und ist zufrieden, bevor er eine Seite besucht."
-synonyms: ["Zero-Click-Zufriedenheit", "Zero-Click Search", "Antwort ohne Klick"]
+synonyms: ["Zero-Click-Zufriedenheit", "Zero-Click Search", "Antwort ohne Klick", "Google Zero"]
 category: pipeline
-related: ["citation", "mention", "share-of-ai-search", "geo"]
+related: ["citation", "mention", "share-of-ai-search", "geo", "ai-overviews", "ai-mode"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "Warum sinkt mein Traffic trotz guter Rankings?"
     a: "Weil ein wachsender Teil der Suchen als Zero-Click endet: Die KI-Übersicht oder der Chatbot beantwortet die Frage, und der Nutzer klickt nicht mehr. Impressionen können steigen, während Klicks stagnieren. Das ist kein Ranking-Problem, sondern eine Verschiebung des Kanals."
@@ -21,6 +22,10 @@ Der Wandel lässt sich in drei Gegensätzen fassen: Aus der kurzen, prägnanten 
 ## Warum ist Zero-Click für die KI-Sichtbarkeit wichtig?
 
 Weil Traffic als Erfolgsmaß seine Aussagekraft verliert. Eine Marke kann in KI-Antworten präsent sein, ohne dass ein einziger Besuch daraus entsteht; und eine Marke kann Traffic haben, während sie in den entscheidenden Antworten fehlt. Wer KI-Sichtbarkeit weiter an Klicks misst, sieht die Verschiebung nicht. Das Ziel wird ein anderes: nicht den Besuch gewinnen, sondern in der Antwort vorkommen, wenn die Frage gestellt wird — als [Mention](/wissen/geo-glossar/mention/) oder [Citation](/wissen/geo-glossar/citation/).
+
+## Was bedeutet „Google Zero“?
+
+„Google Zero“ bezeichnet den Zeitpunkt, an dem Google keinen Traffic mehr an eine Website sendet. Den Begriff hat Nilay Patel (The Verge) geprägt; laut Cyrus Shepard erleben viele Publisher genau das (AirOps, August 2026). Zero-Click ist der Mechanismus, Google Zero das Endszenario. Treiber sind Antworten direkt in der Suche, etwa [AI Overviews](/wissen/geo-glossar/ai-overviews/) und der [Google AI Mode](/wissen/geo-glossar/ai-mode/). Für Unternehmen folgt daraus: Sichtbarkeit muss in der Antwort selbst entstehen, als [Mention](/wissen/geo-glossar/mention/) oder [Citation](/wissen/geo-glossar/citation/) — nicht erst auf der eigenen Seite.
 
 ## Was bedeutet das für Ihre Website?
 

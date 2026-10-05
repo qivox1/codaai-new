@@ -5,7 +5,7 @@ de: grounding
 shortDefinition: "Grounding is the process of anchoring an AI answer in external, current sources: the system finds matching web pages, extracts the relevant passages and builds the answer on them."
 synonyms: ["Search grounding", "Grounded response", "Source anchoring"]
 category: grounding
-related: ["grounding-page", "web-search", "grounding-snippets", "grounded-response-generation", "grounding-budget", "citation", "document-relevance"]
+related: ["grounding-page", "web-search", "grounding-snippets", "grounded-response-generation", "grounding-budget", "citation", "document-relevance", "retrieval-augmented-generation"]
 pubDate: 2026-09-03
 updatedDate: 2026-09-22
 stufe: 3

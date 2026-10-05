@@ -4,9 +4,9 @@ seoTitle: "Konsistente Markenbeschreibung"
 shortDefinition: "Eine konsistente Markenbeschreibung bedeutet, dass eine Marke auf allen Plattformen mit denselben Formulierungen beschrieben wird — auf der eigenen Website und bei Dritten. Erst dann erkennt ein KI-System sie als eine Entität."
 synonyms: ["Markenkonsistenz", "Einheitliches Markenbild", "Brand Consistency"]
 category: offpage
-related: ["grounding-page", "entitaet", "brand-mentions", "sentiment", "review-plattformen", "modellwissen"]
+related: ["grounding-page", "entitaet", "brand-mentions", "sentiment", "review-plattformen", "modellwissen", "korroboration"]
 pubDate: 2026-09-03
-updatedDate: 2026-09-22
+updatedDate: 2026-10-05
 stufe: 2
 faq:
   - q: "Welche Angaben gehören zu einer konsistenten Markenbeschreibung?"
@@ -27,4 +27,4 @@ Weil sie über Nennung und Korrektheit entscheidet. Eine unscharfe Entität wird
 
 ## Was bedeutet das für Ihre Website?
 
-Legen Sie eine Kurzbeschreibung fest — ein Satz für die Leistung, ein Satz für die Zielgruppe, feste Schreibweisen für Namen und Produkte — und tragen Sie sie überall ein, wo Ihre Marke beschrieben wird: Website, Impressum, Google-Unternehmensprofil, LinkedIn, [Review-Plattformen](/wissen/geo-glossar/review-plattformen/), Branchenverzeichnisse, Wikidata, Pressetexte. Prüfen Sie alte Beschreibungen, die noch eine frühere Positionierung tragen, und korrigieren Sie sie an der Quelle.
+Legen Sie eine Kurzbeschreibung fest — ein Satz für die Leistung, ein Satz für die Zielgruppe, feste Schreibweisen für Namen und Produkte — und tragen Sie sie überall ein, wo Ihre Marke beschrieben wird: Website, Impressum, Google-Unternehmensprofil, LinkedIn, [Review-Plattformen](/wissen/geo-glossar/review-plattformen/), Branchenverzeichnisse, Wikidata, Pressetexte. Prüfen Sie alte Beschreibungen, die noch eine frühere Positionierung tragen, und korrigieren Sie sie an der Quelle. Die Referenz dafür ist eine eigene Faktenseite auf Ihrer Website ([Grounding Page](/wissen/geo-glossar/grounding-page/)), auf der die Beschreibung datiert und in mehreren Längen steht.

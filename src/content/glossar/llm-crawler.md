@@ -1,14 +1,15 @@
 ---
 title: "LLM-Crawler"
 shortDefinition: "LLM-Crawler sind die Bots der KI-Anbieter — GPTBot, ClaudeBot, ChatGPT-User, PerplexityBot, CCBot und andere —, die Webseiten für das Training oder für den Live-Abruf einer Antwort besuchen. Sie rendern kein JavaScript."
-synonyms: ["AI User Agents", "KI-Bots", "GPTBot", "ClaudeBot"]
+synonyms: ["AI User Agents", "KI-Bots", "GPTBot", "ClaudeBot", "Google-Extended", "OAI-SearchBot"]
 category: technik
-related: ["common-crawl", "ttfb", "crawl-budget", "logfiles", "url-discovery"]
+related: ["common-crawl", "ttfb", "crawl-budget", "logfiles", "url-discovery", "ki-agenten"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 1
 faq:
   - q: "Welche LLM-Crawler sollte ich in der robots.txt erlauben?"
-    a: "Mindestens GPTBot und ChatGPT-User (OpenAI), ClaudeBot und anthropic-ai (Anthropic), PerplexityBot, Google-Extended und CCBot (Common Crawl). Aktuelle Listen der AI User Agents führt unter anderem das Search Engine Journal. Wer einen dieser Bots sperrt, hält seine Inhalte aus dem jeweiligen System heraus."
+    a: "Mindestens GPTBot und ChatGPT-User (OpenAI), ClaudeBot und anthropic-ai (Anthropic), PerplexityBot und CCBot (Common Crawl). Für Gemini-Training gilt das Steuer-Token Google-Extended. Aktuelle Listen der AI User Agents führt unter anderem das Search Engine Journal. Wer einen dieser Bots sperrt, hält seine Inhalte aus dem jeweiligen System heraus."
   - q: "Warum rendern LLM-Crawler kein JavaScript?"
     a: "Weil das Rendern teuer ist und die Anbieter Milliarden Seiten verarbeiten. Die Crawler lesen das ausgelieferte HTML. Inhalte, die erst im Browser per JavaScript entstehen, sehen sie nicht — für sie ist die Seite leer. Wichtige Inhalte müssen deshalb serverseitig im HTML stehen."
 ---
@@ -25,6 +26,20 @@ Ein Abruf im Logfile bedeutet dabei noch keine Sichtbarkeit: Der Agent validiert
 
 Sie sind der einzige Weg, auf dem Ihre Inhalte in ein KI-System gelangen — ins Training oder in eine Live-Antwort. Was ein Crawler nicht abrufen, nicht lesen oder nicht rechtzeitig laden kann, existiert für das System nicht. Deshalb ist die Technik das Eintrittsticket: Sie bringt eine Seite ins Rennen, entscheidet aber nicht, ob sie gewinnt.
 
+## Welche Arten von KI-Bots gibt es?
+
+Cloudflare ordnet KI-Bots nach ihrem Verhalten in drei steuerbare Gruppen (Cloudflare Radar, September 2026):
+
+| Gruppe | Zweck | Beispiele |
+|---|---|---|
+| Training | Inhalte für das Training von Modellen sammeln | GPTBot, ClaudeBot, CCBot |
+| Search | einen Suchindex für KI-Antworten aufbauen | OAI-SearchBot, Claude-SearchBot, PerplexityBot |
+| Agent | Seiten im Auftrag eines Nutzers abrufen oder bedienen | ChatGPT-User, Claude-User, Browser-Agenten |
+
+Die Grenzen verschwimmen: Laut Cloudflare entfallen über 36 % der Crawler-Aktivität auf Mischcrawler, die Suche, Agentennutzung und Training kombinieren (Juli 2026). Die Unterscheidung ist trotzdem wichtig, weil sich jede Gruppe getrennt steuern lässt. Wer OAI-SearchBot aussperrt, erscheint regulär nicht in den Suchantworten von ChatGPT; den Trainingszugriff über GPTBot steuert er unabhängig davon (Kai Spriestersbach, AFAIK, August 2026). Zu Agenten, die Websites bedienen, siehe [KI-Agenten](/wissen/geo-glossar/ki-agenten/).
+
+Google-Extended ist kein Bot, sondern ein Steuer-Token in der robots.txt. Es regelt, ob Google Inhalte für das Training von Gemini nutzen darf, und taucht deshalb nicht in den Logfiles auf (Seokratie, August 2026). Laut Google wirkt Google-Extended nicht auf die Aufnahme in die Google-Suche.
+
 ## Was bedeutet das für Ihre Website?
 
-Prüfen Sie Ihre robots.txt auf gesperrte KI-Bots. Liefern Sie wichtige Inhalte serverseitig im HTML aus, nicht per JavaScript. Halten Sie die Antwortzeit des Servers niedrig und den DOM schlank. Vermeiden Sie Click- und Login-Walls vor Inhalten, die gefunden werden sollen. Und werten Sie Ihre Logfiles nach AI User Agents aus, um zu sehen, welche Seiten die Systeme tatsächlich abrufen — mit der Einschränkung, dass Google AI Overviews und AI Mode in der Regel keinen Live-Abruf erzeugen.
+Prüfen Sie Ihre robots.txt auf gesperrte KI-Bots. Liefern Sie wichtige Inhalte serverseitig im HTML aus, nicht per JavaScript. Halten Sie die Antwortzeit des Servers niedrig ([TTFB](/wissen/geo-glossar/ttfb/)) und den DOM schlank. Vermeiden Sie Click- und Login-Walls vor Inhalten, die gefunden werden sollen. Und werten Sie Ihre Logfiles nach AI User Agents aus, um zu sehen, welche Seiten die Systeme tatsächlich abrufen — mit der Einschränkung, dass Google AI Overviews und AI Mode in der Regel keinen Live-Abruf erzeugen.

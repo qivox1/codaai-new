@@ -2,6 +2,7 @@
 title: "Source analysis"
 lang: en
 de: quellenanalyse
+seoDescription: "Source analysis explained: which third-party sites AI systems cite for your customers' questions, how to evaluate them and where your brand has to be present."
 shortDefinition: "Source analysis evaluates which third-party sites AI systems cite for the prompts in a set. It shows where a brand needs to be present, because that is where the evidence for the answers comes from."
 synonyms: ["Citation source analysis", "Source audit", "Cited domains"]
 category: messung

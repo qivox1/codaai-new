@@ -3,7 +3,7 @@ title: "Was ChatGPT zitiert: Zwei Drittel sind unerreichbar – und die zweitgr�
 seoTitle: "Was ChatGPT zitiert – und was Sie steuern"
 description: "Zwei Drittel der meistzitierten Seiten in ChatGPT sind für Marketing unerreichbar. Die zweitgrößte Kategorie aber gehört Ihnen: Ihre eigene Startseite."
 pubDate: 2026-09-17
-updatedDate: 2026-09-22
+updatedDate: 2026-10-05
 lang: de
 heroImage: "/images/blog/chatgpt-startseite-de.webp"
 heroImageAlt: "Laptop mit einer Präsentation im Büro; eingeblendeter Befund: 23,8 % der meistzitierten Seiten in ChatGPT sind Start- und Landingpages (Ahrefs)"
@@ -137,6 +137,8 @@ Aus der Arbeit an Audits hat sich eine kurze Liste ergeben. Sie ist unspektakul�
 6. **Wie man Sie erreicht**, als Text, nicht nur als Formular. Das klingt trivial und fehlt erstaunlich oft in maschinenlesbarer Form.
 
 Zwei Dinge fehlen in dieser Liste bewusst. **Schlagworte** fehlen, weil sie nichts hinzufügen, was nicht schon in den sechs Punkten steht. Und **strukturierte Auszeichnung allein** genügt nicht: Sie hilft beim Auslesen, ersetzt aber keinen Satz, der nicht da ist. Ein Schema-Eintrag über eine Seite ohne Aussage bleibt ein Schema-Eintrag ohne Aussage.
+
+Ausführlicher und datiert gehören dieselben Angaben zusätzlich auf eine eigene Faktenseite – eine [Grounding Page](/wissen/geo-glossar/grounding-page/). Die Startseite sagt in wenigen Sätzen, wer Sie sind; die Grounding Page liefert die Referenz, gegen die KI-Systeme und Drittquellen diese Angaben abgleichen. Ein Beispiel ist die [Faktenseite von CodaAI](/fakten/).
 
 ### Und die Sache mit der Aktualität
 

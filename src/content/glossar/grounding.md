@@ -3,7 +3,7 @@ title: "Grounding"
 shortDefinition: "Grounding ist das Verankern einer KI-Antwort in externen, aktuellen Quellen: Das System sucht passende Webseiten, extrahiert relevante Passagen und baut die Antwort darauf auf."
 synonyms: ["Search Grounding", "Grounded Response", "Quellenverankerung"]
 category: grounding
-related: ["grounding-page", "websuche", "grounding-snippets", "grounded-response-generation", "grounding-budget", "citation", "document-relevance"]
+related: ["grounding-page", "websuche", "grounding-snippets", "grounded-response-generation", "grounding-budget", "citation", "document-relevance", "retrieval-augmented-generation"]
 pubDate: 2026-09-03
 updatedDate: 2026-09-22
 stufe: 3

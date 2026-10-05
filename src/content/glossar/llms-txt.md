@@ -3,8 +3,9 @@ title: "llms.txt"
 shortDefinition: "llms.txt ist eine vorgeschlagene Textdatei im Stammverzeichnis einer Website, die Sprachmodellen eine kuratierte Übersicht der wichtigsten Inhalte bietet. Ein messbarer Effekt auf KI-Zitierungen ist bisher nicht nachgewiesen."
 synonyms: ["llms-full.txt", "LLMs.txt-Standard"]
 category: content
-related: ["llm-crawler", "index-management", "url-discovery", "ki-freundliche-formate"]
+related: ["llm-crawler", "index-management", "url-discovery", "ki-freundliche-formate", "webmcp"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 1
 faq:
   - q: "Soll ich eine llms.txt anlegen?"
@@ -25,4 +26,4 @@ Vor allem als Beispiel dafür, was nicht wirkt, solange die Grundlagen fehlen. E
 
 ## Was bedeutet das für Ihre Website?
 
-Legen Sie eine llms.txt an, wenn Sie ohnehin eine gepflegte Übersicht Ihrer Kernaussagen haben — knapp, aktuell, ohne Werbesprache, mit denselben Zahlen wie auf der Website. Halten Sie sie synchron mit Ihrer Positionierung; eine veraltete Datei, die noch das Angebot von vor zwei Jahren beschreibt, ist schlechter als keine. Investieren Sie die eigentliche Zeit in Crawlbarkeit ([LLM-Crawler](/wissen/geo-glossar/llm-crawler/)), Indexierung und Content auf Absatzebene.
+Legen Sie eine llms.txt an, wenn Sie ohnehin eine gepflegte Übersicht Ihrer Kernaussagen haben — knapp, aktuell, ohne Werbesprache, mit denselben Zahlen wie auf der Website. Halten Sie sie synchron mit Ihrer Positionierung; eine veraltete Datei, die noch das Angebot von vor zwei Jahren beschreibt, ist schlechter als keine. Investieren Sie die eigentliche Zeit in Crawlbarkeit ([LLM-Crawler](/wissen/geo-glossar/llm-crawler/)), Indexierung und Content auf Absatzebene. Verweisen Sie in der llms.txt auf Ihre Faktenseite ([Grounding Page](/wissen/geo-glossar/grounding-page/)) — sie enthält die Angaben, die ein Agent über Ihr Unternehmen braucht.

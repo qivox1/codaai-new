@@ -5,7 +5,7 @@ de: citation-rate
 shortDefinition: "The Citation Rate is the share of AI answers in a prompt set in which one of your own pages is cited as a source. It measures whether content is found, extracted and used for the answer."
 synonyms: ["AI Citation Rate", "Source rate", "Citation frequency"]
 category: messung
-related: ["citation", "mention-rate", "prompt-set", "source-analysis", "grounding", "ai-overview-citation-rate"]
+related: ["citation", "mention-rate", "prompt-set", "source-analysis", "grounding", "ai-overview-citation-rate", "citation-share"]
 pubDate: 2026-09-03
 faq:
   - q: "Why is my Citation Rate low even though the Mention Rate is high?"

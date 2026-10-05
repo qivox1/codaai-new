@@ -5,7 +5,7 @@ de: token
 shortDefinition: "A token is the smallest unit a language model works with: a word, part of a word or a single character. All probabilities of an LLM refer to tokens."
 synonyms: ["Tokens", "Tokenisation", "Tokenizer"]
 category: grundlagen
-related: ["llm", "embedding", "chunking"]
+related: ["llm", "embedding", "chunking", "context-window"]
 pubDate: 2026-09-03
 faq:
   - q: "How many tokens does a German text have?"

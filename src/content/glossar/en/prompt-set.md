@@ -3,10 +3,11 @@ title: "Prompt set"
 lang: en
 de: promptset
 shortDefinition: "A prompt set is a fixed set of proxy prompts that represents the topics and customer questions of a brand. It is the basis of every measurement of AI visibility, comparable to the keyword set in SEO."
-synonyms: ["Proxy prompts", "Prompt list", "Question set"]
+synonyms: ["Proxy prompts", "Prompt list", "Question set", "Unbranded prompts"]
 category: messung
 related: ["llm-visibility-tracking", "baseline-measurement", "query-coverage", "mention-rate", "citation-rate", "share-of-ai-search"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "How many prompts belong in a prompt set?"
     a: "Enough that every core topic and every phase of the customer journey is represented; in practice between 20 and 100. More important than the number is coverage: brand-neutral questions for mentions, brand-specific questions for correctness and citations, and a categorisation by topic, funnel stage and intent for later analysis."
@@ -32,6 +33,10 @@ The customer journey serves as a guide: awareness, consideration, conversion, re
 | After-sales & service | "How often do I need to change the filter on the BORA X Pure?" | Retention | indirect — trust and reputation |
 
 Brand-neutral prompts (research through comparison) measure whether the brand is mentioned at all: [Mention Rate](/en/knowledge/geo-glossary/mention-rate/). Brand-specific prompts (product through after-sales) measure whether the system holds correct information and whether it cites your own pages: [Citation Rate](/en/knowledge/geo-glossary/citation-rate/).
+
+## Why does a prompt set need questions without brand names?
+
+A prompt containing a brand name gives the answer away to the AI system. Only questions without brand names (unbranded prompts) show who gets named in a category (Searchable, September 2026). Laurence O'Toole recommends starting with these questions and spreading them across all business areas and the entire buying decision (Kalicube, August 2026). Yext advises additionally splitting questions into branded and unbranded, and objective and subjective (brightonSEO, June 2026). Branded questions remain necessary all the same: they check whether a system describes the company correctly ([AI hallucination](/en/knowledge/geo-glossary/ai-hallucination/)).
 
 ## Why does the prompt set matter for AI visibility?
 

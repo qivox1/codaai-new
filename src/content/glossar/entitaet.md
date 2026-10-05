@@ -3,8 +3,9 @@ title: "Entität"
 shortDefinition: "Eine Entität ist ein eindeutig identifizierbares „Ding“, das ein KI-System als solches erkennt: eine Marke, ein Produkt, eine Person, ein Ort, ein Fachbegriff. Entitätsdichte meint, wie viele davon früh im Text stehen."
 synonyms: ["Entity", "Entitätsdichte", "Named Entity"]
 category: content
-related: ["entity-echoing", "konsistente-markenbeschreibung", "brand-mentions", "modellwissen"]
+related: ["entity-echoing", "konsistente-markenbeschreibung", "brand-mentions", "modellwissen", "knowledge-graph", "entity-home"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 2
 faq:
   - q: "Wie erhöhe ich die Entitätsdichte auf einer Seite?"
@@ -25,4 +26,4 @@ Beim Training lernt ein Modell, welche Namen gemeinsam auftreten: Welche Marke g
 
 ## Was bedeutet das für Ihre Website?
 
-Erhöhen Sie die Entitätsdichte in den ersten Absätzen: themenrelevante Namen, Begriffe und Bezüge früh platzieren, konkrete Produkt-, Tool- und Markennamen statt vager Sammelbegriffe. Benennen Sie Ihre eigene Marke und Ihre Produkte ausdrücklich. Und sorgen Sie dafür, dass die Beschreibung Ihrer Marke auf allen Plattformen dieselbe ist ([Konsistente Markenbeschreibung](/wissen/geo-glossar/konsistente-markenbeschreibung/)) — die Entität entsteht aus der Summe der Quellen, nicht aus einer.
+Erhöhen Sie die Entitätsdichte in den ersten Absätzen: themenrelevante Namen, Begriffe und Bezüge früh platzieren, konkrete Produkt-, Tool- und Markennamen statt vager Sammelbegriffe. Benennen Sie Ihre eigene Marke und Ihre Produkte ausdrücklich. Und sorgen Sie dafür, dass die Beschreibung Ihrer Marke auf allen Plattformen dieselbe ist ([Konsistente Markenbeschreibung](/wissen/geo-glossar/konsistente-markenbeschreibung/)) — die Entität entsteht aus der Summe der Quellen, nicht aus einer. Eine [Grounding Page](/wissen/geo-glossar/grounding-page/) bündelt die Fakten zu Ihrer Marke an einer Stelle und gibt KI-Systemen eine Referenz, gegen die sie die übrigen Quellen abgleichen.

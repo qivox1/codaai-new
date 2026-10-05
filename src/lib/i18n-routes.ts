@@ -134,6 +134,27 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/wissen/geo-glossar/share-of-ai-search/', '/en/knowledge/geo-glossary/share-of-ai-search/'],
   ['/wissen/geo-glossar/quellenanalyse/', '/en/knowledge/geo-glossary/source-analysis/'],
   ['/wissen/geo-glossar/logfiles/', '/en/knowledge/geo-glossary/log-files/'],
+  // 05.10.2026: 20 neue Begriffe (SEO-Report KW 41, Quellenatlas)
+  ['/wissen/geo-glossar/accessibility-tree/', '/en/knowledge/geo-glossary/accessibility-tree/'],
+  ['/wissen/geo-glossar/agentic-commerce/', '/en/knowledge/geo-glossary/agentic-commerce/'],
+  ['/wissen/geo-glossar/ki-agenten/', '/en/knowledge/geo-glossary/ai-agents/'],
+  ['/wissen/geo-glossar/halluzination/', '/en/knowledge/geo-glossary/ai-hallucination/'],
+  ['/wissen/geo-glossar/ai-mode/', '/en/knowledge/geo-glossary/ai-mode/'],
+  ['/wissen/geo-glossar/ai-overviews/', '/en/knowledge/geo-glossary/ai-overviews/'],
+  ['/wissen/geo-glossar/citation-share/', '/en/knowledge/geo-glossary/citation-share/'],
+  ['/wissen/geo-glossar/kontextfenster/', '/en/knowledge/geo-glossary/context-window/'],
+  ['/wissen/geo-glossar/korroboration/', '/en/knowledge/geo-glossary/corroboration/'],
+  ['/wissen/geo-glossar/entity-home/', '/en/knowledge/geo-glossary/entity-home/'],
+  ['/wissen/geo-glossar/hybrid-retrieval/', '/en/knowledge/geo-glossary/hybrid-retrieval/'],
+  ['/wissen/geo-glossar/indexnow/', '/en/knowledge/geo-glossary/indexnow/'],
+  ['/wissen/geo-glossar/knowledge-graph/', '/en/knowledge/geo-glossary/knowledge-graph/'],
+  ['/wissen/geo-glossar/llm-readability/', '/en/knowledge/geo-glossary/llm-readability/'],
+  ['/wissen/geo-glossar/retrieval-augmented-generation/', '/en/knowledge/geo-glossary/retrieval-augmented-generation/'],
+  ['/wissen/geo-glossar/semantische-suche/', '/en/knowledge/geo-glossary/semantic-search/'],
+  ['/wissen/geo-glossar/strukturierte-daten/', '/en/knowledge/geo-glossary/structured-data/'],
+  ['/wissen/geo-glossar/synthid/', '/en/knowledge/geo-glossary/synthid/'],
+  ['/wissen/geo-glossar/vektordatenbank/', '/en/knowledge/geo-glossary/vector-database/'],
+  ['/wissen/geo-glossar/webmcp/', '/en/knowledge/geo-glossary/webmcp/'],
 ];
 
 /*

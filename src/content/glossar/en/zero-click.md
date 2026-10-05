@@ -3,10 +3,11 @@ title: "Zero-Click"
 lang: en
 de: zero-click
 shortDefinition: "Zero-click describes a search that ends without a click on a website: the user receives a direct, summarised answer and is satisfied before visiting any page."
-synonyms: ["Zero-click satisfaction", "Zero-click search", "Answer without a click"]
+synonyms: ["Zero-click satisfaction", "Zero-click search", "Answer without a click", "Google Zero"]
 category: pipeline
-related: ["citation", "mention", "share-of-ai-search", "geo"]
+related: ["citation", "mention", "share-of-ai-search", "geo", "ai-overviews", "ai-mode"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "Why is my traffic falling despite good rankings if zero-click is the cause?"
     a: "Because a growing share of searches ends as zero-click: the AI overview or the chatbot answers the question, and the user no longer clicks. Impressions can rise while clicks stagnate. That is not a ranking problem but a shift of the channel."
@@ -23,6 +24,10 @@ The shift can be summed up in three contrasts. The short, concise search query b
 ## Why does zero-click matter for AI visibility?
 
 Because traffic loses its meaning as a measure of success. A brand can be present in AI answers without a single visit resulting from it, and a brand can have traffic while it is missing from the decisive answers. If you keep measuring AI visibility by clicks, you do not see the shift. The goal becomes a different one: not to win the visit, but to appear in the answer when the question is asked, as a [mention](/en/knowledge/geo-glossary/mention/) or [citation](/en/knowledge/geo-glossary/citation/).
+
+## What does “Google Zero” mean?
+
+“Google Zero” describes the point at which Google no longer sends any traffic to a website. The term was coined by Nilay Patel (The Verge); according to Cyrus Shepard, many publishers are experiencing exactly that (AirOps, August 2026). Zero-click is the mechanism, Google Zero the end scenario. The drivers are answers inside search itself, such as [AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) and [Google AI Mode](/en/knowledge/geo-glossary/ai-mode/). For companies, this means visibility has to happen in the answer itself, as a [mention](/en/knowledge/geo-glossary/mention/) or [citation](/en/knowledge/geo-glossary/citation/) — not only on their own site.
 
 ## What does this mean for your website?
 

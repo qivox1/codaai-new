@@ -1,7 +1,7 @@
 ---
 title: "KI-Sichtbarkeit in ChatGPT und Google KI"
 seoTitle: "Sichtbarkeit in ChatGPT: 7.184 Antworten"
-description: "7.184 ausgewertete KI-Antworten zeigen, warum ChatGPT und die Google KI-Übersicht bestimmte B2B-Anbieter nennen – und andere nicht."
+description: "7.184 ausgewertete KI-Antworten zeigen, warum ChatGPT und die Google KI-Übersicht bestimmte B2B-Anbieter nennen, andere nicht – und welche fünf Hebel wirken."
 pubDate: 2026-07-26
 updatedDate: 2026-09-22
 lang: de

@@ -1,7 +1,7 @@
 ---
 title: "ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen – und wie Sie dort hinkommen"
 seoTitle: "ChatGPT-SEO: sichtbar in KI-Antworten"
-description: "ChatGPT holt seine Belege überwiegend aus Bings Top-Ergebnissen. Was das für die Sichtbarkeit von B2B-Unternehmen in KI-Antworten bedeutet."
+description: "ChatGPT holt seine Belege überwiegend aus Bings Top-Ergebnissen. Was das für B2B-Unternehmen bedeutet – und wo Sie ranken müssen, um in KI-Antworten zu landen."
 pubDate: 2026-02-12
 updatedDate: 2026-09-22
 lang: de

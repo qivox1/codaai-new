@@ -3,7 +3,7 @@ title: "Brand Mentions"
 shortDefinition: "Brand Mentions sind Erwähnungen einer Marke auf Drittseiten — in Foren, Communities, Fachmedien, Vergleichen. KI-Systeme gewichten sie auch ohne Link, weil das Markenbild aus der Summe der Quellen entsteht."
 synonyms: ["Markenerwähnungen", "Unlinked Mentions", "Brands matter more than websites"]
 category: offpage
-related: ["mention", "entitaet", "konsistente-markenbeschreibung", "digital-pr", "community-praesenz", "domain-authority"]
+related: ["mention", "entitaet", "konsistente-markenbeschreibung", "digital-pr", "community-praesenz", "domain-authority", "korroboration"]
 pubDate: 2026-09-03
 stufe: 2
 faq:

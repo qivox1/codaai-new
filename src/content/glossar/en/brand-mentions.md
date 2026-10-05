@@ -5,7 +5,7 @@ de: brand-mentions
 shortDefinition: "Brand mentions are references to a brand on third-party sites — in forums, communities, trade media, comparisons. AI systems weight them even without a link, because the brand image emerges from the sum of all sources."
 synonyms: ["Unlinked mentions", "Third-party mentions", "Brands matter more than websites"]
 category: offpage
-related: ["mention", "entity", "consistent-brand-description", "digital-pr", "community-presence", "domain-authority"]
+related: ["mention", "entity", "consistent-brand-description", "digital-pr", "community-presence", "domain-authority", "corroboration"]
 pubDate: 2026-09-03
 stufe: 2
 faq:

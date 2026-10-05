@@ -1,7 +1,7 @@
 ---
 title: "Brand Mentions on Third-Party Sites: Why Mentions Carry More Weight Than Backlinks"
 seoTitle: "Brand Mentions Beat Backlinks in AI"
-description: "Brand mentions correlate with AI visibility at r = 0.664, backlinks at only 0.218. What that figure tells you — and what it does not."
+description: "Brand mentions correlate with AI visibility at r = 0.664, backlinks at only 0.218 (Ahrefs, 75,000 brands). What that figure tells you — and what it does not."
 pubDate: 2026-09-17
 updatedDate: 2026-09-22
 lang: en

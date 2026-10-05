@@ -5,7 +5,7 @@ de: semantisches-chunking
 shortDefinition: "Semantic chunking is a way of writing in which every paragraph is a self-contained answer to exactly one topic and every sentence remains understandable without context."
 synonyms: ["Chunk-optimised writing", "Self-contained paragraphs", "Passage optimisation"]
 category: content
-related: ["chunking", "re-ranking", "grounding-snippets", "bottom-line-up-front", "entity-echoing"]
+related: ["chunking", "re-ranking", "grounding-snippets", "bottom-line-up-front", "entity-echoing", "llm-readability"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

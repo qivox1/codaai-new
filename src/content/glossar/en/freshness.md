@@ -2,6 +2,7 @@
 title: "Freshness"
 lang: en
 de: freshness
+seoDescription: "Freshness explained: why AI systems cite older content much less often, how they recognise a page's date and how to keep content current without fake updates."
 shortDefinition: "Freshness is the recognisable currency of a piece of content. AI systems cite older content significantly less often — ‘as of 2023’ loses to current content, and the date has to be technically visible."
 synonyms: ["Content freshness", "Currency", "lastModified"]
 category: content

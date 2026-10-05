@@ -4,11 +4,11 @@ lang: en
 de: geo
 seoTitle: "GEO"
 shortDefinition: "GEO is the optimisation of content and brand so that AI systems such as ChatGPT or Google AI Overviews mention a company or cite it as a source."
-synonyms: ["Generative Engine Optimization", "AI search optimisation", "LLM optimisation"]
+synonyms: ["Generative Engine Optimization", "AI search optimisation", "LLM optimisation", "AEO", "Answer engine optimisation", "LLMO", "GAIO"]
 category: grundlagen
 related: ["grounding", "mention", "citation", "share-of-ai-search", "llm"]
 pubDate: 2026-09-03
-updatedDate: 2026-09-22
+updatedDate: 2026-10-05
 faq:
   - q: "Is GEO the same as SEO?"
     a: "No, but GEO builds on SEO. Without a ranking in classic search there is no grounding, and without grounding there is no citation. GEO shifts the weighting: passages instead of pages, brand instead of website, mentions instead of clicks."
@@ -27,6 +27,12 @@ A workable formula for this: **AI visibility = (technology + content + off-page)
 ## Why does GEO matter for companies?
 
 Anyone looking for a service today increasingly asks an AI first. It usually names a few providers, and whoever is not among them does not feature in the decision. In the CodaAI study "AI Blind Test 2026", which evaluates 7,184 AI answers about 449 mid-sized B2B companies in Germany, the name of the company under review does not come up in 55% of buyer questions; for 47% of companies the AI recommends competitors by name. Traffic on your own website shows none of this, because the decision is made before the click.
+
+## How do GEO, AEO and LLMO differ?
+
+Several names are in circulation for the same discipline. Ahrefs defines answer engine optimisation (AEO) as the practice of making content visible and useful to AI systems that deliver direct answers; according to Ahrefs, GEO and LLMO (large language model optimisation) mean essentially the same thing (June 2026). According to Aufgesang, GEO and LLMO are the most widely used terms in 2026, alongside GAIO (generative AI optimisation) and “KI-SEO” in German (March 2026).
+
+Google itself classifies AEO and GEO as SEO in its guide to AI search (Search Engine Journal, May 2026). The difference lies less in the techniques than in the goal: GEO measures success by [mentions](/en/knowledge/geo-glossary/mention/) and [citations](/en/knowledge/geo-glossary/citation/) in AI answers, not by positions in a list of results. This glossary uses the term GEO throughout.
 
 ## What does GEO mean for your website?
 

@@ -2,11 +2,13 @@
 title: "Entity"
 lang: en
 de: entitaet
+seoDescription: "Entity explained: the uniquely identifiable ‘thing’ an AI system recognises – brand, product, person, place – and why entity density early in the text matters."
 shortDefinition: "An entity is a uniquely identifiable ‘thing’ that an AI system recognises as such: a brand, a product, a person, a place, a technical term. Entity density means how many of them appear early in the text."
 synonyms: ["Entity density", "Named entity", "Knowledge graph node"]
 category: content
-related: ["entity-echoing", "consistent-brand-description", "brand-mentions", "model-knowledge"]
+related: ["entity-echoing", "consistent-brand-description", "brand-mentions", "model-knowledge", "knowledge-graph", "entity-home"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 2
 faq:
   - q: "How do I increase the entity density on a page?"
@@ -27,4 +29,4 @@ During training, a model learns which names occur together: which brand belongs 
 
 ## What does this mean for your website?
 
-Increase the entity density in the first paragraphs: place topic-relevant names, terms and references early, and use concrete product, tool and brand names instead of vague generic terms. Name your own brand and your products explicitly. And make sure the description of your brand is the same on every platform ([consistent brand description](/en/knowledge/geo-glossary/consistent-brand-description/)) — the entity emerges from the sum of the sources, not from one.
+Increase the entity density in the first paragraphs: place topic-relevant names, terms and references early, and use concrete product, tool and brand names instead of vague generic terms. Name your own brand and your products explicitly. And make sure the description of your brand is the same on every platform ([consistent brand description](/en/knowledge/geo-glossary/consistent-brand-description/)) — the entity emerges from the sum of the sources, not from one. A [grounding page](/en/knowledge/geo-glossary/grounding-page/) collects the facts about your brand in one place and gives AI systems a reference against which they can check the other sources.

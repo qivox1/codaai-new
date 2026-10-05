@@ -1,10 +1,11 @@
 ---
 title: "Promptset"
 shortDefinition: "Ein Promptset ist ein festes Set an Stellvertreter-Prompts, das die Themen und Kundenfragen einer Marke repräsentiert. Es ist die Grundlage jeder Messung von KI-Sichtbarkeit — vergleichbar mit dem Keywordset im SEO."
-synonyms: ["Stellvertreter-Prompts", "Prompt Set", "Fragen-Set"]
+synonyms: ["Stellvertreter-Prompts", "Prompt Set", "Fragen-Set", "Unbranded Prompts"]
 category: messung
 related: ["llm-visibility-tracking", "nullmessung", "query-coverage", "mention-rate", "citation-rate", "share-of-ai-search"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "Wie viele Prompts gehören in ein Promptset?"
     a: "So viele, dass jedes Kernthema und jede Phase der Customer Journey vertreten ist — in der Praxis zwischen 20 und 100. Wichtiger als die Zahl ist die Abdeckung: markenneutrale Fragen für Mentions, markenspezifische Fragen für Korrektheit und Citations, und eine Kategorisierung nach Thema, Funnel-Stufe und Intent für spätere Auswertungen."
@@ -30,6 +31,10 @@ Als Gedankenstütze dient die Customer Journey: Awareness, Consideration, Conver
 | After-Sales & Service | „Wie oft muss ich beim BORA X Pure den Filter wechseln?" | Retention | indirekt — Trust und Reputation |
 
 Markenneutrale Prompts (Recherche bis Vergleich) messen, ob die Marke überhaupt genannt wird — [Mention Rate](/wissen/geo-glossar/mention-rate/). Markenspezifische Prompts (Produkt bis After-Sales) messen, ob das System korrekte Informationen hat und ob es die eigenen Seiten zitiert — [Citation Rate](/wissen/geo-glossar/citation-rate/).
+
+## Warum braucht ein Promptset Fragen ohne Markennamen?
+
+Ein Prompt mit Markennamen verrät dem KI-System die Antwort. Nur Fragen ohne Markennamen (englisch: unbranded prompts) zeigen, wer in einer Kategorie genannt wird (Searchable, September 2026). Laurence O'Toole empfiehlt, mit diesen Fragen zu beginnen und sie über alle Geschäftsbereiche und die gesamte Kaufentscheidung zu verteilen (Kalicube, August 2026). Yext rät, die Fragen zusätzlich in markenbezogen und nicht markenbezogen sowie in objektiv und subjektiv einzuteilen (brightonSEO, Juni 2026). Markenfragen bleiben trotzdem nötig: Sie prüfen, ob ein System das Unternehmen richtig beschreibt ([KI-Halluzination](/wissen/geo-glossar/halluzination/)).
 
 ## Warum ist das Promptset für die KI-Sichtbarkeit wichtig?
 

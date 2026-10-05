@@ -5,7 +5,7 @@ de: query-fan-out
 shortDefinition: "Query fan-out is the splitting of a user question into several related search queries that an AI system sends to the search index in parallel to collect sources for its answer."
 synonyms: ["Fan-out queries", "Query expansion", "Fan-out"]
 category: grounding
-related: ["query-coverage", "initial-retrieval", "grounding", "prompt-set", "topical-authority"]
+related: ["query-coverage", "initial-retrieval", "grounding", "prompt-set", "topical-authority", "ai-mode"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

@@ -1,7 +1,7 @@
 ---
 title: "AI Visibility in ChatGPT and Google AI"
 seoTitle: "Visibility in ChatGPT: 7,184 AI Answers"
-description: "7,184 analysed AI answers show why ChatGPT and Google AI Overviews name certain B2B suppliers – and leave others out."
+description: "7,184 analysed AI answers show why ChatGPT and Google AI Overviews name certain B2B suppliers and leave others out – and which five levers demonstrably work."
 pubDate: 2026-07-26
 updatedDate: 2026-09-22
 lang: en

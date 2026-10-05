@@ -5,8 +5,9 @@ de: modellwissen
 shortDefinition: "Model knowledge is everything a language model saw during training, no more and no less. Answers from model knowledge are produced without a web search."
 synonyms: ["Parametric knowledge", "Training knowledge"]
 category: grundlagen
-related: ["common-crawl", "knowledge-cutoff", "web-search", "grounding", "brand-mentions"]
+related: ["common-crawl", "knowledge-cutoff", "web-search", "grounding", "brand-mentions", "ai-hallucination"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 faq:
   - q: "How does my brand get into model knowledge?"
     a: "Through the training data: web pages from Common Crawl, Wikipedia, forums such as Reddit, trade media and licensed sources. What is written there about a brand often, consistently and in connection with clear terms becomes part of what the model ‘knows’ about it."
@@ -28,4 +29,4 @@ Answers from model knowledge are produced without a web search, and thus without
 
 ## What does this mean for your website?
 
-Model knowledge only changes with the next training run. In the short term you reach the AI via web search, in the long term via a consistent brand image across the whole web. Check both separately: ask the model with web search switched off what it knows about your company, and compare the result with the answer including web search. The difference shows which path you need to work on first.
+Model knowledge only changes with the next training run. In the short term you reach the AI via web search, for example with an indexed facts page ([grounding page](/en/knowledge/geo-glossary/grounding-page/)), in the long term via a consistent brand image across the whole web. Check both separately: ask the model with web search switched off what it knows about your company, and compare the result with the answer including web search. The difference shows which path you need to work on first.

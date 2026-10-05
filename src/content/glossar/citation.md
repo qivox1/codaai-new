@@ -2,10 +2,11 @@
 title: "Citation (Zitierung)"
 seoTitle: "Citation (Zitierung)"
 shortDefinition: "Eine Citation ist der Verweis einer KI-Antwort auf eine konkrete Quelle (URL). Sie setzt voraus, dass die Seite gefunden, eine Passage extrahiert und für die Antwort verwendet wurde."
-synonyms: ["Zitierung", "Quellenangabe", "AI Citation", "Source Link"]
+synonyms: ["Zitierung", "Quellenangabe", "AI Citation", "Source Link", "Retrieved vs. Cited"]
 category: pipeline
-related: ["mention", "citation-rate", "grounding-snippets", "re-ranking", "zero-click"]
+related: ["mention", "citation-rate", "grounding-snippets", "re-ranking", "zero-click", "citation-share"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 3
 faq:
   - q: "Bringt eine Citation Traffic?"
@@ -23,6 +24,10 @@ Das Modell synthetisiert die Antwort aus mehreren Snippets. Eine Quelle wird zit
 ## Warum sind Citations für die KI-Sichtbarkeit wichtig?
 
 Citations sind der Nachweis, dass Ihre Inhalte die Antwort prägen. Sie entstehen fast nur über Grounding, also über die eigene Website — anders als [Mentions](/wissen/geo-glossar/mention/), die überwiegend über Drittseiten und Modellwissen entstehen. Aber: Zitiert ist nicht sichtbar. Eine Citation bringt selten nennenswerten Traffic ([Zero-Click](/wissen/geo-glossar/zero-click/)), und eine Quelle weit unten in einer ausgeklappten Liste hat kaum Präsenz. Der Wert liegt in der Rolle als Beleg und in der Autorität, die daraus über die Zeit entsteht.
+
+## Was unterscheidet abgerufene und zitierte Seiten?
+
+Nicht jede Seite, die ein KI-System liest, erscheint in der Antwort. Lily Ray unterscheidet „Retrieved“ — Seiten, die ChatGPT bei seinen Fan-out-Abfragen abgerufen hat — von „Cited“ — Seiten, die als Link in der sichtbaren Antwort stehen (August 2026). Sie rät, bei jeder Studie zur KI-Suche zu prüfen, welche der beiden Größen gemessen wurde. Wie groß der Abstand ist, zeigt ein Beispiel von Jason Barnard und Nick Ranger: Beim [Grounding](/wissen/geo-glossar/grounding/) wurden rund 200 Abschnitte geprüft, zitiert wurden vier (Kalicube, Juli 2026). Zitiert zu werden, ist also die engere und wertvollere Stufe. Den Anteil an allen Zitierungen zu einer Anfrage zeigt Microsoft als [Citation Share](/wissen/geo-glossar/citation-share/).
 
 ## Was bedeutet das für Ihre Website?
 

@@ -1,5 +1,6 @@
 ---
 title: "Crawl-Budget"
+seoDescription: "Crawl-Budget erklärt: wie viele Abrufe ein Crawler Ihrer Website widmet, warum KI-Crawler langsame Hosts seltener besuchen und wie Sie das Budget lenken."
 shortDefinition: "Das Crawl-Budget ist die Menge an Abrufen, die ein Crawler einer Website in einem Zeitraum widmet. Crawl Management sorgt dafür, dass dieses Budget auf die Seiten fällt, die wirklich zählen."
 synonyms: ["Crawl Management", "Crawl Budget", "Crawl-Steuerung"]
 category: technik

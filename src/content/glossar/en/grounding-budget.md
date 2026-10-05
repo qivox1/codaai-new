@@ -2,10 +2,11 @@
 title: "Grounding Budget"
 lang: en
 de: grounding-budget
+seoDescription: "Grounding budget explained: the quota of pages and passages an AI system such as Gemini draws on to ground an answer – and why pages that rank well get more."
 shortDefinition: "The grounding budget is the quota of pages and passages that an AI system, above all Gemini, draws on to ground an answer. Pages that rank well receive more of it."
 synonyms: ["Grounding quota", "Grounding chunks"]
 category: grounding
-related: ["grounding", "initial-retrieval", "document-relevance", "grounding-snippets"]
+related: ["grounding", "initial-retrieval", "document-relevance", "grounding-snippets", "context-window"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

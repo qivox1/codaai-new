@@ -1,6 +1,7 @@
 ---
 title: "Mention (Erwähnung)"
 seoTitle: "Mention (Erwähnung)"
+seoDescription: "Mention erklärt: die namentliche Nennung einer Marke in einer KI-Antwort, auch ohne Link – woher sie kommt, wie sie entsteht und wie Sie sie messen."
 shortDefinition: "Eine Mention ist die namentliche Nennung einer Marke in einer KI-Antwort — unabhängig davon, ob eine Quelle verlinkt wird. Sie entsteht aus dem Modellwissen, dem Grounding oder beidem."
 synonyms: ["Erwähnung", "Brand Mention in AI", "Nennung"]
 category: pipeline

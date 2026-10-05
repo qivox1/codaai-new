@@ -3,7 +3,7 @@ title: "Grounding Budget"
 shortDefinition: "Das Grounding Budget ist das Kontingent an Seiten und Passagen, das ein KI-System — vor allem Gemini — für das Grounding einer Antwort heranzieht. Gut rankende Seiten bekommen mehr davon."
 synonyms: ["Grounding-Kontingent", "Grounding Chunks"]
 category: grounding
-related: ["grounding", "initial-retrieval", "document-relevance", "grounding-snippets"]
+related: ["grounding", "initial-retrieval", "document-relevance", "grounding-snippets", "kontextfenster"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

@@ -1,7 +1,7 @@
 ---
 title: "ChatGPT SEO: Where AI Systems Get Their Sources — and How to Get There"
 seoTitle: "ChatGPT SEO: Visible in AI Answers"
-description: "ChatGPT draws most of its evidence from Bing's top results. What that means for the visibility of B2B companies in AI answers."
+description: "ChatGPT draws most of its evidence from Bing's top results. What that means for B2B companies – and where you need to rank to show up in AI answers at all."
 pubDate: 2026-02-12
 updatedDate: 2026-09-22
 lang: en

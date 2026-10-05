@@ -2,12 +2,13 @@
 title: "Consistent brand description"
 lang: en
 de: konsistente-markenbeschreibung
+seoDescription: "Consistent brand description explained: why the same wording on every platform makes AI systems recognise your brand as one entity – and how to roll it out."
 shortDefinition: "Consistent brand description means a brand is described with the same wording on every platform — on its own website and by third parties. Only then does an AI system recognise it as one entity."
 synonyms: ["Brand consistency", "Uniform brand image", "Entity consistency"]
 category: offpage
-related: ["grounding-page", "entity", "brand-mentions", "sentiment", "review-platforms", "model-knowledge"]
+related: ["grounding-page", "entity", "brand-mentions", "sentiment", "review-platforms", "model-knowledge", "corroboration"]
 pubDate: 2026-09-03
-updatedDate: 2026-09-22
+updatedDate: 2026-10-05
 stufe: 2
 faq:
   - q: "Which details belong to a consistent brand description?"
@@ -28,4 +29,4 @@ Because it decides on mention and correctness. A blurred entity is mentioned les
 
 ## What does this mean for your website?
 
-Define a short description — one sentence for the service, one sentence for the target group, fixed spellings for names and products — and enter it everywhere your brand is described: website, legal notice, Google Business Profile, LinkedIn, [review platforms](/en/knowledge/geo-glossary/review-platforms/), industry directories, Wikidata, press releases. Check old descriptions that still carry an earlier positioning, and correct them at the source.
+Define a short description — one sentence for the service, one sentence for the target group, fixed spellings for names and products — and enter it everywhere your brand is described: website, legal notice, Google Business Profile, LinkedIn, [review platforms](/en/knowledge/geo-glossary/review-platforms/), industry directories, Wikidata, press releases. Check old descriptions that still carry an earlier positioning, and correct them at the source. The reference for this is a dedicated facts page on your website ([grounding page](/en/knowledge/geo-glossary/grounding-page/)), where the description is dated and available in several lengths.

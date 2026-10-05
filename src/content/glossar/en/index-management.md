@@ -5,7 +5,7 @@ de: index-management
 shortDefinition: "Index management is the control over which URLs of a website are indexable: noindex only for content that should not appear in AI answers, canonical tags only for unavoidable duplicate content."
 synonyms: ["Indexing", "Indexability", "Noindex and canonical"]
 category: technik
-related: ["crawl-budget", "url-discovery", "document-relevance", "initial-retrieval"]
+related: ["crawl-budget", "url-discovery", "document-relevance", "initial-retrieval", "indexnow"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

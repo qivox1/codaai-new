@@ -1,9 +1,10 @@
 ---
 title: "Citation Rate"
+seoDescription: "Citation Rate erklärt: der Anteil der KI-Antworten eines Promptsets, die Ihre Seite als Quelle zitieren – wie Sie die Kennzahl messen, lesen und verbessern."
 shortDefinition: "Die Citation Rate ist der Anteil der KI-Antworten in einem Promptset, in denen eine eigene Seite als Quelle zitiert wird. Sie misst, ob Inhalte gefunden, extrahiert und für die Antwort verwendet werden."
 synonyms: ["Zitierrate", "AI Citation Rate", "Quellenquote"]
 category: messung
-related: ["citation", "mention-rate", "promptset", "quellenanalyse", "grounding", "ai-overview-citation-rate"]
+related: ["citation", "mention-rate", "promptset", "quellenanalyse", "grounding", "ai-overview-citation-rate", "citation-share"]
 pubDate: 2026-09-03
 faq:
   - q: "Warum ist meine Citation Rate niedrig, obwohl die Mention Rate hoch ist?"

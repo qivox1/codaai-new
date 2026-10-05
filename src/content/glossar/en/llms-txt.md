@@ -5,8 +5,9 @@ de: llms-txt
 shortDefinition: "llms.txt is a proposed text file in the root directory of a website that offers language models a curated overview of the most important content. A measurable effect on AI citations has not been demonstrated so far."
 synonyms: ["llms-full.txt", "LLMs.txt standard"]
 category: content
-related: ["llm-crawlers", "index-management", "url-discovery", "ai-friendly-content-formats"]
+related: ["llm-crawlers", "index-management", "url-discovery", "ai-friendly-content-formats", "webmcp"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 1
 faq:
   - q: "Should I create an llms.txt?"
@@ -27,4 +28,4 @@ Above all as an example of what does not work as long as the fundamentals are mi
 
 ## What does this mean for your website?
 
-Create an llms.txt if you already have a maintained overview of your core statements — concise, current, free of advertising language, with the same figures as on the website. Keep it in sync with your positioning; an outdated file that still describes the offer from two years ago is worse than none. Invest the real time in crawlability ([LLM crawlers](/en/knowledge/geo-glossary/llm-crawlers/)), indexing and content at paragraph level.
+Create an llms.txt if you already have a maintained overview of your core statements — concise, current, free of advertising language, with the same figures as on the website. Keep it in sync with your positioning; an outdated file that still describes the offer from two years ago is worse than none. Invest the real time in crawlability ([LLM crawlers](/en/knowledge/geo-glossary/llm-crawlers/)), indexing and content at paragraph level. Point to your facts page ([grounding page](/en/knowledge/geo-glossary/grounding-page/)) in llms.txt — it holds the details an agent needs about your company.

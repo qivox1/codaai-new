@@ -5,7 +5,7 @@ de: url-discovery
 shortDefinition: "URL Discovery is the question of whether crawlers can find a website's relevant content at all: via HTML links, a current sitemap and without click or login walls in front of important content."
 synonyms: ["URL findability", "Crawlability", "Internal linking"]
 category: technik
-related: ["crawl-budget", "index-management", "llm-crawlers", "ai-friendly-content-formats"]
+related: ["crawl-budget", "index-management", "llm-crawlers", "ai-friendly-content-formats", "indexnow"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

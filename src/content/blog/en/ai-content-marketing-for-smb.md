@@ -1,6 +1,6 @@
 ---
 title: "AI Content Marketing for Mid-Market"
-description: "Content marketing for mid-market companies: how to compete with larger competitors using AI – at a fraction of the usual production cost."
+description: "Content marketing for mid-market companies: how to compete with larger rivals using AI – at a fraction of the usual cost, with first results in weeks."
 pubDate: 2026-01-15
 lang: en
 inUebersicht: false

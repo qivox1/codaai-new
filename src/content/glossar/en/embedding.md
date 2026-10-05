@@ -2,10 +2,11 @@
 title: "Embedding"
 lang: en
 de: embedding
+seoDescription: "Embedding explained: how AI systems turn texts into numeric vectors, why similar meanings sit close together in vector space and what that means for content."
 shortDefinition: "An embedding is the translation of a text into a numeric vector that represents its meaning. Texts with similar meaning lie close to each other in vector space."
 synonyms: ["Vector representation", "Text embedding", "Vector database"]
 category: grundlagen
-related: ["cosine-similarity", "chunking", "token", "re-ranking"]
+related: ["cosine-similarity", "chunking", "token", "re-ranking", "vector-database", "semantic-search"]
 pubDate: 2026-09-03
 faq:
   - q: "What is a vector database for embeddings?"

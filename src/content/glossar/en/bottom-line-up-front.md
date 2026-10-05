@@ -2,6 +2,7 @@
 title: "Bottom Line Up Front (BLUF)"
 lang: en
 de: bottom-line-up-front
+seoDescription: "Bottom Line Up Front (BLUF) explained: why the core statement belongs first, how AI systems extract that passage and how to structure pages and sections."
 shortDefinition: "Bottom Line Up Front is the principle of putting the core statement first: direct answer or summary first, reasoning afterwards. The key insights belong in the first 30% of the page."
 synonyms: ["BLUF", "Answer first", "Inverted pyramid"]
 category: content

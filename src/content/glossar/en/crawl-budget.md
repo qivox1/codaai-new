@@ -2,6 +2,7 @@
 title: "Crawl Budget"
 lang: en
 de: crawl-budget
+seoDescription: "Crawl budget explained: how many fetches a crawler gives your website, why AI crawlers visit slow hosts less often and how to steer the budget to key pages."
 shortDefinition: "Crawl budget is the number of fetches a crawler devotes to a website in a given period. Crawl management makes sure this budget goes to the pages that really count."
 synonyms: ["Crawl management", "Crawl control", "Crawl allocation"]
 category: technik

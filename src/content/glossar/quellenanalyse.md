@@ -1,5 +1,6 @@
 ---
 title: "Quellenanalyse"
+seoDescription: "Quellenanalyse erklärt: welche Drittseiten KI-Systeme bei Ihren Kundenfragen zitieren, wie Sie das auswerten und wo Ihre Marke deshalb präsent sein muss."
 shortDefinition: "Die Quellenanalyse wertet aus, welche Drittseiten KI-Systeme bei den Prompts eines Sets zitieren. Sie zeigt, wo eine Marke präsent sein muss, weil dort die Belege für die Antworten herkommen."
 synonyms: ["Citation Source Analysis", "Quellen-Audit", "Zitierte Domains"]
 category: messung

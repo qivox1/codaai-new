@@ -1,6 +1,6 @@
 ---
 title: "Redaktionsplan erstellen mit KI"
-description: "Mit KI einen Redaktionsplan für 3 Monate erstellen: Themen, Keywords und Kalender in 10 Minuten – statt 4 Stunden manuell."
+description: "Mit KI einen Redaktionsplan für drei Monate erstellen: Themen, Keywords und Kalender in 10–15 Minuten statt vier Stunden – Schritt für Schritt mit Vorlagen."
 pubDate: 2026-02-05
 lang: de
 inUebersicht: false
