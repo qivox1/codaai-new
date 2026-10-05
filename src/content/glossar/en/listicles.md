@@ -19,7 +19,7 @@ Listicles are articles that present a topic as a list — "The 10 best providers
 
 ## How do listicles affect AI answers?
 
-For a question like "Which providers are worth considering for X?", the system looks for sources that name and compare several providers. Listicles do exactly that. In [re-ranking](/en/knowledge/geo-glossary/re-ranking/), every list entry delivers a clean chunk with name, description and criteria. The model adopts the names and cites the listicle as its source. Research reported by Search Engine Land shows listicles, together with trade articles and product pages, as the formats that receive the most AI citations.
+For a question like "Which providers are worth considering for X?", the system looks for sources that name and compare several providers. Listicles do exactly that. In [re-ranking](/en/knowledge/geo-glossary/re-ranking/), every list entry delivers a clean [chunk](/en/knowledge/geo-glossary/chunking/) with name, description and criteria. The model adopts the names and cites the listicle as its source. Research reported by Search Engine Land shows listicles, together with trade articles and product pages, as the formats that receive the most AI citations.
 
 There is one limitation: self-promotional listicles — providers that publish a "best of" list on their own website with themselves in first place — are now recognised and devalued by Google, as documented by almcorp for 2026, among others. The lever lies in other people's lists, not in your own.
 

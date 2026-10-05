@@ -21,7 +21,7 @@ KI-Systeme zerlegen eine Frage in mehrere Teilfragen ([Query Fan-out](/wissen/ge
 
 ## Warum ist Topical Authority für die KI-Sichtbarkeit wichtig?
 
-Weil KI-Systeme nicht nach der besten Seite suchen, sondern nach verlässlichen Quellen für ein Thema. Eine Domain mit Cluster deckt die Fan-out-Queries ab ([Query Coverage](/wissen/geo-glossar/query-coverage/)), liefert zu jeder Teilfrage einen passenden Chunk und wirkt im Modellwissen als Entität, die zum Thema gehört. Eine Einzelseite kann für eine Frage gewinnen; ein Cluster gewinnt für das Themenfeld.
+Weil KI-Systeme nicht nach der besten Seite suchen, sondern nach verlässlichen Quellen für ein Thema. Eine Domain mit Cluster deckt die Fan-out-Queries ab ([Query Coverage](/wissen/geo-glossar/query-coverage/)), liefert zu jeder Teilfrage einen passenden [Chunk](/wissen/geo-glossar/chunking/) und wirkt im Modellwissen als Entität, die zum Thema gehört. Eine Einzelseite kann für eine Frage gewinnen; ein Cluster gewinnt für das Themenfeld.
 
 ## Was bedeutet das für Ihre Website?
 

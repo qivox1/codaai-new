@@ -44,7 +44,7 @@ Half of Germans now use AI chats instead of classic search – and while marketi
 
 ## Two Types of AI Crawlers – and Why the Difference Determines Your Ranking
 
-Not all AI crawlers work the same way. The critical difference lies in time pressure – and it has direct consequences for your AI visibility.
+Not all [AI crawlers](/en/knowledge/geo-glossary/llm-crawlers/) work the same way. The critical difference lies in time pressure – and it has direct consequences for your AI visibility.
 
 **Type 1: Training and Indexing Crawlers**
 
@@ -64,7 +64,7 @@ Moreover: even if the server responds fast enough, content ultimately determines
 
 ## Why Server Response Times Are Critical for AI Visibility
 
-TTFB (Time to First Byte) is the time between sending an HTTP request and receiving the first byte of the server response. For classic SEO, Google's recommendation is: under 600ms is acceptable, under 200ms is good.
+[TTFB (Time to First Byte)](/en/knowledge/geo-glossary/ttfb/) is the time between sending an HTTP request and receiving the first byte of the server response. For classic SEO, Google's recommendation is: under 600ms is acceptable, under 200ms is good.
 
 AI crawlers have stricter standards. According to research by [Am I Cited](https://www.amicited.com/blog/ttfb-200ms-ai-crawler-success/), websites with TTFB under 200ms achieve 40–60% higher citation rates in AI-generated responses compared to sites with TTFB between 500 and 1,000ms. Every 100ms improvement in TTFB correlates measurably with higher AI crawler success rates.
 

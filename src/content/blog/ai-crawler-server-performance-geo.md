@@ -44,7 +44,7 @@ Die Hälfte der Deutschen nutzt inzwischen KI-Chats statt der klassischen Suche 
 
 ## Zwei Typen von AI-Crawlern – und warum der Unterschied über dein Ranking entscheidet
 
-Nicht alle AI-Crawler funktionieren gleich. Der entscheidende Unterschied liegt im Zeitdruck – und der hat direkte Konsequenzen für deine KI-Sichtbarkeit.
+Nicht alle [AI-Crawler](/wissen/geo-glossar/llm-crawler/) funktionieren gleich. Der entscheidende Unterschied liegt im Zeitdruck – und der hat direkte Konsequenzen für deine KI-Sichtbarkeit.
 
 **Typ 1: Trainings- und Indexierungs-Crawler**
 
@@ -64,7 +64,7 @@ Hinzu kommt: Selbst wenn der Server schnell genug reagiert, entscheidet erst der
 
 ## Warum Server-Antwortzeiten für KI-Sichtbarkeit entscheidend sind
 
-Der TTFB (Time to First Byte) ist die Zeit zwischen dem Absenden einer HTTP-Anfrage und dem Empfang des ersten Bytes der Serverantwort. Für klassisches SEO gilt Google's Empfehlung: unter 600ms ist akzeptabel, unter 200ms ist gut.
+Der [TTFB (Time to First Byte)](/wissen/geo-glossar/ttfb/) ist die Zeit zwischen dem Absenden einer HTTP-Anfrage und dem Empfang des ersten Bytes der Serverantwort. Für klassisches SEO gilt Google's Empfehlung: unter 600ms ist akzeptabel, unter 200ms ist gut.
 
 Für AI Crawler gelten schärfere Maßstäbe. Laut Untersuchungen von [Am I Cited](https://www.amicited.com/blog/ttfb-200ms-ai-crawler-success/) erzielen Websites mit TTFB unter 200ms eine um 40–60% höhere Zitierrate in KI-generierten Antworten im Vergleich zu Sites mit TTFB zwischen 500 und 1.000ms. Jede 100ms-Verbesserung des TTFB korreliert messbar mit einer höheren AI-Crawler-Erfolgsrate.
 

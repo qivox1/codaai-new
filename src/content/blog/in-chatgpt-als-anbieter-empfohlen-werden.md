@@ -74,7 +74,7 @@ ChatGPT entscheidet in zwei Schritten: Erst stellt es eine Kandidatenliste zusam
 
 Die erste ist das [Modellwissen](/wissen/geo-glossar/modellwissen/) – alles, was das Modell im Training gelesen hat. Wer dort häufig und einheitlich beschrieben wird, gehört zum festen Repertoire. Wer sich seit dem Trainingsstand umbenannt, neu aufgestellt oder ausgegründet hat, fehlt dort.
 
-Die zweite ist die [Websuche](/wissen/geo-glossar/websuche/). ChatGPT löst sie aus, wenn es sich der Antwort nicht sicher ist. Die Frage wird dann in mehrere Teilfragen zerlegt, zu jeder werden Seiten abgerufen, und nur einzelne Passagen daraus schaffen es in die Antwort. Bei der Websuche zählt vor allem der Bing-Index: In einer Auswertung von Seer Interactive deckten sich 87 % der SearchGPT-Zitate mit Bings organischen Top-Ergebnissen, aber nur 56 % mit Googles ([mehr dazu im Artikel über Bing](/blog/chatgpt-seo-perplexity-sichtbarkeit/)).
+Die zweite ist die [Websuche](/wissen/geo-glossar/websuche/). ChatGPT löst sie aus, wenn es sich der Antwort nicht sicher ist. Die Frage wird dann in mehrere Teilfragen zerlegt, zu jeder werden Seiten abgerufen, und nur einzelne Passagen ([Chunks](/wissen/geo-glossar/chunking/)) daraus schaffen es in die Antwort. Bei der Websuche zählt vor allem der Bing-Index: In einer Auswertung von Seer Interactive deckten sich 87 % der SearchGPT-Zitate mit Bings organischen Top-Ergebnissen, aber nur 56 % mit Googles ([mehr dazu im Artikel über Bing](/blog/chatgpt-seo-perplexity-sichtbarkeit/)).
 
 ```grafik
 typ: kette

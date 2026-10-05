@@ -23,7 +23,7 @@ AI systems break a question down into several sub-questions ([query fan-out](/en
 
 ## Why does topical authority matter for AI visibility?
 
-Because AI systems do not look for the best page but for reliable sources on a topic. A domain with a cluster covers the fan-out queries ([query coverage](/en/knowledge/geo-glossary/query-coverage/)), delivers a matching chunk for every sub-question and acts in the model knowledge as an entity that belongs to the topic. A single page can win for one question; a cluster wins for the topic area.
+Because AI systems do not look for the best page but for reliable sources on a topic. A domain with a cluster covers the fan-out queries ([query coverage](/en/knowledge/geo-glossary/query-coverage/)), delivers a matching [chunk](/en/knowledge/geo-glossary/chunking/) for every sub-question and acts in the model knowledge as an entity that belongs to the topic. A single page can win for one question; a cluster wins for the topic area.
 
 ## What does this mean for your website?
 

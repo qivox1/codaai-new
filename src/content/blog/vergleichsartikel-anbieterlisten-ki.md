@@ -146,7 +146,7 @@ Wenn 70,8 Prozent der Zitate auf Listen entfallen und Sie eine eigene Liste ver�
 
 **Das Datum stimmt und ist sichtbar.** Über die Hälfte der zitierten Seiten trägt die Jahreszahl im Titel. Das ist kein Trick mit der Überschrift: Diese Systeme bevorzugen belegbar aktuelle Inhalte, und eine Liste ohne erkennbares Bearbeitungsdatum ist im Zweifel eine von 2019. Eine Jahreszahl im Titel, hinter der keine Aktualisierung steht, ist allerdings das Gegenteil einer Lösung.
 
-**Die Seite steht für sich.** Ein Abschnitt, der nur zusammen mit dem Rest der Seite Sinn ergibt, verliert seine Aussage, sobald er einzeln herausgelöst wird – und genau das passiert. Diese Systeme arbeiten nicht mit Seiten, sondern mit Passagen. Was der Absatz behauptet, muss im Absatz stehen.
+**Die Seite steht für sich.** Ein Abschnitt, der nur zusammen mit dem Rest der Seite Sinn ergibt, verliert seine Aussage, sobald er einzeln herausgelöst wird – und genau das passiert. Diese Systeme arbeiten nicht mit Seiten, sondern mit Passagen ([Chunking](/wissen/geo-glossar/chunking/)). Was der Absatz behauptet, muss im Absatz stehen.
 
 ### Warum wir eigene Listen trotzdem nicht als Erstmaßnahme empfehlen
 

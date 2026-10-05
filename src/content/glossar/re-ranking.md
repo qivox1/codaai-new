@@ -19,7 +19,7 @@ Re-Ranking ist der Schritt, in dem ein KI-System nicht mehr Seiten, sondern Pass
 
 Das System zerlegt die Kandidatenseiten in Abschnitte ([Chunking](/wissen/geo-glossar/chunking/)), berechnet für jeden Abschnitt die semantische Nähe zur Frage ([Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/)) und ergänzt weitere Signale: Beantwortet der Abschnitt die Frage direkt? Ist er spezifisch oder allgemein? Ist er ohne Kontext verständlich? Dann wird eine Schwelle angelegt, der „Cut-off". Abschnitte darüber werden zu [Grounding Snippets](/wissen/geo-glossar/grounding-snippets/), Abschnitte darunter werden verworfen.
 
-Was eine Passage relevant macht, lässt sich in fünf Eigenschaften fassen: Sie beantwortet die Query direkt. Sie hat einen starken thematischen und semantischen Match. Sie ist klar und gut lesbar, auch für Maschinen. Sie ist hochspezifisch und fokussiert. Und sie ist hochwertig und in sich geschlossen.
+Was eine Passage relevant macht, lässt sich in fünf Eigenschaften fassen: Sie beantwortet die Query direkt. Sie hat einen starken thematischen und semantischen Match ([Kosinus-Ähnlichkeit](/wissen/geo-glossar/kosinus-aehnlichkeit/)). Sie ist klar und gut lesbar, auch für Maschinen. Sie ist hochspezifisch und fokussiert. Und sie ist hochwertig und in sich geschlossen.
 
 ## Warum ist Re-Ranking für die KI-Sichtbarkeit wichtig?
 

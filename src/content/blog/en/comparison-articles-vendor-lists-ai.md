@@ -1,7 +1,7 @@
 ---
 title: "Comparison Articles and Vendor Lists: Where AI Systems Get Their Recommendations"
 seoTitle: "Where AI Gets Its Vendor Recommendations"
-description: "70.8% of citations for B2B buying prompts lead to “best” lists. What that means for companies that appear on none of them."
+description: "70.8% of citations for B2B buying prompts lead to “best” lists; review platforms get just 8.6%. What that means for companies that appear on none of them."
 pubDate: 2026-09-17
 updatedDate: 2026-09-22
 lang: en
@@ -146,7 +146,7 @@ If 70.8% of citations go to lists and you want to publish a list of your own, th
 
 **The date is accurate and visible.** More than half of the cited pages carry the year in the title. That is not a headline trick: these systems prefer demonstrably current content, and a list with no recognisable revision date is, if in doubt, one from 2019. A year in the title with no update behind it, however, is the opposite of a solution.
 
-**The page stands on its own.** A section that only makes sense together with the rest of the page loses its meaning as soon as it is lifted out on its own – and that is exactly what happens. These systems work not with pages but with passages. Whatever the paragraph claims has to be in the paragraph.
+**The page stands on its own.** A section that only makes sense together with the rest of the page loses its meaning as soon as it is lifted out on its own – and that is exactly what happens. These systems work not with pages but with passages ([chunking](/en/knowledge/geo-glossary/chunking/)). Whatever the paragraph claims has to be in the paragraph.
 
 ### Why we still do not recommend your own lists as a first step
 

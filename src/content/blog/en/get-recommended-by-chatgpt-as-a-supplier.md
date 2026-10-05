@@ -74,7 +74,7 @@ ChatGPT decides in two steps: first it assembles a list of candidates, then it p
 
 The first is [model knowledge](/en/knowledge/geo-glossary/model-knowledge/) – everything the model read during training. Companies described often and consistently there belong to its fixed repertoire. Companies that have renamed, repositioned or spun off since the training cut-off are missing.
 
-The second is [web search](/en/knowledge/geo-glossary/web-search/). ChatGPT triggers it when it is not sure of the answer. The question is split into several sub-questions, pages are fetched for each, and only individual passages make it into the answer. For web search, the Bing index matters most: in an analysis by Seer Interactive, 87% of SearchGPT citations matched Bing's organic top results, but only 56% matched Google's ([more in the article on Bing](/en/blog/chatgpt-seo-perplexity-visibility/)).
+The second is [web search](/en/knowledge/geo-glossary/web-search/). ChatGPT triggers it when it is not sure of the answer. The question is split into several sub-questions, pages are fetched for each, and only individual passages ([chunks](/en/knowledge/geo-glossary/chunking/)) make it into the answer. For web search, the Bing index matters most: in an analysis by Seer Interactive, 87% of SearchGPT citations matched Bing's organic top results, but only 56% matched Google's ([more in the article on Bing](/en/blog/chatgpt-seo-perplexity-visibility/)).
 
 ```grafik
 typ: kette

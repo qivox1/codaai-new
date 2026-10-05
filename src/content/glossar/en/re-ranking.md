@@ -21,7 +21,7 @@ Re-ranking is the step in which an AI system no longer assesses pages but passag
 
 The system splits the candidate pages into sections ([chunking](/en/knowledge/geo-glossary/chunking/)), calculates the semantic proximity of each section to the question ([cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/)) and adds further signals: Does the section answer the question directly? Is it specific or general? Is it understandable without context? Then a threshold is applied, the "cut-off". Sections above it become [grounding snippets](/en/knowledge/geo-glossary/grounding-snippets/), sections below it are discarded.
 
-What makes a passage relevant can be summed up in five properties: it answers the query directly. It has a strong topical and semantic match. It is clear and easy to read, for machines too. It is highly specific and focused. And it is high-quality and self-contained.
+What makes a passage relevant can be summed up in five properties: it answers the query directly. It has a strong topical and semantic match ([cosine similarity](/en/knowledge/geo-glossary/cosine-similarity/)). It is clear and easy to read, for machines too. It is highly specific and focused. And it is high-quality and self-contained.
 
 ## Why does re-ranking matter for AI visibility?
 

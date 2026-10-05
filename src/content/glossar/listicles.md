@@ -1,5 +1,6 @@
 ---
 title: "Listicles"
+seoDescription: "Listicles erklärt: warum KI-Systeme „Best of“- und Vergleichsartikel bei Anbieterfragen so oft zitieren und wie Ihr Unternehmen in diese Listen gelangt."
 shortDefinition: "Listicles sind „Best of“- und Vergleichsartikel auf Drittseiten („Die 10 besten Anbieter für …“). KI-Systeme zitieren sie bei Anbieter- und Vergleichsfragen besonders häufig — Präsenz dort ist ein direkter Hebel für Nennungen."
 synonyms: ["Best-of-Listen", "Vergleichsartikel", "Rankings auf Drittseiten"]
 category: offpage
@@ -17,7 +18,7 @@ Listicles sind Artikel, die ein Thema als Liste aufbereiten — „Die 10 besten
 
 ## Wie wirken Listicles auf KI-Antworten?
 
-Bei einer Frage wie „Welche Anbieter kommen für X infrage?" sucht das System Quellen, die mehrere Anbieter nennen und vergleichen. Listicles tun genau das. Im [Re-Ranking](/wissen/geo-glossar/re-ranking/) liefert jeder Listeneintrag einen sauberen Chunk mit Name, Beschreibung und Kriterien. Das Modell übernimmt die Namen und zitiert das Listicle als Quelle. Untersuchungen, über die Search Engine Land berichtet, zeigen Listicles zusammen mit Fachartikeln und Produktseiten als die Formate, auf die die meisten AI Citations entfallen.
+Bei einer Frage wie „Welche Anbieter kommen für X infrage?" sucht das System Quellen, die mehrere Anbieter nennen und vergleichen. Listicles tun genau das. Im [Re-Ranking](/wissen/geo-glossar/re-ranking/) liefert jeder Listeneintrag einen sauberen [Chunk](/wissen/geo-glossar/chunking/) mit Name, Beschreibung und Kriterien. Das Modell übernimmt die Namen und zitiert das Listicle als Quelle. Untersuchungen, über die Search Engine Land berichtet, zeigen Listicles zusammen mit Fachartikeln und Produktseiten als die Formate, auf die die meisten AI Citations entfallen.
 
 Eine Einschränkung gibt es: Selbstpromotionale Listicles — Anbieter, die auf der eigenen Website eine „Best of"-Liste mit sich selbst auf Platz eins veröffentlichen — werden von Google inzwischen erkannt und abgewertet, wie unter anderem almcorp für 2026 dokumentiert. Der Hebel liegt in fremden Listen, nicht in eigenen.
 
