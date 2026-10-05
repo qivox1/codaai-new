@@ -5,7 +5,7 @@ de: information-gain
 shortDefinition: "Information gain is the amount of new information a sentence or paragraph delivers beyond what is already in the model knowledge and in other sources. High gain makes content citable."
 synonyms: ["Uniqueness", "Original content", "Novelty"]
 category: content
-related: ["citation", "e-e-a-t", "re-ranking", "topical-authority", "model-knowledge"]
+related: ["citation", "e-e-a-t", "re-ranking", "topical-authority", "model-knowledge", "synthid"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

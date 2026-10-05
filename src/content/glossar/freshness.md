@@ -3,7 +3,7 @@ title: "Freshness"
 shortDefinition: "Freshness ist die erkennbare Aktualität eines Inhalts. KI-Systeme zitieren ältere Inhalte deutlich seltener — „Stand 2023“ verliert gegen aktuellen Content, und das Datum muss technisch sichtbar sein."
 synonyms: ["Aktualität", "Content Freshness", "lastModified"]
 category: content
-related: ["knowledge-cutoff", "websuche", "e-e-a-t", "index-management"]
+related: ["knowledge-cutoff", "websuche", "e-e-a-t", "index-management", "indexnow"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

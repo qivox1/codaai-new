@@ -5,6 +5,7 @@ synonyms: ["Auffindbarkeit von URLs", "Crawlbarkeit", "Interne Verlinkung"]
 category: technik
 related: ["crawl-budget", "index-management", "llm-crawler", "ki-freundliche-formate", "indexnow"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 1
 faq:
   - q: "Warum sind HTML-Links für URL Discovery entscheidend?"
@@ -27,4 +28,4 @@ Weil sie das unterste Glied der Kette ist: URL Discovery, [Crawl Management](/wi
 
 ## Was bedeutet das für Ihre Website?
 
-Alle wichtigen Seiten müssen über HTML-Links erreichbar sein — aus der Navigation, aus verwandten Seiten, aus dem Footer. Halten Sie die Sitemap aktuell. Setzen Sie keine Click- oder Login-Walls vor Inhalte, die gefunden werden sollen. Und prüfen Sie den Linkgraph: Seiten mit nur einem eingehenden Link sind auch für Menschen kaum zu finden.
+Alle wichtigen Seiten müssen über HTML-Links erreichbar sein — aus der Navigation, aus verwandten Seiten, aus dem Footer. Halten Sie die Sitemap aktuell und melden Sie neue oder geänderte Seiten zusätzlich per [IndexNow](/wissen/geo-glossar/indexnow/) — das erreicht Bing und damit auch Copilot schneller. Setzen Sie keine Click- oder Login-Walls vor Inhalte, die gefunden werden sollen. Und prüfen Sie den Linkgraph: Seiten mit nur einem eingehenden Link sind auch für Menschen kaum zu finden.

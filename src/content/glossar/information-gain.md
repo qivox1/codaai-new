@@ -3,7 +3,7 @@ title: "Information Gain"
 shortDefinition: "Information Gain ist der Mehrwert an neuer Information, den ein Satz oder Absatz gegenüber dem liefert, was bereits im Modellwissen und in anderen Quellen steht. Hoher Gain macht zitierfähig."
 synonyms: ["Informationsgewinn", "Uniqueness", "Originäre Inhalte"]
 category: content
-related: ["citation", "e-e-a-t", "re-ranking", "topical-authority", "modellwissen"]
+related: ["citation", "e-e-a-t", "re-ranking", "topical-authority", "modellwissen", "synthid"]
 pubDate: 2026-09-03
 stufe: 3
 faq:

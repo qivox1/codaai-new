@@ -5,7 +5,7 @@ de: e-e-a-t
 shortDefinition: "E-E-A-T stands for Experience, Expertise, Authoritativeness and Trustworthiness — the signals by which search engines and AI systems recognise whether content is first-hand, competent, recognised and trustworthy."
 synonyms: ["Experience, Expertise, Authoritativeness, Trustworthiness", "E-A-T", "Authorship"]
 category: content
-related: ["information-gain", "topical-authority", "domain-authority", "digital-pr", "freshness"]
+related: ["information-gain", "topical-authority", "domain-authority", "digital-pr", "freshness", "synthid"]
 pubDate: 2026-09-03
 stufe: 2
 faq:

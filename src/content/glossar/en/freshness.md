@@ -6,7 +6,7 @@ seoDescription: "Freshness explained: why AI systems cite older content much les
 shortDefinition: "Freshness is the recognisable currency of a piece of content. AI systems cite older content significantly less often — ‘as of 2023’ loses to current content, and the date has to be technically visible."
 synonyms: ["Content freshness", "Currency", "lastModified"]
 category: content
-related: ["knowledge-cutoff", "web-search", "e-e-a-t", "index-management"]
+related: ["knowledge-cutoff", "web-search", "e-e-a-t", "index-management", "indexnow"]
 pubDate: 2026-09-03
 stufe: 1
 faq:

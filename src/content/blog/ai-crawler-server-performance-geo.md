@@ -2,6 +2,7 @@
 title: "GEO-Sichtbarkeit für KI-Suchmaschinen"
 description: "Mit der richtigen Server-Performance und GEO-optimiertem Content von CodaAI werden AI Crawler wie GPTBot und ClaudeBot deine Website zuverlässig zitieren."
 pubDate: 2026-03-22
+updatedDate: 2026-10-05
 lang: de
 inUebersicht: false
 author: "Oliver Parrizas"
@@ -13,12 +14,12 @@ tags: ["AI Crawler", "GEO", "Server Performance", "GPTBot", "TTFB", "KI-Sichtbar
 featured: false
 heroImage: /images/blog/AI-crawler-server-performance.webp
 heroImageAlt: "AI Crawler Server Performance Geo"
-summary: "AI-Crawler wie GPTBot, ClaudeBot und PerplexityBot crawlen Websites in zwei Modi: zur Modelltraining-Indexierung und – deutlich kritischer – in Echtzeit bei Nutzeranfragen. Reagiert dein Server zu langsam (über 500ms TTFB), wird im Live-Betrieb eine schnellere Alternative zitiert. Mit den richtigen Maßnahmen – CDN, Caching, korrekter robots.txt-Konfiguration und llms.txt – stellst du sicher, dass KI-Suchmaschinen deine Inhalte zuverlässig abrufen und als Quelle zitieren."
+summary: "AI-Crawler wie GPTBot, ClaudeBot und PerplexityBot crawlen Websites in zwei Modi: zur Modelltraining-Indexierung und – deutlich kritischer – in Echtzeit bei Nutzeranfragen. Reagiert dein Server zu langsam – als Richtwert gilt eine TTFB unter 500 bis 800 Millisekunden –, bricht der Abruf im Live-Betrieb ab, und andere Quellen werden zitiert. Mit den richtigen Maßnahmen – CDN, Caching, korrekter robots.txt-Konfiguration und llms.txt – stellst du sicher, dass KI-Suchmaschinen deine Inhalte zuverlässig abrufen und als Quelle zitieren."
 faq:
   - q: "Was ist ein AI Crawler und wie unterscheidet er sich von Googlebot?"
     a: "AI Crawler wie GPTBot (OpenAI), ClaudeBot (Anthropic) oder PerplexityBot sammeln Website-Inhalte entweder zum Training von Sprachmodellen oder für Echtzeit-Antworten bei Nutzeranfragen. Im Unterschied zu Googlebot, der für klassische Suchergebnisse indexiert, entscheiden AI Crawler darüber, ob dein Inhalt in ChatGPT, Claude oder Perplexity als Quelle auftaucht."
   - q: "Welchen TTFB-Wert brauche ich für AI-Crawler-Optimierung?"
-    a: "Der empfohlene Schwellenwert liegt unter 200ms TTFB (Time to First Byte). Laut Untersuchungen von Am I Cited erzielen Websites mit TTFB unter 200ms eine um 40–60% höhere Zitierrate in KI-Antworten. Der kritische Grenzwert für Echtzeit-Crawling liegt bei ca. 500ms – darüber riskierst du, dass ChatGPT-User oder Claude-User eine schnellere Quelle bevorzugen."
+    a: "Google bewertet eine TTFB (Time to First Byte) von 0,8 Sekunden oder weniger als gut, über 1,8 Sekunden als schlecht (web.dev). Für KI-Crawler gilt ein strengerer Richtwert: unter 500 bis 800 Millisekunden, wie ihn Chrissy Kunisch beim SISTRIX Meetup im September 2026 nannte. Darüber steigt das Risiko, dass ChatGPT-User oder Claude-User den Abruf abbrechen. Belastbare Studien zu einer exakten Schwelle gibt es nicht."
   - q: "Sollte ich GPTBot und ClaudeBot in der robots.txt blockieren?"
     a: "Das hängt von deiner Strategie ab. Blockierst du GPTBot und ClaudeBot, werden deine Inhalte nicht für Modell-Training genutzt – aber du verlierst auch KI-Sichtbarkeit. Für B2B-Unternehmen, die als Quelle in KI-Antworten erscheinen wollen, ist es sinnvoller, Trainings-Crawler selektiv zu erlauben und Echtzeit-Crawler (ChatGPT-User, Claude-User) explizit zuzulassen."
   - q: "Was ist llms.txt und brauche ich das?"
@@ -36,9 +37,9 @@ Die Hälfte der Deutschen nutzt inzwischen KI-Chats statt der klassischen Suche 
     <span class="stat-source">Bitkom, „Internet-Suche im Wandel", 2025</span>
   </div>
   <div class="blog-stat-card">
-    <span class="stat-value">200ms</span>
-    <span class="stat-label">TTFB-Schwellenwert für maximale Zitierrate in KI-Antworten</span>
-    <span class="stat-source">Am I Cited, „TTFB Under 200ms: AI Crawler Success", 2025</span>
+    <span class="stat-value">0,8 s</span>
+    <span class="stat-label">TTFB-Grenze, ab der Google die Serverantwort als „gut“ bewertet</span>
+    <span class="stat-source">Google, web.dev „Time to First Byte (TTFB)“, 2025</span>
   </div>
 </div>
 
@@ -54,25 +55,25 @@ GPTBot von OpenAI, ClaudeBot von Anthropic und PerplexityBot sammeln systematisc
 
 ChatGPT-User, Claude-User und ähnliche Bots werden dann aktiv, wenn ein Nutzer in Echtzeit eine Frage stellt und das System aktuelle Web-Inhalte abruft. Das nennt sich [Retrieval Augmented Generation (RAG)](https://www.frugaltesting.com/blog/behind-perplexitys-architecture-how-ai-search-handles-real-time-web-data): Das KI-System erkennt, dass seine Trainingsdaten nicht ausreichen, und ruft live Quellen ab – während der Nutzer wartet.
 
-Hier wird Servergeschwindigkeit zur harten KI-Ranking-Metrik. Braucht dein Server länger als rund 500 Millisekunden, um zu antworten, wählt das System einfach eine schnellere Quelle. Der Nutzer bemerkt es nicht, und dein Unternehmen taucht in der Antwort nicht auf.
+Hier wird Servergeschwindigkeit zur harten KI-Ranking-Metrik. Als Richtwert gilt eine TTFB unter 500 bis 800 Millisekunden. Antwortet dein Server langsamer, bricht der Abruf ab, und das System arbeitet mit den Quellen, die rechtzeitig geliefert haben. Der Nutzer bemerkt es nicht, und dein Unternehmen taucht in der Antwort nicht auf.
 
 ### Der blinde Fleck der meisten GEO-Strategien
 
-Klassische SEO misst PageSpeed für menschliche Nutzer. AI Crawler verhalten sich aber anders: GPTBot kann über 30 Anfragen pro Sekunde an verschiedene URLs einer Domain stellen. Das bedeutet, selbst ein Server mit ordentlicher durchschnittlicher Performance kann unter dieser Last ins Stocken geraten – und dann genau bei dem Zeitfenster versagen, in dem ein Echtzeit-Crawler auf Antwort wartet.
+Klassische SEO misst PageSpeed für menschliche Nutzer. AI Crawler verhalten sich aber anders: GPTBot kann in kurzer Zeit Tausende Anfragen an eine Domain stellen – Metehan Yeşilyurt zählte auf einer Testseite über 29.000 GPTBot-Anfragen in den ersten zwölf Stunden (März 2026). Das bedeutet, selbst ein Server mit ordentlicher durchschnittlicher Performance kann unter dieser Last ins Stocken geraten – und dann genau bei dem Zeitfenster versagen, in dem ein Echtzeit-Crawler auf Antwort wartet.
 
 Hinzu kommt: Selbst wenn der Server schnell genug reagiert, entscheidet erst der Inhalt, ob dein Unternehmen in der KI-Antwort als Quelle zitiert wird. Technische Performance ist die Eintrittskarte – GEO-optimierter Content das eigentliche Ticket. Beides muss stimmen.
 
 ## Warum Server-Antwortzeiten für KI-Sichtbarkeit entscheidend sind
 
-Der [TTFB (Time to First Byte)](/wissen/geo-glossar/ttfb/) ist die Zeit zwischen dem Absenden einer HTTP-Anfrage und dem Empfang des ersten Bytes der Serverantwort. Für klassisches SEO gilt Google's Empfehlung: unter 600ms ist akzeptabel, unter 200ms ist gut.
+Der [TTFB (Time to First Byte)](/wissen/geo-glossar/ttfb/) ist die Zeit zwischen dem Absenden einer HTTP-Anfrage und dem Empfang des ersten Bytes der Serverantwort. Google bewertet in seiner Entwicklerdokumentation [web.dev](https://web.dev/articles/ttfb) eine TTFB von 0,8 Sekunden oder weniger als gut, Werte über 1,8 Sekunden als schlecht.
 
-Für AI Crawler gelten schärfere Maßstäbe. Laut Untersuchungen von [Am I Cited](https://www.amicited.com/blog/ttfb-200ms-ai-crawler-success/) erzielen Websites mit TTFB unter 200ms eine um 40–60% höhere Zitierrate in KI-generierten Antworten im Vergleich zu Sites mit TTFB zwischen 500 und 1.000ms. Jede 100ms-Verbesserung des TTFB korreliert messbar mit einer höheren AI-Crawler-Erfolgsrate.
+Für AI Crawler gelten schärfere Maßstäbe. Chrissy Kunisch (ONE Beyond Search) nannte beim SISTRIX Meetup im September 2026 einen Richtwert unter 500 bis 800 Millisekunden. Eine belastbare Studie, die eine exakte Schwelle mit der Zitierrate verknüpft, gibt es bisher nicht – Zahlen wie „unter 200 Millisekunden“ stammen aus Einzelauswertungen von Tool-Anbietern.
 
-Der Grund liegt in der Architektur von RAG-Systemen: Diese haben interne Timeout-Fenster von typischerweise 5–10 Sekunden für einen vollständigen Seitenaufruf. Wird ein beträchtlicher Teil davon bereits beim ersten Byte aufgebraucht, steigt das Risiko, dass das System abbricht und zur nächsten Quelle wechselt.
+Der Grund liegt in der Architektur von [RAG-Systemen](/wissen/geo-glossar/retrieval-augmented-generation/): Sie rufen Quellen ab, während der Nutzer auf die Antwort wartet. Wird ein großer Teil der verfügbaren Zeit schon bis zum ersten Byte verbraucht, steigt das Risiko, dass das System abbricht und ohne diese Seite antwortet.
 
 ### Core Web Vitals und KI-Sichtbarkeit hängen zusammen
 
-Websites mit als „Gut" bewerteten Core Web Vitals – also LCP unter 2,5 Sekunden und TTFB unter 200ms – erscheinen laut [Untersuchungen von Fiveblocks](https://www.fiveblocks.com/your-slow-corporate-site-is-hurting-you-in-ai-search/) konsistent häufiger in Google AI Overviews als strukturell ähnliche Inhalte auf langsameren Servern. Das bedeutet: Wer für klassisches SEO in Performance investiert hat, profitiert davon automatisch auch bei der KI-Sichtbarkeit. Wer das nicht getan hat, zahlt jetzt doppelt: schlechtere Google-Rankings und geringere Zitierrate in KI-Antworten.
+Websites mit als „Gut“ bewerteten Core Web Vitals – etwa einem LCP unter 2,5 Sekunden – erscheinen laut [Untersuchungen von Fiveblocks](https://www.fiveblocks.com/your-slow-corporate-site-is-hurting-you-in-ai-search/) konsistent häufiger in Google [AI Overviews](/wissen/geo-glossar/ai-overviews/) als strukturell ähnliche Inhalte auf langsameren Servern. Die TTFB selbst ist kein Core Web Vital, geht aber jedem davon voraus: Jede Millisekunde bis zum ersten Byte verzögert auch den LCP. Das bedeutet: Wer für klassisches SEO in Performance investiert hat, profitiert davon automatisch auch bei der KI-Sichtbarkeit. Wer das nicht getan hat, zahlt jetzt doppelt: schlechtere Google-Rankings und geringere Zitierrate in KI-Antworten.
 
 ## Die 5 wichtigsten technischen Maßnahmen für AI-Crawler-Performance
 
@@ -80,9 +81,9 @@ Diese Maßnahmen lassen sich unabhängig vom eingesetzten CMS oder Hosting-Provi
 
 ### 1. CDN und serverseitiges Caching aktivieren
 
-Ein Content Delivery Network (CDN) ist die wirkungsvollste Einzelmaßnahme für TTFB-Verbesserungen. CDNs wie Cloudflare, AWS CloudFront oder Fastly liefern gecachte Inhalte von Edge-Servern aus, die geographisch nah am anfragenden Bot liegen. Für AI Crawler, die häufig von US-amerikanischen Rechenzentren operieren, kann das TTFB-Reduktionen von 200–400ms bringen.
+Ein Content Delivery Network (CDN) ist die wirkungsvollste Einzelmaßnahme für TTFB-Verbesserungen. CDNs wie Cloudflare, AWS CloudFront oder Fastly liefern gecachte Inhalte von Edge-Servern aus, die geographisch nah am anfragenden Bot liegen. Für AI Crawler, die häufig aus US-amerikanischen Rechenzentren zugreifen, verkürzt das vor allem den Verbindungsaufbau über den Atlantik.
 
-Ergänzend: Serverseitiges Caching (z. B. Redis, Varnish oder CMS-eigene Page-Cache-Lösungen) verhindert, dass bei jedem Crawler-Aufruf eine vollständige Datenbankabfrage ausgeführt wird. Bei 30 GPTBot-Anfragen pro Sekunde kann ein nicht-gecachter WordPress-Blog schnell überfordert sein.
+Ergänzend: Serverseitiges Caching (z. B. Redis, Varnish oder CMS-eigene Page-Cache-Lösungen) verhindert, dass bei jedem Crawler-Aufruf eine vollständige Datenbankabfrage ausgeführt wird. Bei vielen gleichzeitigen GPTBot-Anfragen kann ein nicht-gecachter WordPress-Blog schnell überfordert sein.
 
 ### 2. robots.txt strategisch konfigurieren
 
@@ -189,7 +190,7 @@ Wenn Sie gar keine AI-Crawler-Einträge in Ihren Logs sehen, kann das zwei Ursac
 
 Tools wie [WebPageTest](https://www.webpagetest.org) oder das Chrome DevTools Network-Panel messen den TTFB für einzelne Seiten. Für eine realistische Einschätzung testen Sie von verschiedenen Standorten – da AI Crawler oft aus US-Rechenzentren operieren, ist der transatlantische TTFB besonders relevant.
 
-Als Orientierung: Ein TTFB von über 600ms aus den USA deutet auf fehlendes CDN oder mangelndes serverseitiges Caching hin. Das ist der erste Ansatzpunkt.
+Als Orientierung: Eine TTFB von über 0,8 Sekunden aus den USA deutet auf fehlendes CDN oder mangelndes serverseitiges Caching hin. Das ist der erste Ansatzpunkt.
 
 ### Schritt 3: Crawlability prüfen
 
@@ -228,11 +229,11 @@ Nutzen Sie diese Kurzprüfung, bevor Sie größere Maßnahmen einleiten:
 **Technische Grundlage:**
 - [ ] `robots.txt` enthält explizite Einträge für GPTBot, ClaudeBot, ChatGPT-User, Claude-User, PerplexityBot
 - [ ] Server-Logs zeigen AI-Crawler-Zugriffe (kein Totalblock)
-- [ ] TTFB unter 500ms (gemessen aus den USA)
+- [ ] TTFB unter 0,8 Sekunden, besser unter 0,5 Sekunden (gemessen aus den USA)
 - [ ] CDN aktiv oder in Planung
 
 **Inhaltliche Grundlage:**
-- [ ] Wichtigste Seiten haben Schema-Markup (Article, FAQ, Organization)
+- [ ] Wichtigste Seiten haben [Schema-Markup](/wissen/geo-glossar/strukturierte-daten/) (Article, FAQ, Organization)
 - [ ] `llms.txt` im Root-Verzeichnis vorhanden oder in Planung
 - [ ] Fachbeiträge beginnen mit direkten Antwort-Sätzen, nicht mit allgemeinen Einleitungen
 - [ ] Externe, verlässliche Quellen sind verlinkt (Fachverbände, Studien, Behörden)
@@ -246,7 +247,7 @@ Wer alle zehn Punkte abhaken kann, hat eine solide Grundlage für KI-Sichtbarkei
 
 ## Die technische Basis steht – jetzt kommt der Content
 
-Die in diesem Artikel beschriebenen Maßnahmen – CDN, TTFB unter 200ms, korrekte robots.txt, llms.txt – sind die Grundvoraussetzung dafür, dass AI Crawler deine Website überhaupt zuverlässig indexieren. Sie öffnen die Tür. Aber was hinter der Tür steht, entscheidet, ob dein Unternehmen in der Antwort eines KI-Assistenten auftaucht oder nicht.
+Die in diesem Artikel beschriebenen Maßnahmen – CDN, TTFB unter 0,8 Sekunden, korrekte robots.txt, llms.txt – sind die Grundvoraussetzung dafür, dass AI Crawler deine Website überhaupt zuverlässig indexieren. Sie öffnen die Tür. Aber was hinter der Tür steht, entscheidet, ob dein Unternehmen in der Antwort eines KI-Assistenten auftaucht oder nicht.
 
 Das ist der Punkt, an dem die meisten B2B-Unternehmen ins Stocken geraten: GEO-optimierten Content zu produzieren erfordert ein anderes Redaktionskonzept als klassisches SEO-Schreiben. Jeder Abschnitt muss mit einer Direktantwort beginnen. Statistiken müssen belegbar sein. Das `summary`-Feld muss so formuliert sein, dass ChatGPT es verbatim als Antwort verwenden kann. FAQ-Strukturen müssen echte Nutzerfragen beantworten, nicht Marketingphrasen.
 

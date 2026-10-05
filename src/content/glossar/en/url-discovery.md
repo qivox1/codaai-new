@@ -7,6 +7,7 @@ synonyms: ["URL findability", "Crawlability", "Internal linking"]
 category: technik
 related: ["crawl-budget", "index-management", "llm-crawlers", "ai-friendly-content-formats", "indexnow"]
 pubDate: 2026-09-03
+updatedDate: 2026-10-05
 stufe: 1
 faq:
   - q: "Why are HTML links decisive for URL Discovery?"
@@ -29,4 +30,4 @@ Because it is the lowest link in the chain: URL Discovery, [crawl management](/e
 
 ## What does this mean for your website?
 
-All important pages must be reachable via HTML links — from the navigation, from related pages, from the footer. Keep the sitemap current. Do not put click or login walls in front of content that is meant to be found. And check the link graph: pages with only one incoming link are hard to find for humans too.
+All important pages must be reachable via HTML links — from the navigation, from related pages, from the footer. Keep the sitemap current and also report new or changed pages via [IndexNow](/en/knowledge/geo-glossary/indexnow/) — that reaches Bing, and therefore Copilot, faster. Do not put click or login walls in front of content that is meant to be found. And check the link graph: pages with only one incoming link are hard to find for humans too.
