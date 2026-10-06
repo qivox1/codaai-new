@@ -27,7 +27,7 @@ const h1FlipWords = [
   { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
 ];
 
-// 01.10.2026: zwei Termine zur Wahl — Quelle src/data/webinar-slots.ts
+// 01.10.2026: zwei Termine zur Wahl, seit 06.10.2026 nur noch der 10.11. — Quelle src/data/webinar-slots.ts
 const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.de.dateLong, time: s.de.time, iso: s.start, end: s.end, short: `${s.de.day} ${s.de.date}`, dateShort: s.de.dateShort }));
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
@@ -150,12 +150,8 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
               Live-Webinar
             </span>
             <span class="text-border" aria-hidden="true">/</span>
-            {/* Terminzeile: nach dem 13.10. blendet das Script den ersten Termin und das
-                „alternativ" aus und zeigt nur noch den zweiten (data-wslot-end / -after). */}
-            <span class="text-foreground" data-wslot-end={slots[0].end}>{slots[0].short} · 11:00 Uhr</span>
-            <span class="text-border" aria-hidden="true" data-wslot-end={slots[0].end}>/</span>
-            <span data-wslot-end={slots[0].end}>alternativ {slots[1].dateShort}</span>
-            <span class="text-foreground" data-wslot-after={slots[0].end} hidden>{slots[1].short} · 11:00 Uhr</span>
+            {/* Terminzeile — 06.10.2026: 13.10. faellt aus, nur noch ein Termin (10.11.). */}
+            <span class="text-foreground">{slots[0].short} · 11:00 Uhr</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 Minuten</span>
         </p>
@@ -196,9 +192,10 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
               </p>
             </div>
 
-            {/* Terminwahl (01.10.2026): zwei Kacheln, 13.10. vorausgewaehlt. Die Wahl gilt
-                fuer jedes Anmeldeformular der Seite (Sync im WebinarSignup-Script). */}
-            <fieldset class="wslot-pick mt-6" data-wslot-pick>
+            {/* Terminwahl (01.10.2026) — seit 06.10.2026 nur noch ein Termin: Die Kacheln sind
+                ausgeblendet, der Radio bleibt unsichtbar im Formular (Slot wird mitgeschickt).
+                Kommt wieder ein zweiter Termin dazu, erscheint die Wahl automatisch. */}
+            <fieldset class="wslot-pick mt-6" data-wslot-pick hidden={slots.length < 2}>
               <legend class="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Termin wählen</legend>
               <div class="wslot-grid">
                 {slots.map((slot, i) => (
@@ -215,6 +212,12 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
             </fieldset>
 
             <dl class="mt-6 space-y-2 border-y border-border py-5 text-sm">
+              {slots.length < 2 && (
+                <div class="flex items-baseline justify-between gap-4">
+                  <dt class="text-muted-foreground">Termin</dt>
+                  <dd class="font-semibold text-foreground">{slots[0].short.replace(' ', ', ')} · 11:00 Uhr</dd>
+                </div>
+              )}
               <div class="flex items-baseline justify-between gap-4">
                 <dt class="text-muted-foreground">Dauer</dt>
                 <dd class="font-semibold text-foreground">60 Minuten</dd>
@@ -637,7 +640,7 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
   // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
-  const slotDates = ['2026-10-13T11:00:00+02:00', '2026-11-10T11:00:00+01:00'].map((d) => new Date(d));
+  const slotDates = ['2026-11-10T11:00:00+01:00'].map((d) => new Date(d)); // 06.10.2026: 13.10. entfaellt
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
@@ -1377,6 +1380,7 @@ if (document.readyState === 'loading') {
 <style>
   /* Terminwahl in der Anmeldekarte (01.10.2026) */
   .wslot-pick { border:0; padding:0; min-width:0; }
+  .wslot-pick[hidden] { display:none; }
   .wslot-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .wslot-tile { position:relative; display:flex; flex-direction:column; gap:2px; cursor:pointer;
     border:1.5px solid hsl(var(--border)); border-radius:16px; padding:12px 14px 12px 40px;

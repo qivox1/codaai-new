@@ -1,6 +1,8 @@
 /**
  * Webinar-Termine — EINE Quelle für /webinar, /en/webinar, WebinarSignup und Event-Schema.
- * 01.10.2026: zwei Termine zur Wahl (Oli). Die Seite blendet einen Termin clientseitig aus,
+ * 01.10.2026: zwei Termine zur Wahl (Oli). 06.10.2026: Der Termin 13.10. faellt aus — es gibt nur
+ * noch den 10.11.2026, 11:00 Uhr. Bei nur einem Termin zeigen die Seiten keine Terminwahl mehr,
+ * der Slot wird unsichtbar mitgeschickt. Die Seite blendet einen Termin clientseitig aus,
  * sobald dessen Ende (`end`) vorbei ist — ohne neuen Build. `id` ist der Slot, den das
  * Apps Script erwartet (WEBINAR_SLOTS in Code.gs). Achtung Zeitzone: Oktober = MESZ (+02:00),
  * November = MEZ (+01:00).
@@ -14,13 +16,6 @@ export interface WebinarSlot {
 }
 
 export const WEBINAR_SLOTS: WebinarSlot[] = [
-  {
-    id: '2026-10-13',
-    start: '2026-10-13T11:00:00+02:00',
-    end: '2026-10-13T12:00:00+02:00',
-    de: { day: 'Di', dayLong: 'Dienstag', date: '13.10.2026', dateShort: '13.10.', dateLong: '13. Oktober 2026', time: '11:00–12:00 Uhr' },
-    en: { day: 'Tue', dayLong: 'Tuesday', date: '13 October 2026', dateShort: '13 Oct', time: '11:00–12:00 CEST' },
-  },
   {
     id: '2026-11-10',
     start: '2026-11-10T11:00:00+01:00',

@@ -126,7 +126,9 @@ const msgs = isEn
     </div>
 
     <div class="wacta-contact" data-contact>
-      <fieldset class="wacta-slots" data-slots>
+      {/* 06.10.2026: Bei nur einem Termin keine Terminwahl zeigen — der Radio bleibt
+          unsichtbar im Formular, damit der Slot weiter mitgeschickt wird. */}
+      <fieldset class="wacta-slots" data-slots hidden={slotItems.length < 2}>
         <legend class="wacta-hint">{t.slots}</legend>
         <div class="wacta-slot-row">
           {slotItems.map((s) => (
@@ -233,6 +235,7 @@ const msgs = isEn
   .wacta-slot small { font-size:12px; color:var(--muted); }
   .wacta-slot:has(input:checked) { border-color:var(--pink); box-shadow:0 0 0 3px hsl(var(--cta) / .14); }
   .wacta-slot[hidden] { display:none; }
+  .wacta-slots[hidden] { display:none; }
   .wacta-slots.is-single .wacta-slot-row { grid-template-columns:1fr; }
   .wacta.wacta--dark .wacta-slot b { color:var(--ink); }
   .wacta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
