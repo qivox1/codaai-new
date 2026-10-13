@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Geschützter Bereich</title>
+<style>
+:root{--ink:#0b2a4a;--muted:#55657a;--line:#dfe6ee;--cta:#c405e6}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:#fff}
+#gate{max-width:440px;margin:12vh auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 8px}p{color:var(--muted);margin:0 0 20px;line-height:1.5}
+input{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1px solid #c6d1dd;border-radius:12px;letter-spacing:.04em}
+button{font:inherit;font-size:16px;padding:12px 18px;border-radius:12px;border:0;background:var(--cta);color:#fff;cursor:pointer;margin-top:12px;width:100%}
+#err{color:#b00020;font-size:14px;min-height:20px;margin-top:10px}
+#menu{display:none;max-width:440px;margin:12vh auto;padding:0 20px}
+#menu button{margin-top:12px}#menu button.sec{background:#fff;color:var(--ink);border:1px solid #c6d1dd}
+#view{display:none;position:fixed;inset:0;background:#fff}
+#view iframe{width:100%;height:100%;border:0}
+#back{position:fixed;top:10px;right:10px;width:auto;margin:0;padding:8px 14px;font-size:14px;z-index:2}
+</style></head>
+<body>
+<div id="gate">
+  <h1>Geschützter Bereich</h1>
+  <p>Bitte geben Sie das Passwort ein, das Sie erhalten haben.</p>
+  <form id="f" autocomplete="off">
+    <input id="pw" type="password" placeholder="Passwort" required autocomplete="current-password">
+    <button type="submit">Öffnen</button>
+  </form>
+  <div id="err"></div>
+</div>
+<div id="menu">
+  <h1>Ihre Unterlagen</h1>
+  <p>Wählen Sie, was Sie öffnen möchten.</p>
+  <button id="b1">Rechner: Wann sich ein Paket trägt</button>
+  <button id="b2" class="sec">Vorschau: LinkedIn-Beitrag</button>
+</div>
+<div id="view"><button id="back" class="sec" onclick="close_()">Zurück</button><iframe id="fr" sandbox="allow-scripts allow-same-origin allow-popups" allow="clipboard-write"></iframe></div>
+<script>
+let PW=null; const enc=new TextEncoder();
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function unlock(file,pw){
+  const r=await fetch(file,{cache:'no-store'}); if(!r.ok) throw new Error('nf');
+  const d=await r.json();
+  const base=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+  const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(d.salt),iterations:d.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(d.iv)},k,b64(d.data));
+  return new TextDecoder().decode(p);
+}
+function show(file){
+  unlock(file,PW).then(html=>{document.getElementById('fr').srcdoc=html;document.getElementById('view').style.display='block';})
+    .catch(()=>{document.getElementById('err').textContent='Die Seite konnte nicht geöffnet werden. Bitte laden Sie neu.';});
+}
+function close_(){document.getElementById('view').style.display='none';document.getElementById('fr').srcdoc='';}
+document.getElementById('f').addEventListener('submit',async e=>{
+  e.preventDefault(); const pw=document.getElementById('pw').value.trim(); document.getElementById('err').textContent='';
+  try{ await unlock('rechner.enc.json',pw); PW=pw;
+    document.getElementById('gate').style.display='none'; document.getElementById('menu').style.display='block';
+  }catch(err){ document.getElementById('err').textContent='Das Passwort passt nicht. Bitte prüfen Sie die Schreibweise.'; }
+});
+document.getElementById('b1').addEventListener('click',()=>show('rechner.enc.json'));
+document.getElementById('b2').addEventListener('click',()=>show('linkedin.enc.json'));
+</script></body></html>
