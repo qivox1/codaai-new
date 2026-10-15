@@ -34,6 +34,22 @@ button{font:inherit;font-size:16px;padding:12px 18px;border-radius:12px;border:0
 </div>
 <div id="view"><button id="back" class="sec" onclick="close_()">Zurück</button><iframe id="fr" sandbox="allow-scripts allow-same-origin allow-popups" allow="clipboard-write"></iframe></div>
 <script>
+// Zugriffsmeldung an den CodaAI-Server (Besuchs-Log + Info-Mail an hi@codaai.ai).
+// Sendet nur Ereignisname, Seite und eine zufällige Kennung je Seitenaufruf. Kein Passwort, keine Eingaben.
+// Eigene Aufrufe nicht melden: einmal https://www.codaai.ai/incon/?intern=1 öffnen (merkt sich der Browser).
+const TRACK_URL='https://audit.codaai.ai/track/page';
+const SID=Math.random().toString(36).slice(2,12); // nur im Speicher dieser Seite, nichts auf dem Gerät
+const INTERN=(()=>{try{const q=new URLSearchParams(location.search).get('intern');if(q==='1')localStorage.setItem('codaai_intern','1');if(q==='0')localStorage.removeItem('codaai_intern');return localStorage.getItem('codaai_intern')==='1';}catch(e){return false;}})();
+function track(action){
+  try{
+    const body=JSON.stringify({page:'incon',domain:'incon-vm.de',action:action,session_id:SID,intern:INTERN,ref:document.referrer||''});
+    const blob=new Blob([body],{type:'text/plain'});
+    if(!(navigator.sendBeacon&&navigator.sendBeacon(TRACK_URL,blob))){fetch(TRACK_URL,{method:'POST',body:body,mode:'no-cors',keepalive:true}).catch(()=>{});}
+  }catch(e){}
+}
+track('gate_view');
+</script>
+<script>
 let PW=null; const enc=new TextEncoder();
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function unlock(file,pw){
@@ -52,9 +68,9 @@ function close_(){document.getElementById('view').style.display='none';document.
 document.getElementById('f').addEventListener('submit',async e=>{
   e.preventDefault(); const pw=document.getElementById('pw').value.trim(); document.getElementById('err').textContent='';
   try{ await unlock('rechner.enc.json',pw); PW=pw;
-    document.getElementById('gate').style.display='none'; document.getElementById('menu').style.display='block';
-  }catch(err){ document.getElementById('err').textContent='Das Passwort passt nicht. Bitte prüfen Sie die Schreibweise.'; }
+    document.getElementById('gate').style.display='none'; document.getElementById('menu').style.display='block'; track('login_success');
+  }catch(err){ track('login_failed'); document.getElementById('err').textContent='Das Passwort passt nicht. Bitte prüfen Sie die Schreibweise.'; }
 });
-document.getElementById('b1').addEventListener('click',()=>show('rechner.enc.json'));
-document.getElementById('b2').addEventListener('click',()=>show('linkedin.enc.json'));
+document.getElementById('b1').addEventListener('click',()=>{track('open_rechner');show('rechner.enc.json');});
+document.getElementById('b2').addEventListener('click',()=>{track('open_linkedin');show('linkedin.enc.json');});
 </script></body></html>
