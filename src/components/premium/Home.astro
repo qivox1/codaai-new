@@ -981,7 +981,7 @@ const copy = {
 <script is:inline defer src="/vendor/gsap-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/ScrollTrigger-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/lenis-1.0.42.min.js"></script>
-<script is:inline defer src="/vendor/home-init.js?v=20261001b"></script>
+<script is:inline defer src="/vendor/home-init.js?v=20261029"></script>
 <script is:inline>
 /* 01.10.2026: Vergleichs-Fläche links füllen und 2,5 s nach dem Ergebnis einblenden */
 (function(){
@@ -1196,16 +1196,24 @@ const copy = {
      die Schrift geladen war und der Hero seine endgueltige Hoehe bekam,
      wanderte der Blob mit und zaehlte als Layout-Sprung. */
   .hero-aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;contain:strict}
-  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;
+  /* 29.10.2026: kein filter:blur(60px) mehr. Drei animierte, weichgezeichnete
+     Ebenen musste der Browser auf Geraeten ohne Grafikbeschleunigung (u. a.
+     Googles PageSpeed-Testgeraet) in jedem Bild neu rechnen — die Seite kam nie
+     zur Ruhe, das erste Bild verzoegerte sich. Die Weichheit steckt jetzt in
+     mehrstufigen Verlaeufen (closest-side, per Pixelvergleich gegen die alte
+     Fassung abgestimmt: mittlere Abweichung ~1/255); die Flaechen sind dafuer je
+     120 px groesser und um 60 px versetzt, damit Mittelpunkt und Ausdehnung
+     gleich bleiben. */
+  .blob{position:absolute;border-radius:50%;opacity:.55;
     /* eigene Compositing-Ebene: die Bewegung laeuft dann auf der GPU und
        nicht ueber den Hauptthread (Lighthouse: „nicht zusammengesetzte
        Animationen"). */
     will-change:transform;contain:strict}
-  .b1{width:520px;height:520px;top:-120px;right:8%;background:radial-gradient(circle at 30% 30%,hsl(var(--cta) / .5),transparent 70%);animation:float1 14s ease-in-out infinite}
-  .b2{width:460px;height:460px;bottom:-160px;left:2%;background:radial-gradient(circle at 60% 40%,hsl(var(--navy-500) / .32),transparent 70%);animation:float2 18s ease-in-out infinite}
+  .b1{width:640px;height:640px;top:-180px;right:calc(8% - 60px);background:radial-gradient(circle closest-side at 42% 42%,hsl(var(--cta) / 0.4) 0%,hsl(var(--cta) / 0.36) 20%,hsl(var(--cta) / 0.28) 40%,hsl(var(--cta) / 0.18) 58%,hsl(var(--cta) / 0.088) 74%,hsl(var(--cta) / 0.028) 88%,transparent 100%);animation:float1 14s ease-in-out infinite}
+  .b2{width:580px;height:580px;bottom:-220px;left:calc(2% - 60px);background:radial-gradient(circle closest-side at 54% 46%,hsl(var(--navy-500) / 0.256) 0%,hsl(var(--navy-500) / 0.23) 20%,hsl(var(--navy-500) / 0.179) 40%,hsl(var(--navy-500) / 0.115) 58%,hsl(var(--navy-500) / 0.056) 74%,hsl(var(--navy-500) / 0.018) 88%,transparent 100%);animation:float2 18s ease-in-out infinite}
   /* top in px statt 30 %: unabhaengig von der Hero-Hoehe, die sich beim
      Schriftwechsel noch einmal aendert. */
-  .b3{width:300px;height:300px;top:220px;left:44%;background:radial-gradient(circle,hsl(var(--cta) / .22),transparent 70%);animation:float1 20s ease-in-out infinite reverse}
+  .b3{width:420px;height:420px;top:160px;left:calc(44% - 60px);background:radial-gradient(circle closest-side at center,hsl(var(--cta) / 0.198) 0%,hsl(var(--cta) / 0.178) 20%,hsl(var(--cta) / 0.139) 40%,hsl(var(--cta) / 0.089) 58%,hsl(var(--cta) / 0.044) 74%,hsl(var(--cta) / 0.014) 88%,transparent 100%);animation:float1 20s ease-in-out infinite reverse}
   @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
   @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
   .hero-spot{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s;

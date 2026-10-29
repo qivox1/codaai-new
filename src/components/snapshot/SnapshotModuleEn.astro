@@ -654,7 +654,16 @@ const beispiele = [
       // Captcha (Cloudflare Turnstile), nur wenn ein Site Key gesetzt ist
       const sitekey = root.dataset.sitekey;
       const box = $('[data-captcha]');
-      if (sitekey && box) {
+      /* 29.10.2026: Turnstile nicht mehr sofort laden. Das Skript (plus Nachlader
+         von Cloudflare) lag vor dem ersten Bild im kritischen Pfad und hat das
+         LCP in PageSpeed Insights nach hinten gezogen. Jetzt: bei der ersten
+         Interaktion mit dem Formular — oder, falls niemand tippt, nach dem
+         load-Ereignis im Leerlauf. Wer abschickt, bevor das Token da ist, bekommt
+         den Hinweis; die Pruefung startet dann automatisch weiter (autostart). */
+      let captchaGeladen = false;
+      const ladeCaptcha = () => {
+        if (captchaGeladen || !sitekey || !box) return;
+        captchaGeladen = true;
         const render = () => (window as any).turnstile.render(box, {
           sitekey, language: 'en', callback: (t: string) => { captchaToken = t; if (autostart) { autostart = false; form.requestSubmit(); } },
           'expired-callback': () => { captchaToken = ''; },
@@ -665,6 +674,11 @@ const beispiele = [
           s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
           s.async = true; s.onload = render; document.head.appendChild(s);
         }
+      };
+      if (sitekey && box) {
+        ['focusin', 'pointerdown', 'input'].forEach((t) => form.addEventListener(t, ladeCaptcha, { once: true, passive: true }));
+        const imLeerlauf = () => ((window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1500)))(ladeCaptcha, { timeout: 3000 });
+        if (document.readyState === 'complete') imLeerlauf(); else window.addEventListener('load', imLeerlauf, { once: true });
       }
 
       // ---------- Ladeanimation (28.09.2026): Frage füllt sich pink, Screenshot mit Scanlinie, Enthüllung ----------
@@ -732,7 +746,7 @@ const beispiele = [
         if (!d) return show(err, 'Please enter your website.');
         if (q.length < 25) { frage.focus(); return hinweis('Please write a complete question (at least 25 characters).'); }
         if (/[\[\]]/.test(q)) { frage.focus(); return hinweis('Please replace the placeholder in square brackets with your topic.'); }
-        if (sitekey && !captchaToken) return show(err, 'One moment please — the security check is still running.');
+        if (sitekey && !captchaToken) { ladeCaptcha(); autostart = true; return show(err, 'One moment please — the security check is still running.'); }
         go.disabled = true;
         ladeStart(q, d);
         setState('load');
@@ -1187,7 +1201,7 @@ const beispiele = [
       if (p.get('q')) frage.value = p.get('q') || '';
       if (!vf && dom.value && frage.value.trim().length >= 25) {   // Vorführmodus: Start per Klick, nicht automatisch
         root.scrollIntoView({ block: 'center' });
-        if (sitekey) autostart = true; else setTimeout(() => form.requestSubmit(), 2600);
+        if (sitekey) { autostart = true; ladeCaptcha(); } else setTimeout(() => form.requestSubmit(), 2600);
       }
     });
   })();

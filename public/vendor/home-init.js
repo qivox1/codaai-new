@@ -588,9 +588,19 @@ function codaHomeInit(){
    nicht definiert und die Seite fiele in den statischen Zustand
    (body:not(.anim)) zurück. Der else-Zweig fängt den Fall ab, dass das
    Dokument bereits fertig geparst ist (bfcache, sehr schnelle Verbindung). */
+/* 29.10.2026: Init erst NACH dem ersten gezeichneten Bild. Auf langsamen
+   Geraeten (u. a. Googles PageSpeed-Testgeraet) liefen die defer-Skripte samt
+   codaHomeInit (ScrollTrigger-Aufbau, ~50 ms+) noch VOR dem ersten Zeichnen —
+   der Einleitungsabsatz (LCP-Element) erschien deshalb erst nach 2,4 s
+   Render-Verzoegerung. requestAnimationFrame laeuft vor dem naechsten Bild,
+   das setTimeout darin erst danach. Die Szenen unterhalb des Kopfbereichs
+   wechseln dadurch ein Bild spaeter in den animierten Zustand — unsichtbar. */
+function codaHomeStart(){
+  requestAnimationFrame(function(){ setTimeout(codaHomeInit, 0); });
+}
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', codaHomeInit);
+  document.addEventListener('DOMContentLoaded', codaHomeStart);
 } else {
-  codaHomeInit();
+  codaHomeStart();
 }
 
