@@ -1,35 +1,6 @@
 ---
-/* ── /kontakt — Weiterleitung ─────────────────────────────────────────────────
-   Die eigene Kontaktseite ist am 04.08.2026 entfallen (Beschluss Oli). Sie trug
-   nichts, was nicht woanders besser steht: die Terminbuchung liegt im Block
-   #termin auf der Startseite, Anschrift und Telefonnummer im Impressum, die
-   E-Mail-Adresse in beidem. Ihre Nebentexte stammten noch aus der
-   Content-Agentur-Zeit („Content-Produktion", „5–7 Werktage").
-   Diese Datei bleibt nur stehen, damit alte Links, Lesezeichen und der
-   Google-Index nicht ins Leere laufen. GitHub Pages kann kein 301 — deshalb
-   Meta-Refresh + location.replace, dazu noindex und ein Canonical auf das
-   neue Ziel. Aus der Sitemap ausgeschlossen (Filter in astro.config.mjs).     */
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const target = `${base}/#termin`;
-const canonical = 'https://www.codaai.ai/';
+/* /kontakt/ — Kontaktseite (seit 29.10.2026 wieder eine eigene Seite; vorher
+   Weiterleitung auf /#termin). Inhalt und Schema: src/components/kontakt/KontaktSeite.astro */
+import KontaktSeite from '../components/kontakt/KontaktSeite.astro';
 ---
-
-<!doctype html>
-<html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href={canonical} />
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <title>Weitergeleitet zur Terminbuchung | CodaAI</title>
-  </head>
-  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
-    <p>
-      Sie erreichen uns per <a href="mailto:hi@codaai.ai" style="color: #9904B4; font-weight: 600;">hi@codaai.ai</a>
-      oder direkt über die
-      <a href={target} style="color: #9904B4; font-weight: 600;">Terminbuchung</a>.
-    </p>
-    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
-  </body>
-</html>
+<KontaktSeite lang="de" />

@@ -50,3 +50,10 @@ GSAP-Builds · Token-Gewicht (.md-Fassungen) · Person-`url`/Beschreibung je Spr
 ## Nachtrag
 Logo-Zeile im Startseiten-Kopf (~450 px) war versehentlich lazy → zurückgenommen (`dba1bf5`).
 Die Regel „lazy-above-fold“ meldet die Teaser-Logos auf Glossar/Webinar weiter — gemessen liegen sie ab 2.600 px: Fehlalarm.
+
+## Nachtrag: Kontaktseite (Beschluss Oli, 29.10.2026)
+`/kontakt/` und `/en/contact/` sind wieder eigene Seiten (vorher seit 04.08. Weiterleitungen auf den Terminblock).
+Inhalt in `src/components/kontakt/KontaktSeite.astro`: Ansprechpartnerin **Anja Miebach** (Gründerin & Inhaberin,
+Person-`@id` wie auf /co-create/), E-Mail, Telefon, Anschrift, Links auf Impressum/Fakten, darunter die Terminbuchung
+(`Booking.astro`). Schema `ContactPage` mit BreadcrumbList. Sprachpaar in `i18n-routes.ts`, Sitemap-Filter entfernt,
+`EXTRA_SOURCES` in `lastmod.mjs`, Footer-Link (Spalte Rechtliches), `llms.txt`. Anschrift/Telefon bei Änderung auch hier pflegen.

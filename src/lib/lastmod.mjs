@@ -47,6 +47,9 @@ export const EXTRA_SOURCES = {
   'webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.ts'],
   'en/webinar': ['src/components/premium/WebinarSignup.astro', 'src/data/faq.en.ts'],
   // 01.10.2026: /check/ und /visibility-snapshot/ sind Weiterleitungen (Snapshot auf der Startseite).
+  // 29.10.2026: Kontaktseite — Inhalt liegt in der gemeinsamen Komponente.
+  'kontakt': ['src/components/kontakt/KontaktSeite.astro'],
+  'en/contact': ['src/components/kontakt/KontaktSeite.astro'],
   'studie': ['src/data/studie.ts'],
   'en/study': ['src/data/studie.ts'],
 };

@@ -1,0 +1,188 @@
+---
+/* ── Kontaktseite DE/EN (29.10.2026, Beschluss Oli) ───────────────────────────
+   Von 04.08. bis 29.10.2026 waren /kontakt/ und /en/contact/ nur Weiterleitungen
+   auf den Terminblock der Startseite. Das Website-Audit vom 29.10. meldete
+   deshalb „keine Kontaktseite“ (E-E-A-T): Eine eigene, als Kontaktseite
+   erkennbare Seite ist ein Vertrauenssignal für Suchmaschinen und KI-Systeme.
+   Die Seite führt bewusst selbst auf die Terminbuchung (Booking.astro), damit
+   kein zweiter Weg neben dem Termin entsteht.
+   Ansprechpartnerin: Anja Miebach (Gründerin & Inhaberin), Person-@id wie auf
+   /co-create/. Anschrift und Telefon wie im Impressum — bei Änderung beide pflegen
+   (und src/data/fakten.ts, Layout.astro → contactPoint).                       */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import Booking from '../Booking.astro';
+import { lastmodFor } from '../../lib/lastmod.mjs';
+
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE_URL = 'https://www.codaai.ai';
+
+const PHONE_DISPLAY = '+49 (0) 151 53 40 69 69';
+const PHONE_TEL = '+4915153406969';
+const EMAIL = 'hi@codaai.ai';
+
+const c = de
+  ? {
+      path: '/kontakt/',
+      home: '/',
+      title: 'Kontakt – Ansprechpartnerin, Telefon und Termin | CodaAI',
+      description: 'Kontakt zu CodaAI: Ansprechpartnerin Anja Miebach, E-Mail, Telefon und Anschrift in Gütersloh – oder direkt ein kostenloses Erstgespräch buchen.',
+      crumbHome: 'Start', crumbHomeAria: 'Zur Startseite', crumb: 'Kontakt',
+      h1: 'Kontakt',
+      lead: 'Sie erreichen CodaAI per E-Mail, Telefon oder direkt über einen Termin. Anfragen beantworten wir in der Regel innerhalb von 24 Stunden an Werktagen.',
+      personKicker: 'Ihre Ansprechpartnerin',
+      role: 'Gründerin & Inhaberin',
+      personText: 'Anja Miebach beantwortet Ihre Fragen zu Zusammenarbeit, Angebot und Vertrag und stimmt den nächsten Schritt mit Ihnen ab.',
+      email: 'E-Mail', phone: 'Telefon',
+      writeMail: 'E-Mail schreiben', call: 'Anrufen',
+      companyKicker: 'Anschrift',
+      company: 'CodaAI – eine Marke der AMP Beratung',
+      street: 'Langer Weg 7b', city: '33332 Gütersloh', country: 'Deutschland',
+      moreKicker: 'Weitere Angaben',
+      imprint: 'Impressum', imprintHref: '/impressum/',
+      facts: 'Fakten zu CodaAI', factsHref: '/fakten/',
+      bookingHint: 'Lieber gleich einen Termin? Das kostenlose Erstgespräch können Sie unten direkt buchen.',
+      bookingLink: 'Zur Terminbuchung', bookingAnchor: '#termin',
+      photoAlt: 'Porträt von Anja Miebach, Gründerin und Inhaberin von CodaAI',
+    }
+  : {
+      path: '/en/contact/',
+      home: '/en/',
+      title: 'Contact – your contact person, phone and booking | CodaAI',
+      description: 'Contact CodaAI: your contact person Anja Miebach, e-mail, phone and postal address in Gütersloh, Germany – or book a free intro call straight away.',
+      crumbHome: 'Home', crumbHomeAria: 'To the homepage', crumb: 'Contact',
+      h1: 'Contact',
+      lead: 'You can reach CodaAI by e-mail, by phone or by booking a call directly. We usually reply within 24 hours on working days.',
+      personKicker: 'Your contact person',
+      role: 'Founder & Owner',
+      personText: 'Anja Miebach answers your questions about working together, our offer and the contract, and agrees the next step with you.',
+      email: 'E-mail', phone: 'Phone',
+      writeMail: 'Send an e-mail', call: 'Call',
+      companyKicker: 'Postal address',
+      company: 'CodaAI – a brand of AMP Beratung',
+      street: 'Langer Weg 7b', city: '33332 Gütersloh', country: 'Germany',
+      moreKicker: 'Further information',
+      imprint: 'Legal notice', imprintHref: '/en/legal-notice/',
+      facts: 'Facts about CodaAI', factsHref: '/en/facts/',
+      bookingHint: 'Prefer to book a call right away? You can schedule the free intro call below.',
+      bookingLink: 'Go to booking', bookingAnchor: '#appointment',
+      photoAlt: 'Portrait of Anja Miebach, founder and owner of CodaAI',
+    };
+
+const pageUrl = `${SITE_URL}${c.path}`;
+const pageModified = lastmodFor(c.path);
+
+const contactPageSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': `${pageUrl}#webpage`,
+  url: pageUrl,
+  name: c.title,
+  description: c.description,
+  inLanguage: lang,
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  about: { '@id': `${SITE_URL}/#organization` },
+  mainEntity: {
+    '@type': 'Person',
+    '@id': `${SITE_URL}/co-create/#anja-miebach`,
+    name: 'Anja Miebach',
+    jobTitle: c.role,
+    email: `mailto:${EMAIL}`,
+    telephone: '+49-151-53406969',
+    image: `${SITE_URL}/images/team/anja-miebach.webp`,
+    worksFor: { '@id': `${SITE_URL}/#organization` },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Langer Weg 7b',
+      postalCode: '33332',
+      addressLocality: 'Gütersloh',
+      addressCountry: 'DE',
+    },
+  },
+  ...(pageModified && { dateModified: pageModified }),
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: c.crumbHome, item: `${SITE_URL}${c.home}` },
+      { '@type': 'ListItem', position: 2, name: c.crumb, item: pageUrl },
+    ],
+  },
+});
+---
+
+<Layout
+  lang={lang}
+  title={c.title}
+  description={c.description}
+  jsonLd={[contactPageSchema]}
+>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-5xl px-6 pt-16 pb-16 lg:pt-20 lg:pb-24">
+      <Breadcrumb items={[{ label: c.crumbHome, ariaLabel: c.crumbHomeAria, href: `${base}${c.home}` }, { label: c.crumb }]} class="mb-8" />
+      <h1 class="cai-h1 text-foreground">{c.h1}</h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">{c.lead}</p>
+
+      <div class="mt-12 grid gap-6 lg:grid-cols-5">
+        <!-- Ansprechpartnerin -->
+        <section class="lg:col-span-3 rounded-2xl border border-border bg-card p-6 lg:p-8" aria-labelledby="kontakt-person">
+          <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{c.personKicker}</p>
+          <div class="mt-5 flex items-center gap-5">
+            <img
+              src={`${base}/images/team/anja-miebach-96.webp`}
+              srcset={`${base}/images/team/anja-miebach-96.webp 1x, ${base}/images/team/anja-miebach.webp 2x`}
+              alt={c.photoAlt}
+              width="96" height="96"
+              class="h-24 w-24 shrink-0 rounded-full object-cover"
+            />
+            <div>
+              <h2 id="kontakt-person" class="text-xl font-semibold text-foreground">Anja Miebach</h2>
+              <p class="text-muted-foreground">{c.role}</p>
+            </div>
+          </div>
+          <p class="mt-5 leading-relaxed text-muted-foreground">{c.personText}</p>
+          <dl class="mt-6 space-y-2 text-foreground">
+            <div class="flex gap-3"><dt class="w-20 shrink-0 text-muted-foreground">{c.email}</dt><dd><a href={`mailto:${EMAIL}`} class="font-medium text-cta-accessible underline underline-offset-4 hover:text-cta">{EMAIL}</a></dd></div>
+            <div class="flex gap-3"><dt class="w-20 shrink-0 text-muted-foreground">{c.phone}</dt><dd><a href={`tel:${PHONE_TEL}`} class="font-medium text-cta-accessible underline underline-offset-4 hover:text-cta">{PHONE_DISPLAY}</a></dd></div>
+          </dl>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href={`mailto:${EMAIL}`} class="btn-cta h-12 px-6 text-sm">{c.writeMail}</a>
+            <a href={`tel:${PHONE_TEL}`} class="btn-secondary h-12 px-6 text-sm">{c.call}</a>
+          </div>
+        </section>
+
+        <!-- Anschrift und weitere Angaben -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+          <section class="rounded-2xl border border-border bg-card p-6 lg:p-8" aria-labelledby="kontakt-anschrift">
+            <h2 id="kontakt-anschrift" class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{c.companyKicker}</h2>
+            <address class="mt-4 not-italic leading-relaxed text-foreground">
+              <span class="font-medium">{c.company}</span><br />
+              {c.street}<br />
+              {c.city}<br />
+              {c.country}
+            </address>
+          </section>
+          <section class="rounded-2xl border border-border bg-card p-6 lg:p-8" aria-labelledby="kontakt-mehr">
+            <h2 id="kontakt-mehr" class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{c.moreKicker}</h2>
+            <ul class="mt-4 space-y-2">
+              <li><a href={`${base}${c.imprintHref}`} class="text-foreground underline underline-offset-4 hover:text-cta-accessible">{c.imprint}</a></li>
+              <li><a href={`${base}${c.factsHref}`} class="text-foreground underline underline-offset-4 hover:text-cta-accessible">{c.facts}</a></li>
+            </ul>
+            <p class="mt-5 text-sm leading-relaxed text-muted-foreground">
+              {c.bookingHint} <a href={c.bookingAnchor} class="font-medium text-cta-accessible underline underline-offset-4 hover:text-cta">{c.bookingLink}</a>
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <Booking lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

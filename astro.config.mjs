@@ -74,10 +74,8 @@ export default defineConfig({
         !/\/\/[^/]+\/check\/$/.test(page) &&
         !page.endsWith('/visibility-snapshot/') &&
         !page.endsWith('/en/check/') &&
-        // /kontakt/ und /en/contact/ sind seit 04.08.2026 ebenfalls nur noch
-        // Weiterleitungen (auf #termin der jeweiligen Startseite).
-        !page.endsWith('/kontakt/') &&
-        !page.endsWith('/en/contact/') &&
+        // /kontakt/ und /en/contact/ sind seit 29.10.2026 wieder eigene Seiten
+        // (04.08.–29.10.2026 Weiterleitungen) und stehen deshalb in der Sitemap.
         // Der Videoartikel wurde am 05.08.2026 auf Digital Visibility umgestellt
         // und liegt jetzt unter /blog/youtube-ki-sichtbarkeit-b2b/. Die alten
         // Slugs sind nur noch Weiterleitungen.

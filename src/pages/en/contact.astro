@@ -1,33 +1,7 @@
 ---
-/* ── /en/contact — redirect ───────────────────────────────────────────────────
-   The standalone contact page was removed on 04.08.2026 together with its
-   German counterpart /kontakt/. Booking lives in the #appointment block on the home
-   page, postal address and phone number in the legal notice, the e-mail address
-   in both. This file only remains so old links, bookmarks and the search index
-   do not hit a dead end. GitHub Pages cannot serve a 301 — hence meta refresh
-   plus location.replace, noindex and a canonical pointing at the new target.
-   Excluded from the sitemap (filter in astro.config.mjs).                     */
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const target = `${base}/en/#appointment`;
-const canonical = 'https://www.codaai.ai/en/';
+/* /en/contact/ — contact page (a standalone page again since 29.10.2026; before
+   that a redirect to /en/#appointment). Content and schema:
+   src/components/kontakt/KontaktSeite.astro */
+import KontaktSeite from '../../components/kontakt/KontaktSeite.astro';
 ---
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, follow" />
-    <link rel="canonical" href={canonical} />
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <title>Redirected to booking | CodaAI</title>
-  </head>
-  <body style="font-family: system-ui, sans-serif; padding: 3rem 1.5rem; text-align: center;">
-    <p>
-      Reach us at <a href="mailto:hi@codaai.ai" style="color: #9904B4; font-weight: 600;">hi@codaai.ai</a>
-      or straight through
-      <a href={target} style="color: #9904B4; font-weight: 600;">our booking form</a>.
-    </p>
-    <script is:inline set:html={`location.replace(${JSON.stringify(target)});`} />
-  </body>
-</html>
+<KontaktSeite lang="en" />

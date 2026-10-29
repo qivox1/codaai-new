@@ -95,6 +95,7 @@ const langPrefix = lang === 'en' ? `${base}/en` : `${base}`;
 // 22.09.2026: Faktenseite (/fakten/, /en/facts/) als letzter Punkt der Spalte —
 // sitewide verlinkt, damit Crawler die Stammdaten von jeder Seite aus finden.
 // 22.09.2026: Autorenseite davor (E-E-A-T: Autor sitewide auffindbar).
+// 29.10.2026: „Kontakt“ als erster Punkt der Spalte Rechtliches (Kontaktseite wieder eigenständig).
 const knowledgeLinks = lang === 'en'
   ? [
       { label: 'Visibility Snapshot', href: `${base}/en/#snapshot` },
@@ -114,11 +115,13 @@ const knowledgeLinks = lang === 'en'
     ];
 const footerLinks = lang === 'en'
   ? [
+      { label: 'Contact', href: `${base}/en/contact/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/en/legal-notice/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/en/privacy-policy/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/en/terms/` },
     ]
   : [
+      { label: 'Kontakt', href: `${base}/kontakt/` },
       { label: t(lang, "footer.legalNotice"), href: `${base}/impressum/` },
       { label: t(lang, "footer.privacyPolicy"), href: `${base}/datenschutz/` },
       { label: t(lang, "footer.termsConditions"), href: `${base}/agb/` },
