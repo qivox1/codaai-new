@@ -1,6 +1,8 @@
 # Website-Audit 29.10.2026 – Befunde und Korrekturen
 
-**Stand:** lokal umgesetzt, gebaut und geprüft (228 Seiten, SEO-Wächter grün). **Noch nicht committet/gepusht.**
+**Stand:** live seit Commit `def93ca` (+ `dba1bf5`). Live-Audit danach: **85 (B)**, SEO 92, Structured Data 94, Crawlability 100, Images 100, Accessibility 98. Einzige verbleibende „fail“-Regel: noindex-Kostenartikel ohne BlogPosting (gewollt).
+
+**Neu: `[template]` im Commit-Text** → `lastmod.mjs` überspringt den Commit beim Git-Datum (für reine Technik-/Meta-Änderungen).
 
 ## Ausgangslage (Live-Audit, 227 Seiten)
 Gesamt 82 (B), 6 Fehler. SEO 86 · Performance 62 · Security 91 · Agents 52.
@@ -45,6 +47,6 @@ Inline-SVG-Diagramme · >100 Links im Glossar-Hub · CSP/X-Frame (GitHub Pages) 
 GSAP-Builds · Token-Gewicht (.md-Fassungen) · Person-`url`/Beschreibung je Sprache ·
 `/fakten`-Titel mit Marke vorn · fehlende Kontaktseite (offene Entscheidung).
 
-## Zu beachten beim Commit
-Seiten mit Git-Datum (Preise, Pricing, Digital Visibility, Rechtsseiten, Co-Create, FAQ, Webinar,
-Startseite) bekommen durch den Commit ein neues `lastmod`, obwohl sich nur Template/Meta ändern.
+## Nachtrag
+Logo-Zeile im Startseiten-Kopf (~450 px) war versehentlich lazy → zurückgenommen (`dba1bf5`).
+Die Regel „lazy-above-fold“ meldet die Teaser-Logos auf Glossar/Webinar weiter — gemessen liegen sie ab 2.600 px: Fehlalarm.
