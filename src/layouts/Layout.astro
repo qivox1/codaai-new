@@ -59,7 +59,9 @@ const organizationSchema = {
     ? 'German consultancy brand for AI visibility of B2B mid-sized companies (a brand of AMP Beratung, Gütersloh); not to be confused with “Coda AI”, the AI feature of coda.io.'
     : 'Deutsche Beratungsmarke für KI-Sichtbarkeit von B2B-Mittelständlern (Marke der AMP Beratung, Gütersloh); nicht zu verwechseln mit „Coda AI“, der KI-Funktion von coda.io.',
   logo: `${SITE_URL}/favicon.svg`,
-  image: `${SITE_URL}/images/og-image${lang === 'en' ? '-en' : ''}.png`,
+  // Eine Entität = ein Bild in beiden Sprachen (sonst widersprechen sich die Knoten
+  // derselben @id); das sprachabhängige Share-Bild steht weiter in og:image.
+  image: `${SITE_URL}/images/og-image.png`,
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'hi@codaai.ai',

@@ -27,8 +27,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
    · Anchors: #lesbar → #readable · #quellen → #sources ·
      #quelle-werden → #become-the-source · #matrix → #matrix ·
      #nicht-im-angebot → #not-included
-   · Calculator links use `tier=` (the EN query parameter); the values
-     basis|aktiv|dominanz are internal keys and stay untranslated.
+   · Calculator links use the fragment `#tier-<key>` (since 29.10.2026; the old
+     `?tier=` query still works); the values basis|aktiv|dominanz are internal
+     keys and stay untranslated.
 
    `Booking.astro` became bilingual on 04.08.2026 and emits `id="appointment"`
    for English, so the anchor map holds on this page too. */
@@ -288,6 +289,17 @@ const nichtImAngebot = [
   },
 ];
 
+/* BreadcrumbList zum sichtbaren Breadcrumb oben (Audit 29.10.2026). */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.codaai.ai/en/' },
+      { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.codaai.ai/en/pricing/' },
+      { '@type': 'ListItem', position: 3, name: 'Digital Visibility', item: 'https://www.codaai.ai/en/digital-visibility/' },
+  ],
+};
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -327,7 +339,7 @@ const faqSchema = {
   description="Being mentioned is never an accident. Nobody knows the formula AI systems use — but we know what they draw on. Three tiers, measured every month."
 >
   <Navbar lang={lang} />
-  <main class="pt-0">
+  <main id="main-content" class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
       <Breadcrumb
         items={[
@@ -483,7 +495,7 @@ const faqSchema = {
                         {individualHinweis}
                       </p>
                       <a
-                        href={`${base}/en/pricing/?tier=${g.key}#calculator`}
+                        href={`${base}/en/pricing/#tier-${g.key}`}
                         class="inline-flex w-fit items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                       >
                         Calculate the price for Tier {g.nr} →
@@ -526,7 +538,7 @@ const faqSchema = {
                 {spalten.map((s) => (
                   <th scope="col" class="border-b-2 border-border px-2 pb-3 text-center align-bottom">
                     <a
-                      href={`${base}/en/pricing/?tier=${s.key}#calculator`}
+                      href={`${base}/en/pricing/#tier-${s.key}`}
                       class="group block rounded-lg px-2 py-2 transition-colors hover:bg-cta/10"
                       data-col
                     >
@@ -643,6 +655,7 @@ const faqSchema = {
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
   {/* FAQPage only here, not additionally on /en/faq — every question should be
       marked up exactly once in the index (decision Oli, 03.08.2026). */}
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />

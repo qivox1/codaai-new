@@ -3,12 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import { lastmodFor } from '../lib/lastmod.mjs';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Kanonische Basis wie auf allen anderen Seiten. Hier stand bis 03.08.2026
 // noch die alte GitHub-Pages-Adresse — sie landete dadurch im Person-/
 // Article-Schema und in der LCP-Preload-URL, die deshalb nie zum <img> passte.
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+const pageModified = lastmodFor('co-create');
 
 // ── E-E-A-T: Person schema (Anja Miebach) ─────────────────────────────────
 const personSchema = {
@@ -81,7 +83,8 @@ const aboutPageSchema = {
   ],
   author: { '@id': `${SITE_URL}/co-create/#anja-miebach` },
   datePublished: '2024-01-01',
-  dateModified: '2026-07-25',
+  // Datum aus derselben Quelle wie Sitemap-lastmod und Footer (lastmod.mjs).
+  ...(pageModified && { dateModified: pageModified }),
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -101,7 +104,7 @@ const aboutPageSchema = {
 >
   <Navbar lang="de" />
 
-  <main class="overflow-hidden">
+  <main id="main-content" class="overflow-hidden">
 
     {/* ── HERO ─────────────────────────────────────────────────────────── */}
     <section class="relative pt-28 pb-20 lg:pt-36 lg:pb-28">

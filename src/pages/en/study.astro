@@ -545,7 +545,7 @@ const beispiele = [
                     <p class="leading-relaxed text-foreground" data-speakable>{k.text}</p>
                     <p class="mt-1.5 text-xs text-muted-foreground">
                       {kurzbeleg('en')}
-                      <a href={`#${k.id}`} class="ml-2 font-semibold text-cta-accessible hover:text-cta" aria-label={`Link to this statement ${i + 1}`}>#</a>
+                      <a href={`#${k.id}`} class="ml-2 font-semibold text-cta-accessible hover:text-cta">#<span class="sr-only"> Link to this statement {i + 1}</span></a>
                     </p>
                   </div>
                 </li>

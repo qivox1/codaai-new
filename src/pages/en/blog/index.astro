@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { AUTOR, autorSchemaRef } from '../../../data/autor';
 import Layout from '../../../layouts/Layout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
@@ -25,19 +26,14 @@ const collectionSchema = JSON.stringify({
   name: 'CodaAI Blog – AI Visibility for B2B Companies',
   description: 'Evidence-based articles on how B2B companies get named in ChatGPT, Google AI Overviews and Perplexity – in four series: Readable for AI, Citable Content, Getting Mentioned, Measure & Steer.',
   url: `${SITE_URL}/en/blog/`,
-  publisher: {
-    '@type': 'Organization',
-    name: 'CodaAI',
-    url: `${SITE_URL}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
-  },
+  publisher: { '@id': `${SITE_URL}/#organization` },
   hasPart: posts.slice(0, 10).map((p) => ({
     '@type': 'BlogPosting',
     headline: p.data.title,
     description: p.data.description,
     url: `${SITE_URL}/en/blog/${p.id.replace(/^en\//, '')}/`,
     datePublished: p.data.pubDate.toISOString(),
-    author: { '@type': 'Person', name: p.data.author },
+    author: p.data.author === AUTOR.name ? autorSchemaRef(lang) : { '@type': 'Person', name: p.data.author },
   })),
 });
 ---
@@ -46,7 +42,7 @@ const collectionSchema = JSON.stringify({
   heroImage={featured?.data.heroImage}
   lang={lang}
   title="Blog – AI Visibility, GEO & SEO for B2B | CodaAI"
-  description="How B2B companies get named in ChatGPT, Google AI Overviews and Perplexity: evidence-based articles in four series, every figure checked against the full source."
+  description="How B2B companies get named in ChatGPT, Google AI Overviews and Perplexity: evidence-based articles in four series, every figure checked against its source."
   jsonLd={[collectionSchema]}
 >
   <Navbar lang={lang} />

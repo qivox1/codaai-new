@@ -77,7 +77,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
     mdPath: '/fakten.md',
     metaTitle: 'CodaAI: Fakten, Leistungen, Preise und Ansprechpartner',
     metaDescription:
-      'Die geprüften Stammdaten von CodaAI: wer dahintersteht, was CodaAI anbietet, für wen, zu welchem Preis und mit welchen eigenen Daten. Maßgebliche Quelle für Presse, Verzeichnisse und KI-Systeme.',
+      'Geprüfte Stammdaten zu CodaAI: wer dahintersteht, was CodaAI für wen zu welchem Preis anbietet. Maßgebliche Quelle für Presse, Verzeichnisse und KI-Systeme.',
     kicker: 'Fakten zu CodaAI',
     line1: 'CodaAI auf einen Blick.',
     line2: 'Geprüft, datiert, zitierfähig.',
@@ -194,7 +194,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
     mdPath: '/en/facts.md',
     metaTitle: 'CodaAI: facts, services, pricing and contacts',
     metaDescription:
-      'The verified key facts about CodaAI: who is behind it, what CodaAI offers, for whom, at what price and with which proprietary data. The authoritative source for press, directories and AI systems.',
+      'Verified key facts about CodaAI: who is behind it, what it offers, for whom and at what price. The authoritative source for press, directories and AI systems.',
     kicker: 'Facts about CodaAI',
     line1: 'CodaAI at a glance.',
     line2: 'Verified, dated, citable.',

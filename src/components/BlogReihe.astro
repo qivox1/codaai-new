@@ -14,7 +14,7 @@ const standText = stand.toLocaleDateString(de ? 'de-DE' : 'en-GB', { year: 'nume
 <aside class="blog-reihe" aria-label={de ? 'Themenreihe' : 'Series'}>
   <p class="br-k">{de ? 'Teil der Reihe' : 'Part of the series'} · {r.fach[lang]}</p>
   <p class="text-lg font-semibold text-foreground m-0">
-    <a href={`${blog}?reihe=${r.id}`} class="hover:text-cta-accessible">{r.name[lang]}</a>
+    <a href={`${blog}#reihe-${r.id}`} class="hover:text-cta-accessible">{r.name[lang]}</a>
   </p>
   <p class="text-sm text-muted-foreground mt-1 mb-3">{r.worum[lang]}</p>
   <p class="text-sm m-0">
@@ -26,7 +26,7 @@ const standText = stand.toLocaleDateString(de ? 'de-DE' : 'en-GB', { year: 'nume
     {de ? 'Alle Zahlen im Volltext der Quellen geprüft am ' : 'All figures checked against the full source text on '}{standText}.
     {' '}{de ? 'Die vier Reihen:' : 'The four series:'}{' '}
     {REIHEN.map((x, i) => (
-      <Fragment>{i > 0 && ' · '}<a href={`${blog}?reihe=${x.id}`} class="underline underline-offset-2 hover:text-foreground">{x.name[lang]}</a></Fragment>
+      <Fragment>{i > 0 && ' · '}<a href={`${blog}#reihe-${x.id}`} class="underline underline-offset-2 hover:text-foreground">{x.name[lang]}</a></Fragment>
     ))}
   </p>
 </aside>

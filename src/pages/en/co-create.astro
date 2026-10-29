@@ -3,12 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import { lastmodFor } from '../../lib/lastmod.mjs';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Canonical base, same as on every other page. Until 03.08.2026 the old GitHub
 // Pages address was hard-wired here — it ended up in the Person/Article schema
 // and in the LCP preload URL, which therefore never matched the <img>.
 const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replace(/\/$/, '');
+const pageModified = lastmodFor('en/co-create');
 
 // ── E-E-A-T: Person schema (Anja Miebach) ─────────────────────────────────
 const personSchema = {
@@ -80,7 +82,8 @@ const aboutPageSchema = {
   ],
   author: { '@id': `${SITE_URL}/co-create/#anja-miebach` },
   datePublished: '2024-01-01',
-  dateModified: '2026-08-04',
+  // Datum aus derselben Quelle wie Sitemap-lastmod und Footer (lastmod.mjs).
+  ...(pageModified && { dateModified: pageModified }),
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [

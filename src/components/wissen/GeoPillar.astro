@@ -191,13 +191,7 @@ const articleSchema = JSON.stringify({
     worksFor: { '@id': `${SITE_URL}/#organization` },
   },
   image: ogImageUrl,
-  publisher: {
-    '@type': 'Organization',
-    '@id': `${SITE_URL}/#organization`,
-    name: 'CodaAI',
-    url: `${SITE_URL}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-image.png` },
-  },
+  publisher: { '@id': `${SITE_URL}/#organization` },
   citation: page.sources.filter((s) => s.href && s.href.startsWith('http')).map((s) => s.href),
   speakable: { '@type': 'SpeakableSpecification', cssSelector: ['[data-speakable]'] },
 });

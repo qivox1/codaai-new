@@ -256,23 +256,31 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
   useEffect(() => { pushDL('pricing_view', { lang }); }, [lang]);
 
   /* Stufen-Vorauswahl aus der URL — die Spalten der Matrix und die Stufen-Links
-     auf /digital-visibility zeigen auf /preise/?stufe=basis|aktiv|dominanz#rechner,
-     englisch auf /en/pricing/?tier=basis|aktiv|dominanz#calculator.
+     auf /digital-visibility zeigen seit 29.10.2026 auf /preise/#stufe-basis|aktiv|dominanz,
+     englisch auf /en/pricing/#tier-basis|aktiv|dominanz (Sprungmarken statt
+     Query-Parameter: sonst crawlt jede Variante als eigene Seite mit doppeltem
+     Titel). Die alten Adressen ?stufe=…#rechner / ?tier=…#calculator greifen weiter.
      Die internen Schlüssel bleiben deutsch; englische Schreibweisen (tier=found,
      tier=recommended, tier=cited, tier=active …) werden zusätzlich erkannt,
      damit ältere Links weiter greifen. */
   useEffect(() => {
-    try {
-      const q = new URLSearchParams(window.location.search);
-      const raw = (q.get('stufe') || q.get('tier') || '').toLowerCase();
-      const map: Record<string, TierKey> = {
-        basis: 'basis', base: 'basis', gefunden: 'basis', found: 'basis',
-        aktiv: 'aktiv', active: 'aktiv', empfohlen: 'aktiv', recommended: 'aktiv',
-        dominanz: 'dominanz', dominance: 'dominanz', zitiert: 'dominanz', cited: 'dominanz',
-      };
-      const picked = map[raw];
-      if (picked) { setTier(picked); setArticles(TIERS[picked].min); }
-    } catch (_) { /* kein window/URLSearchParams → Default bleibt */ }
+    const map: Record<string, TierKey> = {
+      basis: 'basis', base: 'basis', gefunden: 'basis', found: 'basis',
+      aktiv: 'aktiv', active: 'aktiv', empfohlen: 'aktiv', recommended: 'aktiv',
+      dominanz: 'dominanz', dominance: 'dominanz', zitiert: 'dominanz', cited: 'dominanz',
+    };
+    const apply = () => {
+      try {
+        const q = new URLSearchParams(window.location.search);
+        const h = window.location.hash.match(/^#(?:stufe|tier)-([a-z]+)$/i);
+        const raw = ((h && h[1]) || q.get('stufe') || q.get('tier') || '').toLowerCase();
+        const picked = map[raw];
+        if (picked) { setTier(picked); setArticles(TIERS[picked].min); }
+      } catch (_) { /* kein window/URLSearchParams → Default bleibt */ }
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    return () => window.removeEventListener('hashchange', apply);
   }, []);
 
   // Slider immer im Fenster der gewählten Stufe halten
@@ -386,8 +394,18 @@ export default function PricingCalculatorV2({ lang = 'de', base = '', bookingHre
       id={anchorId}
       data-theme="dark"
       aria-label={t.h2}
-      className="bg-background py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28"
+      className="relative bg-background py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-28"
     >
+      {/* Sprungziele für die Stufen-Vorauswahl (#stufe-aktiv / #tier-aktiv): liegen
+          exakt auf der Oberkante des Rechners, damit der Browser dorthin scrollt. */}
+      {(['basis', 'aktiv', 'dominanz'] as const).map((k) => (
+        <span
+          key={k}
+          id={`${lang === 'de' ? 'stufe' : 'tier'}-${k}`}
+          aria-hidden="true"
+          className="absolute left-0 top-0 h-0 w-0 scroll-mt-24 lg:scroll-mt-28"
+        />
+      ))}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{t.kicker}</p>
         <h2 className="cai-h2 text-foreground">{t.h2}</h2>

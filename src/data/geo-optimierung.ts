@@ -90,7 +90,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
     path: '/wissen/geo-optimierung/',
     metaTitle: 'GEO-Optimierung für B2B: In KI-Antworten zitiert werden | CodaAI',
     metaDescription:
-      'GEO-Optimierung für B2B-Unternehmen: Wie ChatGPT, Gemini und die Google KI-Übersicht Quellen auswählen, was nachweislich wirkt, was nicht — mit Zahlen aus 7.184 KI-Antworten zu 449 Mittelständlern.',
+      'GEO-Optimierung für B2B: wie ChatGPT, Gemini und Google KI-Übersicht Quellen wählen, was wirkt, was nicht – mit 7.184 KI-Antworten zu 449 Unternehmen.',
     kicker: 'GEO-Optimierung · Leitfaden für B2B-Unternehmen',
     line1: 'Ihre Website rankt bei Google.',
     line2: 'In der KI fehlt sie trotzdem.',
@@ -486,7 +486,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
     path: '/en/knowledge/geo-optimization/',
     metaTitle: 'GEO Optimization for B2B: Getting Cited in AI Answers | CodaAI',
     metaDescription:
-      'GEO optimization for B2B companies: how ChatGPT, Gemini and Google AI Overviews select sources, what demonstrably works, what does not — with figures from 7,184 AI answers on 449 mid-sized companies.',
+      'GEO optimization for B2B: how ChatGPT, Gemini and Google AI Overviews pick sources, what works, what does not – with 7,184 AI answers on 449 companies.',
     kicker: 'GEO optimization · Guide for B2B companies',
     line1: 'Your website ranks on Google.',
     line2: 'AI answers still leave it out.',

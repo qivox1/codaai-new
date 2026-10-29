@@ -16,6 +16,8 @@
  *     - Seiten mit Datenkonstante (`*_UPDATED` in src/data/*.ts): diese.
  *  2. Sonst: Commit-Datum der Quelldateien aus der Git-Historie
  *     (statische Seiten wie Preise, FAQ, Digital Visibility).
+ *     Commits mit „[template]“ in der Nachricht werden übersprungen — so bleibt
+ *     das Datum bei reinen Technik-/Template-/Meta-Änderungen stehen.
  *  3. Kein Datum ermittelbar → null (lastmod wird weggelassen, nie geraten).
  *
  * WER EINEN ARTIKEL ODER BEGRIFF INHALTLICH ÜBERARBEITET, SETZT `updatedDate`.
@@ -70,7 +72,10 @@ const memo = (key, fn) => {
 function gitDate(file) {
   return memo(`git:${file}`, () => {
     try {
-      const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', file], {
+      // Commits mit „[template]“ in der Nachricht zählen nicht (29.10.2026):
+      // reine Technik-, Template- oder Meta-Änderungen machen eine Seite nicht
+      // aktuell. Siehe CLAUDE.md, Abschnitt „PFLICHT bei jeder Inhaltsänderung“.
+      const out = execFileSync('git', ['log', '-1', '--format=%cI', '--invert-grep', '-F', '--grep=[template]', '--', file], {
         cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
       }).trim();
       return out || null;

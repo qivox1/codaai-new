@@ -106,7 +106,7 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
      nicht nur in den sichtbaren Text. */
   inLanguage: 'de',
   location: { '@type': 'VirtualLocation', url: `${SITE_URL}/en/webinar/` },
-  organizer: { '@type': 'Organization', name: 'CodaAI', url: SITE_URL },
+  organizer: { '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: 'CodaAI', url: `${SITE_URL}/` },
   performer: [
     { '@type': 'Person', name: 'Norbert Schuster' },
     { '@type': 'Person', '@id': 'https://www.codaai.ai/autor/oliver-parrizas/#person', name: 'Oliver Parrizas', url: `${SITE_URL}/en/author/oliver-parrizas/`, sameAs: ['https://www.linkedin.com/in/oliver-parrizas/'] },

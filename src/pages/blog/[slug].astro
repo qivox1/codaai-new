@@ -61,14 +61,10 @@ const articleSchema = JSON.stringify({
     '@type': 'Person',
     name: author,
     ...(authorTitle && { jobTitle: authorTitle }),
-    worksFor: { '@type': 'Organization', name: 'CodaAI', url: `${SITE_URL}/` },
+    worksFor: { '@id': `${SITE_URL}/#organization` },
   },
-  publisher: {
-    '@type': 'Organization',
-    name: 'CodaAI',
-    url: `${SITE_URL}/`,
-    logo: `${SITE_URL}/images/og-image.png`,
-  },
+  // Verweis auf den vollständigen Organization-Knoten aus Layout.astro (eine @id).
+  publisher: { '@id': `${SITE_URL}/#organization` },
   mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   inLanguage: 'de',
   keywords: tags.join(', '),

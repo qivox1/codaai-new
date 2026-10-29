@@ -554,7 +554,7 @@ const copy = {
       {(
         <ul class="hero-ki" aria-label={lang === 'en' ? 'AI systems checked' : 'Geprüfte KI-Systeme'}>
           {[['chatgpt','ChatGPT'],['claude','Claude'],['gemini','Gemini'],['perplexity','Perplexity'],['google','Google AI Mode']].map(([f, l]) => (
-            <li><img src={`/images/ki-logos/${f}.svg`} alt="" width="20" height="20" />{l}</li>
+            <li><img src={`/images/ki-logos/${f}.svg`} alt="" loading="lazy" decoding="async" width="20" height="20" />{l}</li>
           ))}
         </ul>
       )}

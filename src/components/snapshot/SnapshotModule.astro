@@ -126,7 +126,7 @@ const beispiele = [
     <p class="snap-vs" data-vs hidden></p>
     <ul class="snap-logos snap-logos--res" data-reslogos hidden>
       {logos.map((l) => (
-        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
+        <li data-sys={l.key}><span class="snap-lg"><img src={`${base}/images/ki-logos/${l.file ?? l.key}.svg`} alt="" loading="lazy" decoding="async" width="30" height="30" /><i class="snap-mark" aria-hidden="true"></i></span><span class="snap-sysl">{l.label}</span><span class="snap-sysp" data-p></span></li>
       ))}
     </ul>
     <p class="snap-vorn" data-vorn hidden></p>

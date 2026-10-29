@@ -291,6 +291,17 @@ const nichtImAngebot = [
   },
 ];
 
+/* BreadcrumbList zum sichtbaren Breadcrumb oben (Audit 29.10.2026). */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Start', item: 'https://www.codaai.ai/' },
+      { '@type': 'ListItem', position: 2, name: 'Preise', item: 'https://www.codaai.ai/preise/' },
+      { '@type': 'ListItem', position: 3, name: 'Digital Visibility', item: 'https://www.codaai.ai/digital-visibility/' },
+  ],
+};
+
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -330,7 +341,7 @@ const faqSchema = {
   description="Genannt zu werden ist kein Zufall. Niemand kennt die Formel der KI-Systeme — bekannt ist, woraus sie sich bedienen. Drei Stufen, monatlich gemessen."
 >
   <Navbar lang={lang} />
-  <main class="pt-0">
+  <main id="main-content" class="pt-0">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-24 lg:pt-28 pb-0">
       <Breadcrumb
         items={[
@@ -484,7 +495,7 @@ const faqSchema = {
                         {individualHinweis}
                       </p>
                       <a
-                        href={`${base}/preise/?stufe=${g.key}#rechner`}
+                        href={`${base}/preise/#stufe-${g.key}`}
                         class="inline-flex w-fit items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                       >
                         Preis für Stufe {g.nr} berechnen →
@@ -527,7 +538,7 @@ const faqSchema = {
                 {spalten.map((s) => (
                   <th scope="col" class="border-b-2 border-border px-2 pb-3 text-center align-bottom">
                     <a
-                      href={`${base}/preise/?stufe=${s.key}#rechner`}
+                      href={`${base}/preise/#stufe-${s.key}`}
                       class="group block rounded-lg px-2 py-2 transition-colors hover:bg-cta/10"
                       data-col
                     >
@@ -644,6 +655,7 @@ const faqSchema = {
   </main>
 
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
   {/* FAQPage nur hier, nicht zusaetzlich auf /faq — jede Frage soll genau einmal
       ausgezeichnet im Index stehen (Beschluss Oli, 03.08.2026). */}
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
