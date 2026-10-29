@@ -180,8 +180,9 @@ function codaHomeInit(){
   })();
 
   /* ================= reduced-motion: hier Schluss ================= */
-  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined' || typeof Lenis==='undefined'){ return; }
+  if(reduced || typeof gsap==='undefined' || typeof ScrollTrigger==='undefined' || typeof Lenis==='undefined'){ document.body.classList.remove('anim'); return; }
   document.body.classList.add('anim');
+  window.__codaHomeReady = true;   /* Gegenstueck zum Zeitlimit im Inline-Skript in Home.astro */
 
   /* scroll-behavior:smooth (aus global.css) kollidiert mit ScrollTrigger — neutralisieren */
   document.documentElement.style.scrollBehavior='auto';

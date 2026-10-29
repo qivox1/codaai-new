@@ -540,6 +540,14 @@ const copy = {
 </div>
 
 <!-- ================= HERO ================= -->
+<script is:inline>
+/* 29.10.2026: `anim` sofort setzen, nicht erst in home-init.js. Seit der Init
+   nach dem ersten Bild laeuft, wurden die Szenen erst statisch gezeichnet und
+   sprangen dann in den animierten Aufbau (PSI Desktop: CLS 0,024 an .p-scene).
+   Faellt das Laden der Animationsskripte aus, nimmt das Zeitlimit die Klasse
+   wieder weg — dann gilt die statische Fassung (body:not(.anim)). */
+(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.body.classList.add('anim');setTimeout(function(){if(!window.__codaHomeReady)document.body.classList.remove('anim');},8000);}catch(e){}})();
+</script>
 <section class="hero hero--snap" id="hero">
   <div class="hero-aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
   <div class="hero-spot" id="herospot"></div>
@@ -981,7 +989,7 @@ const copy = {
 <script is:inline defer src="/vendor/gsap-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/ScrollTrigger-3.12.5.min.js"></script>
 <script is:inline defer src="/vendor/lenis-1.0.42.min.js"></script>
-<script is:inline defer src="/vendor/home-init.js?v=20261029"></script>
+<script is:inline defer src="/vendor/home-init.js?v=20261029b"></script>
 <script is:inline>
 /* 01.10.2026: Vergleichs-Fläche links füllen und 2,5 s nach dem Ergebnis einblenden */
 (function(){
