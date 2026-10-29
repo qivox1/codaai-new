@@ -57,3 +57,25 @@ Inhalt in `src/components/kontakt/KontaktSeite.astro`: Ansprechpartnerin **Anja 
 Person-`@id` wie auf /co-create/), E-Mail, Telefon, Anschrift, Links auf Impressum/Fakten, darunter die Terminbuchung
 (`Booking.astro`). Schema `ContactPage` mit BreadcrumbList. Sprachpaar in `i18n-routes.ts`, Sitemap-Filter entfernt,
 `EXTRA_SOURCES` in `lastmod.mjs`, Footer-Link (Spalte Rechtliches), `llms.txt`. Anschrift/Telefon bei Änderung auch hier pflegen.
+
+## Nachtrag: Startseite mobil 70 → 95 (PageSpeed Insights)
+**Vorher (PSI mobil, 29.10. 13:06):** 70 · FCP 2,4 s · **LCP 7,4 s** · TBT 0 · SI 4,9 s.
+**Nachher (13:40):** **95** · FCP 1,7 s · **LCP 2,2 s** · TBT 10 ms · CLS 0 · SI 4,5 s. Desktop 100 (CLS 0,011).
+
+**Ursache:** LCP-Element ist der Einleitungsabsatz (`p.desc`), mit 2,45 s Render-Verzögerung. Auf Googles Testgerät liefen die
+defer-Skripte samt `codaHomeInit` (ScrollTrigger-Aufbau) und das Turnstile-Skript **vor dem ersten Zeichnen**; Lighthouse
+rechnet diese Rechenzeit für „langsames 4G + Moto G“ vierfach hoch → 7,4 s. Dazu drei weichgezeichnete, animierte Aurora-Ebenen
+(`filter: blur(60px)`), die ohne Grafikbeschleunigung jedes Bild neu gerechnet werden (lokaler Lighthouse-Lauf endete nie).
+
+**Änderungen (Commits `b4c995e`, `27cbf74`):**
+- `home-init.js`: Init erst **nach dem ersten Bild** (`requestAnimationFrame` + `setTimeout`).
+- `Home.astro`: Klasse `anim` per Inline-Skript **vor** dem ersten Bild (sonst Sprung statisch → animiert, CLS);
+  Zeitlimit 8 s entfernt sie wieder, wenn die Animationsskripte nicht laden (`window.__codaHomeReady`).
+- Snapshot DE/EN: **Turnstile** lädt bei erster Formular-Interaktion oder nach `load` im Leerlauf; Absenden ohne Token lädt nach und startet automatisch weiter.
+- Aurora: **kein `filter: blur` mehr**, mehrstufige `closest-side`-Verläufe (Pixelvergleich: mittlere Abweichung ~1/255).
+
+**Regeln für später:** keine Filter-Animationen (blur) auf großen Flächen · nichts Rechenintensives vor dem ersten Bild ·
+Drittanbieter-Skripte (Captcha, Widgets) erst bei Bedarf laden · Startseiten-Init bleibt hinter dem ersten Bild.
+
+**Bewusst offen:** Cache-Dauer 10 min (GitHub Pages, nur mit CDN lösbar) · 150 ms render-blockierendes CSS ·
+Speed Index 4,5 s (laufende Animationen im Kopfbereich: Wechselwort, getippter Platzhalter, Aurora — Gestaltungsentscheidung).
