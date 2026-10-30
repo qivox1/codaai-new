@@ -4,9 +4,8 @@ seoTitle: "llms.txt, Chunking, Schema: Was wirkt?"
 description: "Google nennt GEO „weiterhin SEO“. Was llms.txt, Chunking und Schema-Markup für KI-Antworten bringen – geprüft an Google-Doku und drei großen Studien."
 pubDate: 2026-10-30
 lang: de
-# Titelbild folgt (Oli wählt aus drei Fotovorschlägen mit Befund-Karte).
-# Vorgesehen: heroImage: "/images/blog/llms-txt-schema-de.webp"
-# heroImageAlt: "… eingeblendeter Befund: 97 % der llms.txt-Dateien wurden im Mai 2026 kein einziges Mal abgerufen (Ahrefs)"
+heroImage: "/images/blog/llms-txt-schema-de.webp"
+heroImageAlt: "Aufgeklappter Laptop mit Quellcode auf einem Schreibtisch; eingeblendeter Befund: 97 % der llms.txt-Dateien wurden im Mai 2026 kein einziges Mal abgerufen (Ahrefs)"
 author: "Oliver Parrizas"
 authorTitle: "Digital- & Sichtbarkeits-Analyst, CodaAI"
 authorBio: "Seit 2001 im Online-Marketing, von den ersten Suchmaschinen-Rankings über SEO und AEO bis zur Sichtbarkeit in KI-Antworten. Führt bei CodaAI die Sichtbarkeits-Audits durch und hat die Studie KI-Blindtest Mittelstand 2026 ausgewertet."

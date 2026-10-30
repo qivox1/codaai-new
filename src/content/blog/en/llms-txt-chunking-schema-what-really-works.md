@@ -4,9 +4,8 @@ seoTitle: "llms.txt, Chunking, Schema: What Works?"
 description: "Google calls GEO “still SEO”. What llms.txt, chunking and schema markup do for AI answers – checked against Google's documentation and three large studies."
 pubDate: 2026-10-30
 lang: en
-# Hero image to follow (Oli picks from three photo proposals with finding card).
-# Planned: heroImage: "/images/blog/llms-txt-schema-en.webp"
-# heroImageAlt: "… overlaid finding: 97% of llms.txt files were not fetched a single time in May 2026 (Ahrefs)"
+heroImage: "/images/blog/llms-txt-schema-en.webp"
+heroImageAlt: "Open laptop showing source code on a desk; overlaid finding: 97% of llms.txt files were not requested a single time in May 2026 (Ahrefs)"
 author: "Oliver Parrizas"
 authorTitle: "Digital & Visibility Analyst, CodaAI"
 authorBio: "In online marketing since 2001, from the first search engine rankings through SEO and AEO to visibility in AI answers. Conducts CodaAI's visibility audits and analysed the study AI Blind Test 2026."

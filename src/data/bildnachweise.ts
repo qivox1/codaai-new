@@ -39,6 +39,16 @@ export const LIZENZEN = {
 export const BILDNACHWEISE: Bildnachweis[] = [
   // Einträge entstehen mit der Fotoauswahl (Blog-Redaktionsplan 2026/27, Abschnitt 5.1).
   {
+    dateien: ['/images/blog/llms-txt-schema-de.webp', '/images/blog/llms-txt-schema-en.webp'],
+    fotograf: 'Christopher Gower',
+    plattform: 'Unsplash',
+    quelle: 'https://unsplash.com/photos/a-macbook-with-lines-of-code-on-its-screen-on-a-busy-desk-m_HRfLhgABo',
+    lizenz: 'Unsplash-Lizenz',
+    lizenzUrl: 'https://unsplash.com/license',
+    abgerufen: '2026-10-30',
+    seiten: ['/blog/llms-txt-chunking-schema-was-wirklich-wirkt/', '/en/blog/llms-txt-chunking-schema-what-really-works/'],
+  },
+  {
     dateien: ['/images/blog/in-chatgpt-empfohlen-de.webp', '/images/blog/in-chatgpt-empfohlen-en.webp'],
     fotograf: 'ThisIsEngineering',
     plattform: 'Pexels',
