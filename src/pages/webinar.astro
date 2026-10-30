@@ -27,7 +27,7 @@ const h1FlipWords = [
   { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
 ];
 
-// 01.10.2026: zwei Termine zur Wahl, seit 06.10.2026 nur noch der 10.11. — Quelle src/data/webinar-slots.ts
+// 01.10.2026: zwei Termine zur Wahl, seit 06.10.2026 nur noch ein Termin, seit 30.10.2026 der 24.11. — Quelle src/data/webinar-slots.ts
 const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.de.dateLong, time: s.de.time, iso: s.start, end: s.end, short: `${s.de.day} ${s.de.date}`, dateShort: s.de.dateShort }));
 
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
@@ -112,7 +112,7 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
   description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
   jsonLd={[...eventSchemas, faqSchema]}
-  ogImage="https://www.codaai.ai/images/og-webinar.jpg"
+  ogImage="https://www.codaai.ai/images/og-webinar.jpg?v=20261124"
 >
   <Navbar lang="de" />
 
@@ -150,7 +150,7 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
               Live-Webinar
             </span>
             <span class="text-border" aria-hidden="true">/</span>
-            {/* Terminzeile — 06.10.2026: 13.10. faellt aus, nur noch ein Termin (10.11.). */}
+            {/* Terminzeile — 06.10.2026: 13.10. faellt aus, nur noch ein Termin (seit 30.10.2026: 24.11.). */}
             <span class="text-foreground">{slots[0].short} · 11:00 Uhr</span>
             <span class="text-border" aria-hidden="true">/</span>
             <span>60 Minuten</span>
@@ -640,7 +640,7 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   // Bewusst erst ab 2 Wochen vor dem Termin sichtbar (Entscheidung Oli × Norbert 17.07.):
   // bei 50+ Tagen Restlaufzeit wirkt ein Countdown kontraproduktiv.
   const CD_SHOW_FROM = new Date('2026-08-25T00:00:00+02:00').getTime();
-  const slotDates = ['2026-11-10T11:00:00+01:00'].map((d) => new Date(d)); // 06.10.2026: 13.10. entfaellt
+  const slotDates = ['2026-11-24T11:00:00+01:00'].map((d) => new Date(d)); // 30.10.2026: Termin auf 24.11. verlegt
   const cdBox = $('w-countdown');
   const pad = (n: number) => String(n).padStart(2, '0');
   const tickCd = () => {
