@@ -48,6 +48,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/blog/in-chatgpt-als-anbieter-empfohlen-werden/', '/en/blog/get-recommended-by-chatgpt-as-a-supplier/'],
   ['/blog/markennennungen-drittseiten-ki/', '/en/blog/brand-mentions-third-party-sites-ai/'],
   ['/blog/vergleichsartikel-anbieterlisten-ki/', '/en/blog/comparison-articles-vendor-lists-ai/'],
+  ['/blog/llms-txt-chunking-schema-was-wirklich-wirkt/', '/en/blog/llms-txt-chunking-schema-what-really-works/'],
   ['/blog/chatgpt-quellen-startseite-markenkonsistenz/', '/en/blog/chatgpt-sources-homepage-brand-consistency/'],
   ['/blog/ki-sichtbarkeit-praxis-chatgpt-empfehlung/', '/en/blog/ai-visibility-chatgpt-recommendation-practice/'],
   ['/blog/chatgpt-seo-perplexity-sichtbarkeit/', '/en/blog/chatgpt-seo-perplexity-visibility/'],

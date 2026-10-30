@@ -3,6 +3,7 @@ title: "Getting Recommended by ChatGPT as a Supplier: What Demonstrably Works"
 seoTitle: "Getting Recommended by ChatGPT as a Supplier"
 description: "ChatGPT names three to five suppliers. Which ones is decided by model knowledge, third-party mentions and citable content – with the evidence."
 pubDate: 2026-09-22
+updatedDate: 2026-10-30
 lang: en
 heroImage: "/images/blog/in-chatgpt-empfohlen-en.webp"
 heroImageAlt: "Engineers conferring at a laptop in a workshop hall; overlaid finding: 54.7% of buyer questions do not name the company examined (AI Blind Test 2026)"
@@ -17,7 +18,7 @@ featured: false
 summary: "ChatGPT recommends suppliers it either knows from training or finds confirmed in several independent sources during a web search. In our study of 449 German mid-sized companies, 54.7% of buyer questions went without a mention of the company examined, and strong Google rankings did not protect against that. Three things demonstrably work: readable pages, mentions on third-party sites and content with figures, quotations and sources."
 faq:
   - q: "How does a company get recommended by ChatGPT as a supplier?"
-    a: "By appearing where ChatGPT looks for candidates: in the model knowledge built during training and in the sources a web search returns. Three levers demonstrably work. First, readable pages, because OpenAI's crawlers do not execute JavaScript. Second, mentions on third-party sites, which according to Ahrefs correlate far more strongly with AI visibility (0.664) than backlinks do (0.218). Third, content with figures, quotations and source references, which gained 28 to 41% more visibility in the Princeton study."
+    a: "By appearing where ChatGPT looks for candidates: in the model knowledge built during training and in the sources a web search returns. Three levers demonstrably work. First, readable pages, because OpenAI's crawlers do not execute JavaScript. Second, mentions on third-party sites, which according to Ahrefs correlate far more strongly with AI visibility (0.664) than backlinks do (0.218). Third, content with figures, quotations and source references, with which the best methods in the Princeton study beat the baseline by 28 to 41%, depending on the metric."
   - q: "Why does ChatGPT recommend my competitor instead of my company?"
     a: "Usually because the competitor is written about more often and more consistently – in trade media, comparison lists and directories. In our study, the AI systems recommended competitors by name for 46.8% of the 449 companies, while the company itself was missing from the majority of its buyer questions. That is rarely down to the website alone, but to the sources outside it."
   - q: "Does a good Google ranking help a company get named in ChatGPT?"
@@ -124,13 +125,13 @@ Comparison lists are the source cited most often in purchase decisions. In an an
 
 ### 5. Write content that can be cited
 
-Citable content decides whether your own page is linked as a source. The Princeton study on Generative Engine Optimization (Aggarwal et al., KDD 2024) tested nine text measures on 10,000 queries. The strongest were verbatim quotations (+41%), statistics (+34%) and source references (+28%) – exactly what a model cannot generate itself. Keyword stuffing brought no gain. One format that is often overlooked is [expert videos on YouTube](/en/blog/youtube-ai-visibility-b2b/).
+Citable content decides whether your own page is linked as a source. The Princeton study on Generative Engine Optimization (Aggarwal et al., KDD 2024) tested nine text measures on 10,000 queries. Verbatim quotations, statistics, source references and more fluent wording all scored clearly above the baseline – mostly things a model cannot generate itself. The best methods improved on the baseline by 41% on position-adjusted word count and by 28% on subjective impression; these are two metrics for the same methods, not values for individual measures. Keyword stuffing was the only measure that landed below the baseline. One format that is often overlooked is [expert videos on YouTube](/en/blog/youtube-ai-visibility-b2b/).
 
 ## What does not work?
 
 Not every measure sold as GEO has evidence behind it. We explicitly advise against four of them:
 
-- **llms.txt as a lever.** 97% of the files examined were never fetched by an AI crawler ([Ahrefs, 137,210 domains](https://ahrefs.com/blog/llmstxt-study/)). The file does no harm, but it does not replace any of the measures above.
+- **llms.txt as a lever.** On 97% of the roughly 38,000 domains with a valid file, it was not requested a single time in May 2026 ([Ahrefs, around 137,000 domains studied](https://ahrefs.com/blog/llmstxt-study/)). The file does no harm, but it does not replace any of the measures above.
 - **Placement guarantees.** Nobody can promise a mention in ChatGPT, because nobody controls the answers.
 - **Planting mentions in forums.** In niche B2B purchase prompts, Reddit accounted for 1.4% of citations ([Overthink Group](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/)). On top of that comes the risk of being spotted as self-promotion.
 - **Stuffing texts with search terms.** In the Princeton study this brought no gain, and on Perplexity it even caused a loss.

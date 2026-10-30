@@ -3,6 +3,7 @@ title: "In ChatGPT als Anbieter empfohlen werden: Was nachweislich wirkt"
 seoTitle: "In ChatGPT als Anbieter empfohlen werden"
 description: "ChatGPT nennt drei bis fünf Anbieter. Welche das sind, entscheiden Modellwissen, Nennungen auf Drittseiten und zitierfähige Inhalte – mit Belegen."
 pubDate: 2026-09-22
+updatedDate: 2026-10-30
 lang: de
 heroImage: "/images/blog/in-chatgpt-empfohlen-de.webp"
 heroImageAlt: "Ingenieure besprechen sich in einer Werkhalle am Laptop; eingeblendeter Befund: 54,7 % der Einkäuferfragen nennen das untersuchte Unternehmen nicht (KI-Blindtest Mittelstand 2026)"
@@ -17,7 +18,7 @@ featured: false
 summary: "ChatGPT empfiehlt Anbieter, die es entweder aus dem Training kennt oder bei einer Websuche in mehreren unabhängigen Quellen findet. In unserer Studie mit 449 Unternehmen blieben 54,7 % der Einkäuferfragen ohne Nennung des untersuchten Unternehmens, und ein starkes Google-Ranking schützte davor nicht. Nachweislich wirken drei Dinge: lesbare Seiten, Nennungen auf Drittseiten und Inhalte mit Zahlen, Zitaten und Quellen."
 faq:
   - q: "Wie wird man in ChatGPT als Anbieter empfohlen?"
-    a: "Indem das Unternehmen dort vorkommt, wo ChatGPT seine Kandidaten sucht: im Modellwissen aus dem Training und in den Quellen, die eine Websuche liefert. Nachweislich wirken drei Hebel. Erstens lesbare Seiten, denn die Crawler von OpenAI führen kein JavaScript aus. Zweitens Nennungen auf Drittseiten, die laut Ahrefs mit 0,664 deutlich stärker mit KI-Sichtbarkeit zusammenhängen als Backlinks mit 0,218. Drittens Inhalte mit Zahlen, Zitaten und Quellenangaben, die in der Princeton-Studie 28 bis 41 % mehr Sichtbarkeit brachten."
+    a: "Indem das Unternehmen dort vorkommt, wo ChatGPT seine Kandidaten sucht: im Modellwissen aus dem Training und in den Quellen, die eine Websuche liefert. Nachweislich wirken drei Hebel. Erstens lesbare Seiten, denn die Crawler von OpenAI führen kein JavaScript aus. Zweitens Nennungen auf Drittseiten, die laut Ahrefs mit 0,664 deutlich stärker mit KI-Sichtbarkeit zusammenhängen als Backlinks mit 0,218. Drittens Inhalte mit Zahlen, Zitaten und Quellenangaben, mit denen die besten Verfahren in der Princeton-Studie den Ausgangswert je nach Messgröße um 28 bis 41 % übertrafen."
   - q: "Warum empfiehlt ChatGPT meinen Wettbewerber und nicht mich?"
     a: "Meist, weil über den Wettbewerber häufiger und einheitlicher geschrieben wird – in Fachmedien, Vergleichslisten und Verzeichnissen. In unserer Studie empfahlen die KI-Systeme bei 46,8 % der 449 Unternehmen namentlich Wettbewerber, während das Unternehmen selbst bei der Mehrheit seiner Einkäuferfragen fehlte. Das liegt selten an der Website allein, sondern an den Quellen außerhalb."
   - q: "Hilft ein gutes Google-Ranking, in ChatGPT genannt zu werden?"
@@ -124,13 +125,13 @@ Vergleichslisten sind die Quelle, die bei Kaufentscheidungen am häufigsten ziti
 
 ### 5. Inhalte schreiben, die sich zitieren lassen
 
-Zitierfähige Inhalte entscheiden, ob die eigene Seite als Quelle verlinkt wird. Die Princeton-Studie zu Generative Engine Optimization (Aggarwal et al., KDD 2024) hat neun Textmaßnahmen an 10.000 Anfragen getestet. Am stärksten wirkten wörtliche Zitate (+41 %), Statistiken (+34 %) und Quellenangaben (+28 %) – also genau das, was ein Modell nicht selbst erzeugen kann. Keyword-Stuffing brachte keinen Gewinn. Ein eigenes Format, das dabei oft übersehen wird, sind [Fachvideos auf YouTube](/blog/youtube-ki-sichtbarkeit-b2b/).
+Zitierfähige Inhalte entscheiden, ob die eigene Seite als Quelle verlinkt wird. Die Princeton-Studie zu Generative Engine Optimization (Aggarwal et al., KDD 2024) hat neun Textmaßnahmen an 10.000 Anfragen getestet. Deutlich über dem Ausgangswert lagen wörtliche Zitate, Statistiken, Quellenangaben und flüssigere Formulierungen – also vor allem das, was ein Modell nicht selbst erzeugen kann. Die besten Verfahren verbesserten den Ausgangswert um 41 % beim positionsgewichteten Wortanteil und um 28 % beim subjektiven Eindruck; das sind zwei Messgrößen für dieselben Verfahren, keine Werte für einzelne Maßnahmen. Keyword-Stuffing landete als einzige Maßnahme unter dem Ausgangswert. Ein eigenes Format, das dabei oft übersehen wird, sind [Fachvideos auf YouTube](/blog/youtube-ki-sichtbarkeit-b2b/).
 
 ## Was wirkt nicht?
 
 Nicht jede Maßnahme, die als GEO verkauft wird, hat einen Beleg. Vier davon empfehlen wir ausdrücklich nicht:
 
-- **llms.txt als Hebel.** 97 % der untersuchten Dateien wurden nie von einem KI-Crawler abgerufen ([Ahrefs, 137.210 Domains](https://ahrefs.com/blog/llmstxt-study/)). Die Datei schadet nicht, ersetzt aber keine der Maßnahmen oben.
+- **llms.txt als Hebel.** Bei 97 % der rund 38.000 Domains mit gültiger Datei wurde sie im Mai 2026 kein einziges Mal abgerufen ([Ahrefs, rund 137.000 untersuchte Domains](https://ahrefs.com/blog/llmstxt-study/)). Die Datei schadet nicht, ersetzt aber keine der Maßnahmen oben.
 - **Platzierungsgarantien.** Niemand kann eine Nennung in ChatGPT zusagen, weil niemand die Antworten steuert.
 - **Erwähnungen in Foren platzieren.** Bei nischigen B2B-Kaufprompts kam Reddit auf 1,4 % der Zitate ([Overthink Group](https://overthinkgroup.com/b2b-ai-citation-stats-2026-q2/)). Dazu kommt das Risiko, als Eigenwerbung aufzufallen.
 - **Texte mit Suchbegriffen füllen.** In der Princeton-Studie brachte das keinen Gewinn, bei Perplexity sogar einen Verlust.
