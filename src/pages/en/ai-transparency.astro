@@ -52,6 +52,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </section>
 
         <section>
+          <h2 class="cai-h2 text-foreground">Is the labelling also inside the image file?</h2>
+          <p>
+            Yes. Every image file on this blog carries its origin in its metadata as well, in the IPTC field
+            <code>DigitalSourceType</code>. AI-generated images are set to <code>trainedAlgorithmicMedia</code>,
+            photos from stock libraries to <code>digitalCapture</code>. Creator, credit, description and a reference
+            to this page are stored alongside.
+          </p>
+          <p>
+            The origin therefore stays readable even when someone downloads the image and passes it on without the
+            website. Any program that displays image metadata will show it. The entry is inserted into the file
+            without re-encoding the image, so the picture itself is unchanged.
+          </p>
+          <p>
+            A guard in our publishing process checks before every release that no cover image goes online without
+            this entry. Older images from before this rule do not carry it yet; they belong to articles that are no
+            longer listed, and they will follow.
+          </p>
+        </section>
+
+        <section>
           <h2 class="cai-h2 text-foreground">Do the images show real people?</h2>
           <p>
             No. The AI-generated images on this website show no person meant to depict a real individual. Photographs

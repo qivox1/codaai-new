@@ -8,12 +8,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postbuild": "node scripts/build-md-variants.mjs && node scripts/check-seo-invariants.mjs",
+    "postbuild": "node scripts/build-md-variants.mjs && node scripts/check-seo-invariants.mjs && node scripts/check-bild-metadaten.mjs",
     "seo:check": "node scripts/check-seo-invariants.mjs",
     "md:variants": "node scripts/build-md-variants.mjs",
     "check:colors": "node scripts/check-colors.mjs",
     "prepare": "git config core.hooksPath .githooks || true",
-    "indexnow": "node scripts/indexnow-changed.mjs"
+    "indexnow": "node scripts/indexnow-changed.mjs",
+    "bilder:check": "node scripts/check-bild-metadaten.mjs"
   },
   "keywords": [],
   "author": "",

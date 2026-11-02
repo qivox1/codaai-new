@@ -52,6 +52,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </section>
 
         <section>
+          <h2 class="cai-h2 text-foreground">Steht die Kennzeichnung auch in der Bilddatei?</h2>
+          <p>
+            Ja. Jede Bilddatei dieses Blogs trägt die Herkunft zusätzlich maschinenlesbar in ihren Metadaten, im
+            IPTC-Feld <code>DigitalSourceType</code>. KI-generierte Bilder stehen dort auf
+            <code>trainedAlgorithmicMedia</code>, Fotos aus Bilddatenbanken auf <code>digitalCapture</code>. Dazu
+            kommen Urheber, Credit, Beschreibung und ein Verweis auf diese Seite.
+          </p>
+          <p>
+            Damit bleibt die Herkunft auch dann erkennbar, wenn jemand das Bild herunterlädt und ohne die Website
+            weitergibt. Prüfen lässt sich das mit jedem Programm, das Bildmetadaten anzeigt. Die Angabe wird beim
+            Schreiben in die Datei eingefügt, ohne das Bild neu zu berechnen; der Bildinhalt bleibt unverändert.
+          </p>
+          <p>
+            Ein Wächter in unserem Veröffentlichungsablauf prüft vor jeder Veröffentlichung, dass kein Titelbild
+            ohne diese Angabe online geht. Ältere Bilder aus der Zeit vor dieser Regel tragen sie noch nicht; sie
+            hängen an Artikeln, die nicht mehr in der Übersicht stehen, und werden nachgezogen.
+          </p>
+        </section>
+
+        <section>
           <h2 class="cai-h2 text-foreground">Zeigen die Bilder echte Menschen?</h2>
           <p>
             Nein. Auf KI-generierten Bildern dieser Website sind keine Personen zu sehen, die eine reale Person
