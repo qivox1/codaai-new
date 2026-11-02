@@ -1,0 +1,129 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  lang="en"
+  title="AI Transparency – CodaAI | Labelling of AI content"
+  description="How CodaAI labels AI-generated images and how the articles are written: tools, fact-checking, responsibility and who to contact about an image."
+>
+  <Navbar lang="en" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+      <Breadcrumb items={[{ label: 'Home', ariaLabel: 'Go to Homepage', href: `${base}/en/` }, { label: 'AI Transparency' }]} class="mb-8" />
+
+      <h1 class="cai-h1 text-foreground mb-2">AI Transparency</h1>
+      <p class="text-muted-foreground mb-6">How AI is used and labelled on this website</p>
+      <p class="text-sm text-muted-foreground leading-relaxed mb-12">
+        CodaAI works on visibility in AI systems. That makes it only fair to disclose where AI is at work on our own
+        website. This page states which images are AI-generated, how the articles are written and who is responsible
+        for them. It is a self-disclosure, not a legal opinion.
+      </p>
+
+      <div class="space-y-10 prose prose-sm max-w-none text-muted-foreground">
+        <section>
+          <h2 class="cai-h2 text-foreground">Which images are AI-generated?</h2>
+          <p>
+            Since 30 October 2026, cover images for blog articles come from one of two sources: a photo from a free
+            stock library, or an AI-generated image. Both options are prepared for every article and the choice is
+            made per article.
+          </p>
+          <p>
+            <strong>Every AI-generated image carries the note “Image: AI-generated” visibly in the image itself</strong>
+            — inside the white finding card that sits on every cover image. The note is rendered into the file, so it
+            stays with the image when someone downloads or shares it. The same note appears in the image&apos;s
+            alternative text.
+          </p>
+          <p>
+            Photos from stock libraries do not carry that note. They are credited individually in the{' '}
+            <a href={`${base}/en/legal-notice/`} class="font-medium text-cta-accessible underline underline-offset-2">legal notice</a>,
+            with photographer, platform, licence and the page they appear on.
+          </p>
+          <p>
+            One AI-generated image is currently in use on this website: the cover image of the article{' '}
+            <a href={`${base}/en/blog/grounding-budget-retrieval-window/`} class="font-medium text-cta-accessible underline underline-offset-2">What AI systems really read from your page</a>{' '}
+            of 2 November 2026, in its German and English version.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Do the images show real people?</h2>
+          <p>
+            No. The AI-generated images on this website show no person meant to depict a real individual. Photographs
+            of people on this website — the author portrait of Oliver Parrizas, for example — are real photographs and
+            not AI-generated.
+          </p>
+          <p>
+            If you still notice a likeness to a real person in one of our images, please write to{' '}
+            <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible underline underline-offset-2">hi@codaai.ai</a>.
+            In case of doubt we take the image down.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">How are the articles written?</h2>
+          <p>
+            The blog articles, the GEO glossary and the knowledge pages are written with AI assistance. The substance,
+            the choice of topics and the checking are done by a person: the author and editorially responsible is{' '}
+            <a href={`${base}/en/author/oliver-parrizas/`} class="font-medium text-cta-accessible underline underline-offset-2">Oliver Parrizas</a>.
+            The publisher is Anja Miebach (AMP Beratung).
+          </p>
+          <p>
+            The same rule applies to every article: <strong>every figure is verified in the full text of its source
+            before publication.</strong> What cannot be found there does not go into the article. Sources are linked
+            in the text, the date of the check is shown on the article, and figures are re-checked every six months.
+          </p>
+          <p>
+            The charts inside the articles are not images; they are rendered from the data. They therefore need no
+            labelling.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">How are the measurements made?</h2>
+          <p>
+            Figures from our own measurements — for instance from the{' '}
+            <a href={`${base}/en/study/`} class="font-medium text-cta-accessible underline underline-offset-2">AI Blind Test 2026</a>{' '}
+            — come from automated queries sent to AI systems. The answers are evaluated by machine, and the method is
+            open on the study page: number of questions, number of runs, systems tested and period. A single AI answer
+            is never reproducible, which is why we report shares across many runs instead of individual examples.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Which tools are used?</h2>
+          <p>
+            AI images are created with generative image models through the provider fal.ai (model Nano Banana Pro).
+            The files are then processed locally to 1600 × 900 pixels as WebP and given the finding card with its
+            note. The unlabelled originals and the prompts used are archived internally and can be provided on request.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">What is this labelling based on?</h2>
+          <p>
+            We take our bearings from Article 50 of Regulation (EU) 2024/1689 on artificial intelligence, whose
+            transparency obligations have applied since 2 August 2026, from German unfair competition law and from the
+            general right of personality. This page describes how we handle them. It is not legal advice and does not
+            replace a legal review.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Questions or complaints</h2>
+          <p>
+            If you have a question about a particular image, an article or the labelling, write to{' '}
+            <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible underline underline-offset-2">hi@codaai.ai</a>.
+            We reply within two working days.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer lang="en" />
+</Layout>

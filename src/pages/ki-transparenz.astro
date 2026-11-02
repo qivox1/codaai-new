@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout
+  lang="de"
+  title="KI-Transparenz – CodaAI | Kennzeichnung von KI-Inhalten"
+  description="Wie CodaAI KI-generierte Bilder kennzeichnet und wie die Blogartikel entstehen: Werkzeuge, Prüfung, Verantwortung und Kontakt bei Beanstandungen."
+>
+  <Navbar lang="de" />
+  <main id="main-content" class="pt-24 lg:pt-28">
+    <div class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+      <Breadcrumb items={[{ label: 'Start', ariaLabel: 'Zur Startseite', href: `${base}/` }, { label: 'KI-Transparenz' }]} class="mb-8" />
+
+      <h1 class="cai-h1 text-foreground mb-2">KI-Transparenz</h1>
+      <p class="text-muted-foreground mb-6">Wie auf dieser Website KI eingesetzt und gekennzeichnet wird</p>
+      <p class="text-sm text-muted-foreground leading-relaxed mb-12">
+        CodaAI arbeitet an der Sichtbarkeit in KI-Systemen. Dann gehört es sich, offenzulegen, wo auf der eigenen
+        Website KI im Spiel ist. Diese Seite sagt, welche Bilder KI-generiert sind, wie die Texte entstehen und wer
+        dafür geradesteht. Sie ist eine Selbstauskunft und kein Rechtsgutachten.
+      </p>
+
+      <div class="space-y-10 prose prose-sm max-w-none text-muted-foreground">
+        <section>
+          <h2 class="cai-h2 text-foreground">Welche Bilder sind KI-generiert?</h2>
+          <p>
+            Titelbilder von Blogartikeln entstehen seit dem 30. Oktober 2026 auf zwei Wegen: als Foto aus einer freien
+            Bilddatenbank oder als KI-generiertes Bild. Für jeden Artikel liegen beide Varianten zur Auswahl vor,
+            entschieden wird je Artikel.
+          </p>
+          <p>
+            <strong>Jedes KI-generierte Bild trägt den Hinweis „Bild: KI-generiert“ sichtbar im Bild selbst</strong> —
+            in der weißen Befund-Karte, die auf jedem Titelbild steht. Der Hinweis ist in die Bilddatei gerechnet und
+            bleibt deshalb auch erhalten, wenn jemand das Bild herunterlädt oder weitergibt. Derselbe Hinweis steht im
+            Alternativtext des Bildes.
+          </p>
+          <p>
+            Fotos aus Bilddatenbanken tragen diesen Hinweis nicht. Sie sind stattdessen einzeln im{' '}
+            <a href={`${base}/impressum/`} class="font-medium text-cta-accessible underline underline-offset-2">Impressum</a>{' '}
+            nachgewiesen, mit Fotograf, Plattform, Lizenz und der Seite, auf der sie verwendet werden.
+          </p>
+          <p>
+            Auf dieser Website ist derzeit ein KI-generiertes Bild im Einsatz: das Titelbild des Artikels{' '}
+            <a href={`${base}/blog/grounding-budget-abruffenster/`} class="font-medium text-cta-accessible underline underline-offset-2">Was KI-Systeme wirklich von Ihrer Seite lesen</a>{' '}
+            vom 2. November 2026, in der deutschen und der englischen Fassung.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Zeigen die Bilder echte Menschen?</h2>
+          <p>
+            Nein. Auf KI-generierten Bildern dieser Website sind keine Personen zu sehen, die eine reale Person
+            darstellen sollen. Die Fotos von Personen auf dieser Website — etwa das Autorenbild von Oliver Parrizas —
+            sind echte Aufnahmen und nicht KI-generiert.
+          </p>
+          <p>
+            Sollte Ihnen auf einem Bild dennoch eine Ähnlichkeit mit einer realen Person auffallen, schreiben Sie bitte
+            an <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible underline underline-offset-2">hi@codaai.ai</a>.
+            Im Zweifel nehmen wir das Bild herunter.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Wie entstehen die Texte?</h2>
+          <p>
+            Die Fachbeiträge im Blog, das GEO-Glossar und die Wissensseiten entstehen KI-gestützt. Die inhaltliche
+            Arbeit, die Auswahl der Themen und die Prüfung liegen bei einem Menschen: Autor und redaktionell
+            verantwortlich ist{' '}
+            <a href={`${base}/autor/oliver-parrizas/`} class="font-medium text-cta-accessible underline underline-offset-2">Oliver Parrizas</a>.
+            Herausgeberin ist Anja Miebach (AMP Beratung).
+          </p>
+          <p>
+            Für jeden Artikel gilt dieselbe Regel: <strong>Jede Zahl wird vor der Veröffentlichung im Volltext der
+            Quelle geprüft.</strong> Was sich dort nicht findet, steht nicht im Artikel. Quellen werden im Text
+            verlinkt, das Prüfdatum steht sichtbar am Artikel, und Zahlen werden halbjährlich erneut geprüft.
+          </p>
+          <p>
+            Die Grafiken in den Artikeln sind keine Bilder, sondern aus den Daten gerechnet. Sie brauchen deshalb keine
+            Kennzeichnung.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Wie entstehen die Messungen?</h2>
+          <p>
+            Die Zahlen aus eigenen Messungen — etwa aus der{' '}
+            <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline underline-offset-2">Studie KI-Blindtest Mittelstand 2026</a>{' '}
+            — stammen aus automatisierten Abfragen an KI-Systeme. Die Antworten werden maschinell ausgewertet, die
+            Methode steht offen auf der Studienseite: Zahl der Fragen, Zahl der Läufe, geprüfte Systeme und Zeitraum.
+            Einzelne Antworten einer KI sind nie reproduzierbar; deshalb nennen wir Anteile über viele Läufe statt
+            einzelner Beispiele.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Welche Werkzeuge kommen zum Einsatz?</h2>
+          <p>
+            KI-Bilder entstehen mit generativen Bildmodellen über den Anbieter fal.ai (Modell Nano Banana Pro). Die
+            Dateien werden anschließend lokal auf 1600 × 900 Pixel als WebP gerechnet und mit der Befund-Karte samt
+            Hinweis versehen. Die unmarkierten Originale und die verwendeten Prompts werden intern archiviert und auf
+            Anfrage vorgelegt.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Worauf stützt sich die Kennzeichnung?</h2>
+          <p>
+            Als Orientierung dienen Artikel 50 der Verordnung (EU) 2024/1689 über künstliche Intelligenz, dessen
+            Transparenzpflichten seit dem 2. August 2026 gelten, das Gesetz gegen den unlauteren Wettbewerb und das
+            allgemeine Persönlichkeitsrecht. Diese Seite gibt wieder, wie wir damit umgehen. Sie ist keine
+            Rechtsberatung und ersetzt keine rechtliche Prüfung.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="cai-h2 text-foreground">Fragen oder Beanstandungen</h2>
+          <p>
+            Wenn Sie zu einem einzelnen Bild, zu einem Artikel oder zur Kennzeichnung eine Frage haben, schreiben Sie an{' '}
+            <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible underline underline-offset-2">hi@codaai.ai</a>.
+            Wir antworten werktags innerhalb von zwei Arbeitstagen.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer lang="de" />
+</Layout>
