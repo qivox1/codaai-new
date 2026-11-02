@@ -2,7 +2,7 @@
 title: "GEO-Sichtbarkeit für KI-Suchmaschinen"
 description: "Mit der richtigen Server-Performance und GEO-optimiertem Content von CodaAI werden AI Crawler wie GPTBot und ClaudeBot deine Website zuverlässig zitieren."
 pubDate: 2026-03-22
-updatedDate: 2026-10-05
+updatedDate: 2026-11-02
 lang: de
 inUebersicht: false
 author: "Oliver Parrizas"
@@ -55,7 +55,7 @@ GPTBot von OpenAI, ClaudeBot von Anthropic und PerplexityBot sammeln systematisc
 
 ChatGPT-User, Claude-User und ähnliche Bots werden dann aktiv, wenn ein Nutzer in Echtzeit eine Frage stellt und das System aktuelle Web-Inhalte abruft. Das nennt sich [Retrieval Augmented Generation (RAG)](https://www.frugaltesting.com/blog/behind-perplexitys-architecture-how-ai-search-handles-real-time-web-data): Das KI-System erkennt, dass seine Trainingsdaten nicht ausreichen, und ruft live Quellen ab – während der Nutzer wartet.
 
-Hier wird Servergeschwindigkeit zur harten KI-Ranking-Metrik. Als Richtwert gilt eine TTFB unter 500 bis 800 Millisekunden. Antwortet dein Server langsamer, bricht der Abruf ab, und das System arbeitet mit den Quellen, die rechtzeitig geliefert haben. Der Nutzer bemerkt es nicht, und dein Unternehmen taucht in der Antwort nicht auf.
+Hier wird Servergeschwindigkeit zur harten KI-Ranking-Metrik. Als Richtwert gilt eine TTFB unter 500 bis 800 Millisekunden. Antwortet dein Server langsamer, bricht der Abruf ab, und das System arbeitet mit den Quellen, die rechtzeitig geliefert haben. Der Nutzer bemerkt es nicht, und dein Unternehmen taucht in der Antwort nicht auf. Und selbst ein erfolgreicher Abruf liest nur einen Ausschnitt der Seite: im Median rund 5.700 Zeichen, siehe [Grounding-Budget und Abruffenster](/blog/grounding-budget-abruffenster/).
 
 ### Der blinde Fleck der meisten GEO-Strategien
 

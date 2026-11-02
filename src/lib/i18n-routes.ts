@@ -56,6 +56,7 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ['/blog/content-marketing-vs-google-ads-b2b/', '/en/blog/content-marketing-vs-google-ads-b2b/'],
   ['/blog/ki-blog-erstellen/', '/en/blog/create-ai-powered-blog/'],
   ['/blog/redaktionsplan-ki-erstellen/', '/en/blog/create-editorial-plan-with-ai/'],
+  ['/blog/grounding-budget-abruffenster/', '/en/blog/grounding-budget-retrieval-window/'],
   // 03.09.2026: drei Paare entfernt (Kosten-/Agentur-Artikel auf noindex, Beschluss
   // Oli) — ein Sprachpaar zwischen zwei noindex-Seiten waere ein Widerspruch:
   //   blogartikel-schreiben-lassen-kosten <-> outsource-blog-writing-costs

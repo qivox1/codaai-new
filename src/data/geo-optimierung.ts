@@ -77,7 +77,7 @@ export interface GeoPage {
 }
 
 export const GEO_PUBLISHED = new Date('2026-09-18T08:00:00+02:00');
-export const GEO_UPDATED = new Date('2026-09-22T14:00:00+02:00');
+export const GEO_UPDATED = new Date('2026-11-02T09:00:00+01:00');
 
 const G = '/wissen/geo-glossar';
 const GE = '/en/knowledge/geo-glossary';
@@ -252,7 +252,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           { type: 'h3', text: 'Technik: das Eintrittsticket', id: 'technik' },
           {
             type: 'p',
-            html: `Technik entscheidet, ob ein KI-System die Seite überhaupt lesen kann. Der wichtigste Unterschied zu Google: <strong>Kein Crawler von OpenAI, Anthropic, Perplexity, Meta oder ByteDance führt JavaScript aus</strong> (Vercel und MERJ, Dezember 2024). ClaudeBot lädt in 23,8 % der Abrufe JavaScript-Dateien, GPTBot in 11,5 % — ausgeführt wird keine davon. Inhalte, die erst im Browser entstehen, sind für diese Systeme unsichtbar. Gemini und Applebot rendern dagegen. Warum für ChatGPT zusätzlich der Bing-Index zählt, erklärt der Artikel <a href="/blog/chatgpt-seo-perplexity-sichtbarkeit/">ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen</a>.`,
+            html: `Technik entscheidet, ob ein KI-System die Seite überhaupt lesen kann. Der wichtigste Unterschied zu Google: <strong>Kein Crawler von OpenAI, Anthropic, Perplexity, Meta oder ByteDance führt JavaScript aus</strong> (Vercel und MERJ, Dezember 2024). ClaudeBot lädt in 23,8 % der Abrufe JavaScript-Dateien, GPTBot in 11,5 % — ausgeführt wird keine davon. Inhalte, die erst im Browser entstehen, sind für diese Systeme unsichtbar. Gemini und Applebot rendern dagegen. Warum für ChatGPT zusätzlich der Bing-Index zählt, erklärt der Artikel <a href="/blog/chatgpt-seo-perplexity-sichtbarkeit/">ChatGPT SEO: Woher KI-Systeme ihre Quellen nehmen</a>. Wie viel eine KI von einer Seite überhaupt liest — im Median rund 5.700 Zeichen je Abruf —, zeigt der Artikel <a href="/blog/grounding-budget-abruffenster/">Grounding-Budget und Abruffenster</a>.`,
           },
           {
             type: 'ul',

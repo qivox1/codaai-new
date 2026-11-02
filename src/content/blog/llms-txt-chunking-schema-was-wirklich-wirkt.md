@@ -2,6 +2,7 @@
 title: "Google sagt: GEO ist SEO. Was llms.txt, Chunking und Spezial-Schema wirklich bringen"
 seoTitle: "llms.txt, Chunking, Schema: Was wirkt?"
 description: "Google nennt GEO „weiterhin SEO“. Was llms.txt, Chunking und Schema-Markup für KI-Antworten bringen – geprüft an Google-Doku und drei großen Studien."
+updatedDate: 2026-11-02
 pubDate: 2026-10-30
 lang: de
 heroImage: "/images/blog/llms-txt-schema-de.webp"
@@ -101,7 +102,7 @@ Wir haben selbst eine [llms.txt](/llms.txt). Sie war schnell angelegt, und wir e
 
 [Chunking](/wissen/geo-glossar/chunking/) – das Zerlegen von Seiten in Passagen – findet statt, aber im KI-System und nicht beim Schreiben. Google sagt ausdrücklich, dass niemand seine Inhalte für die KI in kleine Stücke schneiden muss, weil die Systeme mehrere Themen auf einer Seite auseinanderhalten und die passende Stelle selbst finden.
 
-Wie viel Text dabei in eine Antwort gelangt, hat Dan Petrovic (dejan.ai) für Googles KI-Antworten gemessen. Er hat 7.060 Anfragen mit mindestens drei Quellen ausgewertet und die verwendeten Textausschnitte mit 2.275 vollständigen Seiten abgeglichen ([dejan.ai, 20.12.2025](https://dejan.ai/blog/how-big-are-googles-grounding-chunks/)). Das Ergebnis: Je Anfrage gibt es ein festes [Grounding-Budget](/wissen/geo-glossar/grounding-budget/) von rund 2.000 Wörtern, verteilt nach Relevanz. Die Quelle auf Rang 1 bekam im Median 531 Wörter (28 %), die auf Rang 5 nur 266 (13 %). Eine typische Seite steuert rund 377 Wörter bei.
+Wie viel Text dabei in eine Antwort gelangt, hat Dan Petrovic (dejan.ai) für Googles KI-Antworten gemessen. Er hat 7.060 Anfragen mit mindestens drei Quellen ausgewertet und die verwendeten Textausschnitte mit 2.275 vollständigen Seiten abgeglichen ([dejan.ai, 20.12.2025](https://dejan.ai/blog/how-big-are-googles-grounding-chunks/)). Das Ergebnis: Je Anfrage gibt es ein festes [Grounding-Budget](/wissen/geo-glossar/grounding-budget/) von rund 2.000 Wörtern, verteilt nach Relevanz. Die Quelle auf Rang 1 bekam im Median 531 Wörter (28 %), die auf Rang 5 nur 266 (13 %). Eine typische Seite steuert rund 377 Wörter bei. Wie groß das Fenster ist, das ein KI-System überhaupt von einer Seite öffnet, und wovon die Auswahl der Passage abhängt, steht im Artikel über [Grounding-Budget und Abruffenster](/blog/grounding-budget-abruffenster/).
 
 ```grafik
 typ: kette
