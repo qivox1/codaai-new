@@ -29,9 +29,13 @@ button{font:inherit;font-size:16px;padding:12px 18px;border-radius:12px;border:0
 <div id="menu">
   <h1>Unterlagen für BERNSTEIN</h1>
   <p>Wähle, was du öffnen möchtest.</p>
-  <button id="b1">Rechner: Ab wann sich ein Weg trägt</button>
+  <button id="d1">Angebot herunterladen (PDF)</button>
+  <button id="b1" class="sec">Rechner: Ab wann sich ein Weg trägt</button>
+  <button id="d2" class="sec">Arbeitsprobe: Fachbeitrag Sicherheitsrelais (PDF)</button>
+  <button id="d3" class="sec">Erläuterung zum Fachbeitrag (PDF)</button>
   <button id="b2" class="sec">Vorschau: LinkedIn-Beitrag Michelle Cub</button>
   <button id="b3" class="sec">Vorschau: LinkedIn-Beitrag Janine Brennenstuhl</button>
+  <div id="err2" style="color:#b00020;font-size:14px;min-height:20px;margin-top:10px"></div>
 </div>
 <div id="view"><button id="back" class="sec" onclick="close_()">Zurück</button><iframe id="fr" sandbox="allow-scripts allow-same-origin allow-popups" allow="clipboard-write"></iframe></div>
 <script>
@@ -53,6 +57,14 @@ track('gate_view');
 <script>
 let PW=null; const enc=new TextEncoder();
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function unlockBytes(file,pw){
+  const r=await fetch(file,{cache:'no-store'}); if(!r.ok) throw new Error('nf');
+  const d=await r.json();
+  const base=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+  const k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(d.salt),iterations:d.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  return crypto.subtle.decrypt({name:'AES-GCM',iv:b64(d.iv)},k,b64(d.data));
+}
+function dl(file,name){unlockBytes(file,PW).then(buf=>{const u=URL.createObjectURL(new Blob([buf],{type:'application/pdf'}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}).catch(()=>{document.getElementById('err2').textContent='Die Datei konnte nicht geladen werden. Bitte lade die Seite neu.';});}
 async function unlock(file,pw){
   const r=await fetch(file,{cache:'no-store'}); if(!r.ok) throw new Error('nf');
   const d=await r.json();
@@ -72,6 +84,9 @@ document.getElementById('f').addEventListener('submit',async e=>{
     document.getElementById('gate').style.display='none'; document.getElementById('menu').style.display='block'; track('login_success');
   }catch(err){ track('login_failed'); document.getElementById('err').textContent='Das Passwort passt nicht. Bitte prüfe die Schreibweise.'; }
 });
+document.getElementById('d1').addEventListener('click',()=>{track('download_angebot');dl('angebot.enc.json','Angebot_KI-Sichtbarkeit_BERNSTEIN_A-2026-1103-01.pdf');});
+document.getElementById('d2').addEventListener('click',()=>{track('download_fachbeitrag');dl('fachbeitrag.enc.json','Arbeitsprobe_Fachbeitrag_Sicherheitsrelais-2027_BERNSTEIN.pdf');});
+document.getElementById('d3').addEventListener('click',()=>{track('download_erlaeuterung');dl('erlaeuterung.enc.json','Erlaeuterung_Fachbeitrag_BERNSTEIN.pdf');});
 document.getElementById('b1').addEventListener('click',()=>{track('open_rechner');show('rechner.enc.json');});
 document.getElementById('b2').addEventListener('click',()=>{track('open_linkedin_michelle');show('linkedin-michelle.enc.json');});
 document.getElementById('b3').addEventListener('click',()=>{track('open_linkedin_janine');show('linkedin-janine.enc.json');});
