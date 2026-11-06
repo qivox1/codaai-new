@@ -50,8 +50,10 @@ export const EXTRA_SOURCES = {
   // 29.10.2026: Kontaktseite — Inhalt liegt in der gemeinsamen Komponente.
   'kontakt': ['src/components/kontakt/KontaktSeite.astro'],
   'en/contact': ['src/components/kontakt/KontaktSeite.astro'],
-  'studie': ['src/data/studie.ts'],
-  'en/study': ['src/data/studie.ts'],
+  'studie-b2b-mittelstand': ['src/data/studie.ts'],
+  'en/study-b2b-mittelstand': ['src/data/studie.ts'],
+  'studie-b2b-tech': ['src/data/studie-b2b-tech.ts', 'src/components/studie/StudieB2BTech.astro'],
+  'en/study-b2b-tech': ['src/data/studie-b2b-tech.ts', 'src/components/studie/StudieB2BTech.astro'],
 };
 
 /** Seiten mit redaktioneller Datumskonstante in einer Datendatei. */
@@ -62,8 +64,10 @@ const DATE_CONSTANTS = {
   'en/facts': ['src/data/fakten.ts', 'FAKTEN_UPDATED'],
   'autor/oliver-parrizas': ['src/data/autor.ts', 'AUTOR_UPDATED'],
   'en/author/oliver-parrizas': ['src/data/autor.ts', 'AUTOR_UPDATED'],
-  'studie': ['src/data/studie.ts', 'STUDIE_UPDATED'],
-  'en/study': ['src/data/studie.ts', 'STUDIE_UPDATED'],
+  'studie-b2b-mittelstand': ['src/data/studie.ts', 'STUDIE_UPDATED'],
+  'en/study-b2b-mittelstand': ['src/data/studie.ts', 'STUDIE_UPDATED'],
+  'studie-b2b-tech': ['src/data/studie-b2b-tech.ts', 'TECH_UPDATED'],
+  'en/study-b2b-tech': ['src/data/studie-b2b-tech.ts', 'TECH_UPDATED'],
 };
 
 const cache = new Map();

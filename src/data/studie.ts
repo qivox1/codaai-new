@@ -2,8 +2,8 @@
  * Studie „KI-Blindtest Mittelstand 2026" — eine Quelle für Kennzahlen,
  * Kernaussagen und Zitierangaben (seit 22.09.2026, Maßnahme 5 „zitierfähig").
  * ---------------------------------------------------------------------------
- * Wer eine Zahl ändert, ändert sie HIER. Seiten (/studie/, /en/study/),
- * Markdown-Fassungen (/studie.md, /en/study.md), die CSV-Downloads und das
+ * Wer eine Zahl ändert, ändert sie HIER. Seiten (/studie-b2b-mittelstand/, /en/study-b2b-mittelstand/),
+ * Markdown-Fassungen (/studie-b2b-mittelstand.md, /en/study-b2b-mittelstand.md), die CSV-Downloads und das
  * Schema lesen alle aus dieser Datei. Bis 22.09.2026 standen die Kennzahlen
  * doppelt in studie.astro und en/study.astro, und an sechs Stellen der Website
  * hieß es fälschlich „bei 47 % der FRAGEN" statt „bei 47 % der UNTERNEHMEN".
@@ -22,13 +22,13 @@ export const STUDIE_PUBLISHED = new Date('2026-07-14T08:00:00+02:00');
 export const STUDIE_UPDATED = new Date('2026-09-22T12:00:00+02:00');
 export const STUDIE_VERSION = '1.0';
 
-export const STUDIE_PATH: Record<StudieLang, string> = { de: '/studie/', en: '/en/study/' };
-export const STUDIE_MD: Record<StudieLang, string> = { de: '/studie.md', en: '/en/study.md' };
-export const STUDIE_CSV: Record<StudieLang, string> = { de: '/studie/kennzahlen.csv', en: '/en/study/key-figures.csv' };
+export const STUDIE_PATH: Record<StudieLang, string> = { de: '/studie-b2b-mittelstand/', en: '/en/study-b2b-mittelstand/' };
+export const STUDIE_MD: Record<StudieLang, string> = { de: '/studie-b2b-mittelstand.md', en: '/en/study-b2b-mittelstand.md' };
+export const STUDIE_CSV: Record<StudieLang, string> = { de: '/studie-b2b-mittelstand/kennzahlen.csv', en: '/en/study-b2b-mittelstand/key-figures.csv' };
 
 export const STUDIE_IDS = {
-  report: `${SITE_URL}/studie/#report`,
-  dataset: `${SITE_URL}/studie/#dataset`,
+  report: `${SITE_URL}/studie-b2b-mittelstand/#report`,
+  dataset: `${SITE_URL}/studie-b2b-mittelstand/#dataset`,
 };
 
 export const STUDIE_TITLE: Record<StudieLang, string> = {
@@ -319,7 +319,7 @@ export function studieSchemas(lang: StudieLang, description: string) {
   return [JSON.stringify(report), JSON.stringify(dataset)];
 }
 
-/** Markdown-Fassung (für /studie.md, /en/study.md): Kernaussagen, Methodik-Kurzfassung, Zitierformate. */
+/** Markdown-Fassung (für /studie-b2b-mittelstand.md, /en/study-b2b-mittelstand.md): Kernaussagen, Methodik-Kurzfassung, Zitierformate. */
 export function studieMarkdown(lang: StudieLang, methodik: { t: string; d: string }[], limitationen: string[]): string {
   const de = lang === 'de';
   const out: string[] = [];

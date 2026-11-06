@@ -30,7 +30,8 @@ export const LOCALE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   // DE-only-Seiten als Paare an.
   ['/digital-visibility/', '/en/digital-visibility/'],
   ['/faq/', '/en/faq/'],
-  ['/studie/', '/en/study/'],
+  ['/studie-b2b-mittelstand/', '/en/study-b2b-mittelstand/'],
+  ['/studie-b2b-tech/', '/en/study-b2b-tech/'],
   ['/webinar/', '/en/webinar/'],
   // 29.10.2026: Kontaktseite wieder eigenständig (04.08.–29.10. noindex-Weiterleitung).
   ['/kontakt/', '/en/contact/'],

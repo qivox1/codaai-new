@@ -1,0 +1,720 @@
+---
+/* ── KI-Blindtest B2B-Tech 2026 — Studienseite (DE + EN) ─────────────────────
+   Seit 06.11.2026. Aufbau nach dem Muster der Mittelstand-Studie
+   (/studie-b2b-mittelstand/): Hero mit Kennzahlen-Band → zentrale Befunde →
+   Inhalt mit Inhaltsverzeichnis → Methodik, Limitationen, Zitieren, FAQ.
+   Alle Zahlen kommen aus src/data/studie-b2b-tech.ts; diese Komponente hält
+   nur Texte und Markup. Die Seitendateien sind dünne Wrapper je Sprache.
+   Keine Firmennamen, Domains oder Wettbewerbernamen aus der Studie.        */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../Navbar.astro';
+import Footer from '../Footer.astro';
+import Breadcrumb from '../Breadcrumb.astro';
+import { AUTOR } from '../../data/autor';
+import {
+  T, SEGMENTE, SYSTEME, VERGLEICH, QUELLEN, TECH_TITLE, TECH_SUBTITLE, TECH_DATENSTAND, TECH_VERSION,
+  TECH_PUBLISHED, TECH_UPDATED, TECH_MD, TECH_CSV, TECH_GRAFIKEN, TECH_METHODIK, TECH_LIMITATIONEN,
+  techKernaussagen, techKurzbeleg, techZitierformate, techSchemas,
+} from '../../data/studie-b2b-tech';
+
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const L = (p: string) => `${base}${p}`;
+const TS = ' ';
+const pc = (v: number, d = 1) => de ? `${v.toLocaleString('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d })}${TS}%` : `${v.toFixed(d)}%`;
+const pc0 = (v: number) => de ? `${v}${TS}%` : `${v}%`;
+const nm = (v: number) => v.toLocaleString(de ? 'de-DE' : 'en-GB');
+const fmtDate = (d: Date) => d.toLocaleDateString(de ? 'de-DE' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+const KERN = techKernaussagen(lang);
+const ZITATE = techZitierformate(lang);
+const [sw, sec, sys] = SEGMENTE;
+const mittelstandHref = de ? L('/studie-b2b-mittelstand/') : L('/en/study-b2b-mittelstand/');
+const webinarHref = de ? L('/webinar/') : L('/en/webinar/');
+const terminHref = de ? L('/#termin') : L('/en/#appointment');
+const authorHref = `${base}${AUTOR.url[lang].replace('https://www.codaai.ai', '')}`;
+
+const C = de ? {
+  title: 'KI-Blindtest B2B-Tech 2026: Die KI schreibt die Shortlist | CodaAI',
+  description: '3.744 KI-Antworten zu 100 IT- und Softwarefirmen: In vier von fünf Antworten fehlt die gefragte Firma. Systemhäuser werden nur in 6 % genannt.',
+  schemaDesc: 'Auswertung von 3.744 KI-Antworten (ChatGPT, Claude, Gemini, Perplexity, Googles KI-Modus, alle mit Websuche) auf 800 Käuferfragen zu 100 Softwareherstellern, Systemhäusern, IT-Dienstleistern und Anbietern für IT-Sicherheit und Cloud: In 79,5 % der Antworten wird die gefragte Firma nicht genannt; in 46,4 % nennt die KI stattdessen einen Wettbewerber.',
+  crumbs: [{ label: 'Start', ariaLabel: 'Zur Startseite', href: L('/') }, { label: 'KI-Blindtest B2B-Tech 2026' }],
+  kicker: 'Datenauswertung · KI-Blindtest B2B-Tech 2026',
+  h1a: 'Die KI schreibt die Shortlist.', h1b: 'Wer steht drauf?',
+  lead: 'Wir haben fünf KI-Systemen die Fragen gestellt, mit denen Einkäufer heute Software und IT-Partner suchen — zu 100 Softwareherstellern, Systemhäusern und IT-Dienstleistern aus dem deutschsprachigen Raum. Ausgerechnet die Branche, die die Technik baut, kommt in den Antworten selten vor.',
+  band: [
+    { n: 100, a: 'untersuchte IT-Firmen', b: 'aus drei Segmenten' },
+    { n: 800, a: 'Käuferfragen', b: 'ohne Firmennamen gestellt' },
+    { n: 3744, a: 'ausgewertete KI-Antworten', b: 'aus fünf KI-Systemen mit Websuche' },
+  ],
+  stand: 'Datenstand', version: 'Version', autor: 'Autor', pub: 'Veröffentlicht', upd: 'Aktualisiert',
+  jump: ['Methodik ↓', 'Limitationen ↓', 'Zitieren ↓'],
+  befundeKicker: 'Zentrale Befunde',
+  befundeH2: 'Einkäufer fragen zuerst die KI — und die meisten IT-Firmen kommen dort nicht vor.',
+  segTitle: 'Wo steht Ihr Segment?', segSub: 'Anteil der KI-Antworten, in denen die gefragte Firma genannt wird',
+  firmen: 'Firmen', nie: (n: number, f: number) => `${n} von ${f} nie genannt`,
+  cards: [
+    { n: '4 von 5', t: 'KI-Antworten nennen die gefragte Firma nicht', d: `Bei typischen Käuferfragen kommt die IT- oder Softwarefirma nur in jeder fünften Antwort vor (${nm(T.genannt)} von ${nm(T.antworten)}).`, b: `${nm(T.antworten)} KI-Antworten` },
+    { n: pc(T.wettbewerberStatt, 0), t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'Die gefragte Firma fehlt, und die KI nennt namentlich einen Wettbewerber. Diese Firma steht dann auf der Shortlist des Kunden.', b: `${nm(T.antworten)} KI-Antworten` },
+    { n: pc0(T.mittelstaendler), t: 'der empfohlenen Wettbewerber sind Mittelständler', d: `Empfohlen wird meist kein Konzern. Bei Fragen nach Systemhäusern sind es sogar ${pc0(sys.mittelstaendler)}. Die Größe allein entscheidet nicht.`, b: `${nm(T.wettbewerberNennungen)} Wettbewerber-Nennungen` },
+  ],
+  basis: 'Basis',
+  toc: 'Inhalt',
+  tocItems: [['zusammenfassung', 'Zusammenfassung'], ['ergebnisse', 'Kernergebnisse'], ['systeme', 'Die fünf KI-Systeme'], ['vergleich', 'Vergleich Mittelstand'], ['wettbewerber', 'Wer empfohlen wird'], ['quellen', 'Quellen der KI'], ['faelle', 'Zwei Fälle'], ['grafiken', 'Grafiken'], ['domain-check', 'Ihre Firma prüfen'], ['methodik', 'Methodik'], ['limitationen', 'Limitationen'], ['zitieren', 'Zitieren'], ['faq', 'Häufige Fragen']],
+  absKicker: 'Abstract', absH2: 'Zusammenfassung',
+  abs1: 'Software und IT-Partner werden zunehmend über KI-Assistenten vorausgewählt — lange bevor ein Anbieter kontaktiert wird. Diese Auswertung misst, ob IT- und Softwarefirmen dort vorkommen. Dazu wurden je Firma acht Käuferfragen ohne Firmennamen an ChatGPT, Claude, Gemini, Perplexity und Googles KI-Modus gestellt, alle mit Websuche, und die Antworten systematisch ausgewertet: Wird die Firma genannt? Wer stattdessen? Auf welche Quellen stützt sich die KI?',
+  abs2: [`Das Ergebnis: Nur in `, pc(T.nennung), ` der ${nm(T.antworten)} Antworten wird die gefragte Firma genannt. Softwarehersteller erreichen `, pc(sw.quote), `, Systemhäuser und IT-Dienstleister nur `, pc(sys.quote), ` — ${sys.nie} von ${sys.firmen} kommen in keiner einzigen Antwort vor. In `, pc(T.wettbewerberStatt), ` der Antworten nennt die KI stattdessen einen Wettbewerber, meist einen Mittelständler. Und die eigene Website dient nur in jeder zehnten Antwort als Quelle.`],
+  resKicker: 'Ergebnisse', resH2: 'Vier Befunde für die IT-Branche',
+  res: [
+    { n: pc(T.nennung), w: T.nennung, t: 'der Antworten nennen die gefragte Firma', d: `${nm(T.genannt)} von ${nm(T.antworten)} Antworten. In vier von fünf Antworten kommt die Firma nicht vor — und keine Statistik zeigt es ihr.` },
+    { n: `${T.nieGenanntN} von ${T.firmen}`, w: T.nieGenanntN, t: 'Firmen werden in keiner einzigen Antwort genannt', d: `Weder bei der Marktübersicht noch beim Anwendungsfall noch im Vergleich. Bei den Systemhäusern und IT-Dienstleistern trifft das ${sys.nie} von ${sys.firmen} Firmen.` },
+    { n: pc(T.wettbewerberStatt), w: T.wettbewerberStatt, t: 'der Antworten nennen einen Wettbewerber statt der Firma', d: `${nm(T.wettbewerberStattN)} Antworten. Bei ${T.firmenMeistErsetzt} der ${T.firmen} Firmen fehlt die Firma in der Mehrzahl der Antworten, während Wettbewerber genannt werden.` },
+    { n: pc(T.websiteQuelle), w: T.websiteQuelle, t: 'der Antworten stützen sich auf die eigene Website', d: `Nur in ${nm(T.websiteQuelleN)} Antworten zitiert die KI die Website der gefragten Firma. ${T.websiteNieN} Firmen werden nie mit ihrer eigenen Website zitiert, bei den Systemhäusern jede zweite.` },
+  ],
+  resNote: `Wo die Firma genannt wird, steht sie im Schnitt auf Platz ${T.avgPosition.toLocaleString('de-DE')}; in ${pc(T.platz1)} dieser Fälle auf Platz 1. Bei Fragen nach einem konkreten Anwendungsfall wird die Firma seltener genannt (17${TS}%) als bei der Marktübersicht ihrer Kategorie (28${TS}%).`,
+  sysKicker: 'Die fünf Systeme', sysH2: 'Kein KI-System ist die Ausnahme',
+  sysLead: 'Dieselben 800 Fragen, fünf Systeme, alle mit Websuche. Die Unterschiede zwischen den Systemen sind klein — der Unterschied zwischen den Segmenten ist groß.',
+  sysHead: ['KI-System', 'Software', 'Systemhaus / IT-DL', 'Sicherheit / Cloud', 'gesamt'],
+  sysNote: 'Anteil der Antworten mit Nennung der gefragten Firma. Gemini antwortete bei Sicherheit und Cloud nur 17-mal; der Wert ist nicht belastbar (—).',
+  vglKicker: 'Vergleich', vglH2: 'Ausgerechnet die Branche, die die Technik baut',
+  vglLead: 'Zum Vergleich mit dem KI-Blindtest Mittelstand 2026 sind die IT-Zahlen so gezählt wie dort: nur ChatGPT und Google, je Frage. Die IT steht schlechter da — und das liegt fast ganz an den Systemhäusern und IT-Dienstleistern.',
+  vglHead: ['Kennzahl', 'Mittelstand (449)', 'IT gesamt (100)', 'Software (40)', 'Systemhaus/IT-DL (40)', 'Sicherheit/Cloud (20)'],
+  vglNote: 'Eingeschränkt vergleichbar: Im Mittelstand (Juni/Juli 2026) antwortete ChatGPT ohne Websuche, gemessen wurde Googles KI-Übersicht; hier suchen alle Systeme im Web, gemessen wurde Googles KI-Modus. Die Richtung ist belastbar, den Abstand bitte nur als Größenordnung lesen.',
+  vglLink: 'Zum KI-Blindtest Mittelstand 2026 →',
+  wbKicker: 'Wer empfohlen wird', wbH2: 'Empfohlen wird meist ein Mittelständler, kein Konzern',
+  wbLead: `Wen die KI statt der gefragten Firma nennt: Anteil der genannten Wettbewerber nach Größe, Grundlage ${nm(T.wettbewerberNennungen)} Nennungen. Als Konzern zählt, wer mehr als 1.000 Beschäftigte hat oder zu einem Konzern gehört.`,
+  wbLegend: ['Mittelständler', 'Konzerne'],
+  wbAll: 'Alle 100 Firmen',
+  qKicker: 'Quellen', qH2: 'Worauf sich die KI stützt',
+  qLead: `Anteil an allen ${nm(T.quellenangaben)} Quellenangaben aus ${nm(T.antwortenMitQuellen)} Antworten mit Quellen (${nm(T.quellenWebsites)} verschiedene Websites). Gerundet.`,
+  qRund: 'rund',
+  qPointe: 'Sieben von zehn Quellen sind Websites von Anbietern — aber nur in jeder zehnten Antwort ist es die Website der gefragten Firma. In 29 % der Antworten mit Quellen dient die Website eines genannten Wettbewerbers als Beleg, oft dessen Ratgeber oder Bestenliste. Vergleichsportale tauchen in mindestens jeder dritten Antwort auf.',
+  fKicker: 'Aus der Messung', fH2: 'Zwei Fälle — anonymisiert',
+  fLead: 'Momentaufnahmen vom 5. November 2026. Firmen- und Wettbewerbernamen sind aus Fairness weggelassen.',
+  faelle: [
+    { k: 'Systemhaus · Frage eines IT-Leiters', s: '2 Fragen · 5 KI-Systeme · 10 Antworten', d: 'In neun von zehn Antworten wird dasselbe mittelständische Systemhaus empfohlen, die zwei bekanntesten Konzerne zusammen in drei. Alle fünf Systeme zitieren eine Seite dieses Systemhauses, die genau diese Frage beantwortet: Zielgruppe, Größe, Preis je Arbeitsplatz, Reaktionszeit, Region, Fragen und Antworten.' },
+    { k: 'Software · Frage nach DSGVO-konformer E-Mail-Marketing-Software', s: '1 Frage · 5 KI-Systeme · 5 Antworten', d: 'Alle fünf Antworten greifen das Datenschutz-Argument auf: Serverstandort, Auftragsverarbeitungsvertrag, Double-Opt-in. Und alle fünf nennen denselben Hersteller, der zu genau diesem Punkt eine eigene, konkrete Seite hat. Mehrere Systeme nutzen genau diese Seite als Beleg.' },
+  ],
+  gKicker: 'Zum Mitnehmen', gH2: 'Grafiken zum Herunterladen',
+  gLead: 'Die vier zentralen Grafiken als PNG (3.200 px breit) und als PDF für den Druck. Frei verwendbar mit der Quellenzeile, die in jeder Grafik steht.',
+  grafiken: [
+    ['Grafik-1_Nennung-je-Segment', 'Nennung je Segment'],
+    ['Grafik-2_Vergleich-Mittelstand', 'Vergleich mit dem Mittelstand'],
+    ['Grafik-3_Konzern-oder-Mittelstaendler', 'Konzern oder Mittelständler'],
+    ['Grafik-4_Quellenarten', 'Worauf sich die KI stützt'],
+  ],
+  gAlt: 'Balkengrafik: Softwarehersteller werden in 33 % der KI-Antworten genannt, Anbieter für IT-Sicherheit und Cloud in 25 %, Systemhäuser und IT-Dienstleister in 6 %.',
+  dcKicker: 'Der Test für Ihre Firma', dcH2: 'Und Ihre Firma — auf der Shortlist?',
+  dcLead: 'Dieselbe Methodik, angewendet auf Ihr Unternehmen: Ihre acht Käuferfragen, die echten KI-Antworten, Ihre Wettbewerber. Geben Sie Ihre Domain ein.',
+  dcLabel: 'Ihre Firmen-Domain', dcPh: 'ihre-firma.de', dcBtn: 'Sichtbarkeit prüfen',
+  dcKnown: ['Für ', ' liegt bereits eine vollständige Sichtbarkeits-Analyse vor.'], dcKnownBtn: 'Zur persönlichen Analyse →',
+  dcResp: ['Danke — wir prüfen ', ' mit der Methodik dieser Auswertung. Die Ergebnisse besprechen wir in 30 Minuten, ohne Verkaufsdruck.'], dcRespBtn: 'Analyse anfordern (30-Min-Termin) →',
+  dcFine: 'Kostenlos · keine Registrierung für die Prüfung · Ergebnisse werden nicht veröffentlicht.',
+  wKicker: 'Live-Webinar', wH2: 'Die Ergebnisse live — am 24. November',
+  wLead: 'Am Dienstag, 24. November 2026, 11:00–12:00 Uhr, zeigen wir die Studie gemeinsam mit Norbert Schuster: wie Buying Center Software und IT-Partner auswählen, und warum die KI die Shortlist schreibt. Für Softwarehersteller, Systemhäuser und IT-Dienstleister.',
+  wRole: 'Strategieberater, Autor & Speaker · u. a. Haufe-Standardwerk „Digitalisierung in Marketing und Vertrieb"',
+  wBtn: 'Kostenlos anmelden →', wFine: 'Aufzeichnung und Leitfaden für alle Angemeldeten',
+  mKicker: 'Transparenz', mH2: 'Methodik',
+  lKicker: 'Ehrlichkeit vor Effekt', lH2: 'Limitationen', lLead: 'Eine Auswertung ist nur so glaubwürdig wie die Grenzen, die sie selbst benennt.',
+  zH2: 'Diese Auswertung zitieren',
+  zLead: 'Die aggregierten Kennzahlen dürfen mit Quellenangabe frei zitiert werden — in Artikeln, Vorträgen, Büchern und Präsentationen. Bitte immer die Bezugsgröße mitnennen (Anteil der Antworten oder Anzahl der Firmen) und den Hinweis, dass es sich um keine Zufallsstichprobe handelt.',
+  zKern: 'Kernaussagen zum Zitieren', zKernSub: 'Jede Aussage steht für sich und hat einen eigenen Link (Symbol #).', zLinkSr: ' Link zu dieser Aussage ',
+  zVor: 'Zitiervorschlag', zCopy: 'Kopieren', zCopied: 'Kopiert ✓',
+  zData: 'Daten und Fassungen', zCsv: 'Kennzahlen als CSV ↓', zCsvD: 'alle aggregierten Werte mit Einheit — zum Nachrechnen und für eigene Grafiken', zMd: 'Textfassung (Markdown) →', zMdD: 'die ganze Auswertung als reiner Text, auch für KI-Assistenten',
+  zMail: 'Rückfragen zur Methodik:', zPub: 'Angaben zum Herausgeber für Quellenverzeichnisse:', zPubLink: 'Fakten zu CodaAI', zPubHref: L('/fakten/'),
+  faqH2: 'Häufige Fragen',
+  faq: [
+    { q: 'Ist der KI-Blindtest B2B-Tech 2026 repräsentativ für die IT-Branche?', a: 'Nein, und das behaupten wir nicht. Die 100 Firmen stammen aus Verbands-, Siegel- und Partnerverzeichnissen und haben 20 bis 1.000 Mitarbeitende. Die Ergebnisse gelten für diese Firmen. Die Richtung deckt sich mit dem KI-Blindtest Mittelstand 2026 mit 449 Unternehmen.' },
+    { q: 'Warum wurden die KI-Systeme mit Websuche abgefragt?', a: 'Weil Einkäufer sie so nutzen: ChatGPT, Claude, Gemini, Perplexity und Googles KI-Modus suchen heute bei Kauffragen meist im Web, bevor sie antworten. So zeigt die Messung auch, auf welche Quellen sich die Systeme stützen.' },
+    { q: 'Warum schneiden Systemhäuser und IT-Dienstleister so schlecht ab?', a: 'Die Daten zeigen einen Zusammenhang: Ihre Websites dienen nur in 3 % der Antworten als Quelle, bei Softwareherstellern sind es 15 %. Wo ein Systemhaus eine Seite hat, die die konkrete Kundenfrage beantwortet, wird es empfohlen — auch gegen Konzerne. Eine Ursache im strengen Sinn belegt die Messung nicht.' },
+    { q: 'Werden die Namen der untersuchten Firmen veröffentlicht?', a: 'Nein. Veröffentlicht werden nur aggregierte Kennzahlen. Einzelergebnisse sind unternehmensbezogen und gehen nur an das jeweilige Unternehmen, wenn es eine Auswertung anfragt.' },
+    { q: 'Kann ich die Sichtbarkeit meiner IT-Firma prüfen lassen?', a: 'Ja. Mit derselben Methodik erstellen wir eine Auswertung für Ihr Unternehmen — mit Ihren Käuferfragen, den echten KI-Antworten und den Wettbewerbern, die statt Ihnen genannt werden. Geben Sie dazu auf dieser Seite Ihre Domain ein.' },
+  ],
+  ctaH2: '30 Minuten, ein klarer Befund.',
+  ctaLead: 'Kein Verkaufsgespräch: Wir zeigen Ihnen, ob die KI Ihre Firma auf die Shortlist setzt — und die zwei bis drei Hebel, die bei Ihnen am schnellsten wirken.',
+  ctaBtn: 'Kostenloses Erstgespräch buchen →',
+} : {
+  title: 'AI Blind Test B2B Tech 2026: AI writes the shortlist | CodaAI',
+  description: '3,744 AI answers on 100 IT and software companies: in four out of five answers the company is missing. System integrators are named in just 6%.',
+  schemaDesc: 'Analysis of 3,744 AI answers (ChatGPT, Claude, Gemini, Perplexity, Google AI Mode, all with web search) to 800 buyer questions on 100 software vendors, system integrators, IT service providers and IT security and cloud providers: in 79.5% of answers the company asked about is not named; in 46.4% the AI names a competitor instead.',
+  crumbs: [{ label: 'Home', ariaLabel: 'To the homepage', href: L('/en/') }, { label: 'AI Blind Test B2B Tech 2026' }],
+  kicker: 'Data analysis · AI Blind Test B2B Tech 2026',
+  h1a: 'AI writes the shortlist.', h1b: 'Who is on it?',
+  lead: 'We put the questions buyers use to find software and IT partners to five AI systems — about 100 software vendors, system integrators and IT service providers from the German-speaking market. Of all industries, the one that builds the technology rarely appears in the answers.',
+  band: [
+    { n: 100, a: 'IT companies examined', b: 'across three segments' },
+    { n: 800, a: 'buyer questions', b: 'asked without the company name' },
+    { n: 3744, a: 'AI answers analysed', b: 'from five AI systems with web search' },
+  ],
+  stand: 'Data as of', version: 'Version', autor: 'Author', pub: 'Published', upd: 'Updated',
+  jump: ['Methodology ↓', 'Limitations ↓', 'How to cite ↓'],
+  befundeKicker: 'Key findings',
+  befundeH2: 'Buyers ask the AI first — and most IT companies are not in the answer.',
+  segTitle: 'Where does your segment stand?', segSub: 'Share of AI answers that name the company asked about',
+  firmen: 'companies', nie: (n: number, f: number) => `${n} of ${f} never named`,
+  cards: [
+    { n: '4 in 5', t: 'AI answers do not name the company asked about', d: `For typical buyer questions the IT or software company appears in only one answer in five (${nm(T.genannt)} of ${nm(T.antworten)}).`, b: `${nm(T.antworten)} AI answers` },
+    { n: pc(T.wettbewerberStatt, 0), t: 'of answers name a competitor instead', d: 'The company is missing and the AI names a competitor outright. That firm is then on the customer’s shortlist.', b: `${nm(T.antworten)} AI answers` },
+    { n: pc0(T.mittelstaendler), t: 'of the competitors recommended are mid-sized firms', d: `It is usually not a corporation. For questions about system integrators it is ${pc0(sys.mittelstaendler)}. Size alone does not decide.`, b: `${nm(T.wettbewerberNennungen)} competitor mentions` },
+  ],
+  basis: 'Base',
+  toc: 'Contents',
+  tocItems: [['zusammenfassung', 'Summary'], ['ergebnisse', 'Key results'], ['systeme', 'The five AI systems'], ['vergleich', 'Mittelstand comparison'], ['wettbewerber', 'Who gets recommended'], ['quellen', 'Sources'], ['faelle', 'Two cases'], ['grafiken', 'Charts'], ['domain-check', 'Check your company'], ['methodik', 'Methodology'], ['limitationen', 'Limitations'], ['zitieren', 'How to cite'], ['faq', 'FAQ']],
+  absKicker: 'Abstract', absH2: 'Summary',
+  abs1: 'Software and IT partners are increasingly shortlisted through AI assistants — long before a vendor is contacted. This analysis measures whether IT and software companies appear there. For each company we put eight buyer questions without the company name to ChatGPT, Claude, Gemini, Perplexity and Google AI Mode, all with web search, and evaluated the answers systematically: is the company named? Who is named instead? Which sources does the AI rely on?',
+  abs2: [`The result: the company is named in only `, pc(T.nennung), ` of the ${nm(T.antworten)} answers. Software vendors reach `, pc(sw.quote), `, system integrators and IT service providers only `, pc(sys.quote), ` — ${sys.nie} of ${sys.firmen} do not appear in a single answer. In `, pc(T.wettbewerberStatt), ` of answers the AI names a competitor instead, usually a mid-sized firm. And the company's own website is a source in only one answer in ten.`],
+  resKicker: 'Results', resH2: 'Four findings for the IT industry',
+  res: [
+    { n: pc(T.nennung), w: T.nennung, t: 'of answers name the company asked about', d: `${nm(T.genannt)} of ${nm(T.antworten)} answers. In four out of five answers the company does not appear — and no statistic tells it so.` },
+    { n: `${T.nieGenanntN} of ${T.firmen}`, w: T.nieGenanntN, t: 'companies are not named in a single answer', d: `Not in the market overview, not in the use case, not in the comparison. Among system integrators and IT service providers this applies to ${sys.nie} of ${sys.firmen}.` },
+    { n: pc(T.wettbewerberStatt), w: T.wettbewerberStatt, t: 'of answers name a competitor instead of the company', d: `${nm(T.wettbewerberStattN)} answers. For ${T.firmenMeistErsetzt} of the ${T.firmen} companies, the company is missing from most answers while competitors are named.` },
+    { n: pc(T.websiteQuelle), w: T.websiteQuelle, t: 'of answers rely on the company’s own website', d: `The AI cites the company’s website in only ${nm(T.websiteQuelleN)} answers. ${T.websiteNieN} companies are never cited with their own website — every second system integrator.` },
+  ],
+  resNote: `Where the company is named, its average position is ${T.avgPosition.toFixed(1)}; in ${pc(T.platz1)} of those cases it takes first place. Questions about a concrete use case name the company less often (17%) than the market overview of its category (28%).`,
+  sysKicker: 'The five systems', sysH2: 'No AI system is the exception',
+  sysLead: 'The same 800 questions, five systems, all with web search. The differences between systems are small — the difference between segments is large.',
+  sysHead: ['AI system', 'Software', 'System integrator / IT services', 'Security / cloud', 'total'],
+  sysNote: 'Share of answers naming the company asked about. Gemini answered only 17 times for security and cloud; that value is not reliable (—).',
+  vglKicker: 'Comparison', vglH2: 'Of all industries, the one that builds the technology',
+  vglLead: 'To compare with the KI-Blindtest Mittelstand 2026, the IT figures are counted the same way: ChatGPT and Google only, per question. IT does worse — almost entirely because of system integrators and IT service providers.',
+  vglHead: ['Metric', 'Mittelstand (449)', 'IT total (100)', 'Software (40)', 'Integrator/IT services (40)', 'Security/cloud (20)'],
+  vglNote: 'Only partly comparable: in the Mittelstand study (June/July 2026) ChatGPT answered without web search and Google AI Overviews were measured; here all systems search the web and Google AI Mode was measured. The direction is robust; read the gap as an order of magnitude only.',
+  vglLink: 'Go to the AI Blind Test 2026 (Mittelstand) →',
+  wbKicker: 'Who gets recommended', wbH2: 'Usually a mid-sized firm, not a corporation',
+  wbLead: `Who the AI names instead of the company: share of competitors named, by size, based on ${nm(T.wettbewerberNennungen)} mentions. A corporation has more than 1,000 employees or belongs to a group.`,
+  wbLegend: ['Mid-sized firms', 'Corporations'],
+  wbAll: 'All 100 companies',
+  qKicker: 'Sources', qH2: 'What the AI relies on',
+  qLead: `Share of all ${nm(T.quellenangaben)} source citations from ${nm(T.antwortenMitQuellen)} answers with sources (${nm(T.quellenWebsites)} different websites). Rounded.`,
+  qRund: 'around',
+  qPointe: 'Seven in ten sources are vendor websites — but only in one answer in ten is it the website of the company asked about. In 29% of answers with sources, the website of a named competitor serves as evidence, often its guide or best-of list. Comparison portals appear in at least one answer in three.',
+  fKicker: 'From the measurement', fH2: 'Two cases — anonymised',
+  fLead: 'Snapshots from 5 November 2026. Company and competitor names are omitted for fairness.',
+  faelle: [
+    { k: 'System integrator · question from a head of IT', s: '2 questions · 5 AI systems · 10 answers', d: 'In nine of ten answers the same mid-sized system integrator is recommended, the two best-known corporations together in three. All five systems cite a page of this integrator that answers exactly this question: target group, size, price per workstation, response time, region, questions and answers.' },
+    { k: 'Software · question about GDPR-compliant email marketing software', s: '1 question · 5 AI systems · 5 answers', d: 'All five answers pick up the data protection argument: server location, data processing agreement, double opt-in. And all five name the same vendor, which has its own concrete page on exactly this point. Several systems use exactly that page as evidence.' },
+  ],
+  gKicker: 'To take away', gH2: 'Charts to download',
+  gLead: 'The four key charts as PNG (3,200 px wide) and as PDF for print — labelled in German. Free to use with the source line shown in each chart.',
+  grafiken: [
+    ['Grafik-1_Nennung-je-Segment', 'Mentions by segment'],
+    ['Grafik-2_Vergleich-Mittelstand', 'Comparison with the Mittelstand'],
+    ['Grafik-3_Konzern-oder-Mittelstaendler', 'Corporation or mid-sized firm'],
+    ['Grafik-4_Quellenarten', 'What the AI relies on'],
+  ],
+  gAlt: 'Bar chart: software vendors are named in 33% of AI answers, IT security and cloud providers in 25%, system integrators and IT service providers in 6%.',
+  dcKicker: 'The test for your company', dcH2: 'And your company — on the shortlist?',
+  dcLead: 'The same method, applied to your company: your eight buyer questions, the real AI answers, your competitors. Enter your domain.',
+  dcLabel: 'Your company domain', dcPh: 'your-company.com', dcBtn: 'Check visibility',
+  dcKnown: ['A full visibility analysis is already available for ', '.'], dcKnownBtn: 'Go to your analysis →',
+  dcResp: ['Thank you — we will check ', ' using the method of this analysis. We discuss the results in 30 minutes, without sales pressure.'], dcRespBtn: 'Request the analysis (30-min call) →',
+  dcFine: 'Free · no registration for the check · results are not published.',
+  wKicker: 'Live webinar', wH2: 'The results live — on 24 November',
+  wLead: 'On Tuesday, 24 November 2026, 11:00–12:00 CET, we present the study together with Norbert Schuster: how buying centres choose software and IT partners, and why AI writes the shortlist. For software vendors, system integrators and IT service providers. Held in German.',
+  wRole: 'Strategy consultant, author & speaker · author of a Haufe standard work on digitalisation in marketing and sales',
+  wBtn: 'Register free →', wFine: 'Recording and guide for everyone registered (in German)',
+  mKicker: 'Transparency', mH2: 'Methodology',
+  lKicker: 'Honesty before effect', lH2: 'Limitations', lLead: 'An analysis is only as credible as the limits it names itself.',
+  zH2: 'How to cite this analysis',
+  zLead: 'The aggregated figures may be quoted freely with attribution — in articles, talks, books and presentations. Please always state the base (share of answers or number of companies) and note that this is not a random sample.',
+  zKern: 'Key statements to quote', zKernSub: 'Each statement stands on its own and has its own link (symbol #).', zLinkSr: ' Link to statement ',
+  zVor: 'Suggested citation', zCopy: 'Copy', zCopied: 'Copied ✓',
+  zData: 'Data and versions', zCsv: 'Key figures as CSV ↓', zCsvD: 'all aggregated values with unit — for checking and your own charts', zMd: 'Text version (Markdown) →', zMdD: 'the whole analysis as plain text, also for AI assistants',
+  zMail: 'Questions on the method:', zPub: 'Publisher details for reference lists:', zPubLink: 'Facts about CodaAI', zPubHref: L('/en/facts/'),
+  faqH2: 'FAQ',
+  faq: [
+    { q: 'Is the AI Blind Test B2B Tech 2026 representative of the IT industry?', a: 'No, and we do not claim it is. The 100 companies come from association, label and partner directories and have 20 to 1,000 employees. The results hold for these companies. The direction matches the KI-Blindtest Mittelstand 2026 with 449 companies.' },
+    { q: 'Why were the AI systems queried with web search?', a: 'Because that is how buyers use them: ChatGPT, Claude, Gemini, Perplexity and Google AI Mode usually search the web before answering purchase questions. This also shows which sources the systems rely on.' },
+    { q: 'Why do system integrators and IT service providers do so badly?', a: 'The data shows a correlation: their websites are a source in only 3% of answers, compared with 15% for software vendors. Where an integrator has a page that answers the concrete customer question, it gets recommended — even against corporations. The measurement does not prove a cause in the strict sense.' },
+    { q: 'Are the names of the companies examined published?', a: 'No. Only aggregated figures are published. Individual results are company-specific and go only to the company concerned if it asks for an analysis.' },
+    { q: 'Can I have the visibility of my IT company checked?', a: 'Yes. Using the same method we create an analysis for your company — with your buyer questions, the real AI answers and the competitors named instead of you. Enter your domain on this page.' },
+  ],
+  ctaH2: '30 minutes, one clear finding.',
+  ctaLead: 'No sales pitch: we show you whether AI puts your company on the shortlist — and the two or three levers that work fastest for you.',
+  ctaBtn: 'Book a free intro call →',
+};
+
+const [reportSchema, datasetSchema] = techSchemas(lang, C.schemaDesc);
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: C.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+const vgl = (v: number) => pc0(v);
+---
+
+<Layout lang={lang} title={C.title} description={C.description} jsonLd={[reportSchema, datasetSchema, faqSchema]} mdVariant={TECH_MD[lang]}>
+  <Navbar lang={lang} />
+  <main id="main-content" class="pt-24 lg:pt-28">
+
+    <!-- ── Hero ── -->
+    <section class="relative overflow-hidden border-b border-border bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+        <Breadcrumb items={C.crumbs} class="mb-8" />
+        <div class="max-w-3xl">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-cta-accessible">{C.kicker}</p>
+          <h1 class="cai-h1 cai-kipp text-foreground">
+            <span class="k1 block">{C.h1a}</span>
+            <span class="k2 block">{C.h1b}</span>
+          </h1>
+          <p class="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl">{C.lead}</p>
+        </div>
+        <dl class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3">
+          {C.band.map((b, i) => (
+            <div class="bg-card px-8 py-8 text-center">
+              <dd class="text-4xl font-bold tabular-nums tracking-tight text-foreground lg:text-5xl" data-count={b.n}>{nm(b.n)}</dd>
+              <dt class="mt-2 text-sm font-medium text-muted-foreground"><span class="block">{b.a}</span><span class="block">{b.b}</span></dt>
+            </div>
+          ))}
+        </dl>
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+          <span>{C.stand}: {TECH_DATENSTAND[lang]}</span>
+          <span>{C.version} {TECH_VERSION}</span>
+          <span>{C.autor}: <a href={authorHref} rel="author" class="font-medium text-foreground hover:text-cta">{AUTOR.name}</a></span>
+          <span>{C.pub} <time datetime={TECH_PUBLISHED.toISOString()}>{fmtDate(TECH_PUBLISHED)}</time> · {C.upd} <time datetime={TECH_UPDATED.toISOString()}>{fmtDate(TECH_UPDATED)}</time></span>
+          <a href="#methodik" class="font-medium text-cta-accessible transition-colors hover:text-cta">{C.jump[0]}</a>
+          <a href="#limitationen" class="font-medium text-cta-accessible transition-colors hover:text-cta">{C.jump[1]}</a>
+          <a href="#zitieren" class="font-medium text-cta-accessible transition-colors hover:text-cta">{C.jump[2]}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Zentrale Befunde: Segmentvergleich + drei Karten ── -->
+    <section aria-labelledby="h-befunde" class="border-b border-border bg-background">
+      <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.befundeKicker}</p>
+        <h2 id="h-befunde" class="cai-h2 text-foreground">{C.befundeH2}</h2>
+        <figure class="tx-seg mt-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
+          <figcaption>
+            <p class="text-lg font-semibold text-foreground">{C.segTitle}</p>
+            <p class="mt-1 text-sm text-muted-foreground">{C.segSub}</p>
+          </figcaption>
+          <ul class="mt-6 space-y-5">
+            {SEGMENTE.map((s) => (
+              <li class="tx-row">
+                <div><span class="font-semibold text-foreground">{de ? s.de : s.en}</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· {s.firmen} {C.firmen}</span></div>
+                <div class="tx-track" aria-hidden="true"><span class:list={['tx-bar', { 'tx-hot': s.key === 'systemhaus' }]} style={`--w:${s.quote}%`}></span></div>
+                <div><span class="text-xl font-bold tabular-nums text-foreground">{pc(s.quote, 0)}</span> <span class="text-sm text-muted-foreground">{C.nie(s.nie, s.firmen)}</span></div>
+              </li>
+            ))}
+          </ul>
+        </figure>
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          {C.cards.map((c) => (
+            <article class="tx-card flex flex-col rounded-2xl p-8">
+              <span class="text-5xl font-bold tabular-nums tracking-tight text-foreground">{c.n}</span>
+              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{c.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{c.d}</p>
+              <p class="tx-base mt-6 pt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{C.basis}: {c.b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Inhalt + TOC ── -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
+        <aside class="hidden lg:block">
+          <nav aria-label={C.toc} class="sticky top-28 py-16 text-sm">
+            <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{C.toc}</p>
+            <ol class="space-y-3 border-l border-border">
+              {C.tocItems.map(([id, label]) => (
+                <li><a href={`#${id}`} class="-ml-px block border-l-2 border-transparent pl-4 text-muted-foreground transition-colors hover:border-cta hover:text-foreground">{label}</a></li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="min-w-0">
+
+          <section id="zusammenfassung" aria-labelledby="h-zusammenfassung" class="scroll-mt-28 py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.absKicker}</p>
+            <h2 id="h-zusammenfassung" class="cai-h2 text-foreground">{C.absH2}</h2>
+            <div class="mt-8 rounded-2xl border-l-4 border-cta bg-muted/30 p-8">
+              <p class="text-lg leading-relaxed text-foreground">{C.abs1}</p>
+              <p class="mt-4 text-lg leading-relaxed text-foreground">
+                {C.abs2.map((part, i) => (i % 2 === 1 ? <strong>{part}</strong> : part))}
+              </p>
+            </div>
+          </section>
+
+          <section id="ergebnisse" aria-labelledby="h-ergebnisse" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.resKicker}</p>
+            <h2 id="h-ergebnisse" class="cai-h2 text-foreground">{C.resH2}</h2>
+            <div class="mt-10 grid gap-6 sm:grid-cols-2">
+              {C.res.map((r) => (
+                <article class="flex flex-col rounded-2xl border border-border bg-card p-8">
+                  <span class="text-5xl font-bold tabular-nums tracking-tight text-foreground">{r.n}</span>
+                  <h3 class="mt-4 text-lg font-semibold text-foreground">{r.t}</h3>
+                  <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{r.d}</p>
+                  <div class="mt-6 h-2 overflow-hidden rounded-full bg-muted" aria-hidden="true"><div class="h-full rounded-full tx-navy" style={`width:${r.w}%`}></div></div>
+                </article>
+              ))}
+            </div>
+            <p class="mt-6 text-xs leading-relaxed text-muted-foreground">{C.resNote}</p>
+          </section>
+
+          <section id="systeme" aria-labelledby="h-systeme" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.sysKicker}</p>
+            <h2 id="h-systeme" class="cai-h2 text-foreground">{C.sysH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.sysLead}</p>
+            <div class="mt-8 overflow-x-auto rounded-2xl border border-border bg-card">
+              <table class="w-full min-w-[560px] text-sm">
+                <thead><tr class="border-b border-border text-left text-muted-foreground">{C.sysHead.map((h, i) => <th scope="col" class={`px-5 py-3 font-semibold ${i ? 'text-right' : ''}`}>{h}</th>)}</tr></thead>
+                <tbody>
+                  {SYSTEME.map((s) => (
+                    <tr class="border-b border-border last:border-0">
+                      <th scope="row" class="px-5 py-3 text-left font-semibold text-foreground">{!de && s.nameEn ? s.nameEn : s.name}</th>
+                      <td class="px-5 py-3 text-right tabular-nums">{pc0(s.software)}</td>
+                      <td class="px-5 py-3 text-right tabular-nums">{pc0(s.systemhaus)}</td>
+                      <td class="px-5 py-3 text-right tabular-nums">{s.security === null ? '—' : pc0(s.security)}</td>
+                      <td class="px-5 py-3 text-right font-semibold tabular-nums text-foreground">{pc(s.gesamt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-xs text-muted-foreground">{C.sysNote}</p>
+          </section>
+
+          <section id="vergleich" aria-labelledby="h-vergleich" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.vglKicker}</p>
+            <h2 id="h-vergleich" class="cai-h2 text-foreground">{C.vglH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.vglLead}</p>
+            <div class="mt-8 overflow-x-auto rounded-2xl border border-border bg-card">
+              <table class="w-full min-w-[680px] text-sm">
+                <thead><tr class="border-b border-border text-left text-muted-foreground">{C.vglHead.map((h, i) => <th scope="col" class={`px-4 py-3 font-semibold ${i ? 'text-right' : ''}`}>{h}</th>)}</tr></thead>
+                <tbody>
+                  {VERGLEICH.map((v) => (
+                    <tr class="border-b border-border last:border-0">
+                      <th scope="row" class="px-4 py-3 text-left font-semibold text-foreground">{de ? v.de : v.en}</th>
+                      <td class="px-4 py-3 text-right tabular-nums text-muted-foreground">{vgl(v.mittelstand)}</td>
+                      <td class="px-4 py-3 text-right font-semibold tabular-nums text-foreground">{vgl(v.it)}</td>
+                      <td class="px-4 py-3 text-right tabular-nums">{vgl(v.software)}</td>
+                      <td class="px-4 py-3 text-right font-semibold tabular-nums text-foreground">{vgl(v.systemhaus)}</td>
+                      <td class="px-4 py-3 text-right tabular-nums">{vgl(v.security)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">{C.vglNote}</p>
+            <a href={mittelstandHref} class="mt-5 inline-block text-sm font-semibold text-cta-accessible hover:text-cta">{C.vglLink}</a>
+          </section>
+
+          <section id="wettbewerber" aria-labelledby="h-wettbewerber" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.wbKicker}</p>
+            <h2 id="h-wettbewerber" class="cai-h2 text-foreground">{C.wbH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.wbLead}</p>
+            <div class="mt-8 rounded-2xl border border-border bg-card p-6 sm:p-8">
+              <p class="flex flex-wrap gap-6 text-sm text-muted-foreground"><span><i class="tx-key tx-navy"></i>{C.wbLegend[0]}</span><span><i class="tx-key tx-light"></i>{C.wbLegend[1]}</span></p>
+              <ul class="mt-6 space-y-4">
+                {[{ l: C.wbAll, m: T.mittelstaendler }, ...SEGMENTE.map((s) => ({ l: de ? s.de : s.en, m: s.mittelstaendler }))].map((r) => (
+                  <li class="tx-stack-row">
+                    <span class="font-semibold text-foreground">{r.l}</span>
+                    <div class="tx-stack" role="img" aria-label={`${r.l}: ${pc0(r.m)} ${C.wbLegend[0]}, ${pc0(100 - r.m)} ${C.wbLegend[1]}`}>
+                      <span class="tx-navy" style={`width:${r.m}%`}>{pc0(r.m)}</span>
+                      <span class="tx-light" style={`width:${100 - r.m}%`}>{pc0(100 - r.m)}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section id="quellen" aria-labelledby="h-quellen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.qKicker}</p>
+            <h2 id="h-quellen" class="cai-h2 text-foreground">{C.qH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.qLead}</p>
+            <div class="mt-8 space-y-4 rounded-2xl border border-border bg-card p-6 sm:p-8">
+              {QUELLEN.map((q) => (
+                <div class="tx-q">
+                  <span class="text-sm font-semibold text-foreground">{de ? q.de : q.en}</span>
+                  <div class="tx-track" aria-hidden="true"><span class="tx-bar" style={`--w:${q.anteil}%`}></span></div>
+                  <span class="text-sm font-bold tabular-nums text-foreground">{q.anteil >= 10 ? `${C.qRund} ` : ''}{pc0(q.anteil)}</span>
+                </div>
+              ))}
+            </div>
+            <p class="mt-6 max-w-3xl leading-relaxed text-foreground">{C.qPointe}</p>
+          </section>
+
+          <section id="faelle" aria-labelledby="h-faelle" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.fKicker}</p>
+            <h2 id="h-faelle" class="cai-h2 text-foreground">{C.fH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.fLead}</p>
+            <div class="mt-10 space-y-4">
+              {C.faelle.map((f) => (
+                <details class="cai-acc group rounded-2xl border border-border bg-card open:border-cta/40 open:shadow-sm">
+                  <summary class="cai-acc-head flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-widest text-cta-accessible">{f.k}</p>
+                      <p class="mt-1 text-sm text-muted-foreground">{f.s}</p>
+                    </div>
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <p class="border-t border-border px-6 py-6 leading-relaxed text-foreground">{f.d}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <section id="grafiken" aria-labelledby="h-grafiken" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.gKicker}</p>
+            <h2 id="h-grafiken" class="cai-h2 text-foreground">{C.gH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.gLead}</p>
+            <img src={`${base}${TECH_GRAFIKEN}Grafik-1_Nennung-je-Segment.png`} alt={C.gAlt} width="3200" height="1600" loading="lazy" decoding="async" class="mt-8 w-full rounded-2xl border border-border" />
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+              {C.grafiken.map(([file, label]) => (
+                <li class="rounded-2xl border border-border bg-card p-5">
+                  <p class="font-semibold text-foreground">{label}</p>
+                  <p class="mt-2 flex gap-4 text-sm">
+                    <a href={`${base}${TECH_GRAFIKEN}${file}.png`} download class="font-semibold text-cta-accessible hover:text-cta">PNG ↓</a>
+                    <a href={`${base}${TECH_GRAFIKEN}${file}.pdf`} download class="font-semibold text-cta-accessible hover:text-cta">PDF ↓</a>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="domain-check" aria-labelledby="h-domain-check" class="scroll-mt-28 border-t border-border py-16">
+            <div data-theme="dark" class="rounded-3xl bg-background p-8 text-foreground sm:p-12">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta">{C.dcKicker}</p>
+              <h2 id="h-domain-check" class="cai-h2">{C.dcH2}</h2>
+              <p class="mt-4 max-w-2xl text-base leading-relaxed text-ondark-muted">{C.dcLead}</p>
+              <form id="domain-check-form" class="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row" novalidate>
+                <label for="domain-input" class="sr-only">{C.dcLabel}</label>
+                <input id="domain-input" name="domain" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder={C.dcPh} class="w-full flex-1 rounded-xl border border-foreground/20 bg-foreground/10 px-5 py-3.5 text-base text-foreground placeholder:text-foreground/50 focus:border-cta focus:outline-none focus:ring-2 focus:ring-cta/50" required />
+                <button type="submit" class="rounded-[14px] bg-cta-strong px-7 py-3.5 text-base font-semibold text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2 focus:ring-offset-transparent">{C.dcBtn}</button>
+              </form>
+              <div id="domain-known" class="mt-6 hidden rounded-xl border border-cta/40 bg-cta/10 p-5">
+                <p class="text-sm leading-relaxed">{C.dcKnown[0]}<strong id="domain-known-name" class="text-cta"></strong>{C.dcKnown[1]}</p>
+                <a id="domain-known-link" href="#" class="mt-3 inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">{C.dcKnownBtn}</a>
+              </div>
+              <div id="domain-response" class="mt-6 hidden rounded-xl border border-foreground/20 bg-foreground/10 p-5">
+                <p class="text-sm leading-relaxed">{C.dcResp[0]}<strong id="domain-response-name" class="text-cta"></strong>{C.dcResp[1]}</p>
+                <a href={terminHref} class="mt-3 inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90">{C.dcRespBtn}</a>
+              </div>
+              <p class="mt-6 text-xs text-ondark-muted">{C.dcFine}</p>
+            </div>
+          </section>
+
+          <section id="webinar" aria-labelledby="h-webinar" class="scroll-mt-28 border-t border-border py-16">
+            <div class="grid items-center gap-10 rounded-3xl bg-muted p-8 sm:p-12 lg:grid-cols-[1fr_auto]">
+              <div>
+                <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.wKicker}</p>
+                <h2 id="h-webinar" class="cai-h2 text-foreground">{C.wH2}</h2>
+                <p class="mt-4 max-w-2xl leading-relaxed text-muted-foreground">{C.wLead}</p>
+                <div class="mt-5 flex items-center gap-3">
+                  <img src={`${base}/images/speaker-norbert-schuster.webp`} alt="Norbert Schuster" width="400" height="400" loading="lazy" decoding="async" class="h-12 w-12 shrink-0 rounded-full object-cover" />
+                  <p class="text-sm leading-snug"><span class="font-semibold text-foreground">Norbert Schuster</span><span class="block text-muted-foreground">{C.wRole}</span></p>
+                </div>
+              </div>
+              <div class="flex flex-col items-start gap-3 lg:items-end">
+                <a href={`${webinarHref}${de ? '#anmeldung' : '#register'}`} class="inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90">{C.wBtn}</a>
+                <p class="text-xs text-muted-foreground">{C.wFine}</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="methodik" aria-labelledby="h-methodik" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.mKicker}</p>
+            <h2 id="h-methodik" class="cai-h2 text-foreground">{C.mH2}</h2>
+            <ol class="mt-10 space-y-6">
+              {TECH_METHODIK[lang].map((m, i) => (
+                <li class="flex gap-5 rounded-2xl border border-border bg-card p-6">
+                  <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+                  <div><h3 class="font-semibold text-foreground">{m.t}</h3><p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{m.d}</p></div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section id="limitationen" aria-labelledby="h-limitationen" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.lKicker}</p>
+            <h2 id="h-limitationen" class="cai-h2 text-foreground">{C.lH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.lLead}</p>
+            <ul class="mt-8 space-y-4">
+              {TECH_LIMITATIONEN[lang].map((l) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <svg class="mt-0.5 h-5 w-5 shrink-0 text-cta-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                  <span>{l}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section id="zitieren" aria-labelledby="h-zitieren" class="scroll-mt-28 border-t border-border py-16">
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">{C.jump[2].replace(' ↓', '')}</p>
+            <h2 id="h-zitieren" class="cai-h2 text-foreground">{C.zH2}</h2>
+            <p class="mt-4 max-w-2xl text-muted-foreground">{C.zLead}</p>
+            <h3 id="kernaussagen" class="mt-10 scroll-mt-28 text-lg font-semibold text-foreground">{C.zKern}</h3>
+            <p class="mt-1 text-sm text-muted-foreground">{C.zKernSub}</p>
+            <ol class="mt-5 space-y-3">
+              {KERN.map((k, i) => (
+                <li id={k.id} class="scroll-mt-28 flex gap-4 rounded-2xl border border-border bg-card p-5 target:border-cta">
+                  <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cta/10 text-sm font-bold text-cta-accessible">{i + 1}</span>
+                  <div class="min-w-0 flex-1">
+                    <p class="leading-relaxed text-foreground" data-speakable>{k.text}</p>
+                    <p class="mt-1.5 text-xs text-muted-foreground">{techKurzbeleg(lang)}<a href={`#${k.id}`} class="ml-2 font-semibold text-cta-accessible hover:text-cta">#<span class="sr-only">{C.zLinkSr}{i + 1}</span></a></p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <h3 class="mt-12 text-lg font-semibold text-foreground">{C.zVor}</h3>
+            <div class="mt-5 space-y-4">
+              {ZITATE.map((z) => (
+                <div class="rounded-2xl border border-border bg-card p-5">
+                  <div class="flex items-center justify-between gap-4">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{z.label}</p>
+                    <button type="button" data-copy={`cite-${z.id}`} data-copied={C.zCopied} data-label={C.zCopy} class="cite-copy shrink-0 rounded-[14px] border border-border bg-background px-4 py-1.5 text-xs font-semibold text-foreground transition-colors hover:border-cta hover:text-cta">{C.zCopy}</button>
+                  </div>
+                  <pre id={`cite-${z.id}`} class="mt-3 whitespace-pre-wrap break-words font-mono text-sm leading-relaxed text-foreground">{z.text}</pre>
+                </div>
+              ))}
+            </div>
+            <h3 class="mt-12 text-lg font-semibold text-foreground">{C.zData}</h3>
+            <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+              <li class="rounded-2xl border border-border bg-card p-5"><a href={`${base}${TECH_CSV[lang]}`} download class="font-semibold text-foreground hover:text-cta-accessible">{C.zCsv}</a><p class="mt-1 text-sm text-muted-foreground">{C.zCsvD}</p></li>
+              <li class="rounded-2xl border border-border bg-card p-5"><a href={`${base}${TECH_MD[lang]}`} class="font-semibold text-foreground hover:text-cta-accessible">{C.zMd}</a><p class="mt-1 text-sm text-muted-foreground">{C.zMdD}</p></li>
+            </ul>
+            <p class="mt-6 max-w-2xl text-sm text-muted-foreground">
+              {C.zMail} <a href="mailto:hi@codaai.ai" class="font-medium text-cta-accessible hover:text-cta">hi@codaai.ai</a>.
+              {C.zPub} <a href={C.zPubHref} class="font-medium text-cta-accessible hover:text-cta">{C.zPubLink}</a>.
+            </p>
+          </section>
+
+          <section id="faq" aria-labelledby="h-faq" class="scroll-mt-28 border-t border-border py-16">
+            <h2 id="h-faq" class="cai-h2 text-foreground">{C.faqH2}</h2>
+            <div class="mt-8 space-y-4">
+              {C.faq.map((f) => (
+                <details class="cai-acc group rounded-2xl border border-border bg-card open:border-cta/40">
+                  <summary class="cai-acc-head flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <svg class="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </summary>
+                  <p class="border-t border-border px-6 py-5 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <section class="border-t border-border py-16">
+            <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
+              <h2 class="cai-h2 text-foreground">{C.ctaH2}</h2>
+              <p class="mx-auto mt-4 max-w-xl text-muted-foreground">{C.ctaLead}</p>
+              <a href={terminHref} class="mt-8 inline-flex items-center gap-2 rounded-[14px] bg-cta-strong px-8 py-4 text-base font-semibold text-white transition-opacity hover:opacity-90">{C.ctaBtn}</a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>
+
+<script define:vars={{ numLocale: de ? 'de-DE' : 'en-GB' }}>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dl = function (name, params) { window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: name, study: 'b2b-tech' }, params || {})); };
+
+    // Kennzahlen zählen nacheinander hoch (wie auf der Mittelstand-Studie)
+    var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+    var fmt = new Intl.NumberFormat(numLocale);
+    if (!reduce && 'IntersectionObserver' in window && counters.length) {
+      counters.forEach(function (el) { el.textContent = '0'; });
+      var run = function (i) {
+        if (i >= counters.length) return;
+        var el = counters[i], target = Number(el.dataset.count || 0), t0 = performance.now(), dur = 1800;
+        var tick = function (t) {
+          var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt.format(Math.round(target * e));
+          if (p < 1) requestAnimationFrame(tick); else setTimeout(function () { run(i + 1); }, 400);
+        };
+        requestAnimationFrame(tick);
+      };
+      var io = new IntersectionObserver(function (ents) { if (ents.some(function (e) { return e.isIntersecting; })) { io.disconnect(); run(0); } }, { threshold: 0.4 });
+      io.observe(counters[0]);
+    }
+
+    // Balken laufen beim Einscrollen ein
+    var bars = Array.prototype.slice.call(document.querySelectorAll('.tx-seg, .tx-q'));
+    if (!reduce && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('tx-anim');
+      var ioB = new IntersectionObserver(function (ents) {
+        ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('tx-in'); ioB.unobserve(e.target); } });
+      }, { threshold: 0.3 });
+      bars.forEach(function (b) { ioB.observe(b); });
+    }
+
+    // Domain-Check (personalisiert per ?d=firma.de)
+    var normalize = function (v) { return v.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0]; };
+    var form = document.getElementById('domain-check-form');
+    var input = document.getElementById('domain-input');
+    var known = document.getElementById('domain-known');
+    var knownName = document.getElementById('domain-known-name');
+    var knownLink = document.getElementById('domain-known-link');
+    var resp = document.getElementById('domain-response');
+    var respName = document.getElementById('domain-response-name');
+    var param = new URLSearchParams(location.search).get('d');
+    if (param && known && input) {
+      var d0 = normalize(param);
+      if (/^[a-z0-9.-]+\.[a-z]{2,}$/.test(d0)) {
+        input.value = d0; knownName.textContent = d0; knownLink.href = 'https://audit.codaai.ai/' + d0;
+        known.classList.remove('hidden'); dl('study_personalized_view', { study_domain: d0 });
+      }
+    }
+    if (form) form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var dom = normalize(input.value);
+      if (!/^[a-z0-9.-]+\.[a-z]{2,}$/.test(dom)) { input.focus(); input.setAttribute('aria-invalid', 'true'); return; }
+      input.removeAttribute('aria-invalid');
+      if (known) known.classList.add('hidden');
+      respName.textContent = dom; resp.classList.remove('hidden');
+      resp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      dl('study_domain_check', { study_domain: dom });
+    });
+
+    // Zitat kopieren
+    document.querySelectorAll('.cite-copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var el = document.getElementById(btn.dataset.copy || '');
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText((el && el.textContent || '').trim()).then(function () {
+          btn.textContent = btn.dataset.copied;
+          setTimeout(function () { btn.textContent = btn.dataset.label; }, 2000);
+          dl('study_cite_copy');
+        }).catch(function () {});
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* Zahlenkarten: ruhige Navy-50-Fläche, Bezugsgröße unten (wie /webinar) */
+  .tx-card { background: hsl(var(--navy-50)); }
+  .tx-base { border-top: 1px solid hsl(var(--navy-200)); }
+  .tx-navy { background: hsl(var(--navy-700)); color: #fff; }
+  .tx-light { background: hsl(var(--navy-200)); color: hsl(var(--navy-700)); }
+  /* Segmentvergleich und Quellen: Balken; einziges Magenta = Systemhaus-Balken */
+  .tx-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .tx-q { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .tx-track { position: relative; height: 14px; border-radius: 7px; background: hsl(var(--navy-50)); overflow: hidden; }
+  .tx-bar { position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 7px; background: hsl(var(--navy-700)); }
+  .tx-bar.tx-hot { background: hsl(var(--cta-strong)); }
+  @media (min-width: 768px) {
+    .tx-row { grid-template-columns: 380px minmax(0, 1fr) 230px; align-items: center; gap: 20px; }
+    .tx-q { grid-template-columns: 300px minmax(0, 1fr) 110px; align-items: center; gap: 20px; }
+  }
+  :global(html.tx-anim) .tx-bar { width: 0; transition: width 1.1s cubic-bezier(.22, 1, .36, 1) .2s; }
+  :global(html.tx-anim) .tx-in .tx-bar { width: var(--w); }
+  /* Konzern / Mittelständler */
+  .tx-key { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 8px; vertical-align: -2px; }
+  .tx-stack-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .tx-stack { display: flex; height: 36px; border-radius: 10px; overflow: hidden; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .tx-stack span { display: flex; align-items: center; padding: 0 12px; white-space: nowrap; }
+  .tx-stack span + span { justify-content: flex-end; }
+  @media (min-width: 768px) { .tx-stack-row { grid-template-columns: 300px minmax(0, 1fr); align-items: center; gap: 20px; } }
+</style>

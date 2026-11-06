@@ -99,7 +99,7 @@ Whether they then also **cite** that content is decided by something else: what 
 
 To measure the scale of the problem rather than estimate it, we systematically tested 449 mid-sized companies in Germany. For each company, eight realistic buyer questions about its own range of products and services were formulated and put to two systems: ChatGPT (without live web search enabled, to measure structural model knowledge) and [Google AI Overviews](/en/knowledge/geo-glossary/ai-overviews/) with German localisation. The result: 3,592 questions, 7,184 documented AI answers, data as of June/July 2026.
 
-The key findings of the [AI Blind Test 2026](/en/study/):
+The key findings of the [AI Blind Test 2026](/en/study-b2b-mittelstand/):
 
 | Finding | Value | Basis |
 |---|---|---|
@@ -112,7 +112,7 @@ The key findings of the [AI Blind Test 2026](/en/study/):
 
 The last point deserves attention: for almost four in ten companies, their own website is not used as a source in a single answer. These companies are described by AI systems solely on the basis of third-party sources — industry portals, press articles, directories, competitor comparisons. The company's view of itself no longer plays any role in how the company is described.
 
-Putting this in context also means stating what this analysis is **not**: the 449 companies come from our own audit practice and are weighted towards B2B — this is not a random sample. The results apply to the companies examined, not to “mid-sized companies in Germany” as a whole. Two smaller independent surveys by third parties (24 and 150 companies respectively, spring 2026) arrive at similar orders of magnitude, which supports the direction but does not replace representativeness. These limitations are [fully documented](/en/study/) — anyone working with figures should state their limits too.
+Putting this in context also means stating what this analysis is **not**: the 449 companies come from our own audit practice and are weighted towards B2B — this is not a random sample. The results apply to the companies examined, not to “mid-sized companies in Germany” as a whole. Two smaller independent surveys by third parties (24 and 150 companies respectively, spring 2026) arrive at similar orders of magnitude, which supports the direction but does not replace representativeness. These limitations are [fully documented](/en/study-b2b-mittelstand/) — anyone working with figures should state their limits too.
 
 ### The SEO paradox: why good rankings do not protect you
 
@@ -292,6 +292,6 @@ The technical points — crawler access, response times, schema markup — can b
 
 **Technical foundation + citable content + presence in third-party sources + regular measurement = AI visibility.** Anyone who tackles all four building blocks systematically is already a step ahead of most German B2B websites today — and precisely at the moment in the buying process that they would otherwise never get to see.
 
-**Would you like to know what AI says about your company?** The same methodology as in the AI Blind Test, applied to your eight buyer questions, your real AI answers and your competitors: [to the visibility check](/en/study/). Or start with the [free AI visibility check](/en/check/).
+**Would you like to know what AI says about your company?** The same methodology as in the AI Blind Test, applied to your eight buyer questions, your real AI answers and your competitors: [to the visibility check](/en/study-b2b-mittelstand/). Or start with the [free AI visibility check](/en/check/).
 
 The terms behind this are in the [GEO glossary](/en/knowledge/geo-glossary/): [prompt set](/en/knowledge/geo-glossary/prompt-set/), [mention rate](/en/knowledge/geo-glossary/mention-rate/), [baseline measurement](/en/knowledge/geo-glossary/baseline-measurement/), [share of AI search](/en/knowledge/geo-glossary/share-of-ai-search/), [brand mentions](/en/knowledge/geo-glossary/brand-mentions/). Deeper dives into individual levers: [brand mentions on third-party sites](/en/blog/brand-mentions-third-party-sites-ai/), [comparison articles and vendor lists](/en/blog/comparison-articles-vendor-lists-ai/), [YouTube for B2B](/en/blog/youtube-ai-visibility-b2b/) and [why Bing matters](/en/blog/chatgpt-seo-perplexity-visibility/).

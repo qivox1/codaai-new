@@ -22,8 +22,12 @@ Drei Fragen entscheiden über eine Nennung: Kann die KI das Unternehmen lesen? I
 URL: ${BASE_URL}/preise/
 Drei Sichtbarkeits-Stufen ab 1.970 € pro Monat, dazu ein Preisrechner, dessen Summe sich nachrechnen lässt. Abgerechnet wird per Rechnung. Es gibt keine Platzierungs- oder Erfolgsgarantie.
 
+### Studie „KI-Blindtest B2B-Tech 2026"
+URL: ${BASE_URL}/studie-b2b-tech/
+Auswertung von 3.744 KI-Antworten (ChatGPT, Claude, Gemini, Perplexity, Googles KI-Modus, alle mit Websuche) zu 100 Softwareherstellern, Systemhäusern und IT-Dienstleistern, erhoben am 5./6. November 2026. In vier von fünf Antworten fehlt die gefragte Firma; Systemhäuser und IT-Dienstleister werden nur in 5,9 % der Antworten genannt. Keine Zufallsstichprobe.
+
 ### Studie „KI-Blindtest Mittelstand 2026"
-URL: ${BASE_URL}/studie/
+URL: ${BASE_URL}/studie-b2b-mittelstand/
 Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen, erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht. In 55 % der Fragen fällt der Firmenname nicht, bei 47 % der Unternehmen empfiehlt die KI namentlich Wettbewerber. Keine Zufallsstichprobe.
 
 ### Webinar „Die KI schreibt die Shortlist. Stehen Sie drauf?"

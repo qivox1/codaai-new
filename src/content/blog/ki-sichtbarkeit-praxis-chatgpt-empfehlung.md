@@ -99,7 +99,7 @@ Ob sie diese Inhalte dann auch **zitieren**, entscheidet etwas anderes: was dort
 
 Um die Größenordnung des Problems zu messen statt zu schätzen, haben wir 449 mittelständische Unternehmen aus dem deutschsprachigen Raum systematisch getestet. Pro Unternehmen wurden acht realistische Einkäuferfragen zum eigenen Produkt- und Leistungsspektrum formuliert und an zwei Systeme gestellt: ChatGPT (ohne aktivierte Live-Websuche, um das strukturelle Modellwissen zu messen) und die [Google KI-Übersicht](/wissen/geo-glossar/ai-overviews/) in deutscher Lokalisierung. Ergebnis: 3.592 Fragen, 7.184 dokumentierte KI-Antworten, Datenstand Juni/Juli 2026.
 
-Die zentralen Befunde des [KI-Blindtests Mittelstand 2026](https://www.codaai.ai/studie/):
+Die zentralen Befunde des [KI-Blindtests Mittelstand 2026](https://www.codaai.ai/studie-b2b-mittelstand/):
 
 | Befund | Wert | Basis |
 |---|---|---|
@@ -112,7 +112,7 @@ Die zentralen Befunde des [KI-Blindtests Mittelstand 2026](https://www.codaai.ai
 
 Der letzte Punkt verdient Aufmerksamkeit: Bei knapp vier von zehn Unternehmen wird die eigene Website in keiner einzigen Antwort als Quelle herangezogen. Diese Firmen werden von KI-Systemen ausschließlich auf Basis von Drittquellen beschrieben — Branchenportalen, Presseartikeln, Verzeichnissen, Wettbewerber-Vergleichen. Das Selbstbild des Unternehmens spielt in der Beschreibung des Unternehmens keine Rolle mehr.
 
-Zur Einordnung gehört auch, was diese Auswertung **nicht** ist: Die 449 Unternehmen stammen aus der eigenen Audit-Praxis und sind B2B-lastig — es handelt sich nicht um eine Zufallsstichprobe. Die Ergebnisse gelten für die untersuchten Unternehmen, nicht für „den deutschen Mittelstand" insgesamt. Zwei kleinere unabhängige Erhebungen Dritter (24 bzw. 150 Unternehmen, Frühjahr 2026) kommen zu ähnlichen Größenordnungen, was die Richtung stützt, aber Repräsentativität nicht ersetzt. Diese Limitationen sind [vollständig dokumentiert](https://www.codaai.ai/studie/) — wer mit Zahlen arbeitet, sollte ihre Grenzen mitliefern.
+Zur Einordnung gehört auch, was diese Auswertung **nicht** ist: Die 449 Unternehmen stammen aus der eigenen Audit-Praxis und sind B2B-lastig — es handelt sich nicht um eine Zufallsstichprobe. Die Ergebnisse gelten für die untersuchten Unternehmen, nicht für „den deutschen Mittelstand" insgesamt. Zwei kleinere unabhängige Erhebungen Dritter (24 bzw. 150 Unternehmen, Frühjahr 2026) kommen zu ähnlichen Größenordnungen, was die Richtung stützt, aber Repräsentativität nicht ersetzt. Diese Limitationen sind [vollständig dokumentiert](https://www.codaai.ai/studie-b2b-mittelstand/) — wer mit Zahlen arbeitet, sollte ihre Grenzen mitliefern.
 
 ### Das SEO-Paradox: Warum gute Rankings nicht schützen
 
@@ -292,6 +292,6 @@ Denn die technischen Punkte — Crawler-Freigabe, Antwortzeiten, Schema-Markup �
 
 **Technische Basis + zitierfähiger Content + Präsenz in Drittquellen + regelmäßige Messung = KI-Sichtbarkeit.** Wer alle vier Bausteine systematisch angeht, ist der Mehrheit der deutschen B2B-Websites heute schon einen Schritt voraus — und zwar in genau dem Moment der Kaufanbahnung, den er sonst nie zu sehen bekommt.
 
-**Möchten Sie wissen, was die KI zu Ihrem Unternehmen antwortet?** Dieselbe Methodik wie im KI-Blindtest, angewendet auf Ihre acht Einkäuferfragen, Ihre echten KI-Antworten und Ihre Wettbewerber: [zur Sichtbarkeitsprüfung](https://www.codaai.ai/studie/). Oder starten Sie mit dem [kostenlosen KI-Sichtbarkeits-Check](https://www.codaai.ai/check/).
+**Möchten Sie wissen, was die KI zu Ihrem Unternehmen antwortet?** Dieselbe Methodik wie im KI-Blindtest, angewendet auf Ihre acht Einkäuferfragen, Ihre echten KI-Antworten und Ihre Wettbewerber: [zur Sichtbarkeitsprüfung](https://www.codaai.ai/studie-b2b-mittelstand/). Oder starten Sie mit dem [kostenlosen KI-Sichtbarkeits-Check](https://www.codaai.ai/check/).
 
 Die Begriffe dahinter stehen im [GEO-Glossar](/wissen/geo-glossar/): [Promptset](/wissen/geo-glossar/promptset/), [Mention Rate](/wissen/geo-glossar/mention-rate/), [Nullmessung](/wissen/geo-glossar/nullmessung/), [Share of AI Search](/wissen/geo-glossar/share-of-ai-search/), [Brand Mentions](/wissen/geo-glossar/brand-mentions/). Vertiefungen zu einzelnen Hebeln: [Markennennungen auf Drittseiten](/blog/markennennungen-drittseiten-ki/), [Vergleichsartikel und Anbieter-Listen](/blog/vergleichsartikel-anbieterlisten-ki/), [YouTube im B2B](/blog/youtube-ki-sichtbarkeit-b2b/) und [Warum Bing mitentscheidet](/blog/chatgpt-seo-perplexity-sichtbarkeit/).

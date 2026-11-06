@@ -16,7 +16,7 @@
  *
  * Regeln für jede Zahl (STAND.md / Faktencheck 17.09.2026):
  *   - Quelle im selben Satz, Fundstelle im Volltext geprüft (Stand 18.09.2026).
- *   - Eigene Studienzahlen nur im Wortlaut von /studie/.
+ *   - Eigene Studienzahlen nur im Wortlaut von /studie-b2b-mittelstand/.
  *   - Vortragswerte mit Zuschreibung „Chrissy Kunisch, SISTRIX Meetup 09/2026".
  *   - Keine Kostenaussage, kein Erfolgsversprechen, keine Platzierungszusage.
  *
@@ -138,7 +138,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `SEO allein reicht nicht mehr, weil ein gutes Google-Ranking nicht mehr bedeutet, dass ein potenzieller Kunde die Seite zu sehen bekommt. Wer ChatGPT oder die Google KI-Übersicht nach Anbietern fragt, erhält eine Antwort mit drei bis fünf Namen — und nur diese Unternehmen bekommen die Anfrage. In unserer <a href="/studie/">Studie mit 449 Unternehmen aus 258 Branchen</a> (3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten) blieben <strong>55 % der Einkäuferfragen ohne Nennung</strong> des untersuchten Unternehmens, und bei <strong>47 % der Unternehmen</strong> nannte die KI stattdessen namentlich Wettbewerber. Gute Rankings schützten davor nicht.`,
+            html: `SEO allein reicht nicht mehr, weil ein gutes Google-Ranking nicht mehr bedeutet, dass ein potenzieller Kunde die Seite zu sehen bekommt. Wer ChatGPT oder die Google KI-Übersicht nach Anbietern fragt, erhält eine Antwort mit drei bis fünf Namen — und nur diese Unternehmen bekommen die Anfrage. In unserer <a href="/studie-b2b-mittelstand/">Studie mit 449 Unternehmen aus 258 Branchen</a> (3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten) blieben <strong>55 % der Einkäuferfragen ohne Nennung</strong> des untersuchten Unternehmens, und bei <strong>47 % der Unternehmen</strong> nannte die KI stattdessen namentlich Wettbewerber. Gute Rankings schützten davor nicht.`,
           },
           {
             type: 'stats',
@@ -180,7 +180,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `Die Studie zeigt für B2B-Unternehmen, dass klassische Suchmaschinenstärke nicht in KI-Antworten übersetzt wird. Wir haben im Juni und Juli 2026 <a href="/studie/">449 mittelständische Unternehmen aus 258 Branchen</a> untersucht: je acht qualifizierte Einkäuferfragen in drei Archetypen (Marktübersicht, Anwendungsfall, Wettbewerbsvergleich), gestellt an ChatGPT und die Google KI-Übersicht — 3.592 Fragen, 7.184 dokumentierte Antworten. Vier Befunde tragen diesen Leitfaden:`,
+            html: `Die Studie zeigt für B2B-Unternehmen, dass klassische Suchmaschinenstärke nicht in KI-Antworten übersetzt wird. Wir haben im Juni und Juli 2026 <a href="/studie-b2b-mittelstand/">449 mittelständische Unternehmen aus 258 Branchen</a> untersucht: je acht qualifizierte Einkäuferfragen in drei Archetypen (Marktübersicht, Anwendungsfall, Wettbewerbsvergleich), gestellt an ChatGPT und die Google KI-Übersicht — 3.592 Fragen, 7.184 dokumentierte Antworten. Vier Befunde tragen diesen Leitfaden:`,
           },
           {
             type: 'p',
@@ -201,7 +201,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           {
             type: 'callout',
             title: 'Beispiel aus dem Datensatz',
-            html: `Ein Maschinenbauer für Fabrikautomation und Fördertechnik, rund 640 Top-10-Rankings bei Google. Einkäuferfrage: „Welche Hersteller von Aluminium-Profilsystemen für die Fabrikautomation gelten als führend in Europa?" Ergebnis: <strong>keine Nennung in ChatGPT und Google KI-Übersicht, 0 von 8 Fragen.</strong> Der meistgenannte Wettbewerber erscheint siebenmal — ein DAX-naher Großkonzern besetzt die Kategorie. Das Unternehmen rankt für dieselben Begriffe auf Seite eins; es fehlt nicht an Relevanz, sondern an <a href="${G}/brand-mentions/">Nennungen auf Drittseiten</a>, die die KI als Kandidatenliste liest. Weitere Beispiele und die Methodik stehen in der <a href="/studie/">Studie</a>.`,
+            html: `Ein Maschinenbauer für Fabrikautomation und Fördertechnik, rund 640 Top-10-Rankings bei Google. Einkäuferfrage: „Welche Hersteller von Aluminium-Profilsystemen für die Fabrikautomation gelten als führend in Europa?" Ergebnis: <strong>keine Nennung in ChatGPT und Google KI-Übersicht, 0 von 8 Fragen.</strong> Der meistgenannte Wettbewerber erscheint siebenmal — ein DAX-naher Großkonzern besetzt die Kategorie. Das Unternehmen rankt für dieselben Begriffe auf Seite eins; es fehlt nicht an Relevanz, sondern an <a href="${G}/brand-mentions/">Nennungen auf Drittseiten</a>, die die KI als Kandidatenliste liest. Weitere Beispiele und die Methodik stehen in der <a href="/studie-b2b-mittelstand/">Studie</a>.`,
           },
           {
             type: 'p',
@@ -418,7 +418,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       'Jede Zahl auf dieser Seite hat eine Fundstelle im Volltext, geprüft am 18. September 2026. Die meisten Studien stammen aus dem englischsprachigen Markt; wo sie große Marken untersuchen, ist die Übertragung auf den Mittelstand eine Annahme, keine Messung.',
     sourcesHead: ['Quelle', 'Was gemessen wurde', 'Grundlage', 'Stand'],
     sources: [
-      { name: 'CodaAI, Digital-Visibility-Studie', what: 'Nennung von 449 Unternehmen in ChatGPT und der Google KI-Übersicht auf Einkäuferfragen', sample: '3.592 Fragen, 7.184 Antworten', date: 'Juni–Juli 2026', href: '/studie/' },
+      { name: 'CodaAI, Digital-Visibility-Studie', what: 'Nennung von 449 Unternehmen in ChatGPT und der Google KI-Übersicht auf Einkäuferfragen', sample: '3.592 Fragen, 7.184 Antworten', date: 'Juni–Juli 2026', href: '/studie-b2b-mittelstand/' },
       { name: 'Aggarwal et al., Princeton — „GEO: Generative Engine Optimization", KDD 2024', what: 'Wirkung von neun Textmaßnahmen auf die Sichtbarkeit in generativen Antworten', sample: '10.000 Anfragen (GEO-bench)', date: '2024', href: 'https://arxiv.org/abs/2311.09735' },
       { name: 'Dan Petrovic, dejan.ai — „How big are Google’s grounding chunks?"', what: 'Grounding-Budget je Anfrage und Verteilung nach Quellenrang', sample: '7.060 Anfragen, 2.275 Seiten', date: 'Dezember 2025', href: 'https://dejan.ai/blog/how-big-are-googles-grounding-chunks/' },
       { name: 'Vercel und MERJ — „The rise of the AI crawler"', what: 'JavaScript-Verhalten von KI-Crawlern', sample: 'Crawler-Traffic im Vercel-Netz', date: 'Dezember 2024', href: 'https://vercel.com/blog/the-rise-of-the-ai-crawler' },
@@ -532,7 +532,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `SEO alone is no longer enough because a good Google ranking no longer means a potential customer gets to see the page. Someone who asks ChatGPT or Google AI Overviews for suppliers receives an answer with three to five names — and only those companies get the enquiry. In our <a href="/en/study/">study of 449 German companies from 258 industries</a> (3,592 buyer questions, 7,184 documented AI answers), <strong>55 % of buyer questions went without a mention</strong> of the company examined, and for <strong>47 % of the companies</strong> the AI named competitors instead. Good rankings did not protect against it.`,
+            html: `SEO alone is no longer enough because a good Google ranking no longer means a potential customer gets to see the page. Someone who asks ChatGPT or Google AI Overviews for suppliers receives an answer with three to five names — and only those companies get the enquiry. In our <a href="/en/study-b2b-mittelstand/">study of 449 German companies from 258 industries</a> (3,592 buyer questions, 7,184 documented AI answers), <strong>55 % of buyer questions went without a mention</strong> of the company examined, and for <strong>47 % of the companies</strong> the AI named competitors instead. Good rankings did not protect against it.`,
           },
           {
             type: 'stats',
@@ -573,7 +573,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
         blocks: [
           {
             type: 'p',
-            html: `The study shows, for B2B companies, that classic search-engine strength does not translate into AI answers. In June and July 2026 we examined <a href="/en/study/">449 mid-sized German companies from 258 industries</a>: eight qualified buyer questions each in three archetypes (market overview, use case, competitor comparison), put to ChatGPT and Google AI Overviews — 3,592 questions, 7,184 documented answers. Four findings carry this guide:`,
+            html: `The study shows, for B2B companies, that classic search-engine strength does not translate into AI answers. In June and July 2026 we examined <a href="/en/study-b2b-mittelstand/">449 mid-sized German companies from 258 industries</a>: eight qualified buyer questions each in three archetypes (market overview, use case, competitor comparison), put to ChatGPT and Google AI Overviews — 3,592 questions, 7,184 documented answers. Four findings carry this guide:`,
           },
           {
             type: 'p',
@@ -594,7 +594,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
           {
             type: 'callout',
             title: 'Example from the data set',
-            html: `A mechanical engineering firm for factory automation and conveyor systems, around 640 top-10 rankings on Google. Buyer question: “Which manufacturers of aluminium profile systems for factory automation are considered leaders in Europe?” Result: <strong>no mention in ChatGPT or Google AI Overviews, 0 out of 8 questions.</strong> The most frequently named competitor appears seven times — a DAX-adjacent corporation occupies the category. The company ranks on page one for the same terms; what it lacks is not relevance but <a href="${GE}/brand-mentions/">mentions on third-party sites</a>, which the AI reads as its candidate list. Further examples and the methodology are in the <a href="/en/study/">study</a>.`,
+            html: `A mechanical engineering firm for factory automation and conveyor systems, around 640 top-10 rankings on Google. Buyer question: “Which manufacturers of aluminium profile systems for factory automation are considered leaders in Europe?” Result: <strong>no mention in ChatGPT or Google AI Overviews, 0 out of 8 questions.</strong> The most frequently named competitor appears seven times — a DAX-adjacent corporation occupies the category. The company ranks on page one for the same terms; what it lacks is not relevance but <a href="${GE}/brand-mentions/">mentions on third-party sites</a>, which the AI reads as its candidate list. Further examples and the methodology are in the <a href="/en/study-b2b-mittelstand/">study</a>.`,
           },
           {
             type: 'p',
@@ -806,7 +806,7 @@ export const GEO_PAGE: Record<GeoLang, GeoPage> = {
       'Every figure on this page has a location in the full text, verified on 18 September 2026. Most studies come from the English-speaking market; where they examine large brands, applying them to mid-sized companies is an assumption, not a measurement.',
     sourcesHead: ['Source', 'What was measured', 'Basis', 'Date'],
     sources: [
-      { name: 'CodaAI, Digital Visibility Study', what: 'Mentions of 449 German companies in ChatGPT and Google AI Overviews on buyer questions', sample: '3,592 questions, 7,184 answers', date: 'June–July 2026', href: '/en/study/' },
+      { name: 'CodaAI, Digital Visibility Study', what: 'Mentions of 449 German companies in ChatGPT and Google AI Overviews on buyer questions', sample: '3,592 questions, 7,184 answers', date: 'June–July 2026', href: '/en/study-b2b-mittelstand/' },
       { name: 'Aggarwal et al., Princeton — “GEO: Generative Engine Optimization”, KDD 2024', what: 'Effect of nine text measures on visibility in generative answers', sample: '10,000 queries (GEO-bench)', date: '2024', href: 'https://arxiv.org/abs/2311.09735' },
       { name: 'Dan Petrovic, dejan.ai — “How big are Google’s grounding chunks?”', what: 'Grounding budget per query and its distribution by source rank', sample: '7,060 queries, 2,275 pages', date: 'December 2025', href: 'https://dejan.ai/blog/how-big-are-googles-grounding-chunks/' },
       { name: 'Vercel and MERJ — “The rise of the AI crawler”', what: 'JavaScript behaviour of AI crawlers', sample: 'Crawler traffic on the Vercel network', date: 'December 2024', href: 'https://vercel.com/blog/the-rise-of-the-ai-crawler' },

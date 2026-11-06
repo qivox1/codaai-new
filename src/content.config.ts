@@ -83,7 +83,7 @@ const blog = defineCollection({
  *   - H2 im Frageformat, jeder Absatz in sich verständlich (Chunking).
  *   - Keine Weichmacher („könnte", „möglicherweise"), kurze Sätze.
  *   - Zahlen nur mit Quelle; eigene Zahlen nur aus der Studie „KI-Blindtest
- *     Mittelstand 2026" und nur in der Formulierung, die auf /studie/ steht.
+ *     Mittelstand 2026" und nur in der Formulierung, die auf /studie-b2b-mittelstand/ steht.
  */
 const glossar = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/glossar' }),

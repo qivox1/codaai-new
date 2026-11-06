@@ -146,7 +146,7 @@ The retrieval window of one of your own pages can be reconstructed in a few minu
 
 Repeat this for the five pages that carry your business. Experience shows the result turns out worse for service pages than for blog articles, because service pages begin with image galleries, reference logos and teaser tiles while the explanatory text sits far down in the source code.
 
-What order of magnitude of invisibility this adds up to is shown by our own survey. In the study [AI Blind Test 2026](/en/study/) of 449 companies, **54.7% of the 3,592 buyer questions went without a mention** of the company examined, and for 46.8% of the companies the systems recommended competitors by name instead. That has several causes, and one of them is technical: the answer was not in the place that gets read.
+What order of magnitude of invisibility this adds up to is shown by our own survey. In the study [AI Blind Test 2026](/en/study-b2b-mittelstand/) of 449 companies, **54.7% of the 3,592 buyer questions went without a mention** of the company examined, and for 46.8% of the companies the systems recommended competitors by name instead. That has several causes, and one of them is technical: the answer was not in the place that gets read.
 
 ## What follows from this for your most important pages?
 

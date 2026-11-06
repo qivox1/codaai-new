@@ -110,7 +110,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
       { k: 'Im Online-Marketing seit', v: '2001 (über 25 Jahre)' },
       { k: 'Schwerpunkte', v: 'Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), SEO, Corporate Websites für den B2B-Mittelstand' },
       { k: 'Autor von', v: '<a href="/wissen/geo-glossar/">GEO-Glossar</a> · <a href="/wissen/geo-optimierung/">GEO-Leitfaden</a> · <a href="/blog/">Blog</a>' },
-      { k: 'Verantwortet', v: 'Die Sichtbarkeits-Audits und die Auswertung der Studie <a href="/studie/">KI-Blindtest Mittelstand 2026</a>' },
+      { k: 'Verantwortet', v: 'Die Sichtbarkeits-Audits und die Auswertung der Studie <a href="/studie-b2b-mittelstand/">KI-Blindtest Mittelstand 2026</a>' },
       { k: 'Profil', v: '<a href="https://www.linkedin.com/in/oliver-parrizas/" rel="me noopener" target="_blank">LinkedIn</a>' },
     ],
     sections: [
@@ -126,7 +126,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
         id: 'codaai',
         h2: 'Was macht Oliver Parrizas bei CodaAI?',
         paras: [
-          'Bei CodaAI führt Oliver Parrizas die Sichtbarkeits-Audits durch: Er prüft, ob und wie KI-Systeme ein Unternehmen auf typische Einkäuferfragen nennen, und leitet daraus die Maßnahmen ab. Er hat die Studie <a href="/studie/">KI-Blindtest Mittelstand 2026</a> ausgewertet (449 Unternehmen, 3.592 Einkäuferfragen, 7.184 KI-Antworten) und führt im <a href="/webinar/">Webinar</a> die Live-Audits durch.',
+          'Bei CodaAI führt Oliver Parrizas die Sichtbarkeits-Audits durch: Er prüft, ob und wie KI-Systeme ein Unternehmen auf typische Einkäuferfragen nennen, und leitet daraus die Maßnahmen ab. Er hat die Studie <a href="/studie-b2b-mittelstand/">KI-Blindtest Mittelstand 2026</a> ausgewertet (449 Unternehmen, 3.592 Einkäuferfragen, 7.184 KI-Antworten) und führt im <a href="/webinar/">Webinar</a> die Live-Audits durch.',
           'Herausgeberin der Inhalte auf codaai.ai ist Anja Miebach, Gründerin und Inhaberin der AMP Beratung (<a href="/co-create/">Co-Create</a>). Alle Stammdaten zu CodaAI stehen auf der <a href="/fakten/">Faktenseite</a>.',
         ],
       },
@@ -148,7 +148,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
     works: [
       { label: 'GEO-Glossar', href: '/wissen/geo-glossar/', note: 'Begriffe rund um Generative Engine Optimization, jeweils mit Definition und Beispiel' },
       { label: 'GEO-Optimierung: der Leitfaden', href: '/wissen/geo-optimierung/', note: 'Wie Unternehmen in KI-Antworten sichtbar werden' },
-      { label: 'Studie KI-Blindtest Mittelstand 2026', href: '/studie/', note: 'Auswertung: 449 Unternehmen aus 258 Branchen' },
+      { label: 'Studie KI-Blindtest Mittelstand 2026', href: '/studie-b2b-mittelstand/', note: 'Auswertung: 449 Unternehmen aus 258 Branchen' },
       { label: 'Blog', href: '/blog/', note: 'Beiträge zu KI-Sichtbarkeit und B2B-Content' },
     ],
     linkedinLabel: 'Oliver Parrizas auf LinkedIn',
@@ -171,7 +171,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
       { k: 'In online marketing since', v: '2001 (more than 25 years)' },
       { k: 'Focus', v: 'Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), SEO, corporate websites for B2B mid-sized companies' },
       { k: 'Author of', v: '<a href="/en/knowledge/geo-glossary/">GEO glossary</a> · <a href="/en/knowledge/geo-optimization/">GEO guide</a> · <a href="/en/blog/">Blog</a>' },
-      { k: 'Responsible for', v: 'The visibility audits and the analysis of the study <a href="/en/study/">AI Blind Test 2026</a>' },
+      { k: 'Responsible for', v: 'The visibility audits and the analysis of the study <a href="/en/study-b2b-mittelstand/">AI Blind Test 2026</a>' },
       { k: 'Profile', v: '<a href="https://www.linkedin.com/in/oliver-parrizas/" rel="me noopener" target="_blank">LinkedIn</a>' },
     ],
     sections: [
@@ -187,7 +187,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
         id: 'codaai',
         h2: 'What does Oliver Parrizas do at CodaAI?',
         paras: [
-          'At CodaAI, Oliver Parrizas conducts the visibility audits: he checks whether and how AI systems name a company in response to typical buyer questions and derives the measures from that. He analysed the study <a href="/en/study/">AI Blind Test 2026</a> (449 companies, 3,592 buyer questions, 7,184 AI answers) and runs the live audits in the <a href="/en/webinar/">webinar</a>.',
+          'At CodaAI, Oliver Parrizas conducts the visibility audits: he checks whether and how AI systems name a company in response to typical buyer questions and derives the measures from that. He analysed the study <a href="/en/study-b2b-mittelstand/">AI Blind Test 2026</a> (449 companies, 3,592 buyer questions, 7,184 AI answers) and runs the live audits in the <a href="/en/webinar/">webinar</a>.',
           'The publisher of the content on codaai.ai is Anja Miebach, founder and owner of AMP Beratung (<a href="/en/co-create/">Co-Create</a>). All core facts about CodaAI are on the <a href="/en/facts/">facts page</a>.',
         ],
       },
@@ -209,7 +209,7 @@ export const AUTOR_PAGE: Record<AutorLang, AutorPage> = {
     works: [
       { label: 'GEO glossary', href: '/en/knowledge/geo-glossary/', note: 'Terms around Generative Engine Optimization, each with definition and example' },
       { label: 'GEO optimization: the guide', href: '/en/knowledge/geo-optimization/', note: 'How companies become visible in AI answers' },
-      { label: 'Study: AI Blind Test 2026', href: '/en/study/', note: 'Analysis of 449 companies from 258 industries' },
+      { label: 'Study: AI Blind Test 2026', href: '/en/study-b2b-mittelstand/', note: 'Analysis of 449 companies from 258 industries' },
       { label: 'Blog', href: '/en/blog/', note: 'Articles on AI visibility and B2B content' },
     ],
     linkedinLabel: 'Oliver Parrizas on LinkedIn',

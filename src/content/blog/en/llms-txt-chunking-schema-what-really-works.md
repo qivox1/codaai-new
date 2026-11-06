@@ -141,7 +141,7 @@ In practice that means: Organization on the homepage, Person for authors, Produc
 
 The statement “GEO is SEO” applies to Google and only partly to ChatGPT. In its guide, Google speaks exclusively about its own search. How ChatGPT or Perplexity weigh their sources is not addressed – Search Engine Journal points this out as well.
 
-Our own research shows how large the difference is. In the study [AI Blind Test 2026](/en/study/) covering 449 companies, **34.9% of the 361 companies with more than 100 top-10 rankings on Google are completely invisible in ChatGPT.** Average visibility is 24.9% in ChatGPT and 39.4% in Google AI Overviews. We queried ChatGPT without web search – the figure measures what the model knows on its own.
+Our own research shows how large the difference is. In the study [AI Blind Test 2026](/en/study-b2b-mittelstand/) covering 449 companies, **34.9% of the 361 companies with more than 100 top-10 rankings on Google are completely invisible in ChatGPT.** Average visibility is 24.9% in ChatGPT and 39.4% in Google AI Overviews. We queried ChatGPT without web search – the figure measures what the model knows on its own.
 
 The reason lies in the mechanics. ChatGPT often answers from model knowledge without searching. When it does search, it relies heavily on the Bing index ([more on this in the article on ChatGPT and Bing](/en/blog/chatgpt-seo-perplexity-visibility/)). A top position on Google is therefore a good starting point, but no guarantee. What also counts in ChatGPT are mentions on third-party sites and a consistent description of the company across the web – the evidence is in the article [Getting recommended by ChatGPT as a supplier](/en/blog/get-recommended-by-chatgpt-as-a-supplier/).
 

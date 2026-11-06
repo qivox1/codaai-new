@@ -146,7 +146,7 @@ Das Abruffenster einer eigenen Seite lässt sich in wenigen Minuten nachstellen.
 
 Wiederholen Sie das für die fünf Seiten, die Ihr Geschäft tragen. Erfahrungsgemäß fällt das Ergebnis bei Leistungsseiten schlechter aus als bei Blogartikeln, weil Leistungsseiten mit Bildstrecken, Referenzlogos und Teaserkacheln beginnen und der erklärende Text weit unten im Quelltext steht.
 
-Welche Größenordnung an Unsichtbarkeit dabei zusammenkommt, zeigt unsere eigene Erhebung. In der Studie [KI-Blindtest Mittelstand 2026](/studie/) mit 449 Unternehmen blieben **54,7 % der 3.592 Einkäuferfragen ohne Nennung** des untersuchten Unternehmens, und bei 46,8 % der Unternehmen empfahlen die Systeme stattdessen namentlich Wettbewerber. Das hat mehrere Ursachen, und eine davon ist technisch: Die Antwort stand nicht an der Stelle, die gelesen wird.
+Welche Größenordnung an Unsichtbarkeit dabei zusammenkommt, zeigt unsere eigene Erhebung. In der Studie [KI-Blindtest Mittelstand 2026](/studie-b2b-mittelstand/) mit 449 Unternehmen blieben **54,7 % der 3.592 Einkäuferfragen ohne Nennung** des untersuchten Unternehmens, und bei 46,8 % der Unternehmen empfahlen die Systeme stattdessen namentlich Wettbewerber. Das hat mehrere Ursachen, und eine davon ist technisch: Die Antwort stand nicht an der Stelle, die gelesen wird.
 
 ## Was folgt daraus für Ihre wichtigsten Seiten?
 

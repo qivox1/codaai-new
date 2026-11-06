@@ -15,10 +15,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
    04.08.2026 (EN-Relaunch): Die Sperre `lang === 'de'` ist weg. Sie war richtig,
    solange die Studie nur auf Deutsch existierte — ein Teaser hätte den
-   englischen Leser auf eine deutsche Seite geschickt. Seit es /en/study/ gibt,
+   englischen Leser auf eine deutsche Seite geschickt. Seit es /en/study-b2b-mittelstand/ gibt,
    läuft der Teaser in beiden Sprachen und zeigt auf die jeweils passende URL. */
 const cleanPath = Astro.url.pathname.replace(/\/$/, '');
-const isStudiePage = cleanPath.endsWith('/studie') || cleanPath.endsWith('/study');
+const isStudiePage = cleanPath.endsWith('/studie-b2b-tech') || cleanPath.endsWith('/study-b2b-tech');
 const isWebinarPage = cleanPath.endsWith('/webinar');
 
 /* 10.08.2026 — Zweiter Ausgang: Webinar.
@@ -39,7 +39,7 @@ const isWebinarPage = cleanPath.endsWith('/webinar');
    Studien-Knopf faellt ohnehin weg (kein Link auf sich selbst). Auf /webinar
    bleibt er aus — Conversion-Seite ohne Exit-Pfade. */
 const showTeaser = !isWebinarPage && new Date() <= new Date('2026-11-24T12:00:00+01:00');
-const SHOW_STUDY_BTN = false; // 06.11.2026: Mittelstand-Studie im Teaser übergangsweise aus
+const SHOW_STUDY_BTN = true; // 06.11.2026: zeigt auf den KI-Blindtest B2B-Tech 2026 (Mittelstand-Studie tritt zurück)
 const showStudyBtn = !isStudiePage && SHOW_STUDY_BTN;
 
 /* ⚠️ Der Webinar-Knopf verschwindet nach dem Termin von selbst. Ohne diese
@@ -48,12 +48,12 @@ const showStudyBtn = !isStudiePage && SHOW_STUDY_BTN;
 const WEBINAR_DATE = new Date('2026-11-24T12:00:00+01:00'); // 30.10.2026: Termin auf 24.11. verlegt
 const showWebinarBtn = new Date() <= WEBINAR_DATE;
 
-const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
+const studyHref = lang === 'de' ? `${base}/studie-b2b-tech/` : `${base}/en/study-b2b-tech/`;
 const webinarHref = lang === 'de' ? `${base}/webinar/` : `${base}/en/webinar/`;
 /* 06.11.2026 (Wunsch Oli): Der Teaser wirbt übergangsweise nur noch für das
    IT-Webinar am 24.11. — der KI-Blindtest Mittelstand 2026 tritt hier zurück,
    bis die Studienseite zum KI-Blindtest B2B-Tech 2026 steht. Der Studien-Knopf
-   ist deshalb abgeschaltet (SHOW_STUDY_BTN); /studie/ selbst bleibt erreichbar. */
+   führt seit dem Abend des 06.11. auf den KI-Blindtest B2B-Tech 2026. */
 const studyCopy = lang === 'de'
   ? {
       mapAlt: '',

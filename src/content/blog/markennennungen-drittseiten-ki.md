@@ -145,7 +145,7 @@ Der Nebeneffekt ist genau der gemessene: Der Firmenname steht im Text, im richti
 
 Der wirksamste und aufwendigste Weg: etwas messen, das es noch nicht gibt. Eine Erhebung in der eigenen Branche erzeugt Erwähnungen über Jahre, weil sie zitierbar ist – und sie erzeugt sie in genau der Form, auf die Sprachmodelle reagieren, nämlich als Aussage mit Urheber.
 
-Das ist keine Theorie, sondern die Erfahrung hinter unserer eigenen [Studie zur KI-Sichtbarkeit im Mittelstand](/studie/): 449 Unternehmen, 3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten. Als Baustein liegt dieser Weg in der dritten Stufe, weil er Vorlauf braucht.
+Das ist keine Theorie, sondern die Erfahrung hinter unserer eigenen [Studie zur KI-Sichtbarkeit im Mittelstand](/studie-b2b-mittelstand/): 449 Unternehmen, 3.592 Einkäuferfragen, 7.184 dokumentierte KI-Antworten. Als Baustein liegt dieser Weg in der dritten Stufe, weil er Vorlauf braucht.
 
 ### 4. Was wir bewusst nicht tun
 

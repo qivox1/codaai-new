@@ -145,7 +145,7 @@ The side effect is exactly what was measured: the company name is in the text, i
 
 The most effective and most demanding route: measure something that does not yet exist. A survey in your own sector generates mentions for years because it can be quoted — and it generates them in exactly the form language models respond to, namely as a statement with an author.
 
-This is not theory but the experience behind our own [study on AI visibility among mid-sized companies in Germany](/en/study/): 449 companies, 3,592 buyer questions, 7,184 documented AI answers. As a building block, this route sits in the third tier because it needs lead time.
+This is not theory but the experience behind our own [study on AI visibility among mid-sized companies in Germany](/en/study-b2b-mittelstand/): 449 companies, 3,592 buyer questions, 7,184 documented AI answers. As a building block, this route sits in the third tier because it needs lead time.
 
 ### 4. What we deliberately do not do
 

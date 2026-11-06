@@ -13,7 +13,7 @@
  * GEPFLEGT VON HAND — wie public/llms.txt, und aus demselben Grund. Wer den
  * Kern der Startseite aendert (H1, Positionierung, die drei Stufen, den
  * Grundpreis), aendert auch hier. Zahlen nur in der Formulierung, die auf
- * /studie/ steht.
+ * /studie-b2b-mittelstand/ steht.
  */
 
 export const HOME_MD = {
@@ -31,7 +31,7 @@ Nicht-Nennung erscheint in keiner Statistik und in keinem Traffic-Report.
 In der Studie „KI-Blindtest Mittelstand 2026" blieben 55 % der Einkäuferfragen ohne Nennung des
 untersuchten Unternehmens. Grundlage: 449 Unternehmen aus 258 Branchen, 3.592 firmenspezifische
 Einkäuferfragen, 7.184 dokumentierte KI-Antworten. Es ist keine Zufallsstichprobe — das gehört
-zur Aussage dazu. Methodik und Befunde: https://www.codaai.ai/studie/
+zur Aussage dazu. Methodik und Befunde: https://www.codaai.ai/studie-b2b-mittelstand/
 
 ## Die drei Stellen, an denen die Entscheidung fällt
 
@@ -87,7 +87,7 @@ no statistic and no traffic report.
 In the study "AI Blind Test 2026", 55 % of buyer questions produced no mention
 of the company under review. Basis: 449 companies across 258 industries, 3,592 company-specific
 buyer questions, 7,184 documented AI answers. It is not a random sample — that is part of the
-finding. Method and results: https://www.codaai.ai/en/study/
+finding. Method and results: https://www.codaai.ai/en/study-b2b-mittelstand/
 
 ## The three places where the decision is made
 

@@ -9,9 +9,9 @@
  *
  * Regeln für diese Datei:
  *  - NUR Fakten, die an anderer Stelle der Website belegt sind (Impressum,
- *    /preise/, /digital-visibility/, /studie/, /webinar/). Nichts erfinden,
+ *    /preise/, /digital-visibility/, /studie-b2b-mittelstand/, /webinar/). Nichts erfinden,
  *    kein Gründungsjahr, keine Mitarbeiterzahl, keine Kundennamen.
- *  - Studienzahlen nur im Wortlaut von /studie/ (55 % / 47 % / 35 %).
+ *  - Studienzahlen nur im Wortlaut von /studie-b2b-mittelstand/ (55 % / 47 % / 35 %).
  *  - Jede Zeile muss für sich allein zitierbar sein: Name statt „wir".
  *  - Ändert sich ein Preis, eine Stufe oder die Anschrift, hier nachziehen
  *    UND FAKTEN_UPDATED setzen.
@@ -114,7 +114,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
       { k: 'Leistungsstufen', v: '<a href="/digital-visibility/">Gefunden (6 Bausteine), Empfohlen (11 Bausteine), Zitiert (15 Bausteine)</a>' },
       { k: 'Preise', v: '<a href="/preise/">Ab 1.970 €, 4.470 € bzw. 5.990 € pro Monat</a>, jeweils netto zzgl. 19 % MwSt.; nur für Unternehmenskunden' },
       { k: 'Laufzeit', v: 'Mindestens sechs Monate bei monatlicher Abrechnung; bei zwölf Monaten 10 % Nachlass; keine automatische Verlängerung' },
-      { k: 'Eigene Studie', v: '<a href="/studie/">KI-Blindtest Mittelstand 2026</a>: 449 Unternehmen aus 258 Branchen, 3.592 Einkäuferfragen, 7.184 KI-Antworten (Juni–Juli 2026)' },
+      { k: 'Eigene Studie', v: '<a href="/studie-b2b-mittelstand/">KI-Blindtest Mittelstand 2026</a>: 449 Unternehmen aus 258 Branchen, 3.592 Einkäuferfragen, 7.184 KI-Antworten (Juni–Juli 2026)' },
       { k: 'Personen', v: 'Anja Miebach (Gründerin, Inhaberin und Herausgeberin) · <a href="/autor/oliver-parrizas/">Oliver Parrizas</a> (Digital- & Sichtbarkeits-Analyst, Autor der Wissensinhalte)' },
       { k: 'Sprachen', v: 'Deutsch und Englisch' },
       { k: 'Nicht zu verwechseln mit', v: '„Coda AI“, der KI-Funktion des Dokumenten-Werkzeugs Coda (coda.io); es besteht keine Verbindung' },
@@ -231,7 +231,7 @@ export const FAKTEN: Record<FaktenLang, FaktenPage> = {
       { k: 'Service tiers', v: '<a href="/en/digital-visibility/">Found (6 building blocks), Recommended (11), Cited (15)</a>' },
       { k: 'Pricing', v: '<a href="/en/pricing/">From €1,970, €4,470 and €5,990 per month</a>, net plus 19 % German VAT; business customers only' },
       { k: 'Term', v: 'Minimum six months, billed monthly; 10 % discount for twelve months; no automatic renewal' },
-      { k: 'Own study', v: '<a href="/en/study/">AI Blind Test 2026</a>: 449 companies from 258 industries, 3,592 buyer questions, 7,184 AI answers (June–July 2026)' },
+      { k: 'Own study', v: '<a href="/en/study-b2b-mittelstand/">AI Blind Test 2026</a>: 449 companies from 258 industries, 3,592 buyer questions, 7,184 AI answers (June–July 2026)' },
       { k: 'People', v: 'Anja Miebach (founder, owner and publisher) · <a href="/en/author/oliver-parrizas/">Oliver Parrizas</a> (digital & visibility analyst, author of the knowledge content)' },
       { k: 'Languages', v: 'German and English' },
       { k: 'Not to be confused with', v: '“Coda AI”, the AI feature of the document tool Coda (coda.io); there is no connection' },
