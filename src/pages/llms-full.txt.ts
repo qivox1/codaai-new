@@ -26,9 +26,9 @@ Drei Sichtbarkeits-Stufen ab 1.970 € pro Monat, dazu ein Preisrechner, dessen 
 URL: ${BASE_URL}/studie/
 Auswertung von 7.184 KI-Antworten zu 449 mittelständischen Unternehmen aus 258 Branchen, erhoben zu 3.592 Einkäuferfragen in ChatGPT und der Google KI-Übersicht. In 55 % der Fragen fällt der Firmenname nicht, bei 47 % der Unternehmen empfiehlt die KI namentlich Wettbewerber. Keine Zufallsstichprobe.
 
-### Webinar „Empfohlen oder unsichtbar?"
+### Webinar „Die KI schreibt die Shortlist. Stehen Sie drauf?"
 URL: ${BASE_URL}/webinar/
-Kostenloses Webinar am Dienstag, 24.11.2026, 11:00 Uhr, mit Norbert Schuster (strike2) und Oliver Parrizas: wie Buying Center heute recherchieren, und ein Live-Audit.
+Kostenloses Webinar für Softwarehersteller, Systemhäuser und IT-Dienstleister am Dienstag, 24.11.2026, 11:00 Uhr, mit Norbert Schuster (strike2) und Oliver Parrizas: wie Buying Center Software und IT-Partner auswählen, und die Ergebnisse des KI-Blindtest B2B-Tech 2026 (3.744 KI-Antworten zu 100 IT- und Softwarefirmen, in vier von fünf Antworten fehlt die gefragte Firma).
 
 ### Fragen & Antworten
 URL: ${BASE_URL}/faq/

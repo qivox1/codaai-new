@@ -135,23 +135,27 @@ export const faqWebinarEn: FaqItem[] = [
   },
   {
     q: 'Will my company be tested publicly during the webinar?',
-    a: 'Only if you explicitly allow it when registering — and then anonymously, without your company name being named. Your personal visibility audit goes to you and nobody else.',
+    a: 'Only if you explicitly allow it when registering — and then anonymously, without your company name being named. Your personal analysis goes to you and nobody else.',
   },
   {
     q: 'What does attending cost — and where is the catch?',
-    a: 'Attending is free — including your personal visibility audit if you want it. There is no project commitment and no sales block in the webinar. Anyone who wants to talk through their results can book a 30-minute call voluntarily. That is all.',
+    a: 'Attending is free, and everyone registered receives the guide “Die KI schreibt die Shortlist.” (in German). There is no project commitment and no sales block in the webinar. Anyone who wants to talk through their results can book a 30-minute call voluntarily. That is all.',
   },
   {
     q: 'We are only allowed to use Microsoft Copilot — is the webinar still useful to me?',
-    a: 'Yes. Copilot runs on the same GPT models as ChatGPT, so everything we show for checking your own company works there in exactly the same way. Our study measurements cover ChatGPT and Google AI Overviews; the mechanism by which AI assistants recommend or omit a provider is the same in Copilot.',
+    a: 'Yes. Copilot runs on the same GPT models as ChatGPT, so everything we show for checking your own company works there in exactly the same way. Our measurements cover ChatGPT, Claude, Gemini, Perplexity and Google AI Mode; the mechanism by which AI assistants recommend or omit a provider is the same in Copilot.',
+  },
+  {
+    q: 'We are listed on comparison portals — is that enough?',
+    a: 'It helps, but it is rarely enough. In the KI-Blindtest B2B-Tech 2026, around 13% of the sources the AI relies on lead to comparison portals and directories, around 70% to vendor websites — often to your competitors’ guides and best-of lists. The AI combines several sources. If you are only on the portal, you leave the rest to others.',
   },
   {
     q: 'We rank well on Google — is it still worth it?',
-    a: 'Especially then: 35% of the companies we examined with over 100 top-10 rankings on Google are completely invisible in ChatGPT. Classic SEO strength and AI visibility are two different disciplines — and it is exactly this SEO paradox we demonstrate live.',
+    a: 'Especially then: in the KI-Blindtest Mittelstand 2026, 35% of the companies with over 100 top-10 rankings on Google were completely invisible in ChatGPT. Classic SEO strength and AI visibility are two different disciplines — and it is exactly this SEO paradox we demonstrate live.',
   },
   {
     q: 'Is there a recording?',
-    a: 'Yes. Everyone who registers receives the recording by email afterwards — including those who cannot make the live session.',
+    a: 'Yes. Everyone who registers receives the recording and the guide “Die KI schreibt die Shortlist.” by email afterwards — including those who cannot make the live session.',
   },
 ];
 
@@ -204,7 +208,7 @@ export const faqGroupsEn: { id: string; title: string; intro: string; href: stri
   {
     id: 'webinar',
     title: 'Live webinar',
-    intro: 'Registration, agenda and recording of the webinar “Recommended or invisible?” — held in German.',
+    intro: 'Registration, agenda and recording of the webinar “AI writes the shortlist.” — held in German.',
     href: '/en/webinar/',
     hrefLabel: 'To the webinar',
     items: faqWebinarEn,

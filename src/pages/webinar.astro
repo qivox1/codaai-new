@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import WebinarSignup from '../components/premium/WebinarSignup.astro';
 import SnapshotTeaser from '../components/snapshot/SnapshotTeaser.astro';
-import FlipWords from '../components/react/FlipWords';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { faqWebinar } from '../data/faq';
 import { WEBINAR_SLOTS } from '../data/webinar-slots';
@@ -20,51 +19,48 @@ const SITE_URL = new URL(import.meta.env.BASE_URL, Astro.site).toString().replac
 // Apps-Script-Backend (gleiche Web-App wie Buchungs-Widget, Aktionen webinar_code / webinar_register)
 const WEBINAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyr-OljJObRAtbuujuCIAyv5StyK2hgN_sxiaQZo2RzauxIsizjzSFx5Ij3KJ2t8pvb/exec';
 
-// Rotierende Konsequenz-Zeile der H1 (FlipWords-Effekt wie im Startseiten-Hero)
-const h1FlipWords = [
-  { text: 'wird nicht angefragt.', color: '#DF41FB' },
-  { text: 'fehlt auf der Shortlist.', color: '#DF41FB' },
-  { text: 'verliert den Auftrag.', color: '#DF41FB', duration: 10000 },
-];
+// 06.11.2026: H1 „Die KI schreibt die Shortlist. / Stehen Sie drauf?“ — feste Zeile 2 statt Wechselwort,
+// die zweite Variante („Oder Ihr Wettbewerber?“) passte mobil nicht in eine Zeile.
 
 // 01.10.2026: zwei Termine zur Wahl, seit 06.10.2026 nur noch ein Termin, seit 30.10.2026 der 24.11. — Quelle src/data/webinar-slots.ts
 const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.de.dateLong, time: s.de.time, iso: s.start, end: s.end, short: `${s.de.day} ${s.de.date}`, dateShort: s.de.dateShort }));
 
-// Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
+// Schmerzpunkte (Problem-Sektion) — jede Zahl aus dem KI-Blindtest B2B-Tech 2026 (05./06.11.2026,
+// 100 Firmen, 3.744 auswertbare Antworten). Quelle der Zahlen: Autoren-Briefing, Abschnitt „Studienzahlen“.
 const painStats = [
-  { n: '55 %', t: 'der Einkäuferfragen bleiben ohne Nennung', d: 'In über der Hälfte der Fragen taucht das untersuchte Unternehmen in keiner KI-Antwort auf — und niemand merkt es, denn diese Nicht-Nennung erscheint in keiner Statistik.' },
-  { n: 'fast 1/2', t: 'werden durch namentlich empfohlene Wettbewerber ersetzt', d: 'Bei fast jedem zweiten Unternehmen empfiehlt die KI konkret die Konkurrenz, während das Unternehmen selbst bei der Mehrheit seiner Kernfragen zum Produkt- und Leistungsspektrum fehlt.' },
-  { n: '> 1/3', t: 'trotz guter Google-Rankings unsichtbar', d: 'Über ein Drittel der Firmen mit mehr als 100 Top-10-Rankings ist in ChatGPT komplett unsichtbar. Klassische SEO-Stärke schützt nicht.' },
+  { n: '4 von 5', t: 'KI-Antworten nennen die gefragte Firma nicht', d: 'Bei typischen Käuferfragen kommt die IT- oder Softwarefirma nur in jeder fünften Antwort vor (766 von 3.744). Die übrigen Antworten empfehlen andere — und keine Statistik zeigt Ihnen das.' },
+  { n: '46 %', t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'In fast jeder zweiten Antwort fehlt die gefragte Firma, und die KI nennt namentlich einen Wettbewerber. Meist einen Mittelständler, keinen Konzern.' },
+  { n: '40 %', t: 'der Systemhäuser kommen in keiner einzigen Antwort vor', d: '16 von 40 Systemhäusern und IT-Dienstleistern wurden bei keiner ihrer acht Fragen genannt, in keinem der fünf Systeme. Softwarehersteller stehen besser da, aber auch dort fehlt die Firma in zwei von drei Antworten.' },
 ];
 const painDaily = [
-  'Ihre Anfragen kommen über Empfehlungen und Bestandskunden — und werden spürbar weniger.',
-  'Sie sind führend in Ihrer Nische, aber außerhalb Ihres Netzwerks kennt Sie kaum jemand.',
-  'Sie wissen nicht, was ChatGPT antwortet, wenn Einkäufer nach Ihrer Leistung fragen — und niemand sagt es Ihnen.',
-  'Ihre Website spricht 20 Sprachen — aber was die KI in Ihren Exportmärkten über Sie antwortet, hat noch nie jemand geprüft.',
+  'Interessenten kommen mit einer fertigen Shortlist ins Erstgespräch — und Sie wissen nicht, woher sie stammt.',
+  'Vergleichsportale und die Bestenlisten Ihrer Wettbewerber beschreiben Ihren Markt. Ihre eigene Website kommt darin kaum vor.',
+  'Sie wissen nicht, was ChatGPT antwortet, wenn ein IT-Leiter nach Ihrer Lösung fragt — und niemand sagt es Ihnen.',
+  'Ihr Geschäft lebt von Empfehlungen. Die KI ist gerade der Kollege geworden, der empfiehlt.',
 ];
 
 // Learnings = die Antworten auf die Schmerzpunkte (Problem → Lösung)
 const learnings = [
   {
     t: 'Verstehen, wo Ihre Aufträge heute entschieden werden',
-    d: 'Die stille Vorentscheidung entschlüsselt: wie Einkäufer heute recherchieren und ihre Shortlist bilden, warum die Entscheidung vor dem Erstkontakt fällt — und an welcher Stelle Ihr Unternehmen sichtbar sein muss.',
+    d: 'Die stille Vorentscheidung im IT-Kauf: wie Buying Center Software und IT-Partner auswählen, warum die Shortlist vor dem Erstkontakt steht — und wer sie schreibt.',
   },
   {
     t: 'Sehen, was die KI über Firmen wie Ihre sagt',
-    d: 'Live-Audit vor Ihren Augen: echte Mittelstands-Marken in ChatGPT & Google KI-Übersicht, geprüft mit der Methodik der 8 Einkäuferfragen — auf Wunsch anonym auch Firmen aus dem Publikum.',
+    d: 'Live-Fälle aus Software und IT-Service, anonymisiert: wen die KI empfiehlt, welche Seiten sie dafür liest und warum oft ein Mittelständler gewinnt, nicht der Konzern.',
   },
   {
-    t: 'Wissen, wie Sie empfohlen werden statt zu fehlen',
-    d: 'Der Fahrplan gegen die Unsichtbarkeit: die 5 Hebel von Sichtbarkeit bis Auftrag — was Sie mit Bordmitteln selbst tun können und wo die Grenze liegt.',
+    t: 'Wissen, wie Sie auf die Shortlist kommen',
+    d: 'Gefunden, gelesen, genannt: die drei Stufen, an denen eine Empfehlung hängt, die Inhaltslücken je Kundenfrage — und was Sie mit Bordmitteln selbst tun können.',
   },
 ];
 
 const agenda = [
-  { min: '20 Min.', t: 'Die stille Vorentscheidung — wie Buying Center heute recherchieren und warum Relevanz lange vor dem Erstkontakt entsteht', d: 'Norbert Schuster über Dark Funnel, Buying Center und die Entscheider, die Sie nie treffen: wie B2B-Kaufprozesse heute wirklich ablaufen — und warum die Weichen fallen, lange bevor Ihr Vertrieb ins Spiel kommt. Start mit einer kurzen Live-Umfrage.' },
-  { min: '25 Min.', t: 'Live-Audit: empfohlen oder unsichtbar?', d: 'Echte Mittelstands-Marken live in ChatGPT + Google KI-Übersicht, geprüft mit der Methodik der 8 Einkäuferfragen und den typischen Befunden aus hunderten Audits — plus, was Sie mit ChatGPT oder Copilot selbst prüfen können und wo die Grenze liegt.' },
+  { min: '20 Min.', t: 'Die stille Vorentscheidung im IT-Kauf — wie Buying Center Software und IT-Partner auswählen', d: 'Norbert Schuster über Dark Funnel, Buying Center und die Entscheider, die Sie nie treffen: IT-Leitung, Security, Fachbereich, Einkauf und Geschäftsführung — und die Orte, an denen sie sich informieren, von Vergleichsportalen bis zu Partnerprogrammen. Start mit einer kurzen Live-Umfrage.' },
+  { min: '25 Min.', t: 'Live: Wer steht auf der Shortlist?', d: 'Zwei anonymisierte Fälle aus Software und IT-Service, die Ergebnisse des KI-Blindtest B2B-Tech 2026 und die drei Stufen gefunden, gelesen, genannt — plus, was Sie mit ChatGPT oder Copilot selbst prüfen können und wo die Grenze liegt.' },
   /* Zeitangabe beim Q&A bewusst gestrichen (Beschluss 07.08.2026: intern 10 Min. statt 15 —
      die Agenda soll keine Minutenzahl versprechen, die live variiert). */
-  { min: '', t: 'Offene Fragerunde (Q&A)', d: 'Ihre konkreten Fälle im Dialog mit Norbert Schuster und Oliver Parrizas: die 5 Hebel im Zusammenspiel — von sichtbar werden bis Aufträge gewinnen — und wie es nach dem Webinar weitergeht.' },
+  { min: '', t: 'Offene Fragerunde (Q&A)', d: 'Ihre konkreten Fälle im Dialog mit Norbert Schuster und Oliver Parrizas — zum Beispiel: Reicht ein Eintrag im Vergleichsportal? Sollen wir KI-Crawler aussperren? Und wie es nach dem Webinar weitergeht.' },
 ];
 
 /* Fragen aus der gemeinsamen Quelle src/data/faq.ts (Neuverteilung 03.08.2026). */
@@ -87,7 +83,7 @@ const faqSchema = JSON.stringify({
 const eventSchemas = slots.map((slot) => JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Empfohlen oder unsichtbar? — Warum Ihre nächsten Aufträge in ChatGPT & Co. entschieden werden',
+  name: 'Die KI schreibt die Shortlist. Stehen Sie drauf? — Live-Webinar für Softwarehersteller, Systemhäuser und IT-Dienstleister',
   startDate: slot.iso,
   endDate: slot.end,
   eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
@@ -103,16 +99,16 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   ],
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: `${SITE_URL}/webinar/` },
-  description: 'Kostenloses Live-Webinar: Warum B2B-Aufträge heute in KI-Antworten entschieden werden — mit Live-Audits echter Firmen und persönlichem Sichtbarkeits-Audit auf Wunsch.',
+  description: 'Kostenloses Live-Webinar für Softwarehersteller, Systemhäuser und IT-Dienstleister: Wie ChatGPT & Co. entscheiden, welche Software und welchen IT-Partner Ihre Kunden anfragen — mit den Ergebnissen des KI-Blindtest B2B-Tech 2026.',
 }));
 ---
 
 <Layout
   lang="de"
-  title="Live-Webinar: Empfohlen oder unsichtbar? | CodaAI"
-  description="Live-Webinar mit Norbert Schuster: Warum B2B-Aufträge heute in ChatGPT & Co. entschieden werden — mit Live-Audits und Ihrem persönlichen Sichtbarkeits-Audit."
+  title="Live-Webinar: Die KI schreibt die Shortlist | CodaAI"
+  description="Live-Webinar für Softwarehersteller, Systemhäuser und IT-Dienstleister: Wie ChatGPT & Co. Ihre Shortlist schreiben — mit Zahlen aus 3.744 KI-Antworten zu 100 IT-Firmen."
   jsonLd={[...eventSchemas, faqSchema]}
-  ogImage="https://www.codaai.ai/images/og-webinar.jpg?v=20261124"
+  ogImage="https://www.codaai.ai/images/og-webinar.jpg?v=20261106"
 >
   <Navbar lang="de" />
 
@@ -158,13 +154,21 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
 
         <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
         <div class="max-w-3xl">
+          {/* Zielgruppenzeile (06.11.2026): Die Studie heißt „KI-Blindtest B2B-Tech 2026“,
+              der Leser wird konkret angesprochen — ein Systemhaus nennt sich nicht „Tech-Unternehmen“. */}
+          <p class="mb-4 text-base font-semibold text-muted-foreground lg:text-lg">Für Softwarehersteller, Systemhäuser und IT-Dienstleister</p>
           <h1 class="cai-h1 cai-kipp text-foreground">
-            <span class="k1 block">Wen die KI nicht nennt,</span>
-            <span class="k2 k2-flip block"><FlipWords words={h1FlipWords} gradient client:idle /></span>
+            <span class="k1 block">Die KI schreibt die Shortlist.</span>
+            <span class="k2 block">Stehen Sie drauf?</span>
           </h1>
           <p class="mt-6 text-xl font-semibold leading-relaxed text-foreground lg:text-2xl">
-            Warum Ihre nächsten Aufträge in ChatGPT &amp; Co. entschieden werden — bevor Ihr Vertrieb davon erfährt.
+            Wie ChatGPT &amp; Co. entscheiden, welche Software und welchen IT-Partner Ihre Kunden anfragen — bevor Ihr Vertrieb davon erfährt.
           </p>
+          {/* Zwei Beispielfragen: jede Gruppe erkennt ihre eigene. */}
+          <ul class="mt-6 flex flex-wrap gap-3" aria-label="Beispiele für Käuferfragen an die KI">
+            <li class="rounded-[14px] border border-border bg-card px-4 py-2 text-sm text-muted-foreground">„Welches DMS passt zu SAP im Mittelstand?“</li>
+            <li class="rounded-[14px] border border-border bg-card px-4 py-2 text-sm text-muted-foreground">„Welches Systemhaus betreut 150 Arbeitsplätze?“</li>
+          </ul>
 
         </div>
 
@@ -226,6 +230,10 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
                 <dt class="text-muted-foreground">Teilnahme</dt>
                 <dd class="font-semibold text-foreground">kostenlos</dd>
               </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <dt class="text-muted-foreground">Für alle Angemeldeten</dt>
+                <dd class="text-right font-semibold text-foreground">Leitfaden als PDF</dd>
+              </div>
             </dl>
 
             <div class="mt-6">
@@ -265,12 +273,11 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
           Webinargrundlage
         </p>
         <p class="text-sm leading-relaxed text-muted-foreground">
-          Studie im Juni und Juli 2026:
-          <strong class="font-semibold text-foreground">449 Unternehmen</strong> aus 258 Branchen,
-          <strong class="font-semibold text-foreground">3.592 firmenspezifische Einkäuferfragen</strong>,
-          <strong class="font-semibold text-foreground">7.184 dokumentierte KI-Antworten</strong>
-          aus ChatGPT und der Google KI-Übersicht.
-          <a href={`${base}/studie/`} class="whitespace-nowrap font-medium text-cta-accessible underline decoration-border underline-offset-2 transition-colors hover:text-cta">Zur Studie&nbsp;→</a>
+          KI-Blindtest B2B-Tech 2026, gemessen im November 2026:
+          <strong class="font-semibold text-foreground">100 IT- und Softwarefirmen</strong> aus dem deutschsprachigen Raum,
+          <strong class="font-semibold text-foreground">800 Käuferfragen</strong>,
+          <strong class="font-semibold text-foreground">3.744 ausgewertete KI-Antworten</strong>
+          aus ChatGPT, Claude, Gemini, Perplexity und Googles KI-Modus, alle mit Websuche.
         </p>
       </div>
     </section>
@@ -299,7 +306,8 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
             </li>
           ))}
         </ul>
-        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Alle Zahlen aus unserer Auswertung von 7.184 KI-Antworten zu 449 Unternehmen — <a href={`${base}/studie/`} class="font-medium text-cta-accessible underline decoration-border underline-offset-2 hover:text-cta">zur Studie</a>.</p>
+        <p class="mt-6 max-w-3xl text-sm text-muted-foreground">Und Ihre Käufer fragen dort zuerst: 51 % der Software-Käufer beginnen ihre Recherche inzwischen öfter in einem KI-Chatbot als bei Google (G2, Befragung von 1.076 B2B-Entscheidern, März 2026).</p>
+        <p class="mt-3 max-w-3xl text-sm text-muted-foreground">Die Zahlen oben stammen aus dem KI-Blindtest B2B-Tech 2026: 3.744 KI-Antworten zu 100 Softwareherstellern, Systemhäusern, IT-Dienstleistern sowie Anbietern für IT-Sicherheit und Cloud.</p>
       </section>
 
       <!-- ── Die Lösung / Das erwartet Sie ────────────────────────────── -->
@@ -401,10 +409,10 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         <h2 id="h-outcome" class="cai-h2 wfx-reveal text-foreground">Nach 45 Minuten haben Sie:</h2>
         <ul class="wfx-reveal mt-8 max-w-3xl space-y-4">
           {[
-            ['Klarheit, ob ChatGPT & Google-KI Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
-            ['Die 5 Hebel, sortiert nach Wirkung', ' — von sichtbar werden bis Aufträge gewinnen.'],
-            ['Die Einordnung', ' — was die Ergebnisse von 449 untersuchten Unternehmen aus 258 Branchen für Unternehmen wie Ihres bedeuten.'],
-            ['Auf Wunsch: Ihr persönliches Sichtbarkeits-Audit', ' — Ihr individuelles Dashboard zeigt, wie Ihr Unternehmen derzeit in der KI dasteht. Den Zugang senden wir aus Datenschutzgründen persönlich per SMS.'],
+            ['Klarheit, ob ChatGPT & Co. Sie empfehlen', ' — und wen die KI stattdessen nennt.'],
+            ['Die drei Stufen gefunden, gelesen, genannt', ' — und an welcher Ihr Unternehmen hängt.'],
+            ['Die Zahlen aus dem KI-Blindtest B2B-Tech 2026', ' — was 3.744 KI-Antworten zu 100 IT- und Softwarefirmen für Unternehmen wie Ihres bedeuten.'],
+            ['Den Leitfaden „Die KI schreibt die Shortlist.“', ' — alle Angemeldeten bekommen ihn nach dem Webinar per E-Mail, zusammen mit der Aufzeichnung.'],
           ].map(([t, d]) => (
             <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
               <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
@@ -494,10 +502,9 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
                 technisch erklärungsbedürftige Produkte entwickeln, produzieren und weltweit
                 vertreiben — in ihrer Nische häufig Marktführer, außerhalb der eigenen Branche
                 kaum bekannt. Genau dort entscheidet sich, ob eine KI ein Unternehmen kennt
-                und empfiehlt. Im Webinar führt er die Live-Audits durch: echte Firmen, echte
-                KI-Antworten, die Methodik der 8 Einkäuferfragen — und die Zahlen hinter der
-                bislang umfangreichsten Auswertung zur KI-Sichtbarkeit des deutschen
-                Mittelstands.
+                und empfiehlt. Er hat den KI-Blindtest Mittelstand 2026 und den KI-Blindtest
+                B2B-Tech 2026 ausgewertet. Im Webinar zeigt er die Live-Fälle: echte
+                KI-Antworten, anonymisiert, und die Zahlen aus 100 IT- und Softwarefirmen.
               </p>
             </div>
           </article>
@@ -508,12 +515,12 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
       <!-- ── Für wen ist das Webinar ──────────────────────────────────── -->
       <section aria-labelledby="h-fuerwen" class="border-t border-border py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">Für wen ist das Webinar</p>
-        <h2 id="h-fuerwen" class="cai-h2 wfx-reveal text-foreground">Gemacht für Entscheider im B2B-Mittelstand</h2>
+        <h2 id="h-fuerwen" class="cai-h2 wfx-reveal text-foreground">Gemacht für Softwarehersteller, Systemhäuser und IT-Dienstleister</h2>
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {[
-            ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen im wichtigsten neuen Kanal stattfindet — bevor Wettbewerber den Vorsprung ausbauen.'],
-            ['Marketing-Verantwortliche', 'Sie investieren in SEO und Content — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
-            ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
+            ['Geschäftsführung', 'Sie wollen wissen, ob Ihr Unternehmen auf der Shortlist steht, die die KI für Ihre Kunden schreibt — bevor Wettbewerber den Vorsprung ausbauen.'],
+            ['Marketing-Verantwortliche', 'Sie investieren in Website, Content und Bewertungsportale — und brauchen Klarheit, ob davon in KI-Antworten etwas ankommt.'],
+            ['Vertriebsverantwortliche', 'Sie spüren, dass Anfragen dünner werden oder mit fertiger Shortlist kommen — und wollen die stille Vorentscheidung nicht dem Zufall überlassen.'],
           ].map(([t, d]) => (
             <article class="wfx-reveal wfx-tilt rounded-2xl border border-border bg-card p-8">
               <h3 class="text-lg font-semibold leading-snug text-foreground">{t}</h3>
@@ -524,10 +531,10 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         <p class="mt-8 max-w-3xl font-medium text-foreground">Sie sind hier richtig, wenn:</p>
         <ul class="mt-4 max-w-3xl space-y-3">
           {[
-            'Ihr Geschäft von erklärungsbedürftigen Produkten und längeren Kaufprozessen lebt.',
+            'Sie Software, IT-Services, Sicherheits- oder Cloud-Lösungen an Unternehmen verkaufen.',
+            'Ihre Kunden vor dem Erstkontakt Vergleichsportale, Bestenlisten und inzwischen die KI befragen.',
             'Empfehlungen noch tragen — aber der Anfrage-Eingang spürbar dünner wird.',
             'Sie den eigenen Stand kennen wollen, bevor Sie Budget in Maßnahmen stecken.',
-            'Sie in mehreren Märkten verkaufen, Ihre KI-Sichtbarkeit dort aber nie geprüft wurde.',
           ].map((t) => (
             <li class="flex items-start gap-3 leading-relaxed text-muted-foreground">
               <svg class="mt-1 h-5 w-5 shrink-0 text-cta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
@@ -555,8 +562,8 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
       <!-- ── Schluss-CTA ────────────────────────────────────────────── -->
       <section aria-labelledby="h-schluss" class="border-t border-border py-16">
         <div class="rounded-3xl bg-muted/30 p-8 text-center sm:p-12">
-          <h2 id="h-schluss" class="cai-h2 wfx-reveal text-foreground">60 Minuten, die zeigen, wo Sie in KI-Antworten stehen.</h2>
-          <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Kostenlos, inklusive Ihres persönlichen Audits — Sie brauchen nur Website, Namen und E-Mail.</p>
+          <h2 id="h-schluss" class="cai-h2 wfx-reveal text-foreground">60 Minuten, die zeigen, ob Sie auf der Shortlist stehen.</h2>
+          <p class="mx-auto mt-3 max-w-xl text-muted-foreground">Kostenlos, mit dem Leitfaden für alle Angemeldeten — Sie brauchen nur Website, Namen und E-Mail.</p>
           <div class="mt-8 flex justify-center">
             <WebinarSignup label="Jetzt Platz sichern" align="center" />
           </div>

@@ -127,23 +127,27 @@ export const faqWebinar: FaqItem[] = [
   },
   {
     q: 'Wird meine Firma im Webinar öffentlich getestet?',
-    a: 'Nur, wenn Sie das bei der Anmeldung ausdrücklich erlauben — und dann ausschließlich anonym, ohne Nennung Ihres Firmennamens. Ihr persönliches Sichtbarkeits-Audit erhalten grundsätzlich nur Sie selbst.',
+    a: 'Nur, wenn Sie das bei der Anmeldung ausdrücklich erlauben — und dann ausschließlich anonym, ohne Nennung Ihres Firmennamens. Ihre persönliche Auswertung erhalten grundsätzlich nur Sie selbst.',
   },
   {
     q: 'Was kostet die Teilnahme — und wo ist der Haken?',
-    a: 'Die Teilnahme ist kostenlos — auf Wunsch inklusive Ihres persönlichen Sichtbarkeits-Audits. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 30-Minuten-Gespräch buchen — mehr nicht.',
+    a: 'Die Teilnahme ist kostenlos, und alle Angemeldeten bekommen den Leitfaden „Die KI schreibt die Shortlist.“. Es gibt kein Projekt-Commitment und keinen Verkaufsblock im Webinar. Wer seine Ergebnisse besprechen möchte, kann freiwillig ein 30-Minuten-Gespräch buchen — mehr nicht.',
   },
   {
     q: 'Bei uns ist nur Microsoft Copilot erlaubt — bringt mir das Webinar trotzdem etwas?',
-    a: 'Ja. Copilot nutzt dieselben GPT-Modelle wie ChatGPT — alles, was wir im Webinar zum Selbst-Prüfen zeigen, funktioniert dort genauso. Unsere Studien-Messungen beziehen sich auf ChatGPT und die Google KI-Übersicht; die Mechanik, nach der KI-Assistenten Anbieter empfehlen oder weglassen, ist bei Copilot dieselbe.',
+    a: 'Ja. Copilot nutzt dieselben GPT-Modelle wie ChatGPT — alles, was wir im Webinar zum Selbst-Prüfen zeigen, funktioniert dort genauso. Unsere Messungen umfassen ChatGPT, Claude, Gemini, Perplexity und Googles KI-Modus; die Mechanik, nach der KI-Assistenten Anbieter empfehlen oder weglassen, ist bei Copilot dieselbe.',
+  },
+  {
+    q: 'Wir sind auf Vergleichsportalen gelistet — reicht das?',
+    a: 'Es hilft, reicht aber selten. Im KI-Blindtest B2B-Tech 2026 führen rund 13 % der Quellen, auf die sich die KI stützt, zu Vergleichsportalen und Verzeichnissen, rund 70 % zu Websites von Anbietern — oft zu Ratgebern und Bestenlisten Ihrer Wettbewerber. Die KI fasst mehrere Quellen zusammen. Wer nur im Portal steht, überlässt den Rest anderen.',
   },
   {
     q: 'Wir ranken bei Google gut — lohnt sich das trotzdem?',
-    a: 'Gerade dann: 35 % der untersuchten Unternehmen mit über 100 Top-10-Rankings bei Google sind in ChatGPT komplett unsichtbar. Klassische SEO-Stärke und KI-Sichtbarkeit sind zwei verschiedene Disziplinen — genau dieses SEO-Paradox zeigen wir live.',
+    a: 'Gerade dann: Im KI-Blindtest Mittelstand 2026 waren 35 % der Unternehmen mit über 100 Top-10-Rankings bei Google in ChatGPT komplett unsichtbar. Klassische SEO-Stärke und KI-Sichtbarkeit sind zwei verschiedene Disziplinen — genau dieses SEO-Paradox zeigen wir live.',
   },
   {
     q: 'Gibt es eine Aufzeichnung?',
-    a: 'Ja. Alle Angemeldeten bekommen die Aufzeichnung im Anschluss per E-Mail — auch, wenn Sie am Termin selbst nicht dabei sein können.',
+    a: 'Ja. Alle Angemeldeten bekommen im Anschluss die Aufzeichnung und den Leitfaden „Die KI schreibt die Shortlist.“ per E-Mail — auch, wenn Sie am Termin selbst nicht dabei sein können.',
   },
 ];
 
@@ -198,7 +202,7 @@ export const faqGroups: { id: string; title: string; intro: string; href: string
   {
     id: 'webinar',
     title: 'Live-Webinar',
-    intro: 'Anmeldung, Ablauf und Aufzeichnung des Webinars „Empfohlen oder unsichtbar?".',
+    intro: 'Anmeldung, Ablauf und Aufzeichnung des Webinars „Die KI schreibt die Shortlist.“.',
     href: '/webinar/',
     hrefLabel: 'Zum Webinar',
     items: faqWebinar,
