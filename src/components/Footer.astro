@@ -38,8 +38,9 @@ const isWebinarPage = cleanPath.endsWith('/webinar');
    Der Teaser laeuft jetzt AUCH auf /studie: dort ist der Leser warm, und der
    Studien-Knopf faellt ohnehin weg (kein Link auf sich selbst). Auf /webinar
    bleibt er aus — Conversion-Seite ohne Exit-Pfade. */
-const showTeaser = !isWebinarPage;
-const showStudyBtn = !isStudiePage;
+const showTeaser = !isWebinarPage && new Date() <= new Date('2026-11-24T12:00:00+01:00');
+const SHOW_STUDY_BTN = false; // 06.11.2026: Mittelstand-Studie im Teaser übergangsweise aus
+const showStudyBtn = !isStudiePage && SHOW_STUDY_BTN;
 
 /* ⚠️ Der Webinar-Knopf verschwindet nach dem Termin von selbst. Ohne diese
    Grenze wuerde der Footer sitewide ein vergangenes Datum bewerben — schlimmer
@@ -49,24 +50,28 @@ const showWebinarBtn = new Date() <= WEBINAR_DATE;
 
 const studyHref = lang === 'de' ? `${base}/studie/` : `${base}/en/study/`;
 const webinarHref = lang === 'de' ? `${base}/webinar/` : `${base}/en/webinar/`;
+/* 06.11.2026 (Wunsch Oli): Der Teaser wirbt übergangsweise nur noch für das
+   IT-Webinar am 24.11. — der KI-Blindtest Mittelstand 2026 tritt hier zurück,
+   bis die Studienseite zum KI-Blindtest B2B-Tech 2026 steht. Der Studien-Knopf
+   ist deshalb abgeschaltet (SHOW_STUDY_BTN); /studie/ selbst bleibt erreichbar. */
 const studyCopy = lang === 'de'
   ? {
-      mapAlt: 'Punktkarte Deutschlands — 449 untersuchte Unternehmen aus 258 Branchen',
-      kicker: 'KI-Blindtest Mittelstand 2026',
-      titleA: 'Empfohlen oder ',
-      titleB: 'unsichtbar',
-      note: '449 Unternehmen · 3.592 Einkäuferfragen · 7.184 KI-Antworten. Die bislang umfangreichste Auswertung zur KI-Sichtbarkeit des deutschen Mittelstands.',
+      mapAlt: '',
+      kicker: 'Live-Webinar · Di, 24.11.2026 · 11:00 Uhr',
+      titleA: 'Die KI schreibt die Shortlist. Stehen Sie ',
+      titleB: 'drauf',
+      note: 'Für Softwarehersteller, Systemhäuser und IT-Dienstleister. Mit den Zahlen aus dem KI-Blindtest B2B-Tech 2026: In vier von fünf KI-Antworten fehlt die gefragte Firma.',
       cta: 'Zur Studie →',
-      ctaWebinar: 'Zum Webinar am 24.11. →',
+      ctaWebinar: 'Kostenlos anmelden →',
     }
   : {
-      mapAlt: 'Dot map of Germany — 449 companies examined across 258 industries',
-      kicker: 'AI Blind Test 2026',
-      titleA: 'Recommended or ',
-      titleB: 'invisible',
-      note: '449 companies · 3,592 buyer questions · 7,184 AI answers. The most extensive analysis to date of AI visibility among mid-sized companies in Germany.',
+      mapAlt: '',
+      kicker: 'Live webinar · Tue, 24 Nov 2026 · 11:00 CET · held in German',
+      titleA: 'AI writes the shortlist. Are you ',
+      titleB: 'on it',
+      note: 'For software vendors, system integrators and IT service providers. With the figures from the KI-Blindtest B2B-Tech 2026: in four out of five AI answers, the company asked about is missing.',
       cta: 'Read the study →',
-      ctaWebinar: 'Webinar, 24 Nov →',
+      ctaWebinar: 'Register free →',
     };
 
 // Tabler Icons as inline SVG (stroke-only, 1.5 strokeWidth)
@@ -216,7 +221,7 @@ const pageModifiedLabel = pageModified
         <span class="flex w-full flex-none flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
           {showWebinarBtn && (
             <a
-              href={webinarHref}
+              href={`${webinarHref}${lang === "de" ? "#anmeldung" : "#register"}`}
               class="inline-flex items-center justify-center gap-2 rounded-[14px] bg-cta-strong px-6 py-3 text-center text-sm font-semibold text-white transition-opacity hover:opacity-90"
             >
               {studyCopy.ctaWebinar}
