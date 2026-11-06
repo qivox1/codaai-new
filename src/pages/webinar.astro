@@ -29,8 +29,8 @@ const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.d
 // 100 Firmen, 3.744 auswertbare Antworten). Quelle der Zahlen: Autoren-Briefing, Abschnitt „Studienzahlen“.
 const painStats = [
   { n: '4 von 5', t: 'KI-Antworten nennen die gefragte Firma nicht', d: 'Bei typischen Käuferfragen kommt die IT- oder Softwarefirma nur in jeder fünften Antwort vor (766 von 3.744). Die übrigen Antworten empfehlen andere — und keine Statistik zeigt Ihnen das.' },
-  { n: '46 %', t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'In fast jeder zweiten Antwort fehlt die gefragte Firma, und die KI nennt namentlich einen Wettbewerber. Meist einen Mittelständler, keinen Konzern.' },
-  { n: '40 %', t: 'der Systemhäuser kommen in keiner einzigen Antwort vor', d: '16 von 40 Systemhäusern und IT-Dienstleistern wurden bei keiner ihrer acht Fragen genannt, in keinem der fünf Systeme. Softwarehersteller stehen besser da, aber auch dort fehlt die Firma in zwei von drei Antworten.' },
+  { n: '46 %', t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'In fast jeder zweiten Antwort fehlt die gefragte Firma, und die KI nennt namentlich einen Wettbewerber. Diese Firma steht dann auf der Shortlist Ihres Kunden.' },
+  { n: '59 %', t: 'der empfohlenen Wettbewerber sind Mittelständler, keine Konzerne', d: 'Wenn die KI eine andere Firma nennt, ist es meist ein Mittelständler wie Sie — bei Systemhäusern sogar in 72 % der Fälle. Die Größe allein entscheidet also nicht, wer empfohlen wird.' },
 ];
 const painDaily = [
   'Interessenten kommen mit einer fertigen Shortlist ins Erstgespräch — und Sie wissen nicht, woher sie stammt.',
@@ -291,12 +291,37 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
             <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
-              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
+              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
               <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
             </article>
           ))}
         </div>
+        {/* 06.11.2026: Segmentvergleich aus dem KI-Blindtest B2B-Tech 2026 (Kurzfassung der Studiengrafik).
+            Einziges Magenta im Abschnitt ist der Systemhaus-Balken; die Kartenzahlen stehen deshalb in Navy. */}
+        <figure class="wfx-reveal wfx-seg mt-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
+          <figcaption>
+            <p class="text-lg font-semibold text-foreground">Wo steht Ihr Segment?</p>
+            <p class="mt-1 text-sm text-muted-foreground">Anteil der KI-Antworten, in denen die gefragte Firma genannt wird</p>
+          </figcaption>
+          <ul class="mt-6 space-y-5">
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">Softwarehersteller</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 40 Firmen</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar" style="--w:32.6%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">33 %</span> <span class="text-sm text-muted-foreground">2 von 40 nie genannt</span></div>
+            </li>
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">IT-Sicherheit &amp; Cloud</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 20 Firmen</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar" style="--w:25.1%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">25 %</span> <span class="text-sm text-muted-foreground">2 von 20 nie genannt</span></div>
+            </li>
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">Systemhäuser &amp; IT-Dienstleister</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 40 Firmen</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar wfx-seg-hot" style="--w:5.9%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">6 %</span> <span class="text-sm text-muted-foreground">16 von 40 nie genannt</span></div>
+            </li>
+          </ul>
+        </figure>
         <p class="mt-8 max-w-3xl font-medium text-foreground">Und im Alltag fühlt sich das so an:</p>
         <ul class="mt-4 max-w-3xl space-y-3">
           {painDaily.map((t) => (
@@ -914,6 +939,17 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   /* ── Reveals — Ausgangszustand NUR wenn body.wfx-on aktiv ── */
   body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
   body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
+
+  /* ── Segmentvergleich (Problem-Abschnitt, 06.11.2026) ── */
+  .wfx-seg-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .wfx-seg-track { position: relative; height: 14px; border-radius: 7px; background: hsl(var(--navy-50)); overflow: hidden; }
+  .wfx-seg-bar { position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 7px; background: hsl(var(--navy-700)); }
+  .wfx-seg-bar.wfx-seg-hot { background: hsl(var(--cta-strong)); }
+  @media (min-width: 768px) {
+    .wfx-seg-row { grid-template-columns: 380px minmax(0, 1fr) 230px; align-items: center; gap: 20px; }
+  }
+  body.wfx-on .wfx-seg .wfx-seg-bar { width: 0; transition: width 1.1s cubic-bezier(.22,1,.36,1) .25s; }
+  body.wfx-on .wfx-seg.wfx-in .wfx-seg-bar { width: var(--w); }
 
   /* ── 3D-Tilt-Karten (Für wen) ── */
   .wfx-tilt { transition: transform .25s ease; transform-style: preserve-3d; will-change: transform; }

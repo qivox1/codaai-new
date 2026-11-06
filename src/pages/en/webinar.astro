@@ -38,8 +38,8 @@ const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.en.dayLong, date: s.e
 // Figures from the KI-Blindtest B2B-Tech 2026 (5/6 Nov 2026, 100 companies, 3,744 valid answers).
 const painStats = [
   { n: '4 in 5', t: 'AI answers do not name the company asked about', d: 'For typical buyer questions the IT or software company appears in only one answer in five (766 of 3,744). The other answers recommend someone else — and no statistic shows you that.' },
-  { n: '46%', t: 'of answers name a competitor instead', d: 'In almost every second answer the company is missing and the AI names a competitor outright. Usually a mid-sized firm, not a corporation.' },
-  { n: '40%', t: 'of IT service providers appear in no answer at all', d: '16 of 40 system integrators and IT service providers were not named for any of their eight questions, in any of the five systems. Software vendors do better, but they too are missing from two answers in three.' },
+  { n: '46%', t: 'of answers name a competitor instead', d: 'In almost every second answer the company is missing and the AI names a competitor outright. That firm is then on your customer’s shortlist.' },
+  { n: '59%', t: 'of the competitors recommended are mid-sized firms, not corporations', d: 'When the AI names another company, it is usually a mid-sized firm like yours — for system integrators in 72% of cases. Size alone does not decide who gets recommended.' },
 ];
 const painDaily = [
   'Prospects arrive at the first call with a finished shortlist — and you do not know where it came from.',
@@ -319,12 +319,36 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         <div class="mt-10 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
             <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
-              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-cta">{p.n}</span>
+              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
               <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
             </article>
           ))}
         </div>
+        {/* 06.11.2026: segment comparison from the KI-Blindtest B2B-Tech 2026 (short version of the study chart). */}
+        <figure class="wfx-reveal wfx-seg mt-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
+          <figcaption>
+            <p class="text-lg font-semibold text-foreground">Where does your segment stand?</p>
+            <p class="mt-1 text-sm text-muted-foreground">Share of AI answers that name the company asked about</p>
+          </figcaption>
+          <ul class="mt-6 space-y-5">
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">Software vendors</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 40 companies</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar" style="--w:32.6%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">33%</span> <span class="text-sm text-muted-foreground">2 of 40 never named</span></div>
+            </li>
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">IT security &amp; cloud</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 20 companies</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar" style="--w:25.1%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">25%</span> <span class="text-sm text-muted-foreground">2 of 20 never named</span></div>
+            </li>
+            <li class="wfx-seg-row">
+              <div class="wfx-seg-lab"><span class="font-semibold text-foreground">System integrators &amp; IT services</span> <span class="whitespace-nowrap text-sm text-muted-foreground">· 40 companies</span></div>
+              <div class="wfx-seg-track" aria-hidden="true"><span class="wfx-seg-bar wfx-seg-hot" style="--w:5.9%"></span></div>
+              <div class="wfx-seg-val"><span class="text-xl font-bold tabular-nums text-foreground">6%</span> <span class="text-sm text-muted-foreground">16 of 40 never named</span></div>
+            </li>
+          </ul>
+        </figure>
         <p class="mt-8 max-w-3xl font-medium text-foreground">Day to day, it feels like this:</p>
         <ul class="mt-4 max-w-3xl space-y-3">
           {painDaily.map((t) => (
@@ -935,6 +959,17 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   /* ── Reveals — Ausgangszustand NUR wenn body.wfx-on aktiv ── */
   body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
   body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
+
+  /* ── Segmentvergleich (Problem-Abschnitt, 06.11.2026) ── */
+  .wfx-seg-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .wfx-seg-track { position: relative; height: 14px; border-radius: 7px; background: hsl(var(--navy-50)); overflow: hidden; }
+  .wfx-seg-bar { position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 7px; background: hsl(var(--navy-700)); }
+  .wfx-seg-bar.wfx-seg-hot { background: hsl(var(--cta-strong)); }
+  @media (min-width: 768px) {
+    .wfx-seg-row { grid-template-columns: 380px minmax(0, 1fr) 230px; align-items: center; gap: 20px; }
+  }
+  body.wfx-on .wfx-seg .wfx-seg-bar { width: 0; transition: width 1.1s cubic-bezier(.22,1,.36,1) .25s; }
+  body.wfx-on .wfx-seg.wfx-in .wfx-seg-bar { width: var(--w); }
 
   /* ── 3D-Tilt-Karten (Für wen) ── */
   .wfx-tilt { transition: transform .25s ease; transform-style: preserve-3d; will-change: transform; }
