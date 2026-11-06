@@ -37,9 +37,9 @@ const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.en.dayLong, date: s.e
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus der eigenen Studie belegt
 // Figures from the KI-Blindtest B2B-Tech 2026 (5/6 Nov 2026, 100 companies, 3,744 valid answers).
 const painStats = [
-  { n: '4 in 5', t: 'AI answers do not name the company asked about', d: 'For typical buyer questions the IT or software company appears in only one answer in five (766 of 3,744). The other answers recommend someone else — and no statistic shows you that.' },
-  { n: '46%', t: 'of answers name a competitor instead', d: 'In almost every second answer the company is missing and the AI names a competitor outright. That firm is then on your customer’s shortlist.' },
-  { n: '59%', t: 'of the competitors recommended are mid-sized firms, not corporations', d: 'When the AI names another company, it is usually a mid-sized firm like yours — for system integrators in 72% of cases. Size alone does not decide who gets recommended.' },
+  { n: '4 in 5', t: 'AI answers do not name the company asked about', d: 'For typical buyer questions the IT or software company appears in only one answer in five (766 of 3,744). The other answers recommend someone else — and no statistic shows you that.', b: '3,744 AI answers' },
+  { n: '46%', t: 'of answers name a competitor instead', d: 'In almost every second answer the company is missing and the AI names a competitor outright. That firm is then on your customer’s shortlist.', b: '3,744 AI answers' },
+  { n: '59%', t: 'of the competitors recommended are mid-sized firms, not corporations', d: 'When the AI names another company, it is usually a mid-sized firm like yours — for system integrators in 72% of cases. Size alone does not decide who gets recommended.', b: '5,814 competitor mentions' },
 ];
 const painDaily = [
   'Prospects arrive at the first call with a finished shortlist — and you do not know where it came from.',
@@ -342,10 +342,11 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         </figure>
         <div class="mt-6 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
-            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
+            <article class="wfx-reveal wfx-pcard flex flex-col rounded-2xl p-8">
               <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
               <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+              <p class="wfx-pbase mt-6 pt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Base: {p.b}</p>
             </article>
           ))}
         </div>
@@ -960,6 +961,9 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
   body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
 
+  /* ── Problem-Karten: ruhige Navy-50-Fläche, Bezugsgröße unten (06.11.2026) ── */
+  .wfx-pcard { background: hsl(var(--navy-50)); }
+  .wfx-pbase { border-top: 1px solid hsl(var(--navy-200)); }
   /* ── Segmentvergleich (Problem-Abschnitt, 06.11.2026) ── */
   .wfx-seg-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .wfx-seg-track { position: relative; height: 14px; border-radius: 7px; background: hsl(var(--navy-50)); overflow: hidden; }

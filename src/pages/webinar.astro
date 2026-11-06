@@ -28,9 +28,9 @@ const slots = WEBINAR_SLOTS.map((s) => ({ id: s.id, day: s.de.dayLong, date: s.d
 // Schmerzpunkte (Problem-Sektion) — jede Zahl aus dem KI-Blindtest B2B-Tech 2026 (05./06.11.2026,
 // 100 Firmen, 3.744 auswertbare Antworten). Quelle der Zahlen: Autoren-Briefing, Abschnitt „Studienzahlen“.
 const painStats = [
-  { n: '4 von 5', t: 'KI-Antworten nennen die gefragte Firma nicht', d: 'Bei typischen Käuferfragen kommt die IT- oder Softwarefirma nur in jeder fünften Antwort vor (766 von 3.744). Die übrigen Antworten empfehlen andere — und keine Statistik zeigt Ihnen das.' },
-  { n: '46 %', t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'In fast jeder zweiten Antwort fehlt die gefragte Firma, und die KI nennt namentlich einen Wettbewerber. Diese Firma steht dann auf der Shortlist Ihres Kunden.' },
-  { n: '59 %', t: 'der empfohlenen Wettbewerber sind Mittelständler, keine Konzerne', d: 'Wenn die KI eine andere Firma nennt, ist es meist ein Mittelständler wie Sie — bei Systemhäusern sogar in 72 % der Fälle. Die Größe allein entscheidet also nicht, wer empfohlen wird.' },
+  { n: '4 von 5', t: 'KI-Antworten nennen die gefragte Firma nicht', d: 'Bei typischen Käuferfragen kommt die IT- oder Softwarefirma nur in jeder fünften Antwort vor (766 von 3.744). Die übrigen Antworten empfehlen andere — und keine Statistik zeigt Ihnen das.', b: '3.744 KI-Antworten' },
+  { n: '46 %', t: 'der Antworten nennen stattdessen einen Wettbewerber', d: 'In fast jeder zweiten Antwort fehlt die gefragte Firma, und die KI nennt namentlich einen Wettbewerber. Diese Firma steht dann auf der Shortlist Ihres Kunden.', b: '3.744 KI-Antworten' },
+  { n: '59 %', t: 'der empfohlenen Wettbewerber sind Mittelständler, keine Konzerne', d: 'Wenn die KI eine andere Firma nennt, ist es meist ein Mittelständler wie Sie — bei Systemhäusern sogar in 72 % der Fälle. Die Größe allein entscheidet also nicht, wer empfohlen wird.', b: '5.814 Wettbewerber-Nennungen' },
 ];
 const painDaily = [
   'Interessenten kommen mit einer fertigen Shortlist ins Erstgespräch — und Sie wissen nicht, woher sie stammt.',
@@ -315,10 +315,11 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
         </figure>
         <div class="mt-6 grid gap-6 md:grid-cols-3">
           {painStats.map((p) => (
-            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
+            <article class="wfx-reveal wfx-pcard flex flex-col rounded-2xl p-8">
               <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
               <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
               <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+              <p class="wfx-pbase mt-6 pt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Basis: {p.b}</p>
             </article>
           ))}
         </div>
@@ -940,6 +941,9 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
   body.wfx-on .wfx-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
   body.wfx-on .wfx-reveal.wfx-in { opacity: 1; transform: none; }
 
+  /* ── Problem-Karten: ruhige Navy-50-Fläche, Bezugsgröße unten (06.11.2026) ── */
+  .wfx-pcard { background: hsl(var(--navy-50)); }
+  .wfx-pbase { border-top: 1px solid hsl(var(--navy-200)); }
   /* ── Segmentvergleich (Problem-Abschnitt, 06.11.2026) ── */
   .wfx-seg-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .wfx-seg-track { position: relative; height: 14px; border-radius: 7px; background: hsl(var(--navy-50)); overflow: hidden; }
