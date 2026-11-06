@@ -316,15 +316,6 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
       <section aria-labelledby="h-problem" class="py-16">
         <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-cta-accessible">The problem</p>
         <h2 id="h-problem" class="cai-h2 wfx-reveal text-foreground">Potential buyers ask the AI first — and you never hear about it.</h2>
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-          {painStats.map((p) => (
-            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
-              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
-              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
-            </article>
-          ))}
-        </div>
         {/* 06.11.2026: segment comparison from the KI-Blindtest B2B-Tech 2026 (short version of the study chart). */}
         <figure class="wfx-reveal wfx-seg mt-10 rounded-2xl border border-border bg-card p-6 sm:p-8">
           <figcaption>
@@ -349,6 +340,15 @@ const eventSchemas = slots.map((slot) => JSON.stringify({
             </li>
           </ul>
         </figure>
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          {painStats.map((p) => (
+            <article class="wfx-reveal flex flex-col rounded-2xl border border-border bg-card p-8">
+              <span class="wfx-pnum text-5xl font-bold tabular-nums tracking-tight text-foreground">{p.n}</span>
+              <h3 class="mt-4 text-lg font-semibold leading-snug text-foreground">{p.t}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
+            </article>
+          ))}
+        </div>
         <p class="mt-8 max-w-3xl font-medium text-foreground">Day to day, it feels like this:</p>
         <ul class="mt-4 max-w-3xl space-y-3">
           {painDaily.map((t) => (
